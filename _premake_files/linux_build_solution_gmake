@@ -1,0 +1,3 @@
+#!/bin/bash
+./premake4 --file="premake4_codeblocks.lua"  gmake
+

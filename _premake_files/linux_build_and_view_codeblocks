@@ -1,0 +1,3 @@
+#!/bin/bash
+premake4 --file="premake4_codeblocks.lua"  codeblocks
+codeblocks ../_build/ParticleSimulator.workspace &

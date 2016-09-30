@@ -1,0 +1,83 @@
+#include "ForceModel.h"
+
+// Normal Force Model
+// Linear Dashpot Force
+// Every comment in here may be related to the book Computational Granular Dynamics
+
+// Calculates the factorial of nonnegative integer
+inline unsigned long factorial( unsigned n ){
+	unsigned long nFactorial = 1;
+	
+	for( unsigned k = 1 ; k <= n ; ++k )
+		nFactorial *= k;
+	
+	return nFactorial;
+}
+
+
+/* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
+		currentVector = (f(t), f'(t), f''(t), ..., f^(n)(t))
+		Given dt in R, Taylor theorem says that
+		f(t + dt) = f(t) + dt * f'(t) + (1/2) * dt^2 * f''(t) + ... + (1/n!) * dt^n * f^(n)(t) + r(dt)	,
+		where r is a function such that the limit of r(h) when h tends to zero is zero
+		For a sufficiently small dt, we can approximate f(t+dt) by its expansion is Taylor's sum and writing r = 0
+		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
+*/
+vector < vector <double> > ForceModel::taylorPredictor( vector < vector <double> > currentVector, unsigned predictionOrder, double dt ){
+	// predictionOrder is the order of the derivatives to be computed.
+	// dt is the time step for the predictionOrder
+	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
+	
+	// This algorithm is an implementation of equation (2.24) (see reference) 
+	
+	vector < vector <double> > predictedVector;
+	vector <double> taylorExpansion;
+	
+	unsigned nDimensions = currentVector[0].size();
+	
+	// initialize predictedVector and taylorExpansion
+	taylorExpansion.resize( nDimensions );
+	predictedVector.resize( predictionOrder + 1 );
+	
+	for( unsigned i = 0 ; i <= predictionOrder ; ++i ){
+		predictedVector[i].resize( nDimensions );
+	}
+	
+	// predict position
+	for( unsigned i = 0; i <= predictionOrder; ++i ){
+		
+		// set each entry of taylorExpansion to zero
+		for( unsigned j = 0 ; j < nDimensions ; ++j ){
+			taylorExpansion[j] = 0;
+		}
+		
+		// perform summation
+		for( unsigned j = i; j <= predictionOrder; ++j ){
+			taylorExpansion += ( pow( timeStep , j - i) / factorial( j - i ) ) * currentVector[j];
+		}
+		
+		// set the i-th predicted derivative as the calculated Taylor expansion
+		predictedVector[i] = taylorExpansion;
+		
+	}
+
+	return predictedVector;
+}
+
+
+vector <double> ForceModel::linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction ){
+	// particle1 and particle2 are the particles between which the interaction must be calculated
+	// mehtod specifies which discretization method must be used
+	// method must be "Integral"
+	// In the future, method should be able to be "FiniteDifference"
+	// interaction specifies the kind of interaction that must be calculated
+	// interaction must be "Impulse"
+	// In the future, interaction should be able to be "Force"
+	
+	vector <double> normalInteraction;
+	
+	normalInteraction.resize(3);
+	
+	if (interaction == "Impulse")
+		normalInteraction = linearDashpotForceImpulseCalculationViaIntegration();
+}
