@@ -1,4 +1,4 @@
-project "ForceModel"
+project "ForceModelLib"
 
 kind "StaticLib"
 targetdir "../_lib"

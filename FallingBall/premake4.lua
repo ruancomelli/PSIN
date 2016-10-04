@@ -4,11 +4,15 @@ kind "ConsoleApp"
 targetdir "../_tests"
 
 includedirs{
+	"../EntityLib/include",
 	"../UtilsLibSpecific/include",
+	"../ForceModelLib/include",
 }
 
 links {
-	"UtilsLibSpecific"
+	"EntityLib",
+	"UtilsLibSpecific",
+	"ForceModelLib",
 }
 
 files {
@@ -18,6 +22,6 @@ files {
 
 configuration "Release"
 	flags{ "Unicode" }
+
 configuration "Debug"
 	flags{ "Unicode" }
-

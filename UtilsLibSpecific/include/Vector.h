@@ -1,5 +1,5 @@
-#ifndef CONTAINERS_H
-#define CONTAINERS_H
+#ifndef VECTOR_H
+#define VECTOR_H
 
 #include <numeric>
 #include <vector>

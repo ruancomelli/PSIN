@@ -63,8 +63,8 @@ class PhysicalEntity: public Entity
 		DoubleVector2D vectorialProperty;
 		vector < DoubleVector2D > matricialProperty;
 		
-		vector< DoubleVector > position;
-		vector< DoubleVector > orientation;
+		DoubleVector2D position;
+		DoubleVector2D orientation;
 		GeometryType geometry;
 
 		// Auxiliar Functions

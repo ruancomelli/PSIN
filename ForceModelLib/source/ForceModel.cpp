@@ -15,37 +15,37 @@
 		For a sufficiently small dt, we can approximate f(t+dt) by its expansion is Taylor's sum and writing r = 0
 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
 */
-vector < vector <double> > ForceModel::taylorPredictor( vector < vector <double> > currentVector, unsigned predictionOrder, double dt ){
+DoubleVector2D ForceModel::taylorPredictor( DoubleVector2D currentVector, int predictionOrder, double dt ){
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
 	
 	// This algorithm is an implementation of equation (2.24) (see reference) 
 	
-	vector < vector <double> > predictedVector;
-	vector <double> taylorExpansion;
+	DoubleVector2D predictedVector;
+	DoubleVector taylorExpansion;
 	
-	unsigned nDimensions = currentVector[0].size();
+	int nDimensions = currentVector[0].size();
 	
 	// initialize predictedVector and taylorExpansion
 	taylorExpansion.resize( nDimensions );
 	predictedVector.resize( predictionOrder + 1 );
 	
-	for( unsigned i = 0 ; i <= predictionOrder ; ++i ){
+	for( int i = 0 ; i <= predictionOrder ; ++i ){
 		predictedVector[i].resize( nDimensions );
 	}
 	
 	// predict position
-	for( unsigned i = 0; i <= predictionOrder; ++i ){
+	for( int i = 0; i <= predictionOrder; ++i ){
 		
 		// set each entry of taylorExpansion to zero
-		for( unsigned j = 0 ; j < nDimensions ; ++j ){
+		for( int j = 0 ; j < nDimensions ; ++j ){
 			taylorExpansion[j] = 0;
 		}
 		
 		// perform summation
-		for( unsigned j = i; j <= predictionOrder; ++j ){
-			taylorExpansion += ( pow( timeStep , j - i) / factorial( j - i ) ) * currentVector[j];
+		for( int j = i; j <= predictionOrder; ++j ){
+			taylorExpansion += ( pow( dt , j - i) / factorial( j - i ) ) * currentVector[j];
 		}
 		
 		// set the i-th predicted derivative as the calculated Taylor expansion
@@ -56,8 +56,9 @@ vector < vector <double> > ForceModel::taylorPredictor( vector < vector <double>
 	return predictedVector;
 }
 
+/*
 
-vector <double> ForceModel::linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction ){
+DoubleVector ForceModel::linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction ){
 	// particle1 and particle2 are the particles between which the interaction must be calculated
 	// mehtod specifies which discretization method must be used
 	// method must be "Integral"
@@ -76,8 +77,16 @@ vector <double> ForceModel::linearDashpotForce(Particle particle1, Particle part
 		normalInteraction = linearDashpotForceImpulseCalculationViaIntegration(particle1, particle2, method);
 	else if (interaction.compare("FORCE") == 0)
 		normalInteraction = linearDashpotForceForceCalculationViaIntegration(particle1, particle2, method);
+
+	return normalInteraction;
 }
 
-vector <double> ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method){
+DoubleVector ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method){
 	
 }
+
+DoubleVector linearDashpotForceForceCalculationViaIntegration(Particle particle1, Particle particle2, string method){
+
+}
+
+*/

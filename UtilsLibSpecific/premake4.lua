@@ -5,7 +5,6 @@ targetdir "../_lib"
 
 includedirs {
 	"./include"
-
 }
 
 links{

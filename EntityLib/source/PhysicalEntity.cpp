@@ -47,7 +47,7 @@ double PhysicalEntity::getScalarProperty(const int scalarPropertyIdentifier)
 	return this->scalarProperty[scalarPropertyIdentifier];
 }
 
-vector<double> PhysicalEntity::getScalarProperty()
+DoubleVector PhysicalEntity::getScalarProperty()
 {
 	return this->scalarProperty;
 }

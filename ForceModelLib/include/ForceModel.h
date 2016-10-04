@@ -23,8 +23,13 @@ inline unsigned long factorial( unsigned n ){
 
 class ForceModel
 {
-	static vector < vector <double> > taylorPredictor( vector < vector <double> > currentVector, unsigned predictionOrder, double dt );
-	static vector <double> linearDashpotForce(Particle particle1, Particle particle2);
+	public:
+		static DoubleVector2D taylorPredictor( DoubleVector2D currentVector, int predictionOrder, double dt );
+		static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
+/*
+		static DoubleVector ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method);
+		static DoubleVector linearDashpotForceForceCalculationViaIntegration(Particle particle1, Particle particle2, string method);
+*/
 };
 
 #endif

@@ -137,8 +137,11 @@ configuration {}
 
 --include "../EFVLibTest"
 include "../FallingBall"
+include "../SimulationTest"
 
 --include "../EFVLib"
 include "../EntityLib"
 include "../ForceModelLib"
 include "../UtilsLibSpecific"
+include "../SimulationLib"
+include "../IOLib"
