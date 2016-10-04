@@ -9,7 +9,7 @@ includedirs {
 	"../EntityLib/include",
 }
 
-links{
+links {
 	"UtilsLibSpecific",
 	"EntityLib"
 }

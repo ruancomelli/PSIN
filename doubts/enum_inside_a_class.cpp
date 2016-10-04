@@ -22,3 +22,7 @@ void Test::print(Type a){
 
 	return;
 }
+
+/*	Testei se podemos ter enumerações com identificadores com mesmo nome (olhar a pasta ‘lib/doubts’). 
+	Não pode. Mas podemos se colocarmos dentro de uma classe.
+*/

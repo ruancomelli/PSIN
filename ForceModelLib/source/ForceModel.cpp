@@ -5,14 +5,6 @@
 // Every comment in here may be related to the book Computational Granular Dynamics
 
 // Calculates the factorial of nonnegative integer
-inline unsigned long factorial( unsigned n ){
-	unsigned long nFactorial = 1;
-	
-	for( unsigned k = 1 ; k <= n ; ++k )
-		nFactorial *= k;
-	
-	return nFactorial;
-}
 
 
 /* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
@@ -74,10 +66,18 @@ vector <double> ForceModel::linearDashpotForce(Particle particle1, Particle part
 	// interaction must be "Impulse"
 	// In the future, interaction should be able to be "Force"
 	
+	transform(interaction.begin(), interaction.end(), interaction.begin(), toupper);
+	
 	vector <double> normalInteraction;
 	
 	normalInteraction.resize(3);
 	
-	if (interaction == "Impulse")
-		normalInteraction = linearDashpotForceImpulseCalculationViaIntegration();
+	if (interaction.compare("IMPULSE") == 0)
+		normalInteraction = linearDashpotForceImpulseCalculationViaIntegration(particle1, particle2, method);
+	else if (interaction.compare("FORCE") == 0)
+		normalInteraction = linearDashpotForceForceCalculationViaIntegration(particle1, particle2, method);
+}
+
+vector <double> ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method){
+	
 }

@@ -10,7 +10,6 @@ using namespace std;
 
 class Particle: public PhysicalEntity
 {
-	// index
 	public:
 		long unsigned getIndex(void);
 		void setIndex(long unsigned);

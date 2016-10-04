@@ -4,11 +4,22 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <ctype.h>
 
 #include "Vector.h"
 #include "Particle.h"
 
-unsigned long factorial( unsigned n );
+// factorial:
+//	Calculates n!, where n is a nonnegative integer
+inline unsigned long factorial( unsigned n ){
+	unsigned long nFactorial = 1;
+	
+	for( unsigned k = 1 ; k <= n ; ++k )
+		nFactorial *= k;
+	
+	return nFactorial;
+}
+
 
 class ForceModel
 {
