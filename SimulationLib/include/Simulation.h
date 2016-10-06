@@ -6,8 +6,7 @@
 #include "Particle.h"
 #include "ForceModel.h"
 
-using namespace std
-
+using namespace std;
 
 
 class Simulation
@@ -42,4 +41,7 @@ class Simulation
 	protected:
 };
 
+
 #endif
+
+
