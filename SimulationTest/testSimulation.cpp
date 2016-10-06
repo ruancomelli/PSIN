@@ -3,5 +3,5 @@
 #include <iostream>
 
 int main(){
-	Simulation simulation1;
+	return 0;	
 }
