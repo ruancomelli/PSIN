@@ -11,12 +11,12 @@ Simulation::Simulation(string inputFile)
 	*/
 }
 
-Simulation::Simulation(unsigned option){
+Simulation::Simulation(int option){
 	// For now, sending an option is the only simple way I know of initializing this
 	
 	switch(option){
 		case 1:
-			
+				// -- Finish this!!!
 			break;
 		default:
 			break;
@@ -35,30 +35,30 @@ void Simulation::setForceModel(const string ForceModel &forceModelInput){
 	if(){
 		/* Finish this */
 	}
+}	// Finished
+
+// Initialize Particle
+void Simulation::initializeParticle(Particle particleVector, int option){
+	switch(option){
+		case 1:
+			particleVector.reserve(2);
+			DoubleVector2D position(taylorOrder);
+			double positionMatrixForParticle1 = {{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}};
+			double positionMatrixForParticle2 = {{10,0,0}, {-1,0,0}, {0,0,0}, {0,0,0}};
+			
+			
+			break;
+		default:
+			break;
+	}
 }
 
-// Delete this: (it only exists so that I don't need to swap tabs to know the functions prototypes)
-/*
-		void setForceModel(const string ForceModel &);
-		string getForceModel(void);
+// Simulate
+void Simulation::simulate(void){
+	vector <Particle> particleVector;
+	initializeParticle(particleVector, 1); // Initializes particles according to 
+	
+	while( continueCondition(/*FIND_PARAMETERS*/) ){
 		
-		void setCalculatedQuantity(const string calculatedQuantity &);
-		string getCalculatedQuantity(void);
-		
-		void setForceCalculation(vector <double> (*function)( const Particle &, const Particle &) );
-		
-		void setInputFile(const string &);
-		void setOutputFile(const string &);
-		
-		
-		
-	private:
-		vector <double> (*forceCalculation)( const Particle &, const Particle &);
-		string forceModel; // "LINEAR DASHPOT FORCE"
-		string calculatedQuantity; // "FORCE" or "IMPULSE"
-		
-		long unsigned numberOfParticles;
-		
-		string inputFile;
-		string outputFile;
-*/
+	}
+}

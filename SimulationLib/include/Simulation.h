@@ -12,19 +12,28 @@ using namespace std;
 class Simulation
 {
 	public:
+		// ----- Constructors -----
+		Simulation(string inputFile);
+		Simulation(int option);
+		
 		// ----- Force Model and Integration Scheme -----
-		void setForceModel(const string ForceModel &);
+		void setForceModel(const string & forceModel);
 		string getForceModel(void);
 		
-		void setForceCalculatedQuantity(const string calculatedQuantity &);
+		void setForceCalculatedQuantity(const string & calculatedQuantity);
 		string getCalculatedQuantity(void);
 		
 		void setForceCalculation(vector <double> (*function)( const Particle &, const Particle &) );
 		
+		// ----- Input and Output -----
 		void setInputFile(const string &);
 		void setOutputFile(const string &);
 		
+		// ----- Simulate -----
+		void simulate(void);
 		
+		// ----- Initialization -----
+		void initializeParticle(Particle, int);
 		
 	private:
 		vector <double> (*forceCalculation)( const Particle &, const Particle &);
@@ -32,10 +41,10 @@ class Simulation
 		string forceCalculatedQuantity; // "FORCE" or "IMPULSE"
 		string forceCalculationMethod; // "FINITE DIFFERENCE" or "INTEGRATION"
 		
-		long unsigned numberOfParticles;
+		long int numberOfParticles;
 		
-		string inputFile;
-		string outputFile;
+		string inputFile;	// Input file for parameters
+		string outputFile;	// Output file for exporting data
 		
 	
 	protected:

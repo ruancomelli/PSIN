@@ -12,3 +12,5 @@ _premake_files/premake4
 **.dat
 **.stackdump
 **.exe
+*.exe
+*.txt
