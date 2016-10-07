@@ -4,8 +4,6 @@
 // Linear Dashpot Force
 // Every comment in here may be related to the book Computational Granular Dynamics
 
-// Calculates the factorial of nonnegative integer
-
 
 /* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
 		currentVector = (f(t), f'(t), f''(t), ..., f^(n)(t))
@@ -54,6 +52,31 @@ DoubleVector2D ForceModel::taylorPredictor( DoubleVector2D currentVector, int pr
 	}
 
 	return predictedVector;
+}
+
+
+DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt){
+	DoubleVector2D correctedVector = predictedVector;
+	
+	switch(predictionOrder){
+		case 3:
+			double correctorConstants[4] = {1/6, 5/6, 1, 1/3};
+			break;
+		case 4:
+			double correctorConstants[5] = {19/90, 3/4, 1, 1/2, 1/12};
+			break;
+		case 5:
+			double correctorConstants[6] = {3/16, 251/360, 1, 11/18, 1/6, 1/60};
+			break;
+		default:
+			cout << endl << "There is no support for this prediction order" << endl << endl;
+	}
+	
+	for(int i = 0 ; i <= predictionOrder ; ++i){
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2) ) * doubleDerivative;
+	}
+	
+	return correctedVector;
 }
 
 /*

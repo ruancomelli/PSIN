@@ -26,6 +26,7 @@ class ForceModel
 	public:
 		static DoubleVector2D taylorPredictor( DoubleVector2D currentVector, int predictionOrder, double dt );
 		static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
+		DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt);
 /*
 		static DoubleVector ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method);
 		static DoubleVector linearDashpotForceForceCalculationViaIntegration(Particle particle1, Particle particle2, string method);

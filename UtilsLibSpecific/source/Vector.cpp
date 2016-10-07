@@ -77,3 +77,31 @@
 			std::transform( mat1[i].begin(), mat1[i].end(), mat2[i].begin(), mat1[i].begin(), add );
 		}
 	}
+	
+	// Set vector with values
+	void setVector(vector <type> & vec, const type * values){
+		for(int i = 0; i < vec.size(); ++i)
+			vec[i] = values[i];
+	}
+	void setVector(vector <type> & vec, const type * values, int size){
+		vec.resize(size, 0);
+		for(int i = 0; i < size; ++i)
+			vec[i] = values[i];
+	}
+	
+	void setVector2D(vector < vector <type> > & vec, const type **values){
+		for(int i = 0; i < vec.size(); ++i){
+			for(int j = 0; j < vec[i].size(); ++j){
+				vec[i][j] = *(values + i*vec.size() + j);
+			}
+		}
+	}
+	void setVector2D(vector < vector <type> > & vec, const type **values, int size1, int size2){
+		vec.resize(size1);
+		for(int i = 0; i < size1; ++i){
+			vec[i].resize(size2);
+			for(int j = 0; j < size2; ++j){
+				vec[i][j] = *(values + i*vec.size() + j);
+			}
+		}
+	}

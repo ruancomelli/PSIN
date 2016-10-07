@@ -30,6 +30,12 @@ using std::runtime_error;
 	double innerProduct( const DoubleVector& vector1, const DoubleVector& vector2 );
 	double norm( DoubleVector& vec );
 	void normalize( DoubleVector& vec );
+	
+	template <typename type>
+	void setVector(vector <type> & vec, const type * values);
+	void setVector(vector <type> & vec, const type * values, int size);
+	void setVector2D(vector < vector <type> > & vec, const type **values);
+	void setVector2D(vector < vector <type> > & vec, const type **values, int size1, int size2);
 
 
 #endif
