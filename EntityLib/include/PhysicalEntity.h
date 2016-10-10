@@ -3,13 +3,14 @@
 
 #include <vector>
 
-#include "Entity.h"
-#include "Vector.h"
+#include <Entity.h>
+#include <Vector.h>
 
 using namespace std;
 
 enum GeometryType{
-	SPHERE = 0
+	SPHERE = 0,
+	DEFAULT = SPHERE
 };
 
 enum ScalarProperty{
@@ -33,9 +34,9 @@ class PhysicalEntity: public Entity
 	public:
 		// ---- Constructors ----
 		PhysicalEntity();
-		PhysicalEntity(const int order, const int dimension);
-		PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
-
+		PhysicalEntity(const int order, const int dimension, const int handle = -1);
+		/*PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
+			This is commented because this function seems unnecessary.	*/
 		// ---- Spatial localization ----
 		void setPosition(const DoubleVector position, const int);
 		void setPosition(const DoubleVector2D position);
@@ -57,8 +58,8 @@ class PhysicalEntity: public Entity
 		DoubleVector getScalarProperty();
 		
 	private:
-		static int taylorOrder; // number of derivates. If zero, there is just the position (not the velocity)
-		static int dimension; // ( = 2 ) or ( = 3 )
+		int taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
+		int dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
 
 		DoubleVector scalarProperty;
 		DoubleVector2D vectorialProperty;
@@ -67,10 +68,9 @@ class PhysicalEntity: public Entity
 		DoubleVector2D position;
 		DoubleVector2D orientation;
 		GeometryType geometry;
-
-		// Auxiliar Functions
-		void reservePositionOrientationMemory();
-		void reservePropertyMemory();
+		
+		void reservePositionOrientationMemory(void);
+		void reservePropertyMemory(void);
 };
 
 #endif

@@ -1,14 +1,16 @@
-#include "PhysicalEntity.h"
+#include <PhysicalEntity.h>
 
 // ------------------------------- Constructor -------------------------------
-PhysicalEntity::PhysicalEntity()
+PhysicalEntity::PhysicalEntity()  : Entity(), taylorOrder(2), dimension(3), geometry(DEFAULT)
 {
-	reservePropertyMemory();
+	// Initialize Properties
+	reservePositionOrientationMemory();
+	// Initialize Position and Orientation
 	reservePositionOrientationMemory();
 }
 
-PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dimension)
-	: Entity()
+PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dimension, const int handle)
+	: Entity(handle), geometry(DEFAULT)
 {
 	// Set order and dimension
 	this->taylorOrder = taylorOrder;
@@ -20,7 +22,7 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dimension)
 	// Alloc memory to vectors position and orientation
 	reservePositionOrientationMemory();
 }
-
+/*
 PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarPropertyVector)
 	: Entity(handle)
 {
@@ -29,7 +31,7 @@ PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarProp
 
 	// Set scalarProperty vector as the input vector
 	setScalarProperty(scalarPropertyVector);
-}
+}*/
 
 // ------------------------------- Property -------------------------------
 void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue)
@@ -104,35 +106,35 @@ GeometryType PhysicalEntity::getGeometry() const
 
 // ------------------------------- Auxiliar Functions -------------------------------
 
-void PhysicalEntity::reservePositionOrientationMemory()
+void PhysicalEntity::reservePositionOrientationMemory(void)
 {
 	int size = taylorOrder + 1;
-	this->position.reserve(size);
-	this->orientation.reserve(size);
+	this->position.resize(size);
+	this->orientation.resize(size);
 	
 	for( int i=0 ; i<size ; i++){
-		this->position[i].reserve(dimension);
-		this->orientation[i].reserve(dimension);
+		this->position[i].resize(dimension);
+		this->orientation[i].resize(dimension);
 	}
 }
 
-void PhysicalEntity::reservePropertyMemory()
+void PhysicalEntity::reservePropertyMemory(void)
 {
-	scalarProperty.reserve(N_SCALAR_PROPERTY);
+	// scalarProperty: 1 x 1
+	scalarProperty.resize(N_SCALAR_PROPERTY);
 	
 	// vectorialProperty: vectors dimension x 1
-	vectorialProperty.reserve(N_VECTORIAL_PROPERTY);
+	vectorialProperty.resize(N_VECTORIAL_PROPERTY);
 	for(int i=0 ; i<N_VECTORIAL_PROPERTY ; i++){
-		vectorialProperty[i].reserve(dimension);
+		vectorialProperty[i].resize(dimension);
 	}
 	
 	// matricialProperty: matrices dimension x dimension
-	matricialProperty.reserve(N_MATRICIAL_PROPERTY);
+	matricialProperty.resize(N_MATRICIAL_PROPERTY);
 	for(int i=0 ; i<N_VECTORIAL_PROPERTY ; i++){
-		matricialProperty[i].reserve(dimension);
+		matricialProperty[i].resize(dimension);
 		for(int j=0 ; j<dimension ; j++){
-			matricialProperty[i][j].reserve(dimension);
+			matricialProperty[i][j].resize(dimension);
 		}
 	}
-
 }

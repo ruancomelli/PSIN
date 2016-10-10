@@ -1,4 +1,4 @@
-#include "ForceModel.h"
+#include <ForceModel.h>
 
 // Normal Force Model
 // Linear Dashpot Force

@@ -1,4 +1,4 @@
-#include "Entity.h"
+#include <Entity.h>
 
 // Constructor
 Entity::Entity(const int handle)
@@ -9,7 +9,6 @@ Entity::Entity(const int handle)
 // Destructor
 Entity::~Entity()
 {
-	
 }
 
 void Entity::setHandle(const int handle)

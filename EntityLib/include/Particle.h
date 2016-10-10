@@ -4,20 +4,18 @@
 #include <iostream>
 #include <vector>
 
-#include "PhysicalEntity.h"
+#include <PhysicalEntity.h>
 
 using namespace std;
 
 class Particle: public PhysicalEntity
 {
 	public:
-		long unsigned getIndex(void);
-		void setIndex(long unsigned);
+		Particle(); 
 		
 	private:
-		DoubleVector2D interactionForce;
+		//DoubleVector2D interactionForce;
 			// interaction force between this particle and all other particles and boundaries
-		long unsigned index;
 }; // class Particle
 
 #endif

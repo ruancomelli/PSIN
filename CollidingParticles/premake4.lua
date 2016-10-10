@@ -4,6 +4,7 @@ kind "ConsoleApp"
 targetdir "../_tests"
 
 includedirs{
+	"./include",
 	"../EntityLib/include",
 	"../UtilsLibSpecific/include",
 	"../ForceModelLib/include",

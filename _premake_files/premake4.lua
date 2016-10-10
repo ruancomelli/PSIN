@@ -136,9 +136,9 @@ links{
 configuration {}
 
 --include "../EFVLibTest"
+include "../CollidingParticles"
 include "../FallingBall"
 include "../SimulationTest"
-include "../TestCollidingParticles"
 
 --include "../EFVLib"
 include "../EntityLib"

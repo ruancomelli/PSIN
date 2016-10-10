@@ -6,8 +6,8 @@
 #include <vector>
 #include <ctype.h>
 
-#include "Vector.h"
-#include "Particle.h"
+#include <Vector.h>
+#include <Particle.h>
 
 // factorial:
 //	Calculates n!, where n is a nonnegative integer
@@ -23,11 +23,12 @@ inline unsigned long factorial( unsigned n ){
 
 class ForceModel
 {
-	public:
+	public:	
 		static DoubleVector2D taylorPredictor( DoubleVector2D currentVector, int predictionOrder, double dt );
 		//static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
 		static DoubleVector2D gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt);
 
+	private:
 };
 
 #endif
