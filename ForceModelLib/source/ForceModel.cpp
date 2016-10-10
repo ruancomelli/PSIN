@@ -23,7 +23,7 @@ DoubleVector2D ForceModel::taylorPredictor( DoubleVector2D currentVector, int pr
 	DoubleVector2D predictedVector;
 	DoubleVector taylorExpansion;
 	
-	int nDimensions = currentVector[0].size();
+	int nDimensions = static_cast<int>(currentVector[0].size());
 	
 	// initialize predictedVector and taylorExpansion
 	taylorExpansion.resize( nDimensions );
@@ -58,17 +58,29 @@ DoubleVector2D ForceModel::taylorPredictor( DoubleVector2D currentVector, int pr
 DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt){
 	
 	DoubleVector2D correctedVector = predictedVector;
-	DoubleVector correctorConstants;
+	DoubleVector correctorConstants(predictionOrder + 1);
 	
 	switch(predictionOrder){
 		case 3:
-			setVector(correctorConstants, {1/6, 5/6, 1, 1/3}, predictionOrder + 1);
+			correctorConstants[0] = 1./6.;
+			correctorConstants[1] = 5./6.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 1./3.;
 			break;
 		case 4:
-			setVector(correctorConstants, {19/90, 3/4, 1, 1/2, 1/12}, predictionOrder + 1);
+			correctorConstants[0] = 19./90.;
+			correctorConstants[1] = 3./4.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 1./2.;
+			correctorConstants[4] = 1./12.;
 			break;
 		case 5:
-			setVector(correctorConstants, {3/16, 251/360, 1, 11/18, 1/6, 1/60}, predictionOrder + 1);
+			correctorConstants[0] = 3./16.;
+			correctorConstants[1] = 251./360.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 11./18.;
+			correctorConstants[4] = 1./6.;
+			correctorConstants[5] = 1./60.;
 			break;
 		default:
 			cout << endl << "There is no support for this prediction order" << endl << endl;
