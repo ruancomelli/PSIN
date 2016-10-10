@@ -33,8 +33,11 @@ using std::runtime_error;
 	
 	template <typename type>
 	void setVector(vector <type> & vec, const type * values);
+	template <typename type>
 	void setVector(vector <type> & vec, const type * values, int size);
+	template <typename type>
 	void setVector2D(vector < vector <type> > & vec, const type **values);
+	template <typename type>
 	void setVector2D(vector < vector <type> > & vec, const type **values, int size1, int size2);
 
 

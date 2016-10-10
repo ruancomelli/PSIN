@@ -56,20 +56,23 @@ DoubleVector2D ForceModel::taylorPredictor( DoubleVector2D currentVector, int pr
 
 
 DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt){
+	
 	DoubleVector2D correctedVector = predictedVector;
+	DoubleVector correctorConstants;
 	
 	switch(predictionOrder){
 		case 3:
-			double correctorConstants[4] = {1/6, 5/6, 1, 1/3};
+			setVector(correctorConstants, {1/6, 5/6, 1, 1/3}, predictionOrder + 1);
 			break;
 		case 4:
-			double correctorConstants[5] = {19/90, 3/4, 1, 1/2, 1/12};
+			setVector(correctorConstants, {19/90, 3/4, 1, 1/2, 1/12}, predictionOrder + 1);
 			break;
 		case 5:
-			double correctorConstants[6] = {3/16, 251/360, 1, 11/18, 1/6, 1/60};
+			setVector(correctorConstants, {3/16, 251/360, 1, 11/18, 1/6, 1/60}, predictionOrder + 1);
 			break;
 		default:
 			cout << endl << "There is no support for this prediction order" << endl << endl;
+			return predictedVector;
 	}
 	
 	for(int i = 0 ; i <= predictionOrder ; ++i){

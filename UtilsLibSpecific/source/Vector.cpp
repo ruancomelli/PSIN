@@ -79,16 +79,19 @@
 	}
 	
 	// Set vector with values
+	template <typename type>
 	void setVector(vector <type> & vec, const type * values){
 		for(int i = 0; i < vec.size(); ++i)
 			vec[i] = values[i];
 	}
+	template <typename type>
 	void setVector(vector <type> & vec, const type * values, int size){
 		vec.resize(size, 0);
 		for(int i = 0; i < size; ++i)
 			vec[i] = values[i];
 	}
 	
+	template <typename type>
 	void setVector2D(vector < vector <type> > & vec, const type **values){
 		for(int i = 0; i < vec.size(); ++i){
 			for(int j = 0; j < vec[i].size(); ++j){
@@ -96,6 +99,7 @@
 			}
 		}
 	}
+	template <typename type>
 	void setVector2D(vector < vector <type> > & vec, const type **values, int size1, int size2){
 		vec.resize(size1);
 		for(int i = 0; i < size1; ++i){
