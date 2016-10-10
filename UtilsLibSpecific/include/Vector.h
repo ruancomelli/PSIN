@@ -32,13 +32,18 @@ using std::runtime_error;
 	void normalize( DoubleVector& vec );
 	
 	template <typename type>
+	vector <type> setVector(const type * values, int size);
+	template <typename type>
 	void setVector(vector <type> & vec, const type * values);
 	template <typename type>
 	void setVector(vector <type> & vec, const type * values, int size);
+	
 	template <typename type>
-	void setVector2D(vector < vector <type> > & vec, const type **values);
+	void setVector2D(vector < vector <type> > & vec, const type *values);
 	template <typename type>
-	void setVector2D(vector < vector <type> > & vec, const type **values, int size1, int size2);
+	void setVector2D(vector < vector <type> > & vec, const type *values, int size1, int size2);
+	template <typename type>
+	vector < vector <type> > setVector2D(const type *values, int size1, int size2);
 
 
 #endif

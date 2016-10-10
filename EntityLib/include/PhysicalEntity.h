@@ -37,6 +37,7 @@ class PhysicalEntity: public Entity
 		PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
 
 		// ---- Spatial localization ----
+		void setPosition(const DoubleVector position, const int);
 		void setPosition(const DoubleVector2D position);
 		DoubleVector2D getPosition(void) const;
 		DoubleVector getPosition(const int) const;

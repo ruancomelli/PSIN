@@ -53,6 +53,7 @@ DoubleVector PhysicalEntity::getScalarProperty()
 }
 
 //------------------------------- Position -------------------------------
+void PhysicalEntity::setPosition(const DoubleVector position, const int derivative){this->position[derivative] = position;}
 void PhysicalEntity::setPosition(const DoubleVector2D position)
 {
 	this->position = position;

@@ -138,6 +138,7 @@ configuration {}
 --include "../EFVLibTest"
 include "../FallingBall"
 include "../SimulationTest"
+include "../TestCollidingParticles"
 
 --include "../EFVLib"
 include "../EntityLib"
