@@ -115,11 +115,6 @@ void PhysicalEntity::reservePositionOrientationMemory(void)
 	int size = taylorOrder + 1;
 	this->position.resize(size);
 	this->orientation.resize(size);
-	
-	for( int i=0 ; i<size ; i++){
-		this->position[i].resize(dimension);
-		this->orientation[i].resize(dimension);
-	}
 }
 
 void PhysicalEntity::reservePropertyMemory(void)

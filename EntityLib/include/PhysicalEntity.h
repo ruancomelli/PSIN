@@ -65,8 +65,8 @@ class PhysicalEntity: public Entity
 		DoubleVector2D vectorialProperty;
 		vector < DoubleVector2D > matricialProperty;
 		
-		DoubleVector2D position;
-		DoubleVector2D orientation;
+		vector<Vector3D> position;
+		vector<Vector3D> orientation;
 		GeometryType geometry;
 		
 		void reservePositionOrientationMemory(void);
