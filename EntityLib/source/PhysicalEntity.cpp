@@ -4,7 +4,7 @@
 PhysicalEntity::PhysicalEntity()  : Entity(), taylorOrder(2), dimension(3), geometry(DEFAULT)
 {
 	// Initialize Properties
-	reservePositionOrientationMemory();
+	reservePropertyMemory();
 	// Initialize Position and Orientation
 	reservePositionOrientationMemory();
 }
@@ -55,7 +55,11 @@ DoubleVector PhysicalEntity::getScalarProperty()
 }
 
 //------------------------------- Position -------------------------------
-void PhysicalEntity::setPosition(const DoubleVector position, const int derivative){this->position[derivative] = position;}
+void PhysicalEntity::setPosition(const DoubleVector position, const int derivative)
+{
+	this->position[derivative] = position;
+}
+
 void PhysicalEntity::setPosition(const DoubleVector2D position)
 {
 	this->position = position;

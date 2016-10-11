@@ -43,13 +43,13 @@ int main(int argc, char **argv){
 		{0.,0.,0.}
 	};
 
-	particle1.setPosition(setVector2D<double>(initialPosition1[0], 3, 3));
-	particle2.setPosition(setVector2D<double>(initialPosition2[0], 3, 3));
+	particle1.setPosition(setVector2D(initialPosition1[0], 3, 3));
+	particle2.setPosition(setVector2D(initialPosition2[0], 3, 3));
 	
 	
 	// Output
-	ofstream outFile1("output\\output1.txt");
-	ofstream outFile2("output\\output2.txt");
+	ofstream outFile1("../_output/output1.txt");
+	ofstream outFile2("../_output/output2.txt");
 	
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
