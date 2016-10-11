@@ -4,6 +4,7 @@
 #include <fstream>
 #include <Particle.h>
 #include <Vector.h>
+#include <setVector.h>
 #include <ForceModel.h>
 
 using namespace std;
@@ -11,17 +12,13 @@ using namespace std;
 int main(int argc, char **argv){
 
 	// Coordinate system
-	vector <double> origin(3,0);
-	vector <double> xVersor(3,0);
-	vector <double> yVersor(3,0);
-	vector <double> zVersor(3,0);
-	xVersor[0] = yVersor[1] = zVersor[2] = 1;
+	Vector3D origin;
+	Vector3D xVersor(1, 0, 0);
+	Vector3D yVersor(0, 1, 0);
+	Vector3D zVersor(0, 0, 1);
 	
 	// Initialize gravity
-	vector <double> gravity(3,0);
-	gravity[0] = 0.0;
-	gravity[1] = -9.81;
-	gravity[2] = 0.0;
+	Vector3D gravity(0.0, -9.81, 0.0);
 	
 	// Simulation data
 	double initialTime = 0;
@@ -31,20 +28,14 @@ int main(int argc, char **argv){
 	// Initialize particles
 	Particle particle1;
 	Particle particle2;
-	
-	double initialPosition1[3][3] =	{
-		{0.,0.,0.},
-		{1.,0.,0.},
-		{0.,0.,0.}
-	};
-	double initialPosition2[3][3] = {
-		{10.,0.,0.},
-		{0.,0.,0.},
-		{0.,0.,0.}
-	};
 
-	particle1.setPosition(setVector2D(initialPosition1[0], 3, 3));
-	particle2.setPosition(setVector2D(initialPosition2[0], 3, 3));
+	particle1.setPosition(0, 0.0, 0.0, 0.0);
+	particle1.setPosition(1, 1.0, 0.0, 0.0);
+	particle1.setPosition(2, 0.0, 0.0, 0.0);
+		
+	particle2.setPosition(0, 10.0, 0.0, 0.0);
+	particle2.setPosition(1, 0.0, 0.0, 0.0);
+	particle2.setPosition(2, 0.0, 0.0, 0.0);
 	
 	
 	// Output
@@ -54,8 +45,8 @@ int main(int argc, char **argv){
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 		
-		particle1.setPosition(gravity, 2);
-		particle2.setPosition(gravity, 2);
+		particle1.setPosition(2, gravity);
+		particle2.setPosition(2, gravity);
 		
 		particle1.setPosition(ForceModel::taylorPredictor( particle1.getPosition(), 2, timeStep ));
 		particle2.setPosition(ForceModel::taylorPredictor( particle2.getPosition(), 2, timeStep ));
@@ -70,10 +61,12 @@ int main(int argc, char **argv){
 			outFile2 << "\t";
 			
 			// Saves each component of the i-th derivative of the positions
-			for(unsigned j = 0 ; j < 3 ; ++j){
-				outFile1 << "\t" << particle1.getPosition(i)[j];
-				outFile2 << "\t" << particle2.getPosition(i)[j];
-			}
+			outFile1 << "\t" << particle1.getPosition(i).x();
+			outFile2 << "\t" << particle2.getPosition(i).x();
+			outFile1 << "\t" << particle1.getPosition(i).y();
+			outFile2 << "\t" << particle2.getPosition(i).y();
+			outFile1 << "\t" << particle1.getPosition(i).z();
+			outFile2 << "\t" << particle2.getPosition(i).z();
 			
 			outFile1 << "\n";
 			outFile2 << "\n";

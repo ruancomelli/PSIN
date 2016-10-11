@@ -13,33 +13,28 @@
 		For a sufficiently small dt, we can approximate f(t+dt) by its expansion is Taylor's sum and writing r = 0
 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
 */
-DoubleVector2D ForceModel::taylorPredictor( DoubleVector2D currentVector, int predictionOrder, double dt ){
+vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt ){
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
 	
 	// This algorithm is an implementation of equation (2.24) (see reference) 
 	
-	DoubleVector2D predictedVector;
-	DoubleVector taylorExpansion;
+	vector<Vector3D> predictedVector;
+	Vector3D taylorExpansion;
 	
-	int nDimensions = static_cast<int>(currentVector[0].size());
+	int nDimensions = 3;
 	
 	// initialize predictedVector and taylorExpansion
-	taylorExpansion.resize( nDimensions );
 	predictedVector.resize( predictionOrder + 1 );
-	
-	for( int i = 0 ; i <= predictionOrder ; ++i ){
-		predictedVector[i].resize( nDimensions );
-	}
 	
 	// predict position
 	for( int i = 0; i <= predictionOrder; ++i ){
 		
 		// set each entry of taylorExpansion to zero
-		for( int j = 0 ; j < nDimensions ; ++j ){
-			taylorExpansion[j] = 0;
-		}
+		taylorExpansion.x() = 0.0;
+		taylorExpansion.y() = 0.0;
+		taylorExpansion.z() = 0.0;
 		
 		// perform summation
 		for( int j = i; j <= predictionOrder; ++j ){

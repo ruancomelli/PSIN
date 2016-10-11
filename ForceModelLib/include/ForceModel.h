@@ -24,7 +24,7 @@ inline unsigned long factorial( unsigned n ){
 class ForceModel
 {
 	public:	
-		static DoubleVector2D taylorPredictor( DoubleVector2D currentVector, int predictionOrder, double dt );
+		static vector<Vector3D> taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt );
 		//static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
 		static DoubleVector2D gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt);
 

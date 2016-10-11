@@ -55,42 +55,58 @@ DoubleVector PhysicalEntity::getScalarProperty()
 }
 
 //------------------------------- Position -------------------------------
-void PhysicalEntity::setPosition(const DoubleVector position, const int derivative)
+
+void PhysicalEntity::setPosition(const int derivative, const double x, const double y, const double z)
 {
-	this->position[derivative] = position;
+	this->position[derivative].x() = x;
+	this->position[derivative].y() = y;
+	this->position[derivative].z() = z;
 }
 
-void PhysicalEntity::setPosition(const DoubleVector2D position)
+void PhysicalEntity::setPosition(const int derivative, const Vector3D & vec)
+{
+	this->position[derivative] = vec;
+}
+
+void PhysicalEntity::setPosition(const vector<Vector3D> position)
 {
 	this->position = position;
-	
-	return;
 }
 
-DoubleVector2D PhysicalEntity::getPosition() const
+vector<Vector3D> PhysicalEntity::getPosition() const
 {
 	return this->position;
 }
 
-DoubleVector PhysicalEntity::getPosition(const int derivate) const
+Vector3D PhysicalEntity::getPosition(const int derivate) const
 {
 	return this->position[derivate];
 }
 
 // ------------------------------- Orientation -------------------------------
-void PhysicalEntity::setOrientation(const DoubleVector2D orientation)
+void PhysicalEntity::setOrientation(const int derivative, const double x, const double y, const double z)
 {
-	this->orientation = orientation;
-	
-	return;
+	this->orientation[derivative].x() = x;
+	this->orientation[derivative].y() = y;
+	this->orientation[derivative].z() = z;
 }
 
-DoubleVector2D PhysicalEntity::getOrientation(void) const
+void PhysicalEntity::setOrientation(const int derivative, const Vector3D & vec)
+{
+	this->orientation[derivative] = vec;
+}
+
+void PhysicalEntity::setOrientation(const vector<Vector3D> orientation)
+{
+	this->orientation = orientation;
+}
+
+vector<Vector3D> PhysicalEntity::getOrientation(void) const
 {
 	return this->orientation;
 }
 
-DoubleVector PhysicalEntity::getOrientation(const int derivate) const
+Vector3D PhysicalEntity::getOrientation(const int derivate) const
 {
 	return this->orientation[derivate];
 }

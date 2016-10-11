@@ -5,6 +5,7 @@
 
 #include <Entity.h>
 #include <Vector.h>
+#include <Vector3D.h>
 
 using namespace std;
 
@@ -38,14 +39,17 @@ class PhysicalEntity: public Entity
 		/*PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
 			This is commented because this function seems unnecessary.	*/
 		// ---- Spatial localization ----
-		void setPosition(const DoubleVector position, const int);
-		void setPosition(const DoubleVector2D position);
-		DoubleVector2D getPosition(void) const;
-		DoubleVector getPosition(const int) const;
+		void setPosition(const int derivative, const double x, const double y, const double z);
+		void setPosition(const int derivative, const Vector3D & vec);
+		void setPosition(const vector<Vector3D> position);
+		vector<Vector3D> getPosition(void) const;
+		Vector3D getPosition(const int) const;
 		
-		void setOrientation(const DoubleVector2D orientation);
-		DoubleVector2D getOrientation(void) const;
-		DoubleVector getOrientation(const int derivate) const;
+		void setOrientation(const int derivative, const double x, const double y, const double z);
+		void PhysicalEntity::setOrientation(const int derivative, const Vector3D & vec);
+		void setOrientation(const vector<Vector3D> orientation);
+		vector<Vector3D> getOrientation(void) const;
+		Vector3D getOrientation(const int derivate) const;
 		
 		// ---- Geometry ----
 		void setGeometry(const GeometryType);
