@@ -18,12 +18,12 @@ int main(int argc, char **argv){
 	Vector3D zVersor(0, 0, 1);
 	
 	// Initialize gravity
-	Vector3D gravity(0.0, -9.81, 0.0);
+	Vector3D gravity(0.0, 0.0, 0.0);
 	
 	// Simulation data
 	double initialTime = 0;
-	double timeStep = 1;
-	double finalTime = 100;
+	double timeStep = 0.1;
+	double finalTime = 15;
 	
 	// Initialize particles
 	Particle particle1;
@@ -41,6 +41,9 @@ int main(int argc, char **argv){
 	// Output
 	ofstream outFile1("../_output/output1.txt");
 	ofstream outFile2("../_output/output2.txt");
+
+	string verticalSeparator = "\n";
+	string horizontalSeparator = ",";
 	
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
@@ -52,27 +55,25 @@ int main(int argc, char **argv){
 		particle2.setPosition(ForceModel::taylorPredictor( particle2.getPosition(), 2, timeStep ));
 		
 		// Saving to file
-		outFile1 << t << "\n";
-		outFile2 << t << "\n";
+		outFile1 << t << verticalSeparator;
+		outFile2 << t << verticalSeparator;
 
 		// Prints every derivative of particles' position
 		for(unsigned i = 0 ; i <= 2 ; ++i ){
-			outFile1 << "\t";
-			outFile2 << "\t";
 			
 			// Saves each component of the i-th derivative of the positions
-			outFile1 << "\t" << particle1.getPosition(i).x();
-			outFile2 << "\t" << particle2.getPosition(i).x();
-			outFile1 << "\t" << particle1.getPosition(i).y();
-			outFile2 << "\t" << particle2.getPosition(i).y();
-			outFile1 << "\t" << particle1.getPosition(i).z();
-			outFile2 << "\t" << particle2.getPosition(i).z();
+			outFile1 << horizontalSeparator << particle1.getPosition(i).x();
+			outFile2 << horizontalSeparator << particle2.getPosition(i).x();
+			outFile1 << horizontalSeparator << particle1.getPosition(i).y();
+			outFile2 << horizontalSeparator << particle2.getPosition(i).y();
+			outFile1 << horizontalSeparator << particle1.getPosition(i).z();
+			outFile2 << horizontalSeparator << particle2.getPosition(i).z();
 			
-			outFile1 << "\n";
-			outFile2 << "\n";
+			outFile1 << verticalSeparator;
+			outFile2 << verticalSeparator;
 		}
-		outFile1 << "\n";
-		outFile2 << "\n";
+		outFile1 << verticalSeparator;
+		outFile2 << verticalSeparator;
 	}
 	
 	outFile1.close();
