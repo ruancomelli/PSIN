@@ -77,3 +77,9 @@
 			std::transform( mat1[i].begin(), mat1[i].end(), mat2[i].begin(), mat1[i].begin(), add );
 		}
 	}
+	
+	
+	DoubleVector nullVector(int dimension){
+		DoubleVector vec(dimension, 0);
+		return vec;
+	}

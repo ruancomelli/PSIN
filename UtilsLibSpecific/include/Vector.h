@@ -23,12 +23,14 @@ using std::runtime_error;
 	DoubleVector operator +=( DoubleVector& v, const double& d );
 	void operator +=( DoubleVector& vector1, const DoubleVector& vector2 );
 	void operator -=( DoubleVector& vector1, const DoubleVector& vector2 );
-	void operator *=( DoubleVector& vec, const double& scalar );	
+	void operator *=( DoubleVector& vec, const double& scalar );
 
 	void operator +=( DoubleVector2D& mat1, const DoubleVector2D& mat2 );
 
 	double innerProduct( const DoubleVector& vector1, const DoubleVector& vector2 );
 	double norm( DoubleVector& vec );
 	void normalize( DoubleVector& vec );
+	
+	DoubleVector nullVector(int dimension);
 
 #endif

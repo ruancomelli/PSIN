@@ -46,11 +46,17 @@ int main(int argc, char **argv){
 
 	
 	// Output
+	string verticalSeparator = "\n";
+	string horizontalSeparator = ",";
+
+	ofstream mainOutFile("../_output/output.txt");
+	mainOutFile << "Number of Particles =" << 2 << verticalSeparator;
+	mainOutFile << "Particle1: Radius ="<< particle1.getGeometricParameter(RADIUS) << verticalSeparator;
+	mainOutFile << "Particle2: Radius ="<< particle2.getGeometricParameter(RADIUS) << verticalSeparator;
+
 	ofstream outFile1("../_output/output1.txt");
 	ofstream outFile2("../_output/output2.txt");
 
-	string verticalSeparator = "\n";
-	string horizontalSeparator = ",";
 	
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){

@@ -27,7 +27,7 @@ class ForceModel
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt );
 		//static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
 		static DoubleVector2D gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt);
-
+	
 	private:
 };
 
