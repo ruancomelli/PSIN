@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 enum GeometryType{
 	SPHERE = 0,
 	DEFAULT = SPHERE
@@ -60,6 +61,10 @@ class PhysicalEntity: public Entity
 		void setScalarProperty(const DoubleVector scalarPropertyVector);
 		double getScalarProperty(const int scalarPropertyIdentifier);
 		DoubleVector getScalarProperty();
+		
+		// ---- Distance ----
+		double distance(PhysicalEntity physicalEntity);
+		bool touch(PhysicalEntity physicalEntity);
 		
 	private:
 		int taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)

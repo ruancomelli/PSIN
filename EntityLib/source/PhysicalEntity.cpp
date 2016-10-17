@@ -124,6 +124,19 @@ GeometryType PhysicalEntity::getGeometry() const
 	return this->geometry;
 }
 
+// ------------------------------- Distance and Touching -------------------------------
+double distance(PhysicalEntity physicalEntity){
+	return ( this->position[0] - physicalEntity.position[0] ).length;
+}
+
+// test if this physicalEntity touches another
+bool touch(PhysicalEntity physicalEntity){
+	if( (this->geometry == SPHERE) && (physicalEntity.getGeometry() == SPHERE) ){
+		/*return this->distance(physicalEntity) <= */
+		/* FINISH THIS */
+	}
+}
+
 // ------------------------------- Auxiliar Functions -------------------------------
 
 void PhysicalEntity::reservePositionOrientationMemory(void)
