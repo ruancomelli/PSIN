@@ -9,7 +9,7 @@
 using namespace std;
 
 enum GeometricParameter{
-	RADIUS = 0;
+	RADIUS = 0,
 	N_GEOMETRIC_PARAMETER
 };
 
@@ -24,9 +24,12 @@ class SphericalParticle: public Particle
 		void setGeometricParameter(const DoubleVector geometricParameterVector);
 		double getGeometricParameter(const int geometricParameterIdentifier);
 		DoubleVector getGeometricParameter();
+		bool touch(SphericalParticle particle);
 		
 	private:
 		DoubleVector geometricParameter;
+		
+		void reserveGeometricParameterMemory(void);
 }; // class Particle
 
 #endif

@@ -17,7 +17,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 radius1 = 1;    % This should be automated
-radius2 = 5;
+radius2 = .5;
 
 % Get some data related to the simulation
 inputMatrix = inputCell{1};

@@ -1,14 +1,16 @@
 #include <SphericalParticle.h>
 
 // ------------------------------- Constructor -------------------------------
-SphericalParticle::SphericalParticle()  : Particle()
+SphericalParticle::SphericalParticle()
+	: Particle()
 {
 	reserveGeometricParameterMemory();
 	
 	setGeometry(SPHERE);
 }
 
-SphericalParticle::SphericalParticle(const int taylorOrder, const int dimension, const int handle) : Particle(taylorOrder, dimension, handle)
+SphericalParticle::SphericalParticle(const int taylorOrder, const int dimension, const int handle)
+	: Particle(taylorOrder, dimension, handle)
 {
 	setGeometry(SPHERE);
 	
@@ -34,10 +36,18 @@ double SphericalParticle::getGeometricParameter(const int geometricParameterIden
 	return this->geometricParameter[geometricParameterIdentifier];
 }
 
-DoubleVector PhysicalEntity::getGeometricParameter()
+DoubleVector SphericalParticle::getGeometricParameter()
 {
 	return this->geometricParameter;
 }
+
+// ------------------------------- Collision detector -------------------------------
+
+bool SphericalParticle::touch(SphericalParticle particle)
+{
+	return ( this->distance(particle) <= ( this->getGeometricParameter(RADIUS) + particle.getGeometricParameter(RADIUS) ) );
+}
+
 
 // ------------------------------- Auxiliar Functions -------------------------------
 

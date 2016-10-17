@@ -64,7 +64,6 @@ class PhysicalEntity: public Entity
 		
 		// ---- Distance ----
 		double distance(PhysicalEntity physicalEntity);
-		bool touch(PhysicalEntity physicalEntity);
 		
 	private:
 		int taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)

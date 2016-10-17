@@ -25,8 +25,8 @@ int main(int argc, char **argv){
 	double timeStep = 0.1;
 	double finalTime = 15;
 	
-	taylorOrder = 4;
-	dimension = 2;
+	int taylorOrder = 4;
+	int dimension = 2;
 	
 	// Initialize particles
 	Particle particle1( taylorOrder, dimension, 1 );
@@ -53,7 +53,7 @@ int main(int argc, char **argv){
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 
-		if()	// If particles are not in touch
+		if(0)	// If particles are not in touch
 		{
 			particle1.setPosition(2, gravity);
 			particle2.setPosition(2, gravity);

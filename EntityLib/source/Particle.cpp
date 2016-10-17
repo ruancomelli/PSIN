@@ -4,6 +4,8 @@ Particle::Particle() : PhysicalEntity(2, 3) {
 	
 }
 
-Particle::Particle(const int order, const int dimension, const int handle) : PhysicalEntity(taylorOrder, dimension, handle){
+Particle::Particle(const int taylorOrder, const int dimension, const int handle)
+	: PhysicalEntity(taylorOrder, dimension, handle)
+{
 	
 }

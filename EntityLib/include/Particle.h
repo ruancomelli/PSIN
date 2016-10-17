@@ -12,7 +12,7 @@ class Particle: public PhysicalEntity
 {
 	public:
 		Particle();
-		Particle(const int order, const int dimension, const int handle = -1);
+		Particle(const int taylorOrder, const int dimension, const int handle = -1);
 		
 	private:
 		//DoubleVector2D interactionForce;
