@@ -47,7 +47,7 @@ class PhysicalEntity: public Entity
 		Vector3D getPosition(const int) const;
 		
 		void setOrientation(const int derivative, const double x, const double y, const double z);
-		void PhysicalEntity::setOrientation(const int derivative, const Vector3D & vec);
+		void setOrientation(const int derivative, const Vector3D & vec);
 		void setOrientation(const vector<Vector3D> orientation);
 		vector<Vector3D> getOrientation(void) const;
 		Vector3D getOrientation(const int derivate) const;

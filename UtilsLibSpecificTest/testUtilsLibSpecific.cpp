@@ -10,7 +10,7 @@ int main()
 	cout << endl;
 	{
 		// Testing setVector templates
-		double values[3] = {1.0, 2.0, 3.0};
+/*		double values[3] = {1.0, 2.0, 3.0};
 		vector<double> vec;
 		vec.resize(3);
 		setVector(vec, values);
@@ -21,7 +21,7 @@ int main()
 		{
 			cout << vec[i] << "\t";
 		}
-		cout << "}" << endl << endl;
+		cout << "}" << endl << endl;*/
 	}
 
 	return 0;

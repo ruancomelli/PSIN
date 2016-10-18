@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <ctype.h>
-
+#include <Vector3D.h>
 #include <Vector.h>
 #include <Particle.h>
 
