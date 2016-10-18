@@ -12,19 +12,13 @@ int main(int argc, char **argv){
 //Particle particle;
 
 	// Coordinate system
-	vector <double> origin(3,0);
-	vector <double> xVersor(3,0);
-	vector <double> yVersor(3,0);
-	vector <double> zVersor(3,0);
-	xVersor[0] = yVersor[1] = zVersor[2] = 1;
+	Vector3D origin(0.0, 0.0, 0.0);
+	Vector3D xVersor(1.0, 0.0, 0.0);
+	Vector3D yVersor(0.0, 1.0, 0.0);
+	Vector3D zVersor(0.0, 0.0, 1.0);
 	
 	// Initialize gravity
-	vector <double> gravity;
-	gravity.resize(3);
-	double G[3] = {0, -9.81, 0};
-	for(unsigned i = 0; i<3; ++i){
-		gravity[i] = G[i];
-	}
+	Vector3D gravity(0.0, -9.81, 0.0);
 	
 	// Simulation data
 	double initialTime = 0;
@@ -32,11 +26,8 @@ int main(int argc, char **argv){
 	double finalTime = 100;
 	
 	// Initialize particle
-	vector < vector <double> > particlePosition;
+	vector < Vector3D > particlePosition;
 	particlePosition.resize(3);
-	for(unsigned i = 0 ; i < 3 ; ++i ){
-		particlePosition[i].resize(3, 0);
-	}
 	
 	// Output
 	ofstream outFile;
@@ -57,9 +48,9 @@ int main(int argc, char **argv){
 			outFile << "\t\t";
 			
 			// Saves each component of the i-th derivative of the position
-			for(unsigned j = 0 ; j < 3 ; ++j){
-				outFile << "\t" << particlePosition[i][j];
-			}
+			outFile << "\t" << particlePosition[i].x();
+			outFile << "\t" << particlePosition[i].y();
+			outFile << "\t" << particlePosition[i].z();
 			
 			outFile << "\n";
 		}
@@ -67,7 +58,7 @@ int main(int argc, char **argv){
 	}
 	
 	// Test
-	cout << "\nOrigin:" << endl;
+/*	cout << "\nOrigin:" << endl;
 	for( vector <double>::iterator k = origin.begin() ; k != origin.end() ; ++k)
 		cout << *k << endl;
 	
@@ -87,12 +78,13 @@ int main(int argc, char **argv){
 	for(unsigned i = 0; i<3; ++i){
 		cout << gravity[i] << endl;
 	}
+*/
 	
 	
 	outFile.close();
 	
 	cout << endl << "Success" << endl << endl;
-	system("pause");	
+/*	system("pause");	*/
 	
 }
 

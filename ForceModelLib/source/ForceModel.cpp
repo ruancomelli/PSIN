@@ -17,33 +17,33 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVect
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
-	
-	// This algorithm is an implementation of equation (2.24) (see reference) 
-	
+
+	// This algorithm is an implementation of equation (2.24) (see reference)
+
 	vector<Vector3D> predictedVector;
 	Vector3D taylorExpansion;
-	
+
 	int nDimensions = 3;
-	
+
 	// initialize predictedVector and taylorExpansion
 	predictedVector.resize( predictionOrder + 1 );
-	
+
 	// predict position
 	for( int i = 0; i <= predictionOrder; ++i ){
-		
+
 		// set each entry of taylorExpansion to zero
 		taylorExpansion.x() = 0.0;
 		taylorExpansion.y() = 0.0;
 		taylorExpansion.z() = 0.0;
-		
+
 		// perform summation
 		for( int j = i; j <= predictionOrder; ++j ){
 			taylorExpansion += ( pow( dt , j - i) / factorial( j - i ) ) * currentVector[j];
 		}
-		
+
 		// set the i-th predicted derivative as the calculated Taylor expansion
 		predictedVector[i] = taylorExpansion;
-		
+
 	}
 
 	return predictedVector;
@@ -51,10 +51,10 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVect
 
 
 DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt){
-	
+
 	DoubleVector2D correctedVector = predictedVector;
 	DoubleVector correctorConstants(predictionOrder + 1);
-	
+
 	switch(predictionOrder){
 		case 3:
 			correctorConstants[0] = 1./6.;
@@ -81,11 +81,11 @@ DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector,
 			cout << endl << "There is no support for this prediction order" << endl << endl;
 			return predictedVector;
 	}
-	
+
 	for(int i = 0 ; i <= predictionOrder ; ++i){
-		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2) ) * doubleDerivative;
+		//correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2) ) * doubleDerivative;
 	}
-	
+
 	return correctedVector;
 }
 
@@ -99,13 +99,13 @@ DoubleVector ForceModel::linearDashpotForce(Particle particle1, Particle particl
 	// interaction specifies the kind of interaction that must be calculated
 	// interaction must be "Impulse"
 	// In the future, interaction should be able to be "Force"
-	
+
 	transform(interaction.begin(), interaction.end(), interaction.begin(), toupper);
-	
+
 	vector <double> normalInteraction;
-	
+
 	normalInteraction.resize(3);
-	
+
 	if (interaction.compare("IMPULSE") == 0)
 		normalInteraction = linearDashpotForceImpulseCalculationViaIntegration(particle1, particle2, method);
 	else if (interaction.compare("FORCE") == 0)
@@ -115,7 +115,7 @@ DoubleVector ForceModel::linearDashpotForce(Particle particle1, Particle particl
 }
 
 DoubleVector ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method){
-	
+
 }
 
 DoubleVector linearDashpotForceForceCalculationViaIntegration(Particle particle1, Particle particle2, string method){
