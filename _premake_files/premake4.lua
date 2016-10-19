@@ -19,11 +19,11 @@ configuration {"Debug", "x64"}
 
 configuration {"windows", "Debug"}
 	defines {"WIN32", "_DEBUG", "_CONSOLE", "_CRT_SECURE_NO_WARNINGS"}
-	linkoptions { "/ignore:4006,4221" }
+	--linkoptions { "/ignore:4006,4221" }
 
 configuration {"windows", "Release"}
 	defines {"WIN32", "NDEBUG", "_CONSOLE", "_CRT_SECURE_NO_WARNINGS"}
-	linkoptions { "/ignore:4006,4221" }
+	--inkoptions { "/ignore:4006,4221" }
 
 configuration {}
 
@@ -32,7 +32,7 @@ language "C++"
 location ("../_build")
 
 includedirs {
-	--"../",
+	"../external_content/boost_1_55_0/windows/include/",
 }
 
 links {
@@ -42,7 +42,7 @@ links {
 configuration "x32"
 
 libdirs {
-	--"../../external_content/CGNSLib-3.1.4/lib/x32",
+	"../externalContent/boost_1_55_0/iwindowsLib/x32",
 }
 
 links{
@@ -52,7 +52,7 @@ links{
 configuration "x64"
 
 libdirs {
-	--"../../external_content/CGNSLib-3.1.4/lib/x64",
+	"../externalContent/boost_1_55_0/iwindowsLib/x64",
 }
 
 

@@ -1,28 +1,16 @@
+#define BOOST_TEST_MODULE TestModule
+
+// std
+#include <string>
 #include <iostream>
+
+// boost
+#include <Test.h>
+
+// our code
+#include <Vector3D.h>
 #include <Vector.h>
 
-using std::cout;
-using std::endl;
-
-int main()
-{
-	cout << endl;
-	cout << endl;
-	{
-		// Testing setVector templates
-/*		double values[3] = {1.0, 2.0, 3.0};
-		vector<double> vec;
-		vec.resize(3);
-		setVector(vec, values);
-
-
-		cout << "vec = {\t";
-		for (unsigned i=0 ; i<vec.size() ; ++i)
-		{
-			cout << vec[i] << "\t";
-		}
-		cout << "}" << endl << endl;*/
-	}
-
-	return 0;
+TestCase( TestModule ){
+	checkClose( -9 , -10. , 1.0e-12 );
 }
