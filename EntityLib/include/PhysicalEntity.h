@@ -36,19 +36,19 @@ class PhysicalEntity: public Entity
 	public:
 		// ---- Constructors ----
 		PhysicalEntity();
-		PhysicalEntity(const int order, const int dimension, const int handle = -1);
+		PhysicalEntity(const int taylorOrder, const int dimension, const int handle = -1);
 		/*PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
 			This is commented because this function seems unnecessary.	*/
 		// ---- Spatial localization ----
 		void setPosition(const int derivative, const double x, const double y, const double z);
 		void setPosition(const int derivative, const Vector3D & vec);
-		void setPosition(const vector<Vector3D> position);
+		void setPosition(const vector<Vector3D>  & position);
 		vector<Vector3D> getPosition(void) const;
 		Vector3D getPosition(const int) const;
 		
 		void setOrientation(const int derivative, const double x, const double y, const double z);
 		void setOrientation(const int derivative, const Vector3D & vec);
-		void setOrientation(const vector<Vector3D> orientation);
+		void setOrientation(const vector<Vector3D> & orientation);
 		vector<Vector3D> getOrientation(void) const;
 		Vector3D getOrientation(const int derivate) const;
 		
@@ -57,13 +57,14 @@ class PhysicalEntity: public Entity
 		GeometryType getGeometry() const;
 		
 		// ---- Properties ----
+		void setTaylorOrder(const int taylorOrder);
 		void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue);
 		void setScalarProperty(const DoubleVector scalarPropertyVector);
-		double getScalarProperty(const int scalarPropertyIdentifier);
-		DoubleVector getScalarProperty();
+		double getScalarProperty(const int scalarPropertyIdentifier) const;
+		DoubleVector getScalarProperty() const;
 		
 		// ---- Distance ----
-		double distance(PhysicalEntity physicalEntity);
+		double distance(const PhysicalEntity physicalEntity);
 		
 	private:
 		int taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)

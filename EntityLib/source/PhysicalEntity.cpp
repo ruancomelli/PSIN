@@ -35,6 +35,13 @@ PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarProp
 }*/
 
 // ------------------------------- Property -------------------------------
+void PhysicalEntity::setTaylorOrder(const int taylorOrder)
+{
+	
+	this->taylorOrder = taylorOrder;
+	reservePositionOrientationMemory();
+}
+
 void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue)
 {
 	this->scalarProperty[scalarPropertyIdentifier] = scalarPropertyValue;
@@ -45,12 +52,12 @@ void PhysicalEntity::setScalarProperty(const DoubleVector scalarPropertyVector)
 	this->scalarProperty = scalarPropertyVector;
 }
 
-double PhysicalEntity::getScalarProperty(const int scalarPropertyIdentifier)
+double PhysicalEntity::getScalarProperty(const int scalarPropertyIdentifier) const
 {
 	return this->scalarProperty[scalarPropertyIdentifier];
 }
 
-DoubleVector PhysicalEntity::getScalarProperty()
+DoubleVector PhysicalEntity::getScalarProperty() const
 {
 	return this->scalarProperty;
 }
@@ -69,8 +76,12 @@ void PhysicalEntity::setPosition(const int derivative, const Vector3D & vec)
 	this->position[derivative] = vec;
 }
 
-void PhysicalEntity::setPosition(const vector<Vector3D> position)
+void PhysicalEntity::setPosition(const vector<Vector3D> & position)
 {
+	if( position.size() != (this->taylorOrder + 1) )
+	{
+		//ERROR!
+	}
 	this->position = position;
 }
 
@@ -97,8 +108,12 @@ void PhysicalEntity::setOrientation(const int derivative, const Vector3D & vec)
 	this->orientation[derivative] = vec;
 }
 
-void PhysicalEntity::setOrientation(const vector<Vector3D> orientation)
+void PhysicalEntity::setOrientation(const vector<Vector3D> & orientation)
 {
+	if( orientation.size() != (this->taylorOrder + 1) )
+	{
+		//ERROR!
+	}
 	this->orientation = orientation;
 }
 
@@ -126,7 +141,7 @@ GeometryType PhysicalEntity::getGeometry() const
 }
 
 // ------------------------------- Distance and Touching -------------------------------
-double PhysicalEntity::distance(PhysicalEntity physicalEntity){
+double PhysicalEntity::distance(const PhysicalEntity physicalEntity){
 	Vector3D difference = this->position[0] - physicalEntity.position[0];
 	return difference.length();
 }
