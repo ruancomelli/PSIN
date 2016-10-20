@@ -2,13 +2,13 @@
 
 Particle::Particle() : PhysicalEntity(2, 3) 
 {
-	this->resultingForceDV.resize(3);
+	
 }
 
 Particle::Particle(const int taylorOrder, const int dimension, const int handle)
 	: PhysicalEntity(taylorOrder, dimension, handle)
 {
-	this->resultingForceDV.resize(dimension);
+	
 }
 
 //Particle::Particle(const int taylorOrder, const int handle)

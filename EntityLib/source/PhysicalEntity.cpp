@@ -18,7 +18,7 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dimension, const
 	this->dimension = dimension;
 
 	// Alloc memory to properties
-	reservePositionOrientationMemory();
+	reservePropertyMemory();
 
 	// Alloc memory to vectors position and orientation
 	reservePositionOrientationMemory();

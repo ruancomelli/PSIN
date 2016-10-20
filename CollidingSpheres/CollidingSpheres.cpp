@@ -12,23 +12,25 @@ using namespace std;
 
 int main(int argc, char **argv){
 
-	// Coordinate system
-	Vector3D origin;
-	Vector3D xVersor(1, 0, 0);
-	Vector3D yVersor(0, 1, 0);
-	Vector3D zVersor(0, 0, 1);
+	int defaultDimension = 3; // This means that we are constraint to Vector3D
+
+	// Global coordinate system
+	Vector3D origin(0.0, 0.0, 0.0);
+	Vector3D xVersor(1.0, 0.0, 0.0);
+	Vector3D yVersor(0.0, 1.0, 0.0);
+	Vector3D zVersor(0.0, 0.0, 1.0);
 	
 	// Initialize gravity
 	Vector3D gravity(0.0, 0.0, 0.0);
 	
 	// Simulation data
-	double initialTime = 0;
+	double initialTime = 0.0;
 	double timeStep = 0.1;
-	double finalTime = 15;
+	double finalTime = 15.0;
 	
 	int taylorOrder = 2;
 	int dimension = 2;
-	
+
 	// Initialize particles
 	SphericalParticle particle1( taylorOrder, dimension, 1 );
 	SphericalParticle particle2( taylorOrder, dimension, 2 );
@@ -42,7 +44,10 @@ int main(int argc, char **argv){
 	particle2.setPosition(2, 0.0, 0.0, 0.0);
 
 	particle1.setGeometricParameter( RADIUS, 1 );
-	particle2.setGeometricParameter( RADIUS, .5 );
+	particle2.setGeometricParameter( RADIUS, 0.5 );
+
+	particle1.setScalarProperty(MASS, 100.0);
+	particle2.setScalarProperty(MASS, 10.0);
 
 	
 	// Output
@@ -61,13 +66,19 @@ int main(int argc, char **argv){
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 
+		// Set forces to zero
+		particle1.setResultingForce(nullVector3D());
+		particle2.setResultingForce(nullVector3D());
+
+		// Body forces
+		particle1.addForce(particle1.getScalarProperty(MASS) * gravity);
+		particle2.addForce(particle2.getScalarProperty(MASS) * gravity);
+
+		// Contact forces
 		if(particle1.touch(particle2))	// If particles are in touch
 		{
 			cout << "Collision Instant: " << t << endl;
 		}
-
-		particle1.setPosition(2, gravity);
-		particle2.setPosition(2, gravity);
 
 		particle1.setPosition(ForceModel::taylorPredictor( particle1.getPosition(), 2, timeStep ));
 		particle2.setPosition(ForceModel::taylorPredictor( particle2.getPosition(), 2, timeStep ));
@@ -78,7 +89,7 @@ int main(int argc, char **argv){
 		outFile2 << t << verticalSeparator;
 
 		// Prints every derivative of particles' position
-		for(unsigned i = 0 ; i <= 2 ; ++i ){
+		for(int i = 0 ; i <= 2 ; ++i ){
 			
 			// Saves each component of the i-th derivative of the positions
 			outFile1 << horizontalSeparator << particle1.getPosition(i).x();

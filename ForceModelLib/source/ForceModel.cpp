@@ -83,7 +83,7 @@ DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector,
 	}
 
 	for(int i = 0 ; i <= predictionOrder ; ++i){
-		//correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2) ) * doubleDerivative;
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2) ) * doubleDerivative;
 	}
 
 	return correctedVector;

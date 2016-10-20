@@ -40,7 +40,7 @@ class PhysicalEntity: public Entity
 		/*PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
 			This is commented because this function seems unnecessary.	*/
 		// ---- Spatial localization ----
-		void setPosition(const int derivative, const double x, const double y, const double z);
+		void setPosition(const int derivative, const double x, const double y, const double z = 0);
 		void setPosition(const int derivative, const Vector3D & vec);
 		void setPosition(const vector<Vector3D>  & position);
 		vector<Vector3D> getPosition(void) const;

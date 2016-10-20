@@ -48,5 +48,7 @@ Vector3D operator *( const double& scalar, const Vector3D& v );
 Vector3D operator *( const Vector3D& v, const double& scalar );
 Vector3D operator /( const Vector3D& v, const double& scalar );
 
+Vector3D nullVector3D(void);
+
 
 #endif
