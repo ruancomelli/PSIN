@@ -28,7 +28,7 @@ int main(int argc, char **argv){
 	double timeStep = 0.1;
 	double finalTime = 15.0;
 	
-	int taylorOrder = 2;
+	int taylorOrder = 3;
 	int dimension = 2;
 
 	// Initialize particles

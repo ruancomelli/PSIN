@@ -8,7 +8,7 @@
 
 using namespace std;
 
-enum GeometricParameter{
+enum SphericalParticleGeometricParameter{
 	RADIUS = 0,
 	N_GEOMETRIC_PARAMETER
 };

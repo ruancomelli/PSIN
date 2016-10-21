@@ -20,8 +20,8 @@ int main(int argc, char **argv){
 	}
 		
 	{// viscoelasticSpheres test
-		SphericalParticle particle1;
-		SphericalParticle particle2;
+		SphericalParticle particle1(3,3);
+		SphericalParticle particle2(3,3);
 		Vector3D vectorViscoelasticSphere = ForceModel::viscoelasticSpheres(particle1, particle2);
 	}
 

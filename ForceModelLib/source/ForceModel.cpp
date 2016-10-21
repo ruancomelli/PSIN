@@ -89,31 +89,54 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 	return correctedVector;
 }
 
-Vector3D ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2)
+// viscoelasticSpheres:
+//		Calculates normal and tangential forces between two spherical particles according to equation (2.14) (see reference)
+void ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2, Vector3D normalForce, Vector3D tangentialForce)
 {	
 	Vector3D force;
 
 	// Getting particles properties and parameters
-	Vector3D positionParticle1 = particle1.getPosition(0);
-	Vector3D positionParticle2 = particle2.getPosition(0);
-	double distance = positionParticle1.dist(positionParticle2);
+	Vector3D position1 = particle1.getPosition(0);
+	Vector3D position2 = particle2.getPosition(0);
+	double distance = position1.dist(position2);
 	double radius1 = particle1.getGeometricParameter(RADIUS);
 	double radius2 = particle2.getGeometricParameter(RADIUS);
-	double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
 	
 	// Calculations
 	double overlap = radius1 + radius2 - distance;
 	
 	if(overlap > 0)
 	{
+		double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
+		double elasticModulus1 = particle1.getScalarProperty( ELASTIC_MODULUS );
+		double elasticModulus2 = particle2.getScalarProperty( ELASTIC_MODULUS );
 		
+		double dissipativeConstant1 = particle1.getScalarProperty( DISSIPATIVE_CONSTANT );
+		double dissipativeConstant2 = particle2.getScalarProperty( DISSIPATIVE_CONSTANT );
+			
+		double viscosity1 = particle1.getScalarProperty( VISCOSITY );
+		double viscosity2 = particle2.getScalarProperty( VISCOSITY );
+		
+		double poissonRatio1 = particle1.getScalarProperty( POISSON_RATIO );
+		double poissonRatio2 = particle2.getScalarProperty( POISSON_RATIO );
+		
+		Vector3D velocity1 = particle1.getPosition( 1 );
+		Vector3D velocity2 = particle2.getPosition( 1 );
+		
+		Vector3D positionDifference = position2 - position1;
+		Vector3D velocityDifference = velocity2 - velocity1;
+		
+		// Calculate normal force
+		double overlapDerivative = dot(positionDifference, velocityDifference) / positionDifference.length();
+		double term1 = (4/3) * sqrt(effectiveRadius);
+		double term2 = sqrt(overlap) * (overlap + 0.5*(dissipativeConstant1 + dissipativeConstant2) * overlapDerivative )
+		double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
+		double normalForceModulus = term1 * term2 / term3;
 	}
 	else
 	{
 		force = nullVector3D();
 	}
-	// Change this:
-	return force;
 }
 
 // This is the code presented by the authors:

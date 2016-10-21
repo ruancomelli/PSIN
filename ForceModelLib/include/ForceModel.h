@@ -31,7 +31,7 @@ class ForceModel
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt );
 		
 		// Force calculation models
-		static Vector3D viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2);
+		static void ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2, Vector3D normalForce, Vector3D tangentialForce);
 		
 		//static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
 			// This has to be implemented

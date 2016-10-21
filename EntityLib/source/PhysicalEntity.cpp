@@ -4,7 +4,7 @@
 PhysicalEntity::PhysicalEntity()
 	: Entity(), geometry(DEFAULT)
 {
-	setTaylorOrder(2);
+	setTaylorOrder(3);
 	setDimension(3);
 	// Initialize Properties
 	reservePropertyMemory();
