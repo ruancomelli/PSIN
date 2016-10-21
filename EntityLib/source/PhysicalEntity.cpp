@@ -38,6 +38,19 @@ PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarProp
 
 // ------------------------------- Property -------------------------------
 
+void PhysicalEntity::setTaylorOrder(const int taylorOrder)
+{
+	if(taylorOrder < 0)
+	{
+		throw runtime_error("Invalid taylorOrder inserted. taylorOrder must be nonnegative.");
+	}
+	else
+	{
+		this->taylorOrder = taylorOrder;
+		reservePositionOrientationMemory();
+	}
+}
+
 void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue)
 {
 	this->scalarProperty[scalarPropertyIdentifier] = scalarPropertyValue;
@@ -172,18 +185,6 @@ void PhysicalEntity::reservePropertyMemory(void)
 	}
 }
 
-void PhysicalEntity::setTaylorOrder(const int taylorOrder)
-{
-	if(taylorOrder < 0)
-	{
-		throw runtime_error("Invalid taylorOrder inserted. taylorOrder must be nonnegative.");
-	}
-	else
-	{
-		this->taylorOrder = taylorOrder;
-	}
-}
-
 void PhysicalEntity::setDimension(const int dimension)
 {
 	if( (dimension != 2) && (dimension != 3))
@@ -192,6 +193,6 @@ void PhysicalEntity::setDimension(const int dimension)
 	}
 	else
 	{
-		this->taylorOrder = taylorOrder;
+		this->dimension = dimension;
 	}
 }
