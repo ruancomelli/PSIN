@@ -50,9 +50,9 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVect
 }
 
 
-DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, const int predictionOrder, const double dt){
+vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt){
 
-	DoubleVector2D correctedVector = predictedVector;
+	vector<Vector3D> correctedVector = predictedVector;
 	DoubleVector correctorConstants(predictionOrder + 1);
 
 	switch(predictionOrder){
@@ -78,12 +78,12 @@ DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector,
 			correctorConstants[5] = 1./60.;
 			break;
 		default:
-			cout << endl << "There is no support for this prediction order" << endl << endl;
+			throw runtime_error("There is no support for this prediction order");
 			return predictedVector;
 	}
 
 	for(int i = 0 ; i <= predictionOrder ; ++i){
-		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2) ) * doubleDerivative;
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2.0) ) * doubleDerivative;
 	}
 
 	return correctedVector;

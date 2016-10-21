@@ -21,8 +21,6 @@ class Particle: public PhysicalEntity
 		
 	private:
 		Vector3D resultingForce;
-		//DoubleVector2D interactionForce;
-			// interaction force between this particle and all other particles and boundaries
 }; // class Particle
 
 #endif
