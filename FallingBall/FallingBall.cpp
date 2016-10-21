@@ -3,8 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
-#include "Vector.h"
-#include "../ForceModelLib/include/ForceModel.h" // I don't know why ' #include "ForceModel.h" ' generates error!!!
+#include "ForceModel.h"
 
 using namespace std;
 
@@ -40,6 +39,7 @@ int main(int argc, char **argv){
 		
 		particlePosition[2] = gravity;
 		particlePosition = ForceModel::taylorPredictor( particlePosition, 2, timeStep );
+		//I don't know why, but this line is giving me an error on linux
 		
 		// Saving to file
 		outFile << "\t\t" << t << "\n";
@@ -55,32 +55,7 @@ int main(int argc, char **argv){
 			outFile << "\n";
 		}
 		outFile << "\n";
-	}
-	
-	// Test
-/*	cout << "\nOrigin:" << endl;
-	for( vector <double>::iterator k = origin.begin() ; k != origin.end() ; ++k)
-		cout << *k << endl;
-	
-	cout << "\nX:" << endl;
-	for( vector <double>::iterator k = xVersor.begin() ; k != xVersor.end() ; ++k)
-		cout << *k << endl;
-	
-	cout << "\nY:" << endl;
-	for( vector <double>::iterator k = yVersor.begin() ; k != yVersor.end() ; ++k)
-		cout << *k << endl;
-	
-	cout << "\nZ:" << endl;
-	for( vector <double>::iterator k = zVersor.begin() ; k != zVersor.end() ; ++k)
-		cout << *k << endl;
-	
-	cout << "\nGravity:" << endl;
-	for(unsigned i = 0; i<3; ++i){
-		cout << gravity[i] << endl;
-	}
-*/
-	
-	
+	}	
 	outFile.close();
 	
 	cout << endl << "Success" << endl << endl;

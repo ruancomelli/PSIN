@@ -32,7 +32,7 @@ language "C++"
 location ("../_build")
 
 includedirs {
-	"../external_content/boost_1_55_0/windows/include/",
+	--"../external_content/boost_1_55_0/windows/include/",
 }
 
 links {
@@ -42,7 +42,7 @@ links {
 configuration "x32"
 
 libdirs {
-	"../externalContent/boost_1_55_0/iwindowsLib/x32",
+	--"../externalContent/boost_1_55_0/iwindowsLib/x32",
 }
 
 links{
@@ -52,7 +52,7 @@ links{
 configuration "x64"
 
 libdirs {
-	"../externalContent/boost_1_55_0/iwindowsLib/x64",
+	--"../externalContent/boost_1_55_0/iwindowsLib/x64",
 }
 
 
@@ -136,15 +136,16 @@ links{
 configuration {}
 
 --include "../EFVLibTest"
+include "../UtilsLibSpecificTest"
+include "../SimulationTest"
+include "../ForceModelLibTest"
+include "../FallingBall"
 include "../CollidingSpheres"
 include "../CollidingParticles"
-include "../FallingBall"
-include "../SimulationTest"
-include "../UtilsLibSpecificTest"
 
 --include "../EFVLib"
+include "../UtilsLibSpecific"
 include "../EntityLib"
 include "../ForceModelLib"
-include "../UtilsLibSpecific"
-include "../SimulationLib"
 include "../IOLib"
+include "../SimulationLib"

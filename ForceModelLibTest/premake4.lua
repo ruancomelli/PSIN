@@ -1,4 +1,4 @@
-project "FallingBall"
+project "ForceModelLibTest"
 
 kind "ConsoleApp"
 targetdir "../_tests"

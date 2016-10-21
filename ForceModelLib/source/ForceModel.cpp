@@ -93,7 +93,7 @@ Vector3D ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalP
 {	
 	Vector3D force;
 
-	// Getting partcles properties and parameters
+	// Getting particles properties and parameters
 	Vector3D positionParticle1 = particle1.getPosition(0);
 	Vector3D positionParticle2 = particle2.getPosition(0);
 	double distance = positionParticle1.dist(positionParticle2);
@@ -112,6 +112,10 @@ Vector3D ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalP
 	{
 		force = nullVector3D();
 	}
+	// Change this:
+	return force;
+}
+
 // This is the code presented by the authors:
 /*
   double dx=normalize(p1.x()-p2.x(),lx);
@@ -153,10 +157,13 @@ Vector3D ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalP
     }
   }
  */
- 
-	// Change this:
-	return force;
-}
+
+
+
+
+
+
+
 
 /*
 
