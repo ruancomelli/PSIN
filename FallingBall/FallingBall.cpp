@@ -3,8 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
-#include "Vector.h"
-#include "../ForceModelLib/include/ForceModel.h" // I don't know why ' #include "ForceModel.h" ' generates error!!!
+#include "ForceModel.h"
 
 using namespace std;
 

@@ -7,6 +7,8 @@
 #include <ctype.h>
 #include <Vector3D.h>
 #include <Vector.h>
+#include <Entity.h>
+#include <PhysicalEntity.h>
 #include <Particle.h>
 #include <SphericalParticle.h>
 #include <stdexcept>
