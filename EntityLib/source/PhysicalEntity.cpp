@@ -2,8 +2,10 @@
 
 // ------------------------------- Constructor -------------------------------
 PhysicalEntity::PhysicalEntity()
-	: Entity(), taylorOrder(2), dimension(3), geometry(DEFAULT)
+	: Entity(), geometry(DEFAULT)
 {
+	setTaylorOrder(2);
+	setDimension(3);
 	// Initialize Properties
 	reservePropertyMemory();
 	// Initialize Position and Orientation
@@ -14,8 +16,8 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dimension, const
 	: Entity(handle), geometry(DEFAULT)
 {
 	// Set order and dimension
-	this->taylorOrder = taylorOrder;
-	this->dimension = dimension;
+	setTaylorOrder(taylorOrder);
+	setDimension(dimension);
 
 	// Alloc memory to properties
 	reservePropertyMemory();
@@ -35,12 +37,6 @@ PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarProp
 }*/
 
 // ------------------------------- Property -------------------------------
-void PhysicalEntity::setTaylorOrder(const int taylorOrder)
-{
-	
-	this->taylorOrder = taylorOrder;
-	reservePositionOrientationMemory();
-}
 
 void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue)
 {
@@ -173,5 +169,29 @@ void PhysicalEntity::reservePropertyMemory(void)
 		for(int j=0 ; j<dimension ; j++){
 			matricialProperty[i][j].resize(dimension);
 		}
+	}
+}
+
+void PhysicalEntity::setTaylorOrder(const int taylorOrder)
+{
+	if(taylorOrder < 0)
+	{
+		throw runtime_error("Invalid taylorOrder inserted. taylorOrder must be nonnegative.");
+	}
+	else
+	{
+		this->taylorOrder = taylorOrder;
+	}
+}
+
+void PhysicalEntity::setDimension(const int dimension)
+{
+	if( (dimension != 2) && (dimension != 3))
+	{
+		throw runtime_error("Invalid dimension value inserted. dimension must be 2 or 3.");
+	}
+	else
+	{
+		this->taylorOrder = taylorOrder;
 	}
 }

@@ -2,6 +2,7 @@
 #define PHYSICAL_ENTITY_H
 
 #include <vector>
+#include <stdexcept>
 
 #include <Entity.h>
 #include <Vector.h>
@@ -57,7 +58,6 @@ class PhysicalEntity: public Entity
 		GeometryType getGeometry() const;
 		
 		// ---- Properties ----
-		void setTaylorOrder(const int taylorOrder);
 		void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue);
 		void setScalarProperty(const DoubleVector scalarPropertyVector);
 		double getScalarProperty(const int scalarPropertyIdentifier) const;
@@ -80,6 +80,8 @@ class PhysicalEntity: public Entity
 		
 		void reservePositionOrientationMemory(void);
 		void reservePropertyMemory(void);
+		void setTaylorOrder(const int taylorOrder);
+		void setDimension(const int dimension);
 };
 
 #endif

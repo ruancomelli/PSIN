@@ -17,6 +17,10 @@ void Entity::setHandle(const int handle)
 	{
 		this->handle = handle;
 	}
+	else
+	{
+		throw std::runtime_error("Invalid handle inserted.");
+	}
 	
 	return;
 }
