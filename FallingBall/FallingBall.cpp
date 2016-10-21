@@ -3,7 +3,7 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
-#include "ForceModel.h"
+#include <ForceModel.h>
 
 using namespace std;
 
