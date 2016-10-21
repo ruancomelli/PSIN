@@ -8,6 +8,7 @@
 #include <Vector3D.h>
 #include <Vector.h>
 #include <Particle.h>
+#include <SphericalParticle.h>
 #include <stdexcept>
 
 // factorial:
@@ -26,8 +27,13 @@ class ForceModel
 {
 	public:	
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt );
+		
+		// Force calculation models
+		static Vector3D viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2);
+		
 		//static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
-			// This must be implemented
+			// This has to be implemented
+			
 		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
 	
 	private:

@@ -89,6 +89,75 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 	return correctedVector;
 }
 
+Vector3D ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2)
+{	
+	Vector3D force;
+
+	// Getting partcles properties and parameters
+	Vector3D positionParticle1 = particle1.getPosition(0);
+	Vector3D positionParticle2 = particle2.getPosition(0);
+	double distance = positionParticle1.dist(positionParticle2);
+	double radius1 = particle1.getGeometricParameter(RADIUS);
+	double radius2 = particle2.getGeometricParameter(RADIUS);
+	double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
+	
+	// Calculations
+	double overlap = radius1 + radius2 - distance;
+	
+	if(overlap > 0)
+	{
+		
+	}
+	else
+	{
+		force = nullVector3D();
+	}
+// This is the code presented by the authors:
+/*
+  double dx=normalize(p1.x()-p2.x(),lx);
+  double dy=normalize(p1.y()-p2.y(),ly);
+  double rr=sqrt(dx*dx+dy*dy);
+  double r1=p1.r();
+  double r2=p2.r();
+  double xi=r1+r2-rr;
+
+  if(xi>0){
+	  
+    double Y = p1.Y * p2.Y / ( p1.Y + p2.Y );
+    double A = 0.5 * (p1.A + p2.A);
+    double mu = ( p1.mu < p2.mu ? p1.mu : p2.mu );
+    double gamma = ( p1.gamma < p2.gamma ? p1.gamma : p2.gamma );
+    double reff = (r1*r2)/(r1+r2);
+    double dvx = p1.vx()-p2.vx();
+    double dvy = p1.vy()-p2.vy();
+    double rr_rez = 1/rr;
+    double ex = dx*rr_rez;
+    double ey = dy*rr_rez;
+    double xidot = -(ex*dvx+ey*dvy);
+    double vtrel = -dvx*ey + dvy*ex + p1.omega()*p1.r()-p2.omega()*p2.r();
+    double fn = sqrt(xi)*Y*sqrt(reff)*(xi+A*xidot);
+    double ft = -gamma*vtrel;
+
+    if(fn<0) fn=0;
+	
+    if(ft<-mu*fn) ft=-mu*fn;
+	
+    if(ft>mu*fn) ft=mu*fn;
+	
+    if(p1.ptype()==0) {
+      p1.add_force(Vector(fn*ex-ft*ey, fn*ey+ft*ex, r1*ft));
+    }
+	
+    if(p2.ptype()==0) {
+      p2.add_force(Vector(-fn*ex+ft*ey, -fn*ey-ft*ex, -r2*ft));
+    }
+  }
+ */
+ 
+	// Change this:
+	return force;
+}
+
 /*
 
 DoubleVector ForceModel::linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction ){
