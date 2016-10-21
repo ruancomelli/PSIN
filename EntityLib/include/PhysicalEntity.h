@@ -74,7 +74,7 @@ class PhysicalEntity: public Entity
 		
 	private:
 		int taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
-		int dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
+		static int dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
 
 		DoubleVector scalarProperty;
 		DoubleVector2D vectorialProperty;
