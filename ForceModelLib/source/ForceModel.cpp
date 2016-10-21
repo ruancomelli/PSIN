@@ -50,7 +50,7 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVect
 }
 
 
-DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, int predictionOrder, double dt){
+DoubleVector2D ForceModel::gearCorrector(const DoubleVector2D & predictedVector, const DoubleVector & doubleDerivative, const int predictionOrder, const double dt){
 
 	DoubleVector2D correctedVector = predictedVector;
 	DoubleVector correctorConstants(predictionOrder + 1);
