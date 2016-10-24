@@ -42,7 +42,7 @@ class PhysicalEntity: public Entity
 	public:
 		// ---- Constructors ----
 		PhysicalEntity();
-		PhysicalEntity(const int taylorOrder, const int dimension, const int handle = -1);
+		PhysicalEntity(const int taylorOrder, const int dim, const int handle = -1);
 		/*PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
 			This is commented because this function seems unnecessary.	*/
 		// ---- Spatial localization ----
@@ -86,7 +86,7 @@ class PhysicalEntity: public Entity
 		
 		void reservePositionOrientationMemory(void);
 		void reservePropertyMemory(void);
-		void setDimension(const int dimension);
+		static void setDimension(const int dim);
 };
 
 #endif

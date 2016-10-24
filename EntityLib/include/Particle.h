@@ -19,8 +19,13 @@ class Particle: public PhysicalEntity
 		void setResultingForce(Vector3D force){ this->resultingForce = force; }
 		Vector3D getResultingForce(void) const { return this->resultingForce; }
 		
+		void addTorque(Vector3D torque){ this->resultingTorque += torque; }
+		void setResultingTorque(Vector3D torque){ this->resultingTorque = torque; }
+		Vector3D getResultingTorque(void) const { return this->resultingTorque; }
+		
 	private:
 		Vector3D resultingForce;
+		Vector3D resultingTorque;
 }; // class Particle
 
 #endif
