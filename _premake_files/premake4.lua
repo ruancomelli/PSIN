@@ -139,7 +139,6 @@ configuration {}
 include "../UtilsLibSpecificTest"
 include "../SimulationTest"
 include "../ForceModelLibTest"
-include "../FallingBall"
 include "../CollidingSpheres"
 include "../CollidingParticles"
 
