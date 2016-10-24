@@ -1,6 +1,6 @@
 #include "ForceModel.h"
 
-int main(int argc, char **argv){
+int main(){
 
 	{// taylorPredictor test
 		int predictionOrder = 3;
@@ -22,7 +22,7 @@ int main(int argc, char **argv){
 	{// viscoelasticSpheres test
 		SphericalParticle particle1(3,3);
 		SphericalParticle particle2(3,3);
-		Vector3D vectorViscoelasticSphere = ForceModel::viscoelasticSpheres(particle1, particle2);
+		ForceModel::viscoelasticSpheres(particle1, particle2);
 	}
 
 	{// gearCorrector test
