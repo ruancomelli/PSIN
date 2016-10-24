@@ -2,13 +2,13 @@ _build/*
 _tests/*
 _lib/*
 _apps/*
+_output/*
 
 _premake_files/premake4.exe
 _premake_files/premake4
 
 **.csv
 **.txt
-**.m
 **.dat
 **.stackdump
 **.exe
