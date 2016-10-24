@@ -35,7 +35,7 @@ int main(int argc, char **argv){
 
 	// Initialize particles
 	// mass
-	double m1 = 100;
+	double m1 = 100.0;
 	double m2 = 10.0;
 
 	// radius
@@ -65,19 +65,19 @@ int main(int argc, char **argv){
 	particle1.setScalarProperty( VOLUME, 4 * PI * r1*r1*r1 / 3 );
 	particle2.setScalarProperty( VOLUME, 4 * PI * r2*r2*r2 / 3 );
 
-	particle1.setScalarProperty( DISSIPATIVE_CONSTANT, 0 );
-	particle2.setScalarProperty( DISSIPATIVE_CONSTANT, 0 );
+	particle1.setScalarProperty( DISSIPATIVE_CONSTANT, 1.0 );	// A
+	particle2.setScalarProperty( DISSIPATIVE_CONSTANT, 1.0 );
 
-	particle1.setScalarProperty( POISSON_RATIO, 0.3 );
+	particle1.setScalarProperty( POISSON_RATIO, 0.3 );			// \nu
 	particle2.setScalarProperty( POISSON_RATIO, 0.4 );
 
-	particle1.setScalarProperty( ELASTIC_MODULUS, 1e+6 );
+	particle1.setScalarProperty( ELASTIC_MODULUS, 1e+6 );		// E or Y
 	particle2.setScalarProperty( ELASTIC_MODULUS, 1e+5 );
 
-	particle1.setScalarProperty( TANGENTIAL_DAMPING, 0.8 );
-	particle2.setScalarProperty( TANGENTIAL_DAMPING, 10 );
+	particle1.setScalarProperty( TANGENTIAL_DAMPING, 0.8 );		// \gamma
+	particle2.setScalarProperty( TANGENTIAL_DAMPING, 0.7 );
 
-	particle1.setScalarProperty( VISCOSITY, 1.308e-3 );
+	particle1.setScalarProperty( VISCOSITY, 1.308e-3 );			// \mu
 	particle2.setScalarProperty( VISCOSITY, 1.002e-3 );
 
 	
@@ -121,11 +121,11 @@ int main(int argc, char **argv){
 
 			ForceModel::viscoelasticSpheres( particle1, particle2 );
 
-			ForceModel::correctPosition( particle1 , taylorOrder, timeStep);
-			ForceModel::correctPosition( particle2 , taylorOrder, timeStep);
-
-			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep);
-			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep);
+			ForceModel::correctPosition( particle1 , taylorOrder, timeStep );
+			ForceModel::correctPosition( particle2 , taylorOrder, timeStep );
+			
+			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep );
+			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep );
 		}
 		else
 		{
@@ -135,11 +135,11 @@ int main(int argc, char **argv){
 			particle1.setOrientation( ForceModel::taylorPredictor( particle1.getOrientation(), 2, timeStep ) );
 			particle2.setOrientation( ForceModel::taylorPredictor( particle2.getOrientation(), 2, timeStep ) );
 
-			ForceModel::correctPosition( particle1 , taylorOrder, timeStep);
-			ForceModel::correctPosition( particle2 , taylorOrder, timeStep);
+			ForceModel::correctPosition( particle1 , taylorOrder, timeStep );
+			ForceModel::correctPosition( particle2 , taylorOrder, timeStep );
 
-			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep);
-			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep);
+			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep );
+			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep );
 		}
 
 

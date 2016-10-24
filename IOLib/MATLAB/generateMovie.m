@@ -36,11 +36,11 @@ nDimensions = size(inputMatrix, 2) - 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 outputPath = '../../_output/';
 video = VideoWriter([outputPath, 'outputVideo.avi']);
-figure
+figure('Visible', 'off');
 open(video)
 F(nTimeSteps) = struct('cdata',[],'colormap',[]);
 for j = 1:timeJump:nTimeSteps
-    title(num2str(inputCell{1}((j-1)*(nDimensions+1) + 1, 1)));
+    title([num2str(inputCell{1}((j-1)*(nDimensions+1) + 1, 1)), 's']);
     viscircles([inputCell{1}((j-1)*(nDimensions+1) + 2, 2), inputCell{1}((j-1)*(nDimensions+1) + 2, 3); inputCell{2}((j-1)*(nDimensions+1) + 2, 2), inputCell{2}((j-1)*(nDimensions+1) + 2, 3)], [radius1; radius2]);
     hold off
     axis([-15, 15, -15, 15]);

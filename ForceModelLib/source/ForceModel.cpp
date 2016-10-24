@@ -128,7 +128,7 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		
 		double poissonRatio1 = particle1.getScalarProperty( POISSON_RATIO );
 		double poissonRatio2 = particle2.getScalarProperty( POISSON_RATIO );
-												
+
 		double tangentialDamping1 = particle1.getScalarProperty( TANGENTIAL_DAMPING );
 		double tangentialDamping2 = particle2.getScalarProperty( TANGENTIAL_DAMPING );
 		double effectiveTangentialDamping = min( tangentialDamping1 , tangentialDamping2 );
@@ -141,7 +141,7 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		// Calculate normal force
 		double overlapDerivative = dot(positionDifference, velocityDifference) / positionDifference.length();
 		double term1 = (4/3) * sqrt(effectiveRadius);
-		double term2 = sqrt(overlap) * (overlap + 0.5*(dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
+		double term2 = sqrt(overlap) * (overlap + 0.5 * (dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
 		double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
 		
 		double normalForceModulus = max( term1 * term2 / term3 , 0.0 );
