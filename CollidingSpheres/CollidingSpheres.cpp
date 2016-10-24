@@ -8,6 +8,8 @@
 #include <ForceModel.h>
 #include <SphericalParticle.h>
 
+const double PI = 3.141592653589793;
+
 using namespace std;
 
 int main(int argc, char **argv){
@@ -21,17 +23,25 @@ int main(int argc, char **argv){
 	Vector3D zVersor(0.0, 0.0, 1.0);
 	
 	// Initialize gravity
-	Vector3D gravity(0.0, 0.0, 0.0);
+	Vector3D gravity(0.0, -0.1, 0.0);
 	
 	// Simulation data
 	double initialTime = 0.0;
-	double timeStep = 0.1;
+	double timeStep = 0.01;
 	double finalTime = 15.0;
 	
 	int taylorOrder = 3;
-	int dimension = 2;
+	int dimension = 3;
 
 	// Initialize particles
+	// mass
+	double m1 = 100;
+	double m2 = 10.0;
+
+	// radius
+	double r1 = 1.0;
+	double r2 = 0.5;
+	
 	SphericalParticle particle1( taylorOrder, dimension, 1 );
 	SphericalParticle particle2( taylorOrder, dimension, 2 );
 
@@ -43,11 +53,32 @@ int main(int argc, char **argv){
 	particle2.setPosition(1, 0.0, 0.0, 0.0);
 	particle2.setPosition(2, 0.0, 0.0, 0.0);
 
-	particle1.setGeometricParameter( RADIUS, 1 );
-	particle2.setGeometricParameter( RADIUS, 0.5 );
+	particle1.setGeometricParameter( RADIUS, r1 );
+	particle2.setGeometricParameter( RADIUS, r2 );
 
-	particle1.setScalarProperty(MASS, 100.0);
-	particle2.setScalarProperty(MASS, 10.0);
+	particle1.setScalarProperty(MASS, m1);
+	particle2.setScalarProperty(MASS, m2);
+
+	particle1.setScalarProperty( MOMENT_OF_INERTIA, 2 * m1 * r1*r1 / 5 );
+	particle2.setScalarProperty( MOMENT_OF_INERTIA, 2 * m2 * r2*r2 / 5 );
+
+	particle1.setScalarProperty( VOLUME, 4 * PI * r1*r1*r1 / 3 );
+	particle2.setScalarProperty( VOLUME, 4 * PI * r2*r2*r2 / 3 );
+
+	particle1.setScalarProperty( DISSIPATIVE_CONSTANT, 0 );
+	particle2.setScalarProperty( DISSIPATIVE_CONSTANT, 0 );
+
+	particle1.setScalarProperty( POISSON_RATIO, 0.3 );
+	particle2.setScalarProperty( POISSON_RATIO, 0.4 );
+
+	particle1.setScalarProperty( ELASTIC_MODULUS, 1e+6 );
+	particle2.setScalarProperty( ELASTIC_MODULUS, 1e+5 );
+
+	particle1.setScalarProperty( TANGENTIAL_DAMPING, 0.8 );
+	particle2.setScalarProperty( TANGENTIAL_DAMPING, 10 );
+
+	particle1.setScalarProperty( VISCOSITY, 1.308e-3 );
+	particle2.setScalarProperty( VISCOSITY, 1.002e-3 );
 
 	
 	// Output
@@ -66,9 +97,12 @@ int main(int argc, char **argv){
 	// Simulation
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 
-		// Set forces to zero
+		// Set forces and torques to zero
 		particle1.setResultingForce(nullVector3D());
 		particle2.setResultingForce(nullVector3D());
+
+		particle1.setResultingTorque(nullVector3D());
+		particle2.setResultingTorque(nullVector3D());
 
 		// Body forces
 		particle1.addForce(particle1.getScalarProperty(MASS) * gravity);
@@ -78,10 +112,35 @@ int main(int argc, char **argv){
 		if(particle1.touch(particle2))	// If particles are in touch
 		{
 			cout << "Collision Instant: " << t << endl;
-		}
 
-		particle1.setPosition(ForceModel::taylorPredictor( particle1.getPosition(), 2, timeStep ));
-		particle2.setPosition(ForceModel::taylorPredictor( particle2.getPosition(), 2, timeStep ));
+			particle1.setPosition( ForceModel::taylorPredictor( particle1.getPosition(), taylorOrder, timeStep ) );
+			particle2.setPosition( ForceModel::taylorPredictor( particle2.getPosition(), taylorOrder, timeStep ) );
+
+			particle1.setOrientation( ForceModel::taylorPredictor( particle1.getOrientation(), taylorOrder, timeStep ) );
+			particle2.setOrientation( ForceModel::taylorPredictor( particle2.getOrientation(), taylorOrder, timeStep ) );
+
+			ForceModel::viscoelasticSpheres( particle1, particle2 );
+
+			ForceModel::correctPosition( particle1 , taylorOrder, timeStep);
+			ForceModel::correctPosition( particle2 , taylorOrder, timeStep);
+
+			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep);
+			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep);
+		}
+		else
+		{
+			particle1.setPosition(ForceModel::taylorPredictor( particle1.getPosition(), 2, timeStep ));
+			particle2.setPosition(ForceModel::taylorPredictor( particle2.getPosition(), 2, timeStep ));
+
+			particle1.setOrientation( ForceModel::taylorPredictor( particle1.getOrientation(), 2, timeStep ) );
+			particle2.setOrientation( ForceModel::taylorPredictor( particle2.getOrientation(), 2, timeStep ) );
+
+			ForceModel::correctPosition( particle1 , taylorOrder, timeStep);
+			ForceModel::correctPosition( particle2 , taylorOrder, timeStep);
+
+			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep);
+			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep);
+		}
 
 
 		// ----- Saving to file -----

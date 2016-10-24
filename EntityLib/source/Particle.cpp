@@ -1,6 +1,6 @@
 #include <Particle.h>
 
-Particle::Particle() : PhysicalEntity(2, 3) 
+Particle::Particle() : PhysicalEntity(3, 3) 
 {
 	
 }

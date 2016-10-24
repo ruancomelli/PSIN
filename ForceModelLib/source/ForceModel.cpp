@@ -13,7 +13,7 @@
 		For a sufficiently small dt, we can approximate f(t+dt) by its expansion is Taylor's sum and writing r = 0
 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
 */
-vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt ){
+vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt ){
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
@@ -23,10 +23,8 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVect
 	vector<Vector3D> predictedVector;
 	Vector3D taylorExpansion;
 
-	int nDimensions = 3;
-
 	// initialize predictedVector and taylorExpansion
-	predictedVector.resize( predictionOrder + 1 );
+	predictedVector.resize( currentVector.size() );
 
 	// predict position
 	for( int i = 0; i <= predictionOrder; ++i ){
@@ -48,7 +46,6 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> currentVect
 
 	return predictedVector;
 }
-
 
 vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt){
 
@@ -83,7 +80,7 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 	}
 
 	for(int i = 0 ; i <= predictionOrder ; ++i){
-		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2.0) ) * doubleDerivative;
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2.0) ) * (doubleDerivative - predictedVector[2]);
 	}
 
 	return correctedVector;
@@ -91,7 +88,9 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 
 // viscoelasticSpheres:
 //		Calculates normal and tangential forces between two spherical particles according to equation (2.14) (see reference)
-void ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2, Vector3D normalForce, Vector3D tangentialForce)
+//		normalForce is the normal force applied BY particle2 ON particle1
+//		tangentialForce is the tangential force applied BY particle2 ON particle1
+void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalParticle & particle2)
 {	
 	Vector3D force;
 
@@ -107,86 +106,89 @@ void ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParti
 	
 	if(overlap > 0)
 	{
-		double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
-		double elasticModulus1 = particle1.getScalarProperty( ELASTIC_MODULUS );
-		double elasticModulus2 = particle2.getScalarProperty( ELASTIC_MODULUS );
-		
-		double dissipativeConstant1 = particle1.getScalarProperty( DISSIPATIVE_CONSTANT );
-		double dissipativeConstant2 = particle2.getScalarProperty( DISSIPATIVE_CONSTANT );
-			
-		double viscosity1 = particle1.getScalarProperty( VISCOSITY );
-		double viscosity2 = particle2.getScalarProperty( VISCOSITY );
-		
-		double poissonRatio1 = particle1.getScalarProperty( POISSON_RATIO );
-		double poissonRatio2 = particle2.getScalarProperty( POISSON_RATIO );
-		
 		Vector3D velocity1 = particle1.getPosition( 1 );
 		Vector3D velocity2 = particle2.getPosition( 1 );
 		
 		Vector3D positionDifference = position2 - position1;
 		Vector3D velocityDifference = velocity2 - velocity1;
 		
+		Vector3D normalVersor = positionDifference / positionDifference.length();
+		
+		Vector3D angularVelocity1 = particle1.getOrientation( 1 );
+		Vector3D angularVelocity2 = particle2.getOrientation( 1 );
+		
+		// Get physical properties and calculate effective parameters
+		double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
+		
+		double elasticModulus1 = particle1.getScalarProperty( ELASTIC_MODULUS );
+		double elasticModulus2 = particle2.getScalarProperty( ELASTIC_MODULUS );
+		
+		double dissipativeConstant1 = particle1.getScalarProperty( DISSIPATIVE_CONSTANT );
+		double dissipativeConstant2 = particle2.getScalarProperty( DISSIPATIVE_CONSTANT );
+		
+		double poissonRatio1 = particle1.getScalarProperty( POISSON_RATIO );
+		double poissonRatio2 = particle2.getScalarProperty( POISSON_RATIO );
+												
+		double tangentialDamping1 = particle1.getScalarProperty( TANGENTIAL_DAMPING );
+		double tangentialDamping2 = particle2.getScalarProperty( TANGENTIAL_DAMPING );
+		double effectiveTangentialDamping = min( tangentialDamping1 , tangentialDamping2 );
+			
+		double viscosity1 = particle1.getScalarProperty( VISCOSITY );
+		double viscosity2 = particle2.getScalarProperty( VISCOSITY );
+		double effectiveViscosity = min( viscosity1, viscosity2 );
+		
+		
 		// Calculate normal force
 		double overlapDerivative = dot(positionDifference, velocityDifference) / positionDifference.length();
 		double term1 = (4/3) * sqrt(effectiveRadius);
-		double term2 = sqrt(overlap) * (overlap + 0.5*(dissipativeConstant1 + dissipativeConstant2) * overlapDerivative )
+		double term2 = sqrt(overlap) * (overlap + 0.5*(dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
 		double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
-		double normalForceModulus = term1 * term2 / term3;
+		
+		double normalForceModulus = max( term1 * term2 / term3 , 0.0 );
+		
+		Vector3D normalForce = - normalForceModulus * normalVersor;
+		
+		particle1.addForce( normalForce );
+		particle2.addForce( - normalForce );
+		
+		// Calculate tangential force
+		Vector3D contactPoint = radius1 * normalVersor + position1;
+		
+		Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
+		Vector3D relativeTangentialRotationalVelocity =	cross(angularVelocity2, contactPoint - position1) -
+														cross(angularVelocity2, contactPoint - position2);
+		
+		Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
+		Vector3D tangentialVersor = relativeTangentialVelocity / relativeTangentialVelocity.length();
+		
+		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , effectiveViscosity * abs(normalForceModulus) ) *
+									tangentialVersor;
+									
+		particle1.addTorque( cross(contactPoint - position1, tangentialForce) );
+		particle2.addTorque( cross(contactPoint - position2, - tangentialForce) );
 	}
-	else
-	{
-		force = nullVector3D();
-	}
+	// else, no forces and no torques are added.
 }
 
-// This is the code presented by the authors:
-/*
-  double dx=normalize(p1.x()-p2.x(),lx);
-  double dy=normalize(p1.y()-p2.y(),ly);
-  double rr=sqrt(dx*dx+dy*dy);
-  double r1=p1.r();
-  double r2=p2.r();
-  double xi=r1+r2-rr;
 
-  if(xi>0){
-	  
-    double Y = p1.Y * p2.Y / ( p1.Y + p2.Y );
-    double A = 0.5 * (p1.A + p2.A);
-    double mu = ( p1.mu < p2.mu ? p1.mu : p2.mu );
-    double gamma = ( p1.gamma < p2.gamma ? p1.gamma : p2.gamma );
-    double reff = (r1*r2)/(r1+r2);
-    double dvx = p1.vx()-p2.vx();
-    double dvy = p1.vy()-p2.vy();
-    double rr_rez = 1/rr;
-    double ex = dx*rr_rez;
-    double ey = dy*rr_rez;
-    double xidot = -(ex*dvx+ey*dvy);
-    double vtrel = -dvx*ey + dvy*ex + p1.omega()*p1.r()-p2.omega()*p2.r();
-    double fn = sqrt(xi)*Y*sqrt(reff)*(xi+A*xidot);
-    double ft = -gamma*vtrel;
 
-    if(fn<0) fn=0;
+void ForceModel::correctPosition( SphericalParticle & particle, const int predictionOrder, double dt )
+{
+	vector<Vector3D> position = particle.getPosition();
+	Vector3D acceleration = particle.getResultingForce() / particle.getScalarProperty( MASS );
+	vector<Vector3D> correctedPosition = gearCorrector( position, acceleration, predictionOrder, dt);
 	
-    if(ft<-mu*fn) ft=-mu*fn;
+	particle.setPosition(correctedPosition);
+}
+
+void ForceModel::correctOrientation( SphericalParticle & particle, const int predictionOrder, double dt )
+{
+	vector<Vector3D> orientation = particle.getOrientation();
+	Vector3D angularAcceleration = particle.getResultingTorque() / particle.getScalarProperty( MOMENT_OF_INERTIA );
+	vector<Vector3D> correctedOrientation = gearCorrector( orientation, angularAcceleration, predictionOrder, dt);
 	
-    if(ft>mu*fn) ft=mu*fn;
-	
-    if(p1.ptype()==0) {
-      p1.add_force(Vector(fn*ex-ft*ey, fn*ey+ft*ex, r1*ft));
-    }
-	
-    if(p2.ptype()==0) {
-      p2.add_force(Vector(-fn*ex+ft*ey, -fn*ey-ft*ex, -r2*ft));
-    }
-  }
- */
-
-
-
-
-
-
-
+	particle.setOrientation(correctedOrientation);
+}
 
 /*
 

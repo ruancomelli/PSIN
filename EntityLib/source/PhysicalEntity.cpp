@@ -1,6 +1,8 @@
 #include <PhysicalEntity.h>
 
 // ------------------------------- Constructor -------------------------------
+int PhysicalEntity::dimension = 3;
+
 PhysicalEntity::PhysicalEntity()
 	: Entity(), geometry(DEFAULT)
 {
@@ -12,12 +14,12 @@ PhysicalEntity::PhysicalEntity()
 	reservePositionOrientationMemory();
 }
 
-PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dimension, const int handle)
+PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
 	: Entity(handle), geometry(DEFAULT)
 {
 	// Set order and dimension
 	setTaylorOrder(taylorOrder);
-	setDimension(dimension);
+	setDimension(dim);
 
 	// Alloc memory to properties
 	reservePropertyMemory();
@@ -185,14 +187,14 @@ void PhysicalEntity::reservePropertyMemory(void)
 	}
 }
 
-void PhysicalEntity::setDimension(const int dimension)
+void PhysicalEntity::setDimension(const int dim)
 {
-	if( (dimension != 2) && (dimension != 3))
+	if( (dim != 2) && (dim != 3))
 	{
-		throw runtime_error("Invalid dimension value inserted. dimension must be 2 or 3.");
+		throw runtime_error("Invalid dimension value inserted. Dimension must be 2 or 3.");
 	}
 	else
 	{
-		this->dimension = dimension;
+		dimension = dim;
 	}
 }

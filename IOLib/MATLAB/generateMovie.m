@@ -2,14 +2,15 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configuration:
-path = '../../_output/';    % Path where to look for input
+inputPath = '../../_output/';    % Path where to look for input
 nParticles = 2;             % Number of particles
+timeJump = 10;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 inputCell = cell(nParticles,1);
 
 for k = 1 : nParticles
-    files(k, :) = [path, 'output', int2str(k), '.txt']; % Input files
+    files(k, :) = [inputPath, 'output', int2str(k), '.txt']; % Input files
     inputCell{k} = csvread(files(k, :));                % Data storage
 end
 
@@ -33,21 +34,18 @@ nDimensions = size(inputMatrix, 2) - 1;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+outputPath = '../../_output/';
+video = VideoWriter([outputPath, 'outputVideo.avi']);
 figure
+open(video)
 F(nTimeSteps) = struct('cdata',[],'colormap',[]);
-for j = 1:nTimeSteps
+for j = 1:timeJump:nTimeSteps
     title(num2str(inputCell{1}((j-1)*(nDimensions+1) + 1, 1)));
     viscircles([inputCell{1}((j-1)*(nDimensions+1) + 2, 2), inputCell{1}((j-1)*(nDimensions+1) + 2, 3); inputCell{2}((j-1)*(nDimensions+1) + 2, 2), inputCell{2}((j-1)*(nDimensions+1) + 2, 3)], [radius1; radius2]);
     hold off
-    %plot(inputCell{1}((j-1)*(nDimensions+1) + 2, 2), inputCell{1}((j-1)*(nDimensions+1) + 2, 3),'b*' ,inputCell{2}((j-1)*(nDimensions+1) + 2, 2), inputCell{2}((j-1)*(nDimensions+1) + 2, 3), 'ro');
     axis([-15, 15, -15, 15]);
     F(j) = getframe(gcf);
+    writeVideo(video, F(j));
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-figure
-axes('Position',[0 0 1 1])
-movie(F,1);
+close(video);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

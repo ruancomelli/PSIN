@@ -28,14 +28,17 @@ inline unsigned long factorial( unsigned n ){
 class ForceModel
 {
 	public:	
-		static vector<Vector3D> taylorPredictor( const vector<Vector3D> currentVector, const int predictionOrder, const double dt );
+		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
 		// Force calculation models
-		static void ForceModel::viscoelasticSpheres(SphericalParticle particle1, SphericalParticle particle2, Vector3D normalForce, Vector3D tangentialForce);
+		static void viscoelasticSpheres( SphericalParticle & particle1, SphericalParticle & particle2);
 		
 		//static DoubleVector linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction );
 			// This has to be implemented
-			
+		
+		static void correctPosition( SphericalParticle & particle, const int predictionOrder, double dt );
+		static void correctOrientation( SphericalParticle & particle, const int predictionOrder, double dt );
+		
 		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
 	
 	private:

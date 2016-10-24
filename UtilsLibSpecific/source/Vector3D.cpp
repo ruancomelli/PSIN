@@ -135,6 +135,10 @@ Vector3D operator /( const Vector3D& v, const double& scalar ){
 	return Vector3D( v.x()/scalar, v.y()/scalar, v.z()/scalar );
 }
 
+Vector3D operator - (const Vector3D & v){
+	return Vector3D( -v.x(), -v.y(), -v.z() );
+}
+
 Vector3D nullVector3D(void){
 	return Vector3D(0., 0., 0.);
 }
