@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# 1. Download the boost from the internet.
+# 2. Paste this file into the Boost folder (whrever it is).
+# 3. Run the command "sudo ./auto_boost_install"
+# 4. Insert your password and wait it compile everything.
+# 5. Enjoy.
+
+# The Boost will be installed in '/usr/'.
+# The '.hpp' files will be copied to '/usr/include/'
+# and the libs to '/usr/lib/' (everything inside
+# folders, to organize).
+# The Boost library the can be easily included and used
+# by the user simply using a '#include "whatever.h"',
+# '#include <whatever.h>', '#include "whatever.hpp"'
+# or '#include <whatever.hpp>' (dependind of the extension).
+
+# This command take a while to execute completely. It will
+# install all Boost libs. If you want to install just some
+# of them, see the Boost documentation.
+
+sudo ./bootstrap.sh --prefix=/usr/ --exec-prefix=/usr/
+sudo ./b2 install
