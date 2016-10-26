@@ -1,2 +1,2 @@
-premake4 --file="premake4.lua" vs2010
+premake4 --file="premake4_vs2010.lua" vs2010
 pause

@@ -1,2 +1,2 @@
 #!/bin/bash
-premake4 --file=premake4.lua gmake
+premake4 --file=premake4_linux.lua gmake
