@@ -1,14 +1,18 @@
+// std
+#define _USE_MATH_DEFINES
+
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <fstream>
+
+// our code
 #include <Particle.h>
 #include <Vector.h>
 #include <setVector.h>
 #include <ForceModel.h>
+#include <Mathematics.h>
 #include <SphericalParticle.h>
-
-const double PI = 3.141592653589793;
 
 using namespace std;
 
@@ -45,7 +49,7 @@ int main(int argc, char **argv){
 	SphericalParticle particle1( taylorOrder, dimension, 1 );
 	SphericalParticle particle2( taylorOrder, dimension, 2 );
 
-	particle1.setPosition(0, 0.0, 0.0, 0.0);
+	particle1.setPosition(0, 0.0, -0.5, 0.0);
 	particle1.setPosition(1, 1.0, 0.0, 0.0);
 	particle1.setPosition(2, 0.0, 0.0, 0.0);
 		
@@ -62,8 +66,8 @@ int main(int argc, char **argv){
 	particle1.setScalarProperty( MOMENT_OF_INERTIA, 2 * m1 * r1*r1 / 5 );
 	particle2.setScalarProperty( MOMENT_OF_INERTIA, 2 * m2 * r2*r2 / 5 );
 
-	particle1.setScalarProperty( VOLUME, 4 * PI * r1*r1*r1 / 3 );
-	particle2.setScalarProperty( VOLUME, 4 * PI * r2*r2*r2 / 3 );
+	particle1.setScalarProperty( VOLUME, 4 * M_PI * r1*r1*r1 / 3 );
+	particle2.setScalarProperty( VOLUME, 4 * M_PI * r2*r2*r2 / 3 );
 
 	particle1.setScalarProperty( DISSIPATIVE_CONSTANT, 1.0 );	// A
 	particle2.setScalarProperty( DISSIPATIVE_CONSTANT, 1.0 );

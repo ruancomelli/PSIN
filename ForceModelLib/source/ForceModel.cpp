@@ -139,7 +139,7 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		
 		
 		// Calculate normal force
-		double overlapDerivative = dot(positionDifference, velocityDifference) / positionDifference.length();
+		double overlapDerivative = - dot(positionDifference, velocityDifference) / positionDifference.length();
 		double term1 = (4/3) * sqrt(effectiveRadius);
 		double term2 = sqrt(overlap) * (overlap + 0.5 * (dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
 		double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
@@ -190,37 +190,6 @@ void ForceModel::correctOrientation( SphericalParticle & particle, const int pre
 	particle.setOrientation(correctedOrientation);
 }
 
-/*
-
-DoubleVector ForceModel::linearDashpotForce(Particle particle1, Particle particle2, string method, string interaction ){
-	// particle1 and particle2 are the particles between which the interaction must be calculated
-	// mehtod specifies which discretization method must be used
-	// method must be "Integral"
-	// In the future, method should be able to be "FiniteDifference"
-	// interaction specifies the kind of interaction that must be calculated
-	// interaction must be "Impulse"
-	// In the future, interaction should be able to be "Force"
-
-	transform(interaction.begin(), interaction.end(), interaction.begin(), toupper);
-
-	vector <double> normalInteraction;
-
-	normalInteraction.resize(3);
-
-	if (interaction.compare("IMPULSE") == 0)
-		normalInteraction = linearDashpotForceImpulseCalculationViaIntegration(particle1, particle2, method);
-	else if (interaction.compare("FORCE") == 0)
-		normalInteraction = linearDashpotForceForceCalculationViaIntegration(particle1, particle2, method);
-
-	return normalInteraction;
+void ForceModel::linearDashpotForce( SphericalParticle & particle1, SphericalParticle & particle2 ){
+	/* TO BE IMPLEMENTED */
 }
-
-DoubleVector ForceModel::linearDashpotForceImpulseCalculationViaIntegration(Particle particle1, Particle particle2, string method){
-
-}
-
-DoubleVector linearDashpotForceForceCalculationViaIntegration(Particle particle1, Particle particle2, string method){
-
-}
-
-*/
