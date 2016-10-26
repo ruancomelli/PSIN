@@ -29,6 +29,7 @@ links{
 configuration "x64"
 
 libdirs {
+	"../../external_content/boost-1.55/linux/lib/x64",
 }
 
 
@@ -53,11 +54,6 @@ includedirs {
 
 libdirs {
 }
-
-links{
-}
-
-configuration {"x64"}
 
 links{
 }
