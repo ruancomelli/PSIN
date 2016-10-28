@@ -23,4 +23,7 @@
 	#define checkClose BOOST_CHECK_CLOSE
 	#define checkEqual BOOST_CHECK_EQUAL
 
+//	checkEqual( toCheck, correct );
+//	checkClose( toCheck, correct , tolerance );
+
 #endif

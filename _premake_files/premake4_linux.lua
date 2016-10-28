@@ -62,6 +62,7 @@ links{
 configuration {}
 
 --include "../EFVLibTest"
+include "../EntityLibTest"
 include "../UtilsLibSpecificTest"
 include "../SimulationTest"
 include "../ForceModelLibTest"
