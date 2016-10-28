@@ -28,3 +28,36 @@ TestCase( ForEach )
 		checkClose(j , i , 1.0e-12);
 	}
 }
+
+TestCase( Vector3DTest )
+{
+	// Passing threee parameters to constructor
+	double 		x1 = 1.0;
+	double 		y1 = 2.0;
+	double 		z1 = 3.0;
+	Vector3D 	first(x1, y1, z1);
+
+	checkEqual( first.x() , x1 );
+	checkEqual( first.y() , y1 );
+	checkEqual( first.z() , z1 );
+
+	double		def = 0.0;
+	double 		x2 = 4.0;
+	double 		y2 = 5.0;
+	double 		z2 = 6.0;
+	Vector3D 	second;
+	
+	// Default values
+	checkEqual( second.y() , def );
+	checkEqual( second.x() , def );
+	checkEqual( second.z() , def );
+
+	second.x() = x2;
+	second.y() = y2;
+	second.z() = z2;
+	
+	// Values set
+	checkEqual( second.x() , x2 );
+	checkEqual( second.y() , y2 );
+	checkEqual( second.z() , z2 );
+}
