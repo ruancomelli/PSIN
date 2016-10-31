@@ -1,6 +1,4 @@
 // std
-#define _USE_MATH_DEFINES
-
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -14,7 +12,12 @@
 #include <Mathematics.h>
 #include <SphericalParticle.h>
 
+// boost
+#include <boost/math/constants/constants.hpp>
+
 using namespace std;
+
+using boost::math::constants::pi;
 
 int main(int argc, char **argv){
 
@@ -66,8 +69,8 @@ int main(int argc, char **argv){
 	particle1.setScalarProperty( MOMENT_OF_INERTIA, 2 * m1 * r1*r1 / 5 );
 	particle2.setScalarProperty( MOMENT_OF_INERTIA, 2 * m2 * r2*r2 / 5 );
 
-	particle1.setScalarProperty( VOLUME, 4 * M_PI * r1*r1*r1 / 3 );
-	particle2.setScalarProperty( VOLUME, 4 * M_PI * r2*r2*r2 / 3 );
+	particle1.setScalarProperty( VOLUME, 4 * pi<double>() * r1*r1*r1 / 3 );
+	particle2.setScalarProperty( VOLUME, 4 * pi<double>() * r2*r2*r2 / 3 );
 
 	particle1.setScalarProperty( DISSIPATIVE_CONSTANT, 1.0 );	// A
 	particle2.setScalarProperty( DISSIPATIVE_CONSTANT, 1.0 );
@@ -90,9 +93,18 @@ int main(int argc, char **argv){
 	string horizontalSeparator = ",";
 
 	ofstream mainOutFile("../_output/output.txt");
-	mainOutFile << "Number of Particles =" << 2 << verticalSeparator;
-	mainOutFile << "Particle1: Radius ="<< particle1.getGeometricParameter(RADIUS) << verticalSeparator;
-	mainOutFile << "Particle2: Radius ="<< particle2.getGeometricParameter(RADIUS) << verticalSeparator;
+	mainOutFile << "Number of Particles = " << 2 << verticalSeparator;
+	mainOutFile << "Particle1: Radius = "<< particle1.getGeometricParameter(RADIUS) << verticalSeparator;
+	mainOutFile << "Particle2: Radius = "<< particle2.getGeometricParameter(RADIUS) << verticalSeparator;
+
+	mainOutFile << "Initial Time Instant = " << initialTime << verticalSeparator;
+	mainOutFile << "Time Step = " << timeStep << verticalSeparator;
+	mainOutFile << "Final Time Instant = " << finalTime << verticalSeparator;
+
+	mainOutFile << "Taylor Expansion Order = " << taylorOrder << verticalSeparator;
+
+	string outputTimeLabel = "Time: ";
+	string outputPositionLabel = "r";
 
 	ofstream outFile1("../_output/output1.txt");
 	ofstream outFile2("../_output/output2.txt");
@@ -148,19 +160,26 @@ int main(int argc, char **argv){
 
 
 		// ----- Saving to file -----
-		outFile1 << t << verticalSeparator;
-		outFile2 << t << verticalSeparator;
+		outFile1 << outputTimeLabel << t << verticalSeparator;
+		outFile2 << outputTimeLabel << t << verticalSeparator;
 
 		// Prints every derivative of particles' position
-		for(int i = 0 ; i <= 2 ; ++i ){
+		for(int i = 0 ; i <= taylorOrder ; ++i ){
 			
 			// Saves each component of the i-th derivative of the positions
-			outFile1 << horizontalSeparator << particle1.getPosition(i).x();
+			/*outFile1 << horizontalSeparator << particle1.getPosition(i).x();
 			outFile2 << horizontalSeparator << particle2.getPosition(i).x();
 			outFile1 << horizontalSeparator << particle1.getPosition(i).y();
 			outFile2 << horizontalSeparator << particle2.getPosition(i).y();
 			outFile1 << horizontalSeparator << particle1.getPosition(i).z();
-			outFile2 << horizontalSeparator << particle2.getPosition(i).z();
+			outFile2 << horizontalSeparator << particle2.getPosition(i).z();*/
+
+			outFile1 << horizontalSeparator << outputPositionLabel << "x" << i << horizontalSeparator << particle1.getPosition(i).x();
+			outFile2 << horizontalSeparator << outputPositionLabel << "x" << i << horizontalSeparator << particle2.getPosition(i).x();
+			outFile1 << horizontalSeparator << outputPositionLabel << "y" << i << horizontalSeparator << particle1.getPosition(i).y();
+			outFile2 << horizontalSeparator << outputPositionLabel << "y" << i << horizontalSeparator << particle2.getPosition(i).y();
+			outFile1 << horizontalSeparator << outputPositionLabel << "z" << i << horizontalSeparator << particle1.getPosition(i).z();
+			outFile2 << horizontalSeparator << outputPositionLabel << "z" << i << horizontalSeparator << particle2.getPosition(i).z();
 			
 			outFile1 << verticalSeparator;
 			outFile2 << verticalSeparator;

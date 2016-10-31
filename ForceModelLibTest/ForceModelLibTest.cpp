@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE EntityLibTest
+#define BOOST_TEST_MODULE ForceModelLibTest
 
 // UtilsLib
 #include <Mathematics.h>
@@ -25,24 +25,24 @@ TestCase( TaylorPredictorTest )
 
 		vector<Vector3D> currentVector(predictionOrder+1);
 		currentVector[0].x() = 1.0;
-		currentVector[0].y() = 3.0;
-		currentVector[0].z() = 15.0;
-		currentVector[1].x() = 4.0;
+		currentVector[1].x() = 3.0;
+		currentVector[2].x() = 15.0;
+		currentVector[0].y() = 4.0;
 		currentVector[1].y() = -5.0;
-		currentVector[1].z() = 8.0;
-		currentVector[2].x() = -1.0;
-		currentVector[2].y() = 2.0;
+		currentVector[2].y() = 8.0;
+		currentVector[0].z() = -1.0;
+		currentVector[1].z() = 2.0;
 		currentVector[2].z() = -5.0;
 
 		vector<Vector3D> solution(predictionOrder+1);
 		solution[0].x() = 4.375;
-		solution[0].y() = 10.5;
-		solution[0].z() = 15.0;
-		solution[1].x() = 2.5;
+		solution[1].x() = 10.5;
+		solution[2].x() = 15.0;
+		solution[0].y() = 2.5;
 		solution[1].y() = -1.0;
-		solution[1].z() = 8.0;
-		solution[2].x() = -0.625;
-		solution[2].y() = -0.5;
+		solution[2].y() = 8.0;
+		solution[0].z() = -0.625;
+		solution[1].z() = -0.5;
 		solution[2].z() = -5.0;
 
 		vector<Vector3D> predictedVector = ForceModel::taylorPredictor( currentVector, predictionOrder, dx );

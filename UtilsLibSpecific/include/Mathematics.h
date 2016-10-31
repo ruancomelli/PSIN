@@ -3,6 +3,10 @@
 #ifndef MATHEMATICS_H
 #define MATHEMATICS_H
 
+#define _USE_MATH_DEFINES
+
+#include <cmath>
+
 // factorial:
 //	Calculates n!, where n is a nonnegative integer
 inline unsigned long factorial( unsigned n ){ 
