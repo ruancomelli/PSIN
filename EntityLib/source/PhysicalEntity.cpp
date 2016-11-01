@@ -153,8 +153,7 @@ GeometryType PhysicalEntity::getGeometry() const
 
 // ------------------------------- Distance and Touching -------------------------------
 double PhysicalEntity::distance(const PhysicalEntity physicalEntity){
-	Vector3D difference = this->position[0] - physicalEntity.position[0];
-	return difference.length();
+	return this->position[0].dist(physicalEntity.position[0]);
 }
 
 // ------------------------------- Auxiliar Functions -------------------------------
