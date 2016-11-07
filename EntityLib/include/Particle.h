@@ -26,6 +26,7 @@ class Particle: public PhysicalEntity
 	private:
 		Vector3D resultingForce;
 		Vector3D resultingTorque;
+		
 }; // class Particle
 
 #endif

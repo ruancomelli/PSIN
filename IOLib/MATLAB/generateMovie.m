@@ -29,6 +29,8 @@ timeStep = inputMatrix( 2 + numberOfDerivatives, 1 );
 nTimeSteps = size(inputMatrix, 1) / (numberOfDerivatives + 1);
 
 nDimensions = size(inputMatrix, 2) - 1;
+
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

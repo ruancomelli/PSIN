@@ -1,16 +1,21 @@
-// std
+// Standard
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <fstream>
 
-// our code
+// EntityLib
 #include <Particle.h>
+#include <SphericalParticle.h>
+
+// UtilsLib
 #include <Vector.h>
 #include <setVector.h>
-#include <ForceModel.h>
 #include <Mathematics.h>
-#include <SphericalParticle.h>
+#include <Foreach.h>
+
+// ForceModelLib
+#include <ForceModel.h>
 
 // boost
 #include <boost/math/constants/constants.hpp>
@@ -39,6 +44,8 @@ int main(int argc, char **argv){
 	
 	int taylorOrder = 3;
 	int dimension = 3;
+	
+	int numberOfParticles = 2;
 
 	// Initialize particles
 	// mass
@@ -87,13 +94,17 @@ int main(int argc, char **argv){
 	particle1.setScalarProperty( VISCOSITY, 1.308e-3 );			// \mu
 	particle2.setScalarProperty( VISCOSITY, 1.002e-3 );
 
+	vector <SphericalParticle> particleVector;
+	particleVector.resize(2);
+	particleVector[0] = particle1;
+	particleVector[1] = particle2;
 	
 	// Output
 	string verticalSeparator = "\n";
 	string horizontalSeparator = ",";
 
 	ofstream mainOutFile("../_output/output.txt");
-	mainOutFile << "Number of Particles = " << 2 << verticalSeparator;
+	mainOutFile << "Number of Particles = " << numberOfParticles << verticalSeparator;
 	mainOutFile << "Particle1: Radius = "<< particle1.getGeometricParameter(RADIUS) << verticalSeparator;
 	mainOutFile << "Particle2: Radius = "<< particle2.getGeometricParameter(RADIUS) << verticalSeparator;
 
@@ -114,11 +125,16 @@ int main(int argc, char **argv){
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 
 		// Set forces and torques to zero
+		foreach( SphericalParticle particle, particleVector ){
+			particle.setResultingForce( nullVector3D() );
+			particle.setResultingTorque( nullVector3D() );
+		}
+		/*
 		particle1.setResultingForce(nullVector3D());
 		particle2.setResultingForce(nullVector3D());
 
 		particle1.setResultingTorque(nullVector3D());
-		particle2.setResultingTorque(nullVector3D());
+		particle2.setResultingTorque(nullVector3D());*/
 
 		// Body forces
 		particle1.addForce(particle1.getScalarProperty(MASS) * gravity);
@@ -171,6 +187,9 @@ int main(int argc, char **argv){
 		for(int i = 0 ; i <= taylorOrder ; ++i ){
 			
 			// Saves each component of the i-th derivative of the positions
+			/*particle1.fwritePosition(outFile1, horizontalSeparator, verticalSeparator);
+			particle2.fwritePosition(outFile2, horizontalSeparator, verticalSeparator);*/
+			
 			outFile1 << horizontalSeparator << particle1.getPosition(i).x();
 			outFile2 << horizontalSeparator << particle2.getPosition(i).x();
 			outFile1 << horizontalSeparator << particle1.getPosition(i).y();
