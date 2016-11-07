@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include <Particle.h>
 
@@ -24,12 +25,16 @@ class SphericalParticle: public Particle
 		void setGeometricParameter(const DoubleVector geometricParameterVector);
 		double getGeometricParameter(const int geometricParameterIdentifier);
 		DoubleVector getGeometricParameter();
+		
 		bool touch(SphericalParticle particle);
+		
+		// ---- Input and Output ----
+		// void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
 		
 	private:
 		DoubleVector geometricParameter;
 		
 		void reserveGeometricParameterMemory(void);
-}; // class Particle
+}; // class SphericalParticle
 
 #endif

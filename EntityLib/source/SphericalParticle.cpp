@@ -49,6 +49,17 @@ bool SphericalParticle::touch(SphericalParticle particle)
 }
 
 
+// ------------------------------- Input and Output Functions -------------------------------
+/* // Why doesn't this work?
+void SphericalParticle::fwritePosition( std::ostream & outFile, const string horizontalSeparator, const string verticalSeparator ){
+	for( int i = 0 ; i <= this->getTaylorOrder() ; ++i ){
+			outFile << horizontalSeparator << this->getPosition(i).x();
+			outFile << horizontalSeparator << this->getPosition(i).y();
+			outFile << horizontalSeparator << this->getPosition(i).z();
+			outFile << verticalSeparator;
+	}
+}*/
+
 // ------------------------------- Auxiliar Functions -------------------------------
 
 void SphericalParticle::reserveGeometricParameterMemory(void)

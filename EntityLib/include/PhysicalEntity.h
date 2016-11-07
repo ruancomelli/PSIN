@@ -66,8 +66,11 @@ class PhysicalEntity: public Entity
 		void setTaylorOrder(const int taylorOrder);
 		void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue);
 		void setScalarProperty(const DoubleVector scalarPropertyVector);
+		
+		int getTaylorOrder(void){ return this->taylorOrder; }
 		double getScalarProperty(const int scalarPropertyIdentifier) const;
 		DoubleVector getScalarProperty() const;
+		
 		
 		// ---- Distance ----
 		double distance(const PhysicalEntity physicalEntity);
