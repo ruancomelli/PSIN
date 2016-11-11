@@ -126,6 +126,7 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		double dissipativeConstant1 = particle1.getScalarProperty( DISSIPATIVE_CONSTANT );
 		double dissipativeConstant2 = particle2.getScalarProperty( DISSIPATIVE_CONSTANT );
 		
+		
 		double poissonRatio1 = particle1.getScalarProperty( POISSON_RATIO );
 		double poissonRatio2 = particle2.getScalarProperty( POISSON_RATIO );
 
@@ -133,9 +134,9 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		double tangentialDamping2 = particle2.getScalarProperty( TANGENTIAL_DAMPING );
 		double effectiveTangentialDamping = min( tangentialDamping1 , tangentialDamping2 );
 			
-		double viscosity1 = particle1.getScalarProperty( VISCOSITY );
-		double viscosity2 = particle2.getScalarProperty( VISCOSITY );
-		double effectiveViscosity = min( viscosity1, viscosity2 );
+		double frictionParameter1 = particle1.getScalarProperty( FRICTION_PARAMETER );
+		double frictionParameter2 = particle2.getScalarProperty( FRICTION_PARAMETER );
+		double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
 		
 		
 		// Calculate normal force
@@ -155,14 +156,30 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		Vector3D contactPoint = radius1 * normalVersor + position1;
 		
 		Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
-		Vector3D relativeTangentialRotationalVelocity =	cross(angularVelocity2, contactPoint - position1) -
+		Vector3D relativeTangentialRotationalVelocity =	cross(angularVelocity1, contactPoint - position1) -
 														cross(angularVelocity2, contactPoint - position2);
 		
 		Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
-		Vector3D tangentialVersor = relativeTangentialVelocity / relativeTangentialVelocity.length();
 		
-		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , effectiveViscosity * abs(normalForceModulus) ) *
+		Vector3D tangentialVersor = relativeTangentialVelocity.length() > 0 ?
+									relativeTangentialVelocity / relativeTangentialVelocity.length() :
+									nullVector3D();
+		
+		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , effectiveFrictionParameter * abs(normalForceModulus) ) *
 									tangentialVersor;
+									
+		/* Debbugging */
+		cout << velocityDifference;
+		cout << relativeTangentialCenterVelocity;
+		cout << relativeTangentialRotationalVelocity;
+		cout << relativeTangentialVelocity;
+		cout << tangentialVersor;
+		cout << tangentialForce;
+		cout << cross(contactPoint - position1, tangentialForce);
+		cout << cross(contactPoint - position2, - tangentialForce);
+		
+		particle1.addForce( tangentialForce );
+		particle2.addForce( - tangentialForce );
 									
 		particle1.addTorque( cross(contactPoint - position1, tangentialForce) );
 		particle2.addTorque( cross(contactPoint - position2, - tangentialForce) );

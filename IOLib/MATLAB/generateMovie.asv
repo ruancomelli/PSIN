@@ -53,7 +53,7 @@ for particleIdx = 1 : nParticles
     end
 end
 
-disp('End of input section');
+disp('End of this section');
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% VIDEO
@@ -76,8 +76,7 @@ for i = 1 : nParticles
     yMax(i) = max(yPos(i,:));
 end
 
-axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
-axis equal
+axis([min(xMin) - min(, max(xMax), min(yMin), max(yMax)]);
 
 F(nTimeSteps) = struct('cdata',[],'colormap',[]);
 for j = 1:timeJump:nTimeSteps
@@ -88,7 +87,7 @@ for j = 1:timeJump:nTimeSteps
 end
 close(video);
 
-disp('End of video section');
+disp('Finished');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% PLOTTING
 %% position
@@ -98,9 +97,7 @@ for i = 1 : nTimeSteps
     xSpeed1(i) = PositionCell{1,i}(2, 1);
     xSpeed2(i) = PositionCell{2,i}(2, 1);
 end
-plot( (0:(nTimeSteps-1))*timeStep, xSpeed1, 'b', (0:(nTimeSteps-1))*timeStep, xSpeed2, 'r')
-
-disp('End of position plotting');
+plot( (0:(nTimeSteps-1))*timeStep, xSpeed1, 'b', (0:(nTimeSteps-1))*timeStep, xSpeed2, 'r');
 
 %% energy
 gravity = 10.0;
@@ -119,8 +116,6 @@ for i = 1 : nTimeSteps
 end
 
 plot((0:(nTimeSteps-1))*timeStep, energy1, 'b-', (0:(nTimeSteps-1))*timeStep, energy2, 'r-', (0:(nTimeSteps-1))*timeStep, energy1+energy2, 'k-');
-
-disp('End of energy plotting');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% NEW METHOD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

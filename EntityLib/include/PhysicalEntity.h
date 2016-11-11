@@ -25,7 +25,7 @@ enum ScalarProperty{
 	POISSON_RATIO,			// \nu
 	ELASTIC_MODULUS,		// E or Y
 	TANGENTIAL_DAMPING,		// \gamma^t
-	VISCOSITY,				// \mu
+	FRICTION_PARAMETER,		// \mu
 	N_SCALAR_PROPERTY
 };
 

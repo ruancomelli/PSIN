@@ -142,3 +142,8 @@ Vector3D operator - (const Vector3D & v){
 Vector3D nullVector3D(void){
 	return Vector3D(0., 0., 0.);
 }
+
+std::ostream& operator << (std::ostream& stream, const Vector3D& v){
+	stream << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")" << endl;
+	return stream;
+}
