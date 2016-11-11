@@ -2,8 +2,10 @@
 #define SPHERICAL_PARTICLE_H
 
 #include <iostream>
+#include <ostream>
 #include <vector>
 #include <fstream>
+#include <string>
 
 #include <Particle.h>
 
@@ -29,7 +31,7 @@ class SphericalParticle: public Particle
 		bool touch(SphericalParticle particle);
 		
 		// ---- Input and Output ----
-		// void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
+		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
 		
 	private:
 		DoubleVector geometricParameter;

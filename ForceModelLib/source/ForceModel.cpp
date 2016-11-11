@@ -167,16 +167,6 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		
 		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , effectiveFrictionParameter * abs(normalForceModulus) ) *
 									tangentialVersor;
-									
-		/* Debbugging */
-		cout << velocityDifference;
-		cout << relativeTangentialCenterVelocity;
-		cout << relativeTangentialRotationalVelocity;
-		cout << relativeTangentialVelocity;
-		cout << tangentialVersor;
-		cout << tangentialForce;
-		cout << cross(contactPoint - position1, tangentialForce);
-		cout << cross(contactPoint - position2, - tangentialForce);
 		
 		particle1.addForce( tangentialForce );
 		particle2.addForce( - tangentialForce );

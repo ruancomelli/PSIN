@@ -192,8 +192,6 @@ int main(int argc, char **argv){
 			
 			ForceModel::correctOrientation( particle1 , taylorOrder, timeStep );
 			ForceModel::correctOrientation( particle2 , taylorOrder, timeStep );
-
-			cout << "Resulting Torque: " << particle1.getResultingTorque();
 		}
 		else
 		{
