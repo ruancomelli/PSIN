@@ -70,6 +70,8 @@ class PhysicalEntity: public Entity
 		int getTaylorOrder(void) const { return this->taylorOrder; }
 		double getScalarProperty(const int scalarPropertyIdentifier) const;
 		DoubleVector getScalarProperty() const;
+		DoubleVector2D getVectorialProperty() const {return this->vectorialProperty; }
+		vector < DoubleVector2D > getMatricialProperty() const {return this->matricialProperty; }
 		
 		int getDimension(void) const { return this->dimension; }
 		
@@ -77,16 +79,16 @@ class PhysicalEntity: public Entity
 		double distance(const PhysicalEntity physicalEntity);
 		
 	private:
-		int taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
-		static int dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
-
-		DoubleVector scalarProperty;
-		DoubleVector2D vectorialProperty;
-		vector < DoubleVector2D > matricialProperty;
-		
-		vector<Vector3D> position;
-		vector<Vector3D> orientation;
+		int			 taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
+		static int	 dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
 		GeometryType geometry;
+
+		DoubleVector				scalarProperty;
+		DoubleVector2D				vectorialProperty;
+		vector < DoubleVector2D >	matricialProperty;
+		
+		vector<Vector3D>	position;
+		vector<Vector3D>	orientation;
 		
 		void reservePositionOrientationMemory(void);
 		void reservePropertyMemory(void);

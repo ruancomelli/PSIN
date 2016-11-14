@@ -34,21 +34,25 @@ TestCase( EntityTest )
 TestCase( PhysicalEntityDefaultConstructor )
 {
 	// Default Constructor
-	// Properties allocator not tested
 	PhysicalEntity 		physicalEntity;
 	int 				defaultTaylorOrder 	= 3;
 	int 				defaultSize 		= defaultTaylorOrder + 1;
 	int 				defaultDimension 	= 3;
 	int					defaultHandle		= -1;
 
-	vector<Vector3D> 	defaultPosition 	= physicalEntity.getPosition();
-	vector<Vector3D> 	defaultOrientation 	= physicalEntity.getOrientation();
+	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
+	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
+	DoubleVector				scalarProperty		= physicalEntity.getScalarProperty();
+	DoubleVector2D				vectorialProperty	= physicalEntity.getVectorialProperty();
+	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
 	
 	checkEqual( physicalEntity.getHandle() , defaultHandle );
 	checkEqual( defaultPosition.size() , defaultSize );
 	checkEqual( defaultOrientation.size() , defaultSize );
 	checkEqual( physicalEntity.getDimension() , defaultDimension );
-
+	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
+	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
+	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
 }
 
 TestCase( PhysicalEntityConstructorWithParametes )
@@ -114,9 +118,22 @@ TestCase( SpacialSetFunctions )
 
 	physicalEntity.setPosition(posVec);
 
-	check( pos0==physicalEntity.getPosition(0) );
-	check( pos1==physicalEntity.getPosition(1) );
+	check( pos0==physicalEntity.getPosition()[0] );
+	check( pos1==physicalEntity.getPosition()[1] );
 	}
+}
 
+TestCase( PropertiesTest )
+{
+	PhysicalEntity	physicalEntity;
+	int taylorOrder	= 4;
+	int size		= taylorOrder + 1;
 
+	physicalEntity.setTaylorOrder(taylorOrder);
+	checkEqual( physicalEntity.getTaylorOrder() , taylorOrder );
+	checkEqual( physicalEntity.getPosition().size() , size );
+
+	double elasticModulus = 14.95;
+	physicalEntity.setScalarProperty( ELASTIC_MODULUS , elasticModulus );
+	checkEqual( physicalEntity.getScalarProperty(ELASTIC_MODULUS) , elasticModulus );
 }
