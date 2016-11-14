@@ -24,10 +24,10 @@ public:
 	double& y();
 	double& z();
 	double getComponent( int pos ) const;
-	double length();
-	double squaredLength();
+	double length() const;
+	double squaredLength() const;
 	void normalize();
-	double dist( const Vector3D& v );
+	double dist( const Vector3D& v ) const;
 	Vector3D operator +=( const Vector3D& v );
 	Vector3D operator -=( const Vector3D& v );
 	Vector3D operator *=( const double& scalar );
@@ -49,7 +49,7 @@ Vector3D operator *( const double& scalar, const Vector3D& v );
 Vector3D operator *( const Vector3D& v, const double& scalar );
 Vector3D operator /( const Vector3D& v, const double& scalar );
 Vector3D operator - (const Vector3D& v);
-bool operator == ( const Vector3D & v1 , const Vector3D v2 );
+bool operator == ( const Vector3D & v1 , const Vector3D v2 );//tol=1e-12
 
 std::ostream& operator << (std::ostream& stream, const Vector3D& v);
 

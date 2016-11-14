@@ -89,7 +89,7 @@ void PhysicalEntity::setPosition(const vector<Vector3D> & position)
 {
 	if( position.size() != (this->taylorOrder + 1) )
 	{
-		//ERROR!
+		throw runtime_error("taylorOrder do not agree function PhysicalEntity::setPosition(const vector<Vector3D> & position)");
 	}
 	this->position = position;
 }

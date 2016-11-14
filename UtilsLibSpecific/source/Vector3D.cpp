@@ -41,14 +41,14 @@ double Vector3D::getComponent( int pos ) const{
 	return this->components[pos];
 }
 
-double Vector3D::length(){
+double Vector3D::length() const {
 	return sqrt( this->components[ X ]*this->components[ X ] + 
 		this->components[ Y ]*this->components[ Y ] + 
 		this->components[ Z ]*this->components[ Z ] 
 	);
 }
 
-double Vector3D::squaredLength(){
+double Vector3D::squaredLength() const {
 	return ( this->components[ X ]*this->components[ X ] + 
 		this->components[ Y ]*this->components[ Y ] + 
 		this->components[ Z ]*this->components[ Z ] 
@@ -62,7 +62,7 @@ void Vector3D::normalize(){
 	}
 }
 
-double Vector3D::dist( const Vector3D& v ){
+double Vector3D::dist( const Vector3D& v ) const {
 	double dist = 0.0;
 	for( int i = 0; i < N_AXIS; ++i ){
 		dist += ( this->components[ i ] - v.components[ i ] )*
@@ -140,7 +140,11 @@ Vector3D operator - (const Vector3D & v){
 }
 
 bool operator == ( const Vector3D & v1 , const Vector3D v2 ){
-	return ( (v1.x() == v2.x()) && (v1.y() == v2.y()) && (v1.z() == v2.z()) );
+	double tol = 1e-12;
+
+	double diffNormalized = (v1 - v2).length() / (v1.length() + v2.length());
+	if ( diffNormalized<tol ) return true;
+	else return false;
 }
 
 Vector3D nullVector3D(void){

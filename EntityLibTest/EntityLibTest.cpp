@@ -11,6 +11,8 @@
 #include <Entity.h>
 #include <PhysicalEntity.h>
 
+using namespace std;
+
 TestCase( EntityTest )
 {
 	Entity entity1;
@@ -73,20 +75,47 @@ TestCase( PhysicalEntityConstructorWithParametes )
 TestCase( SpacialSetFunctions )
 {
 
-	int taylorOrder	= 4;
+	int taylorOrder	= 1;
 	int dimension	= 3;
 	int handle		= 0;
 	PhysicalEntity physicalEntity(taylorOrder, dimension, handle);
 
-	// setPosition
+	// setPosition(derivative, x, y, z)
 	{
 	double x = -5.4;
 	double y = 8.3;
 	double z = -1.7;
 	int derivative = 0;
+
 	Vector3D pos0(x , y , z);
 	physicalEntity.setPosition(derivative, x, y, z);
 	check( pos0==physicalEntity.getPosition(0) );
+	}
+
+	// setPosition(derivative, vector3D)
+	{
+	double x = -8.6;
+	double y = 4.9;
+	double z = -6.8;
+	int derivative = 1;
+
+	Vector3D pos0(x , y , z);
+	physicalEntity.setPosition(derivative, pos0);
+	check( pos0==physicalEntity.getPosition(derivative) );
+	}
+
+	// setPosition( vector<Vector3D> )
+	{
+	Vector3D pos0( 1.0 , -3.7 , -7.4 );
+	Vector3D pos1( 6.2 , 1.9 , -2.8 );
+	vector<Vector3D> posVec (2);
+	posVec[0] = pos0;
+	posVec[1] = pos1;
+
+	physicalEntity.setPosition(posVec);
+
+	check( pos0==physicalEntity.getPosition(0) );
+	check( pos1==physicalEntity.getPosition(1) );
 	}
 
 
