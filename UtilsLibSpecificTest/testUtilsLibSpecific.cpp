@@ -268,3 +268,12 @@ TestCase( Vector3DCroosDotTriple ){
 	double trip = triple( v1 , v2 , v3 );
 	checkEqual( trip , -45.0 );
 }
+
+TestCase( Vector3DIsEqualOperator ){
+	Vector3D v1( 1.0 , -3.4 , 2.5 );
+	Vector3D v2( 1.0 , -3.4 , 2.5 );
+	Vector3D v3( 1.0 , -3.4 , 9.0 );
+
+	checkEqual( v1==v2 , true );
+	checkEqual( v1==v3 , false );
+}

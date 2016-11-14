@@ -49,6 +49,7 @@ Vector3D operator *( const double& scalar, const Vector3D& v );
 Vector3D operator *( const Vector3D& v, const double& scalar );
 Vector3D operator /( const Vector3D& v, const double& scalar );
 Vector3D operator - (const Vector3D& v);
+bool operator == ( const Vector3D & v1 , const Vector3D v2 );
 
 std::ostream& operator << (std::ostream& stream, const Vector3D& v);
 

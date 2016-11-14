@@ -6,12 +6,10 @@ int PhysicalEntity::dimension = 3;
 PhysicalEntity::PhysicalEntity()
 	: Entity(), geometry(DEFAULT)
 {
-	setTaylorOrder(3);
+	setTaylorOrder(3); // It calls reservePositionOrientationMemory
 	setDimension(3);
 	// Initialize Properties
 	reservePropertyMemory();
-	// Initialize Position and Orientation
-	reservePositionOrientationMemory();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
