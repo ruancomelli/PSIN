@@ -98,10 +98,15 @@ class PhysicalEntity: public Entity
 		
 		vector<Vector3D>	position;
 		vector<Vector3D>	orientation;
-		
+
+		static void setDimension(const int dim);
+		// memory functions
 		void reservePositionOrientationMemory(void);
 		void reservePropertyMemory(void);
-		static void setDimension(const int dim);
+		// set spacial positions
+		void setSpatial(vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z = 0);
+		void setSpatial(vector<Vector3D> & spatial, const int derivative, const Vector3D & vec);
+		void setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial);
 };
 
 #endif

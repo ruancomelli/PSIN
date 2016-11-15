@@ -171,5 +171,5 @@ TestCase( PhysicalEntityDistance )
 	phy[1].setPosition( 0 , x[1] , y[1] , z[1] );
 
 	double distance = 14.7478676424763;
-	checkClose( phy[0].distance(phy[1]) , distance , 1e-14 );
+	checkClose( phy[0].distance(phy[1]) , distance , 1e-12 );
 }

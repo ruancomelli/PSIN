@@ -91,23 +91,17 @@ DoubleVector PhysicalEntity::getScalarProperty() const
 
 void PhysicalEntity::setPosition(const int derivative, const double x, const double y, const double z)
 {
-	this->position[derivative].x() = x;
-	this->position[derivative].y() = y;
-	this->position[derivative].z() = z;
+	setSpatial(this->position, derivative, x, y, z);
 }
 
 void PhysicalEntity::setPosition(const int derivative, const Vector3D & vec)
 {
-	this->position[derivative] = vec;
+	setSpatial(this->position, derivative, vec);
 }
 
 void PhysicalEntity::setPosition(const vector<Vector3D> & position)
 {
-	if( position.size() != (this->taylorOrder + 1) )
-	{
-		throw runtime_error("taylorOrder do not agree function PhysicalEntity::setPosition(const vector<Vector3D> & position)");
-	}
-	this->position = position;
+	setSpatial(this->position, position);
 }
 
 vector<Vector3D> PhysicalEntity::getPosition() const
@@ -123,23 +117,17 @@ Vector3D PhysicalEntity::getPosition(const int derivate) const
 // ------------------------------- Orientation -------------------------------
 void PhysicalEntity::setOrientation(const int derivative, const double x, const double y, const double z)
 {
-	this->orientation[derivative].x() = x;
-	this->orientation[derivative].y() = y;
-	this->orientation[derivative].z() = z;
+	setSpatial(this->orientation, derivative, x, y, z);
 }
 
 void PhysicalEntity::setOrientation(const int derivative, const Vector3D & vec)
 {
-	this->orientation[derivative] = vec;
+	setSpatial(this->orientation, derivative, vec);
 }
 
 void PhysicalEntity::setOrientation(const vector<Vector3D> & orientation)
 {
-	if( orientation.size() != (this->taylorOrder + 1) )
-	{
-		//ERROR!
-	}
-	this->orientation = orientation;
+	setSpatial(this->orientation, orientation);
 }
 
 vector<Vector3D> PhysicalEntity::getOrientation(void) const
@@ -210,4 +198,26 @@ void PhysicalEntity::setDimension(const int dim)
 	{
 		dimension = dim;
 	}
+}
+
+	// set spacial positions
+void PhysicalEntity::setSpatial(vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z)
+{
+	spatial[derivative].x() = x;
+	spatial[derivative].y() = y;
+	spatial[derivative].z() = z;
+}
+
+void PhysicalEntity::setSpatial(vector<Vector3D> & spatial, const int derivative, const Vector3D & vec)
+{
+	spatial[derivative] = vec;
+}
+
+void PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)
+{
+	if( spatial.size() != (this->taylorOrder + 1) )
+	{
+		throw runtime_error("taylorOrder do not agree function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
+	}
+	spatialToSet = spatial;
 }
