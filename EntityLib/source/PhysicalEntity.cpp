@@ -38,6 +38,13 @@ PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarProp
 
 // ------------------------------- Property -------------------------------
 
+	// dimension
+int PhysicalEntity::getDimension(void) const
+{
+	return this->dimension;
+}
+
+	// taylorOrder
 void PhysicalEntity::setTaylorOrder(const int taylorOrder)
 {
 	if(taylorOrder < 0)
@@ -51,6 +58,12 @@ void PhysicalEntity::setTaylorOrder(const int taylorOrder)
 	}
 }
 
+int PhysicalEntity::getTaylorOrder(void) const
+{
+	return this->taylorOrder;
+}
+
+	// scalarProperty
 void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue)
 {
 	this->scalarProperty[scalarPropertyIdentifier] = scalarPropertyValue;
@@ -58,6 +71,9 @@ void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const
 
 void PhysicalEntity::setScalarProperty(const DoubleVector scalarPropertyVector)
 {
+	if( scalarPropertyVector.size() != N_SCALAR_PROPERTY )
+		throw runtime_error("size of scalarPropertyVector is not N_SCALAR_PROPERTY, function setScalarProperty");
+
 	this->scalarProperty = scalarPropertyVector;
 }
 

@@ -129,11 +129,47 @@ TestCase( PropertiesTest )
 	int taylorOrder	= 4;
 	int size		= taylorOrder + 1;
 
+	// setTaylorOrder
 	physicalEntity.setTaylorOrder(taylorOrder);
 	checkEqual( physicalEntity.getTaylorOrder() , taylorOrder );
 	checkEqual( physicalEntity.getPosition().size() , size );
 
+	// setScalarProperty(id, value);
 	double elasticModulus = 14.95;
 	physicalEntity.setScalarProperty( ELASTIC_MODULUS , elasticModulus );
 	checkEqual( physicalEntity.getScalarProperty(ELASTIC_MODULUS) , elasticModulus );
+
+	// setScalarProperty(vector)
+	double dissipativeConstant = 8.43;
+	double frictionParameter = 1.67;
+	DoubleVector scalarProperties( N_SCALAR_PROPERTY );
+
+	scalarProperties[DISSIPATIVE_CONSTANT] = dissipativeConstant;
+	scalarProperties[FRICTION_PARAMETER] = frictionParameter;
+
+	physicalEntity.setScalarProperty(scalarProperties);
+
+	checkClose( physicalEntity.getScalarProperty()[DISSIPATIVE_CONSTANT] , dissipativeConstant , 1.0e-12 );
+	checkClose( physicalEntity.getScalarProperty()[FRICTION_PARAMETER] , frictionParameter , 1.0e-12 );
+	checkClose( physicalEntity.getScalarProperty()[VOLUME] , 0.0 , 1.0e-12 );
+}
+
+TestCase( PhysicalEntityDistance )
+{
+	PhysicalEntity phy[2];
+
+	double x[2], y[2], z[2];
+
+	x[0] = -3.7;
+	y[0] = 4.9;
+	z[0] = 5.31;
+	phy[0].setPosition( 0 , x[0] , y[0] , z[0] );
+
+	x[1] = 3.5;
+	y[1] = -6.9;
+	z[1] = 0.17;
+	phy[1].setPosition( 0 , x[1] , y[1] , z[1] );
+
+	double distance = 14.7478676424763;
+	checkClose( phy[0].distance(phy[1]) , distance , 1e-14 );
 }

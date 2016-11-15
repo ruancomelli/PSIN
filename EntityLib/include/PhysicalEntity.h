@@ -63,17 +63,26 @@ class PhysicalEntity: public Entity
 		GeometryType getGeometry() const;
 		
 		// ---- Properties ----
+			// dimension
+		int getDimension(void) const;
+
+			// taylorOrder
 		void setTaylorOrder(const int taylorOrder);
+		int getTaylorOrder(void) const;
+
+			// scalarProperty
 		void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue);
 		void setScalarProperty(const DoubleVector scalarPropertyVector);
-		
-		int getTaylorOrder(void) const { return this->taylorOrder; }
 		double getScalarProperty(const int scalarPropertyIdentifier) const;
 		DoubleVector getScalarProperty() const;
+
+			// The two above are incomplete (vectorial and matricial property).
+			// vectorialProperty
 		DoubleVector2D getVectorialProperty() const {return this->vectorialProperty; }
+
+			// matricialProperty
 		vector < DoubleVector2D > getMatricialProperty() const {return this->matricialProperty; }
 		
-		int getDimension(void) const { return this->dimension; }
 		
 		// ---- Distance ----
 		double distance(const PhysicalEntity physicalEntity);
