@@ -276,4 +276,6 @@ TestCase( Vector3DIsEqualOperator ){
 
 	checkEqual( v1==v2 , true );
 	checkEqual( v1==v3 , false );
+	checkEqual( nullVector3D()==nullVector3D() , true );
+
 }
