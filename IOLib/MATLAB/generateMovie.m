@@ -81,7 +81,7 @@ axis equal
 
 F(nTimeSteps) = struct('cdata',[],'colormap',[]);
 for j = 1:timeJump:nTimeSteps
-    title([num2str(inputCell{1}((j-1)*(nDimensions+1) + 1, 1)), 's']);
+    title([num2str((j-1)*timeStep), 's']);
     viscircles([inputCell{1}((j-1)*(nDimensions+1) + 2, 2), inputCell{1}((j-1)*(nDimensions+1) + 2, 3); inputCell{2}((j-1)*(nDimensions+1) + 2, 2), inputCell{2}((j-1)*(nDimensions+1) + 2, 3)], [0.010; 0.005]);
     F(j) = getframe(gcf);
     writeVideo(video, F(j));
