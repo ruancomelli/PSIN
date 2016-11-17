@@ -130,9 +130,6 @@ int main(int argc, char **argv){
 	outFile1 << 0 << verticalSeparator;
 	outFile2 << 0 << verticalSeparator;
 
-	// outFile1 << outputTimeLabel << t << verticalSeparator;
-	// outFile2 << outputTimeLabel << t << verticalSeparator;
-
 	// Prints every derivative of particles' position
 	for(int i = 0 ; i <= taylorOrder ; ++i ){
 		
@@ -146,13 +143,6 @@ int main(int argc, char **argv){
 		outFile2 << horizontalSeparator << particle2.getPosition(i).y();
 		outFile1 << horizontalSeparator << particle1.getPosition(i).z();
 		outFile2 << horizontalSeparator << particle2.getPosition(i).z();
-
-		/*outFile1 << horizontalSeparator << outputPositionLabel << "x" << i << horizontalSeparator << particle1.getPosition(i).x();
-		outFile2 << horizontalSeparator << outputPositionLabel << "x" << i << horizontalSeparator << particle2.getPosition(i).x();
-		outFile1 << horizontalSeparator << outputPositionLabel << "y" << i << horizontalSeparator << particle1.getPosition(i).y();
-		outFile2 << horizontalSeparator << outputPositionLabel << "y" << i << horizontalSeparator << particle2.getPosition(i).y();
-		outFile1 << horizontalSeparator << outputPositionLabel << "z" << i << horizontalSeparator << particle1.getPosition(i).z();
-		outFile2 << horizontalSeparator << outputPositionLabel << "z" << i << horizontalSeparator << particle2.getPosition(i).z();*/
 		
 		outFile1 << verticalSeparator;
 		outFile2 << verticalSeparator;
@@ -214,9 +204,6 @@ int main(int argc, char **argv){
 		outFile1 << t + timeStep << verticalSeparator;
 		outFile2 << t + timeStep << verticalSeparator;
 
-		// outFile1 << outputTimeLabel << t << verticalSeparator;
-		// outFile2 << outputTimeLabel << t << verticalSeparator;
-
 		// Prints every derivative of particles' position
 		for(int i = 0 ; i <= taylorOrder ; ++i ){
 			
@@ -230,13 +217,6 @@ int main(int argc, char **argv){
 			outFile2 << horizontalSeparator << particle2.getPosition(i).y();
 			outFile1 << horizontalSeparator << particle1.getPosition(i).z();
 			outFile2 << horizontalSeparator << particle2.getPosition(i).z();
-
-			/*outFile1 << horizontalSeparator << outputPositionLabel << "x" << i << horizontalSeparator << particle1.getPosition(i).x();
-			outFile2 << horizontalSeparator << outputPositionLabel << "x" << i << horizontalSeparator << particle2.getPosition(i).x();
-			outFile1 << horizontalSeparator << outputPositionLabel << "y" << i << horizontalSeparator << particle1.getPosition(i).y();
-			outFile2 << horizontalSeparator << outputPositionLabel << "y" << i << horizontalSeparator << particle2.getPosition(i).y();
-			outFile1 << horizontalSeparator << outputPositionLabel << "z" << i << horizontalSeparator << particle1.getPosition(i).z();
-			outFile2 << horizontalSeparator << outputPositionLabel << "z" << i << horizontalSeparator << particle2.getPosition(i).z();*/
 			
 			outFile1 << verticalSeparator;
 			outFile2 << verticalSeparator;
