@@ -1,3 +1,4 @@
+#define BOOST_TEST_MODULE IOLibTest
 
 // Standard
 #include <string>
@@ -14,7 +15,7 @@
 
 using namespace std;
 
-int main()
+TestCase( ReadEntityTest )
 {
 		string inputFile("../IOLibTest/input.txt");
 
@@ -24,4 +25,6 @@ int main()
 
 		cout << entity1.getHandle() << " == " << entity2.getHandle() << " : " <<
 			boolalpha << (entity1.getHandle() == entity2.getHandle()) << endl;
+
+		check(false);
 }
