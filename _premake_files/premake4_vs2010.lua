@@ -107,6 +107,7 @@ links{
 configuration {}
 
 --include "../EFVLibTest"
+include "../IOLibTest"
 include "../EntityLibTest"
 include "../UtilsLibSpecificTest"
 include "../SimulationTest"

@@ -4,12 +4,15 @@ kind "ConsoleApp"
 targetdir "../_tests"
 
 includedirs{
+	"../IOLib/include",
 	"../UtilsLibSpecific/include",
 	"../EntityLib/include",
-	"../ForceModelLib/include"
+	"../ForceModelLib/include",
+	"../SimulationLib/include"
 }
 
 links {
+	"IOLib",
 	"UtilsLibSpecific",
 	"EntityLib",
 	"ForceModelLib"

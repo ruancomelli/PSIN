@@ -1,4 +1,4 @@
-project "IOLib"
+project "SimulationTest"
 
 kind "StaticLib"
 targetdir "../_lib"
