@@ -127,6 +127,20 @@ TestCase( PhysicalEntityConstructorWithEntityAndParameters )
 	checkEqual( position.size() , size );
 	checkEqual( orientation.size() , size );
 	checkEqual( physicalEntity.getDimension() , dimension );
+
+	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
+	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
+	DoubleVector				scalarProperty		= physicalEntity.getScalarProperty();
+	DoubleVector2D				vectorialProperty	= physicalEntity.getVectorialProperty();
+	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
+	
+	checkEqual( physicalEntity.getHandle() , handle );
+	checkEqual( defaultPosition.size() , size );
+	checkEqual( defaultOrientation.size() , size );
+	checkEqual( physicalEntity.getDimension() , dimension );
+	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
+	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
+	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
 }
 
 TestCase( SpacialSetFunctions )
