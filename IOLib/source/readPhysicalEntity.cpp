@@ -11,7 +11,7 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 	ifstream file( fileName.c_str() );
 
 	if( file.fail() ) {
-		cerr << "\nThere is no file " << fileName << " in the working area" << endl;
+		cerr << "\nThere is no file " << fileName << endl;
 		return PhysicalEntity();
 	}
 
@@ -24,7 +24,7 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 
 	if( file.eof() )
 	{ 
-		cerr << "There is no <TaylorOrder> in the file" << endl; 
+		cerr << "\nThere is no <TaylorOrder> in file " << fileName << endl; 
 		taylorOrder = 3;
 	}
 	else
@@ -41,7 +41,7 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 
 	if( file.eof() )
 	{ 
-		cerr << "There is no <Dimension> in the file" << endl;
+		cerr << "\nThere is no <Dimension> in file " << fileName << endl;
 		dimension = 3;
 	}
 	else

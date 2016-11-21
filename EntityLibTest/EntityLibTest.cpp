@@ -64,7 +64,7 @@ TestCase( PhysicalEntityConstructorWithEntity )
 	int 				defaultTaylorOrder 	= 3;
 	int 				defaultSize 		= defaultTaylorOrder + 1;
 	int 				defaultDimension 	= 3;
-	int					handle		= 5;
+	int					handle				= 5;
 
 	Entity				entity(handle);
 	

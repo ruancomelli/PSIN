@@ -9,7 +9,6 @@ Entity readEntity( string & fileName ){
 
 	if( file.fail() ) {
 		cerr << "\nThere is no file " << fileName << " in the working area" << endl;
-		cout << "Hi";
 		exit(EXIT_FAILURE);
 	}
 

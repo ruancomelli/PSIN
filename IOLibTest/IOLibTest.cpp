@@ -19,6 +19,7 @@
 // IOLib
 #include <readEntity.h>
 #include <readPhysicalEntity.h>
+#include <FileReader.h>
 
 using namespace std;
 
@@ -43,4 +44,27 @@ TestCase( ReadPhysicalEntityTest )
 		checkEqual( tester.getHandle(), tested.getHandle() );
 		checkEqual( tester.getDimension(), tested.getDimension() );
 		checkEqual( tester.getTaylorOrder(), tested.getTaylorOrder() );
+}
+
+TestCase( FileReaderTest )
+{
+		string fileName("../IOLibTest/input.txt");
+		int intValue = 5;
+		double doubleValue = 3.1415;
+		string stringValue = "Rohan";
+
+		FileReader fileReader(fileName);
+
+		int readInteger;
+		double readDouble;
+		string readString;
+
+		
+		fileReader.readValue("<Integer>", readInteger);
+		fileReader.readValue("<Double>", readDouble);
+		fileReader.readValue("<String>", readString);
+		
+		checkEqual( readInteger, intValue );
+		checkEqual( readDouble, doubleValue );
+		checkEqual( readString, stringValue );
 }
