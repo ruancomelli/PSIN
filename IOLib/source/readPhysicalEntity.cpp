@@ -1,7 +1,7 @@
 #include <readPhysicalEntity.h>
 
 PhysicalEntity readPhysicalEntity( string & fileName )
-{/*
+{
 	// ----- Read Entity -----
 	Entity entity = readEntity(fileName);
 	
@@ -12,13 +12,13 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 
 	if( file.fail() ) {
 		cerr << "\nThere is no file " << fileName << " in the working area" << endl;
-		cout << "Hi";
-		exit(EXIT_FAILURE);
+		return PhysicalEntity();
 	}
 
 	// ----- Read taylorOrder -----
 	int taylorOrder;
 
+	file.clear();
 	file.seekg( 0, ios::beg ); 
 	while( strcmp( buffer, "<TaylorOrder>" ) && !file.eof() ) file >> buffer;
 
@@ -35,6 +35,7 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 	// ----- Read dimension -----
 	int dimension;
 
+	file.clear();
 	file.seekg( 0, ios::beg ); 
 	while( strcmp( buffer, "<Dimension>" ) && !file.eof() ) file >> buffer;
 
@@ -51,7 +52,5 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 
 	PhysicalEntity physicalEntity( taylorOrder, dimension, entity );
 
-	return physicalEntity;*/
-
-	return PhysicalEntity(4, 3, 3);
+	return physicalEntity;
 }

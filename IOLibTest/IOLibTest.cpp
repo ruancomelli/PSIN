@@ -40,5 +40,7 @@ TestCase( ReadPhysicalEntityTest )
 		PhysicalEntity tester(4, 3, 3);
 		PhysicalEntity tested = readPhysicalEntity(inputFile);
 
-		//checkEqual(tester.getHandle(), tested.getHandle());
+		checkEqual( tester.getHandle(), tested.getHandle() );
+		checkEqual( tester.getDimension(), tested.getDimension() );
+		checkEqual( tester.getTaylorOrder(), tested.getTaylorOrder() );
 }
