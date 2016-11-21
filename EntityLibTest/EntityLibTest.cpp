@@ -29,6 +29,10 @@ TestCase( EntityTest )
 	int initialHandle = 1;
 	Entity entity2(initialHandle);
 	checkEqual( entity2.getHandle() , initialHandle );
+
+	Entity entity3(entity1);
+
+	checkEqual( entity1.getHandle(), entity3.getHandle() );
 }
 
 TestCase( PhysicalEntityDefaultConstructor )
@@ -47,6 +51,32 @@ TestCase( PhysicalEntityDefaultConstructor )
 	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
 	
 	checkEqual( physicalEntity.getHandle() , defaultHandle );
+	checkEqual( defaultPosition.size() , defaultSize );
+	checkEqual( defaultOrientation.size() , defaultSize );
+	checkEqual( physicalEntity.getDimension() , defaultDimension );
+	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
+	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
+	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
+}
+
+TestCase( PhysicalEntityConstructorWithEntity )
+{
+	int 				defaultTaylorOrder 	= 3;
+	int 				defaultSize 		= defaultTaylorOrder + 1;
+	int 				defaultDimension 	= 3;
+	int					handle		= 5;
+
+	Entity				entity(handle);
+	
+	PhysicalEntity 		physicalEntity(entity);
+
+	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
+	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
+	DoubleVector				scalarProperty		= physicalEntity.getScalarProperty();
+	DoubleVector2D				vectorialProperty	= physicalEntity.getVectorialProperty();
+	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
+	
+	checkEqual( physicalEntity.getHandle() , handle );
 	checkEqual( defaultPosition.size() , defaultSize );
 	checkEqual( defaultOrientation.size() , defaultSize );
 	checkEqual( physicalEntity.getDimension() , defaultDimension );
@@ -74,6 +104,29 @@ TestCase( PhysicalEntityConstructorWithParametes )
 	checkEqual( orientation.size() , size );
 	checkEqual( physicalEntity.getDimension() , dimension );
 	
+}
+
+
+TestCase( PhysicalEntityConstructorWithEntityAndParameters )
+{
+	int taylorOrder	= 5;
+	int size		= taylorOrder + 1;
+	int dimension	= 2;
+	int handle		= 5;
+
+	Entity entity(handle);
+
+	// Constructor with non-default parameters and an Entity as parameter
+	// Properties allocator not tested
+	PhysicalEntity physicalEntity(taylorOrder, dimension, entity);
+
+	vector<Vector3D> 	position 		= physicalEntity.getPosition();
+	vector<Vector3D> 	orientation 	= physicalEntity.getOrientation();
+
+	checkEqual( physicalEntity.getHandle() , handle );
+	checkEqual( position.size() , size );
+	checkEqual( orientation.size() , size );
+	checkEqual( physicalEntity.getDimension() , dimension );
 }
 
 TestCase( SpacialSetFunctions )

@@ -18,6 +18,7 @@
 
 // IOLib
 #include <readEntity.h>
+#include <readPhysicalEntity.h>
 
 using namespace std;
 
@@ -34,4 +35,10 @@ TestCase( ReadEntityTest )
 
 TestCase( ReadPhysicalEntityTest )
 {
+		string inputFile("../IOLibTest/inputPhysicalEntity.txt");
+
+		PhysicalEntity tester(4, 3, 3);
+		PhysicalEntity tested = readPhysicalEntity(inputFile);
+
+		//checkEqual(tester.getHandle(), tested.getHandle());
 }

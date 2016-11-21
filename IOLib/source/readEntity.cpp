@@ -1,7 +1,6 @@
 #include <readEntity.h>
 
 Entity readEntity( string & fileName ){
-	Entity entity;
 	
 	// ----- Initialize -----
 	
@@ -19,10 +18,15 @@ Entity readEntity( string & fileName ){
 
 	file.seekg( 0, ios::beg ); 
 	while( strcmp( buffer, "<Handle>" ) && !file.eof() ) file >> buffer;
-	if( file.eof() ){ cerr << "There is no handle in the file" << endl; }
-	file >> handle;
+	if( file.eof() )
+	{ 
+		cerr << "There is no <Handle> in the file" << endl; 
+		handle = -1;
+	}
+	else
+	{
+		file >> handle;
+	}
 
-	entity.setHandle(handle);
-
-	return entity;
+	return Entity(handle);
 }

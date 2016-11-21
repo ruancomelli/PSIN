@@ -6,14 +6,14 @@ int PhysicalEntity::dimension = 3;
 PhysicalEntity::PhysicalEntity()
 	: Entity(), geometry(DEFAULT)
 {
-	setTaylorOrder(3); // It calls reservePositionOrientationMemory
+	setTaylorOrder(3); // It calls resizePositionOrientation
 	setDimension(3);
 
 	// Initialize Properties
-	reservePropertyMemory();
+	resizePropertyVector();
 
 	// Alloc memory to vectors position and orientation
-	reservePositionOrientationMemory();
+	resizePositionOrientation();
 }
 
 PhysicalEntity::PhysicalEntity( const Entity & base )
@@ -23,10 +23,10 @@ PhysicalEntity::PhysicalEntity( const Entity & base )
 	setDimension(3);
 
 	// Initialize Properties
-	reservePropertyMemory();
+	resizePropertyVector();
 
 	// Alloc memory to vectors position and orientation
-	reservePositionOrientationMemory();
+	resizePositionOrientation();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
@@ -37,10 +37,10 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int h
 	setDimension(dim);
 
 	// Alloc memory to properties
-	reservePropertyMemory();
+	resizePropertyVector();
 
 	// Alloc memory to vectors position and orientation
-	reservePositionOrientationMemory();
+	resizePositionOrientation();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Entity & base)
@@ -50,10 +50,10 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Enti
 	setDimension(dim);
 
 	// Initialize Properties
-	reservePropertyMemory();
+	resizePropertyVector();
 
 	// Alloc memory to vectors position and orientation
-	reservePositionOrientationMemory();	
+	resizePositionOrientation();	
 }
 // ------------------------------- Property -------------------------------
 
@@ -73,7 +73,7 @@ void PhysicalEntity::setTaylorOrder(const int taylorOrder)
 	else
 	{
 		this->taylorOrder = taylorOrder;
-		reservePositionOrientationMemory();
+		resizePositionOrientation();
 	}
 }
 
@@ -179,14 +179,14 @@ double PhysicalEntity::distance(const PhysicalEntity physicalEntity){
 
 // ------------------------------- Auxiliar Functions -------------------------------
 
-void PhysicalEntity::reservePositionOrientationMemory(void)
+void PhysicalEntity::resizePositionOrientation(void)
 {
 	int size = taylorOrder + 1;
 	this->position.resize(size);
 	this->orientation.resize(size);
 }
 
-void PhysicalEntity::reservePropertyMemory(void)
+void PhysicalEntity::resizePropertyVector(void)
 {
 	// scalarProperty: 1 x 1
 	scalarProperty.resize(N_SCALAR_PROPERTY);

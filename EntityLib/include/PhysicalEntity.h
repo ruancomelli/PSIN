@@ -42,7 +42,7 @@ class PhysicalEntity: public Entity
 	public:
 		// ---- Constructors ----
 		PhysicalEntity();
-		PhysicalEntity( const Entity & base ); // Creates a PhysicalEntity based on an Entity
+		PhysicalEntity(const Entity & base); // Creates a PhysicalEntity based on an Entity
 		PhysicalEntity(const int taylorOrder, const int dim, const int handle = -1);
 		PhysicalEntity(const int taylorOrder, const int dim, const Entity & base);
 		// ---- Spatial localization ----
@@ -101,8 +101,8 @@ class PhysicalEntity: public Entity
 
 		static void setDimension(const int dim);
 		// memory functions
-		void reservePositionOrientationMemory(void);
-		void reservePropertyMemory(void);
+		void resizePositionOrientation(void);
+		void resizePropertyVector(void);
 		// set spacial positions
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z = 0);
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const Vector3D & vec);
