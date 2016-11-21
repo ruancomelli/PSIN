@@ -11,9 +11,6 @@ PhysicalEntity::PhysicalEntity()
 
 	// Initialize Properties
 	resizePropertyVector();
-
-	// Alloc memory to vectors position and orientation
-	resizePositionOrientation();
 }
 
 PhysicalEntity::PhysicalEntity( const Entity & base )
@@ -24,9 +21,6 @@ PhysicalEntity::PhysicalEntity( const Entity & base )
 
 	// Initialize Properties
 	resizePropertyVector();
-
-	// Alloc memory to vectors position and orientation
-	resizePositionOrientation();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
@@ -38,9 +32,6 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int h
 
 	// Alloc memory to properties
 	resizePropertyVector();
-
-	// Alloc memory to vectors position and orientation
-	resizePositionOrientation();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Entity & base)
@@ -51,9 +42,6 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Enti
 
 	// Initialize Properties
 	resizePropertyVector();
-
-	// Alloc memory to vectors position and orientation
-	resizePositionOrientation();	
 }
 // ------------------------------- Property -------------------------------
 
@@ -236,7 +224,7 @@ void PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Ve
 {
 	if( spatial.size() != (this->taylorOrder + 1) )
 	{
-		throw runtime_error("taylorOrder do not agree function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
+		throw runtime_error("taylorOrder does not agree function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
 	}
 	spatialToSet = spatial;
 }
