@@ -23,8 +23,6 @@ TestCase( ReadEntityTest )
 
 		Entity entity2 = readEntity(inputFile);
 
-		cout << entity1.getHandle() << " == " << entity2.getHandle() << " : " <<
-			boolalpha << (entity1.getHandle() == entity2.getHandle()) << endl;
 
-		check(false);
+		checkEqual(entity1.getHandle(), entity2.getHandle());
 }

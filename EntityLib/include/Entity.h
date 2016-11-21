@@ -16,4 +16,6 @@ class Entity
 		int handle;
 };
 
+bool operator==( Entity left, Entity right );
+
 #endif
