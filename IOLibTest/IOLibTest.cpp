@@ -25,4 +25,8 @@ TestCase( ReadEntityTest )
 
 
 		checkEqual(entity1.getHandle(), entity2.getHandle());
+		cout << entity1.getHandle() << " == " << entity2.getHandle() << " : " <<
+			boolalpha << (entity1.getHandle() == entity2.getHandle()) << endl;
+
+		check(false);
 }
