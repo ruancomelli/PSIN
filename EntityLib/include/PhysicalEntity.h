@@ -42,9 +42,9 @@ class PhysicalEntity: public Entity
 	public:
 		// ---- Constructors ----
 		PhysicalEntity();
+		PhysicalEntity( const Entity & base ); // Creates a PhysicalEntity based on an Entity
 		PhysicalEntity(const int taylorOrder, const int dim, const int handle = -1);
-		/*PhysicalEntity(const int handle, const vector<double> scalarPropertyVector);
-			This is commented because this function seems unnecessary.	*/
+		PhysicalEntity(const int taylorOrder, const int dim, const Entity & base);
 		// ---- Spatial localization ----
 		void setPosition(const int derivative, const double x, const double y, const double z = 0);
 		void setPosition(const int derivative, const Vector3D & vec);

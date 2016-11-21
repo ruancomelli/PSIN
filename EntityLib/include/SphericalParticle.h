@@ -20,6 +20,7 @@ class SphericalParticle: public Particle
 {
 	public:
 		SphericalParticle();
+		SphericalParticle(const Particle & base);
 		SphericalParticle(const int order, const int dimension, const int handle = -1);
 		
 		// ---- Geometrical Parameters ----

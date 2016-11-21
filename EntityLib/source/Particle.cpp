@@ -5,6 +5,12 @@ Particle::Particle() : PhysicalEntity(3, 3)
 	
 }
 
+Particle::Particle( const PhysicalEntity & base )
+	: PhysicalEntity( base )
+{
+
+}
+
 Particle::Particle(const int taylorOrder, const int dimension, const int handle)
 	: PhysicalEntity(taylorOrder, dimension, handle)
 {

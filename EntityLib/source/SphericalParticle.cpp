@@ -18,6 +18,12 @@ SphericalParticle::SphericalParticle(const int taylorOrder, const int dimension,
 	reserveGeometricParameterMemory();
 }
 
+SphericalParticle::SphericalParticle(const Particle & base)
+	: Particle(base)
+{
+	setGeometry(SPHERE);
+	reserveGeometricParameterMemory();
+}
 // ------------------------------- Geometric Parameter -------------------------------
 
 

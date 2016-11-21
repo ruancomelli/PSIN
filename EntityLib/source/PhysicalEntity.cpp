@@ -8,8 +8,25 @@ PhysicalEntity::PhysicalEntity()
 {
 	setTaylorOrder(3); // It calls reservePositionOrientationMemory
 	setDimension(3);
+
 	// Initialize Properties
 	reservePropertyMemory();
+
+	// Alloc memory to vectors position and orientation
+	reservePositionOrientationMemory();
+}
+
+PhysicalEntity::PhysicalEntity( const Entity & base )
+	: Entity(base), geometry(DEFAULT)
+{
+	setTaylorOrder(3);
+	setDimension(3);
+
+	// Initialize Properties
+	reservePropertyMemory();
+
+	// Alloc memory to vectors position and orientation
+	reservePositionOrientationMemory();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
@@ -25,17 +42,19 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int h
 	// Alloc memory to vectors position and orientation
 	reservePositionOrientationMemory();
 }
-/*
-PhysicalEntity::PhysicalEntity(const int handle, const vector<double> scalarPropertyVector)
-	: Entity(handle)
+
+PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Entity & base)
+	: Entity(base), geometry(DEFAULT)
 {
+	setTaylorOrder(taylorOrder);
+	setDimension(dim);
+
+	// Initialize Properties
+	reservePropertyMemory();
+
 	// Alloc memory to vectors position and orientation
-	reservePositionOrientationMemory();
-
-	// Set scalarProperty vector as the input vector
-	setScalarProperty(scalarPropertyVector);
-}*/
-
+	reservePositionOrientationMemory();	
+}
 // ------------------------------- Property -------------------------------
 
 	// dimension
