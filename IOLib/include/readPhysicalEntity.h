@@ -12,6 +12,7 @@
 
 // IOLib
 #include <readEntity.h>
+#include <FileReader.h>
 
 using namespace std;
 

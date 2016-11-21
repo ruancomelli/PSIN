@@ -2,52 +2,24 @@
 
 PhysicalEntity readPhysicalEntity( string & fileName )
 {
+	FileReader fileReader(fileName);
+
 	// ----- Read Entity -----
 	Entity entity = readEntity(fileName);
 	
-	// ----- Initialize -----
-	
-	char buffer[800] = "NULL";
-	ifstream file( fileName.c_str() );
-
-	if( file.fail() ) {
-		cerr << "\nThere is no file " << fileName << endl;
-		return PhysicalEntity();
-	}
 
 	// ----- Read taylorOrder -----
 	int taylorOrder;
 
-	file.clear();
-	file.seekg( 0, ios::beg ); 
-	while( strcmp( buffer, "<TaylorOrder>" ) && !file.eof() ) file >> buffer;
-
-	if( file.eof() )
-	{ 
-		cerr << "\nThere is no <TaylorOrder> in file " << fileName << endl; 
-		taylorOrder = 3;
-	}
-	else
-	{
-		file >> taylorOrder;
-	}
+	fileReader.readValue("<TaylorOrder>", taylorOrder);
 
 	// ----- Read dimension -----
 	int dimension;
 
-	file.clear();
-	file.seekg( 0, ios::beg ); 
-	while( strcmp( buffer, "<Dimension>" ) && !file.eof() ) file >> buffer;
+	fileReader.readValue("<Dimension>", dimension);
 
-	if( file.eof() )
-	{ 
-		cerr << "\nThere is no <Dimension> in file " << fileName << endl;
-		dimension = 3;
-	}
-	else
-	{
-		file >> dimension;
-	}
+	// ----- Read initial position -----
+	int size = taylorOrder + 1;
 
 
 	PhysicalEntity physicalEntity( taylorOrder, dimension, entity );

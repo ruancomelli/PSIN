@@ -58,7 +58,6 @@ TestCase( FileReaderTest )
 		int readInteger;
 		double readDouble;
 		string readString;
-
 		
 		fileReader.readValue("<Integer>", readInteger);
 		fileReader.readValue("<Double>", readDouble);

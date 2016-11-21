@@ -8,6 +8,7 @@
 
 // EntityLib
 #include <Entity.h>
+#include <FileReader.h>
 
 using namespace std;
 
