@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+// Standard
 #include <numeric>
 #include <vector>
 #include <list>
@@ -8,6 +9,10 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cmath>
+#include <fstream>
+#include <iostream>
+#include <string>
+
 
 using std::vector;
 using std::list;

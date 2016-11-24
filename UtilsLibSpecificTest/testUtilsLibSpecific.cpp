@@ -3,6 +3,7 @@
 // std
 #include <string>
 #include <iostream>
+#include <fstream>
 
 // boost
 #include <Test.h>
@@ -278,4 +279,24 @@ TestCase( Vector3DIsEqualOperator ){
 	checkEqual( v1==v3 , false );
 	checkEqual( nullVector3D()==nullVector3D() , true );
 
+}
+
+TestCase( VectorInput ){
+	std::ifstream file("input.txt");
+
+	vector<int> tester(5);
+		tester[0] = 3;
+		tester[1] = 1;
+		tester[2] = 4;
+		tester[3] = 1;
+		tester[4] = 5;
+
+	vector<int> tested(5);
+
+	/* YOUR JOB IS TO ALLOW ME TO DO THE FOLLOWING: */
+	// file >> tested;
+	// cout << tester;
+	// checkEqual(tested, tester);
+	//
+	// THANK YOU
 }
