@@ -293,10 +293,8 @@ TestCase( VectorInput ){
 
 	vector<int> tested(5);
 
-	/* YOUR JOB IS TO ALLOW ME TO DO THE FOLLOWING: */
-	// file >> tested;
-	// cout << tester;
-	// checkEqual(tested, tester);
-	//
-	// THANK YOU
+	cout << tester << endl;
+	file >> tested;
+	cout << tested << endl;
+
 }

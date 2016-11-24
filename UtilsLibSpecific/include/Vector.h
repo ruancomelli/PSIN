@@ -44,4 +44,48 @@ using std::runtime_error;
 
 	DoubleVector nullVector(int dimension);
 
+
+	template <class type> std::ostream & operator<<( std::ostream & out , vector<type> & v){
+		for( int i = 0 ; i < v.size() ; ++i){
+			out << v[i];
+		}
+
+		return out;
+	}
+
+	template <class type> void operator>>( std::istream & in , vector<type> & v){
+		for( int i = 0 ; i < v.size() ; ++i){
+			in >> v[i];
+		}
+	}
+
+	template <class type> std::ofstream & operator<<( std::ofstream & out , vector<type> & v){
+		for( int i = 0 ; i < v.size() ; ++i){
+			out << v[i];
+		}
+
+		return out;
+	}
+
+	template <class type> void operator>>( std::ifstream & in , vector<type> & v){
+		for( int i = 0 ; i < v.size() ; ++i){
+			in >> v[i];
+		}
+	}
+/*
+	template <class type> std::ostream & operator<<( std::ostream & out , type & v){
+
+	    typename type::iterator p = v.begin();
+	    typename type::iterator end = v.end();
+	    while( p!= end ) {
+	        //Avoiding the Global Namespace << overloads - using std:: instead
+	        std::operator << (out,*p);      
+	        std::operator << (out, "    ");
+
+        	++p;
+    	}
+    	return out;
+
+	}*/
+
 #endif
