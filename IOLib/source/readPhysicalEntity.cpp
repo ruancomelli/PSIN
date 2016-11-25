@@ -10,19 +10,23 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 
 	// ----- Read taylorOrder -----
 	int taylorOrder;
-
 	fileReader.readValue("<TaylorOrder>", taylorOrder);
 
 	// ----- Read dimension -----
 	int dimension;
-
 	fileReader.readValue("<Dimension>", dimension);
+
+	// ----- Create object -----
+	PhysicalEntity physicalEntity( taylorOrder, dimension, entity );
+
 
 	// ----- Read initial position -----
 	int size = taylorOrder + 1;
 
+/*
+	vector<Vector3D> position;
+	position.resize(size);*/
 
-	PhysicalEntity physicalEntity( taylorOrder, dimension, entity );
 
 	return physicalEntity;
 }

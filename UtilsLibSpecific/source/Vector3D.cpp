@@ -153,7 +153,26 @@ Vector3D nullVector3D(void){
 	return Vector3D(0., 0., 0.);
 }
 
+/*
 std::ostream& operator << (std::ostream& stream, const Vector3D& v){
-	stream << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")" << endl;
+	stream << v.x() << "\t" << v.y() << "\t" << v.z() << endl;
 	return stream;
 }
+
+void operator >> (std::istream & stream, Vector3D& v){
+	stream >> v.x();
+	stream >> v.y();
+	stream >> v.z();
+}
+
+
+std::ofstream& operator << (std::ofstream& stream, const Vector3D& v){
+	stream << v.x() << "\t" << v.y() << "\t" << v.z() << endl;
+	return stream;
+}
+
+void operator >> (std::ifstream & stream, Vector3D& v){
+	stream >> v.x();
+	stream >> v.y();
+	stream >> v.z();
+}*/

@@ -45,47 +45,52 @@ using std::runtime_error;
 	DoubleVector nullVector(int dimension);
 
 
-	template <class type> std::ostream & operator<<( std::ostream & out , vector<type> & v){
+	template <class type> std::ostream & operator<<( std::ostream & outputFile , vector<type> & v){
 		for( int i = 0 ; i < v.size() ; ++i){
-			out << v[i];
+			outputFile << v[i] << endl;
 		}
 
-		return out;
+		return outputFile;
 	}
 
-	template <class type> void operator>>( std::istream & in , vector<type> & v){
+	template <class type> std::istream & operator>>( std::istream & inputFile , vector<type> & v){
 		for( int i = 0 ; i < v.size() ; ++i){
-			in >> v[i];
-		}
-	}
-
-	template <class type> std::ofstream & operator<<( std::ofstream & out , vector<type> & v){
-		for( int i = 0 ; i < v.size() ; ++i){
-			out << v[i];
+			inputFile >> v[i];
 		}
 
-		return out;
+		return inputFile;
 	}
 
-	template <class type> void operator>>( std::ifstream & in , vector<type> & v){
+	template <class type> std::ofstream & operator<<( std::ofstream & outputFile , vector<type> & v){
 		for( int i = 0 ; i < v.size() ; ++i){
-			in >> v[i];
+			outputFile << v[i] << endl;
 		}
+
+		return outputFile;
 	}
-/*
-	template <class type> std::ostream & operator<<( std::ostream & out , type & v){
 
-	    typename type::iterator p = v.begin();
-	    typename type::iterator end = v.end();
-	    while( p!= end ) {
-	        //Avoiding the Global Namespace << overloads - using std:: instead
-	        std::operator << (out,*p);      
-	        std::operator << (out, "    ");
+	template <class type> std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
+		for( int i = 0 ; i < v.size() ; ++i){
+			inputFile >> v[i];
+		}
 
-        	++p;
-    	}
-    	return out;
+		return inputFile;
+	}
 
-	}*/
+	template <class type> bool operator==( vector<type> & left , vector<type> & right ){
+
+		if( left.size() == right.size() )
+		{
+			for( int i = 0 ; i < left.size() ; ++i ){
+				if( left[i] != right[i] ) return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+		return true;
+	}
 
 #endif
