@@ -285,16 +285,16 @@ TestCase( VectorInput ){
 	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
 	std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt");
 
-	vector<int> tester(1);
+	vector<int> tester(5);
 		tester[0] = 3;
-		/*tester[1] = 1;
+		tester[1] = 1;
 		tester[2] = 4;
 		tester[3] = 1;
-		tester[4] = 5;*/
+		tester[4] = 5;
 
-	//outFile << tester;
+	outFile << tester;
 
-	vector<int> tested(1);
+	vector<int> tested(5);
 
 	inFile >> tested;
 
