@@ -280,46 +280,46 @@ TestCase( Vector3DIsEqualOperator ){
 	checkEqual( nullVector3D()==nullVector3D() , true );
 
 }
-//
-//TestCase( VectorInput ){
-//	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
-//	std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt");
-//
-//	vector<int> tester(1);
-//		tester[0] = 3;
-//		/*tester[1] = 1;
-//		tester[2] = 4;
-//		tester[3] = 1;
-//		tester[4] = 5;*/
-//
-//	//outFile << tester;
-//
-//	vector<int> tested(1);
-//
-//	inFile >> tested;
-//
-//	cout << tester << endl;
-//	cout << tested;
-//
-//	check( tester == tested );
-//
-//	inFile.close();
-//	outFile.close();
-//}
-//
-//TestCase( Vector3DIO ){
-//	std::ifstream inFile("../UtilsLibSpecificTest/fileVector3D.txt");
-//	std::ofstream outFile("../UtilsLibSpecificTest/fileVector3D.txt");
-//
-//	Vector3D outVector(3.14159, 2.718281, 1.6180339);
-//	Vector3D inVector;
-//	
-//	/*cin >> inVector;
-//
-//	cout << inVector;*/
-//
-//	//outFile << outVector;
-//
-//	inFile.close();
-//	outFile.close();
-//}
+
+TestCase( VectorInput ){
+	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
+	std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt");
+
+	vector<int> tester(1);
+		tester[0] = 3;
+		/*tester[1] = 1;
+		tester[2] = 4;
+		tester[3] = 1;
+		tester[4] = 5;*/
+
+	//outFile << tester;
+
+	vector<int> tested(1);
+
+	inFile >> tested;
+
+	cout << tester << endl;
+	cout << tested;
+
+	check( tester == tested );
+
+	inFile.close();
+	outFile.close();
+}
+
+TestCase( Vector3DIO ){
+	std::ifstream inFile("../UtilsLibSpecificTest/fileVector3D.txt");
+	std::ofstream outFile("../UtilsLibSpecificTest/fileVector3D.txt");
+
+	Vector3D outVector(3.14159, 2.718281, 1.6180339);
+	Vector3D inVector;
+	
+	/*cin >> inVector;
+
+	cout << inVector;*/
+
+	//outFile << outVector;
+
+	inFile.close();
+	outFile.close();
+}

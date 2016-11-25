@@ -1,5 +1,4 @@
 #include <Vector3D.h>
-#include <iostream>
 
 Vector3D::Vector3D( const double& x, const double& y, const double& z ){
 	this->components[ X ] = x;

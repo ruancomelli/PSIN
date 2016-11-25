@@ -4,8 +4,8 @@
 #include <string>
 #include <algorithm>
 
-using std::string;
-/*
+using namespace std;
+
 int strcmpi( const string left, const string right );
-*/
+
 #endif

@@ -23,9 +23,9 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 	// ----- Read initial position -----
 	int size = taylorOrder + 1;
 
-/*
+
 	vector<Vector3D> position;
-	position.resize(size);*/
+	position.resize(size);
 
 
 	return physicalEntity;
