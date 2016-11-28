@@ -1,5 +1,11 @@
 #include <Vector3D.h>
 
+Vector3D::Vector3D( void ){
+	this->components[ X ] = 0.0;
+	this->components[ Y ] = 0.0;
+	this->components[ Z ] = 0.0;
+}
+
 Vector3D::Vector3D( const double& x, const double& y, const double& z ){
 	this->components[ X ] = x;
 	this->components[ Y ] = y;
@@ -158,24 +164,24 @@ ostream & operator << (ostream & stream, const Vector3D & v){
 	return stream;
 }
 
-/*istream & operator >> (istream & stream, Vector3D & v){
-	stream >> static_cast<long double>(v.x());
-	stream >> static_cast<long double>(v.y());
-	stream >> static_cast<long double>(v.z());
+istream & operator >> (istream & stream, Vector3D & v){
+	stream >> static_cast<double>(v.x());
+	stream >> static_cast<double>(v.y());
+	stream >> static_cast<double>(v.z());
 
 	return stream;
-}*/
+}
 
-/*
+
 ofstream & operator << (ofstream & stream, const Vector3D & v){
-	//stream << static_cast<long double>(v.x()) << string("    ") << static_cast<long double>(v.y()) << string("    ") << static_cast<long double>(v.z()) << endl;
+	stream << static_cast<long double>(v.x()) << string("    ") << static_cast<long double>(v.y()) << string("    ") << static_cast<long double>(v.z()) << endl;
 	return stream;
-}*/
-/*
+}
+
 ifstream & operator >> (ifstream & stream, Vector3D & v){
-	stream >> static_cast<long double>(v.x());
-	stream >> static_cast<long double>(v.y());
-	stream >> static_cast<long double>(v.z());
+	stream >> static_cast<double>(v.x());
+	stream >> static_cast<double>(v.y());
+	stream >> static_cast<double>(v.z());
 
 	return stream;
-}*/
+}

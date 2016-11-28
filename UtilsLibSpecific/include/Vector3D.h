@@ -15,7 +15,8 @@ typedef vector< Axis > AxisArray;
 
 class Vector3D{
 public:
-	Vector3D( const double& x=0.0, const double& y=0.0, const double& z=0.0 );
+	Vector3D( void );
+	explicit Vector3D( const double& x, const double& y=0.0, const double& z=0.0 );
 	Vector3D( const Vector3D& other );
 
 	double x() const;
@@ -54,10 +55,10 @@ bool operator == ( const Vector3D & v1 , const Vector3D v2 );//tol=1e-12
 
 
 ostream & operator << (ostream & stream, const Vector3D & v);
-//istream & operator >> (istream & stream, Vector3D & v);
+istream & operator >> (istream & stream, Vector3D & v);
 
-//ofstream & operator << (ofstream & stream, const Vector3D & v);
-//ifstream & operator >> (ifstream & stream, Vector3D & v);
+ofstream & operator << (ofstream & stream, const Vector3D & v);
+ifstream & operator >> (ifstream & stream, Vector3D & v);
 
 
 Vector3D nullVector3D(void);
