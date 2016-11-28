@@ -152,26 +152,30 @@ Vector3D nullVector3D(void){
 	return Vector3D(0., 0., 0.);
 }
 
+
+ostream & operator << (ostream & stream, const Vector3D & v){
+	stream << v.x() << "    " << v.y() << "    " << v.z() << endl;
+	return stream;
+}
+
+/*istream & operator >> (istream & stream, Vector3D & v){
+	stream >> static_cast<long double>(v.x());
+	stream >> static_cast<long double>(v.y());
+	stream >> static_cast<long double>(v.z());
+
+	return stream;
+}*/
+
 /*
-std::ostream& operator << (std::ostream& stream, const Vector3D& v){
-	stream << v.x() << "\t" << v.y() << "\t" << v.z() << endl;
+ofstream & operator << (ofstream & stream, const Vector3D & v){
+	//stream << static_cast<long double>(v.x()) << string("    ") << static_cast<long double>(v.y()) << string("    ") << static_cast<long double>(v.z()) << endl;
 	return stream;
-}
+}*/
+/*
+ifstream & operator >> (ifstream & stream, Vector3D & v){
+	stream >> static_cast<long double>(v.x());
+	stream >> static_cast<long double>(v.y());
+	stream >> static_cast<long double>(v.z());
 
-void operator >> (std::istream & stream, Vector3D& v){
-	stream >> v.x();
-	stream >> v.y();
-	stream >> v.z();
-}
-
-
-std::ofstream& operator << (std::ofstream& stream, const Vector3D& v){
-	stream << v.x() << "\t" << v.y() << "\t" << v.z() << endl;
 	return stream;
-}
-
-void operator >> (std::ifstream & stream, Vector3D& v){
-	stream >> v.x();
-	stream >> v.y();
-	stream >> v.z();
 }*/

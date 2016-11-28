@@ -52,12 +52,13 @@ Vector3D operator /( const Vector3D& v, const double& scalar );
 Vector3D operator - (const Vector3D& v);
 bool operator == ( const Vector3D & v1 , const Vector3D v2 );//tol=1e-12
 
-/*
-std::ostream& operator << (std::ostream& stream, const Vector3D& v);
-void operator >> (std::istream & stream, Vector3D& v);
 
-std::ofstream& operator << (std::ofstream& stream, const Vector3D& v);
-void operator >> (std::ifstream & stream, Vector3D& v);*/
+ostream & operator << (ostream & stream, const Vector3D & v);
+//istream & operator >> (istream & stream, Vector3D & v);
+
+//ofstream & operator << (ofstream & stream, const Vector3D & v);
+//ifstream & operator >> (ifstream & stream, Vector3D & v);
+
 
 Vector3D nullVector3D(void);
 

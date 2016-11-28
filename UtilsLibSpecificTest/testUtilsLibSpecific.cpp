@@ -10,8 +10,8 @@
 #include <Foreach.h>
 
 // our code
-#include <Vector3D.h>
 #include <Vector.h>
+#include <Vector3D.h>
 
 TestCase( CheckEqualAndCheckClose ){
 	double i = 0;
@@ -283,7 +283,7 @@ TestCase( Vector3DIsEqualOperator ){
 
 TestCase( VectorInput ){
 	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
-	std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt");
+	std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt", std::ofstream::app);
 
 	vector<int> tester(5);
 		tester[0] = 3;
@@ -298,9 +298,6 @@ TestCase( VectorInput ){
 
 	inFile >> tested;
 
-	cout << tester << endl;
-	cout << tested;
-
 	check( tester == tested );
 
 	inFile.close();
@@ -309,16 +306,16 @@ TestCase( VectorInput ){
 
 TestCase( Vector3DIO ){
 	std::ifstream inFile("../UtilsLibSpecificTest/fileVector3D.txt");
-	std::ofstream outFile("../UtilsLibSpecificTest/fileVector3D.txt");
+	std::ofstream outFile("../UtilsLibSpecificTest/fileVector3D.txt", std::ofstream::app);
 
 	Vector3D outVector(3.14159, 2.718281, 1.6180339);
 	Vector3D inVector;
 	
 	/*cin >> inVector;
 
-	cout << inVector;*/
+	cout << inVector;
 
-	//outFile << outVector;
+	outFile << outVector;*/
 
 	inFile.close();
 	outFile.close();
