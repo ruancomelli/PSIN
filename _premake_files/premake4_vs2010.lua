@@ -107,12 +107,12 @@ links{
 configuration {}
 
 --include "../EFVLibTest"
+include "../CollidingSpheres"
 include "../IOLibTest"
 include "../EntityLibTest"
 include "../UtilsLibSpecificTest"
 include "../SimulationTest"
 include "../ForceModelLibTest"
-include "../CollidingSpheres"
 include "../CollidingParticles"
 
 --include "../EFVLib"

@@ -7,6 +7,9 @@
 #include <string>
 #include <stdexcept>
 
+// UtilsLibSpecific
+#include <StringUtils.h>
+
 using namespace std;
 
 class FileReader
@@ -32,7 +35,7 @@ class FileReader
 			{
 				this->file.seekg( 0, ios::beg );	// Go to the beginning of the file
 
-				while( strcmp( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
+				while( stringCompare( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
 				{
 					this->file >> buffer;
 				}

@@ -1,4 +1,4 @@
-% %% generate2dDEMGraph
+% %% generateMovie.m
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Configuration:
@@ -9,8 +9,7 @@ nParticles = 2;                 % Number of particles
 inputCell = cell(nParticles,1);
 
 for k = 1 : nParticles
-    files(k, :) = [inputPath, 'output', int2str(k), '.txt']; % Input files
-    inputCell{k} = csvread(files(k, :));                % Data storage
+    inputCell{k} = csvread([inputPath, 'Particle', int2str(k), '/position.txt']);                % Data storage
 end
 
 

@@ -5,12 +5,14 @@ targetdir "../_tests"
 
 includedirs{
 	"./include",
+	"../IOLib/include",
 	"../EntityLib/include",
 	"../UtilsLibSpecific/include",
 	"../ForceModelLib/include",
 }
 
 links {
+	"IOLib",
 	"EntityLib",
 	"UtilsLibSpecific",
 	"ForceModelLib",

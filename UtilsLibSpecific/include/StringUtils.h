@@ -6,6 +6,6 @@
 
 using namespace std;
 
-int strcmpi( const string left, const string right );
+int stringCompare( const string & left, const string & right );
 
 #endif

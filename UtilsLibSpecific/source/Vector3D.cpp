@@ -165,23 +165,23 @@ ostream & operator << (ostream & stream, const Vector3D & v){
 }
 
 istream & operator >> (istream & stream, Vector3D & v){
-	stream >> static_cast<double>(v.x());
-	stream >> static_cast<double>(v.y());
-	stream >> static_cast<double>(v.z());
+	stream >> v.x();
+	stream >> v.y();
+	stream >> v.z();
 
 	return stream;
 }
 
 
 ofstream & operator << (ofstream & stream, const Vector3D & v){
-	stream << static_cast<long double>(v.x()) << string("    ") << static_cast<long double>(v.y()) << string("    ") << static_cast<long double>(v.z()) << endl;
+	stream << static_cast<long double>(v.x()) << "    " << static_cast<long double>(v.y()) << "    " << static_cast<long double>(v.z()) << endl;
 	return stream;
 }
 
 ifstream & operator >> (ifstream & stream, Vector3D & v){
-	stream >> static_cast<double>(v.x());
-	stream >> static_cast<double>(v.y());
-	stream >> static_cast<double>(v.z());
+	stream >> v.x();
+	stream >> v.y();
+	stream >> v.z();
 
 	return stream;
 }

@@ -10,6 +10,7 @@
 #include <Foreach.h>
 
 // our code
+#include <StringUtils.h>
 #include <Vector.h>
 #include <Vector3D.h>
 
@@ -281,9 +282,9 @@ TestCase( Vector3DIsEqualOperator ){
 
 }
 
-TestCase( VectorInput ){
+TestCase( IntVectorInput ){
 	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
-	std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt", std::ofstream::app);
+	//std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt", std::ofstream::app);
 
 	vector<int> tester(5);
 		tester[0] = 3;
@@ -292,7 +293,7 @@ TestCase( VectorInput ){
 		tester[3] = 1;
 		tester[4] = 5;
 
-	outFile << tester;
+	//outFile << tester;
 
 	vector<int> tested(5);
 
@@ -301,7 +302,7 @@ TestCase( VectorInput ){
 	check( tester == tested );
 
 	inFile.close();
-	outFile.close();
+	//outFile.close();
 }
 
 TestCase( Vector3DIO ){
@@ -310,13 +311,36 @@ TestCase( Vector3DIO ){
 
 	Vector3D outVector(3.14159, 2.718281, 1.6180339);
 	Vector3D inVector;
-	
-	/*cin >> inVector;
 
+	outFile << outVector;
+	inFile >> inVector;
+
+	cout << outVector;
 	cout << inVector;
 
-	outFile << outVector;*/
+	checkClose(inVector.x(), outVector.x(), 1e-2);
+	checkClose(inVector.y(), outVector.y(), 1e-2);
+	checkClose(inVector.z(), outVector.z(), 1e-2);
 
 	inFile.close();
 	outFile.close();
+}
+
+TestCase( StringCompare ){
+	string left("<LaTeX>");
+	string right("<latex>");
+
+	check( !stringCompare("<LaTeX>", "<latex>") );
+	check( !stringCompare(left, right) );
+}
+
+TestCase( AssigningValueToVector3D ){
+	Vector3D v;
+	v.x() = 1;
+	v.y() = 9;
+	v.z() = 4.3;
+
+	checkEqual(v.x(), 1);
+	checkEqual(v.y(), 9);
+	checkEqual(v.z(), 4.3);
 }

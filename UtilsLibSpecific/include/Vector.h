@@ -54,15 +54,15 @@ using std::runtime_error;
 	}
 
 	template <class type> std::istream & operator>>( std::istream & inputFile , vector<type> & v){
-		for( int i = 0 ; i < v.size() ; ++i){
-			inputFile >> static_cast<type>(v[i]);
+		for( int i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
+			inputFile >> v[i];
 		}
 
 		return inputFile;
 	}
 
 	template <class type> std::ofstream & operator<<( std::ofstream & outputFile , const vector<type> & v){
-		for( int i = 0 ; i < v.size() ; ++i){
+		for( int i = 0 ; i < v.size() &&  ; ++i){
 			outputFile << static_cast<type>(v[i]) << endl;
 		}
 
@@ -70,8 +70,8 @@ using std::runtime_error;
 	}
 
 	template <class type> std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
-		for( int i = 0 ; i < v.size() ; ++i){
-			inputFile >> static_cast<type>(v[i]);
+		for( int i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
+			inputFile >> v[i];
 		}
 
 		return inputFile;

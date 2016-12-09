@@ -16,6 +16,7 @@ enum GeometryType{
 	DEFAULT = SPHERE
 };
 
+
 enum ScalarProperty{
 	MASS = 0,
 	MOMENT_OF_INERTIA,		// J

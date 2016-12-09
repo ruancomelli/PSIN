@@ -10,6 +10,8 @@
 // EntityLib
 #include <Entity.h>
 #include <PhysicalEntity.h>
+#include <Particle.h>
+#include <SphericalParticle.h>
 
 using namespace std;
 
@@ -239,4 +241,25 @@ TestCase( PhysicalEntityDistance )
 
 	double distance = 14.7478676424763;
 	checkClose( phy[0].distance(phy[1]) , distance , 1e-12 );
+}
+
+TestCase( ParticleConstructors )
+{
+	int taylorOrder = 4;
+	int dimension = 3;
+	int handle = 5;
+
+	PhysicalEntity base(taylorOrder, dimension, handle);
+
+	Particle particle1(taylorOrder, dimension, handle);
+	Particle particle2(base);
+
+	checkEqual(particle1.getHandle(), handle);
+	checkEqual(particle1.getTaylorOrder(), taylorOrder);
+	checkEqual(particle1.getDimension(), dimension);
+	
+
+	checkEqual(particle1.getHandle(), handle);
+	checkEqual(particle1.getTaylorOrder(), taylorOrder);
+	checkEqual(particle1.getDimension(), dimension);
 }
