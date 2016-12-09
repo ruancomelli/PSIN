@@ -33,6 +33,7 @@ class FileReader
 
 			if( this->isReady )
 			{
+				this->file.clear();
 				this->file.seekg( 0, ios::beg );	// Go to the beginning of the file
 
 				while( stringCompare( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
