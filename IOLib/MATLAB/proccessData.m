@@ -3,17 +3,22 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%     INITIALIZE PROGRAM     %%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp('Initializing Program');
 
-% inputPath:
+%% inputPath:
 clear
 inputPath = '../../_output/';                   % Path where to look for input
-outputMATLAB = '../../_output/MATLAB_output';   % Path where to MATLAB must output
+outputMATLAB = '../../_output/MATLAB_output/';   % Path where to MATLAB must output
+
+disp('Done');
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%     READ DATA     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% ----- Read main output file -----
+%% ----- Read main output file -----
+disp('Reading Main Output File');
+
 fileID = fopen([inputPath, 'output.txt']);
 fileCell = textscan(fileID, '%s %f');
 
@@ -40,23 +45,29 @@ finalTime = values(finalTimeIdx);
 taylorOrderIdx = find( strcmpi(tags, '<taylorOrder>') );
 taylorOrder = values(taylorOrderIdx);
 
-% ----- Read particle files -----
+disp('Done')
+
+%% ----- Read particle files -----
+disp('Reading Particle Files');
+
 energyIdx = 1;
 positionIdx = 2;
-velocityIdx = 2;
-linearMomentumIdx = 2;
-orientationIdx = 2;
-rotationalVelocityIdx = 2;
-angularMomentumIdx = 2;
+velocityIdx = 3;
+linearMomentumIdx = 4;
+orientationIdx = 5;
+rotationalVelocityIdx = 6;
+angularMomentumIdx = 7;
 
 numberOfFilesPerParticle = 7;
 particleData = cell(nParticles, numberOfFilesPerParticle);
-
+paticleFileCell = cell(nParticles, 1);
 
 for counter = 1 : nParticles
+    disp(['Particle ', int2str(counter)]);
+
     particleInputPath = [inputPath, 'Particle', int2str(counter), '/'];
     
-    particleFileCell = textscan([particleInputPath, 'data.txt'], '%s %f');
+    particleFileCell{counter} = textscan([particleInputPath, 'data.txt'], '%s %f');
     
     particleData{counter, energyIdx} = csvread([particleInputPath, 'energy.txt']);
     particleData{counter, positionIdx} = csvread([particleInputPath, 'position.txt']);
@@ -67,14 +78,27 @@ for counter = 1 : nParticles
     particleData{counter, angularMomentumIdx} = csvread([particleInputPath, 'angular_momentum.txt']);
 end
 
+disp('Done');
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%     PROCCESS DATA     %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp('Proccessing Data');
 
-nTimeSteps = (finalTime - initialTime) / timeStep + 1;
+radius = zeros(nParticles, 1);
+for counter = 1 : nParticles
+    radiusIdx = find( strcmpi(particleFileCell{counter}{1},'<Radius>') );
+    radius(counter) = particleFileCell{counter}{2}(radiusIdx) );
+end
+
 timeVector = initialTime:timeStep:finalTime;
+nTimeSteps = length(timeVector);
 
-% ----- Plot Energy -----
+cmap = colormap( jet(nParticles) );
+
+%% ----- Plot Energy -----
+disp('Plotting Energy');
+
 totalEnergy = zeros(nTimeSteps, 1);
 
 for counter = 1 : nParticles
@@ -82,139 +106,256 @@ for counter = 1 : nParticles
 end
 
 fig = figure('Visible', 'off');
-    title('Energy');
+    title('Mechanical Energy');
     xlabel('Time [s]');
-    ylabel('Energy [J]');
+    ylabel('Mechanical Energy [J]');
     
     hold on
     
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, energyIdx});
-        legend(['Particle ', int2str(counter)]);
+        plot(timeVector, particleData{counter, energyIdx}, 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
     end
-    plot(timeVector, totalEnergy, 'Color', 'black', 'LineStyle', '-', 'LineWidth', 1.0);
+    plot(timeVector, totalEnergy, 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total Mechanical Energy');
+    legend('show');
     
-    saveas
+    disp('Saving');
     
+    saveas(fig, [outputMATLAB, 'mechanical_energy_plot.png']);  
+    hold off  
 
-% 
-% nParticles = 2;
-% 
-% inputCell = cell(nParticles,1);
-% 
-% for k = 1 : nParticles
-%     inputCell{k} = csvread([inputPath, 'Particle', int2str(k), '/position.txt']);                % Data storage
-% end
-% 
-% 
-% 
-% % %%%%%%%%%%%%%%%%%%%%%%%%%% THIS IS WORKING!!! %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% radius(1) = 0.010;    % This should be automated
-% radius(2) = 0.005;
-% 
-% % Get some data related to the simulation
-% inputMatrix = inputCell{1};
-% 
-% initialTimes = find( inputMatrix(:,1), 2, 'first' );
-% taylorOrder = initialTimes(2) - initialTimes(1) - 1 - 1;
-% timeStep = inputMatrix(initialTimes(2),1) - inputMatrix(initialTimes(1),1);
-% 
-% finalTime = find( inputMatrix(:,1), 1, 'last' );
-% nTimeSteps = floor( ( inputMatrix(finalTime,1) - inputMatrix(1,1) ) / timeStep + 1 );
-% 
-% nDimensions = size(inputMatrix, 2) - 1;
-% 
-% PositionCell = cell(nParticles, nTimeSteps);
-% 
-% % Get positions.
-% % particleIdx: Index of the particle (1, 2, 3, ...)
-% % timeIdx: Index of the time step (1 = initialTime, 2 =
-% % initialTime + timeStep, 3 =
-% % initialTime + 2*timeStep, ...)
-% % derivativeIdx: (0 = position, 1 = velocity, 2 = acceleration, ...)
-% % directionIdx: 1 = x, 2 = y, 3 = z;
-% % Then we have PositionCell{particleIdx, timeIdx}(derivativeIdx+1,
-% % directionIdx)
-% for particleIdx = 1 : nParticles
-%     for timeIdx = 1 : nTimeSteps
-%         PositionCell{particleIdx, timeIdx}(taylorOrder + 1, nDimensions) = 0;
-%         for derivativeIdx = 0 : taylorOrder
-%             for directionIdx = 1 : 3
-%                 PositionCell{particleIdx, timeIdx}(derivativeIdx + 1, directionIdx) = inputCell{particleIdx}( (timeIdx-1) * (taylorOrder+1 + 1) + (derivativeIdx+1) + 1, directionIdx + 1);
-%             end
-%         end
-%     end
-% end
-% 
-% disp('End of input section');
-% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 
-% %% VIDEO
+disp('Done');
+    
+%% ----- Plot Linear Momentum -----
+disp('Plotting Linear Momentum');
+
+totalLinearMomentum = zeros(nTimeSteps, 1);
+
+for counter = 1 : nParticles
+    totalLinearMomentum = totalLinearMomentum + particleData{counter, linearMomentumIdx};
+end
+
+disp('Plotting X Linear Momentum');
+
+fig = figure('Visible', 'off');
+    title('Linear Momentum - X Direction');
+    xlabel('Time [s]');
+    ylabel('X Linear Momentum [kg*m/s]');
+    
+    hold on
+    
+    for counter = 1 : nParticles
+        plot(timeVector, particleData{counter, linearMomentumIdx}(:,1), 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
+    end
+    plot(timeVector, totalLinearMomentum(:,1), 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total X Linear Momentum');
+    legend('show');
+    
+    disp('Saving');
+    
+    saveas(fig, [outputMATLAB, 'X_linear_momentum_plot.png']);    
+    hold off  
+
+disp('Plotting Y Linear Momentum');
+
+fig = figure('Visible', 'off');
+    title('Linear Momentum - Y Direction');
+    xlabel('Time [s]');
+    ylabel('Y Linear Momentum [kg*m/s]');
+    
+    hold on
+    
+    for counter = 1 : nParticles
+        plot(timeVector, particleData{counter, linearMomentumIdx}(:,2), 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
+    end
+    plot(timeVector, totalLinearMomentum(:,2), 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total Y Linear Momentum');
+    legend('show');
+    
+    disp('Saving');
+    
+    saveas(fig, [outputMATLAB, 'Y_linear_momentum_plot.png']);     
+    hold off  
+
+disp('Plotting Z Linear Momentum');
+
+fig = figure('Visible', 'off');
+    title('Linear Momentum - Z Direction');
+    xlabel('Time [s]');
+    ylabel('Z Linear Momentum [kg*m/s]');
+    
+    hold on
+    
+    for counter = 1 : nParticles
+        plot(timeVector, particleData{counter, linearMomentumIdx}(:,3), 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
+    end
+    plot(timeVector, totalLinearMomentum(:,3), 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total Z Linear Momentum');
+    legend('show');
+    
+    disp('Saving');
+    
+    saveas(fig, [outputMATLAB, 'Z_linear_momentum_plot.png']);    
+    hold off  
+    
+disp('Done');
+    
+    
+%% ----- Plot Angular Momentum -----
+disp('Plotting Angular Momentum');
+
+totalAngularMomentum = zeros(nTimeSteps, 1);
+
+for counter = 1 : nParticles
+    totalAngularMomentum = totalAngularMomentum + particleData{counter, angularMomentumIdx};
+end
+
+disp('Plotting X Angular Momentum');
+
+fig = figure('Visible', 'off');
+    title('Angular Momentum - X Direction');
+    xlabel('Time [s]');
+    ylabel('X Angular Momentum [kg*m/s]');
+    
+    hold on
+    
+    for counter = 1 : nParticles
+        plot(timeVector, particleData{counter, angularMomentumIdx}(:,1), 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
+    end
+    plot(timeVector, totalAngularMomentum(:,1), 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total X Angular Momentum');
+    legend('show');
+    
+    disp('Saving');
+    
+    saveas(fig, [outputMATLAB, 'X_angular_momentum_plot.png']);    
+    hold off  
+
+disp('Plotting Y Angular Momentum');
+
+fig = figure('Visible', 'off');
+    title('Angular Momentum - Y Direction');
+    xlabel('Time [s]');
+    ylabel('Y Angular Momentum [kg*m/s]');
+    
+    hold on
+    
+    for counter = 1 : nParticles
+        plot(timeVector, particleData{counter, angularMomentumIdx}(:,2), 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
+    end
+    plot(timeVector, totalAngularMomentum(:,2), 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total Y Angular Momentum');
+    legend('show');
+    
+    disp('Saving');
+    
+    saveas(fig, [outputMATLAB, 'Y_angular_momentum_plot.png']);     
+    hold off  
+
+disp('Plotting Z Angular Momentum');
+
+fig = figure('Visible', 'off');
+    title('Angular Momentum - Z Direction');
+    xlabel('Time [s]');
+    ylabel('Z Angular Momentum [kg*m/s]');
+    
+    hold on
+    
+    for counter = 1 : nParticles
+        plot(timeVector, particleData{counter, angularMomentumIdx}(:,3), 
+            'DisplayName', ['Particle ', int2str(counter)],
+            'Color', cmap(counter));
+    end
+    plot(timeVector, totalAngularMomentum(:,3), 'Color', 'black', 
+        'LineStyle', '-', 
+        'LineWidth', 1.0,
+        'DisplayName', 'Total Z Angular Momentum');
+    legend('show');
+    
+    disp('Saving');
+    
+    saveas(fig, [outputMATLAB, 'Z_angular_momentum_plot.png']);    
+    hold off  
+
+disp('Done');
+
+%% ===== Generate Movie =====
+disp('Generating Movie');
+
+timeSkip = 100;
+disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
+
+video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
+
+figure('Visible', 'off');
+open(video)
+
+for i = 1 : nParticles
+    for j = 1 : nTimeSteps
+        xPos(i, j) = particleData{i,positionIdx}(j,1);
+        yPos(i, j) = particleData{i,positionIdx}(j,2);
+    end
+    xMin(i) = min(xPos(i,:));
+    xMax(i) = max(xPos(i,:));
+    yMin(i) = min(yPos(i,:));
+    yMax(i) = max(yPos(i,:));
+end
+
+axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
+axis equal
+
+Frame(nTimeSteps) = struct('cdata',[],'colormap',[]);
+for j = 1 : timeSkip : nTimeSteps
+    title([num2str((j-1)*timeStep), 's']);
+    
+    % Get center coordinates
+    X = xPos(:, j);
+    Y = yPos(:, j);
+    centers = [X, Y];
+    
+    % Clear circles drawn before
+    cla
+    
+    axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
+    axis equal
+    
+    % Plot circles
+    viscircles(centers, radius, 'Color', cmap);
+    
+    % Write to video
+    Frame(j) = getframe(gcf);
+    writeVideo(video, Frame(j));
+end
+close(video);
+
+disp('Done');
+
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% timeJump = 100;
-% 
-% outputPath = '../../_output/';
-% video = VideoWriter([outputPath, 'outputVideo.avi']);
-% figure('Visible', 'off');
-% open(video)
-% 
-% for i = 1 : nParticles
-%     for j = 1 : nTimeSteps
-%         xPos(i, j) = PositionCell{i,j}(1,1);
-%         yPos(i, j) = PositionCell{i,j}(1,2);
-%     end
-%     xMin(i) = min(xPos(i,:));
-%     xMax(i) = max(xPos(i,:));
-%     yMin(i) = min(yPos(i,:));
-%     yMax(i) = max(yPos(i,:));
-% end
-% 
-% axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
-% axis equal
-% 
-% F(nTimeSteps) = struct('cdata',[],'colormap',[]);
-% for j = 1:timeJump:nTimeSteps
-%     title([num2str((j-1)*timeStep), 's']);
-%     viscircles([inputCell{1}((j-1)*(nDimensions+1) + 2, 2), inputCell{1}((j-1)*(nDimensions+1) + 2, 3); inputCell{2}((j-1)*(nDimensions+1) + 2, 2), inputCell{2}((j-1)*(nDimensions+1) + 2, 3)], [0.010; 0.005]);
-%     F(j) = getframe(gcf);
-%     writeVideo(video, F(j));
-% end
-% close(video);
-% 
-% disp('End of video section');
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %% PLOTTING
-% %% position
-% figure
-% title('Speed');
-% for i = 1 : nTimeSteps
-%     xSpeed1(i) = PositionCell{1,i}(2, 1);
-%     xSpeed2(i) = PositionCell{2,i}(2, 1);
-% end
-% plot( (0:(nTimeSteps-1))*timeStep, xSpeed1, 'b', (0:(nTimeSteps-1))*timeStep, xSpeed2, 'r')
-% 
-% disp('End of position plotting');
-% 
-% %% energy
-% gravity = 10.0;
-% figure
-% title('Energy');
-% 
-% clear energy1
-% clear energy2
-% 
-% mass1 = 0.001;
-% mass2 = 0.0002;
-% 
-% for i = 1 : nTimeSteps
-%     energy1(i) = mass1 * ( PositionCell{1,i}(2, 1)^2 + PositionCell{1,i}(2, 2)^2 + PositionCell{1,i}(2, 3)^2 )/2 + mass1 * norm(gravity) * PositionCell{1,i}(1,2);
-%     energy2(i) = mass2 * ( PositionCell{2,i}(2, 1)^2 + PositionCell{2,i}(2, 2)^2 + PositionCell{2,i}(2, 3)^2 )/2 + mass2 * norm(gravity) * PositionCell{2,i}(1,2);
-% end
-% 
-% plot((0:(nTimeSteps-1))*timeStep, energy1, 'b-', (0:(nTimeSteps-1))*timeStep, energy2, 'r-', (0:(nTimeSteps-1))*timeStep, energy1+energy2, 'k-');
-% 
-% disp('End of energy plotting');
-% 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp('Finished');
