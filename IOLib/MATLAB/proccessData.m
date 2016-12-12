@@ -60,14 +60,15 @@ angularMomentumIdx = 7;
 
 numberOfFilesPerParticle = 7;
 particleData = cell(nParticles, numberOfFilesPerParticle);
-paticleFileCell = cell(nParticles, 1);
+particleFileCell = cell(nParticles, 1);
 
 for counter = 1 : nParticles
     disp(['Particle ', int2str(counter)]);
 
     particleInputPath = [inputPath, 'Particle', int2str(counter), '/'];
     
-    particleFileCell{counter} = textscan([particleInputPath, 'data.txt'], '%s %f');
+    fileID = fopen([particleInputPath, 'data.txt']);
+    particleFileCell{counter} = textscan(fileID, '%s %f');
     
     particleData{counter, energyIdx} = csvread([particleInputPath, 'energy.txt']);
     particleData{counter, positionIdx} = csvread([particleInputPath, 'position.txt']);
@@ -88,13 +89,14 @@ disp('Proccessing Data');
 radius = zeros(nParticles, 1);
 for counter = 1 : nParticles
     radiusIdx = find( strcmpi(particleFileCell{counter}{1},'<Radius>') );
-    radius(counter) = particleFileCell{counter}{2}(radiusIdx) );
+    radius(counter) = particleFileCell{counter}{2}(radiusIdx);
 end
 
 timeVector = initialTime:timeStep:finalTime;
 nTimeSteps = length(timeVector);
 
 cmap = colormap( jet(nParticles) );
+cmap(2, :) = [1.0, 0.0, 0.0]; % red
 
 %% ----- Plot Energy -----
 disp('Plotting Energy');
@@ -114,13 +116,12 @@ fig = figure('Visible', 'off');
     
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, energyIdx}, 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, energyIdx}, ...
+            'DisplayName', ['Particle ', int2str(counter)], ...
+            'Color', cmap(counter, :));
     end
-    plot(timeVector, totalEnergy, 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalEnergy, 'Color', 'black', ...
+        'LineStyle', '-', 'LineWidth', 1.0, ...
         'DisplayName', 'Total Mechanical Energy');
     legend('show');
     
@@ -134,7 +135,7 @@ disp('Done');
 %% ----- Plot Linear Momentum -----
 disp('Plotting Linear Momentum');
 
-totalLinearMomentum = zeros(nTimeSteps, 1);
+totalLinearMomentum = zeros(nTimeSteps, 3);
 
 for counter = 1 : nParticles
     totalLinearMomentum = totalLinearMomentum + particleData{counter, linearMomentumIdx};
@@ -150,13 +151,13 @@ fig = figure('Visible', 'off');
     hold on
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, linearMomentumIdx}(:,1), 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, linearMomentumIdx}(:,1), ...
+        'DisplayName', ['Particle ', int2str(counter)], ...
+        'Color', cmap(counter, :));
     end
-    plot(timeVector, totalLinearMomentum(:,1), 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalLinearMomentum(:,1), 'Color', 'black', ...
+        'LineStyle', '-', ...
+        'LineWidth', 1.0, ...
         'DisplayName', 'Total X Linear Momentum');
     legend('show');
     
@@ -175,13 +176,13 @@ fig = figure('Visible', 'off');
     hold on
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, linearMomentumIdx}(:,2), 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, linearMomentumIdx}(:,2), ...
+            'DisplayName', ['Particle ', int2str(counter)], ...
+            'Color', cmap(counter, :));
     end
-    plot(timeVector, totalLinearMomentum(:,2), 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalLinearMomentum(:,2), 'Color', 'black', ...
+        'LineStyle', '-', ...
+        'LineWidth', 1.0, ...
         'DisplayName', 'Total Y Linear Momentum');
     legend('show');
     
@@ -200,13 +201,13 @@ fig = figure('Visible', 'off');
     hold on
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, linearMomentumIdx}(:,3), 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, linearMomentumIdx}(:,3), ...
+            'DisplayName', ['Particle ', int2str(counter)], ...
+            'Color', cmap(counter, :));
     end
-    plot(timeVector, totalLinearMomentum(:,3), 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalLinearMomentum(:,3), 'Color', 'black', ...
+        'LineStyle', '-', ...
+        'LineWidth', 1.0, ...
         'DisplayName', 'Total Z Linear Momentum');
     legend('show');
     
@@ -221,7 +222,7 @@ disp('Done');
 %% ----- Plot Angular Momentum -----
 disp('Plotting Angular Momentum');
 
-totalAngularMomentum = zeros(nTimeSteps, 1);
+totalAngularMomentum = zeros(nTimeSteps, 3);
 
 for counter = 1 : nParticles
     totalAngularMomentum = totalAngularMomentum + particleData{counter, angularMomentumIdx};
@@ -237,13 +238,13 @@ fig = figure('Visible', 'off');
     hold on
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, angularMomentumIdx}(:,1), 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, angularMomentumIdx}(:,1), ...
+            'DisplayName', ['Particle ', int2str(counter)], ...
+            'Color', cmap(counter, :));
     end
-    plot(timeVector, totalAngularMomentum(:,1), 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalAngularMomentum(:,1), 'Color', 'black', ...
+        'LineStyle', '-', ...
+        'LineWidth', 1.0, ...
         'DisplayName', 'Total X Angular Momentum');
     legend('show');
     
@@ -262,13 +263,13 @@ fig = figure('Visible', 'off');
     hold on
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, angularMomentumIdx}(:,2), 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, angularMomentumIdx}(:,2), ...
+            'DisplayName', ['Particle ', int2str(counter)], ...
+            'Color', cmap(counter, :));
     end
-    plot(timeVector, totalAngularMomentum(:,2), 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalAngularMomentum(:,2), 'Color', 'black', ...
+        'LineStyle', '-', ...
+        'LineWidth', 1.0, ...
         'DisplayName', 'Total Y Angular Momentum');
     legend('show');
     
@@ -287,13 +288,13 @@ fig = figure('Visible', 'off');
     hold on
     
     for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, angularMomentumIdx}(:,3), 
-            'DisplayName', ['Particle ', int2str(counter)],
-            'Color', cmap(counter));
+        plot(timeVector, particleData{counter, angularMomentumIdx}(:,3), ...
+            'DisplayName', ['Particle ', int2str(counter)], ...
+            'Color', cmap(counter, :));
     end
-    plot(timeVector, totalAngularMomentum(:,3), 'Color', 'black', 
-        'LineStyle', '-', 
-        'LineWidth', 1.0,
+    plot(timeVector, totalAngularMomentum(:,3), 'Color', 'black', ...
+        'LineStyle', '-', ...
+        'LineWidth', 1.0, ...
         'DisplayName', 'Total Z Angular Momentum');
     legend('show');
     
@@ -315,6 +316,14 @@ video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
 figure('Visible', 'off');
 open(video)
 
+xPos = zeros(nParticles, nTimeSteps);
+yPos = zeros(nParticles, nTimeSteps);
+
+xMin = zeros(nParticles, 1);
+yMin = zeros(nParticles, 1);
+xMax = zeros(nParticles, 1);
+yMax = zeros(nParticles, 1);
+
 for i = 1 : nParticles
     for j = 1 : nTimeSteps
         xPos(i, j) = particleData{i,positionIdx}(j,1);
@@ -331,7 +340,7 @@ axis equal
 
 Frame(nTimeSteps) = struct('cdata',[],'colormap',[]);
 for j = 1 : timeSkip : nTimeSteps
-    title([num2str((j-1)*timeStep), 's']);
+    title([num2str(initialTime + (j-1)*timeStep), 's']);
     
     % Get center coordinates
     X = xPos(:, j);
@@ -343,9 +352,12 @@ for j = 1 : timeSkip : nTimeSteps
     
     axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
     axis equal
+    set(gca,'Color',[0.8 0.8 0.8]);
     
     % Plot circles
-    viscircles(centers, radius, 'Color', cmap);
+    for counter = 1 : nParticles
+        viscircles(centers(counter, :), radius(counter), 'EdgeColor', cmap(counter, :));
+    end
     
     % Write to video
     Frame(j) = getframe(gcf);
