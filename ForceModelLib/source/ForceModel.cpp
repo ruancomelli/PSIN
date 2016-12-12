@@ -165,8 +165,8 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 									relativeTangentialVelocity / relativeTangentialVelocity.length() :
 									nullVector3D();
 		
-		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , effectiveFrictionParameter * abs(normalForceModulus) ) *
-									tangentialVersor;
+		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
+			effectiveFrictionParameter * abs(normalForceModulus) ) * tangentialVersor;
 		
 		particle1.addForce( tangentialForce );
 		particle2.addForce( - tangentialForce );

@@ -1,5 +1,7 @@
 #include <Particle.h>
 
+Vector3D Particle::gravity = nullVector3D();
+
 Particle::Particle() : PhysicalEntity(3, 3) 
 {
 	
@@ -27,7 +29,7 @@ Vector3D Particle::getAngularMomentum(void) const
 		return this->getScalarProperty(MOMENT_OF_INERTIA) * this->getOrientation(1);
 }
 
-double Particle::getKineticEnergy(void) const
+double Particle::getTranslationalEnergy(void) const
 {
 	return 0.5 * this->getScalarProperty(MASS) * this->getPosition(1).squaredLength();
 }
@@ -37,9 +39,19 @@ double Particle::getRotationalEnergy(void) const
 	return 0.5 * this->getScalarProperty( MOMENT_OF_INERTIA ) * this->getOrientation(1).squaredLength();
 }
 
+double Particle::getKineticEnergy(void) const
+{
+	return this->getTranslationalEnergy() + this->getRotationalEnergy();
+}
+
+double Particle::getPotentialEnergy(void) const
+{
+	return - this->getScalarProperty(MASS) * dot( this->getGravity(), this->getPosition(0) );
+}
+
 double Particle::getMechanicalEnergy(void) const
 {
-	return this->getKineticEnergy() + this->getRotationalEnergy();
+	return this->getKineticEnergy() + this->getPotentialEnergy();
 }
 
 void Particle::addNeighbor(Particle & neighbor){

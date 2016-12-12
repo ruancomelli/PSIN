@@ -57,8 +57,10 @@ linearMomentumIdx = 4;
 orientationIdx = 5;
 rotationalVelocityIdx = 6;
 angularMomentumIdx = 7;
+forceIdx = 8;
+torqueIdx = 9;
 
-numberOfFilesPerParticle = 7;
+numberOfFilesPerParticle = 9;
 particleData = cell(nParticles, numberOfFilesPerParticle);
 particleFileCell = cell(nParticles, 1);
 
@@ -77,6 +79,8 @@ for counter = 1 : nParticles
     particleData{counter, orientationIdx} = csvread([particleInputPath, 'orientation.txt']);
     particleData{counter, rotationalVelocityIdx} = csvread([particleInputPath, 'rotational_velocity.txt']);
     particleData{counter, angularMomentumIdx} = csvread([particleInputPath, 'angular_momentum.txt']);
+    particleData{counter, forceIdx} = csvread([particleInputPath, 'force.txt']);
+    particleData{counter, torqueIdx} = csvread([particleInputPath, 'torque.txt']);
 end
 
 disp('Done');
@@ -101,120 +105,22 @@ cmap(2, :) = [1.0, 0.0, 0.0]; % red
 %% ----- Plot Energy -----
 disp('Plotting Energy');
 
-totalEnergy = zeros(nTimeSteps, 1);
-
-for counter = 1 : nParticles
-    totalEnergy = totalEnergy + particleData{counter, energyIdx};
-end
-
-fig = figure('Visible', 'off');
-    title('Mechanical Energy');
-    xlabel('Time [s]');
-    ylabel('Mechanical Energy [J]');
-    
-    hold on
-    
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, energyIdx}, ...
-            'DisplayName', ['Particle ', int2str(counter)], ...
-            'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalEnergy, 'Color', 'black', ...
-        'LineStyle', '-', 'LineWidth', 1.0, ...
-        'DisplayName', 'Total Mechanical Energy');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'mechanical_energy_plot.png']);  
-    hold off  
+plotParticleDataHistory(timeVector, particleData,...
+    energyIdx, 'Mechanical Energy', ...
+    outputMATLAB, 'mechanical_energy_plot.png', ...
+    'Time [s]', 'Mechanical Energy [J]', ...
+    cmap, nParticles, 1);
 
 disp('Done');
     
 %% ----- Plot Linear Momentum -----
 disp('Plotting Linear Momentum');
 
-totalLinearMomentum = zeros(nTimeSteps, 3);
-
-for counter = 1 : nParticles
-    totalLinearMomentum = totalLinearMomentum + particleData{counter, linearMomentumIdx};
-end
-
-disp('Plotting X Linear Momentum');
-
-fig = figure('Visible', 'off');
-    title('Linear Momentum - X Direction');
-    xlabel('Time [s]');
-    ylabel('X Linear Momentum [kg*m/s]');
-    
-    hold on
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, linearMomentumIdx}(:,1), ...
-        'DisplayName', ['Particle ', int2str(counter)], ...
-        'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalLinearMomentum(:,1), 'Color', 'black', ...
-        'LineStyle', '-', ...
-        'LineWidth', 1.0, ...
-        'DisplayName', 'Total X Linear Momentum');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'X_linear_momentum_plot.png']);    
-    hold off  
-
-disp('Plotting Y Linear Momentum');
-
-fig = figure('Visible', 'off');
-    title('Linear Momentum - Y Direction');
-    xlabel('Time [s]');
-    ylabel('Y Linear Momentum [kg*m/s]');
-    
-    hold on
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, linearMomentumIdx}(:,2), ...
-            'DisplayName', ['Particle ', int2str(counter)], ...
-            'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalLinearMomentum(:,2), 'Color', 'black', ...
-        'LineStyle', '-', ...
-        'LineWidth', 1.0, ...
-        'DisplayName', 'Total Y Linear Momentum');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'Y_linear_momentum_plot.png']);     
-    hold off  
-
-disp('Plotting Z Linear Momentum');
-
-fig = figure('Visible', 'off');
-    title('Linear Momentum - Z Direction');
-    xlabel('Time [s]');
-    ylabel('Z Linear Momentum [kg*m/s]');
-    
-    hold on
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, linearMomentumIdx}(:,3), ...
-            'DisplayName', ['Particle ', int2str(counter)], ...
-            'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalLinearMomentum(:,3), 'Color', 'black', ...
-        'LineStyle', '-', ...
-        'LineWidth', 1.0, ...
-        'DisplayName', 'Total Z Linear Momentum');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'Z_linear_momentum_plot.png']);    
-    hold off  
+plotParticleDataHistory3D( timeVector, particleData, ...
+    linearMomentumIdx, 'Linear Momentum', ...
+    outputMATLAB, 'linear_momentum_plot.png', ...
+    'Time [s]', 'Linear Momentum [kg*m/s]', ...
+    cmap, nParticles );
     
 disp('Done');
     
@@ -222,86 +128,33 @@ disp('Done');
 %% ----- Plot Angular Momentum -----
 disp('Plotting Angular Momentum');
 
-totalAngularMomentum = zeros(nTimeSteps, 3);
+plotParticleDataHistory3D( timeVector, particleData, ...
+    angularMomentumIdx, 'Angular Momentum', ...
+    outputMATLAB, 'angular_momentum_plot.png', ...
+    'Time [s]', 'Angular Momentum [kg*m^2/s]', ...
+    cmap, nParticles ); 
 
-for counter = 1 : nParticles
-    totalAngularMomentum = totalAngularMomentum + particleData{counter, angularMomentumIdx};
-end
+disp('Done');
 
-disp('Plotting X Angular Momentum');
+%% ----- Plot Force -----
+disp('Plotting Resulting Force');
 
-fig = figure('Visible', 'off');
-    title('Angular Momentum - X Direction');
-    xlabel('Time [s]');
-    ylabel('X Angular Momentum [kg*m/s]');
-    
-    hold on
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, angularMomentumIdx}(:,1), ...
-            'DisplayName', ['Particle ', int2str(counter)], ...
-            'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalAngularMomentum(:,1), 'Color', 'black', ...
-        'LineStyle', '-', ...
-        'LineWidth', 1.0, ...
-        'DisplayName', 'Total X Angular Momentum');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'X_angular_momentum_plot.png']);    
-    hold off  
+plotParticleDataHistory3D( timeVector, particleData, ...
+    forceIdx, 'Resulting Force', ...
+    outputMATLAB, 'resulting_force_plot.png', ...
+    'Time [s]', 'Resulting Force [N]', ...
+    cmap, nParticles );
 
-disp('Plotting Y Angular Momentum');
+disp('Done');
 
-fig = figure('Visible', 'off');
-    title('Angular Momentum - Y Direction');
-    xlabel('Time [s]');
-    ylabel('Y Angular Momentum [kg*m/s]');
-    
-    hold on
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, angularMomentumIdx}(:,2), ...
-            'DisplayName', ['Particle ', int2str(counter)], ...
-            'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalAngularMomentum(:,2), 'Color', 'black', ...
-        'LineStyle', '-', ...
-        'LineWidth', 1.0, ...
-        'DisplayName', 'Total Y Angular Momentum');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'Y_angular_momentum_plot.png']);     
-    hold off  
+%% ----- Plot Torque -----
+disp('Plotting Resulting Torque');
 
-disp('Plotting Z Angular Momentum');
-
-fig = figure('Visible', 'off');
-    title('Angular Momentum - Z Direction');
-    xlabel('Time [s]');
-    ylabel('Z Angular Momentum [kg*m/s]');
-    
-    hold on
-    
-    for counter = 1 : nParticles
-        plot(timeVector, particleData{counter, angularMomentumIdx}(:,3), ...
-            'DisplayName', ['Particle ', int2str(counter)], ...
-            'Color', cmap(counter, :));
-    end
-    plot(timeVector, totalAngularMomentum(:,3), 'Color', 'black', ...
-        'LineStyle', '-', ...
-        'LineWidth', 1.0, ...
-        'DisplayName', 'Total Z Angular Momentum');
-    legend('show');
-    
-    disp('Saving');
-    
-    saveas(fig, [outputMATLAB, 'Z_angular_momentum_plot.png']);    
-    hold off  
+plotParticleDataHistory3D( timeVector, particleData, ...
+    torqueIdx, 'Resulting Torque', ...
+    outputMATLAB, 'resulting_torque_plot.png', ...
+    'Time [s]', 'Resulting Torque [N*m]', ...
+    cmap, nParticles );
 
 disp('Done');
 

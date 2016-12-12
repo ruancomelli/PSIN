@@ -28,8 +28,13 @@ class Particle: public PhysicalEntity
 		Vector3D getAngularMomentum(void) const;
 
 		double getKineticEnergy(void) const;
+		double getTranslationalEnergy(void) const;
 		double getRotationalEnergy(void) const;
+		double getPotentialEnergy(void) const;
 		double getMechanicalEnergy(void) const;
+
+		void setGravity(Vector3D gravity){this->gravity = gravity;}
+		Vector3D getGravity(void) const {return this->gravity;}
 		
 		
 		// ---- Neighborhood ----
@@ -43,6 +48,8 @@ class Particle: public PhysicalEntity
 	private:
 		Vector3D resultingForce;
 		Vector3D resultingTorque;
+
+		static Vector3D gravity;
 		
 		struct NeighborList{
 			vector< Particle* > neighborPointer;
