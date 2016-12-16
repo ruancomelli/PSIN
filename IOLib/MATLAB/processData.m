@@ -67,7 +67,7 @@ particleFileCell = cell(nParticles, 1);
 for counter = 1 : nParticles
     disp(['Particle ', int2str(counter)]);
 
-    particleInputPath = [inputPath, 'Particle', int2str(counter), '/'];
+    particleInputPath = [inputPath, 'Particle', int2str(counter-1), '/'];
     
     fileID = fopen([particleInputPath, 'data.txt']);
     particleFileCell{counter} = textscan(fileID, '%s %f');
