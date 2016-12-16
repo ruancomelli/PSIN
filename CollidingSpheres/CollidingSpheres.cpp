@@ -4,6 +4,8 @@
 #include <cmath>
 #include <fstream>
 #include <cstdio>
+#include <iterator>
+#include <algorithm>
 
 // EntityLib
 #include <Particle.h>
@@ -28,12 +30,16 @@
 // boost
 #include <boost/math/constants/constants.hpp>
 
+// System
+#include <direct.h>
+
 using namespace std;
 
 using boost::math::constants::pi;
 
 inline void saveVector3D(ofstream & outFile, Vector3D v, string horizontalSeparator){
 		outFile << v.x() << horizontalSeparator << v.y() << horizontalSeparator << v.z();
+		outFile << verticalSeparator;
 }
 
 inline void saveSphericalParticlePosition(ofstream & outFile, SphericalParticle & particle, string horizontalSeparator, string verticalSeparator){
@@ -41,7 +47,6 @@ inline void saveSphericalParticlePosition(ofstream & outFile, SphericalParticle 
 		// Save each component of the i-th derivative of the positions
 		outFile << horizontalSeparator;
 		saveVector3D(outFile, particle.getPosition(i), horizontalSeparator);
-		outFile << verticalSeparator;
 	}
 	outFile << verticalSeparator;
 }
@@ -50,7 +55,6 @@ inline void saveSphericalParticleOrientation(ofstream & outFile, SphericalPartic
 		// Save each component of the i-th derivative of the orientations
 		outFile << horizontalSeparator;
 		saveVector3D(outFile, particle.getOrientation(i), horizontalSeparator);
-		outFile << verticalSeparator;
 	}
 	outFile << verticalSeparator;
 }
@@ -91,15 +95,14 @@ int main(int argc, char **argv){
 
 	for( int i=0 ; i<numberOfParticles ; ++i )
 	{
-		string path = inputPath + "particle" + to_string(i+1) + ".txt";
-		particleVector[i] = readSphericalParticle(path);
+		// Read particles from input files
+		string particleInputPath = inputPath + "particle" + _itoa(i+1, new char[100], 10) + ".txt";
+		particleVector[i] = readSphericalParticle(particleInputPath);
+		particleVector[i]->setHandle(i);
 	}
 
 	SphericalParticlePtr particlePtr1 = particleVector[0];
 	SphericalParticlePtr particlePtr2 = particleVector[1];
-
-	particlePtr1->setHandle(1);
-	particlePtr2->setHandle(2);
 
 	double m1 = particlePtr1->getScalarProperty( MASS );
 	double m2 = particlePtr2->getScalarProperty( MASS );
@@ -114,8 +117,54 @@ int main(int argc, char **argv){
 	particlePtr2->setScalarProperty( VOLUME, 4 * pi<double>() * r2*r2*r2 / 3 );
 
 	particlePtr1->setGravity(gravity);
+
 	
 	// Output
+	enum{
+	 DATA_IDX = 0,
+	 FORCE_IDX,
+	 TORQUE_IDX,
+	 POSITION_MATRIX_IDX,
+	 ORIENTATION_MATRIX_IDX,
+	 POSITION_IDX,
+	 ORIENTATION_IDX,
+	 VELOCITY_IDX,
+	 ROTATIONAL_VELOCITY_IDX,
+	 LINEAR_MOMENTUM_IDX,
+	 ANGULAR_MOMENTUM_IDX,
+	 ENERGY_IDX,
+
+	 N_FILES_PER_PARTICLE
+	};
+	
+	vector< vector< ofstream > > outFile;
+	outFile.resize(numberOfParticles);
+		// Set output files
+	for( int counter = 0 ; counter < numberOfParticles ; ++counter ){
+		outFile[counter].resize( N_FILES_PER_PARTICLE );
+
+		string particleOutputPath = outputPath + "particle" + _itoa(counter+1, new char[100], 10) + "/";
+		outFile[counter][DATA_IDX					].open(particleOutputPath + "data.txt");
+		outFile[counter][FORCE_IDX					].open(particleOutputPath + "force.txt");
+		outFile[counter][TORQUE_IDX					].open(particleOutputPath + "torque.txt");
+		outFile[counter][POSITION_MATRIX_IDX		].open(particleOutputPath + "position_matrix.txt");
+		outFile[counter][ORIENTATION_MATRIX_IDX		].open(particleOutputPath + "orientation_matrix.txt");
+		outFile[counter][POSITION_IDX				].open(particleOutputPath + "position.txt");
+		outFile[counter][ORIENTATION_IDX			].open(particleOutputPath + "orientation.txt");
+		outFile[counter][VELOCITY_IDX				].open(particleOutputPath + "velocity.txt");
+		outFile[counter][ROTATIONAL_VELOCITY_IDX	].open(particleOutputPath + "rotational_velocity.txt");
+		outFile[counter][LINEAR_MOMENTUM_IDX		].open(particleOutputPath + "linear_momentum.txt");
+		outFile[counter][ANGULAR_MOMENTUM_IDX		].open(particleOutputPath + "angular_momentum.txt");
+		outFile[counter][ENERGY_IDX					].open(particleOutputPath + "energy.txt");
+	}
+
+		// Create output folders for each particle
+	foreach(SphericalParticlePtr particlePtr, particleVector)
+	{
+		string particleOutputPath = outputPath + "particle" + _itoa(particlePtr->getHandle(), new char[100], 10);
+		_mkdir(particleOutputPath.c_str());
+	}
+
 	string verticalSeparator = "\n";
 	string horizontalSeparator = ",";
 
@@ -128,7 +177,56 @@ int main(int argc, char **argv){
 
 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
 
-	ofstream particleData1(outputPath + "particle1/data.txt");
+	foreach(SphericalParticlePtr particlePtr, particleVector){
+		outFile[particlePtr->getHandle()][DATA_IDX] << "<Radius> " << particlePtr->getGeometricParameter(RADIUS) << verticalSeparator;
+
+		saveSphericalParticlePosition(outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
+			*particlePtr, horizontalSeparator, verticalSeparator);
+
+		saveSphericalParticleOrientation(outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
+			*particlePtr, horizontalSeparator, verticalSeparator);
+		
+		saveVector3D(outFile[particlePtr->getHandle()][FORCE_IDX],
+			particlePtr->getResultingForce(), horizontalSeparator);
+
+		saveVector3D(outFile[particlePtr->getHandle()][TORQUE_IDX],
+			particlePtr->getResultingTorque(), horizontalSeparator);
+		/*
+	saveVector3D(particlePosition1, particlePtr1->getPosition(0), horizontalSeparator);
+	saveVector3D(particlePosition2, particlePtr2->getPosition(0), horizontalSeparator);
+	particlePosition1 << verticalSeparator;
+	particlePosition2 << verticalSeparator;
+
+	saveVector3D(particleOrientation1, particlePtr1->getOrientation(0), horizontalSeparator);
+	saveVector3D(particleOrientation2, particlePtr2->getOrientation(0), horizontalSeparator);
+	particleOrientation1 << verticalSeparator;
+	particleOrientation2 << verticalSeparator;
+
+	saveVector3D(particleVelocity1, particlePtr1->getPosition(1), horizontalSeparator);
+	saveVector3D(particleVelocity2, particlePtr2->getPosition(1), horizontalSeparator);
+	particleVelocity1 << verticalSeparator;
+	particleVelocity2 << verticalSeparator;
+
+	saveVector3D(particleRotationalVelocity1, particlePtr1->getOrientation(1), horizontalSeparator);
+	saveVector3D(particleRotationalVelocity2, particlePtr2->getOrientation(1), horizontalSeparator);
+	particleRotationalVelocity1 << verticalSeparator;
+	particleRotationalVelocity2 << verticalSeparator;
+
+	saveVector3D(particleLinearMomentum1, particlePtr1->getLinearMomentum(), horizontalSeparator);
+	saveVector3D(particleLinearMomentum2, particlePtr2->getLinearMomentum(), horizontalSeparator);
+	particleLinearMomentum1 << verticalSeparator;
+	particleLinearMomentum2 << verticalSeparator;
+	
+	saveVector3D(particleAngularMomentum1, particlePtr1->getAngularMomentum(), horizontalSeparator);
+	saveVector3D(particleAngularMomentum2, particlePtr2->getAngularMomentum(), horizontalSeparator);
+	particleAngularMomentum1 << verticalSeparator;
+	particleAngularMomentum2 << verticalSeparator;
+
+	particleEnergy1 << particlePtr1->getMechanicalEnergy() << verticalSeparator;
+	particleEnergy2 << particlePtr2->getMechanicalEnergy() << verticalSeparator;*/
+	}
+		
+	/*ofstream particleData1(outputPath + "particle1/data.txt");
 	ofstream particleData2(outputPath + "particle2/data.txt");
 
 	ofstream particleForce1(outputPath + "particle1/force.txt");
@@ -220,7 +318,7 @@ int main(int argc, char **argv){
 
 	particleEnergy1 << particlePtr1->getMechanicalEnergy() << verticalSeparator;
 	particleEnergy2 << particlePtr2->getMechanicalEnergy() << verticalSeparator;
-		
+		*/
 	// ===== Simulation =====
 	particlePtr1->addNeighbor( *particlePtr2 );
 
