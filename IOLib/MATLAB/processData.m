@@ -159,67 +159,72 @@ plotParticleDataHistory3D( timeVector, particleData, ...
 disp('Done');
 
 %% ===== Generate Movie =====
-disp('Generating Movie');
+boolGenerateMovie = true;
 
-timeSkip = 100;
-disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
+if boolGenerateMovie
 
-video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
+    disp('Generating Movie');
 
-figure('Visible', 'off');
-open(video)
+    timeSkip = 100;
+    disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
 
-xPos = zeros(nParticles, nTimeSteps);
-yPos = zeros(nParticles, nTimeSteps);
+    video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
 
-xMin = zeros(nParticles, 1);
-yMin = zeros(nParticles, 1);
-xMax = zeros(nParticles, 1);
-yMax = zeros(nParticles, 1);
+    figure('Visible', 'off');
+    open(video)
 
-for i = 1 : nParticles
-    for j = 1 : nTimeSteps
-        xPos(i, j) = particleData{i,positionIdx}(j,1);
-        yPos(i, j) = particleData{i,positionIdx}(j,2);
+    xPos = zeros(nParticles, nTimeSteps);
+    yPos = zeros(nParticles, nTimeSteps);
+
+    xMin = zeros(nParticles, 1);
+    yMin = zeros(nParticles, 1);
+    xMax = zeros(nParticles, 1);
+    yMax = zeros(nParticles, 1);
+
+    for i = 1 : nParticles
+        for j = 1 : nTimeSteps
+            xPos(i, j) = particleData{i,positionIdx}(j,1);
+            yPos(i, j) = particleData{i,positionIdx}(j,2);
+        end
+        xMin(i) = min(xPos(i,:));
+        xMax(i) = max(xPos(i,:));
+        yMin(i) = min(yPos(i,:));
+        yMax(i) = max(yPos(i,:));
     end
-    xMin(i) = min(xPos(i,:));
-    xMax(i) = max(xPos(i,:));
-    yMin(i) = min(yPos(i,:));
-    yMax(i) = max(yPos(i,:));
-end
 
-axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
-axis equal
-
-Frame(nTimeSteps) = struct('cdata',[],'colormap',[]);
-for j = 1 : timeSkip : nTimeSteps
-    title([num2str(initialTime + (j-1)*timeStep), 's']);
-    
-    % Get center coordinates
-    X = xPos(:, j);
-    Y = yPos(:, j);
-    centers = [X, Y];
-    
-    % Clear circles drawn before
-    cla
-    
     axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
     axis equal
-    set(gca,'Color',[0.8 0.8 0.8]);
-    
-    % Plot circles
-    for counter = 1 : nParticles
-        viscircles(centers(counter, :), radius(counter), 'EdgeColor', cmap(counter, :));
+
+    Frame(nTimeSteps) = struct('cdata',[],'colormap',[]);
+    for j = 1 : timeSkip : nTimeSteps
+        title([num2str(initialTime + (j-1)*timeStep), 's']);
+
+        % Get center coordinates
+        X = xPos(:, j);
+        Y = yPos(:, j);
+        centers = [X, Y];
+
+        % Clear circles drawn before
+        cla
+
+        axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
+        axis equal
+        set(gca,'Color',[0.8 0.8 0.8]);
+
+        % Plot circles
+        for counter = 1 : nParticles
+            viscircles(centers(counter, :), radius(counter), 'EdgeColor', cmap(counter, :));
+        end
+
+        % Write to video
+        Frame(j) = getframe(gcf);
+        writeVideo(video, Frame(j));
     end
-    
-    % Write to video
-    Frame(j) = getframe(gcf);
-    writeVideo(video, Frame(j));
+    close(video);
+
+    disp('Done');
+
 end
-close(video);
-
-disp('Done');
-
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

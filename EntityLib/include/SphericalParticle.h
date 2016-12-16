@@ -30,6 +30,8 @@ class SphericalParticle: public Particle
 		DoubleVector getGeometricParameter();
 		
 		bool touch(SphericalParticle particle);
+
+		Vector3D getNormalDirection(SphericalParticle particle);
 		
 		// ---- Input and Output ----
 		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );

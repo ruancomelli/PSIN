@@ -92,8 +92,8 @@ int main(int argc, char **argv){
 	particle1.setHandle(1);
 	particle2.setHandle(2);
 
-	double m1 = particle1.getGeometricParameter( MASS );
-	double m2 = particle2.getGeometricParameter( MASS );
+	double m1 = particle1.getScalarProperty( MASS );
+	double m2 = particle2.getScalarProperty( MASS );
 
 	double r1 = particle1.getGeometricParameter( RADIUS );
 	double r2 = particle2.getGeometricParameter( RADIUS );
@@ -224,13 +224,15 @@ int main(int argc, char **argv){
 
 		// Set forces and torques to zero
 		foreach( SphericalParticle* particle, particleVector ){
-			particle->setResultingForce( nullVector3D() );
+			particle->setContactForce( nullVector3D() );
+			particle->setBodyForce( nullVector3D() );
+
 			particle->setResultingTorque( nullVector3D() );
 		}
 
 		// Body forces
 		foreach( SphericalParticle* particle, particleVector ){
-			particle->addForce(particle->getScalarProperty(MASS) * gravity);
+			particle->addBodyForce(particle->getScalarProperty(MASS) * gravity);
 		}
 
 		// Predict position and orientation
@@ -249,7 +251,7 @@ int main(int argc, char **argv){
 
 		if(particle1.touch(particle2))	// If particles are in touch
 		{
-			cout << "Collision Instant: " << t << endl;
+			//cout << "Collision Instant: " << t << endl;
 			ForceModel::viscoelasticSpheres( particle1, particle2 );
 		}
 

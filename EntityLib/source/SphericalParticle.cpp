@@ -54,6 +54,13 @@ bool SphericalParticle::touch(SphericalParticle particle)
 	return ( this->distance(particle) <= ( this->getGeometricParameter(RADIUS) + particle.getGeometricParameter(RADIUS) ) );
 }
 
+Vector3D SphericalParticle::getNormalDirection(SphericalParticle particle)
+{
+	Vector3D normalDirection = particle.getPosition(0) - this->getPosition(0);
+	normalDirection.normalize();
+	return normalDirection;
+}
+
 
 // ------------------------------- Input and Output Functions -------------------------------
 void SphericalParticle::fwritePosition( std::ostream & outFile, const string horizontalSeparator, const string verticalSeparator ){

@@ -26,7 +26,8 @@ Vector3D Particle::getLinearMomentum(void) const
 
 Vector3D Particle::getAngularMomentum(void) const
 {
-		return this->getScalarProperty(MOMENT_OF_INERTIA) * this->getOrientation(1);
+		return this->getScalarProperty(MOMENT_OF_INERTIA) * this->getOrientation(1) +
+				getScalarProperty(MASS) * cross( this->getPosition(0), this->getPosition(1) );
 }
 
 double Particle::getTranslationalEnergy(void) const
