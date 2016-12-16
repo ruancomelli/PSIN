@@ -58,6 +58,8 @@ inline void saveSphericalParticleOrientation(ofstream & outFile, SphericalPartic
 
 int main(int argc, char **argv){
 
+	int flagCounter = 0;
+
 	int defaultDimension = 3; // This means that we are constraint to Vector3D
 	string inputPath("../_input/");
 	string outputPath("../_output/");
@@ -84,30 +86,34 @@ int main(int argc, char **argv){
 	inputData.readValue("<gravity>", gravity);
 
 	// Input
-	SphericalParticle particle1 = readSphericalParticle(inputPath + "particle1.txt");
-	SphericalParticle particle2 = readSphericalParticle(inputPath + "particle2.txt");
-
-	particle1.setHandle(1);
-	particle2.setHandle(2);
-
-	double m1 = particle1.getScalarProperty( MASS );
-	double m2 = particle2.getScalarProperty( MASS );
-
-	double r1 = particle1.getGeometricParameter( RADIUS );
-	double r2 = particle2.getGeometricParameter( RADIUS );
-
-	particle1.setScalarProperty( MOMENT_OF_INERTIA, 2 * m1 * r1*r1 / 5 );
-	particle2.setScalarProperty( MOMENT_OF_INERTIA, 2 * m2 * r2*r2 / 5 );
-
-	particle1.setScalarProperty( VOLUME, 4 * pi<double>() * r1*r1*r1 / 3 );
-	particle2.setScalarProperty( VOLUME, 4 * pi<double>() * r2*r2*r2 / 3 );
-
-	vector <SphericalParticle*> particleVector;
+	vector <SphericalParticlePtr> particleVector;
 	particleVector.resize(numberOfParticles);
-	particleVector[0] = &particle1;
-	particleVector[1] = &particle2;
 
-	particle1.setGravity(gravity);
+	for( int i=0 ; i<numberOfParticles ; ++i )
+	{
+		string path = inputPath + "particle" + to_string(i+1) + ".txt";
+		particleVector[i] = readSphericalParticle(path);
+	}
+
+	SphericalParticlePtr particlePtr1 = particleVector[0];
+	SphericalParticlePtr particlePtr2 = particleVector[1];
+
+	particlePtr1->setHandle(1);
+	particlePtr2->setHandle(2);
+
+	double m1 = particlePtr1->getScalarProperty( MASS );
+	double m2 = particlePtr2->getScalarProperty( MASS );
+							
+	double r1 = particlePtr1->getGeometricParameter( RADIUS );
+	double r2 = particlePtr2->getGeometricParameter( RADIUS );
+
+	particlePtr1->setScalarProperty( MOMENT_OF_INERTIA, 2 * m1 * r1*r1 / 5 );
+	particlePtr2->setScalarProperty( MOMENT_OF_INERTIA, 2 * m2 * r2*r2 / 5 );
+
+	particlePtr1->setScalarProperty( VOLUME, 4 * pi<double>() * r1*r1*r1 / 3 );
+	particlePtr2->setScalarProperty( VOLUME, 4 * pi<double>() * r2*r2*r2 / 3 );
+
+	particlePtr1->setGravity(gravity);
 	
 	// Output
 	string verticalSeparator = "\n";
@@ -122,108 +128,108 @@ int main(int argc, char **argv){
 
 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
 
-	ofstream particleData1(outputPath + "Particle1/data.txt");
-	ofstream particleData2(outputPath + "Particle2/data.txt");
+	ofstream particleData1(outputPath + "particle1/data.txt");
+	ofstream particleData2(outputPath + "particle2/data.txt");
 
-	ofstream particleForce1(outputPath + "Particle1/force.txt");
-	ofstream particleForce2(outputPath + "Particle2/force.txt");
+	ofstream particleForce1(outputPath + "particle1/force.txt");
+	ofstream particleForce2(outputPath + "particle2/force.txt");
 
-	ofstream particleTorque1(outputPath + "Particle1/torque.txt");
-	ofstream particleTorque2(outputPath + "Particle2/torque.txt");
+	ofstream particleTorque1(outputPath + "particle1/torque.txt");
+	ofstream particleTorque2(outputPath + "particle2/torque.txt");
 
-	ofstream particlePositionMatrix1(outputPath + "Particle1/position_matrix.txt");
-	ofstream particlePositionMatrix2(outputPath + "Particle2/position_matrix.txt");
+	ofstream particlePositionMatrix1(outputPath + "particle1/position_matrix.txt");
+	ofstream particlePositionMatrix2(outputPath + "particle2/position_matrix.txt");
 
-	ofstream particleOrientationMatrix1(outputPath + "Particle1/orientation_matrix.txt");
-	ofstream particleOrientationMatrix2(outputPath + "Particle2/orientation_matrix.txt");
+	ofstream particleOrientationMatrix1(outputPath + "particle1/orientation_matrix.txt");
+	ofstream particleOrientationMatrix2(outputPath + "particle2/orientation_matrix.txt");
 
-	ofstream particlePosition1(outputPath + "Particle1/position.txt");
-	ofstream particlePosition2(outputPath + "Particle2/position.txt");
+	ofstream particlePosition1(outputPath + "particle1/position.txt");
+	ofstream particlePosition2(outputPath + "particle2/position.txt");
 
-	ofstream particleOrientation1(outputPath + "Particle1/orientation.txt");
-	ofstream particleOrientation2(outputPath + "Particle2/orientation.txt");
+	ofstream particleOrientation1(outputPath + "particle1/orientation.txt");
+	ofstream particleOrientation2(outputPath + "particle2/orientation.txt");
 
-	ofstream particleVelocity1(outputPath + "Particle1/velocity.txt");
-	ofstream particleVelocity2(outputPath + "Particle2/velocity.txt");
+	ofstream particleVelocity1(outputPath + "particle1/velocity.txt");
+	ofstream particleVelocity2(outputPath + "particle2/velocity.txt");
 
-	ofstream particleRotationalVelocity1(outputPath + "Particle1/rotational_velocity.txt");
-	ofstream particleRotationalVelocity2(outputPath + "Particle2/rotational_velocity.txt");
+	ofstream particleRotationalVelocity1(outputPath + "particle1/rotational_velocity.txt");
+	ofstream particleRotationalVelocity2(outputPath + "particle2/rotational_velocity.txt");
 
-	ofstream particleLinearMomentum1(outputPath + "Particle1/linear_momentum.txt");
-	ofstream particleLinearMomentum2(outputPath + "Particle2/linear_momentum.txt");
+	ofstream particleLinearMomentum1(outputPath + "particle1/linear_momentum.txt");
+	ofstream particleLinearMomentum2(outputPath + "particle2/linear_momentum.txt");
 
-	ofstream particleAngularMomentum1(outputPath + "Particle1/angular_momentum.txt");
-	ofstream particleAngularMomentum2(outputPath + "Particle2/angular_momentum.txt");
+	ofstream particleAngularMomentum1(outputPath + "particle1/angular_momentum.txt");
+	ofstream particleAngularMomentum2(outputPath + "particle2/angular_momentum.txt");
 
-	ofstream particleEnergy1(outputPath + "Particle1/energy.txt");
-	ofstream particleEnergy2(outputPath + "Particle2/energy.txt");
+	ofstream particleEnergy1(outputPath + "particle1/energy.txt");
+	ofstream particleEnergy2(outputPath + "particle2/energy.txt");
 	
 	particlePositionMatrix1 << 0 << verticalSeparator;
 	particlePositionMatrix2 << 0 << verticalSeparator;
 
 	// Save particle data
-	particleData1 << "<Radius> " << particle1.getGeometricParameter(RADIUS) << verticalSeparator;
-	particleData2 << "<Radius> " << particle2.getGeometricParameter(RADIUS) << verticalSeparator;
+	particleData1 << "<Radius> " << particlePtr1->getGeometricParameter(RADIUS) << verticalSeparator;
+	particleData2 << "<Radius> " << particlePtr2->getGeometricParameter(RADIUS) << verticalSeparator;
 
 	// Save every derivative of particles' positions
-	saveSphericalParticlePosition(particlePositionMatrix1, particle1, horizontalSeparator, verticalSeparator);
-	saveSphericalParticlePosition(particlePositionMatrix2, particle2, horizontalSeparator, verticalSeparator);
+	saveSphericalParticlePosition(particlePositionMatrix1, *particlePtr1, horizontalSeparator, verticalSeparator);
+	saveSphericalParticlePosition(particlePositionMatrix2, *particlePtr2, horizontalSeparator, verticalSeparator);
 	
-	saveSphericalParticleOrientation(particleOrientationMatrix1, particle1, horizontalSeparator, verticalSeparator);
-	saveSphericalParticleOrientation(particleOrientationMatrix2, particle2, horizontalSeparator, verticalSeparator);
+	saveSphericalParticleOrientation(particleOrientationMatrix1, *particlePtr1, horizontalSeparator, verticalSeparator);
+	saveSphericalParticleOrientation(particleOrientationMatrix2, *particlePtr2, horizontalSeparator, verticalSeparator);
 
-	saveVector3D(particleForce1, particle1.getResultingForce(), horizontalSeparator);
-	saveVector3D(particleForce2, particle2.getResultingForce(), horizontalSeparator);
+	saveVector3D(particleForce1, particlePtr1->getResultingForce(), horizontalSeparator);
+	saveVector3D(particleForce2, particlePtr2->getResultingForce(), horizontalSeparator);
 	particleForce1 << verticalSeparator;
 	particleForce2 << verticalSeparator;
 	
-	saveVector3D(particleTorque1, particle1.getResultingTorque(), horizontalSeparator);
-	saveVector3D(particleTorque2, particle2.getResultingTorque(), horizontalSeparator);
+	saveVector3D(particleTorque1, particlePtr1->getResultingTorque(), horizontalSeparator);
+	saveVector3D(particleTorque2, particlePtr2->getResultingTorque(), horizontalSeparator);
 	particleTorque1 << verticalSeparator;
 	particleTorque2 << verticalSeparator;
 
-	saveVector3D(particlePosition1, particle1.getPosition(0), horizontalSeparator);
-	saveVector3D(particlePosition2, particle2.getPosition(0), horizontalSeparator);
+	saveVector3D(particlePosition1, particlePtr1->getPosition(0), horizontalSeparator);
+	saveVector3D(particlePosition2, particlePtr2->getPosition(0), horizontalSeparator);
 	particlePosition1 << verticalSeparator;
 	particlePosition2 << verticalSeparator;
 
-	saveVector3D(particleOrientation1, particle1.getOrientation(0), horizontalSeparator);
-	saveVector3D(particleOrientation2, particle2.getOrientation(0), horizontalSeparator);
+	saveVector3D(particleOrientation1, particlePtr1->getOrientation(0), horizontalSeparator);
+	saveVector3D(particleOrientation2, particlePtr2->getOrientation(0), horizontalSeparator);
 	particleOrientation1 << verticalSeparator;
 	particleOrientation2 << verticalSeparator;
 
-	saveVector3D(particleVelocity1, particle1.getPosition(1), horizontalSeparator);
-	saveVector3D(particleVelocity2, particle2.getPosition(1), horizontalSeparator);
+	saveVector3D(particleVelocity1, particlePtr1->getPosition(1), horizontalSeparator);
+	saveVector3D(particleVelocity2, particlePtr2->getPosition(1), horizontalSeparator);
 	particleVelocity1 << verticalSeparator;
 	particleVelocity2 << verticalSeparator;
 
-	saveVector3D(particleRotationalVelocity1, particle1.getOrientation(1), horizontalSeparator);
-	saveVector3D(particleRotationalVelocity2, particle2.getOrientation(1), horizontalSeparator);
+	saveVector3D(particleRotationalVelocity1, particlePtr1->getOrientation(1), horizontalSeparator);
+	saveVector3D(particleRotationalVelocity2, particlePtr2->getOrientation(1), horizontalSeparator);
 	particleRotationalVelocity1 << verticalSeparator;
 	particleRotationalVelocity2 << verticalSeparator;
 
-	saveVector3D(particleLinearMomentum1, particle1.getLinearMomentum(), horizontalSeparator);
-	saveVector3D(particleLinearMomentum2, particle2.getLinearMomentum(), horizontalSeparator);
+	saveVector3D(particleLinearMomentum1, particlePtr1->getLinearMomentum(), horizontalSeparator);
+	saveVector3D(particleLinearMomentum2, particlePtr2->getLinearMomentum(), horizontalSeparator);
 	particleLinearMomentum1 << verticalSeparator;
 	particleLinearMomentum2 << verticalSeparator;
 	
-	saveVector3D(particleAngularMomentum1, particle1.getAngularMomentum(), horizontalSeparator);
-	saveVector3D(particleAngularMomentum2, particle2.getAngularMomentum(), horizontalSeparator);
+	saveVector3D(particleAngularMomentum1, particlePtr1->getAngularMomentum(), horizontalSeparator);
+	saveVector3D(particleAngularMomentum2, particlePtr2->getAngularMomentum(), horizontalSeparator);
 	particleAngularMomentum1 << verticalSeparator;
 	particleAngularMomentum2 << verticalSeparator;
 
-	particleEnergy1 << particle1.getMechanicalEnergy() << verticalSeparator;
-	particleEnergy2 << particle2.getMechanicalEnergy() << verticalSeparator;
+	particleEnergy1 << particlePtr1->getMechanicalEnergy() << verticalSeparator;
+	particleEnergy2 << particlePtr2->getMechanicalEnergy() << verticalSeparator;
 		
 	// ===== Simulation =====
-	particle1.addNeighbor( particle2 );
+	particlePtr1->addNeighbor( *particlePtr2 );
 
 	bool collisionFlag = false;
 
 	for(double t = initialTime; t <= finalTime - timeStep ; t += timeStep){
 
 		// Set forces and torques to zero
-		foreach( SphericalParticle* particle, particleVector ){
+		foreach( SphericalParticlePtr particle, particleVector ){
 			particle->setContactForce( nullVector3D() );
 			particle->setBodyForce( nullVector3D() );
 
@@ -231,12 +237,12 @@ int main(int argc, char **argv){
 		}
 
 		// Body forces
-		foreach( SphericalParticle* particle, particleVector ){
+		foreach( SphericalParticlePtr particle, particleVector ){
 			particle->addBodyForce(particle->getScalarProperty(MASS) * gravity);
 		}
 
 		// Predict position and orientation
-		foreach( SphericalParticle* particle, particleVector ){
+		foreach( SphericalParticlePtr particle, particleVector ){
 			particle->setPosition( ForceModel::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
 			particle->setOrientation( ForceModel::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
 		}
@@ -249,13 +255,13 @@ int main(int argc, char **argv){
 			}
 		}*/
 
-		if(particle1.touch(particle2))	// If particles are in touch
+		if(particlePtr1->touch(*particlePtr2))	// If particles are in touch
 		{
 			if(collisionFlag == false){
 				collisionFlag = true;
 				cout << "Collision start: " << t << " s" << endl;
 			}
-			ForceModel::viscoelasticSpheres( particle1, particle2 );
+			ForceModel::viscoelasticSpheres( *particlePtr1, *particlePtr2 );
 		}
 		else if(collisionFlag == true){
 				collisionFlag = false;
@@ -263,7 +269,7 @@ int main(int argc, char **argv){
 		}
 
 		// Correct position and orientation
-		foreach( SphericalParticle* particle, particleVector ){
+		foreach( SphericalParticlePtr particle, particleVector ){
 			ForceModel::correctPosition( *particle , taylorOrder, timeStep );
 			ForceModel::correctOrientation( *particle , taylorOrder, timeStep );
 		}
@@ -275,54 +281,54 @@ int main(int argc, char **argv){
 		particlePositionMatrix2 << t + timeStep << verticalSeparator;
 
 		// Prints every derivative of particles' position
-		saveSphericalParticlePosition(particlePositionMatrix1, particle1, horizontalSeparator, verticalSeparator);
-		saveSphericalParticlePosition(particlePositionMatrix2, particle2, horizontalSeparator, verticalSeparator);
+		saveSphericalParticlePosition(particlePositionMatrix1, *particlePtr1, horizontalSeparator, verticalSeparator);
+		saveSphericalParticlePosition(particlePositionMatrix2, *particlePtr2, horizontalSeparator, verticalSeparator);
 		
-		saveSphericalParticleOrientation(particleOrientationMatrix1, particle1, horizontalSeparator, verticalSeparator);
-		saveSphericalParticleOrientation(particleOrientationMatrix2, particle2, horizontalSeparator, verticalSeparator);
+		saveSphericalParticleOrientation(particleOrientationMatrix1, *particlePtr1, horizontalSeparator, verticalSeparator);
+		saveSphericalParticleOrientation(particleOrientationMatrix2, *particlePtr2, horizontalSeparator, verticalSeparator);
 
-		saveVector3D(particleForce1, particle1.getResultingForce(), horizontalSeparator);
-		saveVector3D(particleForce2, particle2.getResultingForce(), horizontalSeparator);
+		saveVector3D(particleForce1, particlePtr1->getResultingForce(), horizontalSeparator);
+		saveVector3D(particleForce2, particlePtr2->getResultingForce(), horizontalSeparator);
 		particleForce1 << verticalSeparator;
 		particleForce2 << verticalSeparator;
 		
-		saveVector3D(particleTorque1, particle1.getResultingTorque(), horizontalSeparator);
-		saveVector3D(particleTorque2, particle2.getResultingTorque(), horizontalSeparator);
+		saveVector3D(particleTorque1, particlePtr1->getResultingTorque(), horizontalSeparator);
+		saveVector3D(particleTorque2, particlePtr2->getResultingTorque(), horizontalSeparator);
 		particleTorque1 << verticalSeparator;
 		particleTorque2 << verticalSeparator;
 
-		saveVector3D(particlePosition1, particle1.getPosition(0), horizontalSeparator);
-		saveVector3D(particlePosition2, particle2.getPosition(0), horizontalSeparator);
+		saveVector3D(particlePosition1, particlePtr1->getPosition(0), horizontalSeparator);
+		saveVector3D(particlePosition2, particlePtr2->getPosition(0), horizontalSeparator);
 		particlePosition1 << verticalSeparator;
 		particlePosition2 << verticalSeparator;
 
-		saveVector3D(particleOrientation1, particle1.getOrientation(0), horizontalSeparator);
-		saveVector3D(particleOrientation2, particle2.getOrientation(0), horizontalSeparator);
+		saveVector3D(particleOrientation1, particlePtr1->getOrientation(0), horizontalSeparator);
+		saveVector3D(particleOrientation2, particlePtr2->getOrientation(0), horizontalSeparator);
 		particleOrientation1 << verticalSeparator;
 		particleOrientation2 << verticalSeparator;
 
-		saveVector3D(particleVelocity1, particle1.getPosition(1), horizontalSeparator);
-		saveVector3D(particleVelocity2, particle2.getPosition(1), horizontalSeparator);
+		saveVector3D(particleVelocity1, particlePtr1->getPosition(1), horizontalSeparator);
+		saveVector3D(particleVelocity2, particlePtr2->getPosition(1), horizontalSeparator);
 		particleVelocity1 << verticalSeparator;
 		particleVelocity2 << verticalSeparator;
 
-		saveVector3D(particleRotationalVelocity1, particle1.getOrientation(1), horizontalSeparator);
-		saveVector3D(particleRotationalVelocity2, particle2.getOrientation(1), horizontalSeparator);
+		saveVector3D(particleRotationalVelocity1, particlePtr1->getOrientation(1), horizontalSeparator);
+		saveVector3D(particleRotationalVelocity2, particlePtr2->getOrientation(1), horizontalSeparator);
 		particleRotationalVelocity1 << verticalSeparator;
 		particleRotationalVelocity2 << verticalSeparator;
 
-		saveVector3D(particleLinearMomentum1, particle1.getLinearMomentum(), horizontalSeparator);
-		saveVector3D(particleLinearMomentum2, particle2.getLinearMomentum(), horizontalSeparator);
+		saveVector3D(particleLinearMomentum1, particlePtr1->getLinearMomentum(), horizontalSeparator);
+		saveVector3D(particleLinearMomentum2, particlePtr2->getLinearMomentum(), horizontalSeparator);
 		particleLinearMomentum1 << verticalSeparator;
 		particleLinearMomentum2 << verticalSeparator;
 		
-		saveVector3D(particleAngularMomentum1, particle1.getAngularMomentum(), horizontalSeparator);
-		saveVector3D(particleAngularMomentum2, particle2.getAngularMomentum(), horizontalSeparator);
+		saveVector3D(particleAngularMomentum1, particlePtr1->getAngularMomentum(), horizontalSeparator);
+		saveVector3D(particleAngularMomentum2, particlePtr2->getAngularMomentum(), horizontalSeparator);
 		particleAngularMomentum1 << verticalSeparator;
 		particleAngularMomentum2 << verticalSeparator;
 
-		particleEnergy1 << particle1.getMechanicalEnergy() << verticalSeparator;
-		particleEnergy2 << particle2.getMechanicalEnergy() << verticalSeparator;
+		particleEnergy1 << particlePtr1->getMechanicalEnergy() << verticalSeparator;
+		particleEnergy2 << particlePtr2->getMechanicalEnergy() << verticalSeparator;
 	}
 
 	particleData1.close();
