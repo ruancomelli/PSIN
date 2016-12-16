@@ -11,9 +11,9 @@
 
 // UtilsLib
 #include <Vector.h>
-#include <setVector.h>
 #include <Mathematics.h>
 #include <Foreach.h>
+#include <SharedPointer.h>
 
 // ForceModelLib
 #include <ForceModel.h>
@@ -62,8 +62,6 @@ int main(int argc, char **argv){
 	string inputPath("../_input/");
 	string outputPath("../_output/");
 	
-	// Initialize gravity
-	
 	// Simulation data
 	FileReader inputData(inputPath + "input.txt");
 	double initialTime;
@@ -105,7 +103,7 @@ int main(int argc, char **argv){
 	particle2.setScalarProperty( VOLUME, 4 * pi<double>() * r2*r2*r2 / 3 );
 
 	vector <SphericalParticle*> particleVector;
-	particleVector.resize(2);
+	particleVector.resize(numberOfParticles);
 	particleVector[0] = &particle1;
 	particleVector[1] = &particle2;
 
@@ -220,6 +218,8 @@ int main(int argc, char **argv){
 	// ===== Simulation =====
 	particle1.addNeighbor( particle2 );
 
+	bool collisionFlag = false;
+
 	for(double t = initialTime; t <= finalTime - timeStep ; t += timeStep){
 
 		// Set forces and torques to zero
@@ -251,8 +251,15 @@ int main(int argc, char **argv){
 
 		if(particle1.touch(particle2))	// If particles are in touch
 		{
-			//cout << "Collision Instant: " << t << endl;
+			if(collisionFlag == false){
+				collisionFlag = true;
+				cout << "Collision start: " << t << " s" << endl;
+			}
 			ForceModel::viscoelasticSpheres( particle1, particle2 );
+		}
+		else if(collisionFlag == true){
+				collisionFlag = false;
+				cout << "Collision end: " << t << " s" << endl;
 		}
 
 		// Correct position and orientation

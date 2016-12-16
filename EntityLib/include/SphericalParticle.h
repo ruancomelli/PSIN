@@ -42,4 +42,6 @@ class SphericalParticle: public Particle
 		void reserveGeometricParameterMemory(void);
 }; // class SphericalParticle
 
+typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
+
 #endif

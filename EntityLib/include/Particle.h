@@ -1,11 +1,16 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
+// Standard
 #include <iostream>
 #include <fstream>
 #include <vector>
 
+// EntityLib
 #include <PhysicalEntity.h>
+
+// boost
+#include <SharedPointer.h>
 
 using namespace std;
 
@@ -66,5 +71,7 @@ class Particle: public PhysicalEntity
 		};
 		NeighborList neighborhood;
 }; // class Particle
+
+typedef SharedPointer< Particle > ParticlePtr;
 
 #endif
