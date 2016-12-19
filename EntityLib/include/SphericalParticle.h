@@ -29,7 +29,7 @@ class SphericalParticle: public Particle
 		double getGeometricParameter(const int geometricParameterIdentifier);
 		DoubleVector getGeometricParameter();
 		
-		bool touch(SphericalParticle particle);
+		bool touches(SphericalParticle particle);
 
 		Vector3D getNormalDirection(SphericalParticle particle);
 		
@@ -43,5 +43,6 @@ class SphericalParticle: public Particle
 }; // class SphericalParticle
 
 typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
+typedef vector< SphericalParticle > SphericalParticleArray;
 
 #endif

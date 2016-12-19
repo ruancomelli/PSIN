@@ -49,7 +49,7 @@ DoubleVector SphericalParticle::getGeometricParameter()
 
 // ------------------------------- Collision detector -------------------------------
 
-bool SphericalParticle::touch(SphericalParticle particle)
+bool SphericalParticle::touches(SphericalParticle particle)
 {
 	return ( this->distance(particle) <= ( this->getGeometricParameter(RADIUS) + particle.getGeometricParameter(RADIUS) ) );
 }

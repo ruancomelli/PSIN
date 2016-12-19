@@ -50,12 +50,11 @@ class Particle: public PhysicalEntity
 		
 		
 		// ---- Neighborhood ----
-		vector< Particle* > getNeighborPointer(void){ return this->neighborhood.neighborPointer; }
-		Particle* getNeighborPointerByIndex(int idx){ return this->neighborhood.neighborPointer[idx]; }
-		vector< int > getNeighborHandle(void){ return this->neighborhood.neighborHandle; }
-		int getNeighborHandleByIndex(int idx){ return this->neighborhood.neighborHandle[idx]; }
-
-		void addNeighbor(Particle & neighbor);
+		void addNeighbor(Particle & neighbor){ this->neighbor.push_back(neighbor.getHandle()); }
+		void addNeighbor(int handle){ this->neighbor.push_back(handle); }
+		int getNeighborHandleByIndex(int index){ return this->neighbor[index]; }
+		vector<int> getNeighborhood(void){ return this->neighbor; }
+		void setNeighborhoodSize(int size){ this->neighbor.resize(size); }
 		
 	private:
 		Vector3D bodyForce;
@@ -65,11 +64,7 @@ class Particle: public PhysicalEntity
 
 		static Vector3D gravity;
 		
-		struct NeighborList{
-			vector< Particle* > neighborPointer;
-			vector< int > neighborHandle;
-		};
-		NeighborList neighborhood;
+		vector<int> neighbor;
 }; // class Particle
 
 typedef SharedPointer< Particle > ParticlePtr;

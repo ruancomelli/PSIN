@@ -45,6 +45,10 @@ finalTime = values(finalTimeIdx);
 taylorOrderIdx = find( strcmpi(tags, '<taylorOrder>') );
 taylorOrder = values(taylorOrderIdx);
 
+% Time steps for output
+timeStepsForOutputIdx = find( strcmpi(tags, '<timeStepsForOutput>') );
+timeStepsForOutput = values(timeStepsForOutputIdx);
+
 disp('Done')
 
 %% ----- Read particle files -----
@@ -65,7 +69,7 @@ particleData = cell(nParticles, numberOfFilesPerParticle);
 particleFileCell = cell(nParticles, 1);
 
 for counter = 1 : nParticles
-    disp(['Particle ', int2str(counter)]);
+    disp(['Particle ', int2str(counter-1)]);
 
     particleInputPath = [inputPath, 'Particle', int2str(counter-1), '/'];
     
@@ -83,6 +87,8 @@ for counter = 1 : nParticles
     particleData{counter, torqueIdx} = csvread([particleInputPath, 'torque.txt']);
 end
 
+timeVectorLength = length( particleData{1, energyIdx}(:, 1) );
+
 disp('Done');
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,8 +102,8 @@ for counter = 1 : nParticles
     radius(counter) = particleFileCell{counter}{2}(radiusIdx);
 end
 
-timeVector = initialTime:timeStep:finalTime;
-nTimeSteps = length(timeVector);
+timeVector = initialTime:(timeStepsForOutput*timeStep):finalTime;
+nTimeSteps = timeStepsForOutput * length(timeVector);
 
 cmap = colormap( jet(nParticles) );
 cmap(2, :) = [1.0, 0.0, 0.0]; % red
@@ -165,7 +171,7 @@ if boolGenerateMovie
 
     disp('Generating Movie');
 
-    timeSkip = 100;
+    timeSkip = 99;
     disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
 
     video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
@@ -173,8 +179,8 @@ if boolGenerateMovie
     figure('Visible', 'off');
     open(video)
 
-    xPos = zeros(nParticles, nTimeSteps);
-    yPos = zeros(nParticles, nTimeSteps);
+    xPos = zeros(nParticles, timeVectorLength);
+    yPos = zeros(nParticles, timeVectorLength);
 
     xMin = zeros(nParticles, 1);
     yMin = zeros(nParticles, 1);
@@ -182,7 +188,7 @@ if boolGenerateMovie
     yMax = zeros(nParticles, 1);
 
     for i = 1 : nParticles
-        for j = 1 : nTimeSteps
+        for j = 1 : timeVectorLength
             xPos(i, j) = particleData{i,positionIdx}(j,1);
             yPos(i, j) = particleData{i,positionIdx}(j,2);
         end
@@ -195,9 +201,9 @@ if boolGenerateMovie
     axis([min(xMin) - max(radius), max(xMax) + max(radius), min(yMin) - max(radius), max(yMax) + max(radius)]);
     axis equal
 
-    Frame(nTimeSteps) = struct('cdata',[],'colormap',[]);
-    for j = 1 : timeSkip : nTimeSteps
-        title([num2str(initialTime + (j-1)*timeStep), 's']);
+    Frame(timeVectorLength) = struct('cdata',[],'colormap',[]);
+    for j = 1 : (timeSkip+1) : timeVectorLength
+        title([num2str(initialTime + (j-1)*timeStep*timeStepsForOutput), 's']);
 
         % Get center coordinates
         X = xPos(:, j);
