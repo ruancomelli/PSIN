@@ -171,7 +171,7 @@ if boolGenerateMovie
 
     disp('Generating Movie');
 
-    timeSkip = 99;
+    timeSkip = 0;
     disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
 
     video = VideoWriter([outputMATLAB, 'outputVideo.avi']);

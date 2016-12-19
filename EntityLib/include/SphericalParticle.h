@@ -44,5 +44,6 @@ class SphericalParticle: public Particle
 
 typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
 typedef vector< SphericalParticle > SphericalParticleArray;
+typedef vector< SphericalParticlePtr > SphericalParticlePtrArray;
 
 #endif

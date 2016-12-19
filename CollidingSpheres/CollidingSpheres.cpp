@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <iterator>
 #include <algorithm>
+#include <map>
 
 // EntityLib
 #include <Particle.h>
@@ -62,8 +63,6 @@ inline void saveSphericalParticleOrientation(ofstream & outFile, SphericalPartic
 
 int main(int argc, char **argv){
 
-	int flagCounter = 0;
-
 	int defaultDimension = 3; // This means that we are constraint to Vector3D
 	string inputPath("../_input/");
 	string outputPath("../_output/");
@@ -99,7 +98,7 @@ int main(int argc, char **argv){
 	for( int i=0 ; i<numberOfParticles ; ++i )
 	{
 		// Read particles from input files
-		string particleInputPath = inputPath + "particle" + _itoa(i+1, new char[100], 10) + ".txt";
+		string particleInputPath = inputPath + "particle" + _itoa(i, new char[100], 10) + ".txt";
 		particleVector[i] = readSphericalParticle(particleInputPath);
 		particleVector[i]->setHandle(i);
 	}
@@ -115,6 +114,7 @@ int main(int argc, char **argv){
 	particleVector[0]->setGravity(gravity);
 	
 	// Output
+	
 	enum{
 	 DATA_IDX = 0,
 	 FORCE_IDX,
@@ -268,8 +268,8 @@ int main(int argc, char **argv){
 			timeStepsForOutputCounter = 0;
 
 			foreach(SphericalParticlePtr particlePtr, particleVector){
-				outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX] << t + timeStep << verticalSeparator;
-				outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX] << t + timeStep << verticalSeparator;
+				outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX] << t << verticalSeparator;
+				outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX] << t << verticalSeparator;
 
 				saveSphericalParticlePosition(outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
 					*particlePtr, horizontalSeparator, verticalSeparator);
