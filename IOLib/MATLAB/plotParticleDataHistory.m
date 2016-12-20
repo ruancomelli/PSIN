@@ -1,5 +1,5 @@
 function plotParticleDataHistory( timeVector, particleData, index, dataName, outputMATLAB, fileName, ...
-    xAxisLabel, yAxisLabel, colorMap, nParticles, component )
+    extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component )
 %plotParticleDataHistory
 
 total = zeros(length(timeVector), 1);
@@ -26,7 +26,7 @@ fig = figure('Visible', 'off');
         'DisplayName', ['Total ', dataName]);
     legend('show', 'Location','southeast');
     
-    saveas(fig, [outputMATLAB, fileName]);    
+    saveas(fig, [outputMATLAB, fileName, extension]);    
     hold off  
 
 end

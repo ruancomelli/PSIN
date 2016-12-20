@@ -6,6 +6,7 @@ targetdir "../_lib"
 includedirs {
 	"./include",
 	"../UtilsLibSpecific/include",
+	"../IOLib/include"
 }
 
 links{

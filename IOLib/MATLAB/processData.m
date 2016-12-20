@@ -1,16 +1,32 @@
 % %% proccessData.m
 % 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% %%%%%%%%%%%%%%%%%%%%%     INITIALIZE PROGRAM     %%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%     INITIALIZE SCRIPT     %%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('Initializing Program');
 
 %% inputPath:
 clear
-inputPath = '../../_output/';                   % Path where to look for input
-outputMATLAB = '../../_output/MATLAB_output/';   % Path where to MATLAB must output
+simulationName = 'Simulation1';
+
+
+inputPath = ['../../_output/', simulationName, '/'];                    % Path where to look for input
+outputMATLAB = ['../../_output/', simulationName, '/MATLAB_output/'];   % Path where to MATLAB must output
 
 disp('Done');
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%     EXECUTE PROGRAM     %%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% programPath = '../../_tests/';
+% programName = 'collidingspheres_x64.exe';
+% 
+% if isunix
+%     system(['cd ', programPath, ' ; ./', programName]);
+% elseif ispc
+%     system(['cd ', programPath, ' & ', programName]);
+% end
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%     READ DATA     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -113,7 +129,7 @@ disp('Plotting Energy');
 
 plotParticleDataHistory(timeVector, particleData,...
     energyIdx, 'Mechanical Energy', ...
-    outputMATLAB, 'mechanical_energy_plot.png', ...
+    outputMATLAB, 'mechanical_energy_plot', '.png', ...
     'Time [s]', 'Mechanical Energy [J]', ...
     cmap, nParticles, 1);
 
@@ -124,7 +140,7 @@ disp('Plotting Linear Momentum');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     linearMomentumIdx, 'Linear Momentum', ...
-    outputMATLAB, 'linear_momentum_plot.png', ...
+    outputMATLAB, 'linear_momentum_plot', '.png', ...
     'Time [s]', 'Linear Momentum [kg*m/s]', ...
     cmap, nParticles );
     
@@ -136,7 +152,7 @@ disp('Plotting Angular Momentum');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     angularMomentumIdx, 'Angular Momentum', ...
-    outputMATLAB, 'angular_momentum_plot.png', ...
+    outputMATLAB, 'angular_momentum_plot', '.png', ...
     'Time [s]', 'Angular Momentum [kg*m^2/s]', ...
     cmap, nParticles ); 
 
@@ -147,7 +163,7 @@ disp('Plotting Resulting Force');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     forceIdx, 'Resulting Force', ...
-    outputMATLAB, 'resulting_force_plot.png', ...
+    outputMATLAB, 'resulting_force_plot', '.png', ...
     'Time [s]', 'Resulting Force [N]', ...
     cmap, nParticles );
 
@@ -158,7 +174,7 @@ disp('Plotting Resulting Torque');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     torqueIdx, 'Resulting Torque', ...
-    outputMATLAB, 'resulting_torque_plot.png', ...
+    outputMATLAB, 'resulting_torque_plot', '.png', ...
     'Time [s]', 'Resulting Torque [N*m]', ...
     cmap, nParticles );
 
@@ -234,4 +250,7 @@ end
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fclose('all');
+
 disp('Finished');
