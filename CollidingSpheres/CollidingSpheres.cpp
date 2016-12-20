@@ -128,7 +128,6 @@ int main(int argc, char **argv){
 		foreach( SphericalParticlePtr particle, particleArray ){
 			particle->setContactForce( nullVector3D() );
 			particle->setBodyForce( nullVector3D() );
-
 			particle->setResultingTorque( nullVector3D() );
 		}
 

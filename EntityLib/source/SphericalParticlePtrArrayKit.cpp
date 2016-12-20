@@ -68,7 +68,6 @@ void SphericalParticlePtrArrayKit::openFiles(string outputPath)
 		this->outFile[particlePtr->getHandle()][ANGULAR_MOMENTUM_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "angular_momentum.txt")); 
 		this->outFile[particlePtr->getHandle()][MECHANICAL_ENERGY_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "energy.txt")); 
 
-
 	}
 
 	this->isReady = true;
@@ -112,6 +111,10 @@ void SphericalParticlePtrArrayKit::exportTemporalData(string horizontalSeparator
 			*outFile[particlePtr->getHandle()][MECHANICAL_ENERGY_IDX] << particlePtr->getMechanicalEnergy() << verticalSeparator;
 		}
 	}
+	else
+	{
+		cerr << "Particle array is not ready to export data." << endl;
+	}
 }
 
 void SphericalParticlePtrArrayKit::exportAllData(string horizontalSeparator, string verticalSeparator)
@@ -153,5 +156,9 @@ void SphericalParticlePtrArrayKit::exportAllData(string horizontalSeparator, str
 			
 			*outFile[particlePtr->getHandle()][MECHANICAL_ENERGY_IDX] << particlePtr->getMechanicalEnergy() << verticalSeparator;
 		}
+	}
+	else
+	{
+		cerr << "Particle array is not ready to export data." << endl;
 	}
 }
