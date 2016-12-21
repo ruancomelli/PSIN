@@ -21,7 +21,7 @@ int Entity::getHandle(void) const
 	return this->handle;
 }
 
-bool operator==( Entity left, Entity right)
+bool operator==( const Entity & left, const Entity & right)
 {
 	return left.getHandle() == right.getHandle();
 }

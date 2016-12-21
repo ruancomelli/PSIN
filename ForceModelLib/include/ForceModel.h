@@ -8,11 +8,13 @@
 #include <ctype.h>
 #include <stdexcept>
 
-// our code
+// UtilsLibSpecific
 #include <Vector3D.h>
 #include <Vector.h>
-#include <Entity.h>
 #include <Mathematics.h>
+
+// EntityLib
+#include <Entity.h>
 #include <PhysicalEntity.h>
 #include <Particle.h>
 #include <SphericalParticle.h>
