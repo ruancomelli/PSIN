@@ -32,8 +32,8 @@ class Particle: public PhysicalEntity
 		Vector3D getResultingForce(void) const { return this->getBodyForce() + this->getContactForce(); }
 
 		
-		void addTorque(Vector3D torque){ this->resultingTorque += torque; }
-		void setResultingTorque(Vector3D torque){ this->resultingTorque = torque; }
+		void addTorque(const Vector3D torque){ this->resultingTorque += torque; }
+		void setResultingTorque(const Vector3D torque){ this->resultingTorque = torque; }
 		Vector3D getResultingTorque(void) const { return this->resultingTorque; }
 
 		Vector3D getLinearMomentum(void) const;

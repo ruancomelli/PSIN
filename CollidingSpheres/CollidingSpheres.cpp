@@ -83,8 +83,8 @@ int main(int argc, char **argv){
 
 
 	foreach(SphericalParticlePtr particlePtr, particleArray){
-		double m = particlePtr->getScalarProperty( MASS );
-		double r = particlePtr->getScalarProperty( MASS );
+		const double m = particlePtr->getScalarProperty( MASS );
+		const double r = particlePtr->getScalarProperty( MASS );
 
 		particlePtr->setScalarProperty( MOMENT_OF_INERTIA, 2 * m * r * r / 5 );
 		particlePtr->setScalarProperty( VOLUME, 4 * pi<double>() * r * r * r / 3 );

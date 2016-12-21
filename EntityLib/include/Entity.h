@@ -1,7 +1,11 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+// Standard
 #include <stdexcept>
+
+// UtilsLibSpecific
+#include <SharedPointer.h>
 
 class Entity
 {
@@ -16,6 +20,8 @@ class Entity
 		int handle;
 };
 
-bool operator==( Entity left, Entity right );
+bool operator==( const Entity & left, const Entity & right );
+
+typedef SharedPointer<Entity> EntityPtr;
 
 #endif

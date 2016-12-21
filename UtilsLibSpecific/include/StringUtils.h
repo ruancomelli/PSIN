@@ -6,6 +6,6 @@
 
 using namespace std;
 
-int stringCompare( const string & left, const string & right );
+int stringCompare( string left, string right );
 
 #endif
