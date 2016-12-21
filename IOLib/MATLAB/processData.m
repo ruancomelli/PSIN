@@ -3,37 +3,39 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%     INITIALIZE SCRIPT     %%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-disp('Initializing Program');
+disp('> Initializing Program');
 
 %% inputPath:
 clear
-simulationName = 'Simulation1';
+simulationName = 'Simulation2';
 
 
 inputPath = ['../../_output/', simulationName, '/'];                    % Path where to look for input
 outputMATLAB = ['../../_output/', simulationName, '/MATLAB_output/'];   % Path where to MATLAB must output
 
-disp('Done');
+disp('< Done');
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%     EXECUTE PROGRAM     %%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% programPath = '../../_tests/';
-% programName = 'collidingspheres_x64.exe';
-% 
-% if isunix
-%     system(['cd ', programPath, ' ; ./', programName]);
-% elseif ispc
-%     system(['cd ', programPath, ' & ', programName]);
-% end
+disp('> Simulating');
+
+programPath = '../../_tests/';
+programName = 'collidingspheres_x64.exe';
+
+if isunix
+    system(['cd ', programPath, ' ; ./', programName]);
+elseif ispc
+    system(['cd ', programPath, ' & ', programName]);
+end
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%     READ DATA     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% ----- Read main output file -----
-disp('Reading Main Output File');
+disp('> Reading Main Output File');
 
 fileID = fopen([inputPath, 'output.txt']);
 fileCell = textscan(fileID, '%s %f');
@@ -65,10 +67,10 @@ taylorOrder = values(taylorOrderIdx);
 timeStepsForOutputIdx = find( strcmpi(tags, '<timeStepsForOutput>') );
 timeStepsForOutput = values(timeStepsForOutputIdx);
 
-disp('Done')
+disp('< Done')
 
 %% ----- Read particle files -----
-disp('Reading Particle Files');
+disp('> Reading Particle Files');
 
 energyIdx = 1;
 positionIdx = 2;
@@ -105,12 +107,12 @@ end
 
 timeVectorLength = length( particleData{1, energyIdx}(:, 1) );
 
-disp('Done');
+disp('< Done');
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%     PROCCESS DATA     %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-disp('Proccessing Data');
+disp('> Proccessing Data');
 
 radius = zeros(nParticles, 1);
 for counter = 1 : nParticles
@@ -118,14 +120,17 @@ for counter = 1 : nParticles
     radius(counter) = particleFileCell{counter}{2}(radiusIdx);
 end
 
-timeVector = initialTime:(timeStepsForOutput*timeStep):finalTime;
+timeVector = initialTime:(timeStepsForOutput*timeStep):(finalTime+timeStep);
+timeVector = timeVector(1:length(particleData{1,energyIdx}(:,1)));
 nTimeSteps = timeStepsForOutput * length(timeVector);
 
 cmap = colormap( jet(nParticles) );
+temp = cmap(2,:);
 cmap(2, :) = [1.0, 0.0, 0.0]; % red
+cmap(4,:) = temp;
 
 %% ----- Plot Energy -----
-disp('Plotting Energy');
+disp('>> Plotting Energy');
 
 plotParticleDataHistory(timeVector, particleData,...
     energyIdx, 'Mechanical Energy', ...
@@ -133,10 +138,10 @@ plotParticleDataHistory(timeVector, particleData,...
     'Time [s]', 'Mechanical Energy [J]', ...
     cmap, nParticles, 1);
 
-disp('Done');
+disp('<< Done');
     
 %% ----- Plot Linear Momentum -----
-disp('Plotting Linear Momentum');
+disp('>> Plotting Linear Momentum');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     linearMomentumIdx, 'Linear Momentum', ...
@@ -144,11 +149,11 @@ plotParticleDataHistory3D( timeVector, particleData, ...
     'Time [s]', 'Linear Momentum [kg*m/s]', ...
     cmap, nParticles );
     
-disp('Done');
+disp('<< Done');
     
     
 %% ----- Plot Angular Momentum -----
-disp('Plotting Angular Momentum');
+disp('>> Plotting Angular Momentum');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     angularMomentumIdx, 'Angular Momentum', ...
@@ -156,10 +161,10 @@ plotParticleDataHistory3D( timeVector, particleData, ...
     'Time [s]', 'Angular Momentum [kg*m^2/s]', ...
     cmap, nParticles ); 
 
-disp('Done');
+disp('<< Done');
 
 %% ----- Plot Force -----
-disp('Plotting Resulting Force');
+disp('>> Plotting Resulting Force');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     forceIdx, 'Resulting Force', ...
@@ -167,10 +172,10 @@ plotParticleDataHistory3D( timeVector, particleData, ...
     'Time [s]', 'Resulting Force [N]', ...
     cmap, nParticles );
 
-disp('Done');
+disp('<< Done');
 
 %% ----- Plot Torque -----
-disp('Plotting Resulting Torque');
+disp('>> Plotting Resulting Torque');
 
 plotParticleDataHistory3D( timeVector, particleData, ...
     torqueIdx, 'Resulting Torque', ...
@@ -178,16 +183,18 @@ plotParticleDataHistory3D( timeVector, particleData, ...
     'Time [s]', 'Resulting Torque [N*m]', ...
     cmap, nParticles );
 
-disp('Done');
+disp('<< Done');
+
+disp('< Done');
 
 %% ===== Generate Movie =====
 boolGenerateMovie = true;
 
 if boolGenerateMovie
 
-    disp('Generating Movie');
+    disp('> Generating Movie');
 
-    timeSkip = 0;
+    timeSkip = 999;
     disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
 
     video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
@@ -244,7 +251,7 @@ if boolGenerateMovie
     end
     close(video);
 
-    disp('Done');
+    disp('< Done');
 
 end
 

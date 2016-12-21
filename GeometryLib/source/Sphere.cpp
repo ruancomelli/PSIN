@@ -3,7 +3,6 @@
 // Constructor
 Sphere::Sphere()
 {
-
 }
 
 // Destructor

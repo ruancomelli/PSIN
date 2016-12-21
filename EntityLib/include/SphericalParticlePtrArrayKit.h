@@ -64,8 +64,9 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 
 		/* These functions only make the program clearer */
 		void saveVector3D(ofstream & outFile, Vector3D v, string horizontalSeparator, string verticalSeparator){
-				outFile << v.x() << horizontalSeparator << v.y() << horizontalSeparator << v.z();
-				outFile << verticalSeparator;
+				outFile << 	v.x() << horizontalSeparator << 
+							v.y() << horizontalSeparator << 
+							v.z() << verticalSeparator;
 		}
 
 		void saveSphericalParticlePosition(ofstream & outFile, SphericalParticle & particle, string horizontalSeparator, string verticalSeparator){
