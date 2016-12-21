@@ -69,7 +69,7 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 							v.z() << verticalSeparator;
 		}
 
-		void saveSphericalParticlePosition(ofstream & outFile, SphericalParticle & particle, string horizontalSeparator, string verticalSeparator){
+		void saveSphericalParticlePositionMatrix(ofstream & outFile, SphericalParticle & particle, string horizontalSeparator, string verticalSeparator){
 			for(int i = 0 ; i <= particle.getTaylorOrder() ; ++i ){
 				// Save each component of the i-th derivative of the positions
 				outFile << horizontalSeparator;
@@ -78,7 +78,7 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 			outFile << verticalSeparator;
 		}
 		
-		void saveSphericalParticleOrientation(ofstream & outFile, SphericalParticle & particle, string horizontalSeparator, string verticalSeparator){
+		void saveSphericalParticleOrientationMatrix(ofstream & outFile, SphericalParticle & particle, string horizontalSeparator, string verticalSeparator){
 			for(int i = 0 ; i <= particle.getTaylorOrder() ; ++i ){
 				// Save each component of the i-th derivative of the orientations
 				outFile << horizontalSeparator;

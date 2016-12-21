@@ -78,10 +78,10 @@ void SphericalParticlePtrArrayKit::exportTemporalData(string horizontalSeparator
 {
 	if(this->isReady){
 		foreach(SphericalParticlePtr particlePtr, *this){
-			saveSphericalParticlePosition(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
+			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
 				*particlePtr, horizontalSeparator, verticalSeparator);
 
-			saveSphericalParticleOrientation(*outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
+			saveSphericalParticleOrientationMatrix(*outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
 				*particlePtr, horizontalSeparator, verticalSeparator);
 			
 			saveVector3D(*outFile[particlePtr->getHandle()][FORCE_IDX],
@@ -124,10 +124,10 @@ void SphericalParticlePtrArrayKit::exportAllData(string horizontalSeparator, str
 		foreach(SphericalParticlePtr particlePtr, *this){
 			*outFile[particlePtr->getHandle()][DATA_IDX] << "<Radius> " << particlePtr->getGeometricParameter(RADIUS) << verticalSeparator;
 
-			saveSphericalParticlePosition(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
+			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
 				*particlePtr, horizontalSeparator, verticalSeparator);
 
-			saveSphericalParticleOrientation(*outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
+			saveSphericalParticleOrientationMatrix(*outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
 				*particlePtr, horizontalSeparator, verticalSeparator);
 			
 			saveVector3D(*outFile[particlePtr->getHandle()][FORCE_IDX],

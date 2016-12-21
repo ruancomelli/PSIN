@@ -153,16 +153,17 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		particle2.addContactForce( - normalForce );
 		
 		// Calculate tangential force
-		Vector3D contactPoint = radius1 * normalVersor + position1;
+		double contactPointSize = ( (radius1*radius1) - (radius2*radius2) + positionDifference.squaredLength() ) / ( 2 * positionDifference.length() );	// See law of cosines
+		Vector3D contactPoint = contactPointSize * normalVersor + position1;
 		
 		Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
-		Vector3D relativeTangentialRotationalVelocity =	cross(angularVelocity1, contactPoint - position1) -
-														cross(angularVelocity2, contactPoint - position2);
+		Vector3D relativeTangentialRotationalVelocity =	cross(angularVelocity2, contactPoint - position2) -
+														cross(angularVelocity1, contactPoint - position1);
 		
 		Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
 		
 		Vector3D tangentialVersor = relativeTangentialVelocity.length() > 0 ?
-									- relativeTangentialVelocity / relativeTangentialVelocity.length() :
+									relativeTangentialVelocity / relativeTangentialVelocity.length() :
 									nullVector3D();
 		
 		Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
