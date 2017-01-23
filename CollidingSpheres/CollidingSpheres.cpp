@@ -42,24 +42,22 @@ using boost::math::constants::pi;
 int main(int argc, char **argv){
 
 	int defaultDimension = 3; // This means that we are constraint to Vector3D
-	string inputPath("../_input/");
 	
 	// Simulation data
-	FileReader inputData(inputPath + "input.txt");
+	string inputPath("../_input/");
+	FileReader simulationNameFile(inputPath + "input.txt");
+	string simulationName;
+	simulationNameFile.readValue("<simulationName>", simulationName);
+
+	FileReader inputData(inputPath + simulationName + "/input.txt");
 	double initialTime;
 	double timeStep;
 	double finalTime;
-	
 	int taylorOrder;
 	int dimension;
-	
 	int numberOfParticles;
-
 	int timeStepsForOutput;
-
 	Vector3D gravity;
-
-	string simulationName;
 
 	inputData.readValue("<initialTime>", initialTime);
 	inputData.readValue("<timeStep>", timeStep);
@@ -69,7 +67,6 @@ int main(int argc, char **argv){
 	inputData.readValue("<numberOfParticles>", numberOfParticles);
 	inputData.readValue("<gravity>", gravity);
 	inputData.readValue("<timeStepsForOutput>", timeStepsForOutput);
-	inputData.readValue("<simulationName>", simulationName);
 
 	string outputPath("../_output/" + simulationName + "/");
 
@@ -77,9 +74,11 @@ int main(int argc, char **argv){
 	_mkdir((outputPath + "MATLAB_output/").c_str());
 
 	// Input
+	string particleInputPath(inputPath + simulationName + "/");
+
 	SphericalParticlePtrArrayKit particleArray;
 
-	particleArray.inputParticles(numberOfParticles, inputPath);
+	particleArray.inputParticles(numberOfParticles, particleInputPath);
 
 
 	foreach(SphericalParticlePtr particlePtr, particleArray){

@@ -6,13 +6,11 @@ function simulate( simulationName )
 disp('> Initializing Program');
 
 %% inputPath:
-clear
-
-simulationName = 'Simulation1';
-
 
 disp(['==== ', simulationName, ' ====']);
 
+inputFileID = fopen('../../_input/input.txt', 'w');
+fprintf(inputFileID, ['<simulationName> ', simulationName]);
 
 inputPath = ['../../_output/', simulationName, '/'];                    % Path where to look for input
 outputMATLAB = ['../../_output/', simulationName, '/MATLAB_output/'];   % Path where to MATLAB must output
@@ -26,7 +24,7 @@ disp('< Done');
 disp('> Simulating');
 
 programPath = '../../_tests/';
-programName = 'collidingspheres_x64.exe';
+programName = 'collidingspheres.exe';
 
 if isunix
     system(['cd ', programPath, ' ; ./', programName]);
@@ -198,7 +196,7 @@ if boolGenerateMovie
 
     disp('> Generating Movie');
 
-    timeSkip = 9;
+    timeSkip = 0;
     disp(['Skipping ', int2str(timeSkip), ' time steps per frame']);
 
     video = VideoWriter([outputMATLAB, 'outputVideo.avi']);
