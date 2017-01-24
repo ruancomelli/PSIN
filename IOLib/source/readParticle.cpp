@@ -1,6 +1,6 @@
 #include <readParticle.h>
 
-Particle readParticle( string & fileName )
+ParticlePtr readParticle( const string fileName )
 {
-	return Particle(readPhysicalEntity(fileName));
+	return ParticlePtr( new Particle(*readPhysicalEntity(fileName) ) ) ;
 }

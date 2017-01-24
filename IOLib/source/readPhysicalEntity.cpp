@@ -1,11 +1,11 @@
 #include <readPhysicalEntity.h>
 
-PhysicalEntity readPhysicalEntity( string & fileName )
+PhysicalEntityPtr readPhysicalEntity( const string fileName )
 {
 	FileReader fileReader(fileName);
 
 	// ----- Read Entity -----
-	Entity entity = readEntity(fileName);
+	EntityPtr entity = readEntity(fileName);
 	
 
 	// ----- Read taylorOrder -----
@@ -17,7 +17,7 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 	fileReader.readValue("<Dimension>", dimension);
 
 	// ----- Create object -----
-	PhysicalEntity physicalEntity( taylorOrder, dimension, entity );
+	PhysicalEntity physicalEntity( taylorOrder, dimension, *entity );
 
 
 	// ----- Read initial position -----
@@ -49,5 +49,5 @@ PhysicalEntity readPhysicalEntity( string & fileName )
 
 	physicalEntity.setScalarProperty(scalarProperty);
 
-	return physicalEntity;
+	return PhysicalEntityPtr( new PhysicalEntity(physicalEntity) );
 }

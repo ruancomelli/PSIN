@@ -101,8 +101,8 @@
 
 	DoubleVector2D operator *( const double& scalar, const DoubleVector2D & matrix ){
 		DoubleVector2D solution( matrix[0].size(), DoubleVector( matrix.size(), 0.0 ) );
-		for( int row = 0; row < matrix.size(); row++ ){
-			for( int col = 0; col < matrix[0].size(); col++ ){
+		for( unsigned row = 0; row < matrix.size(); row++ ){
+			for( unsigned col = 0; col < matrix[0].size(); col++ ){
 				solution[row][col] = scalar*matrix[row][col];
 			}
 		}
