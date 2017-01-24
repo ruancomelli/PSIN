@@ -10,7 +10,7 @@ disp('> Initializing Program');
 disp(['==== ', simulationName, ' ====']);
 
 inputFileID = fopen('../../_input/input.txt', 'w');
-fprintf(inputFileID, ['<simulationName> ', simulationName]);
+fprintf(inputFileID, '%s', ['<simulationName> ', simulationName]);
 
 inputPath = ['../../_output/', simulationName, '/'];                    % Path where to look for input
 outputMATLAB = ['../../_output/', simulationName, '/MATLAB_output/'];   % Path where to MATLAB must output

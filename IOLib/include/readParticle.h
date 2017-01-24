@@ -18,6 +18,6 @@
 
 using namespace std;
 
-Particle readParticle( string & fileName );
+ParticlePtr readParticle( const string fileName );
 
 #endif

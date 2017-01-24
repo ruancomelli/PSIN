@@ -9,8 +9,8 @@ SphericalParticlePtrArrayKit::SphericalParticlePtrArrayKit() : isReady(false)
 
 SphericalParticlePtrArrayKit::~SphericalParticlePtrArrayKit()
 {
-	for( int i=0 ; i<this->outFile.size() ; ++i ){
-		for( int j=0 ; j<this->outFile[i].size() ; ++j ){
+	for( unsigned i=0 ; i<this->outFile.size() ; ++i ){
+		for( unsigned j=0 ; j<this->outFile[i].size() ; ++j ){
 			outFile[i][j]->close();
 		}
 	}
@@ -37,7 +37,7 @@ void SphericalParticlePtrArrayKit::inputParticles(int nParticles, string & input
 
 void SphericalParticlePtrArrayKit::inputParticles(vector<string> & inputPath)
 {
-	for( int i=0; i<inputPath.size(); ++i)
+	for( unsigned i=0; i<inputPath.size(); ++i)
 	{
 		this->inputParticle(inputPath[i]);
 	}

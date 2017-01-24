@@ -1,11 +1,11 @@
 #include <readEntity.h>
 
-Entity readEntity( string & fileName ){
+EntityPtr readEntity( const string fileName ){
 	FileReader fileReader(fileName);
 
 	// ----- Read Handle -----
 	int handle;
 	fileReader.readValue("<Handle>", handle);
 
-	return Entity(handle);
+	return EntityPtr( new Entity(handle) );
 }

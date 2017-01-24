@@ -16,6 +16,6 @@
 
 using namespace std;
 
-PhysicalEntity readPhysicalEntity( string & fileName );
+PhysicalEntityPtr readPhysicalEntity( const string fileName );
 
 #endif

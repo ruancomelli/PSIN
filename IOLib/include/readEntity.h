@@ -12,6 +12,6 @@
 
 using namespace std;
 
-Entity readEntity( string & fileName );
+EntityPtr readEntity( const string fileName );
 
 #endif
