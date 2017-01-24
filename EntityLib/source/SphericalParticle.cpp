@@ -49,14 +49,14 @@ DoubleVector SphericalParticle::getGeometricParameter()
 
 // ------------------------------- Collision detector -------------------------------
 
-bool SphericalParticle::touches(SphericalParticle particle)
+bool SphericalParticle::touches(SphericalParticlePtr particle)
 {
-	return ( this->distance(particle) <= ( this->getGeometricParameter(RADIUS) + particle.getGeometricParameter(RADIUS) ) );
+	return ( this->distance(particle) <= ( this->getGeometricParameter(RADIUS) + particle->getGeometricParameter(RADIUS) ) );
 }
 
-Vector3D SphericalParticle::getNormalDirection(SphericalParticle particle)
+Vector3D SphericalParticle::getNormalDirection(SphericalParticlePtr particle)
 {
-	Vector3D normalDirection = particle.getPosition(0) - this->getPosition(0);
+	Vector3D normalDirection = particle->getPosition(0) - this->getPosition(0);
 	normalDirection.normalize();
 	return normalDirection;
 }

@@ -90,52 +90,52 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 //		Calculates normal and tangential forces between two spherical particles according to equation (2.14) (see reference)
 //		normalForce is the normal force applied BY particle2 TO particle1
 //		tangentialForce is the tangential force applied BY particle2 TO particle1
-void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalParticle & particle2)
+void ForceModel::viscoelasticSpheres( SphericalParticlePtr particle1,  SphericalParticlePtr particle2)
 {	
 	Vector3D force;
 
 	// Getting particles properties and parameters
-	const Vector3D position1 = particle1.getPosition(0);
-	const Vector3D position2 = particle2.getPosition(0);
+	const Vector3D position1 = particle1->getPosition(0);
+	const Vector3D position2 = particle2->getPosition(0);
 	const double distance = position1.dist(position2);
-	const double radius1 = particle1.getGeometricParameter(RADIUS);
-	const double radius2 = particle2.getGeometricParameter(RADIUS);
+	const double radius1 = particle1->getGeometricParameter(RADIUS);
+	const double radius2 = particle2->getGeometricParameter(RADIUS);
 	
 	// Calculations
 	const double overlap = radius1 + radius2 - distance;
 	
 	if(overlap > 0)
 	{
-		const Vector3D velocity1 = particle1.getPosition( 1 );
-		const Vector3D velocity2 = particle2.getPosition( 1 );
+		const Vector3D velocity1 = particle1->getPosition( 1 );
+		const Vector3D velocity2 = particle2->getPosition( 1 );
 		
 		const Vector3D positionDifference = position2 - position1;
 		const Vector3D velocityDifference = velocity2 - velocity1;
 		
 		const Vector3D normalVersor = positionDifference / positionDifference.length();
 		
-		const Vector3D angularVelocity1 = particle1.getOrientation( 1 );
-		const Vector3D angularVelocity2 = particle2.getOrientation( 1 );
+		const Vector3D angularVelocity1 = particle1->getOrientation( 1 );
+		const Vector3D angularVelocity2 = particle2->getOrientation( 1 );
 		
 		// Get physical properties and calculate effective parameters
 		const double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
 		
-		const double elasticModulus1 = particle1.getScalarProperty( ELASTIC_MODULUS );
-		const double elasticModulus2 = particle2.getScalarProperty( ELASTIC_MODULUS );
+		const double elasticModulus1 = particle1->getScalarProperty( ELASTIC_MODULUS );
+		const double elasticModulus2 = particle2->getScalarProperty( ELASTIC_MODULUS );
 		
-		const double dissipativeConstant1 = particle1.getScalarProperty( DISSIPATIVE_CONSTANT );
-		const double dissipativeConstant2 = particle2.getScalarProperty( DISSIPATIVE_CONSTANT );
+		const double dissipativeConstant1 = particle1->getScalarProperty( DISSIPATIVE_CONSTANT );
+		const double dissipativeConstant2 = particle2->getScalarProperty( DISSIPATIVE_CONSTANT );
 		
 		
-		const double poissonRatio1 = particle1.getScalarProperty( POISSON_RATIO );
-		const double poissonRatio2 = particle2.getScalarProperty( POISSON_RATIO );
+		const double poissonRatio1 = particle1->getScalarProperty( POISSON_RATIO );
+		const double poissonRatio2 = particle2->getScalarProperty( POISSON_RATIO );
 
-		const double tangentialDamping1 = particle1.getScalarProperty( TANGENTIAL_DAMPING );
-		const double tangentialDamping2 = particle2.getScalarProperty( TANGENTIAL_DAMPING );
+		const double tangentialDamping1 = particle1->getScalarProperty( TANGENTIAL_DAMPING );
+		const double tangentialDamping2 = particle2->getScalarProperty( TANGENTIAL_DAMPING );
 		const double effectiveTangentialDamping = min( tangentialDamping1 , tangentialDamping2 );
 			
-		const double frictionParameter1 = particle1.getScalarProperty( FRICTION_PARAMETER );
-		const double frictionParameter2 = particle2.getScalarProperty( FRICTION_PARAMETER );
+		const double frictionParameter1 = particle1->getScalarProperty( FRICTION_PARAMETER );
+		const double frictionParameter2 = particle2->getScalarProperty( FRICTION_PARAMETER );
 		const double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
 		
 		
@@ -149,8 +149,8 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		
 		const Vector3D normalForce = - normalForceModulus * normalVersor;
 		
-		particle1.addContactForce( normalForce );
-		particle2.addContactForce( - normalForce );
+		particle1->addContactForce( normalForce );
+		particle2->addContactForce( - normalForce );
 		
 		// Calculate tangential force
 		const double contactPointSize = ( (radius1*radius1) - (radius2*radius2) + positionDifference.squaredLength() ) / ( 2 * positionDifference.length() );	// See law of cosines
@@ -169,35 +169,35 @@ void ForceModel::viscoelasticSpheres( SphericalParticle & particle1,  SphericalP
 		const Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
 			effectiveFrictionParameter * abs(normalForceModulus) ) * tangentialVersor;
 		
-		particle1.addContactForce( tangentialForce );
-		particle2.addContactForce( - tangentialForce );
+		particle1->addContactForce( tangentialForce );
+		particle2->addContactForce( - tangentialForce );
 									
-		particle1.addTorque( cross(contactPoint - position1, tangentialForce) );
-		particle2.addTorque( cross(contactPoint - position2, - tangentialForce) );
+		particle1->addTorque( cross(contactPoint - position1, tangentialForce) );
+		particle2->addTorque( cross(contactPoint - position2, - tangentialForce) );
 	}
 	// else, no forces and no torques are added.
 }
 
 
 
-void ForceModel::correctPosition( SphericalParticle & particle, const int predictionOrder, double dt )
+void ForceModel::correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
-	vector<Vector3D> position = particle.getPosition();
-	Vector3D acceleration = particle.getResultingForce() / particle.getScalarProperty( MASS );
+	vector<Vector3D> position = particle->getPosition();
+	Vector3D acceleration = particle->getResultingForce() / particle->getScalarProperty( MASS );
 	vector<Vector3D> correctedPosition = gearCorrector( position, acceleration, predictionOrder, dt);
 	
-	particle.setPosition(correctedPosition);
+	particle->setPosition(correctedPosition);
 }
 
-void ForceModel::correctOrientation( SphericalParticle & particle, const int predictionOrder, double dt )
+void ForceModel::correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
-	vector<Vector3D> orientation = particle.getOrientation();
-	Vector3D angularAcceleration = particle.getResultingTorque() / particle.getScalarProperty( MOMENT_OF_INERTIA );
+	vector<Vector3D> orientation = particle->getOrientation();
+	Vector3D angularAcceleration = particle->getResultingTorque() / particle->getScalarProperty( MOMENT_OF_INERTIA );
 	vector<Vector3D> correctedOrientation = gearCorrector( orientation, angularAcceleration, predictionOrder, dt);
 	
-	particle.setOrientation(correctedOrientation);
+	particle->setOrientation(correctedOrientation);
 }
 
-void ForceModel::linearDashpotForce( SphericalParticle & particle1, SphericalParticle & particle2 ){
+void ForceModel::linearDashpotForce( SphericalParticlePtr particle1, SphericalParticlePtr particle2 ){
 	/* TO BE IMPLEMENTED */
 }

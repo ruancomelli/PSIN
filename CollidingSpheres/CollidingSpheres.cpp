@@ -114,7 +114,7 @@ int main(int argc, char **argv){
 	foreach( SphericalParticlePtr particle, particleArray ){
 		foreach( SphericalParticlePtr neighbor, particleArray ){
 			if( neighbor->getHandle() > particle->getHandle() ){
-				particle->addNeighbor( neighbor->getHandle() );
+				particle->addNeighbor( neighbor );
 			}
 		}
 	}
@@ -147,17 +147,17 @@ int main(int argc, char **argv){
 			foreach( int handle, particle->getNeighborhood() ){
 				SphericalParticlePtr neighbor = particleArray[handle];
 
-				if(particle->touches(*neighbor))	// If particles are in touch
+				if(particle->touches(neighbor))	// If particles are in touch
 				{
-					ForceModel::viscoelasticSpheres( *particle, *neighbor );
+					ForceModel::viscoelasticSpheres( particle, neighbor );
 				}
 			}
 		}
 
 		// Correct position and orientation
 		foreach( SphericalParticlePtr particle, particleArray ){
-			ForceModel::correctPosition( *particle , taylorOrder, timeStep );
-			ForceModel::correctOrientation( *particle , taylorOrder, timeStep );
+			ForceModel::correctPosition( particle , taylorOrder, timeStep );
+			ForceModel::correctOrientation( particle , taylorOrder, timeStep );
 		}
 
 

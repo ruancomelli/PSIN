@@ -1,12 +1,17 @@
 #ifndef PHYSICAL_ENTITY_H
 #define PHYSICAL_ENTITY_H
 
+// Standard
 #include <vector>
 #include <stdexcept>
 
+// EntityLib
 #include <Entity.h>
+
+// UtilsLibSpecific
 #include <Vector.h>
 #include <Vector3D.h>
+#include <SharedPointer.h>
 
 using namespace std;
 
@@ -37,6 +42,9 @@ enum VectorialProperty{
 enum MatricialProperty{
 	N_MATRICIAL_PROPERTY
 };
+
+class PhysicalEntity;
+typedef SharedPointer<PhysicalEntity> PhysicalEntityPtr;
 
 class PhysicalEntity: public Entity
 {
@@ -86,7 +94,7 @@ class PhysicalEntity: public Entity
 		
 		
 		// ---- Distance ----
-		double distance(const PhysicalEntity physicalEntity);
+		double distance(PhysicalEntityPtr physicalEntity);
 		
 	private:
 		int			 taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
@@ -109,5 +117,6 @@ class PhysicalEntity: public Entity
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const Vector3D & vec);
 		void setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial);
 };
+
 
 #endif

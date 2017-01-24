@@ -14,6 +14,8 @@
 
 using namespace std;
 
+class Particle;
+typedef SharedPointer< Particle > ParticlePtr;
 
 class Particle: public PhysicalEntity
 {
@@ -22,10 +24,10 @@ class Particle: public PhysicalEntity
 		Particle(const PhysicalEntity & base);
 		Particle(const int taylorOrder, const int dimension, const int handle = -1);
 		
-		void addBodyForce(Vector3D force){ this->bodyForce += force; }
-		void addContactForce(Vector3D force){ this->contactForce += force; }
-		void setBodyForce(Vector3D force){ this->bodyForce = force; }
-		void setContactForce(Vector3D force){ this->contactForce = force; }
+		void addBodyForce(const Vector3D force){ this->bodyForce += force; }
+		void addContactForce(const Vector3D force){ this->contactForce += force; }
+		void setBodyForce(const Vector3D force){ this->bodyForce = force; } 
+		void setContactForce(const Vector3D force){ this->contactForce = force; }
 
 		Vector3D getBodyForce(void) const { return this->bodyForce; }
 		Vector3D getContactForce(void) const { return this->contactForce; }
@@ -50,13 +52,15 @@ class Particle: public PhysicalEntity
 		
 		
 		// ---- Neighborhood ----
-		void addNeighbor(Particle & neighbor){ this->neighbor.push_back(neighbor.getHandle()); }
+		void addNeighbor(ParticlePtr newNeighbor){ this->neighbor.push_back(newNeighbor->getHandle()); }
 		void addNeighbor(int handle){ this->neighbor.push_back(handle); }
 		int getNeighborHandleByIndex(int index){ return this->neighbor[index]; }
 		vector<int> getNeighborhood(void){ return this->neighbor; }
 		void setNeighborhoodSize(int size){ this->neighbor.resize(size); }
 		
 	private:
+		typedef SharedPointer< Particle > ParticlePtr;
+
 		Vector3D bodyForce;
 		Vector3D contactForce;
 
@@ -66,7 +70,5 @@ class Particle: public PhysicalEntity
 		
 		vector<int> neighbor;
 }; // class Particle
-
-typedef SharedPointer< Particle > ParticlePtr;
 
 #endif
