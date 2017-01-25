@@ -30,6 +30,8 @@ class ForceModel
 		static void normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 		static void normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 		
+		static void tangentialForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce );
+		
 		static void correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt );
 		static void correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt );
 		

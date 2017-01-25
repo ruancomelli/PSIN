@@ -149,7 +149,7 @@ int main(int argc, char **argv){
 
 				if(particle->touches(neighbor))	// If particles are in touch
 				{
-					ForceModel::viscoelasticSpheres( particle, neighbor );
+					ForceModel::normalForceViscoelasticSpheres( particle, neighbor );
 				}
 			}
 		}
