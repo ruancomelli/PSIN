@@ -20,6 +20,6 @@
 
 using namespace std;
 
-SphericalParticle readSphericalParticle( string & fileName );
+SphericalParticlePtr readSphericalParticle( const string fileName );
 
 #endif

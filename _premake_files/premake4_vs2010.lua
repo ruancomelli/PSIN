@@ -108,6 +108,7 @@ configuration {}
 
 --include "../EFVLibTest"
 include "../CollidingSpheres"
+include "../GeometryLibTest"
 include "../IOLibTest"
 include "../EntityLibTest"
 include "../UtilsLibSpecificTest"
@@ -117,6 +118,7 @@ include "../CollidingParticles"
 
 --include "../EFVLib"
 include "../UtilsLibSpecific"
+include "../GeometryLib"
 include "../EntityLib"
 include "../ForceModelLib"
 include "../IOLib"

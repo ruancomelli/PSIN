@@ -1,4 +1,4 @@
-project "EntityLib"
+project "GeometryLib"
 
 kind "StaticLib"
 targetdir "../_lib"
@@ -6,7 +6,6 @@ targetdir "../_lib"
 includedirs {
 	"./include",
 	"../UtilsLibSpecific/include",
-	"../IOLib/include"
 }
 
 links{

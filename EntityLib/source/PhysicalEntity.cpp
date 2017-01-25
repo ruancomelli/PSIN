@@ -161,8 +161,8 @@ GeometryType PhysicalEntity::getGeometry() const
 }
 
 // ------------------------------- Distance and Touching -------------------------------
-double PhysicalEntity::distance(const PhysicalEntity physicalEntity){
-	return this->position[0].dist(physicalEntity.position[0]);
+double PhysicalEntity::distance(PhysicalEntityPtr physicalEntity){
+	return this->position[0].dist(physicalEntity->position[0]);
 }
 
 // ------------------------------- Auxiliar Functions -------------------------------
@@ -224,7 +224,7 @@ void PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Ve
 {
 	if( spatial.size() != (this->taylorOrder + 1) )
 	{
-		throw runtime_error("taylorOrder does not agree function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
+		throw runtime_error("taylorOrder does not agree in function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
 	}
 	spatialToSet = spatial;
 }

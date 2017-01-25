@@ -16,6 +16,11 @@ enum SphericalParticleGeometricParameter{
 	N_GEOMETRIC_PARAMETER
 };
 
+class SphericalParticle;
+typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
+typedef vector< SphericalParticle > SphericalParticleArray;
+typedef vector< SphericalParticlePtr > SphericalParticlePtrArray;
+
 class SphericalParticle: public Particle
 {
 	public:
@@ -29,9 +34,9 @@ class SphericalParticle: public Particle
 		double getGeometricParameter(const int geometricParameterIdentifier);
 		DoubleVector getGeometricParameter();
 		
-		bool touch(SphericalParticle particle);
+		bool touches(SphericalParticlePtr particle);
 
-		Vector3D getNormalDirection(SphericalParticle particle);
+		Vector3D getNormalDirection(SphericalParticlePtr particle);
 		
 		// ---- Input and Output ----
 		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );

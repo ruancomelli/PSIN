@@ -54,8 +54,3 @@ double Particle::getMechanicalEnergy(void) const
 {
 	return this->getKineticEnergy() + this->getPotentialEnergy();
 }
-
-void Particle::addNeighbor(Particle & neighbor){
-	this->neighborhood.neighborPointer.push_back( &neighbor );
-	this->neighborhood.neighborHandle.push_back( neighbor.getHandle() );
-}

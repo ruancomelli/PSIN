@@ -70,7 +70,7 @@ using std::runtime_error;
 	}
 
 	template <class type> std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
-		for( int i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
+		for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
 			inputFile >> v[i];
 		}
 
