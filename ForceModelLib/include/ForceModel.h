@@ -29,8 +29,9 @@ class ForceModel
 		// Force calculation models
 		static Vector3D normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 		static Vector3D normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-		
-		static void tangentialForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce );
+
+		static void tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce );
+		static void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce );
 		
 		static void correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt );
 		static void correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt );

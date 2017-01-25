@@ -243,3 +243,65 @@ void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, Spher
 	}
 	// else, no forces and no torques are added.
 }
+
+
+void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce)
+{	
+	/*MUST BE FINISHED*/
+	// Calculations
+	const double overlap = particle->overlap(neighbor);
+	
+	if(overlap > 0)
+	{
+	// Getting particles properties and parameters
+		const double radius1 = particle->getGeometricParameter(RADIUS);
+		const double radius2 = neighbor->getGeometricParameter(RADIUS);
+
+		const Vector3D position1 = particle->getPosition(0);
+		const Vector3D position2 = neighbor->getPosition(0);
+
+		const Vector3D velocity1 = particle->getPosition( 1 );
+		const Vector3D velocity2 = neighbor->getPosition( 1 );
+		
+		const Vector3D positionDifference = position2 - position1;
+		const Vector3D velocityDifference = velocity2 - velocity1;
+		
+		const Vector3D normalVersor = particle->getNormalDirection( neighbor );
+		
+		const Vector3D angularVelocity1 = particle->getOrientation( 1 );
+		const Vector3D angularVelocity2 = neighbor->getOrientation( 1 );
+		
+		// Get physical properties and calculate effective parameters
+		const double tangentialKappa1 = particle->getScalarProperty( TANGENTIAL_KAPPA );
+		const double tangentialKappa2 = neighbor->getScalarProperty( TANGENTIAL_KAPPA );
+		const double effectiveTangentialKappa = min( tangentialKappa1 , tangentialKappa2 );
+			
+		const double frictionParameter1 = particle->getScalarProperty( FRICTION_PARAMETER );
+		const double frictionParameter2 = neighbor->getScalarProperty( FRICTION_PARAMETER );
+		const double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
+		
+		// Calculate tangential force
+		const double contactPointSize = ( (radius1*radius1) - (radius2*radius2) + positionDifference.squaredLength() ) / ( 2 * positionDifference.length() );	// See law of cosines
+		const Vector3D contactPoint = contactPointSize * normalVersor + position1;
+		
+		const Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
+		const Vector3D relativeTangentialRotationalVelocity =	cross(angularVelocity2, contactPoint - position2) -
+														cross(angularVelocity1, contactPoint - position1);
+		
+		const Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
+		
+		const Vector3D tangentialVersor = relativeTangentialVelocity.length() > 0 ?
+									relativeTangentialVelocity / relativeTangentialVelocity.length() :
+									nullVector3D();
+		
+		const Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
+			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
+		
+		particle->addContactForce( tangentialForce );
+		neighbor->addContactForce( - tangentialForce );
+									
+		particle->addTorque( cross(contactPoint - position1, tangentialForce) );
+		neighbor->addTorque( cross(contactPoint - position2, - tangentialForce) );
+	}
+	// else, no forces and no torques are added.
+}

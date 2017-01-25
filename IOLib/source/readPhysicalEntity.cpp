@@ -46,6 +46,9 @@ PhysicalEntityPtr readPhysicalEntity( const string fileName )
 	fileReader.readValue("<ElasticModulus>", scalarProperty[ELASTIC_MODULUS]);
 	fileReader.readValue("<TangentialDamping>", scalarProperty[TANGENTIAL_DAMPING]);
 	fileReader.readValue("<FrictionParameter>", scalarProperty[FRICTION_PARAMETER]);
+	fileReader.readValue("<NormalDissipativeConstant>", scalarProperty[NORMAL_DISSIPATIVE_CONSTANT]);
+	fileReader.readValue("<TangentialKappa>", scalarProperty[TANGENTIAL_KAPPA]);
+
 
 	physicalEntity.setScalarProperty(scalarProperty);
 
