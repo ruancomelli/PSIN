@@ -160,11 +160,6 @@ GeometryType PhysicalEntity::getGeometry() const
 	return this->geometry;
 }
 
-// ------------------------------- Distance and Touching -------------------------------
-double PhysicalEntity::distance(PhysicalEntityPtr physicalEntity){
-	return this->position[0].dist(physicalEntity->position[0]);
-}
-
 // ------------------------------- Auxiliar Functions -------------------------------
 
 void PhysicalEntity::resizePositionOrientation(void)

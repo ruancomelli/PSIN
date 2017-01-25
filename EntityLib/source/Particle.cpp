@@ -54,3 +54,8 @@ double Particle::getMechanicalEnergy(void) const
 {
 	return this->getKineticEnergy() + this->getPotentialEnergy();
 }
+
+// ------------------------------- Distance -------------------------------
+double Particle::distance(ParticlePtr particle){
+	return this->getPosition(0).dist( particle->getPosition(0) );
+}

@@ -37,12 +37,12 @@ void SphericalParticle::setGeometricParameter(const DoubleVector geometricParame
 	this->geometricParameter = geometricParameterVector;
 }
 
-double SphericalParticle::getGeometricParameter(const int geometricParameterIdentifier)
+double SphericalParticle::getGeometricParameter(const int geometricParameterIdentifier) const
 {
 	return this->geometricParameter[geometricParameterIdentifier];
 }
 
-DoubleVector SphericalParticle::getGeometricParameter()
+DoubleVector SphericalParticle::getGeometricParameter() const
 {
 	return this->geometricParameter;
 }
@@ -61,6 +61,27 @@ Vector3D SphericalParticle::getNormalDirection(SphericalParticlePtr particle)
 	return normalDirection;
 }
 
+// Spherical particles' overlap
+double SphericalParticle::overlap( const SphericalParticlePtr neighbor ) const
+{
+	const double distance = this->distance( neighbor );
+	const double radius1 = this->getGeometricParameter( RADIUS );
+	const double radius2 = neighbor->getGeometricParameter( RADIUS );
+
+	const double overlap = radius1 + radius2 - distance;
+	return overlap;
+}
+
+double SphericalParticle::overlapDerivative( const SphericalParticlePtr neighbor ) const
+{
+	const Vector3D positionDifference = neighbor->getPosition(0) - this->getPosition(0);
+	const Vector3D velocityDifference = neighbor->getPosition(1) - this->getPosition(1);
+
+	const double overlapDerivative = - dot(positionDifference, velocityDifference) / positionDifference.length();
+
+	return overlapDerivative;
+}
+
 
 // ------------------------------- Input and Output Functions -------------------------------
 void SphericalParticle::fwritePosition( std::ostream & outFile, const string horizontalSeparator, const string verticalSeparator ){
@@ -70,6 +91,12 @@ void SphericalParticle::fwritePosition( std::ostream & outFile, const string hor
 			outFile << horizontalSeparator << this->getPosition(i).z();
 			outFile << verticalSeparator;
 	}
+}
+		
+// ------------------------------- Distance -------------------------------
+double SphericalParticle::distance(SphericalParticlePtr neighbor) const
+{
+	return this->getPosition(0).dist( neighbor->getPosition(0) );
 }
 
 // ------------------------------- Auxiliar Functions -------------------------------

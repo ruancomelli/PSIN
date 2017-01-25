@@ -58,6 +58,10 @@ class Particle: public PhysicalEntity
 		vector<int> getNeighborhood(void){ return this->neighbor; }
 		void setNeighborhoodSize(int size){ this->neighbor.resize(size); }
 		
+		
+		// ---- Distance ----
+		double distance(ParticlePtr particle);
+		
 	private:
 		typedef SharedPointer< Particle > ParticlePtr;
 

@@ -31,16 +31,23 @@ class SphericalParticle: public Particle
 		// ---- Geometrical Parameters ----
 		void setGeometricParameter(const int geometricParameterIdentifier, const double geometricParameterValue);
 		void setGeometricParameter(const DoubleVector geometricParameterVector);
-		double getGeometricParameter(const int geometricParameterIdentifier);
-		DoubleVector getGeometricParameter();
+		double getGeometricParameter(const int geometricParameterIdentifier) const;
+		DoubleVector getGeometricParameter() const;
 		
 		bool touches(SphericalParticlePtr particle);
 
 		Vector3D getNormalDirection(SphericalParticlePtr particle);
+
+		double overlap( const SphericalParticlePtr neighbor ) const;
+		double overlapDerivative( const SphericalParticlePtr neighbor ) const;
 		
 		// ---- Input and Output ----
 		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
 		
+		// ---- Distance ----
+		double distance(SphericalParticlePtr neighbor) const;
+
+
 	private:
 		DoubleVector geometricParameter;
 		
