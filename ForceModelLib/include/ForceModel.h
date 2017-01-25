@@ -27,8 +27,8 @@ class ForceModel
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
 		// Force calculation models
-		static void normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-		static void normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+		static Vector3D normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+		static Vector3D normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 		
 		static void tangentialForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce );
 		

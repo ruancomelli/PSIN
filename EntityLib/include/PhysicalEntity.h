@@ -23,15 +23,16 @@ enum GeometryType{
 
 
 enum ScalarProperty{
-	MASS = 0,
+	MASS = 0,				// m - kg
 	MOMENT_OF_INERTIA,		// J
-	VOLUME,
-	SPECIFIC_MASS,			// \rho
-	DISSIPATIVE_CONSTANT,	// A
-	POISSON_RATIO,			// \nu
-	ELASTIC_MODULUS,		// E or Y
+	VOLUME,					// V - m^3
+	SPECIFIC_MASS,			// \rho - kg / m^3
+	DISSIPATIVE_CONSTANT,	// A - s
+	POISSON_RATIO,			// \nu - *
+	ELASTIC_MODULUS,		// E or Y - N / m^2
 	TANGENTIAL_DAMPING,		// \gamma^t
 	FRICTION_PARAMETER,		// \mu
+	NORMAL_DISSIPATIVE_CONSTANT		//
 	N_SCALAR_PROPERTY
 };
 

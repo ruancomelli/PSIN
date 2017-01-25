@@ -149,7 +149,8 @@ int main(int argc, char **argv){
 
 				if(particle->touches(neighbor))	// If particles are in touch
 				{
-					ForceModel::normalForceViscoelasticSpheres( particle, neighbor );
+					Vector3D normalForce = ForceModel::normalForceViscoelasticSpheres( particle, neighbor );
+					ForceModel::tangentialForceHaffWerner( particle, neighbor, normalForce );
 				}
 			}
 		}
