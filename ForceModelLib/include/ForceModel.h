@@ -39,6 +39,7 @@ class ForceModel
 		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
 	
 	private:
+		//static cummulativeZeta; /* FINISH THIS */
 };
 
 #endif

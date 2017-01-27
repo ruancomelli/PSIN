@@ -49,16 +49,58 @@ DoubleVector SphericalParticle::getGeometricParameter() const
 
 // ------------------------------- Collision detector -------------------------------
 
-bool SphericalParticle::touches(SphericalParticlePtr particle)
+bool SphericalParticle::touches( const SphericalParticlePtr particle ) const
 {
 	return ( this->distance(particle) <= ( this->getGeometricParameter(RADIUS) + particle->getGeometricParameter(RADIUS) ) );
 }
 
-Vector3D SphericalParticle::getNormalDirection(SphericalParticlePtr particle)
+Vector3D SphericalParticle::contactPoint( const SphericalParticlePtr neighbor ) const
+{
+	if( this->touches( neighbor ) )
+	{
+		const double radius1 = this->getGeometricParameter( RADIUS );
+		const double radius2 = neighbor->getGeometricParameter( RADIUS );
+
+		const double distance = this->distance( neighbor );
+
+		const double contactPointSize = ( (radius1*radius1) - (radius2*radius2) + (distance*distance) ) / ( 2 * distance );	// See law of cosines
+		const Vector3D contactPoint = contactPointSize * this->normalDirection( neighbor ) + this->getPosition(0);
+
+		return contactPoint;
+	}
+
+	return nullVector3D();
+}
+
+Vector3D SphericalParticle::normalDirection( const SphericalParticlePtr particle ) const
 {
 	Vector3D normalDirection = particle->getPosition(0) - this->getPosition(0);
 	normalDirection.normalize();
 	return normalDirection;
+}
+
+Vector3D SphericalParticle::relativeTangentialVelocity( const SphericalParticlePtr neighbor ) const
+{
+	const Vector3D normalVersor = this->normalDirection( neighbor );
+	const Vector3D velocityDifference = neighbor->getPosition(1) - this->getPosition(1);
+	const Vector3D contactPoint = this->contactPoint( neighbor );
+
+	const Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
+	const Vector3D relativeTangentialRotationalVelocity =	cross(neighbor->getOrientation(1), contactPoint - neighbor->getPosition(0)) -
+															cross(this->getOrientation(1), contactPoint - this->getPosition(0));
+
+	const Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
+
+	return relativeTangentialVelocity;
+}
+
+Vector3D SphericalParticle::tangentialVersor( const SphericalParticlePtr neighbor ) const
+{
+	const Vector3D relativeTangentialVelocity = this->relativeTangentialVelocity( neighbor );
+
+	return relativeTangentialVelocity.length() > 0 ?
+								relativeTangentialVelocity / relativeTangentialVelocity.length() :
+								nullVector3D();
 }
 
 // Spherical particles' overlap
@@ -94,7 +136,7 @@ void SphericalParticle::fwritePosition( std::ostream & outFile, const string hor
 }
 		
 // ------------------------------- Distance -------------------------------
-double SphericalParticle::distance(SphericalParticlePtr neighbor) const
+double SphericalParticle::distance( const SphericalParticlePtr neighbor ) const
 {
 	return this->getPosition(0).dist( neighbor->getPosition(0) );
 }

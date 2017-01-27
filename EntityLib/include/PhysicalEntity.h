@@ -33,7 +33,7 @@ enum ScalarProperty{
 	TANGENTIAL_DAMPING,		// \gamma^t --- N * s / m
 	FRICTION_PARAMETER,		// \mu --- *
 	NORMAL_DISSIPATIVE_CONSTANT,		// \gamma^n --- N * s / m
-	TANGENTIAL_KAPPA		// \kappa^t --- N / m
+	TANGENTIAL_KAPPA,		// \kappa^t --- N / m
 	N_SCALAR_PROPERTY
 };
 

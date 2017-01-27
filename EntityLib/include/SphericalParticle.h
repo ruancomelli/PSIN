@@ -25,7 +25,7 @@ class SphericalParticle: public Particle
 {
 	public:
 		SphericalParticle();
-		SphericalParticle(const Particle & base);
+		explicit SphericalParticle(const Particle & base);
 		SphericalParticle(const int order, const int dimension, const int handle = -1);
 		
 		// ---- Geometrical Parameters ----
@@ -34,9 +34,13 @@ class SphericalParticle: public Particle
 		double getGeometricParameter(const int geometricParameterIdentifier) const;
 		DoubleVector getGeometricParameter() const;
 		
-		bool touches(SphericalParticlePtr particle);
+		// ---- Collision ----
+		inline bool touches( const SphericalParticlePtr neighbor ) const;
 
-		Vector3D getNormalDirection(SphericalParticlePtr particle);
+		Vector3D contactPoint( const SphericalParticlePtr neighbor ) const;
+		Vector3D normalDirection( const SphericalParticlePtr neighbor ) const;
+		Vector3D relativeTangentialVelocity( const SphericalParticlePtr neighbor ) const;
+		Vector3D tangentialVersor( const SphericalParticlePtr neighbor ) const;
 
 		double overlap( const SphericalParticlePtr neighbor ) const;
 		double overlapDerivative( const SphericalParticlePtr neighbor ) const;
@@ -45,7 +49,7 @@ class SphericalParticle: public Particle
 		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
 		
 		// ---- Distance ----
-		double distance(SphericalParticlePtr neighbor) const;
+		inline double distance( const SphericalParticlePtr neighbor) const;
 
 
 	private:
