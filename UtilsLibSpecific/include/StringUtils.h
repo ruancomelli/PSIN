@@ -1,6 +1,7 @@
 #ifndef UTILSLIB_STRING_H
 #define UTILSLIB_STRING_H
 
+#include <cstring>
 #include <string>
 #include <algorithm>
 
