@@ -16,3 +16,5 @@ _premake_files/premake4
 *.exe
 *.txt
 *.asv
+
+!_input/
