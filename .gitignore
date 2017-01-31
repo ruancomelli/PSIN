@@ -13,4 +13,11 @@ _premake_files/premake4
 **.exe
 **.asv
 *.exe
+<<<<<<< HEAD
 *.asv
+=======
+*.txt
+*.asv
+
+!_input/
+>>>>>>> master
