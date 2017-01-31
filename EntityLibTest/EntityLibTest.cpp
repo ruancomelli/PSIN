@@ -223,26 +223,6 @@ TestCase( PropertiesTest )
 	checkClose( physicalEntity.getScalarProperty()[VOLUME] , 0.0 , 1.0e-12 );
 }
 
-TestCase( PhysicalEntityDistance )
-{
-	PhysicalEntity phy[2];
-
-	double x[2], y[2], z[2];
-
-	x[0] = -3.7;
-	y[0] = 4.9;
-	z[0] = 5.31;
-	phy[0].setPosition( 0 , x[0] , y[0] , z[0] );
-
-	x[1] = 3.5;
-	y[1] = -6.9;
-	z[1] = 0.17;
-	phy[1].setPosition( 0 , x[1] , y[1] , z[1] );
-
-	double distance = 14.7478676424763;
-	checkClose( phy[0].distance(phy[1]) , distance , 1e-12 );
-}
-
 TestCase( ParticleConstructors )
 {
 	int taylorOrder = 4;
@@ -262,4 +242,24 @@ TestCase( ParticleConstructors )
 	checkEqual(particle1.getHandle(), handle);
 	checkEqual(particle1.getTaylorOrder(), taylorOrder);
 	checkEqual(particle1.getDimension(), dimension);
+}
+
+TestCase( SphericalParticleDistance )
+{
+	SphericalParticlePtr sph[2];
+
+	double x[2], y[2], z[2];
+
+	x[0] = -3.7;
+	y[0] = 4.9;
+	z[0] = 5.31;
+	sph[0]->setPosition( 0 , x[0] , y[0] , z[0] );
+
+	x[1] = 3.5;
+	y[1] = -6.9;
+	z[1] = 0.17;
+	sph[1]->setPosition( 0 , x[1] , y[1] , z[1] );
+
+	double distance = 14.7478676424763;
+	checkClose( sph[0]->distance(sph[1]) , distance , 1e-12 );
 }
