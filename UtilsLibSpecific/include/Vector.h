@@ -62,7 +62,7 @@ using std::runtime_error;
 	}
 
 	template <class type> std::ofstream & operator<<( std::ofstream & outputFile , const vector<type> & v){
-		for( int i = 0 ; i < v.size() &&  ; ++i){
+		for( int i = 0 ; i < v.size() ; ++i){
 			outputFile << static_cast<type>(v[i]) << endl;
 		}
 
