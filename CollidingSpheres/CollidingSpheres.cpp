@@ -111,6 +111,8 @@ int main(int argc, char **argv){
 	particleArray.exportAllDataCSV();
 
 	// ===== Simulation =====
+	ForceModel::setNumberOfParticles( numberOfParticles );
+
 	foreach( SphericalParticlePtr particle, particleArray ){
 		foreach( SphericalParticlePtr neighbor, particleArray ){
 			if( neighbor->getHandle() > particle->getHandle() ){
@@ -150,7 +152,7 @@ int main(int argc, char **argv){
 				if(particle->touches(neighbor))	// If particles are in touch
 				{
 					Vector3D normalForce = ForceModel::normalForceLinearDashpotForce( particle, neighbor );
-					ForceModel::tangentialForceHaffWerner( particle, neighbor, normalForce );
+					ForceModel::tangentialForceCundallStrack( particle, neighbor, normalForce, timeStep );
 				}
 			}
 		}

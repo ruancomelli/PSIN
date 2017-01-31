@@ -1,5 +1,8 @@
 #include <ForceModel.h>
 
+vector< vector< Vector3D > > ForceModel::cummulativeZeta;
+vector< vector< bool > > ForceModel::collisionFlag;
+
 // Normal Force Model
 // Linear Dashpot Force
 // Every comment in here may be related to the book Computational Granular Dynamics
@@ -191,7 +194,7 @@ Vector3D ForceModel::normalForceLinearDashpotForce( SphericalParticlePtr particl
 
 // tangentialForceHaffWerner:
 //		Calculates tangential forces between two spherical particles according to equation (2.18) (see reference)
-void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce)
+void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
 {		
 	if( particle->touches(neighbor) )
 	{
@@ -230,29 +233,18 @@ void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, Spher
 
 // tangentialForceCundallStrack:
 //		Calculates tangential forces between two spherical particles according to equation (2.21) (see reference)
-void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce)
+void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
 {	
-	/*MUST BE FINISHED*/
-	
 	if( particle->touches(neighbor) )
 	{
-		// ---- Getting particles properties and parameters ----
-		const double radius1 = particle->getGeometricParameter(RADIUS);
-		const double radius2 = neighbor->getGeometricParameter(RADIUS);
+		if( !checkCollision(particle, neighbor) )
+		{
+			startCollision( particle, neighbor );
+		}
 
+		// ---- Getting particles properties and parameters ----
 		const Vector3D position1 = particle->getPosition(0);
 		const Vector3D position2 = neighbor->getPosition(0);
-
-		const Vector3D velocity1 = particle->getPosition( 1 );
-		const Vector3D velocity2 = neighbor->getPosition( 1 );
-		
-		const Vector3D positionDifference = position2 - position1;
-		const Vector3D velocityDifference = velocity2 - velocity1;
-		
-		const Vector3D normalVersor = particle->normalDirection( neighbor );
-		
-		const Vector3D angularVelocity1 = particle->getOrientation( 1 );
-		const Vector3D angularVelocity2 = neighbor->getOrientation( 1 );
 
 		const double tangentialKappa1 = particle->getScalarProperty( TANGENTIAL_KAPPA );
 		const double tangentialKappa2 = neighbor->getScalarProperty( TANGENTIAL_KAPPA );
@@ -268,8 +260,13 @@ void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, Sp
 		const Vector3D relativeTangentialVelocity = particle->relativeTangentialVelocity( neighbor );
 		
 		const Vector3D tangentialVersor = particle->tangentialVersor( neighbor );
+
+		addZeta( particle, neighbor, relativeTangentialVelocity * timeStep );
 		
-		const Vector3D tangentialForce =	min( effectiveTangentialKappa * relativeTangentialVelocity.length() , 
+		const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+		const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+		const Vector3D tangentialForce =	min( effectiveTangentialKappa * cummulativeZeta[index1][index2].length() , 
 			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
 		
 		particle->addContactForce( tangentialForce );
@@ -277,6 +274,73 @@ void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, Sp
 									
 		particle->addTorque( cross(contactPoint - position1, tangentialForce) );
 		neighbor->addTorque( cross(contactPoint - position2, - tangentialForce) );
+	}// else, no forces and no torques are added.
+	else if( checkCollision(particle, neighbor) )
+	{
+		endCollision(particle, neighbor);
 	}
-	// else, no forces and no torques are added.
+}
+
+void ForceModel::setNumberOfParticles( const int numberOfParticles )
+{
+	resizeCummulativeZeta(numberOfParticles);
+	resizeCollisionFlag(numberOfParticles);
+}
+
+void ForceModel::resizeCummulativeZeta( const int numberOfParticles )
+{
+	cummulativeZeta.resize( numberOfParticles - 1 );
+
+	for( int i=0 ; i < (numberOfParticles - 1) ; ++i )
+		cummulativeZeta[i].resize( numberOfParticles - 1 - i );
+}
+
+void ForceModel::addZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+	cummulativeZeta[index1][index2] += zeta;
+}
+
+void ForceModel::setZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+	cummulativeZeta[index1][index2] = zeta;
+}
+
+void ForceModel::resizeCollisionFlag( const int numberOfParticles )
+{
+	collisionFlag.resize( numberOfParticles - 1 );
+
+	for( int i=0 ; i < (numberOfParticles - 1) ; ++i )
+		collisionFlag[i].resize( numberOfParticles - 1 - i );
+}
+
+bool ForceModel::checkCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+	return collisionFlag[index1][index2];
+}
+
+void ForceModel::startCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+	collisionFlag[index1][index2] = true;
+
+	setZeta( particle, neighbor, nullVector3D() );
+}
+
+void ForceModel::endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() );
+
+	collisionFlag[index1][index2 - index1 - 1] = false;
 }
