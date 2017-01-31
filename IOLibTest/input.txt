@@ -1,0 +1,17 @@
+<Integer>
+5
+
+<Double>
+3.1415
+
+<String>
+Rohan Dovahkiin
+
+<Vector3D>
+5.0	1.0	15.0
+
+<VectorVector3D>
+1 1 1
+2 4 8
+3 9 27
+4 16 64

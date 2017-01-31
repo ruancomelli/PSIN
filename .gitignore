@@ -8,13 +8,9 @@ _premake_files/premake4.exe
 _premake_files/premake4
 
 **.csv
-**.txt
 **.dat
 **.stackdump
 **.exe
 **.asv
 *.exe
-*.txt
 *.asv
-
-!_input/

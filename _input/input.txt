@@ -1,0 +1,13 @@
+<simulationName> Simulation1
+
+<initialTime> 0.0
+<timeStep> 1e-6
+<finalTime> 0.0
+
+<taylorOrder> 3
+<dimension> 3
+<numberOfParticles> 4
+<timeStepsForOutput> 100
+
+<gravity>
+0	0	0
