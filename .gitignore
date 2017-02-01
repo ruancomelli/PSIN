@@ -13,3 +13,4 @@ _premake_files/premake4
 **.exe
 **.asv
 *.exe
+*.asv

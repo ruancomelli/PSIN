@@ -11,7 +11,6 @@
 // EntityLib
 #include <Particle.h>
 #include <SphericalParticle.h>
-#include <SphericalParticlePtrArrayKit.h>
 
 // UtilsLib
 #include <Vector.h>
@@ -28,6 +27,7 @@
 #include <readParticle.h>
 #include <readSphericalParticle.h>
 #include <FileReader.h>
+#include <SphericalParticlePtrArrayKit.h>
 
 // boost
 #include <boost/math/constants/constants.hpp>

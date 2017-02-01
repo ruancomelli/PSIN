@@ -1,0 +1,23 @@
+<Handle> 3
+<TaylorOrder> 3
+<Dimension> 3
+
+<Position>
+0.3	0.03	0
+0	0	0
+0	0	0
+0	0	0
+
+<Orientation>	
+0	0	0
+0	0	0
+0	0	0
+0	0	0
+
+<Radius> 0.020
+<Mass> 0.005
+<DissipativeConstant> 0.0
+<PoissonRatio> 0.4
+<ElasticModulus> 0.1e+9
+<TangentialDamping> 0.7
+<FrictionParameter> 0.6

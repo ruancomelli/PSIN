@@ -1,0 +1,19 @@
+#Felipe Giacomelli - UFSC, SINMEC - November, 2016 - felipe.g@sinmec.ufsc.br
+#
+#
+
+Comandos do CMake - Terminal
+	
+	Visual Studio
+		Win32
+		cmake <caminho/para/diretório>	-G "Visual Studio 14 2015" --- ou --- cmake <caminho/para/diretório>
+		Win64
+		cmake <caminho/para/diretório>	-G "Visual Studio 14 2015 Win64"
+
+	Make
+
+	cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
+
+	cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+	
+	#set(CMAKE_BUILD_TYPE Release)
