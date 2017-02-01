@@ -24,7 +24,7 @@ disp('< Done');
 disp('> Simulating');
 
 programPath = '../../_tests/';
-programName = 'collidingspheres.exe';
+programName = 'collidingspheres_x64.exe';
 
 if isunix
     system(['cd ', programPath, ' ; ./', programName]);
