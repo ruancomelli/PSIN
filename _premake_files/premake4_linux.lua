@@ -69,7 +69,6 @@ include "../EntityLibTest"
 include "../UtilsLibSpecificTest"
 include "../SimulationTest"
 include "../ForceModelLibTest"
-include "../CollidingParticles"
 
 --include "../EFVLib"
 include "../UtilsLibSpecific"

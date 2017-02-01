@@ -4,7 +4,8 @@
 int PhysicalEntity::dimension = 3;
 
 PhysicalEntity::PhysicalEntity()
-	: Entity(), geometry(DEFAULT)
+	: Entity(), 
+	geometry(DEFAULT)
 {
 	setTaylorOrder(3); // It calls resizePositionOrientation
 	setDimension(3);
