@@ -44,39 +44,6 @@ using std::runtime_error;
 
 	DoubleVector nullVector(int dimension);
 
-
-	template <class type> std::ostream & operator<<( std::ostream & outputFile , const vector<type> & v){
-		for( int i = 0 ; i < v.size() ; ++i){
-			outputFile << static_cast<type>(v[i]) << endl;
-		}
-
-		return outputFile;
-	}
-
-	template <class type> std::istream & operator>>( std::istream & inputFile , vector<type> & v){
-		for( int i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
-			inputFile >> v[i];
-		}
-
-		return inputFile;
-	}
-
-	template <class type> std::ofstream & operator<<( std::ofstream & outputFile , const vector<type> & v){
-		for( int i = 0 ; i < v.size() ; ++i){
-			outputFile << static_cast<type>(v[i]) << endl;
-		}
-
-		return outputFile;
-	}
-
-	template <class type> std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
-		for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
-			inputFile >> v[i];
-		}
-
-		return inputFile;
-	}
-
 	template <class type> bool operator==( vector<type> & left , vector<type> & right ){
 
 		if( left.size() == right.size() )

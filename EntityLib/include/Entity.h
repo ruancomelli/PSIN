@@ -10,7 +10,9 @@
 class Entity
 {
 	public:
-		Entity(const int handle = -1 );
+		Entity(void);
+		explicit Entity(const int handle );
+
 		virtual ~Entity();
 		
 		void setHandle(const int handle);

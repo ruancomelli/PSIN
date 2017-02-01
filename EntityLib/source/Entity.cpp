@@ -1,9 +1,14 @@
 #include <Entity.h>
 
 // Constructor
-Entity::Entity(const int handle) : handle(handle)
+Entity::Entity(void)
+	: handle(-1)
 {
+}
 
+Entity::Entity(const int handle) 
+	: handle(handle)
+{
 }
 
 // Destructor

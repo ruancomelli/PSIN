@@ -7,7 +7,8 @@
 #include <string>
 #include <stdexcept>
 
-// UtilsLibSpecific
+// UtilsLib
+#include <vectorIO.h>
 #include <StringUtils.h>
 
 using namespace std;
