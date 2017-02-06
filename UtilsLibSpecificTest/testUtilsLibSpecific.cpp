@@ -13,6 +13,7 @@
 #include <StringUtils.h>
 #include <Vector.h>
 #include <Vector3D.h>
+#include <Mathematics.h>
 
 TestCase( CheckEqualAndCheckClose ){
 	double i = 0;
@@ -178,6 +179,17 @@ TestCase( NullVectorTest ){
 
 //Vector3D
 
+TestCase(AssigningValueToVector3D) {
+	Vector3D v;
+	v.x() = 1;
+	v.y() = 9;
+	v.z() = 4.3;
+
+	checkEqual(v.x(), 1);
+	checkEqual(v.y(), 9);
+	checkEqual(v.z(), 4.3);
+}
+
 TestCase( Vector3DInitializationTest ){
 
 	// Default constructor
@@ -230,21 +242,25 @@ TestCase( TestVector3D ){
 
 	Vector3D v1( 1.0, 1.0, 1.0 );
 
+	// +=
 	v0 += v1;
 	checkEqual( 2.0, v0.x() );
 	checkEqual( 2.5, v0.y() );
 	checkEqual( 3.0, v0.z() );
 
+	// -=
 	v0-=v1;
 	checkEqual( 1.0, v0.x() );
 	checkEqual( 1.5, v0.y() );
 	checkEqual( 2.0, v0.z() );
 
+	// *=
 	v0*=2.0;
 	checkEqual( 2.0, v0.x() );
 	checkEqual( 3.0, v0.y() );
 	checkEqual( 4.0, v0.z() );
 
+	// /=
 	v0/=4.0;
 	checkEqual( 0.5, v0.x() );
 	checkEqual( 0.75, v0.y() );
@@ -276,56 +292,60 @@ TestCase( Vector3DIsEqualOperator ){
 	Vector3D v2( 1.0 , -3.4 , 2.5 );
 	Vector3D v3( 1.0 , -3.4 , 9.0 );
 
+	// operator=
 	checkEqual( v1==v2 , true );
 	checkEqual( v1==v3 , false );
 	checkEqual( nullVector3D()==nullVector3D() , true );
 
 }
 
-TestCase( IntVectorInput ){
-	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
-	//std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt", std::ofstream::app);
+// vector 3D IO
+//
+//TestCase( IntVectorInput ){
+//	std::ifstream inFile("../UtilsLibSpecificTest/fileVector.txt");
+//	//std::ofstream outFile("../UtilsLibSpecificTest/fileVector.txt", std::ofstream::app);
+//
+//	vector<int> tester(5);
+//		tester[0] = 3;
+//		tester[1] = 1;
+//		tester[2] = 4;
+//		tester[3] = 1;
+//		tester[4] = 5;
+//
+//	//outFile << tester;
+//
+//	vector<int> tested(5);
+//
+//	inFile >> tested;
+//
+//	check( tester == tested );
+//
+//	inFile.close();
+//	//outFile.close();
+//}
+//
+//TestCase( Vector3DIO ){
+//	std::ifstream inFile("../UtilsLibSpecificTest/fileVector3D.txt");
+//	std::ofstream outFile("../UtilsLibSpecificTest/fileVector3D.txt", std::ofstream::app);
+//
+//	Vector3D outVector(3.14159, 2.718281, 1.6180339);
+//	Vector3D inVector;
+//
+//	outFile << outVector;
+//	inFile >> inVector;
+//
+//	cout << outVector;
+//	cout << inVector;
+//
+//	checkClose(inVector.x(), outVector.x(), 1e-2);
+//	checkClose(inVector.y(), outVector.y(), 1e-2);
+//	checkClose(inVector.z(), outVector.z(), 1e-2);
+//
+//	inFile.close();
+//	outFile.close();
+//}
 
-	vector<int> tester(5);
-		tester[0] = 3;
-		tester[1] = 1;
-		tester[2] = 4;
-		tester[3] = 1;
-		tester[4] = 5;
-
-	//outFile << tester;
-
-	vector<int> tested(5);
-
-	inFile >> tested;
-
-	check( tester == tested );
-
-	inFile.close();
-	//outFile.close();
-}
-
-TestCase( Vector3DIO ){
-	std::ifstream inFile("../UtilsLibSpecificTest/fileVector3D.txt");
-	std::ofstream outFile("../UtilsLibSpecificTest/fileVector3D.txt", std::ofstream::app);
-
-	Vector3D outVector(3.14159, 2.718281, 1.6180339);
-	Vector3D inVector;
-
-	outFile << outVector;
-	inFile >> inVector;
-
-	cout << outVector;
-	cout << inVector;
-
-	checkClose(inVector.x(), outVector.x(), 1e-2);
-	checkClose(inVector.y(), outVector.y(), 1e-2);
-	checkClose(inVector.z(), outVector.z(), 1e-2);
-
-	inFile.close();
-	outFile.close();
-}
-
+// StringUtils
 TestCase( StringCompare ){
 	string left("<LaTeX>");
 	string right("<latex>");
@@ -334,13 +354,16 @@ TestCase( StringCompare ){
 	check( !stringCompare(left, right) );
 }
 
-TestCase( AssigningValueToVector3D ){
-	Vector3D v;
-	v.x() = 1;
-	v.y() = 9;
-	v.z() = 4.3;
+TestCase( testMathematics ){
+	
+	// math define
+	checkEqual(M_E , 2.71828182845904523536);
+	checkEqual(M_PI , 3.14159265358979323846);
 
-	checkEqual(v.x(), 1);
-	checkEqual(v.y(), 9);
-	checkEqual(v.z(), 4.3);
+	// math function
+	checkClose(pow(2.3,4.6) , 46.12623908 , 1e-7);
+	checkClose(tanh(5.87) , 0.9999840629 , 1e-9);
+
+	// factorial
+	checkEqual(factorial(6) , 720);
 }
