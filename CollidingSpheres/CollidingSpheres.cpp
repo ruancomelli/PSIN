@@ -122,8 +122,11 @@ int main(int argc, char **argv){
 	}
 
 	int timeStepsForOutputCounter = 0;
+	long timeStepsCounter = 0;
 
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
+
+		++timeStepsCounter;
 
 		// Set forces and torques to zero
 		foreach( SphericalParticlePtr particle, particleArray ){
@@ -173,6 +176,8 @@ int main(int argc, char **argv){
 			particleArray.exportTemporalDataCSV();
 		}
 	}
+
+	mainOutFile << "<timeStepsCount> " << timeStepsCounter << verticalSeparator;
 
 	mainOutFile.close();
 	
