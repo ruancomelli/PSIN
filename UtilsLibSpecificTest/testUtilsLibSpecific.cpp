@@ -8,6 +8,7 @@
 // boost
 #include <Test.h>
 #include <Foreach.h>
+#include <SharedPointer.h>
 
 // our code
 #include <StringUtils.h>
@@ -37,6 +38,46 @@ TestCase( ForeachTest ){
 		checkClose( rawValues[ counter ], v, 1.0e-12 );
 		++counter; 
 	}
+}
+
+// SharedPointer
+TestCase(SharedPointerTest) {
+	int testValue = 982;
+	SharedPointer<Vector3D> v0( new Vector3D );
+
+	(*v0).x() = 1.0;
+	(*v0).y() = 2.0;
+	(*v0).z() = 3.0;
+	
+	SharedPointer<Vector3D> v1(new Vector3D(*v0));
+
+	checkEqual((*v0).x(), (*v1).x());
+	checkEqual((*v0).y(), (*v1).y());
+	checkEqual((*v0).z(), (*v1).z());
+}
+
+// StringUtils
+TestCase(StringCompare) {
+	string left("<LaTeX>");
+	string right("<latex>");
+
+	check(!stringCompare("<LaTeX>", "<latex>"));
+	check(!stringCompare(left, right));
+}
+
+// Mathematics
+TestCase(testMathematics) {
+
+	// math define
+	checkEqual(M_E, 2.71828182845904523536);
+	checkEqual(M_PI, 3.14159265358979323846);
+
+	// math function
+	checkClose(pow(2.3, 4.6), 46.12623908, 1e-7);
+	checkClose(tanh(5.87), 0.9999840629, 1e-9);
+
+	// factorial
+	checkEqual(factorial(6), 720);
 }
 
 //DoubleVector and DoubleVector2D
@@ -344,26 +385,3 @@ TestCase( Vector3DIsEqualOperator ){
 //	inFile.close();
 //	outFile.close();
 //}
-
-// StringUtils
-TestCase( StringCompare ){
-	string left("<LaTeX>");
-	string right("<latex>");
-
-	check( !stringCompare("<LaTeX>", "<latex>") );
-	check( !stringCompare(left, right) );
-}
-
-TestCase( testMathematics ){
-	
-	// math define
-	checkEqual(M_E , 2.71828182845904523536);
-	checkEqual(M_PI , 3.14159265358979323846);
-
-	// math function
-	checkClose(pow(2.3,4.6) , 46.12623908 , 1e-7);
-	checkClose(tanh(5.87) , 0.9999840629 , 1e-9);
-
-	// factorial
-	checkEqual(factorial(6) , 720);
-}

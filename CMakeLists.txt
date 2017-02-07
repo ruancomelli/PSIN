@@ -10,10 +10,10 @@ if(UNIX)
 	set(CMAKE_CXX_COMPILER "/usr/bin/g++")
 	
 	#SET DEBUG COMPILATION FLAGS
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pedantic -Wall -Wextra")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -std=c++11 -pedantic -Wall -Wextra")
 
 	#SET RELEASE COMPILATION FLAGS
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pedantic -O2")
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11 -pedantic -O2")
 	
 	#SET BUILD TYPE
 	if(CMAKE_BUILD_TYPE MATCHES DEBUG)
@@ -55,9 +55,9 @@ include_directories(${BOOST_PATH})
 #ADD SUBDIRECTORIES
 add_subdirectory(UtilsLibSpecific)
 add_subdirectory(UtilsLibSpecificTest)
-add_subdirectory(EntityLib)
-###add_subdirectory(EntityLibTest)
-add_subdirectory(ForceModelLib)
+#add_subdirectory(EntityLib)
+#add_subdirectory(EntityLibTest)
+###add_subdirectory(ForceModelLib)
 ###add_subdirectory(ForceModelLibTest)
-add_subdirectory(IOLib)
-add_subdirectory(CollidingSpheres)
+###add_subdirectory(IOLib)
+###add_subdirectory(CollidingSpheres)
