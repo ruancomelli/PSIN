@@ -44,12 +44,12 @@ int main(int argc, char **argv){
 	int defaultDimension = 3; // This means that we are constraint to Vector3D
 	
 	// Simulation data
-	string inputPath("../_input/");
-	FileReader simulationNameFile(inputPath + "input.txt");
+	string inputFolder("../_input/");
+	FileReader simulationFileReader(inputFolder + "input.txt");
 	string simulationName;
-	simulationNameFile.readValue("<simulationName>", simulationName);
+	simulationFileReader.readValue("<simulationName>", simulationName);
 
-	FileReader inputData(inputPath + simulationName + "/input.txt");
+	FileReader inputData(inputFolder + simulationName + "/input.txt");
 	double initialTime;
 	double timeStep;
 	double finalTime;
@@ -74,11 +74,11 @@ int main(int argc, char **argv){
 	_mkdir((outputPath + "MATLAB_output/").c_str());
 
 	// Input
-	string particleInputPath(inputPath + simulationName + "/");
+	string particleInputFolder(inputFolder + simulationName + "/");
 
 	SphericalParticlePtrArrayKit particleArray;
 
-	particleArray.inputParticles(numberOfParticles, particleInputPath);
+	particleArray.inputParticles(numberOfParticles, particleInputFolder);
 
 
 	foreach(SphericalParticlePtr particlePtr, particleArray){
@@ -108,6 +108,8 @@ int main(int argc, char **argv){
 
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
 
+	ofstream timeVectorFile(outputPath + "timeVector.txt");
+
 	particleArray.exportAllDataCSV();
 
 	// ===== Simulation =====
@@ -122,11 +124,10 @@ int main(int argc, char **argv){
 	}
 
 	int timeStepsForOutputCounter = 0;
-	long timeStepsCounter = 0;
 
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 
-		++timeStepsCounter;
+		timeVectorFile << t << verticalSeparator;
 
 		// Set forces and torques to zero
 		foreach( SphericalParticlePtr particle, particleArray ){
@@ -177,9 +178,8 @@ int main(int argc, char **argv){
 		}
 	}
 
-	mainOutFile << "<timeStepsCount> " << timeStepsCounter << verticalSeparator;
-
 	mainOutFile.close();
+	timeVectorFile.close();
 	
 	cout << endl << "Success" << endl << endl;
 }

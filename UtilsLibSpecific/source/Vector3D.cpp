@@ -12,12 +12,6 @@ Vector3D::Vector3D( const double& x, const double& y, const double& z ){
 	this->components[ Z ] = z;
 }
 
-Vector3D::Vector3D( const Vector3D& other ){
-	for( int axis = 0; axis < N_AXIS; ++axis ){
-		this->components[ axis ] = other.components[ axis ];
-	}
-}
-
 double Vector3D::x() const{
 	return this->components[ X ];
 }
@@ -156,32 +150,4 @@ bool operator == ( const Vector3D & v1 , const Vector3D v2 ){
 
 Vector3D nullVector3D(void){
 	return Vector3D(0., 0., 0.);
-}
-
-
-ostream & operator << (ostream & stream, const Vector3D & v){
-	stream << v.x() << "    " << v.y() << "    " << v.z() << endl;
-	return stream;
-}
-
-istream & operator >> (istream & stream, Vector3D & v){
-	stream >> v.x();
-	stream >> v.y();
-	stream >> v.z();
-
-	return stream;
-}
-
-
-ofstream & operator << (ofstream & stream, const Vector3D & v){
-	stream << static_cast<long double>(v.x()) << "    " << static_cast<long double>(v.y()) << "    " << static_cast<long double>(v.z()) << endl;
-	return stream;
-}
-
-ifstream & operator >> (ifstream & stream, Vector3D & v){
-	stream >> v.x();
-	stream >> v.y();
-	stream >> v.z();
-
-	return stream;
 }

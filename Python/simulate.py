@@ -7,9 +7,9 @@
 import os
 import subprocess
 from getTagValuePairsFromFile import getTagValuePairsFromFile
-from readCSV import readCSV
+from readCSVmatrix import readCSVmatrix
 
-def simulate( simulationName ):
+def simulate( simulationName, programName ):
 	
 	#
 	# INITIALIZING
@@ -28,7 +28,6 @@ def simulate( simulationName ):
 	simulationOutputFolder = "../_output/" + simulationName + "/"
 	pythonOutputFolder = "../_output/" + simulationName + "/Python_output/"
 	programFolder = "../_tests/"
-	programName = "collidingspheres.exe"
 	
 	simulationInputFileString = "<simulationName> " + simulationName
 	simulationInputFile = open(simulationInputPath, 'w');
@@ -59,11 +58,19 @@ def simulate( simulationName ):
 	simulationSettings = getTagValuePairsFromFile(mainSimulationOutputPath, "<", ">")
 	
 	print("< Done")
+
+	# Read time vector
+	print("> Reading time vector")
+
+	timeVector = readCSVmatrix( simulationOutputFolder + "timeVector.txt" )
+
+	print("< Done")
 	
 	# Read particles' files
-	print("> Reading Particle Files")
+	print("> Reading particle files")
 
 	particleData = []
+	radiusList = []
 
 	simulationSettings["nParticles"] = int(simulationSettings["nParticles"])
 	for counter in range( simulationSettings["nParticles"] ):
@@ -76,18 +83,30 @@ def simulate( simulationName ):
 		thisParticleData = {}
 
 		thisParticleData["main"] = getTagValuePairsFromFile( thisParticleOutputFolder + "data.txt", "<", ">" )
-		thisParticleData["energy"] = readCSV( thisParticleOutputFolder + "energy.txt" )
-		thisParticleData["position"] = readCSV( thisParticleOutputFolder + "position.txt" )
-		thisParticleData["velocity"] = readCSV( thisParticleOutputFolder + "velocity.txt" )
-		thisParticleData["linear_momentum"] = readCSV( thisParticleOutputFolder + "linear_momentum.txt" )
-		thisParticleData["orientation"] = readCSV( thisParticleOutputFolder + "orientation.txt" )
-		thisParticleData["rotational_velocity"] = readCSV( thisParticleOutputFolder + "rotational_velocity.txt" )
-		thisParticleData["angular_momentum"] = readCSV( thisParticleOutputFolder + "angular_momentum.txt" )
-		thisParticleData["force"] = readCSV( thisParticleOutputFolder + "force.txt" )
-		thisParticleData["torque"] = readCSV( thisParticleOutputFolder + "torque.txt" )
+		thisParticleData["energy"] = readCSVmatrix( thisParticleOutputFolder + "energy.txt" )
+		thisParticleData["position"] = readCSVmatrix( thisParticleOutputFolder + "position.txt" )
+		thisParticleData["velocity"] = readCSVmatrix( thisParticleOutputFolder + "velocity.txt" )
+		thisParticleData["linear_momentum"] = readCSVmatrix( thisParticleOutputFolder + "linear_momentum.txt" )
+		thisParticleData["orientation"] = readCSVmatrix( thisParticleOutputFolder + "orientation.txt" )
+		thisParticleData["rotational_velocity"] = readCSVmatrix( thisParticleOutputFolder + "rotational_velocity.txt" )
+		thisParticleData["angular_momentum"] = readCSVmatrix( thisParticleOutputFolder + "angular_momentum.txt" )
+		thisParticleData["force"] = readCSVmatrix( thisParticleOutputFolder + "force.txt" )
+		thisParticleData["torque"] = readCSVmatrix( thisParticleOutputFolder + "torque.txt" )
 
 		particleData.append(thisParticleData)
+		radiusList.append( float(thisParticleData["main"]["Radius"]) )
 
-	return particleData
+	print("< Done")
 
-p = simulate('Simulation1')
+	#
+	# PROCESS DATA
+	#
+
+	print("> Processing data")
+	
+	pass
+	
+
+	return (particleData, radiusList)
+
+p = simulate('Simulation1', 'collidingspheres_x64.exe')
