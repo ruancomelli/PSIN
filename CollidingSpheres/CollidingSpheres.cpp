@@ -109,8 +109,10 @@ int main(int argc, char **argv){
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
 
 	ofstream timeVectorFile(outputPath + "timeVector.txt");
+	ofstream timeVectorForPlotFile(outputPath + "timeVectorForPlot.txt");
 
 	particleArray.exportAllDataCSV();
+	timeVectorForPlotFile << 0 << verticalSeparator;
 
 	// ===== Simulation =====
 	ForceModel::setNumberOfParticles( numberOfParticles );
@@ -175,11 +177,13 @@ int main(int argc, char **argv){
 			timeStepsForOutputCounter = 0;
 
 			particleArray.exportTemporalDataCSV();
+			timeVectorForPlotFile << t << verticalSeparator;
 		}
 	}
 
 	mainOutFile.close();
 	timeVectorFile.close();
+	timeVectorForPlotFile.close();
 	
 	cout << endl << "Success" << endl << endl;
 }

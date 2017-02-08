@@ -6,8 +6,12 @@
 
 import os
 import subprocess
+import matplotlib.pyplot as plt
+
 from getTagValuePairsFromFile import getTagValuePairsFromFile
 from readCSVmatrix import readCSVmatrix
+from processDataHistory import plotParticleDataHistory
+from processDataHistory import plotParticleDataHistory3D
 
 def simulate( simulationName, programName ):
 	
@@ -61,8 +65,8 @@ def simulate( simulationName, programName ):
 
 	# Read time vector
 	print("> Reading time vector")
-
-	timeVector = readCSVmatrix( simulationOutputFolder + "timeVector.txt" )
+	
+	timeVectorForPlot = readCSVmatrix( simulationOutputFolder + "timeVectorForPlot.txt" )
 
 	print("< Done")
 	
@@ -70,7 +74,13 @@ def simulate( simulationName, programName ):
 	print("> Reading particle files")
 
 	particleData = []
-	radiusList = []
+
+	# particleData is accessed using particleData[particleIndex][key][timeIndex][coordinate]
+	# For instance, if one wishes to access the Z coordinate, in timeStep number 5, 
+	# of the second particle's velocity, one should write:
+	# particleData[ 2 - 1 ][ "velocity" ][ 5 - 1 ][ 3 - 1 ], which stands for
+	# particleData["second particle"]["velocity"]["5th timeStep"]["Z coordinate"]
+		
 
 	simulationSettings["nParticles"] = int(simulationSettings["nParticles"])
 	for counter in range( simulationSettings["nParticles"] ):
@@ -94,7 +104,6 @@ def simulate( simulationName, programName ):
 		thisParticleData["torque"] = readCSVmatrix( thisParticleOutputFolder + "torque.txt" )
 
 		particleData.append(thisParticleData)
-		radiusList.append( float(thisParticleData["main"]["Radius"]) )
 
 	print("< Done")
 
@@ -104,9 +113,29 @@ def simulate( simulationName, programName ):
 
 	print("> Processing data")
 	
-	pass
+	# Plot Energy
+	print(">> Plotting energy")
+
+	plotParticleDataHistory( 
+		timeVector = timeVectorForPlot, 
+		particleData = particleData, 
+		key = "energy", 
+		title = "Energy", 
+		outputFolder = pythonOutputFolder, 
+		fileName = "energy", 
+		extension = ".png", 
+		xAxisLabel = "Time [s]", 
+		yAxisLabel = "Energy [J]", 
+		colorMap = 0, 
+		nParticles = simulationSettings["nParticles"], 
+		component = 0 )
+
+	print("<< Done")
+
+
+
 	
 
-	return (particleData, radiusList)
+	return particleData
 
 p = simulate('Simulation1', 'collidingspheres_x64.exe')

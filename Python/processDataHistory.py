@@ -10,30 +10,41 @@ import matplotlib.pyplot as plt
 
 # FUNCTION
 def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder, fileName,
-    extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component ):
+    extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component = 0 ):
 
 	total = numpy.zeros( len(timeVector) );
 
 	for counter in range(nParticles):
-		total += particleData[counter][key][:][component]
+		total += particleData[counter][key][:, component]
 
-	plt.plot(timeVector, particleData)
-	
-	
-	
-	
-# TEST
-timeVector = [1, 2, 3]
+	print(total)
 
-nParticles = 2
-index = 2
-component = 1
-
-
-
-print( plotParticleDataHistory([1,2,3], particleData=0, index=0, dataName=0, outputMATLAB=0, fileName=0,
-    extension=0, xAxisLabel=0, yAxisLabel=0, colorMap=0, nParticles=0, component=0) )
+	plt.xlabel(xAxisLabel)
+	plt.ylabel(yAxisLabel)
+	plt.title(title)
 	
+	for counter in range(nParticles):
+		plt.plot(
+			x = timeVector, 
+			y = particleData[counter][key][:, component]
+			)
+		
+	plt.plot(
+		x = timeVector,
+		y = total,
+		color = 'k',
+		linewidth = 2.0
+		)
+	
+	plt.savefig(fileName + extension, bbox_inches = "tight")
+	
+
+def plotParticleDataHistory3D( timeVector, particleData, key, title, outputFolder, fileName,
+    extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component ):
+	
+	pass
+	
+# TEST	
 
 
 #	for counter = 1 : nParticles
