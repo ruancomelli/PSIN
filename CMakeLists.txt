@@ -42,15 +42,18 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/archives)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/apps)
 
+# BOOST
+set(BOOST_PATH CACHE PATH "Path to Boost folder")
+include_directories(${BOOST_PATH})
+
 #PRINT SOME MESSAGES
 message("\n-- Project: ${PROJECT_NAME} ${VERSION}")
 message("-- C++ compiler: ${CMAKE_CXX_COMPILER}")
 message("-- Debug flags: ${CMAKE_CXX_FLAGS_DEBUG}")
-message("-- Release flags: ${CMAKE_CXX_FLAGS_RELEASE}\n")
+message("-- Release flags: ${CMAKE_CXX_FLAGS_RELEASE}")
 
-# BOOST
-set(BOOST_PATH CACHE PATH "Path to Boost folder")
-include_directories(${BOOST_PATH})
+# ROOT PATH TO USE IN PROGRAMS
+add_definitions(-DPROJECT_PATH="${CMAKE_SOURCE_DIR}/")
 
 #ADD SUBDIRECTORIES
 add_subdirectory(UtilsLibSpecific)

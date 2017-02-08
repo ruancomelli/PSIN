@@ -39,12 +39,14 @@ using namespace std;
 
 using boost::math::constants::pi;
 
+const string project_root_path = PROJECT_PATH;
+
 int main(int argc, char **argv){
 
 	int defaultDimension = 3; // This means that we are constraint to Vector3D
 	
 	// Simulation data
-	string inputPath("../_input/");
+	string inputPath(project_root_path + "_input/");
 	FileReader simulationNameFile(inputPath + "input.txt");
 	string simulationName;
 	simulationNameFile.readValue("<simulationName>", simulationName);
@@ -68,7 +70,7 @@ int main(int argc, char **argv){
 	inputData.readValue("<gravity>", gravity);
 	inputData.readValue("<timeStepsForOutput>", timeStepsForOutput);
 
-	string outputPath("../_output/" + simulationName + "/");
+	string outputPath(project_root_path + "_output/" + simulationName + "/");
 
 	_mkdir(outputPath.c_str());
 	_mkdir((outputPath + "MATLAB_output/").c_str());
