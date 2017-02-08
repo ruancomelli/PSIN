@@ -63,7 +63,6 @@ class Particle: public PhysicalEntity
 		double distance(ParticlePtr particle);
 		
 	private:
-		typedef SharedPointer< Particle > ParticlePtr;
 
 		Vector3D bodyForce;
 		Vector3D contactForce;

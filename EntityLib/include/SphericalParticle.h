@@ -35,7 +35,7 @@ class SphericalParticle: public Particle
 		DoubleVector getGeometricParameter() const;
 		
 		// ---- Collision ----
-		inline bool touches( const SphericalParticlePtr neighbor ) const;
+		bool touches( const SphericalParticlePtr neighbor ) const;
 
 		Vector3D contactPoint( const SphericalParticlePtr neighbor ) const;
 		Vector3D normalDirection( const SphericalParticlePtr neighbor ) const;
@@ -49,7 +49,7 @@ class SphericalParticle: public Particle
 		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
 		
 		// ---- Distance ----
-		inline double distance( const SphericalParticlePtr neighbor) const;
+		double distance( const SphericalParticlePtr neighbor) const;
 
 
 	private:

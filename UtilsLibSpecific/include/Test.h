@@ -1,15 +1,8 @@
 #ifndef UTILS_TEST_H
 #define UTILS_TEST_H
 
-	#ifdef WIN32 //windows
-		#include <boost/test/execution_monitor.hpp>
-		#include <boost/test/unit_test.hpp>
-	#endif
-
-	#ifndef WIN32 //linux
-		#include <boost/test/included/execution_monitor.hpp>
-		#include <boost/test/included/unit_test.hpp>
-	#endif
+	#include <boost/test/included/execution_monitor.hpp>
+	#include <boost/test/included/unit_test.hpp>
 
 	#define TestCase BOOST_AUTO_TEST_CASE
 	#define TestSuite BOOST_AUTO_TEST_SUITE

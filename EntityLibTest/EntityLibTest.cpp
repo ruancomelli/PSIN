@@ -27,12 +27,14 @@ TestCase( EntityTest )
 	int handleToSet = 2;
 	entity1.setHandle(handleToSet);
 	checkEqual( entity1.getHandle() , handleToSet );
+
 	// Test constructor passing one argument
 	int initialHandle = 1;
 	Entity entity2(initialHandle);
+
 	checkEqual( entity2.getHandle() , initialHandle );
 
-	Entity entity3(entity1);
+	Entity entity3 = entity1;
 
 	checkEqual( entity1.getHandle(), entity3.getHandle() );
 }
@@ -107,7 +109,6 @@ TestCase( PhysicalEntityConstructorWithParametes )
 	checkEqual( physicalEntity.getDimension() , dimension );
 	
 }
-
 
 TestCase( PhysicalEntityConstructorWithEntityAndParameters )
 {
@@ -246,20 +247,21 @@ TestCase( ParticleConstructors )
 
 TestCase( SphericalParticleDistance )
 {
-	SphericalParticlePtr sph[2];
+	SphericalParticlePtr sph0( new SphericalParticle);
+	SphericalParticlePtr sph1( new SphericalParticle);
 
 	double x[2], y[2], z[2];
 
 	x[0] = -3.7;
 	y[0] = 4.9;
 	z[0] = 5.31;
-	sph[0]->setPosition( 0 , x[0] , y[0] , z[0] );
+	sph0->setPosition( 0 , x[0] , y[0] , z[0] );
 
 	x[1] = 3.5;
 	y[1] = -6.9;
 	z[1] = 0.17;
-	sph[1]->setPosition( 0 , x[1] , y[1] , z[1] );
+	sph1->setPosition( 0 , x[1] , y[1] , z[1] );
 
 	double distance = 14.7478676424763;
-	checkClose( sph[0]->distance(sph[1]) , distance , 1e-12 );
+	checkClose( sph0->distance(sph1) , distance , 1e-12 );
 }

@@ -1,4 +1,6 @@
 #define BOOST_TEST_MODULE IOLibTest
+//#define PROJECT_PATH "D:\\Git-Projects\\ParticleSimulator\\"
+//#define PROJECT_PATH "D:/Git-Projects/ParticleSimulator/"
 
 // Standard
 #include <string>
@@ -25,28 +27,30 @@
 
 using namespace std;
 
+const string project_root_path = PROJECT_PATH;
+
 TestCase( ReadEntityTest )
 {
-		string inputFile("../IOLibTest/inputEntity.txt");
+		string inputFile(project_root_path + "IOLibTest/inputEntity.txt");
 
 		Entity entity1(5);
 
-		Entity entity2 = readEntity(inputFile);
+		EntityPtr entity2 = readEntity(inputFile);
 
-		checkEqual(entity1.getHandle(), entity2.getHandle());
+		checkEqual(entity1.getHandle(), entity2->getHandle());
 }
 
 
 TestCase( ReadPhysicalEntityTest )
 {
-		string inputFile("../IOLibTest/inputPhysicalEntity.txt");
+		string inputFile(project_root_path + "IOLibTest/inputPhysicalEntity.txt");
 
 		PhysicalEntity tester(4, 3, 3);
-		PhysicalEntity tested = readPhysicalEntity(inputFile);
+		PhysicalEntityPtr tested = readPhysicalEntity(inputFile);
 
-		checkEqual( tester.getHandle(), tested.getHandle() );
-		checkEqual( tester.getDimension(), tested.getDimension() );
-		checkEqual( tester.getTaylorOrder(), tested.getTaylorOrder() );
+		checkEqual( tester.getHandle(), tested->getHandle() );
+		checkEqual( tester.getDimension(), tested->getDimension() );
+		checkEqual( tester.getTaylorOrder(), tested->getTaylorOrder() );
 }
 
 
@@ -58,7 +62,7 @@ TestCase( VectorVector3DTest )
 		tester[2] = Vector3D(3.0, 9.0, 27.0);
 		tester[3] = Vector3D(4.0, 16.0, 64.0);
 
-		string fileName("../IOLibTest/VectorVector3DTestInput.txt");
+		string fileName(project_root_path + "IOLibTest/VectorVector3DTestInput.txt");
 
 		ifstream file(fileName);
 
@@ -226,7 +230,7 @@ TestCase( VectorVector3DTest )
 
 TestCase( FileReaderTest )
 {
-		string fileName("../IOLibTest/input.txt");
+		string fileName(project_root_path + "IOLibTest/input.txt");
 		int intValue = 5;
 		double doubleValue = 3.1415;
 		string stringValue = "Rohan";
