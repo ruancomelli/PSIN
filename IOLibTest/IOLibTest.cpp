@@ -31,9 +31,9 @@ TestCase( ReadEntityTest )
 
 		Entity entity1(5);
 
-		Entity entity2 = readEntity(inputFile);
+		EntityPtr entity2 = readEntity(inputFile);
 
-		checkEqual(entity1.getHandle(), entity2.getHandle());
+		checkEqual(entity1.getHandle(), entity2->getHandle());
 }
 
 
@@ -42,11 +42,11 @@ TestCase( ReadPhysicalEntityTest )
 		string inputFile("../IOLibTest/inputPhysicalEntity.txt");
 
 		PhysicalEntity tester(4, 3, 3);
-		PhysicalEntity tested = readPhysicalEntity(inputFile);
+		PhysicalEntityPtr tested = readPhysicalEntity(inputFile);
 
-		checkEqual( tester.getHandle(), tested.getHandle() );
-		checkEqual( tester.getDimension(), tested.getDimension() );
-		checkEqual( tester.getTaylorOrder(), tested.getTaylorOrder() );
+		checkEqual( tester.getHandle(), tested->getHandle() );
+		checkEqual( tester.getDimension(), tested->getDimension() );
+		checkEqual( tester.getTaylorOrder(), tested->getTaylorOrder() );
 }
 
 

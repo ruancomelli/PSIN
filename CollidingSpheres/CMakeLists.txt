@@ -23,10 +23,10 @@ file(GLOB ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
 #LINK LIBRARIES
-target_link_libraries(UtilsLibSpecific)
-target_link_libraries(EntityLib)
-target_link_libraries(ForceModelLib)
-target_link_libraries(IOLib)
+target_link_libraries(${PROJECT_NAME} UtilsLibSpecific)
+target_link_libraries(${PROJECT_NAME} EntityLib)
+target_link_libraries(${PROJECT_NAME} ForceModelLib)
+target_link_libraries(${PROJECT_NAME} IOLib)
 
 #DEFINE OUTPUT LOCATION
 install(
