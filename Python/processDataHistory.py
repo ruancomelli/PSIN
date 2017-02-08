@@ -9,15 +9,15 @@ import matplotlib.pyplot as plt
 
 
 # FUNCTION
-def plotParticleDataHistory( timeVector, particleData, index, dataName, outputMATLAB, fileName,
+def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder, fileName,
     extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component ):
 
 	total = numpy.zeros( len(timeVector) );
 
-	for counter in range nParticles:
-		total += particleData[counter][index][:][component]
+	for counter in range(nParticles):
+		total += particleData[counter][key][:][component]
 
-	
+	plt.plot(timeVector, particleData)
 	
 	
 	

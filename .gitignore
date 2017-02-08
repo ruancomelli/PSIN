@@ -12,5 +12,7 @@ _premake_files/premake4
 **.stackdump
 **.exe
 **.asv
+**.pyc
+*.pyc
 *.exe
 *.asv

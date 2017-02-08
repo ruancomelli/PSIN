@@ -16,7 +16,6 @@ class Vector3D{
 public:
 	Vector3D( void );
 	explicit Vector3D( const double& x, const double& y=0.0, const double& z=0.0 );
-	Vector3D( const Vector3D& other );
 
 	double x() const;
 	double y() const;

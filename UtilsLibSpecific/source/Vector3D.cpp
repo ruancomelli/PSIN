@@ -12,12 +12,6 @@ Vector3D::Vector3D( const double& x, const double& y, const double& z ){
 	this->components[ Z ] = z;
 }
 
-Vector3D::Vector3D( const Vector3D& other ){
-	for( int axis = 0; axis < N_AXIS; ++axis ){
-		this->components[ axis ] = other.components[ axis ];
-	}
-}
-
 double Vector3D::x() const{
 	return this->components[ X ];
 }
