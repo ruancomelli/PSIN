@@ -35,7 +35,7 @@ class SphericalParticle: public Particle
 		DoubleVector getGeometricParameter() const;
 		
 		// ---- Collision ----
-		inline bool touches( const SphericalParticlePtr neighbor ) const;
+		bool touches( const SphericalParticlePtr neighbor ) const;
 
 		Vector3D contactPoint( const SphericalParticlePtr neighbor ) const;
 		Vector3D normalDirection( const SphericalParticlePtr neighbor ) const;
