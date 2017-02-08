@@ -49,7 +49,7 @@ class SphericalParticle: public Particle
 		void fwritePosition( ostream & outFile, const string horizontalSeparator, const string verticalSeparator );
 		
 		// ---- Distance ----
-		inline double distance( const SphericalParticlePtr neighbor) const;
+		double distance( const SphericalParticlePtr neighbor) const;
 
 
 	private:
