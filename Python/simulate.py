@@ -126,7 +126,7 @@ def simulate( simulationName, programName ):
 		extension = ".png", 
 		xAxisLabel = "Time [s]", 
 		yAxisLabel = "Energy [J]", 
-		colorMap = 0, 
+		colorMap = 0,  
 		nParticles = simulationSettings["nParticles"], 
 		component = 0 )
 
