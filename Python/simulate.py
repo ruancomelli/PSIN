@@ -6,7 +6,6 @@
 
 import os
 import subprocess
-import matplotlib.pyplot as plt
 
 from getTagValuePairsFromFile import getTagValuePairsFromFile
 from readCSVmatrix import readCSVmatrix
@@ -78,7 +77,8 @@ def simulate( simulationName, programName ):
 	# particleData is accessed using particleData[particleIndex][key][timeIndex][coordinate]
 	# For instance, if one wishes to access the Z coordinate, in timeStep number 5, 
 	# of the second particle's velocity, one should write:
-	# particleData[ 2 - 1 ][ "velocity" ][ 5 - 1 ][ 3 - 1 ], which stands for
+	# particleData[ 2 - 1 ][ "velocity" ][ 5 - 1 ][ 3 - 1 ], or
+	# particleData[ 1 ][ "velocity" ][ 4 ][ 2 ] which stands for
 	# particleData["second particle"]["velocity"]["5th timeStep"]["Z coordinate"]
 		
 

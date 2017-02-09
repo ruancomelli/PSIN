@@ -15,7 +15,7 @@ istream & operator >> (istream & stream, Vector3D & v){
 
 
 ofstream & operator << (ofstream & stream, const Vector3D & v){
-	stream << static_cast<long double>(v.x()) << "    " << static_cast<long double>(v.y()) << "    " << static_cast<long double>(v.z()) << endl;
+	stream << v.x() << "    " << v.y() << "    " << v.z() << endl;
 	return stream;
 }
 

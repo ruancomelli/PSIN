@@ -43,11 +43,11 @@ const string project_root_path = PROJECT_PATH;
 
 int main(int argc, char **argv){
 
-	int defaultDimension = 3; // This means that we are constraint to Vector3D
-	
+	int defaultDimension = 3; // This means that we are constrained to Vector3D
+
 	// Simulation data
 	string inputFolder(project_root_path + "_input/");
-	FileReader simulationNameFile(inputFolder + "input.txt");
+	FileReader simulationFileReader(inputFolder + "input.txt");
 	string simulationName;
 	simulationFileReader.readValue("<simulationName>", simulationName);
 

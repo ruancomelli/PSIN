@@ -30,7 +30,7 @@ void SphericalParticlePtrArrayKit::inputParticles(int nParticles, string & input
 {
 	for(int i=0 ; i<nParticles ; ++i)
 	{
-		string particleInputPath = inputPath + "particle" + _itoa(i, new char[100], 10) + ".txt";
+		string particleInputPath = inputPath + "particle" + to_string(i) + ".txt";
 		this->inputParticle(particleInputPath);
 	}
 }
@@ -50,7 +50,7 @@ void SphericalParticlePtrArrayKit::openFiles(string outputPath)
 	foreach(SphericalParticlePtr particlePtr, *this)
 	{
 
-		string particleOutputPath = outputPath + "Particle" + _itoa(particlePtr->getHandle(), new char[100], 10) + "/";
+		string particleOutputPath = outputPath + "Particle" + to_string(particlePtr->getHandle()) + "/";
 		_mkdir(particleOutputPath.c_str());
 
 		outFile[particlePtr->getHandle()].resize( N_FILES_PER_PARTICLE );

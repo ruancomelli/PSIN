@@ -1,4 +1,4 @@
-function simulate( simulationName )
+function simulate( simulationName, programName, mode )
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%     INITIALIZE SCRIPT     %%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -23,8 +23,7 @@ disp('< Done');
 
 disp('> Simulating');
 
-programPath = '../../_tests/';
-programName = 'collidingspheres_x64.exe';
+programPath = ['../../_build/apps/', mode, '/'];
 
 if isunix
     system(['cd ', programPath, ' ; ./', programName]);

@@ -138,7 +138,7 @@ TestCase( VectorVector3DTest )
 		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
 		file.seekg(ios_base::beg);
 
-		for(int i = 0; i < tested.size(); ++i){
+		for(unsigned i = 0; i < tested.size(); ++i){
 			file >> tested[i];
 		}
 

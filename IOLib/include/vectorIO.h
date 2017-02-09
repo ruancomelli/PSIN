@@ -16,22 +16,22 @@ using std::vector;
 using std::runtime_error;
 
 template <class type> std::ostream & operator<<( std::ostream & outputFile , const vector<type> & v){
-	for( int i = 0 ; i < v.size() ; ++i){
-		outputFile << static_cast<type>(v[i]) << endl;
+	for( unsigned i = 0 ; i < v.size() ; ++i){
+		outputFile << v[i] << endl;
 	}
 	return outputFile;
 }
 
 template <class type> std::istream & operator>>( std::istream & inputFile , vector<type> & v){
-	for( int i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
+	for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
 		inputFile >> v[i];
 	}
 	return inputFile;
 }
 
 template <class type> std::ofstream & operator<<( std::ofstream & outputFile , const vector<type> & v){
-	for( int i = 0 ; i < v.size() ; ++i){
-		outputFile << static_cast<type>(v[i]) << endl;
+	for( unsigned i = 0 ; i < v.size() ; ++i){
+		outputFile << v[i] << endl;
 	}
 	return outputFile;
 }

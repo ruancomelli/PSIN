@@ -5,35 +5,55 @@
 """
 
 import numpy
+
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 
 # FUNCTION
 def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder, fileName,
     extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component = 0 ):
-
-	#total = numpy.zeros( len(timeVector) )
-	total = timeVector
-
-	# for counter in range(nParticles):
-	# 	total += particleData[counter][key][:, component]
-
-	print(total)
-	print(timeVector)
-
-	plt.xlabel(xAxisLabel)
-	plt.ylabel(yAxisLabel)
-	plt.title(title)
 	
-	# for counter in range(nParticles):
-	# 	plt.plot(
-	# 		x = timeVector, 
-	# 		y = particleData[counter][key][:, component]
-	# 		)
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	yMinimum = min(particleData[0][key][:, component])
+	yMaximum = max(particleData[0][key][:, component])
 
-	plt.plot( 
-		xdata = timeVector, 
-		ydata = total
+	xMinimum = min(timeVector)
+	xMaximum = max(timeVector)
+
+	total = numpy.zeros( len(timeVector) )
+
+	for counter in range(nParticles):
+		total += particleData[counter][key][:, component]
+
+		yMinimum = min( min(particleData[counter][key][:, component]), yMinimum )
+		yMaximum = max( max(particleData[counter][key][:, component]), yMaximum )
+		
+	yMinimum = min( min(total), yMinimum )
+	yMaximum = max( max(total), yMaximum )
+	
+	xWidth = xMaximum - xMinimum
+	yWidth = yMaximum - yMinimum
+
+	ax.set_xlabel(xAxisLabel)
+	ax.set_ylabel(yAxisLabel)
+	plt.title(title)
+	plt.xlim( xMinimum - 0.1*xWidth, xMaximum + 0.1*xWidth )
+	plt.ylim( yMinimum - 0.1*yWidth, yMaximum + 0.1*yWidth )
+	
+	for counter in range(nParticles):
+		ax.plot(
+			timeVector, 
+			particleData[counter][key][:, component]
+			)
+
+	ax.plot( 
+		timeVector, 
+		total,
+		'k-',
+		linewidth = 2.0
 		)
 		
 	# plt.plot(
@@ -43,7 +63,7 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	# 	linewidth = 2.0
 	# 	)
 	
-	plt.show()
+	# plt.show()
 	plt.savefig(outputFolder + fileName + extension, bbox_inches = "tight")
 	
 
