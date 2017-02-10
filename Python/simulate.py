@@ -12,6 +12,10 @@ from readCSVmatrix import readCSVmatrix
 from processDataHistory import plotParticleDataHistory
 from processDataHistory import plotParticleDataHistory3D
 
+import matplotlib.colors as colors
+import matplotlib.pyplot as plt
+import matplotlib.cm as cmx
+
 def simulate( simulationName, programName ):
 	
 	#
@@ -113,6 +117,19 @@ def simulate( simulationName, programName ):
 
 	print("> Processing data")
 	
+	# Set colormap
+	print(">> Setting colormap")
+	
+	cmap = plt.get_cmap('gist_rainbow')
+
+	scalarMap = cmx.ScalarMappable( 
+		cmap = cmap,
+		norm = colors.Normalize( vmin=0 , vmax=simulationSettings["nParticles"]-1 ) )
+
+
+	print("<< Done")
+		
+	
 	# Plot Energy
 	print(">> Plotting energy")
 
@@ -120,13 +137,13 @@ def simulate( simulationName, programName ):
 		timeVector = timeVectorForPlot, 
 		particleData = particleData, 
 		key = "energy", 
-		title = "Energy", 
+		title = "\nEnergy\n", 
 		outputFolder = pythonOutputFolder, 
 		fileName = "energy", 
 		extension = ".png", 
-		xAxisLabel = "Time [s]", 
-		yAxisLabel = "Energy [J]", 
-		colorMap = 0,  
+		xAxisLabel = "\nTime [s]\n", 
+		yAxisLabel = "\nEnergy [J]\n", 
+		scalarMap = scalarMap,  
 		nParticles = simulationSettings["nParticles"], 
 		component = 0 )
 

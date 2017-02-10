@@ -5,18 +5,23 @@
 """
 
 import numpy
-
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib import font_manager
 
 
 # FUNCTION
 def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder, fileName,
-    extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component = 0 ):
+    extension, xAxisLabel, yAxisLabel, scalarMap, nParticles, component = 0 ):
 	
-	fig = plt.figure()
+	fig = plt.figure( 
+		num=1,
+		figsize=(18, 14),
+		facecolor='w',
+		edgecolor='k' )
+
 	ax = fig.add_subplot(111)
+	
 	yMinimum = min(particleData[0][key][:, component])
 	yMaximum = max(particleData[0][key][:, component])
 
@@ -36,25 +41,42 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	
 	xWidth = xMaximum - xMinimum
 	yWidth = yMaximum - yMinimum
+	
+	# Set sizes and labels
 
-	ax.set_xlabel(xAxisLabel)
-	ax.set_ylabel(yAxisLabel)
-	plt.title(title)
+	ax.set_xlabel(xAxisLabel, size=15, weight='normal', family='sans-serif')
+	ax.set_ylabel(yAxisLabel, size=15, weight='normal', family='sans-serif')
+	
+	ax.set_title(title, size=25, weight='normal', family='sans-serif')
 	plt.xlim( xMinimum - 0.1*xWidth, xMaximum + 0.1*xWidth )
 	plt.ylim( yMinimum - 0.1*yWidth, yMaximum + 0.1*yWidth )
 	
+	#ax.title.set_fontsize(25)
+	for label in (ax.get_xticklabels() + ax.get_yticklabels()):
+	    label.set_fontproperties( font_manager.FontProperties(family='sans-serif', style='normal',
+    size=15, weight='normal') )
+					
+	# Plot each particle key-property
 	for counter in range(nParticles):
 		ax.plot(
 			timeVector, 
-			particleData[counter][key][:, component]
+			particleData[counter][key][:, component],
+			color = scalarMap.to_rgba(counter),
+			label = "Particle " + str(counter)
 			)
 
+					
+	# Plot total key-property
 	ax.plot( 
 		timeVector, 
 		total,
 		'k-',
-		linewidth = 2.0
+		linewidth = 2.0,
+		label = "Total"
 		)
+	
+	lgd = ax.legend(loc='right', prop={'size': 12, 'family': 'sans-serif', 'weight': 'normal'})
+	lgd.set_title("Legend", prop={'size': 15, 'family': 'sans-serif', 'weight': 'normal'})
 		
 	# plt.plot(
 	# 	x = timeVector,
