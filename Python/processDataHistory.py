@@ -13,7 +13,14 @@ from matplotlib import font_manager
 # FUNCTION
 def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder, fileName,
     extension, xAxisLabel, yAxisLabel, scalarMap, nParticles, component = 0 ):
-	
+
+	if component == 'X':
+		component = 0
+	elif component == 'Y':
+		component = 1
+	elif component == 'Z':
+		component = 2
+		
 	fig = plt.figure( 
 		num=1,
 		figsize=(18, 14),
@@ -51,7 +58,9 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	plt.xlim( xMinimum - 0.1*xWidth, xMaximum + 0.1*xWidth )
 	plt.ylim( yMinimum - 0.1*yWidth, yMaximum + 0.1*yWidth )
 	
-	#ax.title.set_fontsize(25)
+	print("xMinimum: ", xMinimum, "xMaximum: ", xMaximum, "yMinimum: ", yMinimum, "yMaximum: ", yMaximum)
+	
+	ax.title.set_fontsize(25)
 	for label in (ax.get_xticklabels() + ax.get_yticklabels()):
 	    label.set_fontproperties( font_manager.FontProperties(family='sans-serif', style='normal',
     size=15, weight='normal') )
@@ -75,29 +84,66 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 		label = "Total"
 		)
 	
-	lgd = ax.legend(loc='right', prop={'size': 12, 'family': 'sans-serif', 'weight': 'normal'})
+	handles, labels = ax.get_legend_handles_labels()
+	handle_list, label_list = [], []
+	for handle, label in zip(handles, labels):
+	    if label not in label_list:
+	        handle_list.append(handle)
+	        label_list.append(label)
+	
+	lgd = ax.legend(handle_list, label_list, loc='right', prop={'size': 12, 'family': 'sans-serif', 'weight': 'normal'})
 	lgd.set_title("Legend", prop={'size': 15, 'family': 'sans-serif', 'weight': 'normal'})
-		
-	# plt.plot(
-	# 	x = timeVector,
-	# 	y = total,
-	# 	color = 'k',
-	# 	linewidth = 2.0
-	# 	)
 	
-	# plt.show()
 	plt.savefig(outputFolder + fileName + extension, bbox_inches = "tight")
-	
-
 	
 	
 	
 	
 	
 def plotParticleDataHistory3D( timeVector, particleData, key, title, outputFolder, fileName,
-    extension, xAxisLabel, yAxisLabel, colorMap, nParticles, component ):
-	
-	pass
+	extension, xAxisLabel, yAxisLabel, scalarMap, nParticles ):
+
+	plotParticleDataHistory( 
+		timeVector = timeVector, 
+		particleData = particleData, 
+		key = key, 
+		title = title + " - X Direction\n", 
+		outputFolder = outputFolder, 
+		fileName = fileName + "_X",
+		extension = extension, 
+		xAxisLabel = xAxisLabel, 
+		yAxisLabel = yAxisLabel + " - X Direction", 
+		scalarMap = scalarMap, 
+		nParticles = nParticles, 
+		component = 'X' )
+
+	plotParticleDataHistory( 
+		timeVector = timeVector, 
+		particleData = particleData, 
+		key = key, 
+		title = title + " - Y Direction\n", 
+		outputFolder = outputFolder, 
+		fileName = fileName + "_Y",
+		extension = extension, 
+		xAxisLabel = xAxisLabel, 
+		yAxisLabel = yAxisLabel + " - Y Direction", 
+		scalarMap = scalarMap, 
+		nParticles = nParticles, 
+		component = 'Y' )
+
+	plotParticleDataHistory( 
+		timeVector = timeVector, 
+		particleData = particleData, 
+		key = key, 
+		title = title + " - Z Direction\n", 
+		outputFolder = outputFolder, 
+		fileName = fileName + "_Z",
+		extension = extension, 
+		xAxisLabel = xAxisLabel, 
+		yAxisLabel = yAxisLabel + " - Z Direction", 
+		scalarMap = scalarMap, 
+		nParticles = nParticles, 
+		component = 'Z' )
 	
 # TEST	
 
