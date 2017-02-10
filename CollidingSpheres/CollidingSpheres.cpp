@@ -31,9 +31,7 @@
 
 // boost
 #include <boost/math/constants/constants.hpp>
-
-// System
-#include <direct.h>
+#include <boost/filesystem.hpp>
 
 using namespace std;
 
@@ -72,8 +70,11 @@ int main(int argc, char **argv){
 
 	string outputPath(project_root_path + "_output/" + simulationName + "/");
 
-	_mkdir(outputPath.c_str());
-	_mkdir((outputPath + "MATLAB_output/").c_str());
+	boost::filesystem::path outputDir(outputPath);
+	boost::filesystem::create_directory(outputDir);
+
+	boost::filesystem::path MATLAB_outputDir(outputPath + "MATLAB_output/");
+	boost::filesystem::create_directory(MATLAB_outputDir);
 
 	// Input
 	string particleInputFolder(inputFolder + simulationName + "/");
@@ -179,6 +180,7 @@ int main(int argc, char **argv){
 			timeStepsForOutputCounter = 0;
 
 			particleArray.exportTemporalDataCSV();
+
 			timeVectorForPlotFile << t << verticalSeparator;
 		}
 	}

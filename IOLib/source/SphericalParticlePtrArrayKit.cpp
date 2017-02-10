@@ -51,7 +51,8 @@ void SphericalParticlePtrArrayKit::openFiles(string outputPath)
 	{
 
 		string particleOutputPath = outputPath + "Particle" + to_string(particlePtr->getHandle()) + "/";
-		_mkdir(particleOutputPath.c_str());
+		boost::filesystem::path particleOutputDir(particleOutputPath);
+		boost::filesystem::create_directory(particleOutputDir);
 
 		outFile[particlePtr->getHandle()].resize( N_FILES_PER_PARTICLE );
 

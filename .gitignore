@@ -13,6 +13,9 @@ _premake_files/premake4
 **.exe
 **.asv
 **.pyc
+**.log
+
 *.pyc
 *.exe
 *.asv
+*.log

@@ -18,8 +18,8 @@
 // UtilsLibSpecific
 #include <Foreach.h>
 
-// System
-#include <direct.h>
+// boost
+#include <boost/filesystem.hpp>
 
 using namespace std;
 
