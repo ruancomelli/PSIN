@@ -55,9 +55,9 @@ int PhysicalEntity::getDimension(void) const
 	// taylorOrder
 void PhysicalEntity::setTaylorOrder(const int taylorOrder)
 {
-	if(taylorOrder < 0)
+	if(taylorOrder < 3 || taylorOrder > 5)
 	{
-		throw runtime_error("Invalid taylorOrder inserted. taylorOrder must be nonnegative.");
+		throw runtime_error("Invalid taylorOrder inserted. taylorOrder must be either 3, 4 or 5.");
 	}
 	else
 	{

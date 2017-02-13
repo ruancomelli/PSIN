@@ -7,6 +7,7 @@
 #include <iterator>
 #include <algorithm>
 #include <map>
+#include <string>
 
 // EntityLib
 #include <Particle.h>

@@ -21,7 +21,7 @@ class Particle: public PhysicalEntity
 {
 	public:
 		Particle();
-		Particle(const PhysicalEntity & base);
+		explicit Particle(const PhysicalEntity & base);
 		Particle(const int taylorOrder, const int dimension, const int handle = -1);
 		
 		void addBodyForce(const Vector3D force){ this->bodyForce += force; }
@@ -32,7 +32,6 @@ class Particle: public PhysicalEntity
 		Vector3D getBodyForce(void) const { return this->bodyForce; }
 		Vector3D getContactForce(void) const { return this->contactForce; }
 		Vector3D getResultingForce(void) const { return this->getBodyForce() + this->getContactForce(); }
-
 		
 		void addTorque(const Vector3D torque){ this->resultingTorque += torque; }
 		void setResultingTorque(const Vector3D torque){ this->resultingTorque = torque; }
