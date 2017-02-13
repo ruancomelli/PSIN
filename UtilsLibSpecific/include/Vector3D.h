@@ -49,10 +49,10 @@ Vector3D operator *( const double& scalar, const Vector3D& v );
 Vector3D operator *( const Vector3D& v, const double& scalar );
 Vector3D operator /( const Vector3D& v, const double& scalar );
 Vector3D operator - (const Vector3D& v);
-bool operator == ( const Vector3D & v1 , const Vector3D v2 );//tol=1e-12
+bool operator == ( const Vector3D & v1 , const Vector3D & v2 );//tol=1e-12
 
 
-Vector3D nullVector3D(void);
+inline Vector3D nullVector3D(void){ return Vector3D(); }
 
 
 #endif

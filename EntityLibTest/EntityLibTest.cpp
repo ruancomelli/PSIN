@@ -13,6 +13,9 @@
 #include <Particle.h>
 #include <SphericalParticle.h>
 
+// IOLib
+#include <vectorIO.h>
+
 using namespace std;
 
 TestCase( EntityTest )
@@ -37,6 +40,12 @@ TestCase( EntityTest )
 	Entity entity3 = entity1;
 
 	checkEqual( entity1.getHandle(), entity3.getHandle() );
+
+	int commonHandle = 7;
+	Entity entity4(commonHandle);
+	Entity entity5(commonHandle);
+
+	check(entity4 == entity5);
 }
 
 TestCase( PhysicalEntityDefaultConstructor )
@@ -47,6 +56,7 @@ TestCase( PhysicalEntityDefaultConstructor )
 	int 				defaultSize 		= defaultTaylorOrder + 1;
 	int 				defaultDimension 	= 3;
 	int					defaultHandle		= -1;
+	GeometryType geometryType = DEFAULT;
 
 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
@@ -61,6 +71,7 @@ TestCase( PhysicalEntityDefaultConstructor )
 	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
 	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
 	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
+	checkEqual( physicalEntity.getGeometry(), geometryType );
 }
 
 TestCase( PhysicalEntityConstructorWithEntity )
@@ -69,6 +80,7 @@ TestCase( PhysicalEntityConstructorWithEntity )
 	int 				defaultSize 		= defaultTaylorOrder + 1;
 	int 				defaultDimension 	= 3;
 	int					handle				= 5;
+	GeometryType geometryType = DEFAULT;
 
 	Entity				entity(handle);
 	
@@ -87,9 +99,10 @@ TestCase( PhysicalEntityConstructorWithEntity )
 	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
 	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
 	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
+	checkEqual(physicalEntity.getGeometry(), geometryType);
 }
 
-TestCase( PhysicalEntityConstructorWithParametes )
+TestCase( PhysicalEntityConstructorWithParameters )
 {
 	int taylorOrder	= 2;
 	int size		= taylorOrder + 1;
@@ -107,6 +120,18 @@ TestCase( PhysicalEntityConstructorWithParametes )
 	checkEqual( position.size() , size );
 	checkEqual( orientation.size() , size );
 	checkEqual( physicalEntity.getDimension() , dimension );
+
+	// Constructor with non-default parameters, but without handle
+	int defaultHandle = -1;
+	PhysicalEntity physicalEntity2(taylorOrder, dimension);
+
+	vector<Vector3D> 	position2 = physicalEntity2.getPosition();
+	vector<Vector3D> 	orientation2 = physicalEntity2.getOrientation();
+
+	checkEqual(physicalEntity2.getHandle(), defaultHandle);
+	checkEqual(position2.size(), size);
+	checkEqual(orientation2.size(), size);
+	checkEqual(physicalEntity2.getDimension(), dimension);
 	
 }
 
@@ -230,25 +255,44 @@ TestCase( ParticleConstructors )
 	int dimension = 3;
 	int handle = 5;
 
+	int defaultTaylorOrder = 3;
+	int defaultDimension = 3;
+	int defaultHandle = -1;
+
 	PhysicalEntity base(taylorOrder, dimension, handle);
 
+	Particle particle0;
 	Particle particle1(taylorOrder, dimension, handle);
 	Particle particle2(base);
+
+	checkEqual(particle0.getHandle(), defaultHandle);
+	checkEqual(particle0.getTaylorOrder(), defaultTaylorOrder);
+	checkEqual(particle0.getDimension(), defaultDimension);
 
 	checkEqual(particle1.getHandle(), handle);
 	checkEqual(particle1.getTaylorOrder(), taylorOrder);
 	checkEqual(particle1.getDimension(), dimension);
 	
 
-	checkEqual(particle1.getHandle(), handle);
-	checkEqual(particle1.getTaylorOrder(), taylorOrder);
-	checkEqual(particle1.getDimension(), dimension);
+	checkEqual(particle2.getHandle(), handle);
+	checkEqual(particle2.getTaylorOrder(), taylorOrder);
+	checkEqual(particle2.getDimension(), dimension);
+}
+
+TestCase( ForcesAndTorques )
+{
+	Particle particle;
+
+	checkEqual(particle.getBodyForce(), nullVector3D());
+	checkEqual(particle.getContactForce(), nullVector3D());
+	checkEqual(particle.getResultingForce(), nullVector3D());
+	checkEqual(particle.getResultingTorque(), nullVector3D());
 }
 
 TestCase( SphericalParticleDistance )
 {
-	SphericalParticlePtr sph0( new SphericalParticle);
-	SphericalParticlePtr sph1( new SphericalParticle);
+	SphericalParticlePtr sph0( new SphericalParticle );
+	SphericalParticlePtr sph1( new SphericalParticle );
 
 	double x[2], y[2], z[2];
 

@@ -53,7 +53,7 @@ class PhysicalEntity: public Entity
 	public:
 		// ---- Constructors ----
 		PhysicalEntity();
-		PhysicalEntity(const Entity & base); // Creates a PhysicalEntity based on an Entity
+		explicit PhysicalEntity(const Entity & base); // Creates a PhysicalEntity based on an Entity
 		PhysicalEntity(const int taylorOrder, const int dim, const int handle = -1);
 		PhysicalEntity(const int taylorOrder, const int dim, const Entity & base);
 
@@ -62,7 +62,7 @@ class PhysicalEntity: public Entity
 		void setPosition(const int derivative, const Vector3D & vec);
 		void setPosition(const vector<Vector3D>  & position);
 		vector<Vector3D> getPosition(void) const;
-		Vector3D getPosition(const int) const;
+		Vector3D getPosition(const int derivative) const;
 		
 		void setOrientation(const int derivative, const double x, const double y, const double z);
 		void setOrientation(const int derivative, const Vector3D & vec);
