@@ -16,7 +16,7 @@ SphericalParticlePtrArrayKit::~SphericalParticlePtrArrayKit()
 	}
 }
 
-void SphericalParticlePtrArrayKit::inputParticle(string & inputPath)
+void SphericalParticlePtrArrayKit::inputParticle(const string & inputPath)
 {
 	SphericalParticlePtr sphericalParticlePtr = readSphericalParticle(inputPath);
 
@@ -26,7 +26,7 @@ void SphericalParticlePtrArrayKit::inputParticle(string & inputPath)
 	this->push_back( sphericalParticlePtr );
 }
 
-void SphericalParticlePtrArrayKit::inputParticles(int nParticles, string & inputPath)
+void SphericalParticlePtrArrayKit::inputParticles(const int nParticles, const string & inputPath)
 {
 	for(int i=0 ; i<nParticles ; ++i)
 	{
@@ -35,7 +35,7 @@ void SphericalParticlePtrArrayKit::inputParticles(int nParticles, string & input
 	}
 }
 
-void SphericalParticlePtrArrayKit::inputParticles(vector<string> & inputPath)
+void SphericalParticlePtrArrayKit::inputParticles(const vector<string> & inputPath)
 {
 	for( unsigned i=0; i<inputPath.size(); ++i)
 	{
@@ -43,7 +43,7 @@ void SphericalParticlePtrArrayKit::inputParticles(vector<string> & inputPath)
 	}
 }
 
-void SphericalParticlePtrArrayKit::openFiles(string outputPath)
+void SphericalParticlePtrArrayKit::openFiles(const string & outputPath)
 {
 	this->outFile.resize( this->size() );
 
@@ -69,21 +69,23 @@ void SphericalParticlePtrArrayKit::openFiles(string outputPath)
 		this->outFile[particlePtr->getHandle()][ANGULAR_MOMENTUM_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "angular_momentum.txt")); 
 		this->outFile[particlePtr->getHandle()][MECHANICAL_ENERGY_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "energy.txt")); 
 
+		// We must check if all files were successfully opened
+
 	}
 
 	this->isReady = true;
 }
 
 
-void SphericalParticlePtrArrayKit::exportTemporalData(string horizontalSeparator, string verticalSeparator)
+void SphericalParticlePtrArrayKit::exportTemporalData(const string & horizontalSeparator, const string & verticalSeparator) const
 {
 	if(this->isReady){
 		foreach(SphericalParticlePtr particlePtr, *this){
 			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
-				*particlePtr, horizontalSeparator, verticalSeparator);
+				particlePtr, horizontalSeparator, verticalSeparator);
 
 			saveSphericalParticleOrientationMatrix(*outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
-				*particlePtr, horizontalSeparator, verticalSeparator);
+				particlePtr, horizontalSeparator, verticalSeparator);
 			
 			saveVector3D(*outFile[particlePtr->getHandle()][FORCE_IDX],
 				particlePtr->getResultingForce(), horizontalSeparator, verticalSeparator);
@@ -118,7 +120,7 @@ void SphericalParticlePtrArrayKit::exportTemporalData(string horizontalSeparator
 	}
 }
 
-void SphericalParticlePtrArrayKit::exportAllData(string horizontalSeparator, string verticalSeparator)
+void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSeparator, const string & verticalSeparator) const
 {
 	if(this->isReady)
 	{
