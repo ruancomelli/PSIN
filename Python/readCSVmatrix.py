@@ -9,10 +9,15 @@ Created at 07 feb. 2017
 import csv
 import numpy
 
+# This function will read a CSV file and it will
+# return a array of read data. See the csv python
+# package for more information.
+
 def readCSVmatrix( filePath ):
 
 	csvData = []
 
+	# equivalent to csvFile = open(filePath)
 	with open(filePath) as csvFile:
 
 		readerObj = csv.reader(csvFile)
