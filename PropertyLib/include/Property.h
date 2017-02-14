@@ -1,31 +1,37 @@
-/*
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef PROPERTY_H
+#define PROPERTY_H
 
-// Standard
-#include <stdexcept>
+#include <RawProperty.h>
+#include <string>
 
-// UtilsLibSpecific
-#include <SharedPointer.h>
+using namespace std;
 
-class Entity
+template<typename...> class Property;	// Allows multiple template arguments
+
+template<typename interfaceType, typename storedType>
+class Property<interfaceType, storedType>
 {
 	public:
-		Entity(void);
-		explicit Entity(const int handle );
+		// Constructors
+		Property();
+		explicit Property(string name);
+		Property(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &));
+		Property(const RawProperty<interfaceType, storedType> & rawProperty);
+		Property(const RawProperty<interfaceType, storedType> & rawProperty, const interfaceType & value);
 
-		virtual ~Entity();
-		
-		void setHandle(const int handle);
-		int getHandle(void) const;
-		
+		// Setter and getter functions
+		void set(const interfaceType & value);
+		interfaceType get(void) const;
+
 	private:
-		int handle;
-};
+		RawProperty<interfaceType, storedType> rawProperty;
+		storedType value;
 
-bool operator==( const Entity & left, const Entity & right );
+}; // class Property
 
-typedef SharedPointer<Entity> EntityPtr;
+template<typename type>
+class Property<type> : public Property<type, type>
+{};
 
 #endif
-*/
+
