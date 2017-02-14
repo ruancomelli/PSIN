@@ -1,24 +1,145 @@
 // ==============================================================================================================================
-// File setup
 // ==============================================================================================================================
-// The following pseudo-code line represents every include we want
+// CollidingSpheres.cpp
+// Include's, using's and global variables' definitions
+// ==============================================================================================================================
+// The following pseudo-code lines represent every include and using we want, inside every file
 #include <everything>
 
-using namespace std;
-
-// This is main function
-using boost::math::constants::pi;
+using namespace all_of_them;
 
 const string project_root_path = PROJECT_PATH;
 
+// ==============================================================================================================================
+// ==============================================================================================================================
+// RawPhysicalProperty
+// ==============================================================================================================================
+
+template<typename type>
+void defaultSetter(const type & value, type & destination)
+{
+	destination = value;
+}
+
+template<typename type>
+type defaultGetter(const type & value)
+{
+	return value;
+}
+
+template<typename interfaceType, typename storedType>
+class RawPhysicalProperty
+{
+	public:
+		// Constructors
+		RawPhysicalProperty()
+			: name("Nameless")
+		{
+			if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
+			{
+				setter = defaultSetter;
+				getter = defaultGetter;
+			}
+		}
+
+		explicit RawPhysicalProperty(const string & name)
+		{
+			if(!name.empty()) setName(name);
+			else setName("Nameless");
+
+			if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
+			{
+				setter = defaultSetter;
+				getter = defaultGetter;
+			}
+		}
+
+		RawPhysicalProperty(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
+		{
+			this->name = name;
+			this->setter = setterFunction;
+			this->getter = getterFunction;
+		}
+
+		// Set and get name
+		void setName(const string & name)
+		{
+			if(!name.empty()) this->name = name;
+		}
+
+		string getName(void) const
+		{
+			return this->name;
+		}
+
+		// Set setter and getter
+		void setSetterFunction( void (*setterFunction)(const interfaceType & value, storedType & destination) )
+		{
+			this->setter = setterFunction;
+		}
+		void setGetterFunction( interfaceType (*getterFunction)(const storedType & value) )
+		{
+			this->getter = getterFunction;
+		}
+
+
+	private:
+		void (*setter)(const interfaceType & value, storedType & destination) = NULL;
+		interfaceType (*getter)(const storedType &) = NULL;
+
+		string name;
+
+}; // class RawPhysicalProperty
+
+template<typename...> class PhysicalProperty;	// Allows multiple template arguments
+
+template<typename interfaceType, typename storedType>
+class PhysicalProperty
+{
+	public:
+		// Constructors
+		PhysicalProperty()
+		{}
+
+		explicit PhysicalProperty(string name)
+			: rawProperty(name)
+		{}
+
+		PhysicalProperty(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
+			: rawProperty(name, setterFunction, getterFunction)
+		{}
+
+		// Setter and getter functions
+		void set(const interfaceType & value)
+		{
+			rawProperty.setter(value, this->value);
+		}
+
+		interfaceType get(void)
+		{
+			return rawProperty.getter(this->value);
+		}
+
+	private:
+		RawPhysicalProperty<interfaceType, storedType> rawProperty;
+		storedType value;
+
+}; // class PhysicalProperty
+
+
+template<typename type>
+class PhysicalProperty : public PhysicalProperty<type, type>
+{};
+
 
 // ==============================================================================================================================
+// ==============================================================================================================================
+// CollidingSpheres.cpp
 // Main function
 // ==============================================================================================================================
-// Main function is the simulator. Obviously, this can be changed later, 
+// Main function is the simulator. Obviously, this can be changed later, but this is not the target of this branch
 
 int main(int argc, char **argv){
-
 	// Simulation data
 	string inputFolder(project_root_path + "_input/");
 	FileReader simulationFileReader(inputFolder + "input.txt");
@@ -57,7 +178,49 @@ int main(int argc, char **argv){
 
 	SphericalParticlePtrArrayKit particleArray;
 
-	particleArray.inputParticles(numberOfParticles, particleInputFolder);
+
+	// ----------------------------------------------------- begin NEW THINGS -----------------------------------------------------
+
+	// Creating a new forceModel:
+	ForceModel viscoSpheres;
+	viscoSpheres.normalForceCalculationMethod( normalForceViscoelasticSpheres );
+	viscoSpheres.tangentialForceCalculationMethod( tangentialForceHaffWerner );
+	viscoSpheres.setName( "Viscoelastic Spheres" );
+	viscoSpheres.requireProperty( "radius" );
+	viscoSpheres.requireProperty( elasticModulus );
+	viscoSpheres.requireProperty( dissipativeConstant );
+	viscoSpheres.requireProperty( poissonRatio );
+	viscoSpheres.requireProperty( mass );
+	forceModelList.add(viscoSpheres);
+
+	// ---
+
+	ForceModel forceModel;	// This is the force model currently in use
+	string forceModelName;
+
+	inputData.readValue("<forceModel>", forceModelName);	// Read desired forceModel from input file
+
+	extern vector<ForceModel> forceModelList;	// This is a list of ForceModel objects. Any new ForceModel instance can be added to the global forceModelList using forceModelList.append( newForceModel )
+	foreach( ForceModel fm, forceModelList )	// This sets forceModel as required by the user
+	{
+		if( fm.getName() == forceModelName )
+		{
+			forceModel = fm;
+			break;
+		}
+	}
+
+	forceModel.requireProperties( particleArray ); // forceModel has a list of properties that particleArray must have in order to compute forces
+
+	bool successFullInput = particleArray.inputParticles(numberOfParticles, particleInputFolder); // Inputs particles as required by the forceModel
+	if( !successFullInput ) // Checks whether all physical properties were successfully inputed
+	{
+		cerr 	<< "Error: The selected force model requires some properties that are not in input files" << endl
+				<< "Required properties are:" << endl
+				<< forceModel.requiredPropertiesNames() << endl;
+	}
+
+	// ----------------------------------------------------- end NEW THINGS -----------------------------------------------------
 
 
 	foreach(SphericalParticlePtr particlePtr, particleArray){
@@ -65,7 +228,7 @@ int main(int argc, char **argv){
 		const double r = particlePtr->getScalarProperty( MASS );
 
 		particlePtr->setScalarProperty( MOMENT_OF_INERTIA, 2 * m * r * r / 5 );
-		particlePtr->setScalarProperty( VOLUME, 4 * pi<double>() * r * r * r / 3 );
+		particlePtr->setScalarProperty( VOLUME, 4 * boost::math::constants::pi<double>() * r * r * r / 3 );
 	}
 
 	particleArray[0]->setGravity(gravity);
@@ -136,8 +299,12 @@ int main(int argc, char **argv){
 
 				if(particle->touches(neighbor))	// If particles are in touch
 				{
-					Vector3D normalForce = ForceModel::normalForceLinearDashpotForce( particle, neighbor );
-					ForceModel::tangentialForceCundallStrack( particle, neighbor, normalForce, timeStep );
+
+	// ----------------------------------------------------- begin NEW THINGS -----------------------------------------------------
+
+					forceModel.calculate(particle, neighbor)
+
+	// ----------------------------------------------------- end NEW THINGS -----------------------------------------------------
 				}
 			}
 		}
@@ -167,3 +334,5 @@ int main(int argc, char **argv){
 	
 	cout << endl << "Success" << endl << endl;
 }
+// ==============================================================================================================================
+// ==============================================================================================================================
