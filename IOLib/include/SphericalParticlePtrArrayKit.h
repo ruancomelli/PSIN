@@ -70,7 +70,7 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 		}
 
 		inline void saveSphericalParticlePositionMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const{
-			for(int i = 0 ; i <= particle.getTaylorOrder() ; ++i ){
+			for(int i = 0 ; i <= particle->getTaylorOrder() ; ++i ){
 				// Save each component of the i-th derivative of the positions
 				outFile << horizontalSeparator;
 				saveVector3D(outFile, particle->getPosition(i), horizontalSeparator, verticalSeparator);
@@ -79,7 +79,7 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 		}
 		
 		inline void saveSphericalParticleOrientationMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const{
-			for(int i = 0 ; i <= particle.getTaylorOrder() ; ++i ){
+			for(int i = 0 ; i <= particle->getTaylorOrder() ; ++i ){
 				// Save each component of the i-th derivative of the orientations
 				outFile << horizontalSeparator;
 				saveVector3D(outFile, particle->getOrientation(i), horizontalSeparator, verticalSeparator);

@@ -128,10 +128,10 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 			*outFile[particlePtr->getHandle()][DATA_IDX] << "<Radius> " << particlePtr->getGeometricParameter(RADIUS) << verticalSeparator;
 
 			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
-				*particlePtr, horizontalSeparator, verticalSeparator);
+				particlePtr, horizontalSeparator, verticalSeparator);
 
 			saveSphericalParticleOrientationMatrix(*outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX],
-				*particlePtr, horizontalSeparator, verticalSeparator);
+				particlePtr, horizontalSeparator, verticalSeparator);
 			
 			saveVector3D(*outFile[particlePtr->getHandle()][FORCE_IDX],
 				particlePtr->getResultingForce(), horizontalSeparator, verticalSeparator);
