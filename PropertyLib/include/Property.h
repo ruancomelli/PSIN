@@ -33,5 +33,7 @@ template<typename type>
 class Property<type> : public Property<type, type>
 {};
 
+#include <Property.tpp>
+
 #endif
 

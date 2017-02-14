@@ -30,14 +30,16 @@ class RawProperty<interfaceType, storedType>
 	private:
 		string name;
 
-}; // class RawProperty
+}; // class RawProperty<interfaceType, storedType>
 
 template<typename type>
 class RawProperty<type> : public RawProperty<type, type>
 {
-	RawProperty();
-	explicit RawProperty(const string & name);
-};
+	public:
+		RawProperty();
+		explicit RawProperty(const string & name);
+		RawProperty(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &));
+}; // class RawProperty<type, type>
 
 
 #include <RawProperty.tpp>

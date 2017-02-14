@@ -1,5 +1,3 @@
-#include <Property.h>
-
 // Constructors
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property()
