@@ -5,18 +5,6 @@
 
 using namespace std;
 
-template<typename type>
-void defaultSetter(const type & value, type & destination)
-{
-	destination = value;
-}
-
-template<typename type>
-type defaultGetter(const type & value)
-{
-	return value;
-}
-
 template<typename...> class RawProperty;
 
 template<typename interfaceType, typename storedType>
@@ -46,6 +34,12 @@ class RawProperty<interfaceType, storedType>
 
 template<typename type>
 class RawProperty<type> : public RawProperty<type, type>
-{};
+{
+	RawProperty();
+	explicit RawProperty(const string & name);
+};
+
+
+#include <RawProperty.tpp>
 
 #endif

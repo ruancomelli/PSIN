@@ -31,15 +31,38 @@ TestCase( RawPropertyConstructorsTest )
 	int destinationAnswer = otherName.length();
 
 	RawProperty<string, int> raw1;
-	//RawProperty<string, int> raw2(name);
-	//RawProperty<string, int> raw3(otherName, setIntFromString, getStringFromInt);
+	RawProperty<string, int> raw2(name);
+	RawProperty<string, int> raw3(otherName, setIntFromString, getStringFromInt);
 
-	//checkEqual( raw1.getName(), defaultName );
-	//checkEqual( raw2.getName(), name );
-	//checkEqual( raw3.getName(), otherName );
+	checkEqual( raw1.getName(), defaultName );
+	checkEqual( raw2.getName(), name );
+	checkEqual( raw3.getName(), otherName );
 
-	//raw3.setter( otherName, destination );
+	raw3.setter( otherName, destination );
 
-	//checkEqual( destination, destinationAnswer );
-	//checkEqual( raw3.getter(6), "6" );
+	checkEqual( destination, destinationAnswer );
+	checkEqual( raw3.getter(6), "6" );
+}
+
+TestCase(RawPropertyConstructorsTest)
+{
+	string defaultName = "Nameless";
+	string name = "Steve";
+	string otherName = "Rohan";
+
+	int destination;
+	int destinationAnswer = otherName.length();
+
+	RawProperty<string, int> raw1;
+	RawProperty<string, int> raw2(name);
+	RawProperty<string, int> raw3(otherName, setIntFromString, getStringFromInt);
+
+	checkEqual(raw1.getName(), defaultName);
+	checkEqual(raw2.getName(), name);
+	checkEqual(raw3.getName(), otherName);
+
+	raw3.setter(otherName, destination);
+
+	checkEqual(destination, destinationAnswer);
+	checkEqual(raw3.getter(6), "6");
 }

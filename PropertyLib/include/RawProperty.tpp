@@ -1,27 +1,28 @@
-#include <RawProperty.h>
+//#include <RawProperty.h>
+
+template<typename type>
+void defaultSetter(const type & value, type & destination)
+{
+	destination = value;
+}
+
+template<typename type>
+type defaultGetter(const type & value)
+{
+	return value;
+}
 
 // Constructors
 template<typename interfaceType, typename storedType>
 RawProperty<interfaceType, storedType>::RawProperty()
 	: name("Nameless")
 {
-	if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
-	{
-		setter = defaultSetter;
-		getter = defaultGetter;
-	}
 }
 
 template<typename interfaceType, typename storedType>
 RawProperty<interfaceType, storedType>::RawProperty(const string & name)
 {
 	this->setName(name);
-
-	if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
-	{
-		setter = defaultSetter;
-		getter = defaultGetter;
-	}
 }
 
 template<typename interfaceType, typename storedType>
@@ -60,4 +61,29 @@ template<typename interfaceType, typename storedType>
 void RawProperty<interfaceType, storedType>::setGetterFunction( interfaceType (*getterFunction)(const storedType & value) )
 {
 	this->getter = getterFunction;
+}
+
+
+// Constructors
+template<typename type>
+RawProperty<type>::RawProperty()
+	: name("Nameless")
+{
+	if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
+	{
+		setter = defaultSetter;
+		getter = defaultGetter;
+	}
+}
+
+template<typename type>
+RawProperty<type>::RawProperty(const string & name)
+{
+	this->setName(name);
+
+	if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
+	{
+		setter = defaultSetter;
+		getter = defaultGetter;
+	}
 }
