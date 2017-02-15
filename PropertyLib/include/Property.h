@@ -23,7 +23,14 @@ class Property<interfaceType, storedType>
 		void set(const interfaceType & value);
 		interfaceType get(void) const;
 
-	private:
+		// Set and get name
+		void setName(const string & name);
+		string getName(void) const;
+
+		// Set RawProperty
+		virtual void setRawProperty( const RawProperty<interfaceType, storedType> & raw );
+
+	protected:
 		RawProperty<interfaceType, storedType> rawProperty;
 		storedType value;
 
@@ -31,7 +38,19 @@ class Property<interfaceType, storedType>
 
 template<typename type>
 class Property<type> : public Property<type, type>
-{};
+{
+	public:
+		Property();
+		explicit Property(string name);
+		Property(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &));
+		Property(const RawProperty<type, type> & rawProperty);
+		Property(const RawProperty<type, type> & rawProperty, const type & value);
+		Property(const RawProperty<type> & rawProperty);
+		Property(const RawProperty<type> & rawProperty, const type & value);
+
+		// Set RawProperty
+		virtual void setRawProperty( const RawProperty<type> & raw );
+};
 
 #include <Property.tpp>
 
