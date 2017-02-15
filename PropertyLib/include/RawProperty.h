@@ -1,6 +1,10 @@
 #ifndef RAW_PROPERTY_H
 #define RAW_PROPERTY_H
 
+// UtilsLib
+#include <SharedPointer.h>
+
+// Standard
 #include <string>
 
 using namespace std;
@@ -46,6 +50,8 @@ class RawProperty<type> : public RawProperty<type, type>
 		explicit RawProperty(const string & name, void (*setterFunction)(const type &, type &) = defaultSetter<type>, type (*getterFunction)(const type &) = defaultGetter<type>);
 }; // class RawProperty<type, type>
 
+template<typename interfaceType, typename storedType>
+using RawPropertyPtr = SharedPointer< RawProperty<interfaceType, storedType> >;
 
 #include <RawProperty.tpp>
 

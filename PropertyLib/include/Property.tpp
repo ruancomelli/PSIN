@@ -1,26 +1,27 @@
 // Constructors
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property()
+	: rawProperty( new RawProperty<interfaceType, storedType>() )
 {}
 
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property(string name)
-	: rawProperty(name)
+	: rawProperty( new RawProperty<interfaceType, storedType>(name) )
 {}
 
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
-	: rawProperty(name, setterFunction, getterFunction)
+	: rawProperty( new RawProperty<interfaceType, storedType>(name, setterFunction, getterFunction) )
 {}
 
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property( const RawProperty<interfaceType, storedType> & rawProperty)
-	: rawProperty(rawProperty)
+	: rawProperty( new RawProperty<interfaceType, storedType>(rawProperty) )
 {}
 
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property( const RawProperty<interfaceType, storedType> & rawProperty, const interfaceType & value)
-	: rawProperty(rawProperty)
+	: rawProperty( new RawProperty<interfaceType, storedType>(rawProperty) )
 {
 	set(value);
 }
@@ -29,51 +30,46 @@ Property<interfaceType, storedType>::Property( const RawProperty<interfaceType, 
 template<typename interfaceType, typename storedType>
 void Property<interfaceType, storedType>::set(const interfaceType & value)
 {
-	rawProperty.setter(value, this->value);
+	rawProperty->setter(value, this->value);
 }
 
 template<typename interfaceType, typename storedType>
 interfaceType Property<interfaceType, storedType>::get(void) const
 {
-	return rawProperty.getter(this->value);
+	return rawProperty->getter(this->value);
 }
 
-// Set and Get name
-template<typename interfaceType, typename storedType>
-void Property<interfaceType, storedType>::setName(const string & name)
-{
-	this->rawProperty.setName(name);
-}
-
+// Get name
 template<typename interfaceType, typename storedType>
 string Property<interfaceType, storedType>::getName(void) const
 {
-	return this->rawProperty.getName();
+	return this->rawProperty->getName();
 }
 
 // Set RawProperty
 template<typename interfaceType, typename storedType>
 void Property<interfaceType, storedType>::setRawProperty( const RawProperty<interfaceType, storedType> & raw )
 {
-	this->rawProperty = raw;
+	this->rawProperty = RawPropertyPtr<interfaceType, storedType>( new RawProperty<interfaceType, storedType>(raw));
 }
 
 
 // Property<type>
 
-// Set RawProperty
 template<typename type>
 Property<type>::Property() : Property<type, type>() 
 {
-	this->rawProperty.setSetterFunction( defaultSetter );
-	this->rawProperty.setGetterFunction( defaultGetter );
+	this->rawProperty->setSetterFunction( defaultSetter );
+	this->rawProperty->setGetterFunction( defaultGetter );
 }
+
 
 template<typename type>
 Property<type>::Property(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &))
 	: Property<type, type>(name, setterFunction, getterFunction) 
 {
 }
+
 
 template<typename type>
 Property<type>::Property(const RawProperty<type, type> & rawProperty)
@@ -99,8 +95,9 @@ Property<type>::Property(const RawProperty<type> & rawProperty, const type & val
 {
 }
 
+// Set RawProperty
 template<typename type>
 void Property<type>::setRawProperty( const RawProperty<type> & raw )
 {
-	this->rawProperty = raw;
+	this->rawProperty = SharedPointer< RawProperty<type> >( new RawProperty<type>(raw));
 }

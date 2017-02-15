@@ -1,7 +1,13 @@
 #ifndef PROPERTY_H
 #define PROPERTY_H
 
+// PropertyLib
 #include <RawProperty.h>
+
+// UtilsLib
+#include <SharedPointer.h>
+
+// Standard
 #include <string>
 
 using namespace std;
@@ -24,14 +30,13 @@ class Property<interfaceType, storedType>
 		interfaceType get(void) const;
 
 		// Set and get name
-		void setName(const string & name);
 		string getName(void) const;
 
 		// Set RawProperty
 		virtual void setRawProperty( const RawProperty<interfaceType, storedType> & raw );
 
 	protected:
-		RawProperty<interfaceType, storedType> rawProperty;
+		RawPropertyPtr<interfaceType, storedType> rawProperty;
 		storedType value;
 
 }; // class Property
@@ -39,17 +44,26 @@ class Property<interfaceType, storedType>
 template<typename type>
 class Property<type> : public Property<type, type>
 {
-	public:
+	public:		
 		Property();
 		explicit Property(const string & name, void (*setterFunction)(const type &, type &) = defaultSetter<type>, type (*getterFunction)(const type &) = defaultGetter<type>);
 		explicit Property(const RawProperty<type, type> & rawProperty);
 		Property(const RawProperty<type, type> & rawProperty, const type & value);
 		explicit Property(const RawProperty<type> & rawProperty);
 		Property(const RawProperty<type> & rawProperty, const type & value);
+		
 
 		// Set RawProperty
 		virtual void setRawProperty( const RawProperty<type> & raw );
 };
+
+/*
+template<typename interfaceType, typename storedType>
+using PropertyPtr = SharedPointer< Property<interfaceType, storedType> >;
+
+template<typename type>
+using PropertyPtr = SharedPointer< Property<type> >;
+*/
 
 #include <Property.tpp>
 

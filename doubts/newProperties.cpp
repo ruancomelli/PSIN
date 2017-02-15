@@ -39,6 +39,8 @@ RawProperty<double> radius("Radius", setPositive);
 radius.deductibleFrom(volume, getRadiusFromVolume);
 volume.deductibleFrom(radius, getVolumeFromRadius);
 
+// PropList.checkRedundances()
+
 
 // ==============================================================================================================================
 // ==============================================================================================================================
@@ -216,7 +218,8 @@ int main(int argc, char **argv){
 	viscoSpheres.normalForceCalculationMethod( normalForceViscoelasticSpheres );
 	viscoSpheres.tangentialForceCalculationMethod( tangentialForceHaffWerner );
 	viscoSpheres.setName( "Viscoelastic Spheres" );
-	viscoSpheres.requireProperty( "radius" );
+	viscoSpheres.requireProperty( radius );	// double
+	viscoSpheres.requireProperty( linear_momentum ); // matrix
 	viscoSpheres.requireProperty( elasticModulus );
 	viscoSpheres.requireProperty( dissipativeConstant );
 	viscoSpheres.requireProperty( poissonRatio );
