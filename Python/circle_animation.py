@@ -7,15 +7,16 @@ from matplotlib import animation
 fig = plt.figure()
 fig.set_dpi(100)
 fig.set_size_inches(7, 6.5)
-ax = plt.axes(xlim=(0, 10), ylim=(0, 10))
+ax = plt.axes()
+ax.autoscale(enable=True , axis='both')
 ax.grid(visible=True)
 
 # Generate circles
-nCircle = 3
+nCircle = 50
 theta = 360/nCircle
-patch = []
+circles = []
 for k in range(0,nCircle):
-    patch.append( plt.Circle((5, -5), 0.75, fc='y') )
+    circles.append( plt.Circle((5, -5), 0.25, fc='y') )
 
 # Define initial condition
 def init():
@@ -23,20 +24,21 @@ def init():
         io = theta * k
         x = 5 + 3 * np.sin(np.radians(io))
         y = 5 + 3 * np.cos(np.radians(io))
-        patch[k].center = (x, y)
-        ax.add_patch(patch[k])
-    return patch
+        circles[k].center = (x, y)
+        ax.add_patch(circles[k])
+    return circles
 
 # Define position for each frame
 def animate(i):
     for k in range(0,nCircle):
-        x, y = patch[k].center
+        x, y = circles[k].center
         io = theta * k
         x = 5 + 3 * np.sin(np.radians(i + io))
         y = 5 + 3 * np.cos(np.radians(i + io))
-        patch[k].center = (x, y)
+        circles[k].center = (x, y)
     print('i = ' , i)
-    return patch
+    ax.autoscale(enable=True , axis='both')
+    return circles
 
 # Animate function
 anim = animation.FuncAnimation(fig, animate,
