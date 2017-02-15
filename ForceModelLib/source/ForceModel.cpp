@@ -1,7 +1,31 @@
 #include <ForceModel.h>
 
-vector< vector< Vector3D > > ForceModel::cummulativeZeta;
+void resizeCummulativeZeta( vector< vector< Vector3D > > & cummulativeZeta, const int numberOfParticles )
+{
+	cummulativeZeta.resize( numberOfParticles - 1 );
+
+	for( int i=0 ; i < (numberOfParticles - 1) ; ++i )
+		cummulativeZeta[i].resize( numberOfParticles - 1 - i );
+}
+
+void addZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+	cummulativeZeta[index1][index2] += zeta;
+}
+
+void setZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
+{
+	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
+	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
+
+	cummulativeZeta[index1][index2] = zeta;
+}
+
 vector< vector< bool > > ForceModel::collisionFlag;
+int ForceModel::numberOfParticles;
 
 // Normal Force Model
 // Linear Dashpot Force
@@ -235,11 +259,17 @@ void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, Spher
 //		Calculates tangential forces between two spherical particles according to equation (2.21) (see reference)
 void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
 {	
+
+	static vector< vector< Vector3D > > cummulativeZeta;
+	resizeCummulativeZeta( cummulativeZeta, numberOfParticles );
+
 	if( particle->touches(neighbor) )
 	{
 		if( !checkCollision(particle, neighbor) )
 		{
 			startCollision( particle, neighbor );
+
+			setZeta( cummulativeZeta, particle, neighbor, nullVector3D() );
 		}
 
 		// ---- Getting particles properties and parameters ----
@@ -261,7 +291,7 @@ void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, Sp
 		
 		const Vector3D tangentialVersor = particle->tangentialVersor( neighbor );
 
-		addZeta( particle, neighbor, relativeTangentialVelocity * timeStep );
+		addZeta( cummulativeZeta, particle, neighbor, relativeTangentialVelocity * timeStep );
 		
 		const int index1 = min( particle->getHandle(), neighbor->getHandle() );
 		const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
@@ -281,34 +311,10 @@ void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, Sp
 	}
 }
 
-void ForceModel::setNumberOfParticles( const int numberOfParticles )
+void ForceModel::setNumberOfParticles( const int nParticles )
 {
-	resizeCummulativeZeta(numberOfParticles);
-	resizeCollisionFlag(numberOfParticles);
-}
-
-void ForceModel::resizeCummulativeZeta( const int numberOfParticles )
-{
-	cummulativeZeta.resize( numberOfParticles - 1 );
-
-	for( int i=0 ; i < (numberOfParticles - 1) ; ++i )
-		cummulativeZeta[i].resize( numberOfParticles - 1 - i );
-}
-
-void ForceModel::addZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
-{
-	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
-	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
-
-	cummulativeZeta[index1][index2] += zeta;
-}
-
-void ForceModel::setZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
-{
-	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
-	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
-
-	cummulativeZeta[index1][index2] = zeta;
+	numberOfParticles = nParticles;
+	resizeCollisionFlag(nParticles);
 }
 
 void ForceModel::resizeCollisionFlag( const int numberOfParticles )
@@ -333,8 +339,6 @@ void ForceModel::startCollision( const SphericalParticlePtr particle, const Sphe
 	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
 
 	collisionFlag[index1][index2] = true;
-
-	setZeta( particle, neighbor, nullVector3D() );
 }
 
 void ForceModel::endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )

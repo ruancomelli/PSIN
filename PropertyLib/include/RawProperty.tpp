@@ -76,14 +76,6 @@ RawProperty<type>::RawProperty()
 
 // If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
-RawProperty<type>::RawProperty(const string & name)
-	: RawProperty<type, type>(name)
-{
-	setter = defaultSetter;
-	getter = defaultGetter;
-}
-
-template<typename type>
 RawProperty<type>::RawProperty(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &))
 	: RawProperty<type, type>(name, setterFunction, getterFunction)
 {

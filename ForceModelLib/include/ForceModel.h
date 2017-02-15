@@ -20,6 +20,11 @@
 #include <Particle.h>
 #include <SphericalParticle.h>
 
+using namespace std;
+
+void addZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
+void setZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
+void resizeCummulativeZeta( vector< vector< Vector3D > > & cummulativeZeta, const int numberOfParticles );
 
 class ForceModel
 {
@@ -42,17 +47,18 @@ class ForceModel
 		static void startCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor );
 		static void endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor );
 
-		static void setNumberOfParticles( const int numberOfParticles );
+		static void setNumberOfParticles( const int nParticles ); // TO-DO: undo static!!
 
-		static void addZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
-		static void setZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
+/*		string getName(void){ return this->name; }
+		void setName(string name){ this->name = name; }*/
 		
 	private:
-		static void resizeCummulativeZeta( const int numberOfParticles );
-		static void resizeCollisionFlag( const int numberOfParticles );
+		static void resizeCollisionFlag( const int nParticles );
 
-		static vector< vector< Vector3D > > cummulativeZeta;
 		static vector< vector< bool > > collisionFlag;
+
+		static int numberOfParticles; // TO-DO: undo static!!
+		/*string name;*/
 
 };
 

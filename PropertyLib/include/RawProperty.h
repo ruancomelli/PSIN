@@ -7,6 +7,12 @@ using namespace std;
 
 template<typename...> class RawProperty;
 
+template<typename type>
+void defaultSetter(const type & value, type & destination);
+
+template<typename type>
+type defaultGetter(const type & value);
+
 template<typename interfaceType, typename storedType>
 class RawProperty<interfaceType, storedType>
 {
@@ -37,8 +43,7 @@ class RawProperty<type> : public RawProperty<type, type>
 {
 	public:
 		RawProperty();
-		explicit RawProperty(const string & name);
-		RawProperty(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &));
+		explicit RawProperty(const string & name, void (*setterFunction)(const type &, type &) = defaultSetter<type>, type (*getterFunction)(const type &) = defaultGetter<type>);
 }; // class RawProperty<type, type>
 
 

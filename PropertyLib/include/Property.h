@@ -16,7 +16,7 @@ class Property<interfaceType, storedType>
 		Property();
 		explicit Property(string name);
 		Property(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &));
-		Property(const RawProperty<interfaceType, storedType> & rawProperty);
+		explicit Property(const RawProperty<interfaceType, storedType> & rawProperty);
 		Property(const RawProperty<interfaceType, storedType> & rawProperty, const interfaceType & value);
 
 		// Setter and getter functions
@@ -41,11 +41,10 @@ class Property<type> : public Property<type, type>
 {
 	public:
 		Property();
-		explicit Property(string name);
-		Property(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &));
-		Property(const RawProperty<type, type> & rawProperty);
+		explicit Property(const string & name, void (*setterFunction)(const type &, type &) = defaultSetter<type>, type (*getterFunction)(const type &) = defaultGetter<type>);
+		explicit Property(const RawProperty<type, type> & rawProperty);
 		Property(const RawProperty<type, type> & rawProperty, const type & value);
-		Property(const RawProperty<type> & rawProperty);
+		explicit Property(const RawProperty<type> & rawProperty);
 		Property(const RawProperty<type> & rawProperty, const type & value);
 
 		// Set RawProperty

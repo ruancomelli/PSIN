@@ -70,13 +70,6 @@ Property<type>::Property() : Property<type, type>()
 }
 
 template<typename type>
-Property<type>::Property(string name) : Property<type, type>(name) 
-{
-	this->rawProperty.setSetterFunction( defaultSetter );
-	this->rawProperty.setGetterFunction( defaultGetter );
-}
-
-template<typename type>
 Property<type>::Property(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &))
 	: Property<type, type>(name, setterFunction, getterFunction) 
 {

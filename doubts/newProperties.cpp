@@ -12,6 +12,36 @@ const string project_root_path = PROJECT_PATH;
 
 // ==============================================================================================================================
 // ==============================================================================================================================
+// PropertyList.h
+// Define properties and their relationship
+// ==============================================================================================================================
+
+// Assigns value to destination if value is positive
+void setPositive( const double & value, double & destination);
+
+double getVolumeFromRadius( const double & radius ){
+	return 4/3 * pi * pow(radius, 3);
+}
+
+double getRadiusFromVolume(const double & volume){
+	return pow( 3/(4*pi) * volume, 1/3 )
+}
+
+// Mass
+RawProperty<double> mass("Mass", setPositive);
+
+// Volume
+RawProperty<double> volume("Volume", setPositive);
+
+// Radius
+RawProperty<double> radius("Radius", setPositive);
+
+radius.deductibleFrom(volume, getRadiusFromVolume);
+volume.deductibleFrom(radius, getVolumeFromRadius);
+
+
+// ==============================================================================================================================
+// ==============================================================================================================================
 // RawPhysicalProperty
 // ==============================================================================================================================
 
@@ -211,9 +241,16 @@ int main(int argc, char **argv){
 	}
 
 	forceModel.requireProperties( particleArray ); // forceModel has a list of properties that particleArray must have in order to compute forces
+	// OR
+	particleArray.setRequiredProperties( forceModel.getRequiredProperties() );
 
-	bool successFullInput = particleArray.inputParticles(numberOfParticles, particleInputFolder); // Inputs particles as required by the forceModel
-	if( !successFullInput ) // Checks whether all physical properties were successfully inputed
+
+	bool successfullInput = particleArray.inputParticles(numberOfParticles, particleInputFolder); // Inputs particles as required by the forceModel
+	bool successfullPropertyDetermination = particleArray.checkPropertyRedundances();
+	// Maybe in the input files there was not "Volume", but there was "Radius". We can easily deduce "Volume" through the expression Volume = 4/3 * pi * Radius
+	// CAUTION: Actually, "Volume" is not always dependent on "Radius". This only happens to SphericalParticles
+
+	if( !successfullInput ) // Checks whether all physical properties were successfully inputed
 	{
 		cerr 	<< "Error: The selected force model requires some properties that are not in input files" << endl
 				<< "Required properties are:" << endl
