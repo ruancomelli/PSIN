@@ -1,7 +1,11 @@
 #ifndef PROPERTY_LIST_H
 #define PROPERTY_LIST_H
 
+// PropertyLib
 #include <Property.h>
+
+// Standard
+#include <iostream>
 #include <string>
 
 using namespace std;

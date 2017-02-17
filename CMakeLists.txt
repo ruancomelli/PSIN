@@ -66,6 +66,8 @@ endif()
 
 if(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/lib)
 	set(BOOST_LIBRARY_DIR ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/lib)
+elseif(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0/stage/lib)
+	set(BOOST_LIBRARY_DIR ${GIT_PROJECTS_DIR}/boost_1_63_0/stage/lib)
 else()
 	set(BOOST_LIBRARY_DIR CACHE PATH "Boost library path")
 endif()
