@@ -1,6 +1,6 @@
 #include <PhysicalEntity.h>
 
-// ------------------------------- Constructor -------------------------------
+// ------------------------------- Constructors -------------------------------
 int PhysicalEntity::dimension = 3;
 
 PhysicalEntity::PhysicalEntity()

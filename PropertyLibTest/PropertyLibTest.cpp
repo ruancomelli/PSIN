@@ -2,6 +2,7 @@
 
 // Standard
 #include <iostream>
+#include <iterator>
 
 // PropertyLib
 #include <Property.h>
@@ -14,6 +15,11 @@ using std::string;
 void setIntFromString(const string & value, int & destination)
 {
 	destination = value.length();
+}
+
+void setIntFromString2(const string & value, int & destination)
+{
+	destination = 2*value.length();
 }
 
 string getStringFromInt(const int & value)
@@ -107,6 +113,42 @@ TestCase(RawPropertySetSetterAndGetterTest)
 
 	checkEqual(destination, destinationAnswer);
 	checkEqual(raw.getter(6), "6");
+}
+
+TestCase(EqualFunctionsTest)
+{
+	check(setIntFromString == setIntFromString);
+	check(setIntFromString != setIntFromString2);
+}
+
+TestCase(EqualAndSimilarTest)
+{
+	RawProperty<string, int> raw1("Rohan");
+	RawProperty<string, int> raw2("Rohan");
+	RawProperty<string, int> raw3("Rohan", setIntFromString, getStringFromInt);
+	RawProperty<string, int> raw4("Rohan", setIntFromString, getStringFromInt);
+	RawProperty<string, int> raw5("Steve", setIntFromString, getStringFromInt);
+
+
+	check(raw1.isSimilarTo(raw2));
+	check(raw1.isSimilarTo(raw3));
+	check(!raw1.isSimilarTo(raw5));
+
+	check(raw1.isEqualTo(raw2));
+	check(raw3.isEqualTo(raw4));
+	check(!raw2.isEqualTo(raw3));
+	check(!raw1.isEqualTo(raw5));
+
+	RawProperty<int> raw6("Rohan");
+	RawProperty<int> raw7("Rohan");
+	RawProperty<int, int> raw8("Rohan");
+	RawProperty<int, int> raw9("Rohan", defaultSetter, defaultGetter);
+
+	check(raw6.isEqualTo(raw7));
+	check(raw6.isSimilarTo(raw8));
+	check(!raw6.isEqualTo(raw8));
+	check(raw6.isEqualTo(raw9));
+
 }
 
 TestCase(PropertyConstructorsTest)
@@ -204,4 +246,11 @@ TestCase(PropertySetRawProperty)
 
 	property2.set(intValue);
 	checkEqual(property2.get(), intReturn);
+}
+
+#include <PropertyContainer.h>
+
+TestCase(PropertyContainerTest)
+{
+
 }

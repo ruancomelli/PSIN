@@ -13,7 +13,12 @@
 #include <Vector3D.h>
 #include <SharedPointer.h>
 
+// PropertyLib
+#include <Property.h>
+
 using namespace std;
+
+namespace boost{ using many = std::vector<any>; };
 
 
 enum GeometryType{
@@ -88,7 +93,7 @@ class PhysicalEntity: public Entity
 		double getScalarProperty(const int scalarPropertyIdentifier) const;
 		DoubleVector getScalarProperty() const;
 
-			// The two above are incomplete (vectorial and matricial property).
+			// The two below are incomplete (vectorial and matricial property).
 			// vectorialProperty
 		DoubleVector2D getVectorialProperty() const {return this->vectorialProperty; }
 
@@ -108,10 +113,12 @@ class PhysicalEntity: public Entity
 		vector<Vector3D>	orientation;
 
 		static void setDimension(const int dim);
+
 		// memory functions
 		void resizePositionOrientation(void);
 		void resizePropertyVector(void);
-		// set spacial positions
+
+		// set spatial positions
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z = 0);
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const Vector3D & vec);
 		void setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial);

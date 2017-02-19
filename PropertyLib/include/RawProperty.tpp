@@ -63,6 +63,41 @@ void RawProperty<interfaceType, storedType>::setGetterFunction( interfaceType (*
 	this->getter = getterFunction;
 }
 
+// Comparing
+template<typename interfaceType, typename storedType>
+bool RawProperty<interfaceType, storedType>::isSimilarTo( const RawProperty<interfaceType, storedType> & other ) const
+{
+	return ( this->getName() == other.getName() );
+}
+
+template<typename interfaceType, typename storedType>
+bool RawProperty<interfaceType, storedType>::isSimilarTo( const RawPropertyPtr<interfaceType, storedType> & other ) const
+{
+	return ( this->getName() == other->getName() );
+}
+
+template<typename interfaceType, typename storedType>
+bool RawProperty<interfaceType, storedType>::isEqualTo( const RawProperty<interfaceType, storedType> & other ) const
+{
+	bool test1 = ( this->getName() == other.getName() );
+	bool test2 = ( this->setter == other.setter );
+	bool test3 = ( this->getter == other.getter );
+
+	return test1 && test2 && test3;
+}
+
+template<typename interfaceType, typename storedType>
+bool RawProperty<interfaceType, storedType>::isEqualTo( const RawPropertyPtr<interfaceType, storedType> & other ) const
+{
+	bool test1 = ( this->getName() == other->getName() );
+	bool test2 = ( this->setter == other->setter );
+	bool test3 = ( this->getter == other->getter );
+
+	return test1 && test2 && test3;
+}
+
+
+// Only one type
 
 // Constructors
 // If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)

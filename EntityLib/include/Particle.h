@@ -20,10 +20,12 @@ typedef SharedPointer< Particle > ParticlePtr;
 class Particle: public PhysicalEntity
 {
 	public:
+		// ---- Constructors ----
 		Particle();
 		explicit Particle(const PhysicalEntity & base);
 		Particle(const int taylorOrder, const int dimension, const int handle = -1);
 		
+		// ---- Dynamics ----
 		void addBodyForce(const Vector3D force){ this->bodyForce += force; }
 		void addContactForce(const Vector3D force){ this->contactForce += force; }
 		void setBodyForce(const Vector3D force){ this->bodyForce = force; } 

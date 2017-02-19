@@ -20,6 +20,10 @@ type defaultGetter(const type & value);
 template<typename interfaceType, typename storedType>
 class RawProperty<interfaceType, storedType>
 {
+
+	template<typename interfaceType, typename storedType>
+	using RawPropertyPtr = SharedPointer< RawProperty<interfaceType, storedType> >;
+
 	public:
 		// Constructors
 		RawProperty();
@@ -36,6 +40,12 @@ class RawProperty<interfaceType, storedType>
 
 		void (*setter)(const interfaceType & value, storedType & destination) = NULL;
 		interfaceType (*getter)(const storedType &) = NULL;
+
+		bool isSimilarTo( const RawProperty<interfaceType, storedType> & other ) const;
+		bool isSimilarTo( const RawPropertyPtr<interfaceType, storedType> & other ) const;
+
+		bool isEqualTo( const RawProperty<interfaceType, storedType> & other ) const;
+		bool isEqualTo( const RawPropertyPtr<interfaceType, storedType> & other ) const;
 
 	private:
 		string name;

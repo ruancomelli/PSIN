@@ -19,7 +19,7 @@ file(GLOB ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
 #LINK LIBRARIES
-#target_link_libraries(${PROJECT_NAME} PropertyLib)
+target_link_libraries(${PROJECT_NAME} PropertyLib)
 target_link_libraries(${PROJECT_NAME} UtilsLibSpecific)
 
 #DEFINE OUTPUT LOCATION
