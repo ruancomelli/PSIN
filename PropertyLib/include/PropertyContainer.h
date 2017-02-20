@@ -9,10 +9,11 @@
 #include <string>
 #include <set>
 #include <list>
+#include <vector>
 
 // boost
 #include <boost/any.hpp>
-using many = std::list<boost::any>;
+using many = std::vector<boost::any>;
 
 using namespace std;
 
@@ -21,6 +22,12 @@ class PropertyContainer
 	public:
 
 		// ---- Get, add and set properties and values ----
+		PropertyContainer();
+		PropertyContainer( many & propValues, set<string> & propNames );
+
+		// Set where propertyValues and propertyNames must point to
+		void pointPropertyValues( many & propValues );
+		void pointPropertyNames( set<string> & propNames );
 
 		// Get a property
 		template<typename interfaceType, typename storedType>
@@ -31,13 +38,16 @@ class PropertyContainer
 		interfaceType getValue(const RawProperty<interfaceType, storedType> & raw) const;
 
 		// Sets or adds a property
+		/*template<typename interfaceType, typename storedType>
+		void setProperty(const RawProperty<interfaceType, storedType> & raw, const interfaceType & value );*/
+
+		template<typename interfaceType, typename storedType, typename implicitInterfaceType>
+		void setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );
+
 		template<typename interfaceType, typename storedType>
 		void setProperty(const Property<interfaceType, storedType> & property);
-		// add 
-		// void setProperty(const RawProperty<interfaceType, storedType> & raw, interfaceType value )
 
 	private:
-		SharedPointer< many > rawPropertyArray;
 		SharedPointer< many > propertyValues;
 		SharedPointer< set<string> > propertyNames;
 }; // class PropertyContainer

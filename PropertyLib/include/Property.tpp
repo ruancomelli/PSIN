@@ -53,6 +53,11 @@ void Property<interfaceType, storedType>::setRawProperty( const RawProperty<inte
 	this->rawProperty = RawPropertyPtr<interfaceType, storedType>( new RawProperty<interfaceType, storedType>(raw));
 }
 
+template<typename interfaceType, typename storedType>
+RawPropertyPtr<interfaceType, storedType> Property<interfaceType, storedType>::getRawProperty( void ) const
+{
+	return this->rawProperty;
+}
 
 // Property<type>
 

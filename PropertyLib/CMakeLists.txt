@@ -2,7 +2,7 @@
 #
 #
 
-project(PropertyLib CXX)
+project(PropertyLib)
 
 #INCLUDE DIRECTORIES
 include_directories(${CMAKE_SOURCE_DIR}/UtilsLibSpecific/include)

@@ -249,8 +249,25 @@ TestCase(PropertySetRawProperty)
 }
 
 #include <PropertyContainer.h>
+#include <PropertyList.h>
+
+using namespace PropertyList;
 
 TestCase(PropertyContainerTest)
 {
+	many valueList;
+	set<string> nameList;
 
+	double massValue = 80.5;
+	double volumeValue = 10.0;
+	string colorValue = "blue";
+
+	PropertyContainer propertyContainer(valueList, nameList);
+
+	RawProperty<string> color("Color");
+	propertyContainer.setProperty(mass, massValue);
+	propertyContainer.setProperty(volume, volumeValue);
+	propertyContainer.setProperty(color, colorValue);
+
+	checkEqual(propertyContainer.getValue(mass), massValue);
 }

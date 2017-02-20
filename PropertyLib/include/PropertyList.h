@@ -10,13 +10,17 @@
 
 using namespace std;
 
-// Assigns value to destination if value is positive
-void setPositive( const double & value, double & destination);
+namespace PropertyList{
 
-// Mass
-RawProperty<double> mass("Mass", setPositive);
+	// Assigns value to destination if value is positive
+	void setPositive( const double & value, double & destination);
 
-// Volume
-RawProperty<double> volume("Volume", setPositive);
+	// Mass
+	static RawProperty<double> mass("Mass", setPositive);
+
+	// Volume
+	static RawProperty<double> volume("Volume", setPositive);
+
+};
 
 #endif

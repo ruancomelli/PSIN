@@ -34,6 +34,7 @@ class Property<interfaceType, storedType>
 
 		// Set RawProperty
 		virtual void setRawProperty( const RawProperty<interfaceType, storedType> & raw );
+		virtual RawPropertyPtr<interfaceType, storedType> getRawProperty( void ) const;
 
 	protected:
 		RawPropertyPtr<interfaceType, storedType> rawProperty;
