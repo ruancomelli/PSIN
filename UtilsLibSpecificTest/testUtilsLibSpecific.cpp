@@ -337,63 +337,9 @@ TestCase( Vector3DIsEqualOperator ){
 	checkEqual( v1==v2 , true );
 	checkEqual( v1==v3 , false );
 	checkEqual( nullVector3D()==nullVector3D() , true );
-
 }
 
-class A {
-	public:
-		A() {}
-		virtual ~A() {}
-};
 
-template<class type>
-class B : public A {
-	public:
-		B() {}
-		virtual ~B() {}
-
-		virtual void g(type x) 
-		{ 
-			cout << "Calling from B: " << x << endl;
-		}
-};
-
-typedef SharedPointer<A> Aptr;
-
-void dynamicCast(string typeName, A* x)
-{
-	if (typeName == "int") {
-		B<int>* z = dynamic_cast<B<int>*>(x);
-		SharedPointer< B<int> > t(z);
-		z = NULL;
-		t->g(3);
-
-		cout << "Exiting from int" << endl;
-	}
-	if (typeName == "double") {
-		B<double>* z = dynamic_cast<B<double>*>(x);
-		SharedPointer< B<double> > t(z);
-		z = NULL;
-		t->g(4.5);
-
-		cout << "Exiting from double" << endl;
-	}
-}
-
-TestCase(VectorWithMultipleTypes)
-{
-
-	vector< SharedPointer<A> > z;
-
-	B<int> b;
-	B<double> c;
-
-	z.push_back(SharedPointer<A>(&b) );
-	z.push_back(SharedPointer<A>(&c) );
-
-	dynamicCast("int", &(*z[0]) );
-	dynamicCast("double", &(*z[1]));
-}
 
 // vector 3D IO
 //

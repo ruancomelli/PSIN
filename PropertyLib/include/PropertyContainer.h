@@ -13,6 +13,7 @@
 
 // boost
 #include <boost/any.hpp>
+#include <boost/make_shared.hpp>
 using many = std::vector<boost::any>;
 
 using namespace std;
@@ -23,11 +24,6 @@ class PropertyContainer
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();
-		PropertyContainer( many & propValues, set<string> & propNames );
-
-		// Set where propertyValues and propertyNames must point to
-		void pointPropertyValues( many & propValues );
-		void pointPropertyNames( set<string> & propNames );
 
 		// Get a property
 		template<typename interfaceType, typename storedType>

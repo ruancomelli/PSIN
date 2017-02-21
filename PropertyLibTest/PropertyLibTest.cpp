@@ -255,19 +255,27 @@ using namespace PropertyList;
 
 TestCase(PropertyContainerTest)
 {
-	many valueList;
-	set<string> nameList;
+	set<string> x;
+	set<string>::iterator it = x.find("Oi");
 
 	double massValue = 80.5;
 	double volumeValue = 10.0;
 	string colorValue = "blue";
+	int intValue = 5;
 
-	PropertyContainer propertyContainer(valueList, nameList);
+	many valueList;
+	set<string> nameList;
+
+	PropertyContainer propertyContainer;
 
 	RawProperty<string> color("Color");
+	RawProperty<int> integer("Integer");
+
 	propertyContainer.setProperty(mass, massValue);
 	propertyContainer.setProperty(volume, volumeValue);
 	propertyContainer.setProperty(color, colorValue);
 
 	checkEqual(propertyContainer.getValue(mass), massValue);
+	checkEqual(propertyContainer.getValue(volume), volumeValue);
+	checkEqual(propertyContainer.getValue(color), colorValue);
 }
