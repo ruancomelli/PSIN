@@ -9,9 +9,6 @@ PhysicalEntity::PhysicalEntity()
 {
 	setTaylorOrder(3); // It calls resizePositionOrientation
 	setDimension(3);
-
-	// Initialize Properties
-	resizePropertyVector();
 }
 
 PhysicalEntity::PhysicalEntity( const Entity & base )
@@ -19,9 +16,6 @@ PhysicalEntity::PhysicalEntity( const Entity & base )
 {
 	setTaylorOrder(3);
 	setDimension(3);
-
-	// Initialize Properties
-	resizePropertyVector();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
@@ -30,9 +24,6 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int h
 	// Set order and dimension
 	setTaylorOrder(taylorOrder);
 	setDimension(dim);
-
-	// Alloc memory to properties
-	resizePropertyVector();
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Entity & base)
@@ -40,9 +31,6 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Enti
 {
 	setTaylorOrder(taylorOrder);
 	setDimension(dim);
-
-	// Initialize Properties
-	resizePropertyVector();
 }
 // ------------------------------- Property -------------------------------
 
@@ -71,29 +59,6 @@ int PhysicalEntity::getTaylorOrder(void) const
 	return this->taylorOrder;
 }
 
-	// scalarProperty
-void PhysicalEntity::setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue)
-{
-	this->scalarProperty[scalarPropertyIdentifier] = scalarPropertyValue;
-}
-
-void PhysicalEntity::setScalarProperty(const DoubleVector scalarPropertyVector)
-{
-	if( scalarPropertyVector.size() != N_SCALAR_PROPERTY )
-		throw runtime_error("size of scalarPropertyVector is not N_SCALAR_PROPERTY, function setScalarProperty");
-
-	this->scalarProperty = scalarPropertyVector;
-}
-
-double PhysicalEntity::getScalarProperty(const int scalarPropertyIdentifier) const
-{
-	return this->scalarProperty[scalarPropertyIdentifier];
-}
-
-DoubleVector PhysicalEntity::getScalarProperty() const
-{
-	return this->scalarProperty;
-}
 
 //------------------------------- Position -------------------------------
 
@@ -170,32 +135,11 @@ void PhysicalEntity::resizePositionOrientation(void)
 	this->orientation.resize(size);
 }
 
-void PhysicalEntity::resizePropertyVector(void)
-{
-	// scalarProperty: 1 x 1
-	scalarProperty.resize(N_SCALAR_PROPERTY);
-	
-	// vectorialProperty: vectors dimension x 1
-	vectorialProperty.resize(N_VECTORIAL_PROPERTY);
-	for(int i=0 ; i<N_VECTORIAL_PROPERTY ; i++){
-		vectorialProperty[i].resize(dimension);
-	}
-	
-	// matricialProperty: matrices dimension x dimension
-	matricialProperty.resize(N_MATRICIAL_PROPERTY);
-	for(int i=0 ; i<N_VECTORIAL_PROPERTY ; i++){
-		matricialProperty[i].resize(dimension);
-		for(int j=0 ; j<dimension ; j++){
-			matricialProperty[i][j].resize(dimension);
-		}
-	}
-}
-
 void PhysicalEntity::setDimension(const int dim)
 {
 	if( (dim != 2) && (dim != 3))
 	{
-		throw runtime_error("Invalid dimension value inserted. Dimension must be 2 or 3.");
+		throw runtime_error("Invalid dimension value inserted. Dimension must be either 2 or 3.");
 	}
 	else
 	{
@@ -220,7 +164,7 @@ void PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Ve
 {
 	if( spatial.size() != (this->taylorOrder + 1) )
 	{
-		throw runtime_error("taylorOrder does not agree in function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
+		throw runtime_error("taylorOrder does not match spatial's size in function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
 	}
 	spatialToSet = spatial;
 }

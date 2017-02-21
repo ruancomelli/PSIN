@@ -13,6 +13,7 @@
 #include <SharedPointer.h>
 
 using namespace std;
+using namespace PropertyList;
 
 class Particle;
 typedef SharedPointer< Particle > ParticlePtr;

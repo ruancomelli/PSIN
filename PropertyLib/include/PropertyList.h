@@ -21,6 +21,9 @@ namespace PropertyList{
 	// Volume
 	static RawProperty<double> volume("Volume", setPositive);
 
+	// Moment of Inertia
+	static RawProperty<double> moment_of_inertia("MomentOfInertia", setPositive);
+
 };
 
 #endif
