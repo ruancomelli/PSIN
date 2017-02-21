@@ -20,9 +20,10 @@
 
 // IOLib
 #include <readEntity.h>
-#include <readPhysicalEntity.h>
-#include <readParticle.h>
-#include <readSphericalParticle.h>
+//#include <readPhysicalEntity.h>
+//#include <readParticle.h>
+//#include <readSphericalParticle.h>
+#include <vectorIO.h>
 #include <FileReader.h>
 
 using namespace std;
@@ -40,19 +41,19 @@ TestCase( ReadEntityTest )
 		checkEqual(entity1.getHandle(), entity2->getHandle());
 }
 
-
-TestCase( ReadPhysicalEntityTest )
-{
-		string inputFile(project_root_path + "IOLibTest/inputPhysicalEntity.txt");
-
-		PhysicalEntity tester(4, 3, 3);
-		PhysicalEntityPtr tested = readPhysicalEntity(inputFile);
-
-		checkEqual( tester.getHandle(), tested->getHandle() );
-		checkEqual( tester.getDimension(), tested->getDimension() );
-		checkEqual( tester.getTaylorOrder(), tested->getTaylorOrder() );
-}
-
+//
+//TestCase( ReadPhysicalEntityTest )
+//{
+//		string inputFile(project_root_path + "IOLibTest/inputPhysicalEntity.txt");
+//
+//		PhysicalEntity tester(4, 3, 3);
+//		PhysicalEntityPtr tested = readPhysicalEntity(inputFile);
+//
+//		checkEqual( tester.getHandle(), tested->getHandle() );
+//		checkEqual( tester.getDimension(), tested->getDimension() );
+//		checkEqual( tester.getTaylorOrder(), tested->getTaylorOrder() );
+//}
+//
 
 TestCase( VectorVector3DTest )
 {
@@ -108,7 +109,6 @@ TestCase( VectorVector3DTest )
 
 
 		// First method
-		cout << ">>>> First try <<<<" << endl << endl;
 		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
 		file.seekg(ios_base::beg);
 
@@ -130,11 +130,8 @@ TestCase( VectorVector3DTest )
 		checkClose(tester[3].x(), tested[3].x(), 1e-2);
 		checkClose(tester[3].y(), tested[3].y(), 1e-2);
 		checkClose(tester[3].z(), tested[3].z(), 1e-2);
-
-		cout << tested;
 		
 		// Second method
-		cout << ">>>> Second try <<<<" << endl << endl;
 		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
 		file.seekg(ios_base::beg);
 
@@ -158,11 +155,8 @@ TestCase( VectorVector3DTest )
 		checkClose(tester[3].y(), tested[3].y(), 1e-2);
 		checkClose(tester[3].z(), tested[3].z(), 1e-2);
 
-		cout << tested;
-
 		
 		// Third method
-		cout << ">>>> Third try <<<<" << endl << endl;
 		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
 		file.seekg(ios_base::beg);
 
@@ -186,11 +180,8 @@ TestCase( VectorVector3DTest )
 		checkClose(tester[3].x(), tested[3].x(), 1e-2);
 		checkClose(tester[3].y(), tested[3].y(), 1e-2);
 		checkClose(tester[3].z(), tested[3].z(), 1e-2);
-
-		cout << tested;
 		
 		// Fourth method
-		cout << ">>>> Fourth try <<<<" << endl << endl;
 		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
 		file.seekg(ios_base::beg);
 
@@ -221,8 +212,6 @@ TestCase( VectorVector3DTest )
 		checkClose(tester[3].x(), tested[3].x(), 1e-2);
 		checkClose(tester[3].y(), tested[3].y(), 1e-2);
 		checkClose(tester[3].z(), tested[3].z(), 1e-2);
-
-		cout << tested;
 
 		file.close();
 }

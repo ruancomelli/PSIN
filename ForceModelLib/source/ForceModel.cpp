@@ -117,7 +117,7 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 void ForceModel::correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
 	vector<Vector3D> position = particle->getPosition();
-	Vector3D acceleration = particle->getResultingForce() / particle->getScalarProperty( MASS );
+	Vector3D acceleration = particle->getResultingForce() / particle->get( mass );
 	vector<Vector3D> correctedPosition = gearCorrector( position, acceleration, predictionOrder, dt);
 	
 	particle->setPosition(correctedPosition);
@@ -126,7 +126,7 @@ void ForceModel::correctPosition( SphericalParticlePtr particle, const int predi
 void ForceModel::correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
 	vector<Vector3D> orientation = particle->getOrientation();
-	Vector3D angularAcceleration = particle->getResultingTorque() / particle->getScalarProperty( MOMENT_OF_INERTIA );
+	Vector3D angularAcceleration = particle->getResultingTorque() / particle->get( moment_of_inertia );
 	vector<Vector3D> correctedOrientation = gearCorrector( orientation, angularAcceleration, predictionOrder, dt);
 	
 	particle->setOrientation(correctedOrientation);
@@ -152,14 +152,14 @@ Vector3D ForceModel::normalForceViscoelasticSpheres( SphericalParticlePtr partic
 		const double radius2 = neighbor->getGeometricParameter(RADIUS);
 		const double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
 		
-		const double elasticModulus1 = particle->getScalarProperty( ELASTIC_MODULUS );
-		const double elasticModulus2 = neighbor->getScalarProperty( ELASTIC_MODULUS );
+		const double elasticModulus1 = particle->get( elastic_modulus );
+		const double elasticModulus2 = neighbor->get( elastic_modulus );
 		
-		const double dissipativeConstant1 = particle->getScalarProperty( DISSIPATIVE_CONSTANT );
-		const double dissipativeConstant2 = neighbor->getScalarProperty( DISSIPATIVE_CONSTANT );
+		const double dissipativeConstant1 = particle->get( dissipative_constant );
+		const double dissipativeConstant2 = neighbor->get( dissipative_constant );
 		
-		const double poissonRatio1 = particle->getScalarProperty( POISSON_RATIO );
-		const double poissonRatio2 = neighbor->getScalarProperty( POISSON_RATIO );
+		const double poissonRatio1 = particle->get( poisson_ratio );
+		const double poissonRatio2 = neighbor->get( poisson_ratio );
 		
 		// ---- Calculate normal force ----
 		const double overlapDerivative = particle->overlapDerivative( neighbor );
@@ -190,11 +190,11 @@ Vector3D ForceModel::normalForceLinearDashpotForce( SphericalParticlePtr particl
 	if(overlap > 0)
 	{
 		// ---- Get physical properties and calculate effective parameters ----
-		const double elasticModulus1 = particle->getScalarProperty( ELASTIC_MODULUS );
-		const double elasticModulus2 = neighbor->getScalarProperty( ELASTIC_MODULUS );
+		const double elasticModulus1 = particle->get( elastic_modulus );
+		const double elasticModulus2 = neighbor->get( elastic_modulus );
 		
-		const double normalDissipativeConstant1 = particle->getScalarProperty( NORMAL_DISSIPATIVE_CONSTANT );
-		const double normalDissipativeConstant2 = neighbor->getScalarProperty( NORMAL_DISSIPATIVE_CONSTANT );
+		const double normalDissipativeConstant1 = particle->get( normal_dissipative_constant );
+		const double normalDissipativeConstant2 = neighbor->get( normal_dissipative_constant );
 		
 		// ---- Calculate normal force ----
 		const double overlapDerivative = particle->overlapDerivative( neighbor );
@@ -229,12 +229,12 @@ void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, Spher
 		const Vector3D position1 = particle->getPosition(0);
 		const Vector3D position2 = neighbor->getPosition(0);
 
-		const double tangentialDamping1 = particle->getScalarProperty( TANGENTIAL_DAMPING );
-		const double tangentialDamping2 = neighbor->getScalarProperty( TANGENTIAL_DAMPING );
+		const double tangentialDamping1 = particle->get( tangential_damping );
+		const double tangentialDamping2 = neighbor->get( tangential_damping );
 		const double effectiveTangentialDamping = min( tangentialDamping1 , tangentialDamping2 );
 			
-		const double frictionParameter1 = particle->getScalarProperty( FRICTION_PARAMETER );
-		const double frictionParameter2 = neighbor->getScalarProperty( FRICTION_PARAMETER );
+		const double frictionParameter1 = particle->get( friction_parameter );
+		const double frictionParameter2 = neighbor->get( friction_parameter );
 		const double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
 		
 		// ---- Calculate tangential force ----
@@ -276,12 +276,12 @@ void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, Sp
 		const Vector3D position1 = particle->getPosition(0);
 		const Vector3D position2 = neighbor->getPosition(0);
 
-		const double tangentialKappa1 = particle->getScalarProperty( TANGENTIAL_KAPPA );
-		const double tangentialKappa2 = neighbor->getScalarProperty( TANGENTIAL_KAPPA );
+		const double tangentialKappa1 = particle->get( tangential_kappa );
+		const double tangentialKappa2 = neighbor->get( tangential_kappa );
 		const double effectiveTangentialKappa = min( tangentialKappa1 , tangentialKappa2 );
 			
-		const double frictionParameter1 = particle->getScalarProperty( FRICTION_PARAMETER );
-		const double frictionParameter2 = neighbor->getScalarProperty( FRICTION_PARAMETER );
+		const double frictionParameter1 = particle->get( friction_parameter );
+		const double frictionParameter2 = neighbor->get( friction_parameter );
 		const double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
 		
 		// Calculate tangential force

@@ -20,6 +20,10 @@
 #include <Particle.h>
 #include <SphericalParticle.h>
 
+// PropertyLib
+#include <Property.h>
+#include <PropertyList.h>
+
 using namespace std;
 
 void addZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );

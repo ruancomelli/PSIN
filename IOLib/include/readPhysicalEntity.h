@@ -14,7 +14,12 @@
 #include <readEntity.h>
 #include <FileReader.h>
 
+// PropertyLib
+#include <PropertyContainer.h>
+#include <PropertyList.h>
+
 using namespace std;
+using namespace PropertyList;
 
 PhysicalEntityPtr readPhysicalEntity( const string fileName );
 
