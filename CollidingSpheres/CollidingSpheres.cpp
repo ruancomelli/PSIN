@@ -9,6 +9,10 @@
 #include <map>
 #include <string>
 
+// PropertyLib
+#include <PropertyContainer.h>
+#include <PropertyList.h>
+
 // EntityLib
 #include <Particle.h>
 #include <SphericalParticle.h>
@@ -23,10 +27,6 @@
 #include <ForceModel.h>
 
 // IOLib
-#include <readEntity.h>
-#include <readPhysicalEntity.h>
-#include <readParticle.h>
-#include <readSphericalParticle.h>
 #include <FileReader.h>
 #include <SphericalParticlePtrArrayKit.h>
 
@@ -35,6 +35,7 @@
 #include <boost/filesystem.hpp>
 
 using namespace std;
+using namespace PropertyList;
 
 using boost::math::constants::pi;
 
@@ -86,11 +87,11 @@ int main(int argc, char **argv){
 
 
 	foreach(SphericalParticlePtr particlePtr, particleArray){
-		const double m = particlePtr->getScalarProperty( MASS );
-		const double r = particlePtr->getScalarProperty( MASS );
+		const double m = particlePtr->get( mass );
+		const double r = particlePtr->get( mass );
 
-		particlePtr->setScalarProperty( MOMENT_OF_INERTIA, 2 * m * r * r / 5 );
-		particlePtr->setScalarProperty( VOLUME, 4 * pi<double>() * r * r * r / 3 );
+		particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
+		particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
 	}
 
 	particleArray[0]->setGravity(gravity);

@@ -18,7 +18,8 @@ SphericalParticlePtrArrayKit::~SphericalParticlePtrArrayKit()
 
 void SphericalParticlePtrArrayKit::inputParticle(const string & inputPath)
 {
-	SphericalParticlePtr sphericalParticlePtr = readSphericalParticle(inputPath);
+	SphericalParticlePtr sphericalParticlePtr;
+	readSphericalParticle(inputPath, sphericalParticlePtr);
 
 	if(sphericalParticlePtr->getHandle() < 0)
 		sphericalParticlePtr->setHandle( this->size() + 1 );
@@ -164,4 +165,136 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 	{
 		cerr << "Particle array is not ready to export data." << endl;
 	}
+}
+
+bool readEntity( const string & fileName, EntityPtr newEntity ){
+	FileReader fileReader(fileName);
+
+	bool boolFlag = true;
+
+	// ----- Read Handle -----
+	int handle;
+	boolFlag = boolFlag && fileReader.readValue("<Handle>", handle);
+
+	newEntity = EntityPtr( new Entity(handle) );
+
+	return boolFlag;
+}
+
+bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr newPhysicalEntity )
+{
+	FileReader fileReader(fileName);
+	bool boolFlag = true;
+
+	// ----- Read Entity -----
+	EntityPtr entity;
+	boolFlag = boolFlag && readEntity(fileName, entity);
+	
+
+	// ----- Read taylorOrder -----
+	int taylorOrder;
+	boolFlag = boolFlag && fileReader.readValue("<TaylorOrder>", taylorOrder);
+
+	// ----- Read dimension -----
+	int dimension;
+	boolFlag = boolFlag && fileReader.readValue("<Dimension>", dimension);
+
+	// ----- Create object -----
+	PhysicalEntity physicalEntity( taylorOrder, dimension, *entity );
+
+
+	// ----- Read initial position -----
+	int size = taylorOrder + 1;
+
+	vector<Vector3D> position;
+	position.resize(size);
+	fileReader.readValue("<Position>", position);
+	physicalEntity.setPosition(position);
+
+	// ----- Read initial orientation -----
+	vector<Vector3D> orientation;
+	orientation.resize(size);
+	fileReader.readValue("<Orientation>", orientation);
+	physicalEntity.setOrientation(orientation);
+
+	// ----- Read physical properties -----
+	// Scalar Properties
+	vector<double> scalarProperty( N_SCALAR_PROPERTY );
+	fileReader.readValue("<Mass>", scalarProperty[MASS]);
+	fileReader.readValue("<MomentOfInertia>", scalarProperty[MOMENT_OF_INERTIA]);
+	fileReader.readValue("<Volume>", scalarProperty[VOLUME]);
+	fileReader.readValue("<SpecificMass>", scalarProperty[SPECIFIC_MASS]);
+	fileReader.readValue("<DissipativeConstant>", scalarProperty[DISSIPATIVE_CONSTANT]);
+	fileReader.readValue("<PoissonRatio>", scalarProperty[POISSON_RATIO]);
+	fileReader.readValue("<ElasticModulus>", scalarProperty[ELASTIC_MODULUS]);
+	fileReader.readValue("<TangentialDamping>", scalarProperty[TANGENTIAL_DAMPING]);
+	fileReader.readValue("<FrictionParameter>", scalarProperty[FRICTION_PARAMETER]);
+	fileReader.readValue("<NormalDissipativeConstant>", scalarProperty[NORMAL_DISSIPATIVE_CONSTANT]);
+	fileReader.readValue("<TangentialKappa>", scalarProperty[TANGENTIAL_KAPPA]);
+
+
+	physicalEntity.setScalarProperty(scalarProperty);
+
+	newPhysicalEntity = PhysicalEntityPtr( new PhysicalEntity(physicalEntity) );
+
+	return boolFlag;
+}
+
+bool readParticle( const string & fileName, ParticlePtr particle )
+{
+	bool boolFlag = true;
+
+	PhysicalEntityPtr physicalEntity;
+	boolFlag = boolFlag && readPhysicalEntity(fileName, physicalEntity);
+
+	particle = ParticlePtr( new Particle(*physicalEntity) );
+
+	return boolFlag;
+}
+
+bool readSphericalParticle( const string & fileName, SphericalParticlePtr sphericalParticle )
+{
+	bool boolFlag = true;
+
+	FileReader fileReader(fileName);
+
+	// ----- Read Particle -----
+	ParticlePtr particle;
+	boolFlag = boolFlag && readParticle(fileName, particle);
+	
+	// ----- Read SphericalParticle -----
+	sphericalParticle = SphericalParticlePtr( new SphericalParticle(*particle) );
+
+	DoubleVector geometricParameter(N_GEOMETRIC_PARAMETER);
+	boolFlag = boolFlag && fileReader.readValue("<Radius>", geometricParameter[RADIUS]);
+
+	sphericalParticle->setGeometricParameter(geometricParameter);
+
+	return boolFlag;
+}
+
+
+
+void SphericalParticlePtrArrayKit::saveVector3D(ofstream & outFile, const Vector3D & v, const string & horizontalSeparator, const string & verticalSeparator) const{
+		outFile << 	v.x() << horizontalSeparator << 
+					v.y() << horizontalSeparator << 
+					v.z() << verticalSeparator;
+}
+
+void SphericalParticlePtrArrayKit::saveSphericalParticlePositionMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const{
+	for(int i = 0 ; i <= particle->getTaylorOrder() ; ++i ){
+		// Save each component of the i-th derivative of the positions
+		outFile << horizontalSeparator;
+		saveVector3D(outFile, particle->getPosition(i), horizontalSeparator, verticalSeparator);
+	}
+	outFile << verticalSeparator;
+}
+
+void SphericalParticlePtrArrayKit::saveSphericalParticleOrientationMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const{
+	for(int i = 0 ; i <= particle->getTaylorOrder() ; ++i ){
+		// Save each component of the i-th derivative of the orientations
+		outFile << horizontalSeparator;
+		saveVector3D(outFile, particle->getOrientation(i), horizontalSeparator, verticalSeparator);
+	}
+	outFile << verticalSeparator;
 }

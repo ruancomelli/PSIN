@@ -325,3 +325,26 @@ TestCase(RawPropertyInputAndOutputTest)
 
 	checkClose( 6 * boost::any_cast<double>(value), boost::any_cast<double>(secondValue), 1e-10);
 }
+
+#include <Foreach.h>
+#include <boost/make_shared.hpp>
+
+TestCase(PropertyContainerPointing)
+{
+	//set<string> mySet = { "Rohan", "Gondor", "Mordor" };
+
+	//for (auto& name : mySet)
+	//	cout << "\t\t" << name << endl;
+
+	//SharedPointer<set<string>> mySetPtr = boost::make_shared<set<string>>(mySet);
+	//
+	//PropertyContainer myContainer;
+	//myContainer.pointPropertyNames(mySetPtr);
+
+	//myContainer.setProperty(mass, 30.0);
+
+	//foreach(string name, *mySetPtr)
+	//{
+	//	cout << "\t\t" << name << endl;
+	//}
+}

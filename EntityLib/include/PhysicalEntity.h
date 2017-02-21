@@ -28,7 +28,7 @@ enum GeometryType{
 	DEFAULT = SPHERE
 };
 
-// START "TO DELETE"
+// START "TO DELETE" =========================================================================================================
 enum ScalarProperty{ 
   MASS = 0,        // m --- kg 
   MOMENT_OF_INERTIA,    // J --- kg * m^2 
@@ -51,7 +51,7 @@ enum VectorialProperty{
 enum MatricialProperty{ 
   N_MATRICIAL_PROPERTY 
 }; 
-// END "TO DELETE"
+// END "TO DELETE" =========================================================================================================
 
 class PhysicalEntity;
 typedef SharedPointer<PhysicalEntity> PhysicalEntityPtr;
@@ -98,14 +98,14 @@ class PhysicalEntity: public Entity
 		template<typename interfaceType, typename storedType>
 		interfaceType get(const RawProperty<interfaceType, storedType> & raw) const;
 
-		// START "TO DELETE"
+		// START "TO DELETE" =========================================================================================================
 	    void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue); 
 	    void setScalarProperty(const DoubleVector scalarPropertyVector); 
 	    double getScalarProperty(const int scalarPropertyIdentifier) const; 
 	    DoubleVector getScalarProperty() const; 
     	DoubleVector2D getVectorialProperty() const;
     	vector < DoubleVector2D > getMatricialProperty() const;
-	    // END "TO DELETE"
+	    // END "TO DELETE" =========================================================================================================
 		
 	private:
 		int			 taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)

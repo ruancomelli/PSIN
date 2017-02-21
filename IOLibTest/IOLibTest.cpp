@@ -19,10 +19,6 @@
 #include <SphericalParticle.h>
 
 // IOLib
-#include <readEntity.h>
-//#include <readPhysicalEntity.h>
-//#include <readParticle.h>
-//#include <readSphericalParticle.h>
 #include <vectorIO.h>
 #include <FileReader.h>
 
@@ -36,30 +32,7 @@ using namespace std;
 
 const string project_root_path = PROJECT_PATH;
 
-TestCase( ReadEntityTest )
-{
-		string inputFile(project_root_path + "IOLibTest/inputEntity.txt");
-
-		Entity entity1(5);
-
-		EntityPtr entity2 = readEntity(inputFile);
-		
-		checkEqual(entity1.getHandle(), entity2->getHandle());
-}
-
-//
-//TestCase( ReadPhysicalEntityTest )
-//{
-//		string inputFile(project_root_path + "IOLibTest/inputPhysicalEntity.txt");
-//
-//		PhysicalEntity tester(4, 3, 3);
-//		PhysicalEntityPtr tested = readPhysicalEntity(inputFile);
-//
-//		checkEqual( tester.getHandle(), tested->getHandle() );
-//		checkEqual( tester.getDimension(), tested->getDimension() );
-//		checkEqual( tester.getTaylorOrder(), tested->getTaylorOrder() );
-//}
-//
+#include<boost/make_shared.hpp>
 
 TestCase( VectorVector3DTest )
 {

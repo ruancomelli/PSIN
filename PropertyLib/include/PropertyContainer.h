@@ -55,6 +55,13 @@ class PropertyContainer
 
 		set<string> getPropertyNames(void);
 
+		void pointPropertyNames( SharedPointer< set<string> > destination )
+		{ this->propertyNames = destination; }
+		void pointInputMethods( SharedPointer< std::vector< inputMethodType > > destination )
+		{ this->inputMethods = destination; }
+		void pointOutputMethods( SharedPointer< std::vector< outputMethodType > > destination )
+		{ this->outputMethods = destination; }
+
 	private:
 		SharedPointer< many > propertyValues;
 		SharedPointer< set<string> > propertyNames;

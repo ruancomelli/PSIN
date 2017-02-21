@@ -10,5 +10,5 @@ PropertyContainer::PropertyContainer()
 
 set<string> PropertyContainer::getPropertyNames(void)
 {
-	return this->propertyNames;
+	return *(this->propertyNames);
 }

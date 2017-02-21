@@ -12,11 +12,11 @@
 // EntityLib
 #include <SphericalParticle.h>
 
-// IOLib
-#include <readSphericalParticle.h>
-
 // UtilsLibSpecific
 #include <Foreach.h>
+
+// IOLib
+#include <FileReader.h>
 
 // boost
 #include <boost/filesystem.hpp>
@@ -59,33 +59,18 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 			N_FILES_PER_PARTICLE
 		};
 
+		bool readEntity( const string & fileName, EntityPtr entity );
+		bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr physicalEntity );
+		bool readParticle( const string & fileName, ParticlePtr particle );
+		bool readSphericalParticle( const string & fileName, SphericalParticlePtr sphericalParticle );
+
 		bool isReady;
 		vector< vector< SharedPointer<ofstream> > > outFile;
 
 		/* These functions only make the program clearer */
-		inline void saveVector3D(ofstream & outFile, const Vector3D & v, const string & horizontalSeparator, const string & verticalSeparator) const{
-				outFile << 	v.x() << horizontalSeparator << 
-							v.y() << horizontalSeparator << 
-							v.z() << verticalSeparator;
-		}
-
-		inline void saveSphericalParticlePositionMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const{
-			for(int i = 0 ; i <= particle->getTaylorOrder() ; ++i ){
-				// Save each component of the i-th derivative of the positions
-				outFile << horizontalSeparator;
-				saveVector3D(outFile, particle->getPosition(i), horizontalSeparator, verticalSeparator);
-			}
-			outFile << verticalSeparator;
-		}
-		
-		inline void saveSphericalParticleOrientationMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const{
-			for(int i = 0 ; i <= particle->getTaylorOrder() ; ++i ){
-				// Save each component of the i-th derivative of the orientations
-				outFile << horizontalSeparator;
-				saveVector3D(outFile, particle->getOrientation(i), horizontalSeparator, verticalSeparator);
-			}
-			outFile << verticalSeparator;
-		}
+		void saveVector3D(ofstream & outFile, const Vector3D & v, const string & horizontalSeparator, const string & verticalSeparator) const;
+		void saveSphericalParticlePositionMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const;
+		void saveSphericalParticleOrientationMatrix(ofstream & outFile, const SphericalParticlePtr & particle, const string & horizontalSeparator, const string & verticalSeparator) const;
 
 }; // class SphericalParticlePtrArrayKit
 

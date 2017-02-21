@@ -13,9 +13,9 @@ include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 
 #LINK THE DIRECTORIES
 link_directories(${CMAKE_SOURCE_DIR}/UtilsLibSpecific/source)
-include_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
-include_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/source)
-include_directories(${CMAKE_SOURCE_DIR}/PropertyLib/source)
+link_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
+link_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/source)
+link_directories(${CMAKE_SOURCE_DIR}/PropertyLib/source)
 
 #SEARCH FOR .CPP AND .H FILES
 file(GLOB ${PROJECT_NAME}_headers ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/*.h)
