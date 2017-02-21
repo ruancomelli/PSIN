@@ -26,6 +26,12 @@
 #include <vectorIO.h>
 #include <FileReader.h>
 
+// PropertyLib
+#include <PropertyContainer.h>
+
+// boost
+#include <boost/any.hpp>
+
 using namespace std;
 
 const string project_root_path = PROJECT_PATH;
@@ -37,7 +43,7 @@ TestCase( ReadEntityTest )
 		Entity entity1(5);
 
 		EntityPtr entity2 = readEntity(inputFile);
-
+		
 		checkEqual(entity1.getHandle(), entity2->getHandle());
 }
 
@@ -101,12 +107,6 @@ TestCase( VectorVector3DTest )
 		checkClose(tester[3].x(), line4.x(), 1e-2);
 		checkClose(tester[3].y(), line4.y(), 1e-2);
 		checkClose(tester[3].z(), line4.z(), 1e-2);
-
-		cout << line1;
-		cout << line2;
-		cout << line3;
-		cout << line4;
-
 
 		// First method
 		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
@@ -225,6 +225,7 @@ TestCase( FileReaderTest )
 		string stringValue = "Rohan";
 		Vector3D vector3DValue(5.0, 1.0, 15.0);
 		vector<Vector3D> vectorVector3DValue(4);
+		boost::any anyValue;
 
 		vectorVector3DValue[0] = Vector3D(1, 1, 1);
 		vectorVector3DValue[1] = Vector3D(2, 4, 8);
@@ -244,6 +245,15 @@ TestCase( FileReaderTest )
 		fileReader.readValue("<String>", readString);
 		fileReader.readValue("<Vector3D>", readVector3d);
 		fileReader.readValue("<VectorVector3D>", readVectorVector3D);
+
+		fileReader.readAnyValue("<Integer>", anyValue, defaultInputMethod<int>);
+		checkEqual(boost::any_cast<int>(anyValue), intValue);
+		fileReader.readAnyValue("<Double>", anyValue, defaultInputMethod<double>);
+		checkEqual(boost::any_cast<double>(anyValue), doubleValue);
+		fileReader.readAnyValue("<String>", anyValue, defaultInputMethod<string>);
+		checkEqual(boost::any_cast<string>(anyValue), stringValue);
+		fileReader.readAnyValue("<Vector3D>", anyValue, defaultInputMethod<Vector3D>);
+		checkEqual(boost::any_cast<Vector3D>(anyValue), vector3DValue);
 		
 		checkEqual( readInteger, intValue );
 		checkEqual( readDouble, doubleValue );

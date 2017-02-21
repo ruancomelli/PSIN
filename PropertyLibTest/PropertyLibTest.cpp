@@ -2,6 +2,7 @@
 
 // Standard
 #include <iostream>
+#include <fstream>
 #include <iterator>
 
 // PropertyLib
@@ -255,9 +256,6 @@ using namespace PropertyList;
 
 TestCase(PropertyContainerTest)
 {
-	set<string> x;
-	set<string>::iterator it = x.find("Oi");
-
 	double massValue = 80.5;
 	double volumeValue = 10.0;
 	string colorValue = "blue";
@@ -278,4 +276,52 @@ TestCase(PropertyContainerTest)
 	checkEqual(propertyContainer.getValue(mass), massValue);
 	checkEqual(propertyContainer.getValue(volume), volumeValue);
 	checkEqual(propertyContainer.getValue(color), colorValue);
+}
+
+bool input2timesDouble(ifstream & in, boost::any & value)
+{
+	double x;
+	in >> x;
+	value = 2 * x;
+	return true;
+}
+
+bool output3timesDouble(ofstream & out, boost::any & value)
+{
+	double x = boost::any_cast<double>(value);
+	out << 3 * x;
+	return true;
+}
+
+TestCase(RawPropertyInputAndOutputTest)
+{
+	string fileName = "rawPropertyInputAndOutput.txt";
+	RawProperty<double> mass("Mass");
+	double doubleValue = 5.6;
+
+	boost::any value = doubleValue;
+	boost::any secondValue;
+
+	ofstream outFile(fileName);
+	mass.outputMethod(outFile, value);
+	outFile.close();
+
+	ifstream inFile(fileName);
+	mass.inputMethod(inFile, secondValue);
+	inFile.close();
+	
+	checkClose(boost::any_cast<double>(value), boost::any_cast<double>(secondValue), 1e-10);
+
+	mass.setInputMethod(input2timesDouble);
+	mass.setOutputMethod(output3timesDouble);
+
+	ofstream outFile2(fileName);
+	mass.outputMethod(outFile2, value);
+	outFile2.close();
+
+	ifstream inFile2(fileName);
+	mass.inputMethod(inFile2, secondValue);
+	inFile2.close();
+
+	checkClose( 6 * boost::any_cast<double>(value), boost::any_cast<double>(secondValue), 1e-10);
 }

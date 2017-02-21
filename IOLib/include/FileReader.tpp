@@ -1,8 +1,9 @@
 
 template <class type> 
-void FileReader::readValue( const char* tag, type & value )
+bool FileReader::readValue( const string & tag, type & value )
 {
-	char buffer[800] = "NULL";
+	string buffer = "NULL";
+	bool returnFlag = false;
 
 	if( this->isReady )
 	{
@@ -22,6 +23,7 @@ void FileReader::readValue( const char* tag, type & value )
 		else
 		{
 			this->file >> value;
+			returnFlag = true;
 		}
 
 	}
@@ -31,4 +33,7 @@ void FileReader::readValue( const char* tag, type & value )
 	}
 
 	this->file.clear();
+
+	return returnFlag;
 }
+

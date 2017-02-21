@@ -21,6 +21,8 @@ using namespace std;
 class PropertyContainer
 {
 	public:
+		typedef bool (*inputMethodType)(ifstream & in, boost::any & value);
+		typedef bool (*outputMethodType)(ofstream & in, boost::any & value);
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();
@@ -33,6 +35,14 @@ class PropertyContainer
 		template<typename interfaceType, typename storedType>
 		interfaceType getValue(const RawProperty<interfaceType, storedType> & raw) const;
 
+		// Get a property's input method
+		template<typename interfaceType, typename storedType>
+		inputMethodType getInputMethod(const string & rawName) const;
+
+		// Get a property's output method
+		template<typename interfaceType, typename storedType>
+		outputMethodType getOutputMethod(const string & rawName) const;
+
 		// Sets or adds a property
 		/*template<typename interfaceType, typename storedType>
 		void setProperty(const RawProperty<interfaceType, storedType> & raw, const interfaceType & value );*/
@@ -43,9 +53,13 @@ class PropertyContainer
 		template<typename interfaceType, typename storedType>
 		void setProperty(const Property<interfaceType, storedType> & property);
 
+		set<string> getPropertyNames(void);
+
 	private:
 		SharedPointer< many > propertyValues;
 		SharedPointer< set<string> > propertyNames;
+		SharedPointer< std::vector< inputMethodType > > inputMethods;
+		SharedPointer< std::vector< outputMethodType > > outputMethods;
 }; // class PropertyContainer
 
 #include <PropertyContainer.tpp>

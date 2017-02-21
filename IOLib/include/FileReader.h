@@ -11,6 +11,9 @@
 #include <vectorIO.h>
 #include <StringUtils.h>
 
+// boost
+#include <boost/any.hpp>
+
 using namespace std;
 
 class FileReader
@@ -28,7 +31,9 @@ class FileReader
 
 		void openFile(const string fileName);
 
-		template <class type> void readValue( const char* tag, type & value );
+		template <class type> bool readValue( const string & tag, type & value );
+
+		bool readAnyValue( const string & tag, boost::any & value, bool (*inputMethod)(ifstream & in, boost::any & value) );
 		
 	private:
 		string fileName;

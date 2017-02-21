@@ -39,6 +39,39 @@ interfaceType PropertyContainer::getValue(const RawProperty<interfaceType, store
 	return getProperty(raw).get(); 
 }
 
+template<typename interfaceType, typename storedType>
+PropertyContainer::inputMethodType PropertyContainer::getInputMethod(const string & rawName ) const
+{
+	set<string>::iterator it = propertyNames->find( rawName );
+
+	if( it != propertyNames->end() )	// In this case, the search was successfull
+	{
+		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
+
+		return inputMethods->at( index );
+	}
+	else
+	{
+		return defaultInputMethod<interfaceType>;
+	}
+}
+
+template<typename interfaceType, typename storedType>
+PropertyContainer::outputMethodType PropertyContainer::getOutputMethod(const string & rawName ) const
+{
+	set<string>::iterator it = propertyNames->find( rawName );
+
+	if( it != propertyNames->end() )	// In this case, the search was successfull
+	{
+		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
+
+		return outputMethods->at( index );
+	}
+	else
+	{
+		return defaultOutputMethod<interfaceType>;
+	}
+}
 
 //	setProperty:
 //		If argument's name is already in propertyName, it's value is overwritten.
@@ -66,9 +99,9 @@ void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType>
 }*/
 
 template<typename interfaceType, typename storedType, typename implicitInterfaceType>
-void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & pseudoValue )
+void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & implicitValue )
 {
-	interfaceType value = interfaceType(pseudoValue);
+	interfaceType value = interfaceType(implicitValue);
 	set<string>::iterator it = propertyNames->find( raw.getName() );
 
 	// Checks if the desired property was already inserted
@@ -77,6 +110,8 @@ void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType>
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
 
 		propertyValues->at(index) = value;
+		inputMethods->at( index ) = raw.inputMethod;
+		outputMethods->at( index ) = raw.outputMethod;
 	}
 	else	// Otherwise, a new property is inserted
 	{
@@ -85,6 +120,8 @@ void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType>
 		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
 
 		propertyValues->insert( propertyValues->begin() + index, value);
+		inputMethods->insert( inputMethods->begin() + index, raw.inputMethod );
+		outputMethods->insert( outputMethods->begin() + index, raw.outputMethod );
 	}
 }
 

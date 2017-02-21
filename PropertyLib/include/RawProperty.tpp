@@ -10,6 +10,26 @@ type defaultGetter(const type & value)
 	return value;
 }
 
+template<typename type>
+bool defaultInputMethod(ifstream & in, boost::any & value)
+{
+	type newValue;
+
+	in >> newValue;
+	value = newValue;
+
+	return true;
+}
+
+template<typename type>
+bool defaultOutputMethod(ofstream & out, boost::any & value)
+{
+	out << boost::any_cast<type>(value);
+
+	return true;
+}
+
+
 
 // Constructors
 
@@ -17,20 +37,29 @@ template<typename interfaceType, typename storedType>
 RawProperty<interfaceType, storedType>::RawProperty()
 	: name("Nameless")
 {
+	this->inputMethod = defaultInputMethod<interfaceType>;
+	this->outputMethod = defaultOutputMethod<interfaceType>;
 }
 
 template<typename interfaceType, typename storedType>
 RawProperty<interfaceType, storedType>::RawProperty(const string & name)
 {
 	this->setName(name);
+
+	this->inputMethod = defaultInputMethod<interfaceType>;
+	this->outputMethod = defaultOutputMethod<interfaceType>;
 }
 
 template<typename interfaceType, typename storedType>
 RawProperty<interfaceType, storedType>::RawProperty(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
 {
 	this->name = name;
+
 	this->setter = setterFunction;
 	this->getter = getterFunction;
+
+	this->inputMethod = defaultInputMethod<interfaceType>;
+	this->outputMethod = defaultOutputMethod<interfaceType>;
 }
 
 
@@ -61,6 +90,19 @@ template<typename interfaceType, typename storedType>
 void RawProperty<interfaceType, storedType>::setGetterFunction( interfaceType (*getterFunction)(const storedType & value) )
 {
 	this->getter = getterFunction;
+}
+
+// Set inputMethod and outputMethod
+template<typename interfaceType, typename storedType>
+void RawProperty<interfaceType, storedType>::setInputMethod( inputMethodType newInputMethod )
+{
+	this->inputMethod = newInputMethod;
+}
+
+template<typename interfaceType, typename storedType>
+void RawProperty<interfaceType, storedType>::setOutputMethod( outputMethodType newOutputMethod )
+{
+	this->outputMethod = newOutputMethod;
 }
 
 // Comparing
