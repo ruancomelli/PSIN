@@ -74,13 +74,13 @@ class ForceModel
 		void setTangential( TangentialType newTangential );
 		void setField( FieldType newField );
 
-		void setNormal( vector< NormalType > newNormal );
-		void setTangential( vector< TangentialType > newTangential );
-		void setField( vector< FieldType > newField );
+		// void setNormal( vector< NormalType > newNormal );
+		// void setTangential( vector< TangentialType > newTangential );
+		// void setField( vector< FieldType > newField );
 
-		void addNormal( NormalType newNormal );
-		void addTangential( TangentialType newTangential );
-		void addField( FieldType newField );
+		// void addNormal( NormalType newNormal );
+		// void addTangential( TangentialType newTangential );
+		// void addField( FieldType newField );
 
 		// ---- Force Calculation ----
 		void calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
@@ -99,9 +99,12 @@ class ForceModel
 
 		double timeStep;
 
-		vector< NormalType > normalForceCalculationMethod;
-		vector< TangentialType > tangentialForceCalculationMethod;
-		vector< FieldType > fieldForceCalculationMethod;
+		// vector< NormalType > normalForceCalculationMethod;
+		// vector< TangentialType > tangentialForceCalculationMethod;
+		// vector< FieldType > fieldForceCalculationMethod;
+		NormalType normalForceCalculationMethod;
+		TangentialType tangentialForceCalculationMethod;
+		FieldType fieldForceCalculationMethod;
 };
 
 #include <ForceModel.tpp>

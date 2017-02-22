@@ -32,7 +32,7 @@ using namespace std;
 
 namespace ForceModelList
 {
-	vector< ForceModel > forceModelList;
+	static vector< ForceModel > forceModelList;
 
 	void addZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
 	void setZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
@@ -45,7 +45,7 @@ namespace ForceModelList
 	void tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 	void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 
-	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
+	static ForceModel viscoelasticSpheres("ViscoElasticSpheres");
 	// viscoelasticSpheres.addNormal( normalForceViscoelasticSpheres );
 	// viscoelasticSpheres.addTangential( tangentialForceHaffWerner );
 	// forceModelList.push_back( viscoelasticSpheres );
