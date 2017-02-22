@@ -2,7 +2,7 @@
 #define PROPERTY_CONTAINER_H
 
 // PropertyLib
-#include <Property.h>
+#include <RawPropertyContainer.h>
 
 // Standard
 #include <iostream>
@@ -18,7 +18,7 @@ using many = std::vector<boost::any>;
 
 using namespace std;
 
-class PropertyContainer
+class PropertyContainer : public RawPropertyContainer
 {
 	public:
 		typedef bool (*inputMethodType)(ifstream & in, boost::any & value);
@@ -26,6 +26,7 @@ class PropertyContainer
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();
+		explicit PropertyContainer( const RawPropertyContainer & raw );
 
 		// Get a property
 		template<typename interfaceType, typename storedType>
@@ -35,38 +36,17 @@ class PropertyContainer
 		template<typename interfaceType, typename storedType>
 		interfaceType getValue(const RawProperty<interfaceType, storedType> & raw) const;
 
-		// Get a property's input method
-		template<typename interfaceType, typename storedType>
-		inputMethodType getInputMethod(const string & rawName) const;
-
-		// Get a property's output method
-		template<typename interfaceType, typename storedType>
-		outputMethodType getOutputMethod(const string & rawName) const;
-
-		// Sets or adds a property
-		/*template<typename interfaceType, typename storedType>
-		void setProperty(const RawProperty<interfaceType, storedType> & raw, const interfaceType & value );*/
-
 		template<typename interfaceType, typename storedType, typename implicitInterfaceType>
 		void setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );
+
+		void setProperty(const string & rawName, const boost::any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
 
 		template<typename interfaceType, typename storedType>
 		void setProperty(const Property<interfaceType, storedType> & property);
 
-		set<string> getPropertyNames(void);
-
-		void pointPropertyNames( SharedPointer< set<string> > destination )
-		{ this->propertyNames = destination; }
-		void pointInputMethods( SharedPointer< std::vector< inputMethodType > > destination )
-		{ this->inputMethods = destination; }
-		void pointOutputMethods( SharedPointer< std::vector< outputMethodType > > destination )
-		{ this->outputMethods = destination; }
-
 	private:
 		SharedPointer< many > propertyValues;
-		SharedPointer< set<string> > propertyNames;
-		SharedPointer< std::vector< inputMethodType > > inputMethods;
-		SharedPointer< std::vector< outputMethodType > > outputMethods;
+
 }; // class PropertyContainer
 
 #include <PropertyContainer.tpp>

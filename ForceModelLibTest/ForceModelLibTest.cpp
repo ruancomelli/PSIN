@@ -7,6 +7,10 @@
 #include <Test.h>
 #include <Foreach.h>
 
+// PropertyLib
+#include <PropertyContainer.h>
+#include <PropertyList.h>
+
 //EntityLib
 #include <Entity.h>
 #include <Particle.h>
@@ -55,7 +59,24 @@ TestCase( TaylorPredictorTest )
 			}
 		}
 }
-		
+
+TestCase(RequirePropertiesTest)
+{
+	ForceModel fm;
+
+	fm.requireProperty(mass);
+	fm.requireProperty(volume);
+
+	RawPropertyContainer raw = fm.getRequiredProperties();
+
+	SharedPointer< set<string> > mySetPtr = raw.getPropertyNames();
+	set<string>::iterator it = mySetPtr->find(mass.getName());
+	set<string>::iterator it2 = mySetPtr->find(volume.getName());
+
+	checkEqual(*it, mass.getName());
+	checkEqual(*it2, volume.getName());
+}
+
 //	{// viscoelasticSpheres test
 //		SphericalParticle particle1(3,3);
 //		SphericalParticle particle2(3,3);

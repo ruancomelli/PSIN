@@ -2,13 +2,35 @@
 
 PropertyContainer::PropertyContainer()
 	: propertyValues( new many ),
-	propertyNames( new set<string> ),
-	inputMethods( new vector<inputMethodType> ),
-	outputMethods( new vector<outputMethodType> )
+	RawPropertyContainer()
 {
 }
 
-set<string> PropertyContainer::getPropertyNames(void)
+
+PropertyContainer::PropertyContainer( const RawPropertyContainer & raw )
+	: propertyValues( new many ),
+	RawPropertyContainer( raw )
 {
-	return *(this->propertyNames);
+	this->propertyValues->resize( this->getPropertyNames()->size() );
+}
+
+void PropertyContainer::setProperty(const string & rawName, const boost::any & value )
+{
+	set<string>::iterator it = propertyNames->find( rawName );
+
+	// Checks if the desired property was already inserted
+	if( it != propertyNames->end() )	// In this case, the search was successfull
+	{
+		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
+
+		propertyValues->at(index) = value;
+	}
+	else	// Otherwise, a new property is inserted
+	{
+		std::pair< set<string>::iterator, bool > returnPair = propertyNames->insert( rawName );
+
+		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
+
+		propertyValues->insert( propertyValues->begin() + index, value);
+	}
 }

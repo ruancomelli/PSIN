@@ -16,32 +16,44 @@ SphericalParticlePtrArrayKit::~SphericalParticlePtrArrayKit()
 	}
 }
 
-void SphericalParticlePtrArrayKit::inputParticle(const string & inputPath)
+bool SphericalParticlePtrArrayKit::inputParticle(const string & inputPath)
 {
-	SphericalParticlePtr sphericalParticlePtr;
-	readSphericalParticle(inputPath, sphericalParticlePtr);
+	bool boolFlag;
+
+	SphericalParticlePtr sphericalParticlePtr( new SphericalParticle() );
+	boolFlag = readSphericalParticle(inputPath, sphericalParticlePtr);
 
 	if(sphericalParticlePtr->getHandle() < 0)
 		sphericalParticlePtr->setHandle( this->size() + 1 );
 
 	this->push_back( sphericalParticlePtr );
+
+	return boolFlag;
 }
 
-void SphericalParticlePtrArrayKit::inputParticles(const int nParticles, const string & inputPath)
+bool SphericalParticlePtrArrayKit::inputParticles(const int nParticles, const string & inputPath)
 {
+	bool boolFlag = true;
+
 	for(int i=0 ; i<nParticles ; ++i)
 	{
 		string particleInputPath = inputPath + "particle" + to_string(i) + ".txt";
-		this->inputParticle(particleInputPath);
+		boolFlag = boolFlag && this->inputParticle(particleInputPath);
 	}
+
+	return boolFlag;
 }
 
-void SphericalParticlePtrArrayKit::inputParticles(const vector<string> & inputPath)
+bool SphericalParticlePtrArrayKit::inputParticles(const vector<string> & inputPath)
 {
+	bool boolFlag = true;
+
 	for( unsigned i=0; i<inputPath.size(); ++i)
 	{
-		this->inputParticle(inputPath[i]);
+		boolFlag = boolFlag && this->inputParticle(inputPath[i]);
 	}
+
+	return boolFlag;
 }
 
 void SphericalParticlePtrArrayKit::openFiles(const string & outputPath)
@@ -167,7 +179,12 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 	}
 }
 
-bool readEntity( const string & fileName, EntityPtr newEntity ){
+void SphericalParticlePtrArrayKit::requireRawPropertyContainer( const RawPropertyContainer & required )
+{
+	this->requiredProperties = required;
+}
+
+bool SphericalParticlePtrArrayKit::readEntity( const string & fileName, EntityPtr & newEntity ){
 	FileReader fileReader(fileName);
 
 	bool boolFlag = true;
@@ -181,13 +198,13 @@ bool readEntity( const string & fileName, EntityPtr newEntity ){
 	return boolFlag;
 }
 
-bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr newPhysicalEntity )
+bool SphericalParticlePtrArrayKit::readPhysicalEntity( const string & fileName, PhysicalEntityPtr & newPhysicalEntity )
 {
 	FileReader fileReader(fileName);
 	bool boolFlag = true;
 
 	// ----- Read Entity -----
-	EntityPtr entity;
+	EntityPtr entity( new Entity() );
 	boolFlag = boolFlag && readEntity(fileName, entity);
 	
 
@@ -218,33 +235,30 @@ bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr newPhysicalE
 	physicalEntity.setOrientation(orientation);
 
 	// ----- Read physical properties -----
+	// Set propertyContainer
+	physicalEntity.requireProperties( this->requiredProperties );
+
 	// Scalar Properties
-	vector<double> scalarProperty( N_SCALAR_PROPERTY );
-	fileReader.readValue("<Mass>", scalarProperty[MASS]);
-	fileReader.readValue("<MomentOfInertia>", scalarProperty[MOMENT_OF_INERTIA]);
-	fileReader.readValue("<Volume>", scalarProperty[VOLUME]);
-	fileReader.readValue("<SpecificMass>", scalarProperty[SPECIFIC_MASS]);
-	fileReader.readValue("<DissipativeConstant>", scalarProperty[DISSIPATIVE_CONSTANT]);
-	fileReader.readValue("<PoissonRatio>", scalarProperty[POISSON_RATIO]);
-	fileReader.readValue("<ElasticModulus>", scalarProperty[ELASTIC_MODULUS]);
-	fileReader.readValue("<TangentialDamping>", scalarProperty[TANGENTIAL_DAMPING]);
-	fileReader.readValue("<FrictionParameter>", scalarProperty[FRICTION_PARAMETER]);
-	fileReader.readValue("<NormalDissipativeConstant>", scalarProperty[NORMAL_DISSIPATIVE_CONSTANT]);
-	fileReader.readValue("<TangentialKappa>", scalarProperty[TANGENTIAL_KAPPA]);
+	for( auto& name : *(requiredProperties.getPropertyNames()) )
+	{
+		boost::any value;
+		fileReader.readAnyValue("<" + name + ">", 
+			value, 
+			this->requiredProperties.getInputMethod(name) );
 
-
-	physicalEntity.setScalarProperty(scalarProperty);
+		physicalEntity.set( name, value );
+	}
 
 	newPhysicalEntity = PhysicalEntityPtr( new PhysicalEntity(physicalEntity) );
 
 	return boolFlag;
 }
 
-bool readParticle( const string & fileName, ParticlePtr particle )
+bool SphericalParticlePtrArrayKit::readParticle( const string & fileName, ParticlePtr & particle )
 {
 	bool boolFlag = true;
 
-	PhysicalEntityPtr physicalEntity;
+	PhysicalEntityPtr physicalEntity( new PhysicalEntity() );
 	boolFlag = boolFlag && readPhysicalEntity(fileName, physicalEntity);
 
 	particle = ParticlePtr( new Particle(*physicalEntity) );
@@ -252,14 +266,14 @@ bool readParticle( const string & fileName, ParticlePtr particle )
 	return boolFlag;
 }
 
-bool readSphericalParticle( const string & fileName, SphericalParticlePtr sphericalParticle )
+bool SphericalParticlePtrArrayKit::readSphericalParticle( const string & fileName, SphericalParticlePtr & sphericalParticle )
 {
 	bool boolFlag = true;
 
 	FileReader fileReader(fileName);
 
 	// ----- Read Particle -----
-	ParticlePtr particle;
+	ParticlePtr particle( new Particle() );
 	boolFlag = boolFlag && readParticle(fileName, particle);
 	
 	// ----- Read SphericalParticle -----

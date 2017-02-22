@@ -39,65 +39,9 @@ interfaceType PropertyContainer::getValue(const RawProperty<interfaceType, store
 	return getProperty(raw).get(); 
 }
 
-template<typename interfaceType, typename storedType>
-PropertyContainer::inputMethodType PropertyContainer::getInputMethod(const string & rawName ) const
-{
-	set<string>::iterator it = propertyNames->find( rawName );
-
-	if( it != propertyNames->end() )	// In this case, the search was successfull
-	{
-		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
-
-		return inputMethods->at( index );
-	}
-	else
-	{
-		return defaultInputMethod<interfaceType>;
-	}
-}
-
-template<typename interfaceType, typename storedType>
-PropertyContainer::outputMethodType PropertyContainer::getOutputMethod(const string & rawName ) const
-{
-	set<string>::iterator it = propertyNames->find( rawName );
-
-	if( it != propertyNames->end() )	// In this case, the search was successfull
-	{
-		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
-
-		return outputMethods->at( index );
-	}
-	else
-	{
-		return defaultOutputMethod<interfaceType>;
-	}
-}
-
 //	setProperty:
 //		If argument's name is already in propertyName, it's value is overwritten.
 //		Otherwise, a new property is inserted.
-/*template<typename interfaceType, typename storedType>
-void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType> & raw, const interfaceType & value )
-{
-	set<string>::iterator it = propertyNames->find( raw.getName() );
-
-	// Checks if the desired property was already inserted
-	if( it != propertyNames->end() )	// In this case, the search was successfull
-	{
-		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
-
-		propertyValues->at(index) = value;
-	}
-	else	// Otherwise, a new property is inserted
-	{
-		std::pair< set<string>::iterator, bool > returnPair = propertyNames->insert( raw.getName() );
-
-		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
-
-		propertyValues->insert( propertyValues->begin() + index, value);
-	}
-}*/
-
 template<typename interfaceType, typename storedType, typename implicitInterfaceType>
 void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & implicitValue )
 {

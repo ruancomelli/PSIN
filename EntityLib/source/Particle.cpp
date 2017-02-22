@@ -4,22 +4,16 @@ Vector3D Particle::gravity = nullVector3D();
 
 Particle::Particle() : PhysicalEntity(3, 3) 
 {
-	this->set(mass, 1);
-	this->set(moment_of_inertia, 1);
 }
 
 Particle::Particle( const PhysicalEntity & base )
 	: PhysicalEntity( base )
 {
-	this->set(mass, 1);
-	this->set(moment_of_inertia, 1);
 }
 
 Particle::Particle(const int taylorOrder, const int dimension, const int handle)
 	: PhysicalEntity(taylorOrder, dimension, handle)
 {
-	this->set(mass, 1);
-	this->set(moment_of_inertia, 1);
 }
 
 Vector3D Particle::getLinearMomentum(void) const

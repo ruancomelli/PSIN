@@ -25,6 +25,7 @@
 
 // ForceModelLib
 #include <ForceModel.h>
+#include <ForceModelList.h>
 
 // IOLib
 #include <FileReader.h>
@@ -59,6 +60,7 @@ int main(int argc, char **argv){
 	int dimension;
 	int numberOfParticles;
 	int timeStepsForOutput;
+	string forceModelName;
 	Vector3D gravity;
 
 	inputData.readValue("<initialTime>", initialTime);
@@ -69,6 +71,7 @@ int main(int argc, char **argv){
 	inputData.readValue("<numberOfParticles>", numberOfParticles);
 	inputData.readValue("<gravity>", gravity);
 	inputData.readValue("<timeStepsForOutput>", timeStepsForOutput);
+	inputData.readValue("<ForceModelName>", forceModelName);
 
 	string outputPath(project_root_path + "_output/" + simulationName + "/");
 
@@ -78,13 +81,23 @@ int main(int argc, char **argv){
 	boost::filesystem::path MATLAB_outputDir(outputPath + "MATLAB_output/");
 	boost::filesystem::create_directory(MATLAB_outputDir);
 
+	ForceModel forceModel;
+
+	for (auto& fm : ForceModelList::forceModelList)
+	{
+		if (fm.getName() == forceModelName)
+		{
+			forceModel = fm;
+			break;
+		}
+	}
+
 	// Input
 	string particleInputFolder(inputFolder + simulationName + "/");
 
 	SphericalParticlePtrArrayKit particleArray;
 
 	particleArray.inputParticles(numberOfParticles, particleInputFolder);
-
 
 	foreach(SphericalParticlePtr particlePtr, particleArray){
 		const double m = particlePtr->get( mass );
@@ -104,14 +117,12 @@ int main(int argc, char **argv){
 
 	ofstream mainOutFile(outputPath + "output.txt");
 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
-
 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
 	mainOutFile << "<timeStep> "		<< timeStep				<< verticalSeparator;
 	mainOutFile << "<finalTime> "		<< finalTime			<< verticalSeparator;
-
 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
-
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
+	mainOutFile << "<ForceModelName> " << forceModelName << verticalSeparator;
 
 	ofstream timeVectorFile(outputPath + "timeVector.txt");
 	ofstream timeVectorForPlotFile(outputPath + "timeVectorForPlot.txt");
@@ -145,7 +156,7 @@ int main(int argc, char **argv){
 
 		// Body forces
 		foreach( SphericalParticlePtr particle, particleArray ){
-			particle->addBodyForce(particle->getScalarProperty(MASS) * gravity);
+			particle->addBodyForce(particle->get( mass ) * gravity);
 		}
 
 		// Predict position and orientation
@@ -162,8 +173,8 @@ int main(int argc, char **argv){
 
 				if(particle->touches(neighbor))	// If particles are in touch
 				{
-					Vector3D normalForce = ForceModel::normalForceLinearDashpotForce( particle, neighbor );
-					ForceModel::tangentialForceCundallStrack( particle, neighbor, normalForce, timeStep );
+					Vector3D normalForce = ForceModelList::normalForceLinearDashpotForce( particle, neighbor );
+					ForceModelList::tangentialForceCundallStrack( particle, neighbor, normalForce, timeStep );
 				}
 			}
 		}

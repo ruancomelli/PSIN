@@ -9,6 +9,9 @@ PhysicalEntity::PhysicalEntity()
 {
 	setTaylorOrder(3); // It calls resizePositionOrientation
 	setDimension(3);
+
+	set( mass, 1 );
+	set( moment_of_inertia , 1 );
 }
 
 PhysicalEntity::PhysicalEntity( const Entity & base )
@@ -16,6 +19,9 @@ PhysicalEntity::PhysicalEntity( const Entity & base )
 {
 	setTaylorOrder(3);
 	setDimension(3);
+
+	set( mass, 1 );
+	set( moment_of_inertia , 1 );
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
@@ -24,6 +30,9 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int h
 	// Set order and dimension
 	setTaylorOrder(taylorOrder);
 	setDimension(dim);
+
+	set( mass, 1 );
+	set( moment_of_inertia , 1 );
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Entity & base)
@@ -31,8 +40,16 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Enti
 {
 	setTaylorOrder(taylorOrder);
 	setDimension(dim);
+	
+	set( mass, 1 );
+	set( moment_of_inertia , 1 );
 }
 // ------------------------------- Property -------------------------------
+
+void PhysicalEntity::requireProperties( const RawPropertyContainer & raw )
+{
+	this->propertyContainer = PropertyContainer(raw);
+}
 
 	// dimension
 int PhysicalEntity::getDimension(void) const
@@ -59,6 +76,15 @@ int PhysicalEntity::getTaylorOrder(void) const
 	return this->taylorOrder;
 }
 
+SharedPointer<std::set<string>> PhysicalEntity::getPropertyNames( void ) const
+{
+	return this->propertyContainer.getPropertyNames();
+}
+
+void PhysicalEntity::set( const string & rawName, const boost::any & value )
+{
+	this->propertyContainer.setProperty( rawName, value );
+}
 
 //------------------------------- Position -------------------------------
 

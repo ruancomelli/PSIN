@@ -23,24 +23,24 @@
 // PropertyLib
 #include <Property.h>
 #include <PropertyList.h>
+#include <PropertyContainer.h>
 
 using namespace std;
 
-void addZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
-void setZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
-void resizeCummulativeZeta( vector< vector< Vector3D > > & cummulativeZeta, const int numberOfParticles );
+
+Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
+void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+
 
 class ForceModel
 {
 	public:	
-		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
-		
-		// Force calculation models
-		static Vector3D normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-		static Vector3D normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+		typedef Vector3D (*NormalType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+		typedef void (*TangentialType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
+		typedef void (*FieldType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
-		static void tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
-		static void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
+		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
 		static void correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt );
 		static void correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt );
@@ -51,19 +51,59 @@ class ForceModel
 		static void startCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor );
 		static void endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor );
 
-		static void setNumberOfParticles( const int nParticles ); // TO-DO: undo static!!
+		static void setNumberOfParticles( const int nParticles );
+		static int getNumberOfParticles( void );
 
-/*		string getName(void){ return this->name; }
-		void setName(string name){ this->name = name; }*/
+		ForceModel();
+		explicit ForceModel(const string & name);
+
+		// ---- Name ----
+		string getName(void);
+		void setName(const string & name);
+
+		// ---- Required Properties ----
+		RawPropertyContainer getRequiredProperties(void);
+
+		template<typename interfaceType, typename storedType>
+		void requireProperty( const RawProperty<interfaceType, storedType> & property );
+
+		// ---- Force Methods ----
+		void setTimeStep( double timeStep );
+
+		void setNormal( NormalType newNormal );
+		void setTangential( TangentialType newTangential );
+		void setField( FieldType newField );
+
+		void setNormal( vector< NormalType > newNormal );
+		void setTangential( vector< TangentialType > newTangential );
+		void setField( vector< FieldType > newField );
+
+		void addNormal( NormalType newNormal );
+		void addTangential( TangentialType newTangential );
+		void addField( FieldType newField );
+
+		// ---- Force Calculation ----
+		void calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+
+		static int numberOfParticles; // TO-DO: undo static!!
+
 		
 	private:
 		static void resizeCollisionFlag( const int nParticles );
 
 		static vector< vector< bool > > collisionFlag;
 
-		static int numberOfParticles; // TO-DO: undo static!!
-		/*string name;*/
+		string name;
 
+		RawPropertyContainer requiredProperties;
+
+		double timeStep;
+
+		vector< NormalType > normalForceCalculationMethod;
+		vector< TangentialType > tangentialForceCalculationMethod;
+		vector< FieldType > fieldForceCalculationMethod;
 };
+
+#include <ForceModel.tpp>
 
 #endif

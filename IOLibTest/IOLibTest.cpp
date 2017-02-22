@@ -21,6 +21,7 @@
 // IOLib
 #include <vectorIO.h>
 #include <FileReader.h>
+#include <SphericalParticlePtrArrayKit.h>
 
 // PropertyLib
 #include <PropertyContainer.h>
@@ -233,4 +234,250 @@ TestCase( FileReaderTest )
 		checkEqual( readString, stringValue );
 		checkEqual( readVector3d, vector3DValue );
 		checkEqual( readVectorVector3D, vectorVector3DValue);
+}
+
+#include <RawPropertyContainer.h>
+#include <PropertyList.h>
+
+// For the next tests to work (ReadEntity, ReadPhysicalEntity, ReadParticle, ReadSphericalParticle),
+// it is needed to move readEntity, readPhysicalEntity, readParticle and readSphericalParticle
+// from private to public in class SphericalParticlePtrArrayKit
+
+//TestCase(ReadEntity)
+//{
+//	string fileName = "readEntity.txt";
+//
+//	int handle = 3;
+//
+//	ofstream file(fileName);
+//	file << "<Handle> " << handle << endl;
+//	file.close();
+//
+//	SphericalParticlePtrArrayKit particleArray;
+//	EntityPtr entity( new Entity() );
+//	particleArray.readEntity(fileName, entity);
+//
+//	checkEqual(entity->getHandle(), handle );
+//}
+//
+//TestCase(ReadPhysicalEntity)
+//{
+//	RawPropertyContainer raw;
+//	raw.addProperty(PropertyList::mass);
+//
+//	int dimension = 3;
+//	int taylorOrder = 4;
+//	int handle = 10;
+//	double massValue = 5.6;
+//
+//	vector<Vector3D> position = {
+//		Vector3D(0.0, 0.1, 0.2),
+//		Vector3D(0.3, 0.4, 0.5),
+//		Vector3D(0.6, 0.7, 0.8),
+//		Vector3D(0.9, 1.0, 1.2),
+//		Vector3D(-0.1, -0.2, -0.3)
+//	};
+//	vector<Vector3D> orientation = {
+//		Vector3D(1.3, 1.4, 1.5),
+//		Vector3D(1.6, 1.7, 1.8),
+//		Vector3D(1.9, 2.0, 2.1),
+//		Vector3D(2.2, 2.3, 2.4),
+//		Vector3D(2.5, 2.6, 2.7)
+//	};
+//
+//	string fileName = "readPhysicalEntity.txt";
+//
+//	ofstream file(fileName);
+//	file << "<Dimension> " << dimension << endl
+//		<< "<TaylorOrder> " << taylorOrder << endl
+//		<< "<Handle> " << handle << endl
+//		<< "<Position> " << endl << position << endl
+//		<< "<Orientation> " << endl << orientation << endl
+//		<< "<Mass> " << massValue << endl;
+//	file.close();
+//
+//	SphericalParticlePtrArrayKit particleArray;
+//
+//	particleArray.requireRawPropertyContainer(raw);
+//
+//	PhysicalEntityPtr physicalEntity( new PhysicalEntity() );
+//	check( particleArray.readPhysicalEntity(fileName, physicalEntity) );
+//
+//	checkEqual(physicalEntity->getDimension(), dimension );
+//	checkEqual(physicalEntity->getTaylorOrder(), taylorOrder);
+//	checkEqual(physicalEntity->getHandle(), handle);
+//	checkEqual(physicalEntity->getPosition(), position);
+//	checkEqual(physicalEntity->getOrientation(), orientation);
+//	checkEqual(physicalEntity->get( mass ), massValue);
+//}
+//
+//TestCase(ReadParticle)
+//{
+//	RawPropertyContainer raw;
+//	raw.addProperty(PropertyList::mass);
+//
+//	int dimension = 3;
+//	int taylorOrder = 4;
+//	int handle = 10;
+//	double massValue = 5.6;
+//
+//	vector<Vector3D> position = {
+//		Vector3D(0.0, 0.1, 0.2),
+//		Vector3D(0.3, 0.4, 0.5),
+//		Vector3D(0.6, 0.7, 0.8),
+//		Vector3D(0.9, 1.0, 1.2),
+//		Vector3D(-0.1, -0.2, -0.3)
+//	};
+//	vector<Vector3D> orientation = {
+//		Vector3D(1.3, 1.4, 1.5),
+//		Vector3D(1.6, 1.7, 1.8),
+//		Vector3D(1.9, 2.0, 2.1),
+//		Vector3D(2.2, 2.3, 2.4),
+//		Vector3D(2.5, 2.6, 2.7)
+//	};
+//
+//	string fileName = "readParticle.txt";
+//
+//	ofstream file(fileName);
+//	file << "<Dimension> " << dimension << endl
+//		<< "<TaylorOrder> " << taylorOrder << endl
+//		<< "<Handle> " << handle << endl
+//		<< "<Position> " << endl << position << endl
+//		<< "<Orientation> " << endl << orientation << endl
+//		<< "<Mass> " << massValue << endl;
+//	file.close();
+//
+//	SphericalParticlePtrArrayKit particleArray;
+//
+//	particleArray.requireRawPropertyContainer(raw);
+//
+//	ParticlePtr particle(new Particle());
+//	check(particleArray.readParticle(fileName, particle));
+//
+//	checkEqual(particle->getDimension(), dimension);
+//	checkEqual(particle->getTaylorOrder(), taylorOrder);
+//	checkEqual(particle->getHandle(), handle);
+//	checkEqual(particle->getPosition(), position);
+//	checkEqual(particle->getOrientation(), orientation);
+//	checkEqual(particle->get(mass), massValue);
+//}
+//
+//TestCase(ReadSphericalParticle)
+//{
+//	RawPropertyContainer raw;
+//	raw.addProperty(PropertyList::mass);
+//
+//	int dimension = 3;
+//	int taylorOrder = 4;
+//	int handle = 10;
+//	double massValue = 5.6;
+//	double radius = 9.7;
+//
+//	vector<Vector3D> position = {
+//		Vector3D(0.0, 0.1, 0.2),
+//		Vector3D(0.3, 0.4, 0.5),
+//		Vector3D(0.6, 0.7, 0.8),
+//		Vector3D(0.9, 1.0, 1.2),
+//		Vector3D(-0.1, -0.2, -0.3)
+//	};
+//	vector<Vector3D> orientation = {
+//		Vector3D(1.3, 1.4, 1.5),
+//		Vector3D(1.6, 1.7, 1.8),
+//		Vector3D(1.9, 2.0, 2.1),
+//		Vector3D(2.2, 2.3, 2.4),
+//		Vector3D(2.5, 2.6, 2.7)
+//	};
+//
+//	string fileName = "readSphericalParticle.txt";
+//
+//	ofstream file(fileName);
+//	file << "<Dimension> " << dimension << endl
+//		<< "<TaylorOrder> " << taylorOrder << endl
+//		<< "<Handle> " << handle << endl
+//		<< "<Position> " << endl << position << endl
+//		<< "<Orientation> " << endl << orientation << endl
+//		<< "<Mass> " << massValue << endl
+//		<< "<Radius> " << radius << endl;
+//	file.close();
+//
+//	SphericalParticlePtrArrayKit particleArray;
+//
+//	particleArray.requireRawPropertyContainer(raw);
+//
+//	SphericalParticlePtr sphericalParticle(new SphericalParticle());
+//	check(particleArray.readSphericalParticle(fileName, sphericalParticle));
+//
+//	checkEqual(sphericalParticle->getDimension(), dimension);
+//	checkEqual(sphericalParticle->getTaylorOrder(), taylorOrder);
+//	checkEqual(sphericalParticle->getHandle(), handle);
+//	checkEqual(sphericalParticle->getPosition(), position);
+//	checkEqual(sphericalParticle->getOrientation(), orientation);
+//	checkEqual(sphericalParticle->get(mass), massValue);
+//	checkEqual(sphericalParticle->getGeometricParameter( RADIUS ), radius);
+//}
+
+#include <RawPropertyContainer.h>
+#include <PropertyList.h>
+
+TestCase(InputParticle)
+{
+		RawProperty<string> color("Color");
+
+		RawPropertyContainer raw;
+		raw.addProperty(PropertyList::mass);
+		raw.addProperty(color);
+	
+		int dimension = 3;
+		int taylorOrder = 4;
+		int handle = 10;
+
+		double massValue = 5.6;
+		string colorValue = "Blue";
+
+		double radius = 9.7;
+	
+		vector<Vector3D> position = {
+			Vector3D(0.0, 0.1, 0.2),
+			Vector3D(0.3, 0.4, 0.5),
+			Vector3D(0.6, 0.7, 0.8),
+			Vector3D(0.9, 1.0, 1.2),
+			Vector3D(-0.1, -0.2, -0.3)
+		};
+		vector<Vector3D> orientation = {
+			Vector3D(1.3, 1.4, 1.5),
+			Vector3D(1.6, 1.7, 1.8),
+			Vector3D(1.9, 2.0, 2.1),
+			Vector3D(2.2, 2.3, 2.4),
+			Vector3D(2.5, 2.6, 2.7)
+		};
+	
+		string fileName = "inputParticle.txt";
+	
+		ofstream file(fileName);
+		file << "<Dimension> " << dimension << endl
+			<< "<TaylorOrder> " << taylorOrder << endl
+			<< "<Handle> " << handle << endl
+			<< "<Position> " << endl << position << endl
+			<< "<Orientation> " << endl << orientation << endl
+			<< "<Mass> " << massValue << endl
+			<< "<Color> " << colorValue << endl
+			<< "<Radius> " << radius << endl;
+		file.close();
+	
+		SphericalParticlePtrArrayKit particleArray;
+	
+		particleArray.requireRawPropertyContainer(raw);
+	
+		check(particleArray.inputParticle(fileName));
+
+		SphericalParticlePtr sph = particleArray[0];
+	
+		checkEqual(sph->getDimension(), dimension);
+		checkEqual(sph->getTaylorOrder(), taylorOrder);
+		checkEqual(sph->getHandle(), handle);
+		checkEqual(sph->getPosition(), position);
+		checkEqual(sph->getOrientation(), orientation);
+		checkEqual(sph->get(mass), massValue);
+		checkEqual(sph->get(color), colorValue);
+		checkEqual(sph->getGeometricParameter( RADIUS ), radius);
 }

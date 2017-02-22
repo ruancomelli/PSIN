@@ -15,6 +15,9 @@
 // UtilsLibSpecific
 #include <Foreach.h>
 
+// PropertyLib
+#include <RawPropertyContainer.h>
+
 // IOLib
 #include <FileReader.h>
 
@@ -23,15 +26,15 @@
 
 using namespace std;
 
-class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
+class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
 {
 	public:
 		SphericalParticlePtrArrayKit();
 		virtual ~SphericalParticlePtrArrayKit();
 
-		void inputParticle(const string & inputPath);
-		void inputParticles(const int nParticles, const string & inputPath);
-		void inputParticles(const vector<string> & inputPath);
+		bool inputParticle(const string & inputPath);
+		bool inputParticles(const int nParticles, const string & inputPath);
+		bool inputParticles(const vector<string> & inputPath);
 
 		void openFiles(const string & outputPath);
 
@@ -40,6 +43,8 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 
 		void exportAllData(const string & horizontalSeparator, const string & verticalSeparator) const;
 		void exportAllDataCSV() const { exportAllData(",", "\n"); }
+
+		void requireRawPropertyContainer( const RawPropertyContainer & required );
 
 	private:
 		enum{
@@ -59,13 +64,15 @@ class SphericalParticlePtrArrayKit: public SphericalParticlePtrArray
 			N_FILES_PER_PARTICLE
 		};
 
-		bool readEntity( const string & fileName, EntityPtr entity );
-		bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr physicalEntity );
-		bool readParticle( const string & fileName, ParticlePtr particle );
-		bool readSphericalParticle( const string & fileName, SphericalParticlePtr sphericalParticle );
-
 		bool isReady;
 		vector< vector< SharedPointer<ofstream> > > outFile;
+
+		RawPropertyContainer requiredProperties;
+
+		bool readEntity( const string & fileName, EntityPtr & entity );
+		bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr & physicalEntity );
+		bool readParticle( const string & fileName, ParticlePtr & particle );
+		bool readSphericalParticle( const string & fileName, SphericalParticlePtr & sphericalParticle );
 
 		/* These functions only make the program clearer */
 		void saveVector3D(ofstream & outFile, const Vector3D & v, const string & horizontalSeparator, const string & verticalSeparator) const;

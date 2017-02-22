@@ -6,6 +6,7 @@
 #include <iterator>
 
 // PropertyLib
+#include <RawProperty.h>
 #include <Property.h>
 
 // UtilsLib
@@ -249,10 +250,40 @@ TestCase(PropertySetRawProperty)
 	checkEqual(property2.get(), intReturn);
 }
 
+#include <RawPropertyContainer.h>
 #include <PropertyContainer.h>
 #include <PropertyList.h>
 
 using namespace PropertyList;
+
+TestCase(RawPropertyContainerTest)
+{
+	RawPropertyContainer raw;
+	raw.addProperty(mass);
+
+	SharedPointer< set<string> > nameSet = raw.getPropertyNames();
+	set<string>::iterator it = nameSet->begin();
+
+	checkEqual( *it, mass.getName() );
+
+	RawPropertyContainer raw2(raw);
+	raw2.addProperty(volume);
+
+	nameSet = raw.getPropertyNames();
+	it = nameSet->find( volume.getName() );
+
+	checkEqual(*it, volume.getName());
+
+	// Testing set and get input and output methods
+	RawProperty<double> newRawProperty;
+	newRawProperty.setInputMethod(defaultInputMethod<double>);
+	newRawProperty.setOutputMethod(defaultOutputMethod<double>);
+
+	raw2.addProperty(newRawProperty);
+	
+	check( raw2.getInputMethod( newRawProperty.getName() ) == defaultInputMethod<double> );
+	check(raw2.getOutputMethod(newRawProperty.getName()) == defaultOutputMethod<double>);
+}
 
 TestCase(PropertyContainerTest)
 {
@@ -261,21 +292,33 @@ TestCase(PropertyContainerTest)
 	string colorValue = "blue";
 	int intValue = 5;
 
+	RawProperty<string> color("Color");
+	RawProperty<int> integer("Integer");
+
 	many valueList;
 	set<string> nameList;
 
 	PropertyContainer propertyContainer;
 
-	RawProperty<string> color("Color");
-	RawProperty<int> integer("Integer");
-
 	propertyContainer.setProperty(mass, massValue);
-	propertyContainer.setProperty(volume, volumeValue);
 	propertyContainer.setProperty(color, colorValue);
+	propertyContainer.setProperty(integer, intValue);
+	propertyContainer.setProperty(volume, volumeValue);
 
 	checkEqual(propertyContainer.getValue(mass), massValue);
-	checkEqual(propertyContainer.getValue(volume), volumeValue);
 	checkEqual(propertyContainer.getValue(color), colorValue);
+	checkEqual(propertyContainer.getValue(integer), intValue);
+	checkEqual(propertyContainer.getValue(volume), volumeValue);
+
+	RawPropertyContainer raw;
+	raw.addProperty(mass);
+
+	PropertyContainer propertyContainer2(raw);
+	SharedPointer<set<string>> nameSet = propertyContainer2.getPropertyNames();
+	set<string>::iterator it = nameSet->find(mass.getName());
+	
+	checkEqual( *it, mass.getName() );
+
 }
 
 bool input2timesDouble(ifstream & in, boost::any & value)
@@ -324,27 +367,4 @@ TestCase(RawPropertyInputAndOutputTest)
 	inFile2.close();
 
 	checkClose( 6 * boost::any_cast<double>(value), boost::any_cast<double>(secondValue), 1e-10);
-}
-
-#include <Foreach.h>
-#include <boost/make_shared.hpp>
-
-TestCase(PropertyContainerPointing)
-{
-	//set<string> mySet = { "Rohan", "Gondor", "Mordor" };
-
-	//for (auto& name : mySet)
-	//	cout << "\t\t" << name << endl;
-
-	//SharedPointer<set<string>> mySetPtr = boost::make_shared<set<string>>(mySet);
-	//
-	//PropertyContainer myContainer;
-	//myContainer.pointPropertyNames(mySetPtr);
-
-	//myContainer.setProperty(mass, 30.0);
-
-	//foreach(string name, *mySetPtr)
-	//{
-	//	cout << "\t\t" << name << endl;
-	//}
 }

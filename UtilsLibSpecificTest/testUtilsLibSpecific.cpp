@@ -339,6 +339,16 @@ TestCase( Vector3DIsEqualOperator ){
 	checkEqual( nullVector3D()==nullVector3D() , true );
 }
 
+#include <boost/any.hpp>
+
+TestCase(BOOST_AnyAssignment)
+{
+	int i = 3;
+	boost::any x = i;
+	boost::any y = x;
+
+	checkEqual(boost::any_cast<int>(y), i);
+}
 
 
 // vector 3D IO

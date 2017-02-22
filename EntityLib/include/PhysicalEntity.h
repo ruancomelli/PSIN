@@ -4,6 +4,7 @@
 // Standard
 #include <vector>
 #include <stdexcept>
+#include <set>
 
 // EntityLib
 #include <Entity.h>
@@ -17,7 +18,10 @@
 #include <PropertyContainer.h>
 #include <PropertyList.h>
 
-using namespace std;
+// boost
+#include <boost/any.hpp>
+
+using std::string;
 using namespace PropertyList;
 
 namespace boost{ using many = std::vector<any>; };
@@ -27,31 +31,6 @@ enum GeometryType{
 	SPHERE = 0,
 	DEFAULT = SPHERE
 };
-
-// START "TO DELETE" =========================================================================================================
-enum ScalarProperty{ 
-  MASS = 0,        // m --- kg 
-  MOMENT_OF_INERTIA,    // J --- kg * m^2 
-  VOLUME,          // V --- m^3 
-  SPECIFIC_MASS,      // \rho --- kg / m^3 
-  DISSIPATIVE_CONSTANT,  // A --- s 
-  POISSON_RATIO,      // \nu --- * 
-  ELASTIC_MODULUS,    // E or Y --- N / m^2 
-  TANGENTIAL_DAMPING,    // \gamma^t --- N * s / m 
-  FRICTION_PARAMETER,    // \mu --- * 
-  NORMAL_DISSIPATIVE_CONSTANT,    // \gamma^n --- N * s / m 
-  TANGENTIAL_KAPPA,    // \kappa^t --- N / m 
-  N_SCALAR_PROPERTY 
-}; 
- 
-enum VectorialProperty{ 
-  N_VECTORIAL_PROPERTY 
-}; 
- 
-enum MatricialProperty{ 
-  N_MATRICIAL_PROPERTY 
-}; 
-// END "TO DELETE" =========================================================================================================
 
 class PhysicalEntity;
 typedef SharedPointer<PhysicalEntity> PhysicalEntityPtr;
@@ -83,6 +62,8 @@ class PhysicalEntity: public Entity
 		GeometryType getGeometry() const;
 		
 		// ---- Properties ----
+		void requireProperties( const RawPropertyContainer & raw );
+
 			// dimension
 		int getDimension(void) const;
 
@@ -94,18 +75,13 @@ class PhysicalEntity: public Entity
 		template< typename interfaceType, typename storedType, typename implicitInterfaceType >
 		void set( const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );
 
+		void set( const string & rawName, const boost::any & value );
+
 			// get property
 		template<typename interfaceType, typename storedType>
 		interfaceType get(const RawProperty<interfaceType, storedType> & raw) const;
 
-		// START "TO DELETE" =========================================================================================================
-	    void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue); 
-	    void setScalarProperty(const DoubleVector scalarPropertyVector); 
-	    double getScalarProperty(const int scalarPropertyIdentifier) const; 
-	    DoubleVector getScalarProperty() const; 
-    	DoubleVector2D getVectorialProperty() const;
-    	vector < DoubleVector2D > getMatricialProperty() const;
-	    // END "TO DELETE" =========================================================================================================
+		SharedPointer<std::set<string>> getPropertyNames( void ) const;
 		
 	private:
 		int			 taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
