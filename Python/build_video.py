@@ -74,3 +74,4 @@ def build_video(particleData , nParticles):
 	anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frames, interval=interval)
 
 	anim.save('CollidingSpheres.mp4', fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
+	print('nParticles = ' , nParticles)
