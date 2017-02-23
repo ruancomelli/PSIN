@@ -123,36 +123,6 @@ TestCase(EqualFunctionsTest)
 	check(setIntFromString != setIntFromString2);
 }
 
-TestCase(EqualAndSimilarTest)
-{
-	RawProperty<string, int> raw1("Rohan");
-	RawProperty<string, int> raw2("Rohan");
-	RawProperty<string, int> raw3("Rohan", setIntFromString, getStringFromInt);
-	RawProperty<string, int> raw4("Rohan", setIntFromString, getStringFromInt);
-	RawProperty<string, int> raw5("Steve", setIntFromString, getStringFromInt);
-
-
-	check(raw1.isSimilarTo(raw2));
-	check(raw1.isSimilarTo(raw3));
-	check(!raw1.isSimilarTo(raw5));
-
-	check(raw1.isEqualTo(raw2));
-	check(raw3.isEqualTo(raw4));
-	check(!raw2.isEqualTo(raw3));
-	check(!raw1.isEqualTo(raw5));
-
-	RawProperty<int> raw6("Rohan");
-	RawProperty<int> raw7("Rohan");
-	RawProperty<int, int> raw8("Rohan");
-	RawProperty<int, int> raw9("Rohan", defaultSetter, defaultGetter);
-
-	check(raw6.isEqualTo(raw7));
-	check(raw6.isSimilarTo(raw8));
-	check(!raw6.isEqualTo(raw8));
-	check(raw6.isEqualTo(raw9));
-
-}
-
 TestCase(PropertyConstructorsTest)
 {
 	string defaultName = "Nameless";

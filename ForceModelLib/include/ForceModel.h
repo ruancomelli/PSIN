@@ -7,6 +7,8 @@
 #include <vector>
 #include <ctype.h>
 #include <stdexcept>
+#include <list>
+#include <set>
 
 // UtilsLibSpecific
 #include <Vector3D.h>
@@ -25,20 +27,30 @@
 #include <PropertyList.h>
 #include <PropertyContainer.h>
 
-using namespace std;
+// boost
+#include <boost/make_shared.hpp>
 
+using namespace std;
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
-
-class ForceModel
+class ForceModel : public EnableSharedFromThis<ForceModel>
 {
 	public:	
+		typedef SharedPointer<ForceModel> ForceModelPtr;
+
 		typedef Vector3D (*NormalType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 		typedef void (*TangentialType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 		typedef void (*FieldType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+
+		struct ForceModelPtrCompare{
+			bool operator()( const ForceModelPtr & left, const ForceModelPtr & right ) const
+			{ return left->getName() < right->getName();}
+		};
+		
+		static set<ForceModelPtr, ForceModelPtrCompare> forceModelList;
 
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
@@ -56,9 +68,13 @@ class ForceModel
 
 		ForceModel();
 		explicit ForceModel(const string & name);
+		ForceModel( const ForceModel & fm );
+
+		// ---- Add to List ----
+		void addToList(void);
 
 		// ---- Name ----
-		string getName(void);
+		string getName(void) const;
 		void setName(const string & name);
 
 		// ---- Required Properties ----
@@ -74,18 +90,16 @@ class ForceModel
 		void setTangential( TangentialType newTangential );
 		void setField( FieldType newField );
 
-		// void setNormal( vector< NormalType > newNormal );
-		// void setTangential( vector< TangentialType > newTangential );
-		// void setField( vector< FieldType > newField );
+		void setNormal( vector< NormalType > newNormal );
+		void setTangential( vector< TangentialType > newTangential );
+		void setField( vector< FieldType > newField );
 
-		// void addNormal( NormalType newNormal );
-		// void addTangential( TangentialType newTangential );
-		// void addField( FieldType newField );
+		void addNormal( NormalType newNormal );
+		void addTangential( TangentialType newTangential );
+		void addField( FieldType newField );
 
 		// ---- Force Calculation ----
 		void calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-
-		static int numberOfParticles; // TO-DO: undo static!!
 
 		
 	private:
@@ -93,19 +107,21 @@ class ForceModel
 
 		static vector< vector< bool > > collisionFlag;
 
+		static int numberOfParticles; // TO-DO: undo static!!
+
 		string name;
 
 		RawPropertyContainer requiredProperties;
 
 		double timeStep;
 
-		// vector< NormalType > normalForceCalculationMethod;
-		// vector< TangentialType > tangentialForceCalculationMethod;
-		// vector< FieldType > fieldForceCalculationMethod;
-		NormalType normalForceCalculationMethod;
-		TangentialType tangentialForceCalculationMethod;
-		FieldType fieldForceCalculationMethod;
+		vector< NormalType > normalForceCalculationMethod;
+		vector< TangentialType > tangentialForceCalculationMethod;
+		vector< FieldType > fieldForceCalculationMethod;
+
 };
+
+typedef ForceModel::ForceModelPtr ForceModelPtr;
 
 #include <ForceModel.tpp>
 

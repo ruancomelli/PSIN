@@ -26,6 +26,7 @@
 // ForceModelLib
 #include <ForceModel.h>
 #include <ForceModelList.h>
+#include <ForceModelSet.h>
 
 // IOLib
 #include <FileReader.h>
@@ -83,7 +84,7 @@ int main(int argc, char **argv){
 
 	ForceModel forceModel;
 
-	for (auto& fm : ForceModelList::forceModelList)
+	for (auto& fm : forceModelSet)
 	{
 		if (fm.getName() == forceModelName)
 		{
@@ -97,15 +98,16 @@ int main(int argc, char **argv){
 
 	SphericalParticlePtrArrayKit particleArray;
 
-	particleArray.inputParticles(numberOfParticles, particleInputFolder);
+	particleArray.requireRawPropertyContainer(forceModel.getRequiredProperties());
+	cout << boolalpha << particleArray.inputParticles(numberOfParticles, particleInputFolder) << endl;
 
-	foreach(SphericalParticlePtr particlePtr, particleArray){
-		const double m = particlePtr->get( mass );
-		const double r = particlePtr->get( mass );
+	//foreach(SphericalParticlePtr particlePtr, particleArray){
+	//	const double m = particlePtr->get( mass );
+	//	const double r = particlePtr->get( mass );
 
-		particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
-		particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
-	}
+	//	particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
+	//	particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
+	//}
 
 	particleArray[0]->setGravity(gravity);
 	
@@ -171,11 +173,7 @@ int main(int argc, char **argv){
 			foreach( int handle, particle->getNeighborhood() ){
 				SphericalParticlePtr neighbor = particleArray[handle];
 
-				if(particle->touches(neighbor))	// If particles are in touch
-				{
-					Vector3D normalForce = ForceModelList::normalForceLinearDashpotForce( particle, neighbor );
-					ForceModelList::tangentialForceCundallStrack( particle, neighbor, normalForce, timeStep );
-				}
+				forceModel.calculate(particle, neighbor);
 			}
 		}
 

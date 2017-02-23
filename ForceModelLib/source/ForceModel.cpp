@@ -16,84 +16,77 @@ void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, Spherica
 
 vector< vector< bool > > ForceModel::collisionFlag;
 int ForceModel::numberOfParticles;
+set<ForceModelPtr, ForceModel::ForceModelPtrCompare> ForceModel::forceModelList;
+
 
 ForceModel::ForceModel()
 	: name("Nameless"),
-	normalForceCalculationMethod( defaultNormalForceCalculationMethod ),
-	tangentialForceCalculationMethod( defaultTangentialForceCalculationMethod ),
-	fieldForceCalculationMethod( defaultFieldForceCalculationMethod )
+	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
+	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
+	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
 {
+	// forceModelList.insert( *this );
+	// every insert should verify if there was already a ForceModel with that name
+	// also, it would be better to use pointers instead of references
+	// DO IT LATER!
 }
 
 ForceModel::ForceModel(const string & name)
 	: name(name),
-	normalForceCalculationMethod( defaultNormalForceCalculationMethod ),
-	tangentialForceCalculationMethod( defaultTangentialForceCalculationMethod ),
-	fieldForceCalculationMethod( defaultFieldForceCalculationMethod )
+	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
+	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
+	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
 {
+	// forceModelList.insert( *this );
 }
 
-// ForceModel::ForceModel()
-// 	: name("Nameless"),
-// 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
-// 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
-// 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
-// {
-// }
+ForceModel::ForceModel( const ForceModel & fm )
+	: name( fm.name ),
+	normalForceCalculationMethod( fm.normalForceCalculationMethod ),
+	tangentialForceCalculationMethod( fm.tangentialForceCalculationMethod ),
+	fieldForceCalculationMethod( fm.fieldForceCalculationMethod ),
+	requiredProperties( fm.requiredProperties ),
+	timeStep( fm.timeStep )
+{
+	// forceModelList.insert( *this );
+}
 
-// ForceModel::ForceModel(const string & name)
-// 	: name(name),
-// 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
-// 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
-// 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
-// {
-// }
+void ForceModel::addToList(void)
+{
+	forceModelList.insert( shared_from_this() );
+}
 
-void ForceModel::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = newNormal; }
-void ForceModel::setTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod = newTangential; }
-void ForceModel::setField( FieldType newField ){ this->fieldForceCalculationMethod = newField; }
-// void ForceModel::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = {newNormal}; }
-// void ForceModel::setTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod = {newTangential}; }
-// void ForceModel::setField( FieldType newField ){ this->fieldForceCalculationMethod = {newField}; }
-// void ForceModel::setNormal( vector< NormalType > newNormal ){ this->normalForceCalculationMethod = newNormal; }
-// void ForceModel::setTangential( vector< TangentialType > newTangential ){ this->tangentialForceCalculationMethod = newTangential; }
-// void ForceModel::setField( vector< FieldType > newField ){ this->fieldForceCalculationMethod = newField; }
-// void ForceModel::addNormal( NormalType newNormal ){ this->normalForceCalculationMethod.push_back( newNormal ); }
-// void ForceModel::addTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod.push_back( newTangential ); }
-// void ForceModel::addField( FieldType newField ){ this->fieldForceCalculationMethod.push_back( newField ); }
+void ForceModel::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = {newNormal}; }
+void ForceModel::setTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod = {newTangential}; }
+void ForceModel::setField( FieldType newField ){ this->fieldForceCalculationMethod = {newField}; }
+void ForceModel::setNormal( vector< NormalType > newNormal ){ this->normalForceCalculationMethod = newNormal; }
+void ForceModel::setTangential( vector< TangentialType > newTangential ){ this->tangentialForceCalculationMethod = newTangential; }
+void ForceModel::setField( vector< FieldType > newField ){ this->fieldForceCalculationMethod = newField; }
+void ForceModel::addNormal( NormalType newNormal ){ this->normalForceCalculationMethod.push_back( newNormal ); }
+void ForceModel::addTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod.push_back( newTangential ); }
+void ForceModel::addField( FieldType newField ){ this->fieldForceCalculationMethod.push_back( newField ); }
 
 
-// void ForceModel::calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
-// {
-// 	Vector3D normalForce;
-
-// 	for( auto& normalForceMethod : normalForceCalculationMethod )
-// 	{
-// 		normalForce += normalForceMethod( particle, neighbor );
-// 	}
-
-// 	for( auto& tangentialForceMethod : tangentialForceCalculationMethod )
-// 	{
-// 		tangentialForceMethod( particle, neighbor, normalForce, this->timeStep );
-// 	}
-
-// 	for( auto& fieldForceMethod : fieldForceCalculationMethod )
-// 	{
-// 		fieldForceMethod( particle, neighbor );
-// 	}
-
-// }
 void ForceModel::calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
 {
-	Vector3D normalForce = normalForceCalculationMethod( particle, neighbor );
-	tangentialForceCalculationMethod( particle, neighbor, normalForce, this->timeStep );
-	fieldForceCalculationMethod( particle, neighbor );
+	Vector3D normalForce;
+
+	for( auto& normalForceMethod : normalForceCalculationMethod )
+	{
+		normalForce += normalForceMethod( particle, neighbor );
+	}
+
+	for( auto& tangentialForceMethod : tangentialForceCalculationMethod )
+	{
+		tangentialForceMethod( particle, neighbor, normalForce, this->timeStep );
+	}
+
+	for( auto& fieldForceMethod : fieldForceCalculationMethod )
+	{
+		fieldForceMethod( particle, neighbor );
+	}
+
 }
-
-// Normal Force Model
-// Linear Dashpot Force
-// Every comment in here may be related to the book Computational Granular Dynamics
-
 
 /* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
 		currentVector = (f(t), f'(t), f''(t), ..., f^(n)(t))
@@ -103,7 +96,8 @@ void ForceModel::calculate( SphericalParticlePtr particle, SphericalParticlePtr 
 		For a sufficiently small dt, we can approximate f(t+dt) by its expansion in Taylor's sum and write r = 0
 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
 */
-vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt ){
+vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt )
+{
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
@@ -195,7 +189,7 @@ void ForceModel::correctOrientation( SphericalParticlePtr particle, const int pr
 	particle->setOrientation(correctedOrientation);
 }
 
-string ForceModel::getName(void)
+string ForceModel::getName(void) const
 { 
 	return this->name; 
 }

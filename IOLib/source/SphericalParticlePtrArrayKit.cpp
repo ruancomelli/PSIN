@@ -140,6 +140,13 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 		foreach(SphericalParticlePtr particlePtr, *this){
 			*outFile[particlePtr->getHandle()][DATA_IDX] << "<Radius> " << particlePtr->getGeometricParameter(RADIUS) << verticalSeparator;
 
+
+			for( auto& name : *(requiredProperties.getPropertyNames()) )
+			{
+				this->requiredProperties.getOutputMethod(name)
+				/*FINISH THIS!!!!!*/
+			}
+
 			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
 				particlePtr, horizontalSeparator, verticalSeparator);
 

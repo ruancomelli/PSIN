@@ -13,6 +13,7 @@
 #include <Vector.h>
 #include <Mathematics.h>
 #include <SharedPointer.h>
+#include <StaticExecute.h>
 
 // EntityLib
 #include <Entity.h>
@@ -26,30 +27,25 @@
 #include <PropertyContainer.h>
 
 // ForceModel
-#include <ForceModel.h>
+#include <ForceModelSet.h>
 
 using namespace std;
 
-namespace ForceModelList
+#include <ForceMethodsDefinitions.h>
+
+STATIC_EXECUTE
 {
-	static vector< ForceModel > forceModelList;
+	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
+	viscoelasticSpheres.setNormal( normalForceViscoelasticSpheres );
+	viscoelasticSpheres.setTangential( tangentialForceHaffWerner );
+	viscoelasticSpheres.requireProperty(mass);
+	viscoelasticSpheres.requireProperty(elastic_modulus);
+	viscoelasticSpheres.requireProperty(dissipative_constant);
+	viscoelasticSpheres.requireProperty(poisson_ratio);
+	viscoelasticSpheres.requireProperty(tangential_damping);
+	viscoelasticSpheres.requireProperty(friction_parameter);
 
-	void addZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
-	void setZeta( vector< vector< Vector3D > > & cummulativeZeta, const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta );
-	void resizeCummulativeZeta( vector< vector< Vector3D > > & cummulativeZeta, const int numberOfParticles );
-			
-	// Force calculation models
-	Vector3D normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-	Vector3D normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-
-	void tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
-	void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
-
-	static ForceModel viscoelasticSpheres("ViscoElasticSpheres");
-	// viscoelasticSpheres.addNormal( normalForceViscoelasticSpheres );
-	// viscoelasticSpheres.addTangential( tangentialForceHaffWerner );
-	// forceModelList.push_back( viscoelasticSpheres );
-};
-
+	forceModelSet.insert( viscoelasticSpheres );
+}
 
 #endif

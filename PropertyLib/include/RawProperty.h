@@ -61,12 +61,6 @@ class RawProperty<interfaceType, storedType>
 		bool (*inputMethod)(ifstream & in, boost::any & value) = NULL;
 		bool (*outputMethod)(ofstream & out, boost::any & value) = NULL;
 
-		bool isSimilarTo( const RawProperty<interfaceType, storedType> & other ) const;
-		bool isSimilarTo( const RawPropertyPtr<interfaceType, storedType> & other ) const;
-
-		bool isEqualTo( const RawProperty<interfaceType, storedType> & other ) const;
-		bool isEqualTo( const RawPropertyPtr<interfaceType, storedType> & other ) const;
-
 	private:
 
 		string name;
