@@ -20,8 +20,29 @@ from matplotlib import animation
 from build_video import build_video
 
 
-def simulate( simulationName, programName, generateVideo=True ):
+# Initialize all graph possible types
+graphType = [ 'energy' , 'linear_momentum' , 'angular_momentum' , 'force' , 'torque' , 'video' ]
+
+def simulation(simulationName, programName):
 	
+	print( "> Initializing Program" )
+	print( "==== ", simulationName, " ====" )
+	
+	pythonOutputFolder = "../_output/" + simulationName + "/Python_output/"
+	programFolder = "../_build/apps/Release/"
+
+	os.makedirs(pythonOutputFolder, exist_ok=True)
+	
+	#
+	# SIMULATING
+	#
+	# It executes the C++ compiled program
+	print( "> Simulating" )
+	subprocess.Popen( programFolder + programName )
+	print( "< Simulation finished" )
+
+def generateGraphics( simulationName, programName , videoType , bools ):
+
 	#
 	# INITIALIZING
 	#
@@ -31,7 +52,7 @@ def simulate( simulationName, programName, generateVideo=True ):
 	# The "File" suffix is used to indicate that a variable is a file object, as in outputFile = open("../simulation/output.txt")
 	# In general, let X be a token. Then we should be able to write XFile = fopen(XPath) 
 	# The "Name" suffix, when applied in the context of files, is a filename, as in programName = "spyder.exe"
-	
+
 	print( "> Initializing Program" )
 	print( "==== ", simulationName, " ====" )
 	
@@ -45,23 +66,7 @@ def simulate( simulationName, programName, generateVideo=True ):
 	simulationInputFile.write( simulationInputFileString )
 
 	simulationInputFile.close()
-	
-	os.makedirs(pythonOutputFolder, exist_ok=True)
-	
-	print( "< Done" )
-	
-	#
-	# SIMULATING
-	#
-	# It executes the C++ compiled program
-	print( "> Simulating" )
-	subprocess.Popen( programFolder + programName )
-	print( "< Simulation finished" )
-	
-	#
-	# READ DATA
-	#
-	
+
 	# Read main output file
 	print("> Reading main output file")
 	mainSimulationOutputPath = simulationOutputFolder + "output.txt"
@@ -140,110 +145,125 @@ def simulate( simulationName, programName, generateVideo=True ):
 		
 	
 	# Plot Energy
-	print(">> Plotting mechanical energy")
+	thisKey = "energy"
+	if( bools[thisKey] ):
+		print(">> Plotting mechanical energy")
 
-	plotParticleDataHistory( 
-		timeVector = timeVectorForPlot, 
-		particleData = particleData, 
-		key = "energy", 
-		title = "\nMechanical Energy\n", 
-		outputFolder = pythonOutputFolder, 
-		fileName = "mechanical_energy_plot", 
-		extension = ".png", 
-		xAxisLabel = "\nTime [s]\n", 
-		yAxisLabel = "\nEnergy [J]\n", 
-		scalarMap = scalarMap,  
-		nParticles = simulationSettings["nParticles"])
+		plotParticleDataHistory( 
+			timeVector = timeVectorForPlot, 
+			particleData = particleData, 
+			key = "energy", 
+			title = "\nMechanical Energy\n", 
+			outputFolder = pythonOutputFolder, 
+			fileName = "mechanical_energy_plot", 
+			extension = ".png", 
+			xAxisLabel = "\nTime [s]\n", 
+			yAxisLabel = "\nEnergy [J]\n", 
+			scalarMap = scalarMap,  
+			nParticles = simulationSettings["nParticles"])
 
-	print("<< Done")
+		print("<< Done")
 	
 	# Plot Linear Momentum
-	print(">> Plotting linear momentum")
+	thisKey = "linear_momentum"
+	if( bools[thisKey] ):
+		print(">> Plotting linear momentum")
 
-	plotParticleDataHistory3D( 
-		timeVector = timeVectorForPlot, 
-		particleData = particleData, 
-		key = "linear_momentum", 
-		title = "\nLinear Momentum", 
-		outputFolder = pythonOutputFolder, 
-		fileName = "linear_momentum_plot", 
-		extension = ".png", 
-		xAxisLabel = "\nTime [s]\n", 
-		yAxisLabel = "\nLinear Momentum [kg*m/s]\n", 
-		scalarMap = scalarMap,  
-		nParticles = simulationSettings["nParticles"]
-		)
+		plotParticleDataHistory3D( 
+			timeVector = timeVectorForPlot, 
+			particleData = particleData, 
+			key = "linear_momentum", 
+			title = "\nLinear Momentum", 
+			outputFolder = pythonOutputFolder, 
+			fileName = "linear_momentum_plot", 
+			extension = ".png", 
+			xAxisLabel = "\nTime [s]\n", 
+			yAxisLabel = "\nLinear Momentum [kg*m/s]\n", 
+			scalarMap = scalarMap,  
+			nParticles = simulationSettings["nParticles"]
+			)
 
-	print("<< Done")
+		print("<< Done")
 	
 	# Plot Angular Momentum
-	print(">> Plotting angular momentum")
+	thisKey = "angular_momentum"
+	if( bools[thisKey] ):
+		print(">> Plotting angular momentum")
 
-	plotParticleDataHistory3D( 
-		timeVector = timeVectorForPlot, 
-		particleData = particleData, 
-		key = "angular_momentum", 
-		title = "\nAngular Momentum", 
-		outputFolder = pythonOutputFolder, 
-		fileName = "angular_momentum_plot", 
-		extension = ".png", 
-		xAxisLabel = "\nTime [s]\n", 
-		yAxisLabel = "\nAngular Momentum [kg*m^2/s]\n", 
-		scalarMap = scalarMap,  
-		nParticles = simulationSettings["nParticles"]
-		)
+		plotParticleDataHistory3D( 
+			timeVector = timeVectorForPlot, 
+			particleData = particleData, 
+			key = "angular_momentum", 
+			title = "\nAngular Momentum", 
+			outputFolder = pythonOutputFolder, 
+			fileName = "angular_momentum_plot", 
+			extension = ".png", 
+			xAxisLabel = "\nTime [s]\n", 
+			yAxisLabel = "\nAngular Momentum [kg*m^2/s]\n", 
+			scalarMap = scalarMap,  
+			nParticles = simulationSettings["nParticles"]
+			)
 
-	print("<< Done")
-	
+		print("<< Done")
+		
 	# Plot Resulting Force
-	print(">> Plotting force")
+	thisKey = "force"
+	if( bools[thisKey] ):
+		print(">> Plotting force")
 
-	plotParticleDataHistory3D( 
-		timeVector = timeVectorForPlot, 
-		particleData = particleData, 
-		key = "force", 
-		title = "\nResulting Force", 
-		outputFolder = pythonOutputFolder, 
-		fileName = "force_plot", 
-		extension = ".png", 
-		xAxisLabel = "\nTime [s]\n", 
-		yAxisLabel = "\nResulting Force [N]\n", 
-		scalarMap = scalarMap,  
-		nParticles = simulationSettings["nParticles"]
-		)
+		plotParticleDataHistory3D( 
+			timeVector = timeVectorForPlot, 
+			particleData = particleData, 
+			key = "force", 
+			title = "\nResulting Force", 
+			outputFolder = pythonOutputFolder, 
+			fileName = "force_plot", 
+			extension = ".png", 
+			xAxisLabel = "\nTime [s]\n", 
+			yAxisLabel = "\nResulting Force [N]\n", 
+			scalarMap = scalarMap,  
+			nParticles = simulationSettings["nParticles"]
+			)
 
-	print("<< Done")
+		print("<< Done")
 	
 	# Plot Resulting Torque
-	print(">> Plotting torque")
+	thisKey = "torque"
+	if( bools[thisKey] ):
+		print(">> Plotting torque")
 
-	plotParticleDataHistory3D( 
-		timeVector = timeVectorForPlot, 
-		particleData = particleData, 
-		key = "torque", 
-		title = "\nResulting Torque", 
-		outputFolder = pythonOutputFolder, 
-		fileName = "torque_plot", 
-		extension = ".png", 
-		xAxisLabel = "\nTime [s]\n", 
-		yAxisLabel = "\nResulting Torque [N*m]\n", 
-		scalarMap = scalarMap,  
-		nParticles = simulationSettings["nParticles"]
-		)
+		plotParticleDataHistory3D( 
+			timeVector = timeVectorForPlot, 
+			particleData = particleData, 
+			key = "torque", 
+			title = "\nResulting Torque", 
+			outputFolder = pythonOutputFolder, 
+			fileName = "torque_plot", 
+			extension = ".png", 
+			xAxisLabel = "\nTime [s]\n", 
+			yAxisLabel = "\nResulting Torque [N*m]\n", 
+			scalarMap = scalarMap,  
+			nParticles = simulationSettings["nParticles"]
+			)
 
-	print("<< Done")
+		print("<< Done")
 
 	# Generate Video
-
-	if generateVideo:
+	thisKey = "video"
+	if( bools[thisKey] ):
 		print(">> Generating video")
 
 		nParticles = simulationSettings["nParticles"]
-		build_video(particleData , nParticles)
+		fileName = "CollidingSpheres"
+		build_video(
+			particleData=particleData,
+			nParticles=nParticles,
+			outputFolder=pythonOutputFolder,
+			fileName=fileName,
+			limitsType=videoType
+			)
 
 		print("<< Done")
 		
 
 	return particleData
-
-p = simulate('Simulation1', 'CollidingSpheres.exe')

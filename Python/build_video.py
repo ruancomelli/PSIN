@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 from matplotlib import animation
 from graphLimitsFunctions import *
 
-def build_video(particleData , nParticles):
+def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
 
 	# Config 
 	fig_dpi = 100
@@ -55,9 +55,12 @@ def build_video(particleData , nParticles):
 			circles[p].center = (xCenter , yCenter)
 		print('t = ' , t)
 		# set graph limits
-#		[ xmin , xmax , ymin , ymax ] = getLimits_byTimeStep( particleData , nParticles , t )
-#		[ xmin , xmax , ymin , ymax ] = getLimits_global( particleData , nParticles )
-		[ xmin , xmax , ymin , ymax ] = getLimits_autoscale( ax )
+		if (limitsType == "by time step"):
+			[ xmin , xmax , ymin , ymax ] = getLimits_byTimeStep( particleData , nParticles , t )
+		elif (limitsType == "global"):
+			[ xmin , xmax , ymin , ymax ] = getLimits_global( particleData , nParticles )
+		elif (limitsType == "autoscale"):
+			[ xmin , xmax , ymin , ymax ] = getLimits_autoscale( ax )
 		ax.set_xlim( (xmin , xmax) )
 		ax.set_ylim( (ymin , ymax) )
 		return circles
@@ -73,5 +76,6 @@ def build_video(particleData , nParticles):
 
 	anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frames, interval=interval)
 
-	anim.save('CollidingSpheres.mp4', fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
-	print('nParticles = ' , nParticles)
+	extension = ".mp4"
+	anim.save(outputFolder + fileName + extension, fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
+#	print("nParticles = " , nParticles)
