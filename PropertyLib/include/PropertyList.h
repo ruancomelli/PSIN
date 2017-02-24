@@ -28,7 +28,7 @@ namespace PropertyList{
 	static RawProperty<double> elastic_modulus("ElasticModulus", setPositive);
 
 	// Dissipative constant
-	static RawProperty<double> dissipative_constant("DissipativeConstant", setPositive);
+	static RawProperty<double> dissipative_constant("DissipativeConstant");
 
 	// Poisson ratio
 	static RawProperty<double> poisson_ratio("PoissonRatio");
@@ -44,6 +44,9 @@ namespace PropertyList{
 
 	// Tangential Kappa
 	static RawProperty<double> tangential_kappa("TangentialKappa", setPositive);
+
+	// Electric Charge
+	static RawProperty<double> electric_charge("ElectricCharge");
 
 
 };

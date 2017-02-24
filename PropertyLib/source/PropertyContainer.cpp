@@ -34,3 +34,19 @@ void PropertyContainer::setProperty(const string & rawName, const boost::any & v
 		propertyValues->insert( propertyValues->begin() + index, value);
 	}
 }
+
+boost::any PropertyContainer::getValue(const string & rawName) const
+{
+	set<string>::iterator it = propertyNames->find( rawName );
+
+	if( it != propertyNames->end() )	// In this case, the search was successfull
+	{
+		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
+
+		return propertyValues->at(index);
+	}
+	else
+	{
+		return boost::any();
+	}	
+}

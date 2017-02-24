@@ -218,10 +218,12 @@ TestCase( PropertiesTest )
 
 	// set and get properties
 	double elasticModulus = 14.95;
-	RawProperty<double> elastic_modulus;
+	RawProperty<double> elastic_modulus("ElasticModulus");
 
 	physicalEntity.set(elastic_modulus, elasticModulus );
 	checkEqual( physicalEntity.get(elastic_modulus) , elasticModulus );
+	checkEqual(boost::any_cast<double>(physicalEntity.getAsAnyValue(elastic_modulus.getName())),
+		elasticModulus);
 }
 
 TestCase( ParticleConstructors )

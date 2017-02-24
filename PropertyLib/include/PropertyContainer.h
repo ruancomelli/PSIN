@@ -35,6 +35,7 @@ class PropertyContainer : public RawPropertyContainer
 		// Get a property's value
 		template<typename interfaceType, typename storedType>
 		interfaceType getValue(const RawProperty<interfaceType, storedType> & raw) const;
+		boost::any getValue(const string & rawName) const;
 
 		template<typename interfaceType, typename storedType, typename implicitInterfaceType>
 		void setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );

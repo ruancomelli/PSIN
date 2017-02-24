@@ -143,8 +143,10 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 
 			for( auto& name : *(requiredProperties.getPropertyNames()) )
 			{
-				this->requiredProperties.getOutputMethod(name)
-				/*FINISH THIS!!!!!*/
+				auto outputMethod = this->requiredProperties.getOutputMethod(name);
+				*outFile[particlePtr->getHandle()][DATA_IDX] << "<" + name + "> ";
+				outputMethod(*outFile[particlePtr->getHandle()][DATA_IDX], particlePtr->getAsAnyValue(name));
+				*outFile[particlePtr->getHandle()][DATA_IDX] << endl;
 			}
 
 			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],

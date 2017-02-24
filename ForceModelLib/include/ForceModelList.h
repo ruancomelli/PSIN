@@ -46,6 +46,20 @@ STATIC_EXECUTE
 	viscoelasticSpheres.requireProperty(friction_parameter);
 
 	forceModelSet.insert( viscoelasticSpheres );
+
+	ForceModel electrostatic("Electrostatic");
+	electrostatic.setField(electrostaticForce);
+	electrostatic.setNormal( normalForceViscoelasticSpheres );
+	electrostatic.setTangential( tangentialForceHaffWerner );
+	electrostatic.requireProperty(mass);
+	electrostatic.requireProperty(elastic_modulus);
+	electrostatic.requireProperty(dissipative_constant);
+	electrostatic.requireProperty(poisson_ratio);
+	electrostatic.requireProperty(tangential_damping);
+	electrostatic.requireProperty(friction_parameter);
+	electrostatic.requireProperty(electric_charge);
+
+	forceModelSet.insert( electrostatic );
 }
 
 #endif

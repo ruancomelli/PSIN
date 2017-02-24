@@ -185,4 +185,20 @@ void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParti
 	}
 }
 
+void electrostaticForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
+{
+	double k = 9 * pow(10, 9);
+
+	double charge1 = particle->get(electric_charge);
+	double charge2 = neighbor->get(electric_charge);
+	double r = particle->distance(neighbor);
+
+	double force = - k * charge1 * charge2 / ( r * r );
+
+	Vector3D electricForce = force * particle->normalDirection(neighbor);
+
+	particle->addBodyForce( electricForce );
+	neighbor->addBodyForce( - electricForce );
+}
+
 #endif

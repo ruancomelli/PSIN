@@ -86,6 +86,10 @@ void PhysicalEntity::set( const string & rawName, const boost::any & value )
 	this->propertyContainer.setProperty( rawName, value );
 }
 
+boost::any PhysicalEntity::getAsAnyValue( const string & name ) const
+{
+	return this->propertyContainer.getValue(name);
+}
 //------------------------------- Position -------------------------------
 
 void PhysicalEntity::setPosition(const int derivative, const double x, const double y, const double z)

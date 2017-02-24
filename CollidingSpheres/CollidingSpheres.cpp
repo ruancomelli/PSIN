@@ -99,7 +99,8 @@ int main(int argc, char **argv){
 	SphericalParticlePtrArrayKit particleArray;
 
 	particleArray.requireRawPropertyContainer(forceModel.getRequiredProperties());
-	cout << boolalpha << particleArray.inputParticles(numberOfParticles, particleInputFolder) << endl;
+
+	particleArray.inputParticles(numberOfParticles, particleInputFolder);
 
 	//foreach(SphericalParticlePtr particlePtr, particleArray){
 	//	const double m = particlePtr->get( mass );
@@ -124,7 +125,7 @@ int main(int argc, char **argv){
 	mainOutFile << "<finalTime> "		<< finalTime			<< verticalSeparator;
 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
-	mainOutFile << "<ForceModelName> " << forceModelName << verticalSeparator;
+	mainOutFile << "<ForceModelName> " << forceModel.getName() << verticalSeparator;
 
 	ofstream timeVectorFile(outputPath + "timeVector.txt");
 	ofstream timeVectorForPlotFile(outputPath + "timeVectorForPlot.txt");

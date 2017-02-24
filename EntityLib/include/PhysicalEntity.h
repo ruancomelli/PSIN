@@ -81,6 +81,8 @@ class PhysicalEntity: public Entity
 		template<typename interfaceType, typename storedType>
 		interfaceType get(const RawProperty<interfaceType, storedType> & raw) const;
 
+		boost::any getAsAnyValue( const string & name ) const;
+
 		SharedPointer<std::set<string>> getPropertyNames( void ) const;
 		
 	private:
