@@ -2,20 +2,14 @@
 #
 #
 
-project(IOLib)
+project(PropertyLib)
 
 #INCLUDE DIRECTORIES
 include_directories(${CMAKE_SOURCE_DIR}/UtilsLibSpecific/include)
-include_directories(${CMAKE_SOURCE_DIR}/EntityLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/PropertyLib/include)
 include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 
-#LINK THE DIRECTORIES
+#LINK DIRECTORIES
 link_directories(${CMAKE_SOURCE_DIR}/UtilsLibSpecific/source)
-link_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/PropertyLib/source)
 
 #SEARCH FOR .CPP AND .H FILES
 file(GLOB ${PROJECT_NAME}_headers ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/*.h)
@@ -27,9 +21,6 @@ add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_sources} ${${PROJECT_NAME}_
 
 #LINK LIBRARIES
 target_link_libraries(${PROJECT_NAME} UtilsLibSpecific)
-target_link_libraries(${PROJECT_NAME} EntityLib)
-target_link_libraries(${PROJECT_NAME} ForceModelLib)
-target_link_libraries(${PROJECT_NAME} PropertyLib)
 
 #DEFINE OUTPUT LOCATION
 install(

@@ -1,22 +1,103 @@
 #include <ForceModel.h>
 
-vector< vector< Vector3D > > ForceModel::cummulativeZeta;
+Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
+{ 
+	return nullVector3D(); 
+}
+
+void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
+{
+}
+
+void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
+{
+}
+
+
 vector< vector< bool > > ForceModel::collisionFlag;
+int ForceModel::numberOfParticles;
+set<ForceModelPtr, ForceModel::ForceModelPtrCompare> ForceModel::forceModelList;
 
-// Normal Force Model
-// Linear Dashpot Force
-// Every comment in here may be related to the book Computational Granular Dynamics
 
+ForceModel::ForceModel()
+	: name("Nameless"),
+	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
+	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
+	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
+{
+	// forceModelList.insert( *this );
+	// every insert should verify if there was already a ForceModel with that name
+	// also, it would be better to use pointers instead of references
+	// DO IT LATER!
+}
+
+ForceModel::ForceModel(const string & name)
+	: name(name),
+	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
+	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
+	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
+{
+	// forceModelList.insert( *this );
+}
+
+ForceModel::ForceModel( const ForceModel & fm )
+	: name( fm.name ),
+	normalForceCalculationMethod( fm.normalForceCalculationMethod ),
+	tangentialForceCalculationMethod( fm.tangentialForceCalculationMethod ),
+	fieldForceCalculationMethod( fm.fieldForceCalculationMethod ),
+	requiredProperties( fm.requiredProperties ),
+	timeStep( fm.timeStep )
+{
+	// forceModelList.insert( *this );
+}
+
+void ForceModel::addToList(void)
+{
+	forceModelList.insert( shared_from_this() );
+}
+
+void ForceModel::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = {newNormal}; }
+void ForceModel::setTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod = {newTangential}; }
+void ForceModel::setField( FieldType newField ){ this->fieldForceCalculationMethod = {newField}; }
+void ForceModel::setNormal( vector< NormalType > newNormal ){ this->normalForceCalculationMethod = newNormal; }
+void ForceModel::setTangential( vector< TangentialType > newTangential ){ this->tangentialForceCalculationMethod = newTangential; }
+void ForceModel::setField( vector< FieldType > newField ){ this->fieldForceCalculationMethod = newField; }
+void ForceModel::addNormal( NormalType newNormal ){ this->normalForceCalculationMethod.push_back( newNormal ); }
+void ForceModel::addTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod.push_back( newTangential ); }
+void ForceModel::addField( FieldType newField ){ this->fieldForceCalculationMethod.push_back( newField ); }
+
+
+void ForceModel::calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
+{
+	Vector3D normalForce;
+
+	for( auto& normalForceMethod : normalForceCalculationMethod )
+	{
+		normalForce += normalForceMethod( particle, neighbor );
+	}
+
+	for( auto& tangentialForceMethod : tangentialForceCalculationMethod )
+	{
+		tangentialForceMethod( particle, neighbor, normalForce, this->timeStep );
+	}
+
+	for( auto& fieldForceMethod : fieldForceCalculationMethod )
+	{
+		fieldForceMethod( particle, neighbor );
+	}
+
+}
 
 /* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
 		currentVector = (f(t), f'(t), f''(t), ..., f^(n)(t))
 		Given dt in R, Taylor theorem says that
 		f(t + dt) = f(t) + dt * f'(t) + (1/2) * dt^2 * f''(t) + ... + (1/n!) * dt^n * f^(n)(t) + r(dt)	,
 		where r is a function such that the limit of r(h) when h tends to zero is zero
-		For a sufficiently small dt, we can approximate f(t+dt) by its expansion is Taylor's sum and writing r = 0
+		For a sufficiently small dt, we can approximate f(t+dt) by its expansion in Taylor's sum and write r = 0
 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
 */
-vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt ){
+vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt )
+{
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
@@ -93,7 +174,7 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 void ForceModel::correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
 	vector<Vector3D> position = particle->getPosition();
-	Vector3D acceleration = particle->getResultingForce() / particle->getScalarProperty( MASS );
+	Vector3D acceleration = particle->getResultingForce() / particle->get( mass );
 	vector<Vector3D> correctedPosition = gearCorrector( position, acceleration, predictionOrder, dt);
 	
 	particle->setPosition(correctedPosition);
@@ -102,213 +183,31 @@ void ForceModel::correctPosition( SphericalParticlePtr particle, const int predi
 void ForceModel::correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
 	vector<Vector3D> orientation = particle->getOrientation();
-	Vector3D angularAcceleration = particle->getResultingTorque() / particle->getScalarProperty( MOMENT_OF_INERTIA );
+	Vector3D angularAcceleration = particle->getResultingTorque() / particle->get( moment_of_inertia );
 	vector<Vector3D> correctedOrientation = gearCorrector( orientation, angularAcceleration, predictionOrder, dt);
 	
 	particle->setOrientation(correctedOrientation);
 }
 
-// ------------------ FORCE CALCULATION ------------------
-//		particle is the reference
-//		normalForce is the normal force applied BY neighbor TO particle
-//		tangentialForce is the tangential force applied BY neighbor TO particle
-
-// normalForceViscoelasticSpheres:
-//		Calculates normal forces between two spherical particles according to equation (2.14) (see reference)
-Vector3D ForceModel::normalForceViscoelasticSpheres( SphericalParticlePtr particle, SphericalParticlePtr neighbor)
-{	
-	
-	// Calculations
-	const double overlap = particle->overlap(neighbor);
-	
-	if(overlap > 0)
-	{
-		// ---- Get physical properties and calculate effective parameters ----
-		const double radius1 = particle->getGeometricParameter(RADIUS);
-		const double radius2 = neighbor->getGeometricParameter(RADIUS);
-		const double effectiveRadius = radius1 * radius2 / ( radius1 + radius2 );
-		
-		const double elasticModulus1 = particle->getScalarProperty( ELASTIC_MODULUS );
-		const double elasticModulus2 = neighbor->getScalarProperty( ELASTIC_MODULUS );
-		
-		const double dissipativeConstant1 = particle->getScalarProperty( DISSIPATIVE_CONSTANT );
-		const double dissipativeConstant2 = neighbor->getScalarProperty( DISSIPATIVE_CONSTANT );
-		
-		const double poissonRatio1 = particle->getScalarProperty( POISSON_RATIO );
-		const double poissonRatio2 = neighbor->getScalarProperty( POISSON_RATIO );
-		
-		// ---- Calculate normal force ----
-		const double overlapDerivative = particle->overlapDerivative( neighbor );
-		const double term1 = (4/3) * sqrt(effectiveRadius);
-		const double term2 = sqrt(overlap) * (overlap + 0.5 * (dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
-		const double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
-		
-		const double normalForceModulus = max( term1 * term2 / term3 , 0.0 );
-		
-		const Vector3D normalForce = - normalForceModulus * particle->normalDirection( neighbor );
-		
-		particle->addContactForce( normalForce );
-		neighbor->addContactForce( - normalForce );
-
-		return normalForce;
-	}
-	// else, no forces are added.
-
-	return nullVector3D();
+string ForceModel::getName(void) const
+{ 
+	return this->name; 
 }
 
-// normalForceLinearDashpotForce:
-//		Calculates normal forces between two spherical particles according to equation (2.8) (see reference)
-Vector3D ForceModel::normalForceLinearDashpotForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
+void ForceModel::setName(const string & name)
+{ 
+	this->name = name;
+}
+
+void ForceModel::setNumberOfParticles( const int nParticles )
 {
-	const double overlap = particle->overlap(neighbor);
-	
-	if(overlap > 0)
-	{
-		// ---- Get physical properties and calculate effective parameters ----
-		const double elasticModulus1 = particle->getScalarProperty( ELASTIC_MODULUS );
-		const double elasticModulus2 = neighbor->getScalarProperty( ELASTIC_MODULUS );
-		
-		const double normalDissipativeConstant1 = particle->getScalarProperty( NORMAL_DISSIPATIVE_CONSTANT );
-		const double normalDissipativeConstant2 = neighbor->getScalarProperty( NORMAL_DISSIPATIVE_CONSTANT );
-		
-		// ---- Calculate normal force ----
-		const double overlapDerivative = particle->overlapDerivative( neighbor );
-		
-		const double normalForceModulus = max( (elasticModulus1 + elasticModulus2) * overlap + 
-										(normalDissipativeConstant1 + normalDissipativeConstant2) * overlapDerivative , 0.0 );
-		
-		const Vector3D normalForce = - normalForceModulus * particle->normalDirection( neighbor );
-		
-		particle->addContactForce( normalForce );
-		neighbor->addContactForce( - normalForce );
-
-		return normalForce;
-	}
-	// else, no forces are added.
-
-	return nullVector3D();
+	numberOfParticles = nParticles;
+	resizeCollisionFlag(nParticles);
 }
 
-//		tangentialForce is the tangential force applied BY neighbor TO particle
-
-// tangentialForceHaffWerner:
-//		Calculates tangential forces between two spherical particles according to equation (2.18) (see reference)
-void ForceModel::tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
-{		
-	if( particle->touches(neighbor) )
-	{
-		// ---- Getting particles properties and parameters ----
-		const double radius1 = particle->getGeometricParameter(RADIUS);
-		const double radius2 = neighbor->getGeometricParameter(RADIUS);
-
-		const Vector3D position1 = particle->getPosition(0);
-		const Vector3D position2 = neighbor->getPosition(0);
-
-		const double tangentialDamping1 = particle->getScalarProperty( TANGENTIAL_DAMPING );
-		const double tangentialDamping2 = neighbor->getScalarProperty( TANGENTIAL_DAMPING );
-		const double effectiveTangentialDamping = min( tangentialDamping1 , tangentialDamping2 );
-			
-		const double frictionParameter1 = particle->getScalarProperty( FRICTION_PARAMETER );
-		const double frictionParameter2 = neighbor->getScalarProperty( FRICTION_PARAMETER );
-		const double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
-		
-		// ---- Calculate tangential force ----
-		const Vector3D contactPoint = particle->contactPoint( neighbor );		
-		const Vector3D relativeTangentialVelocity = particle->relativeTangentialVelocity( neighbor ) ;
-		
-		const Vector3D tangentialVersor = particle->tangentialVersor( neighbor );
-
-		const Vector3D tangentialForce =	min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
-			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
-		
-		particle->addContactForce( tangentialForce );
-		neighbor->addContactForce( - tangentialForce );
-									
-		particle->addTorque( cross(contactPoint - position1, tangentialForce) );
-		neighbor->addTorque( cross(contactPoint - position2, - tangentialForce) );
-	}
-	// else, no forces and no torques are added.
-}
-
-// tangentialForceCundallStrack:
-//		Calculates tangential forces between two spherical particles according to equation (2.21) (see reference)
-void ForceModel::tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
-{	
-	if( particle->touches(neighbor) )
-	{
-		if( !checkCollision(particle, neighbor) )
-		{
-			startCollision( particle, neighbor );
-		}
-
-		// ---- Getting particles properties and parameters ----
-		const Vector3D position1 = particle->getPosition(0);
-		const Vector3D position2 = neighbor->getPosition(0);
-
-		const double tangentialKappa1 = particle->getScalarProperty( TANGENTIAL_KAPPA );
-		const double tangentialKappa2 = neighbor->getScalarProperty( TANGENTIAL_KAPPA );
-		const double effectiveTangentialKappa = min( tangentialKappa1 , tangentialKappa2 );
-			
-		const double frictionParameter1 = particle->getScalarProperty( FRICTION_PARAMETER );
-		const double frictionParameter2 = neighbor->getScalarProperty( FRICTION_PARAMETER );
-		const double effectiveFrictionParameter = min( frictionParameter1, frictionParameter2 );
-		
-		// Calculate tangential force
-		const Vector3D contactPoint = particle->contactPoint( neighbor );
-		
-		const Vector3D relativeTangentialVelocity = particle->relativeTangentialVelocity( neighbor );
-		
-		const Vector3D tangentialVersor = particle->tangentialVersor( neighbor );
-
-		addZeta( particle, neighbor, relativeTangentialVelocity * timeStep );
-		
-		const int index1 = min( particle->getHandle(), neighbor->getHandle() );
-		const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
-
-		const Vector3D tangentialForce =	min( effectiveTangentialKappa * cummulativeZeta[index1][index2].length() , 
-			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
-		
-		particle->addContactForce( tangentialForce );
-		neighbor->addContactForce( - tangentialForce );
-									
-		particle->addTorque( cross(contactPoint - position1, tangentialForce) );
-		neighbor->addTorque( cross(contactPoint - position2, - tangentialForce) );
-	}// else, no forces and no torques are added.
-	else if( checkCollision(particle, neighbor) )
-	{
-		endCollision(particle, neighbor);
-	}
-}
-
-void ForceModel::setNumberOfParticles( const int numberOfParticles )
+int ForceModel::getNumberOfParticles( void )
 {
-	resizeCummulativeZeta(numberOfParticles);
-	resizeCollisionFlag(numberOfParticles);
-}
-
-void ForceModel::resizeCummulativeZeta( const int numberOfParticles )
-{
-	cummulativeZeta.resize( numberOfParticles - 1 );
-
-	for( int i=0 ; i < (numberOfParticles - 1) ; ++i )
-		cummulativeZeta[i].resize( numberOfParticles - 1 - i );
-}
-
-void ForceModel::addZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
-{
-	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
-	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
-
-	cummulativeZeta[index1][index2] += zeta;
-}
-
-void ForceModel::setZeta( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor, const Vector3D zeta )
-{
-	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
-	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
-
-	cummulativeZeta[index1][index2] = zeta;
+	return ForceModel::numberOfParticles;
 }
 
 void ForceModel::resizeCollisionFlag( const int numberOfParticles )
@@ -333,8 +232,6 @@ void ForceModel::startCollision( const SphericalParticlePtr particle, const Sphe
 	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
 
 	collisionFlag[index1][index2] = true;
-
-	setZeta( particle, neighbor, nullVector3D() );
 }
 
 void ForceModel::endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
@@ -343,4 +240,14 @@ void ForceModel::endCollision( const SphericalParticlePtr particle, const Spheri
 	const int index2 = max( particle->getHandle(), neighbor->getHandle() );
 
 	collisionFlag[index1][index2 - index1 - 1] = false;
+}
+
+RawPropertyContainer ForceModel::getRequiredProperties(void)
+{
+	return requiredProperties;
+}
+
+void ForceModel::setTimeStep( double timeStep )
+{
+	this->timeStep = timeStep;
 }

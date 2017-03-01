@@ -16,6 +16,9 @@
 // IOLib
 #include <vectorIO.h>
 
+// PropertyLib
+#include <PropertyContainer.h>
+
 using namespace std;
 
 TestCase( EntityTest )
@@ -60,17 +63,11 @@ TestCase( PhysicalEntityDefaultConstructor )
 
 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
-	DoubleVector				scalarProperty		= physicalEntity.getScalarProperty();
-	DoubleVector2D				vectorialProperty	= physicalEntity.getVectorialProperty();
-	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
 	
 	checkEqual( physicalEntity.getHandle() , defaultHandle );
 	checkEqual( defaultPosition.size() , defaultSize );
 	checkEqual( defaultOrientation.size() , defaultSize );
 	checkEqual( physicalEntity.getDimension() , defaultDimension );
-	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
-	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
-	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
 	checkEqual( physicalEntity.getGeometry(), geometryType );
 }
 
@@ -88,23 +85,17 @@ TestCase( PhysicalEntityConstructorWithEntity )
 
 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
-	DoubleVector				scalarProperty		= physicalEntity.getScalarProperty();
-	DoubleVector2D				vectorialProperty	= physicalEntity.getVectorialProperty();
-	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
 	
 	checkEqual( physicalEntity.getHandle() , handle );
 	checkEqual( defaultPosition.size() , defaultSize );
 	checkEqual( defaultOrientation.size() , defaultSize );
 	checkEqual( physicalEntity.getDimension() , defaultDimension );
-	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
-	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
-	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
 	checkEqual(physicalEntity.getGeometry(), geometryType);
 }
 
 TestCase( PhysicalEntityConstructorWithParameters )
 {
-	int taylorOrder	= 2;
+	int taylorOrder	= 3;
 	int size		= taylorOrder + 1;
 	int dimension	= 2;
 	int handle		= 5;
@@ -158,23 +149,17 @@ TestCase( PhysicalEntityConstructorWithEntityAndParameters )
 
 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
-	DoubleVector				scalarProperty		= physicalEntity.getScalarProperty();
-	DoubleVector2D				vectorialProperty	= physicalEntity.getVectorialProperty();
-	vector < DoubleVector2D >	matricialProperty	= physicalEntity.getMatricialProperty();
 	
 	checkEqual( physicalEntity.getHandle() , handle );
 	checkEqual( defaultPosition.size() , size );
 	checkEqual( defaultOrientation.size() , size );
 	checkEqual( physicalEntity.getDimension() , dimension );
-	checkEqual( scalarProperty.size() , N_SCALAR_PROPERTY );
-	checkEqual( vectorialProperty.size() , N_VECTORIAL_PROPERTY );
-	checkEqual( matricialProperty.size() , N_MATRICIAL_PROPERTY );
 }
 
 TestCase( SpacialSetFunctions )
 {
 
-	int taylorOrder	= 1;
+	int taylorOrder	= 3;
 	int dimension	= 3;
 	int handle		= 0;
 	PhysicalEntity physicalEntity(taylorOrder, dimension, handle);
@@ -207,14 +192,16 @@ TestCase( SpacialSetFunctions )
 	{
 	Vector3D pos0( 1.0 , -3.7 , -7.4 );
 	Vector3D pos1( 6.2 , 1.9 , -2.8 );
-	vector<Vector3D> posVec (2);
-	posVec[0] = pos0;
-	posVec[1] = pos1;
+	Vector3D pos2( 0.0 , 3.14 , 15.9);
+	Vector3D pos3( -1.5 , 2.5 , 3.8);
+	vector<Vector3D> posVec = { pos0, pos1, pos2, pos3 };
 
 	physicalEntity.setPosition(posVec);
 
-	check( pos0==physicalEntity.getPosition()[0] );
-	check( pos1==physicalEntity.getPosition()[1] );
+	check( pos0 == physicalEntity.getPosition()[0] );
+	check( pos1 == physicalEntity.getPosition()[1] );
+	check( pos2 == physicalEntity.getPosition()[2] );
+	check( pos3 == physicalEntity.getPosition()[3] );
 	}
 }
 
@@ -229,24 +216,14 @@ TestCase( PropertiesTest )
 	checkEqual( physicalEntity.getTaylorOrder() , taylorOrder );
 	checkEqual( physicalEntity.getPosition().size() , size );
 
-	// setScalarProperty(id, value);
+	// set and get properties
 	double elasticModulus = 14.95;
-	physicalEntity.setScalarProperty( ELASTIC_MODULUS , elasticModulus );
-	checkEqual( physicalEntity.getScalarProperty(ELASTIC_MODULUS) , elasticModulus );
+	RawProperty<double> elastic_modulus("ElasticModulus");
 
-	// setScalarProperty(vector)
-	double dissipativeConstant = 8.43;
-	double frictionParameter = 1.67;
-	DoubleVector scalarProperties( N_SCALAR_PROPERTY );
-
-	scalarProperties[DISSIPATIVE_CONSTANT] = dissipativeConstant;
-	scalarProperties[FRICTION_PARAMETER] = frictionParameter;
-
-	physicalEntity.setScalarProperty(scalarProperties);
-
-	checkClose( physicalEntity.getScalarProperty()[DISSIPATIVE_CONSTANT] , dissipativeConstant , 1.0e-12 );
-	checkClose( physicalEntity.getScalarProperty()[FRICTION_PARAMETER] , frictionParameter , 1.0e-12 );
-	checkClose( physicalEntity.getScalarProperty()[VOLUME] , 0.0 , 1.0e-12 );
+	physicalEntity.set(elastic_modulus, elasticModulus );
+	checkEqual( physicalEntity.get(elastic_modulus) , elasticModulus );
+	checkEqual(boost::any_cast<double>(physicalEntity.getAsAnyValue(elastic_modulus.getName())),
+		elasticModulus);
 }
 
 TestCase( ParticleConstructors )

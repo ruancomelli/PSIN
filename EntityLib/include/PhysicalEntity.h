@@ -4,6 +4,7 @@
 // Standard
 #include <vector>
 #include <stdexcept>
+#include <set>
 
 // EntityLib
 #include <Entity.h>
@@ -13,36 +14,22 @@
 #include <Vector3D.h>
 #include <SharedPointer.h>
 
-using namespace std;
+// PropertyLib
+#include <PropertyContainer.h>
+#include <PropertyList.h>
+
+// boost
+#include <boost/any.hpp>
+
+using std::string;
+using namespace PropertyList;
+
+namespace boost{ using many = std::vector<any>; };
 
 
 enum GeometryType{
 	SPHERE = 0,
 	DEFAULT = SPHERE
-};
-
-
-enum ScalarProperty{
-	MASS = 0,				// m --- kg
-	MOMENT_OF_INERTIA,		// J --- kg * m^2
-	VOLUME,					// V --- m^3
-	SPECIFIC_MASS,			// \rho --- kg / m^3
-	DISSIPATIVE_CONSTANT,	// A --- s
-	POISSON_RATIO,			// \nu --- *
-	ELASTIC_MODULUS,		// E or Y --- N / m^2
-	TANGENTIAL_DAMPING,		// \gamma^t --- N * s / m
-	FRICTION_PARAMETER,		// \mu --- *
-	NORMAL_DISSIPATIVE_CONSTANT,		// \gamma^n --- N * s / m
-	TANGENTIAL_KAPPA,		// \kappa^t --- N / m
-	N_SCALAR_PROPERTY
-};
-
-enum VectorialProperty{
-	N_VECTORIAL_PROPERTY
-};
-
-enum MatricialProperty{
-	N_MATRICIAL_PROPERTY
 };
 
 class PhysicalEntity;
@@ -75,6 +62,8 @@ class PhysicalEntity: public Entity
 		GeometryType getGeometry() const;
 		
 		// ---- Properties ----
+		void requireProperties( const RawPropertyContainer & raw );
+
 			// dimension
 		int getDimension(void) const;
 
@@ -82,40 +71,43 @@ class PhysicalEntity: public Entity
 		void setTaylorOrder(const int taylorOrder);
 		int getTaylorOrder(void) const;
 
-			// scalarProperty
-		void setScalarProperty(const int scalarPropertyIdentifier, const double scalarPropertyValue);
-		void setScalarProperty(const DoubleVector scalarPropertyVector);
-		double getScalarProperty(const int scalarPropertyIdentifier) const;
-		DoubleVector getScalarProperty() const;
+			// set property
+		template< typename interfaceType, typename storedType, typename implicitInterfaceType >
+		void set( const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );
 
-			// The two above are incomplete (vectorial and matricial property).
-			// vectorialProperty
-		DoubleVector2D getVectorialProperty() const {return this->vectorialProperty; }
+		void set( const string & rawName, const boost::any & value );
 
-			// matricialProperty
-		vector < DoubleVector2D > getMatricialProperty() const {return this->matricialProperty; }
+			// get property
+		template<typename interfaceType, typename storedType>
+		interfaceType get(const RawProperty<interfaceType, storedType> & raw) const;
+
+		boost::any getAsAnyValue( const string & name ) const;
+
+		SharedPointer<std::set<string>> getPropertyNames( void ) const;
 		
 	private:
 		int			 taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
 		static int	 dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
 		GeometryType geometry;
-
-		DoubleVector				scalarProperty;
-		DoubleVector2D				vectorialProperty;
-		vector < DoubleVector2D >	matricialProperty;
 		
 		vector<Vector3D>	position;
 		vector<Vector3D>	orientation;
 
 		static void setDimension(const int dim);
+
 		// memory functions
 		void resizePositionOrientation(void);
-		void resizePropertyVector(void);
-		// set spacial positions
+
+		// set spatial positions
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z = 0);
 		void setSpatial(vector<Vector3D> & spatial, const int derivative, const Vector3D & vec);
 		void setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial);
+
+		// properties
+		PropertyContainer propertyContainer;
 };
+
+#include <PhysicalEntity.tpp>
 
 
 #endif

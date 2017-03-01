@@ -9,6 +9,10 @@
 #include <map>
 #include <string>
 
+// PropertyLib
+#include <PropertyContainer.h>
+#include <PropertyList.h>
+
 // EntityLib
 #include <Particle.h>
 #include <SphericalParticle.h>
@@ -21,12 +25,10 @@
 
 // ForceModelLib
 #include <ForceModel.h>
+#include <ForceModelList.h>
+#include <ForceModelSet.h>
 
 // IOLib
-#include <readEntity.h>
-#include <readPhysicalEntity.h>
-#include <readParticle.h>
-#include <readSphericalParticle.h>
 #include <FileReader.h>
 #include <SphericalParticlePtrArrayKit.h>
 
@@ -35,6 +37,7 @@
 #include <boost/filesystem.hpp>
 
 using namespace std;
+using namespace PropertyList;
 
 using boost::math::constants::pi;
 
@@ -58,6 +61,7 @@ int main(int argc, char **argv){
 	int dimension;
 	int numberOfParticles;
 	int timeStepsForOutput;
+	string forceModelName;
 	Vector3D gravity;
 
 	inputData.readValue("<initialTime>", initialTime);
@@ -68,6 +72,7 @@ int main(int argc, char **argv){
 	inputData.readValue("<numberOfParticles>", numberOfParticles);
 	inputData.readValue("<gravity>", gravity);
 	inputData.readValue("<timeStepsForOutput>", timeStepsForOutput);
+	inputData.readValue("<ForceModelName>", forceModelName);
 
 	string outputPath(project_root_path + "_output/" + simulationName + "/");
 
@@ -77,21 +82,33 @@ int main(int argc, char **argv){
 	boost::filesystem::path MATLAB_outputDir(outputPath + "MATLAB_output/");
 	boost::filesystem::create_directory(MATLAB_outputDir);
 
+	ForceModel forceModel;
+
+	for (auto& fm : forceModelSet)
+	{
+		if (fm.getName() == forceModelName)
+		{
+			forceModel = fm;
+			break;
+		}
+	}
+
 	// Input
 	string particleInputFolder(inputFolder + simulationName + "/");
 
 	SphericalParticlePtrArrayKit particleArray;
 
+	particleArray.requireRawPropertyContainer(forceModel.getRequiredProperties());
+
 	particleArray.inputParticles(numberOfParticles, particleInputFolder);
 
+	//foreach(SphericalParticlePtr particlePtr, particleArray){
+	//	const double m = particlePtr->get( mass );
+	//	const double r = particlePtr->get( mass );
 
-	foreach(SphericalParticlePtr particlePtr, particleArray){
-		const double m = particlePtr->getScalarProperty( MASS );
-		const double r = particlePtr->getScalarProperty( MASS );
-
-		particlePtr->setScalarProperty( MOMENT_OF_INERTIA, 2 * m * r * r / 5 );
-		particlePtr->setScalarProperty( VOLUME, 4 * pi<double>() * r * r * r / 3 );
-	}
+	//	particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
+	//	particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
+	//}
 
 	particleArray[0]->setGravity(gravity);
 	
@@ -103,14 +120,12 @@ int main(int argc, char **argv){
 
 	ofstream mainOutFile(outputPath + "output.txt");
 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
-
 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
 	mainOutFile << "<timeStep> "		<< timeStep				<< verticalSeparator;
 	mainOutFile << "<finalTime> "		<< finalTime			<< verticalSeparator;
-
 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
-
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
+	mainOutFile << "<ForceModelName> " << forceModel.getName() << verticalSeparator;
 
 	ofstream timeVectorFile(outputPath + "timeVector.txt");
 	ofstream timeVectorForPlotFile(outputPath + "timeVectorForPlot.txt");
@@ -144,7 +159,7 @@ int main(int argc, char **argv){
 
 		// Body forces
 		foreach( SphericalParticlePtr particle, particleArray ){
-			particle->addBodyForce(particle->getScalarProperty(MASS) * gravity);
+			particle->addBodyForce(particle->get( mass ) * gravity);
 		}
 
 		// Predict position and orientation
@@ -159,11 +174,7 @@ int main(int argc, char **argv){
 			foreach( int handle, particle->getNeighborhood() ){
 				SphericalParticlePtr neighbor = particleArray[handle];
 
-				if(particle->touches(neighbor))	// If particles are in touch
-				{
-					Vector3D normalForce = ForceModel::normalForceLinearDashpotForce( particle, neighbor );
-					ForceModel::tangentialForceCundallStrack( particle, neighbor, normalForce, timeStep );
-				}
+				forceModel.calculate(particle, neighbor);
 			}
 		}
 

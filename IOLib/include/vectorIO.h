@@ -23,7 +23,7 @@ template <class type> std::ostream & operator<<( std::ostream & outputFile , con
 }
 
 template <class type> std::istream & operator>>( std::istream & inputFile , vector<type> & v){
-	for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
+	for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) && ( !inputFile.fail() ) ; ++i){
 		inputFile >> v[i];
 	}
 	return inputFile;
@@ -37,7 +37,7 @@ template <class type> std::ofstream & operator<<( std::ofstream & outputFile , c
 }
 
 template <class type> std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
-	for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) ; ++i){
+	for( unsigned i = 0 ; ( i < v.size() ) && ( !inputFile.eof() ) && ( !inputFile.fail() ) ; ++i){
 		inputFile >> v[i];
 	}
 	return inputFile;
