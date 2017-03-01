@@ -1,36 +1,15 @@
 #ifndef FORCE_MODEL_LIST_H
 #define FORCE_MODEL_LIST_H
 
-// std
-#include <cmath>
-#include <string>
-#include <vector>
-#include <ctype.h>
-#include <stdexcept>
-
 // UtilsLib
-#include <Vector3D.h>
-#include <Vector.h>
-#include <Mathematics.h>
-#include <SharedPointer.h>
 #include <StaticExecute.h>
 
-// EntityLib
-#include <Entity.h>
-#include <PhysicalEntity.h>
-#include <Particle.h>
-#include <SphericalParticle.h>
-
 // PropertyLib
-#include <Property.h>
 #include <PropertyList.h>
-#include <PropertyContainer.h>
 
 // ForceModel
 #include <ForceModelSet.h>
 #include <ForceMethodsDefinitions.h>
-
-using namespace std;
 
 STATIC_EXECUTE
 {

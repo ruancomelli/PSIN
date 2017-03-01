@@ -1,33 +1,21 @@
 #ifndef FORCE_MODEL_H
 #define FORCE_MODEL_H
 
-// std
-#include <cmath>
+// Standard
 #include <string>
-#include <vector>
-#include <ctype.h>
-#include <stdexcept>
-#include <list>
-#include <set>
 
 // UtilsLib
 #include <Vector3D.h>
-#include <Vector.h>
-#include <Mathematics.h>
 #include <SharedPointer.h>
 
 // EntityLib
-#include <Entity.h>
-#include <PhysicalEntity.h>
-#include <Particle.h>
 #include <SphericalParticle.h>
 
 // PropertyLib
 #include <Property.h>
-#include <PropertyList.h>
-#include <PropertyContainer.h>
+#include <RawPropertyContainer.h>
 
-using namespace std;
+using std::string;
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );

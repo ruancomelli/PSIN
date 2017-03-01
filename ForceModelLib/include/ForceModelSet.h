@@ -7,8 +7,6 @@
 // ForceModelLib
 #include <ForceModel.h>
 
-using namespace std;
-
 namespace ForceModelSet{
 		struct ForceModelCompare{
 			bool operator()( const ForceModel & left, const ForceModel & right ) const
@@ -16,6 +14,6 @@ namespace ForceModelSet{
 		};
 };
 
-static set<ForceModel, ForceModelSet::ForceModelCompare> forceModelSet;
+static std::set<ForceModel, ForceModelSet::ForceModelCompare> forceModelSet;
 
 #endif
