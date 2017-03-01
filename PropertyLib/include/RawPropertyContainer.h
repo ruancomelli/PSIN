@@ -4,6 +4,9 @@
 // PropertyLib
 #include <Property.h>
 
+// UtilsLib
+#include <Any.h>
+
 // Standard
 #include <iostream>
 #include <string>
@@ -11,18 +14,13 @@
 #include <list>
 #include <vector>
 
-// boost
-#include <boost/any.hpp>
-#include <boost/make_shared.hpp>
-using many = std::vector<boost::any>;
-
 using namespace std;
 
 class RawPropertyContainer
 {
 	public:
-		typedef bool (*inputMethodType)(ifstream & in, boost::any & value);
-		typedef bool (*outputMethodType)(ofstream & in, boost::any & value);
+		typedef bool (*inputMethodType)(ifstream & in, Any & value);
+		typedef bool (*outputMethodType)(ofstream & in, Any & value);
 
 		// ---- Get, add and set properties and values ----
 		RawPropertyContainer();

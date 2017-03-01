@@ -81,12 +81,12 @@ SharedPointer<std::set<string>> PhysicalEntity::getPropertyNames( void ) const
 	return this->propertyContainer.getPropertyNames();
 }
 
-void PhysicalEntity::set( const string & rawName, const boost::any & value )
+void PhysicalEntity::set( const string & rawName, const Any & value )
 {
 	this->propertyContainer.setProperty( rawName, value );
 }
 
-boost::any PhysicalEntity::getAsAnyValue( const string & name ) const
+Any PhysicalEntity::getAsAnyValue( const string & name ) const
 {
 	return this->propertyContainer.getValue(name);
 }

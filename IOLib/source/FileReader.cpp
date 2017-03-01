@@ -55,7 +55,7 @@ void FileReader::openFile(const string fileName)
 	}
 }
 
-bool FileReader::readAnyValue( const string & tag, boost::any & value, bool (*inputMethod)(ifstream & in, boost::any & value) )
+bool FileReader::readAnyValue( const string & tag, Any & value, bool (*inputMethod)(ifstream & in, Any & value) )
 {
 	string buffer = "NULL";
 	bool returnFlag = false;

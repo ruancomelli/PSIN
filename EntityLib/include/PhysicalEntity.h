@@ -9,23 +9,18 @@
 // EntityLib
 #include <Entity.h>
 
-// UtilsLibSpecific
+// UtilsLib
 #include <Vector.h>
 #include <Vector3D.h>
 #include <SharedPointer.h>
+#include <Any.h>
 
 // PropertyLib
 #include <PropertyContainer.h>
 #include <PropertyList.h>
 
-// boost
-#include <boost/any.hpp>
-
 using std::string;
 using namespace PropertyList;
-
-namespace boost{ using many = std::vector<any>; };
-
 
 enum GeometryType{
 	SPHERE = 0,
@@ -75,13 +70,13 @@ class PhysicalEntity: public Entity
 		template< typename interfaceType, typename storedType, typename implicitInterfaceType >
 		void set( const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );
 
-		void set( const string & rawName, const boost::any & value );
+		void set( const string & rawName, const Any & value );
 
 			// get property
 		template<typename interfaceType, typename storedType>
 		interfaceType get(const RawProperty<interfaceType, storedType> & raw) const;
 
-		boost::any getAsAnyValue( const string & name ) const;
+		Any getAsAnyValue( const string & name ) const;
 
 		SharedPointer<std::set<string>> getPropertyNames( void ) const;
 		

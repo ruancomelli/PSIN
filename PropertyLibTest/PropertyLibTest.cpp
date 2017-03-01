@@ -265,7 +265,7 @@ TestCase(PropertyContainerTest)
 	RawProperty<string> color("Color");
 	RawProperty<int> integer("Integer");
 
-	many valueList;
+	Many valueList;
 	set<string> nameList;
 
 	PropertyContainer propertyContainer;
@@ -291,7 +291,7 @@ TestCase(PropertyContainerTest)
 
 }
 
-bool input2timesDouble(ifstream & in, boost::any & value)
+bool input2timesDouble(ifstream & in, Any & value)
 {
 	double x;
 	in >> x;
@@ -299,9 +299,9 @@ bool input2timesDouble(ifstream & in, boost::any & value)
 	return true;
 }
 
-bool output3timesDouble(ofstream & out, boost::any & value)
+bool output3timesDouble(ofstream & out, Any & value)
 {
-	double x = boost::any_cast<double>(value);
+	double x = anyCast<double>(value);
 	out << 3 * x;
 	return true;
 }
@@ -312,8 +312,8 @@ TestCase(RawPropertyInputAndOutputTest)
 	RawProperty<double> mass("Mass");
 	double doubleValue = 5.6;
 
-	boost::any value = doubleValue;
-	boost::any secondValue;
+	Any value = doubleValue;
+	Any secondValue;
 
 	ofstream outFile(fileName);
 	mass.outputMethod(outFile, value);
@@ -323,7 +323,7 @@ TestCase(RawPropertyInputAndOutputTest)
 	mass.inputMethod(inFile, secondValue);
 	inFile.close();
 	
-	checkClose(boost::any_cast<double>(value), boost::any_cast<double>(secondValue), 1e-10);
+	checkClose(anyCast<double>(value), anyCast<double>(secondValue), 1e-10);
 
 	mass.setInputMethod(input2timesDouble);
 	mass.setOutputMethod(output3timesDouble);
@@ -336,5 +336,5 @@ TestCase(RawPropertyInputAndOutputTest)
 	mass.inputMethod(inFile2, secondValue);
 	inFile2.close();
 
-	checkClose( 6 * boost::any_cast<double>(value), boost::any_cast<double>(secondValue), 1e-10);
+	checkClose( 6 * anyCast<double>(value), anyCast<double>(secondValue), 1e-10);
 }

@@ -89,8 +89,8 @@ message("(do not copy and paste somewhere else).")
 message("Possible errors in programs (executables) and in python (process data)\n")
 
 #ADD SUBDIRECTORIES
-add_subdirectory(UtilsLibSpecific)
-add_subdirectory(UtilsLibSpecificTest)
+add_subdirectory(UtilsLib)
+add_subdirectory(UtilsLibTest)
 add_subdirectory(EntityLib)
 add_subdirectory(EntityLibTest)
 add_subdirectory(ForceModelLib)

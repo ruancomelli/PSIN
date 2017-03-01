@@ -10,9 +10,7 @@
 // UtilsLib
 #include <vectorIO.h>
 #include <StringUtils.h>
-
-// boost
-#include <boost/any.hpp>
+#include <Any.h>
 
 using namespace std;
 
@@ -33,7 +31,7 @@ class FileReader
 
 		template <class type> bool readValue( const string & tag, type & value );
 
-		bool readAnyValue( const string & tag, boost::any & value, bool (*inputMethod)(ifstream & in, boost::any & value) );
+		bool readAnyValue( const string & tag, Any & value, bool (*inputMethod)(ifstream & in, Any & value) );
 		
 	private:
 		string fileName;

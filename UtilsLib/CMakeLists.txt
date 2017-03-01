@@ -2,7 +2,7 @@
 #
 #
 
-project(UtilsLibSpecific)
+project(UtilsLib)
 
 #INCLUDE DIRECTORIES
 include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)

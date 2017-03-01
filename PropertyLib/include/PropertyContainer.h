@@ -11,18 +11,16 @@
 #include <list>
 #include <vector>
 
-// boost
-#include <boost/any.hpp>
-#include <boost/make_shared.hpp>
-using many = std::vector<boost::any>;
+// UtilsLib
+#include <Any.h>
 
 using namespace std;
 
 class PropertyContainer : public RawPropertyContainer
 {
 	public:
-		typedef bool (*inputMethodType)(ifstream & in, boost::any & value);
-		typedef bool (*outputMethodType)(ofstream & in, boost::any & value);
+		typedef bool (*inputMethodType)(ifstream & in, Any & value);
+		typedef bool (*outputMethodType)(ofstream & in, Any & value);
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();
@@ -35,18 +33,18 @@ class PropertyContainer : public RawPropertyContainer
 		// Get a property's value
 		template<typename interfaceType, typename storedType>
 		interfaceType getValue(const RawProperty<interfaceType, storedType> & raw) const;
-		boost::any getValue(const string & rawName) const;
+		Any getValue(const string & rawName) const;
 
 		template<typename interfaceType, typename storedType, typename implicitInterfaceType>
 		void setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & value );
 
-		void setProperty(const string & rawName, const boost::any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
+		void setProperty(const string & rawName, const Any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
 
 		template<typename interfaceType, typename storedType>
 		void setProperty(const Property<interfaceType, storedType> & property);
 
 	private:
-		SharedPointer< many > propertyValues;
+		SharedPointer< Many > propertyValues;
 
 }; // class PropertyContainer
 

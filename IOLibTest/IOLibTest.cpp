@@ -11,6 +11,7 @@
 #include <Vector.h>
 #include <Test.h>
 #include <Foreach.h>
+#include <Any.h>
 
 // EntityLib
 #include <Entity.h>
@@ -26,14 +27,9 @@
 // PropertyLib
 #include <PropertyContainer.h>
 
-// boost
-#include <boost/any.hpp>
-
 using namespace std;
 
 const string project_root_path = PROJECT_PATH;
-
-#include<boost/make_shared.hpp>
 
 TestCase( VectorVector3DTest )
 {
@@ -199,7 +195,7 @@ TestCase( FileReaderTest )
 		string stringValue = "Rohan";
 		Vector3D vector3DValue(5.0, 1.0, 15.0);
 		vector<Vector3D> vectorVector3DValue(4);
-		boost::any anyValue;
+		Any anyValue;
 
 		vectorVector3DValue[0] = Vector3D(1, 1, 1);
 		vectorVector3DValue[1] = Vector3D(2, 4, 8);
@@ -221,13 +217,13 @@ TestCase( FileReaderTest )
 		fileReader.readValue("<VectorVector3D>", readVectorVector3D);
 
 		fileReader.readAnyValue("<Integer>", anyValue, defaultInputMethod<int>);
-		checkEqual(boost::any_cast<int>(anyValue), intValue);
+		checkEqual(anyCast<int>(anyValue), intValue);
 		fileReader.readAnyValue("<Double>", anyValue, defaultInputMethod<double>);
-		checkEqual(boost::any_cast<double>(anyValue), doubleValue);
+		checkEqual(anyCast<double>(anyValue), doubleValue);
 		fileReader.readAnyValue("<String>", anyValue, defaultInputMethod<string>);
-		checkEqual(boost::any_cast<string>(anyValue), stringValue);
+		checkEqual(anyCast<string>(anyValue), stringValue);
 		fileReader.readAnyValue("<Vector3D>", anyValue, defaultInputMethod<Vector3D>);
-		checkEqual(boost::any_cast<Vector3D>(anyValue), vector3DValue);
+		checkEqual(anyCast<Vector3D>(anyValue), vector3DValue);
 		
 		checkEqual( readInteger, intValue );
 		checkEqual( readDouble, doubleValue );

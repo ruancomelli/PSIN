@@ -11,7 +11,7 @@ type defaultGetter(const type & value)
 }
 
 template<typename type>
-bool defaultInputMethod(ifstream & in, boost::any & value)
+bool defaultInputMethod(ifstream & in, Any & value)
 {
 	type newValue;
 
@@ -22,9 +22,9 @@ bool defaultInputMethod(ifstream & in, boost::any & value)
 }
 
 template<typename type>
-bool defaultOutputMethod(ofstream & out, boost::any & value)
+bool defaultOutputMethod(ofstream & out, Any & value)
 {
-	out << boost::any_cast<type>(value);
+	out << anyCast<type>(value);
 
 	return true;
 }

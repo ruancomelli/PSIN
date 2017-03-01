@@ -16,7 +16,7 @@ Property<interfaceType, storedType> PropertyContainer::getProperty(const RawProp
 	{
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
 
-		interfaceType value = raw.getter( boost::any_cast<storedType>( propertyValues->at(index) ) );
+		interfaceType value = raw.getter( anyCast<storedType>( propertyValues->at(index) ) );
 
 		return Property<interfaceType, storedType>( raw, value );
 	}

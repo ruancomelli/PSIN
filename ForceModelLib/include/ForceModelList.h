@@ -8,7 +8,7 @@
 #include <ctype.h>
 #include <stdexcept>
 
-// UtilsLibSpecific
+// UtilsLib
 #include <Vector3D.h>
 #include <Vector.h>
 #include <Mathematics.h>

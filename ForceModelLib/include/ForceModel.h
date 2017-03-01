@@ -10,7 +10,7 @@
 #include <list>
 #include <set>
 
-// UtilsLibSpecific
+// UtilsLib
 #include <Vector3D.h>
 #include <Vector.h>
 #include <Mathematics.h>
@@ -26,9 +26,6 @@
 #include <Property.h>
 #include <PropertyList.h>
 #include <PropertyContainer.h>
-
-// boost
-#include <boost/make_shared.hpp>
 
 using namespace std;
 

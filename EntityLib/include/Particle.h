@@ -9,7 +9,7 @@
 // EntityLib
 #include <PhysicalEntity.h>
 
-// boost
+// UtilsLib
 #include <SharedPointer.h>
 
 using namespace std;

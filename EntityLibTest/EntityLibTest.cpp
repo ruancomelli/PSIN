@@ -222,7 +222,7 @@ TestCase( PropertiesTest )
 
 	physicalEntity.set(elastic_modulus, elasticModulus );
 	checkEqual( physicalEntity.get(elastic_modulus) , elasticModulus );
-	checkEqual(boost::any_cast<double>(physicalEntity.getAsAnyValue(elastic_modulus.getName())),
+	checkEqual(anyCast<double>(physicalEntity.getAsAnyValue(elastic_modulus.getName())),
 		elasticModulus);
 }
 

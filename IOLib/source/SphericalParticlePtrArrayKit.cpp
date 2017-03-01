@@ -250,7 +250,7 @@ bool SphericalParticlePtrArrayKit::readPhysicalEntity( const string & fileName, 
 	// Scalar Properties
 	for( auto& name : *(requiredProperties.getPropertyNames()) )
 	{
-		boost::any value;
+		Any value;
 		fileReader.readAnyValue("<" + name + ">", 
 			value, 
 			this->requiredProperties.getInputMethod(name) );

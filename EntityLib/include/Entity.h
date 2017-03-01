@@ -4,7 +4,7 @@
 // Standard
 #include <stdexcept>
 
-// UtilsLibSpecific
+// UtilsLib
 #include <SharedPointer.h>
 
 class Entity

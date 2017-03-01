@@ -3,14 +3,12 @@
 
 // UtilsLib
 #include <SharedPointer.h>
+#include <Any.h>
 
 // Standard
 #include <string>
 #include <iostream>
 #include <fstream>
-
-// boost
-#include <boost/any.hpp>
 
 using namespace std;
 
@@ -23,10 +21,10 @@ template<typename type>
 type defaultGetter(const type & value);
 
 template<typename type>
-bool defaultInputMethod(ifstream & in, boost::any & value);
+bool defaultInputMethod(ifstream & in, Any & value);
 
 template<typename type>
-bool defaultOutputMethod(ofstream & out, boost::any & value);
+bool defaultOutputMethod(ofstream & out, Any & value);
 
 
 
@@ -38,8 +36,8 @@ class RawProperty<interfaceType, storedType>
 	using RawPropertyPtr = SharedPointer< RawProperty<interfaceType, storedType> >;
 
 	public:
-		typedef bool (*inputMethodType)(ifstream & in, boost::any & value);
-		typedef bool (*outputMethodType)(ofstream & in, boost::any & value);
+		typedef bool (*inputMethodType)(ifstream & in, Any & value);
+		typedef bool (*outputMethodType)(ofstream & in, Any & value);
 
 		// Constructors
 		RawProperty();
@@ -58,8 +56,8 @@ class RawProperty<interfaceType, storedType>
 
 		void (*setter)(const interfaceType & value, storedType & destination) = NULL;
 		interfaceType (*getter)(const storedType &) = NULL;
-		bool (*inputMethod)(ifstream & in, boost::any & value) = NULL;
-		bool (*outputMethod)(ofstream & out, boost::any & value) = NULL;
+		bool (*inputMethod)(ifstream & in, Any & value) = NULL;
+		bool (*outputMethod)(ofstream & out, Any & value) = NULL;
 
 	private:
 

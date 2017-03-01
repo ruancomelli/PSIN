@@ -12,7 +12,7 @@
 // EntityLib
 #include <SphericalParticle.h>
 
-// UtilsLibSpecific
+// UtilsLib
 #include <Foreach.h>
 
 // PropertyLib

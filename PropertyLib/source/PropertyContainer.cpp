@@ -1,20 +1,20 @@
 #include <PropertyContainer.h>
 
 PropertyContainer::PropertyContainer()
-	: propertyValues( new many ),
+	: propertyValues( new Many ),
 	RawPropertyContainer()
 {
 }
 
 
 PropertyContainer::PropertyContainer( const RawPropertyContainer & raw )
-	: propertyValues( new many ),
+	: propertyValues( new Many ),
 	RawPropertyContainer( raw )
 {
 	this->propertyValues->resize( this->getPropertyNames()->size() );
 }
 
-void PropertyContainer::setProperty(const string & rawName, const boost::any & value )
+void PropertyContainer::setProperty(const string & rawName, const Any & value )
 {
 	set<string>::iterator it = propertyNames->find( rawName );
 
@@ -35,7 +35,7 @@ void PropertyContainer::setProperty(const string & rawName, const boost::any & v
 	}
 }
 
-boost::any PropertyContainer::getValue(const string & rawName) const
+Any PropertyContainer::getValue(const string & rawName) const
 {
 	set<string>::iterator it = propertyNames->find( rawName );
 
@@ -47,6 +47,6 @@ boost::any PropertyContainer::getValue(const string & rawName) const
 	}
 	else
 	{
-		return boost::any();
+		return Any();
 	}	
 }
