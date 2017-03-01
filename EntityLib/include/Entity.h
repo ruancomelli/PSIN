@@ -1,9 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-// Standard
-#include <stdexcept>
-
 // UtilsLib
 #include <SharedPointer.h>
 

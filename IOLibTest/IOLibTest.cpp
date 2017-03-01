@@ -417,7 +417,7 @@ TestCase( FileReaderTest )
 
 TestCase(InputParticle)
 {
-		RawProperty<string> color("Color");
+		Property<string> color("Color");
 
 		RawPropertyContainer raw;
 		raw.addProperty(PropertyList::mass);

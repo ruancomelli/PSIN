@@ -1,72 +1,81 @@
-#ifndef PROPERTY_H
-#define PROPERTY_H
-
-// PropertyLib
-#include <RawProperty.h>
+#ifndef RAW_PROPERTY_H
+#define RAW_PROPERTY_H
 
 // UtilsLib
 #include <SharedPointer.h>
+#include <Any.h>
 
 // Standard
 #include <string>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
-template<typename...> class Property;	// Allows multiple template arguments
+template<typename...> class Property;
+
+template<typename type>
+void defaultSetter(const type & value, type & destination);
+
+template<typename type>
+type defaultGetter(const type & value);
+
+template<typename type>
+bool defaultInputMethod(ifstream & in, Any & value);
+
+template<typename type>
+bool defaultOutputMethod(ofstream & out, Any & value);
+
+
 
 template<typename interfaceType, typename storedType>
 class Property<interfaceType, storedType>
 {
+
+	template<typename interfaceType, typename storedType>
+	using PropertyPtr = SharedPointer< Property<interfaceType, storedType> >;
+
 	public:
+		typedef bool (*inputMethodType)(ifstream & in, Any & value);
+		typedef bool (*outputMethodType)(ofstream & in, Any & value);
+
 		// Constructors
 		Property();
-		explicit Property(string name);
+		explicit Property(const string & name);
 		Property(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &));
-		explicit Property(const RawProperty<interfaceType, storedType> & rawProperty);
-		Property(const RawProperty<interfaceType, storedType> & rawProperty, const interfaceType & value);
-
-		// Setter and getter functions
-		void set(const interfaceType & value);
-		interfaceType get(void) const;
 
 		// Set and get name
+		void setName(const string & name);
 		string getName(void) const;
 
-		// Set RawProperty
-		virtual void setRawProperty( const RawProperty<interfaceType, storedType> & raw );
-		virtual RawPropertyPtr<interfaceType, storedType> getRawProperty( void ) const;
+		// Set setter and getter
+		void setSetterFunction( void (*setterFunction)(const interfaceType & value, storedType & destination) );
+		void setGetterFunction( interfaceType (*getterFunction)(const storedType & value) );
+		void setInputMethod( inputMethodType newInputMethod );
+		void setOutputMethod( outputMethodType newOutputMethod );
 
-	protected:
-		RawPropertyPtr<interfaceType, storedType> rawProperty;
-		storedType value;
+		void (*setter)(const interfaceType & value, storedType & destination) = NULL;
+		interfaceType (*getter)(const storedType &) = NULL;
+		bool (*inputMethod)(ifstream & in, Any & value) = NULL;
+		bool (*outputMethod)(ofstream & out, Any & value) = NULL;
 
-}; // class Property
+	private:
+
+		string name;
+
+}; // class Property<interfaceType, storedType>
 
 template<typename type>
 class Property<type> : public Property<type, type>
 {
-	public:		
+	public:
 		Property();
 		explicit Property(const string & name, void (*setterFunction)(const type &, type &) = defaultSetter<type>, type (*getterFunction)(const type &) = defaultGetter<type>);
-		explicit Property(const RawProperty<type, type> & rawProperty);
-		Property(const RawProperty<type, type> & rawProperty, const type & value);
-		explicit Property(const RawProperty<type> & rawProperty);
-		Property(const RawProperty<type> & rawProperty, const type & value);
-		
+}; // class Property<type, type>
 
-		// Set RawProperty
-		virtual void setRawProperty( const RawProperty<type> & raw );
-};
-
-/*
 template<typename interfaceType, typename storedType>
 using PropertyPtr = SharedPointer< Property<interfaceType, storedType> >;
-
-template<typename type>
-using PropertyPtr = SharedPointer< Property<type> >;
-*/
 
 #include <Property.tpp>
 
 #endif
-

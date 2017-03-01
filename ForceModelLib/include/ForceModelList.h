@@ -28,10 +28,9 @@
 
 // ForceModel
 #include <ForceModelSet.h>
+#include <ForceMethodsDefinitions.h>
 
 using namespace std;
-
-#include <ForceMethodsDefinitions.h>
 
 STATIC_EXECUTE
 {

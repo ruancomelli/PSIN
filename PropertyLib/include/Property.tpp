@@ -1,108 +1,126 @@
+template<typename type>
+void defaultSetter(const type & value, type & destination)
+{
+	destination = value;
+}
+
+template<typename type>
+type defaultGetter(const type & value)
+{
+	return value;
+}
+
+template<typename type>
+bool defaultInputMethod(ifstream & in, Any & value)
+{
+	type newValue;
+
+	in >> newValue;
+	value = newValue;
+
+	return true;
+}
+
+template<typename type>
+bool defaultOutputMethod(ofstream & out, Any & value)
+{
+	out << anyCast<type>(value);
+
+	return true;
+}
+
+
+
 // Constructors
-template<typename interfaceType, typename storedType>
-Property<interfaceType, storedType>::Property()
-	: rawProperty( new RawProperty<interfaceType, storedType>() )
-{}
 
 template<typename interfaceType, typename storedType>
-Property<interfaceType, storedType>::Property(string name)
-	: rawProperty( new RawProperty<interfaceType, storedType>(name) )
-{}
+Property<interfaceType, storedType>::Property()
+	: name("Nameless")
+{
+	this->inputMethod = defaultInputMethod<interfaceType>;
+	this->outputMethod = defaultOutputMethod<interfaceType>;
+}
+
+template<typename interfaceType, typename storedType>
+Property<interfaceType, storedType>::Property(const string & name)
+{
+	this->setName(name);
+
+	this->inputMethod = defaultInputMethod<interfaceType>;
+	this->outputMethod = defaultOutputMethod<interfaceType>;
+}
 
 template<typename interfaceType, typename storedType>
 Property<interfaceType, storedType>::Property(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
-	: rawProperty( new RawProperty<interfaceType, storedType>(name, setterFunction, getterFunction) )
-{}
-
-template<typename interfaceType, typename storedType>
-Property<interfaceType, storedType>::Property( const RawProperty<interfaceType, storedType> & rawProperty)
-	: rawProperty( new RawProperty<interfaceType, storedType>(rawProperty) )
-{}
-
-template<typename interfaceType, typename storedType>
-Property<interfaceType, storedType>::Property( const RawProperty<interfaceType, storedType> & rawProperty, const interfaceType & value)
-	: rawProperty( new RawProperty<interfaceType, storedType>(rawProperty) )
 {
-	set(value);
+	this->name = name;
+
+	this->setter = setterFunction;
+	this->getter = getterFunction;
+
+	this->inputMethod = defaultInputMethod<interfaceType>;
+	this->outputMethod = defaultOutputMethod<interfaceType>;
 }
 
-// Setter and getter functions
-template<typename interfaceType, typename storedType>
-void Property<interfaceType, storedType>::set(const interfaceType & value)
-{
-	rawProperty->setter(value, this->value);
-}
+
+// Set and get name
 
 template<typename interfaceType, typename storedType>
-interfaceType Property<interfaceType, storedType>::get(void) const
+void Property<interfaceType, storedType>::setName(const string & name)
 {
-	return rawProperty->getter(this->value);
+	if(!name.empty()) this->name = name;
+	else this->name = "Nameless";
 }
 
-// Get name
 template<typename interfaceType, typename storedType>
 string Property<interfaceType, storedType>::getName(void) const
 {
-	return this->rawProperty->getName();
+	return this->name;
 }
 
-// Set RawProperty
+
+// Set setter and getter
 template<typename interfaceType, typename storedType>
-void Property<interfaceType, storedType>::setRawProperty( const RawProperty<interfaceType, storedType> & raw )
+void Property<interfaceType, storedType>::setSetterFunction( void (*setterFunction)(const interfaceType & value, storedType & destination) )
 {
-	this->rawProperty = RawPropertyPtr<interfaceType, storedType>( new RawProperty<interfaceType, storedType>(raw));
+	this->setter = setterFunction;
 }
 
 template<typename interfaceType, typename storedType>
-RawPropertyPtr<interfaceType, storedType> Property<interfaceType, storedType>::getRawProperty( void ) const
+void Property<interfaceType, storedType>::setGetterFunction( interfaceType (*getterFunction)(const storedType & value) )
 {
-	return this->rawProperty;
+	this->getter = getterFunction;
 }
 
-// Property<type>
+// Set inputMethod and outputMethod
+template<typename interfaceType, typename storedType>
+void Property<interfaceType, storedType>::setInputMethod( inputMethodType newInputMethod )
+{
+	this->inputMethod = newInputMethod;
+}
 
+template<typename interfaceType, typename storedType>
+void Property<interfaceType, storedType>::setOutputMethod( outputMethodType newOutputMethod )
+{
+	this->outputMethod = newOutputMethod;
+}
+
+
+// Only one type
+
+// Constructors
+// If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
-Property<type>::Property() : Property<type, type>() 
+Property<type>::Property()
+	: Property<type, type>()
 {
-	this->rawProperty->setSetterFunction( defaultSetter );
-	this->rawProperty->setGetterFunction( defaultGetter );
+	setter = defaultSetter;
+	getter = defaultGetter;
 }
 
-
+// If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
 Property<type>::Property(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &))
-	: Property<type, type>(name, setterFunction, getterFunction) 
+	: Property<type, type>(name, setterFunction, getterFunction)
 {
-}
-
-
-template<typename type>
-Property<type>::Property(const RawProperty<type, type> & rawProperty)
-	: Property<type, type>(rawProperty) 
-{
-}
-
-template<typename type>
-Property<type>::Property(const RawProperty<type, type> & rawProperty, const type & value)
-	: Property<type, type>(rawProperty, value) 
-{
-}
-
-template<typename type>
-Property<type>::Property(const RawProperty<type> & rawProperty)
-	: Property<type, type>(rawProperty) 
-{
-}
-
-template<typename type>
-Property<type>::Property(const RawProperty<type> & rawProperty, const type & value)
-	: Property<type, type>(rawProperty, value)
-{
-}
-
-// Set RawProperty
-template<typename type>
-void Property<type>::setRawProperty( const RawProperty<type> & raw )
-{
-	this->rawProperty = SharedPointer< RawProperty<type> >( new RawProperty<type>(raw));
 }

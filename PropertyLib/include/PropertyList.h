@@ -16,37 +16,37 @@ namespace PropertyList{
 	void setPositive( const double & value, double & destination);
 
 	// Mass
-	static RawProperty<double> mass("Mass", setPositive);
+	static Property<double> mass("Mass", setPositive);
 
 	// Volume
-	static RawProperty<double> volume("Volume", setPositive);
+	static Property<double> volume("Volume", setPositive);
 
 	// Moment of inertia
-	static RawProperty<double> moment_of_inertia("MomentOfInertia", setPositive);
+	static Property<double> moment_of_inertia("MomentOfInertia", setPositive);
 
 	// Elastic modulus
-	static RawProperty<double> elastic_modulus("ElasticModulus", setPositive);
+	static Property<double> elastic_modulus("ElasticModulus", setPositive);
 
 	// Dissipative constant
-	static RawProperty<double> dissipative_constant("DissipativeConstant");
+	static Property<double> dissipative_constant("DissipativeConstant");
 
 	// Poisson ratio
-	static RawProperty<double> poisson_ratio("PoissonRatio");
+	static Property<double> poisson_ratio("PoissonRatio");
 
 	// Normal Dissipative Constant
-	static RawProperty<double> normal_dissipative_constant("NormalDissipativeConstant", setPositive);
+	static Property<double> normal_dissipative_constant("NormalDissipativeConstant", setPositive);
 
 	// Tangential Damping
-	static RawProperty<double> tangential_damping("TangentialDamping", setPositive);
+	static Property<double> tangential_damping("TangentialDamping", setPositive);
 
 	// Friction Parameter
-	static RawProperty<double> friction_parameter("FrictionParameter", setPositive);
+	static Property<double> friction_parameter("FrictionParameter", setPositive);
 
 	// Tangential Kappa
-	static RawProperty<double> tangential_kappa("TangentialKappa", setPositive);
+	static Property<double> tangential_kappa("TangentialKappa", setPositive);
 
 	// Electric Charge
-	static RawProperty<double> electric_charge("ElectricCharge");
+	static Property<double> electric_charge("ElectricCharge");
 
 
 };

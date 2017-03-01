@@ -33,7 +33,7 @@ class RawPropertyContainer
 		outputMethodType getOutputMethod(const string & rawName) const;
 
 		template<typename interfaceType, typename storedType>
-		void addProperty(const RawProperty<interfaceType, storedType> & raw );
+		void addProperty(const Property<interfaceType, storedType> & raw );
 
 		SharedPointer<set<string>> getPropertyNames(void) const;
 

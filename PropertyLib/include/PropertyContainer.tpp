@@ -2,13 +2,10 @@
 
 // ---- Get, add and set properties ----
 
-//	getProperty:
-//		Returns a Property from propertyArray given its correspondent RawProperty.
-//		In case this property does not exists, PropertyContainer::getProperty returns Property<interfaceType, storedType>(raw),
-//		that is, a Property containing raw as its RawProperty correspondent and a value as created by the default constructor
-//		of class interfaceType
+//	getValue:
+//		Returns the value of a Property
 template<typename interfaceType, typename storedType>
-Property<interfaceType, storedType> PropertyContainer::getProperty(const RawProperty<interfaceType, storedType> & raw) const
+interfaceType PropertyContainer::getValue(const Property<interfaceType, storedType> & raw) const
 {
 	set<string>::iterator it = propertyNames->find( raw.getName() );
 
@@ -18,32 +15,19 @@ Property<interfaceType, storedType> PropertyContainer::getProperty(const RawProp
 
 		interfaceType value = raw.getter( anyCast<storedType>( propertyValues->at(index) ) );
 
-		return Property<interfaceType, storedType>( raw, value );
+		return value;
 	}
 	else
 	{
-		return Property<interfaceType, storedType>( raw );
+		return interfaceType();
 	}
-}
-
-//	getValue:
-//		Returns the value of a Property given the Property's correspondent RawProperty
-//		As an example, suppose that propertyArray contains a myMass object defined as
-//			Property<double> myMass( mass, 50 )
-//		Then, if there's no other property whose name is "mass" in propertyArray, the following code
-//			std::cout << propertyArray.getValue(mass) << endl;
-//		should print 50
-template<typename interfaceType, typename storedType>
-interfaceType PropertyContainer::getValue(const RawProperty<interfaceType, storedType> & raw) const
-{
-	return getProperty(raw).get(); 
 }
 
 //	setProperty:
 //		If argument's name is already in propertyName, it's value is overwritten.
 //		Otherwise, a new property is inserted.
 template<typename interfaceType, typename storedType, typename implicitInterfaceType>
-void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType> & raw, const implicitInterfaceType & implicitValue )
+void PropertyContainer::setProperty(const Property<interfaceType, storedType> & raw, const implicitInterfaceType & implicitValue )
 {
 	interfaceType value = interfaceType(implicitValue);
 	set<string>::iterator it = propertyNames->find( raw.getName() );
@@ -67,10 +51,4 @@ void PropertyContainer::setProperty(const RawProperty<interfaceType, storedType>
 		inputMethods->insert( inputMethods->begin() + index, raw.inputMethod );
 		outputMethods->insert( outputMethods->begin() + index, raw.outputMethod );
 	}
-}
-
-template<typename interfaceType, typename storedType>
-void PropertyContainer::setProperty(const Property<interfaceType, storedType> & property)
-{
-	setProperty( property.getRawProperty(), property.getValue() );
 }
