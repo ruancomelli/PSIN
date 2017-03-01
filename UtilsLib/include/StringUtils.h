@@ -5,8 +5,8 @@
 #include <string>
 #include <algorithm>
 
-using namespace std;
+using std::string;
 
-int stringCompare( string left, string right );
+int stringCompare( string left, string right, bool caseSensitive=false );
 
 #endif

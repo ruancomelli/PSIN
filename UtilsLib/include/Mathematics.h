@@ -1,11 +1,5 @@
-// MATHEMATICS
-
 #ifndef MATHEMATICS_H
 #define MATHEMATICS_H
-
-#define _USE_MATH_DEFINES
-
-#include <math.h>
 
 // factorial:
 //	Calculates n!, where n is a nonnegative integer
