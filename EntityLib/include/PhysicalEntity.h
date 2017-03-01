@@ -3,36 +3,31 @@
 
 // Standard
 #include <vector>
-#include <stdexcept>
 #include <set>
 
 // EntityLib
 #include <Entity.h>
 
 // UtilsLib
-#include <Vector.h>
 #include <Vector3D.h>
 #include <SharedPointer.h>
 #include <Any.h>
 
 // PropertyLib
 #include <PropertyContainer.h>
-#include <PropertyList.h>
 
 using std::string;
-using namespace PropertyList;
 
 enum GeometryType{
 	SPHERE = 0,
 	DEFAULT = SPHERE
 };
 
-class PhysicalEntity;
-typedef SharedPointer<PhysicalEntity> PhysicalEntityPtr;
-
 class PhysicalEntity: public Entity
 {
 	public:
+		typedef SharedPointer<PhysicalEntity> PhysicalEntityPtr;
+
 		// ---- Constructors ----
 		PhysicalEntity();
 		explicit PhysicalEntity(const Entity & base); // Creates a PhysicalEntity based on an Entity
@@ -101,6 +96,8 @@ class PhysicalEntity: public Entity
 		// properties
 		PropertyContainer propertyContainer;
 };
+
+typedef PhysicalEntity::PhysicalEntityPtr PhysicalEntityPtr;
 
 #include <PhysicalEntity.tpp>
 

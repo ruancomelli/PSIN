@@ -1,7 +1,13 @@
-#ifndef FORCE_METHODS_DEFINITIONS
-#define FORCE_METHODS_DEFINITIONS
+#ifndef FORCE_METHODS_DEFINITIONS_H
+#define FORCE_METHODS_DEFINITIONS_H
 
+// ForceModelLib
 #include <ForceModel.h>
+
+// PropertyLib
+#include <PropertyList.h>
+
+using namespace PropertyList;
 
 void resizeCummulativeZeta( vector< vector< Vector3D > > & cummulativeZeta, const int numberOfParticles )
 {

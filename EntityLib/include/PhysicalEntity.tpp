@@ -1,8 +1,7 @@
-// ---- Constructors ----
+#ifndef PHYSICAL_ENTITY_TPP
+#define PHYSICAL_ENTITY_TPP
 
 // ---- Get, add and set properties ----
-
-
 template< typename interfaceType, typename storedType, typename implicitInterfaceType >
 void PhysicalEntity::set( const Property<interfaceType, storedType> & raw, const implicitInterfaceType & value )
 {
@@ -14,3 +13,5 @@ interfaceType PhysicalEntity::get(const Property<interfaceType, storedType> & ra
 {
 	return propertyContainer.getValue( raw );
 }
+
+#endif

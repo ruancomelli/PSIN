@@ -1,7 +1,14 @@
 #include <Particle.h>
 
+// PropertyLib
+#include <PropertyList.h>
+
+using PropertyList::mass;
+using PropertyList::moment_of_inertia;
+
 Vector3D Particle::gravity = nullVector3D();
 
+// ------------------------------- Constructors -------------------------------
 Particle::Particle() : PhysicalEntity(3, 3) 
 {
 }
@@ -16,6 +23,7 @@ Particle::Particle(const int taylorOrder, const int dimension, const int handle)
 {
 }
 
+// ------------------------------- Dynamics -------------------------------
 Vector3D Particle::getLinearMomentum(void) const
 {
 		return this->get(mass) * this->getPosition(1);

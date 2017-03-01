@@ -7,14 +7,13 @@
 // Standard
 #include <iostream>
 #include <string>
-#include <set>
-#include <list>
-#include <vector>
 
 // UtilsLib
 #include <Any.h>
 
-using namespace std;
+using std::string;
+using std::ifstream;
+using std::ofstream;
 
 class PropertyContainer : public RawPropertyContainer
 {

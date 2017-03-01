@@ -11,10 +11,13 @@
 #include <iostream>
 #include <string>
 #include <set>
-#include <list>
 #include <vector>
 
-using namespace std;
+using std::set;
+using std::vector;
+using std::string;
+using std::ifstream;
+using std::ofstream;
 
 class RawPropertyContainer
 {
@@ -39,8 +42,8 @@ class RawPropertyContainer
 
 	protected:
 		SharedPointer< set<string> > propertyNames;
-		SharedPointer< std::vector< inputMethodType > > inputMethods;
-		SharedPointer< std::vector< outputMethodType > > outputMethods;
+		SharedPointer< vector< inputMethodType > > inputMethods;
+		SharedPointer< vector< outputMethodType > > outputMethods;
 }; // class RawPropertyContainer
 
 #include <RawPropertyContainer.tpp>

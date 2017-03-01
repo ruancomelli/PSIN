@@ -1,5 +1,11 @@
 #include <PhysicalEntity.h>
 
+// Standard
+#include <stdexcept>
+
+// PropertyLib
+#include <PropertyList.h>
+
 // ------------------------------- Constructors -------------------------------
 int PhysicalEntity::dimension = 3;
 
@@ -10,8 +16,8 @@ PhysicalEntity::PhysicalEntity()
 	setTaylorOrder(3); // It calls resizePositionOrientation
 	setDimension(3);
 
-	set( mass, 1 );
-	set( moment_of_inertia , 1 );
+	set( PropertyList::mass, 1 );
+	set( PropertyList::moment_of_inertia , 1 );
 }
 
 PhysicalEntity::PhysicalEntity( const Entity & base )
@@ -20,8 +26,8 @@ PhysicalEntity::PhysicalEntity( const Entity & base )
 	setTaylorOrder(3);
 	setDimension(3);
 
-	set( mass, 1 );
-	set( moment_of_inertia , 1 );
+	set(PropertyList::mass, 1 );
+	set(PropertyList::moment_of_inertia, 1 );
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int handle)
@@ -31,8 +37,8 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim, const int h
 	setTaylorOrder(taylorOrder);
 	setDimension(dim);
 
-	set( mass, 1 );
-	set( moment_of_inertia , 1 );
+	set(PropertyList::mass, 1 );
+	set(PropertyList::moment_of_inertia , 1 );
 }
 
 PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Entity & base)
@@ -41,8 +47,8 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Enti
 	setTaylorOrder(taylorOrder);
 	setDimension(dim);
 	
-	set( mass, 1 );
-	set( moment_of_inertia , 1 );
+	set(PropertyList::mass, 1 );
+	set(PropertyList::moment_of_inertia , 1 );
 }
 // ------------------------------- Property -------------------------------
 

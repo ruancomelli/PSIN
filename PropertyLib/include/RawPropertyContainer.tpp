@@ -1,3 +1,6 @@
+#ifndef RAW_PROPERTY_CONTAINER_TPP
+#define RAW_PROPERTY_CONTAINER_TPP
+
 //	addProperty:
 //		If argument's name is already in propertyName, its input and output methods are overwritten.
 //		Otherwise, a new property is inserted.
@@ -24,3 +27,5 @@ void RawPropertyContainer::addProperty(const Property<interfaceType, storedType>
 		outputMethods->insert( outputMethods->begin() + index, raw.outputMethod );
 	}
 }
+
+#endif

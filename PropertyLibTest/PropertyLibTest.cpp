@@ -14,6 +14,8 @@
 
 using std::string;
 
+using namespace std;
+
 void setIntFromString(const string & value, int & destination)
 {
 	destination = value.length();

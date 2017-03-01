@@ -7,10 +7,11 @@
 
 // Standard
 #include <string>
-#include <iostream>
 #include <fstream>
 
-using namespace std;
+using std::string;
+using std::ifstream;
+using std::ofstream;
 
 template<typename...> class Property;
 

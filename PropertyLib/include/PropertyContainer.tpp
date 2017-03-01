@@ -1,4 +1,5 @@
-// ---- Constructors ----
+#ifndef PROPERTY_CONTAINER_TPP
+#define PROPERTY_CONTAINER_TPP
 
 // ---- Get, add and set properties ----
 
@@ -52,3 +53,5 @@ void PropertyContainer::setProperty(const Property<interfaceType, storedType> & 
 		outputMethods->insert( outputMethods->begin() + index, raw.outputMethod );
 	}
 }
+
+#endif

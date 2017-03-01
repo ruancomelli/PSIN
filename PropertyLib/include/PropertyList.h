@@ -5,10 +5,7 @@
 #include <Property.h>
 
 // Standard
-#include <iostream>
 #include <string>
-
-using namespace std;
 
 namespace PropertyList{
 
@@ -47,8 +44,6 @@ namespace PropertyList{
 
 	// Electric Charge
 	static Property<double> electric_charge("ElectricCharge");
-
-
 };
 
 #endif

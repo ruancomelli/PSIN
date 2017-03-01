@@ -2,8 +2,6 @@
 #define PARTICLE_H
 
 // Standard
-#include <iostream>
-#include <fstream>
 #include <vector>
 
 // EntityLib
@@ -13,14 +11,12 @@
 #include <SharedPointer.h>
 
 using namespace std;
-using namespace PropertyList;
-
-class Particle;
-typedef SharedPointer< Particle > ParticlePtr;
 
 class Particle: public PhysicalEntity
 {
-	public:
+	public:	
+		typedef SharedPointer< Particle > ParticlePtr;
+
 		// ---- Constructors ----
 		Particle();
 		explicit Particle(const PhysicalEntity & base);
@@ -75,5 +71,7 @@ class Particle: public PhysicalEntity
 		
 		vector<int> neighbor;
 }; // class Particle
+
+typedef Particle::ParticlePtr ParticlePtr;
 
 #endif

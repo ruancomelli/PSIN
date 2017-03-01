@@ -1,29 +1,30 @@
 #ifndef SPHERICAL_PARTICLE_H
 #define SPHERICAL_PARTICLE_H
 
-#include <iostream>
+// Standard
 #include <ostream>
 #include <vector>
-#include <fstream>
 #include <string>
 
+// EntityLib
 #include <Particle.h>
 
-using namespace std;
+// UtilsLib
+#include <Vector.h>
+
+using std::vector;
+using std::string;
 
 enum SphericalParticleGeometricParameter{
 	RADIUS = 0,
 	N_GEOMETRIC_PARAMETER
 };
 
-class SphericalParticle;
-typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
-typedef vector< SphericalParticle > SphericalParticleArray;
-typedef vector< SphericalParticlePtr > SphericalParticlePtrArray;
-
 class SphericalParticle: public Particle
 {
 	public:
+		typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
+
 		SphericalParticle();
 		explicit SphericalParticle(const Particle & base);
 		SphericalParticle(const int order, const int dimension, const int handle = -1);
@@ -57,5 +58,9 @@ class SphericalParticle: public Particle
 		
 		void reserveGeometricParameterMemory(void);
 }; // class SphericalParticle
+
+typedef SphericalParticle::SphericalParticlePtr SphericalParticlePtr;
+typedef vector< SphericalParticle > SphericalParticleArray;
+typedef vector< SphericalParticlePtr > SphericalParticlePtrArray;
 
 #endif
