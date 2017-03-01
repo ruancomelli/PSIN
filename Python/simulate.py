@@ -20,9 +20,7 @@ from matplotlib import animation
 from build_video import build_video
 
 
-# Initialize all graph possible types
-graphType = [ 'energy' , 'linear_momentum' , 'angular_momentum' , 'force' , 'torque' , 'video' ]
-
+# run the simulation program, C++
 def simulation(simulationName, programName):
 	
 	print( "> Initializing Program" )
@@ -41,7 +39,8 @@ def simulation(simulationName, programName):
 	subprocess.Popen( programFolder + programName )
 	print( "< Simulation finished" )
 
-def generateGraphics( simulationName, programName , videoType , bools ):
+# generate the graphics and videos
+def generateGraphics( simulationName, programName , graphBools , buildVideo , videoBools ):
 
 	#
 	# INITIALIZING
@@ -140,13 +139,12 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 		cmap = cmap,
 		norm = colors.Normalize( vmin=0 , vmax=simulationSettings["nParticles"]-1 ) )
 
-
 	print("<< Done")
 		
 	
 	# Plot Energy
 	thisKey = "energy"
-	if( bools[thisKey] ):
+	if( graphBools[thisKey] ):
 		print(">> Plotting mechanical energy")
 
 		plotParticleDataHistory( 
@@ -166,7 +164,7 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 	
 	# Plot Linear Momentum
 	thisKey = "linear_momentum"
-	if( bools[thisKey] ):
+	if( graphBools[thisKey] ):
 		print(">> Plotting linear momentum")
 
 		plotParticleDataHistory3D( 
@@ -187,7 +185,7 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 	
 	# Plot Angular Momentum
 	thisKey = "angular_momentum"
-	if( bools[thisKey] ):
+	if( graphBools[thisKey] ):
 		print(">> Plotting angular momentum")
 
 		plotParticleDataHistory3D( 
@@ -208,7 +206,7 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 		
 	# Plot Resulting Force
 	thisKey = "force"
-	if( bools[thisKey] ):
+	if( graphBools[thisKey] ):
 		print(">> Plotting force")
 
 		plotParticleDataHistory3D( 
@@ -229,7 +227,7 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 	
 	# Plot Resulting Torque
 	thisKey = "torque"
-	if( bools[thisKey] ):
+	if( graphBools[thisKey] ):
 		print(">> Plotting torque")
 
 		plotParticleDataHistory3D( 
@@ -249,8 +247,7 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 		print("<< Done")
 
 	# Generate Video
-	thisKey = "video"
-	if( bools[thisKey] ):
+	if( buildVideo ):
 		print(">> Generating video")
 
 		nParticles = simulationSettings["nParticles"]
@@ -260,7 +257,7 @@ def generateGraphics( simulationName, programName , videoType , bools ):
 			nParticles=nParticles,
 			outputFolder=pythonOutputFolder,
 			fileName=fileName,
-			limitsType=videoType
+			videoBools=videoBools
 			)
 
 		print("<< Done")

@@ -1,8 +1,11 @@
 from matplotlib import pyplot as plt
 from matplotlib import animation
 from graphLimitsFunctions import *
+from interfaceDefinitions import *
+from animateFunctions import *
 
-def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
+# def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
+def build_video(particleData , nParticles , outputFolder , fileName , videoBools):
 
 	# Config 
 	fig_dpi = 100
@@ -44,27 +47,6 @@ def build_video(particleData , nParticles , outputFolder , fileName , limitsType
 
 		return circles
 
-	# Animate function
-	def animate(t):
-		for p in range(nParticles):
-			xCenter, yCente = circles[p].center
-			X = 0
-			Y = 1
-			xCenter = particleData[p]['position'][t,X]
-			yCenter = particleData[p]['position'][t,Y]
-			circles[p].center = (xCenter , yCenter)
-		print('t = ' , t)
-		# set graph limits
-		if (limitsType == "by time step"):
-			[ xmin , xmax , ymin , ymax ] = getLimits_byTimeStep( particleData , nParticles , t )
-		elif (limitsType == "global"):
-			[ xmin , xmax , ymin , ymax ] = getLimits_global( particleData , nParticles )
-		elif (limitsType == "autoscale"):
-			[ xmin , xmax , ymin , ymax ] = getLimits_autoscale( ax )
-		ax.set_xlim( (xmin , xmax) )
-		ax.set_ylim( (ymin , ymax) )
-		return circles
-
 	# Generating video
 	interval = 10
 	frames = 100
@@ -74,8 +56,14 @@ def build_video(particleData , nParticles , outputFolder , fileName , limitsType
 	print('frames = ' , frames)
 	print('fps = ' , fps)
 
-	anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frames, interval=interval)
+	# define animate functions
+	animateFunction = {}
+	animateFunction["by time step"] = animate_byTimeStep
+	animateFunction["global"] = animate_global
+	animateFunction["autoscale"] = animate_autoscale
 
-	extension = ".mp4"
-	anim.save(outputFolder + fileName + extension, fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
-#	print("nParticles = " , nParticles)
+	for vt in videoType:
+		if( videoBools[vt] ):
+			anim = animation.FuncAnimation(fig, animateFunction[vt], init_func=init, frames=frames, interval=interval)
+			extension = "_" + vt + ".mp4"
+			anim.save(outputFolder + fileName + extension, fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
