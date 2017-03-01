@@ -81,6 +81,10 @@ message("-- Release flags: ${CMAKE_CXX_FLAGS_RELEASE}")
 
 # ROOT PATH TO USE IN PROGRAMS
 add_definitions(-DPROJECT_PATH="${CMAKE_SOURCE_DIR}/")
+message("\nThe 'PROJECT_PATH' is ${CMAKE_SOURCE_DIR}/")
+message("Do not try to use the output files outside the project")
+message("(do not copy and paste somewhere else).")
+message("Possible errors in programs (executables) and in python (process data)\n")
 
 #ADD SUBDIRECTORIES
 add_subdirectory(UtilsLibSpecific)

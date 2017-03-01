@@ -5,7 +5,6 @@
 """
 
 import numpy
-import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 
@@ -21,8 +20,7 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	elif component == 'Z':
 		component = 2
 		
-	fig = plt.figure( 
-		num=1,
+	fig = plt.figure(
 		figsize=(18, 14),
 		facecolor='w',
 		edgecolor='k' )
@@ -49,14 +47,40 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	xWidth = xMaximum - xMinimum
 	yWidth = yMaximum - yMinimum
 	
-	# Set sizes and labels
+	# Set labels
 
 	ax.set_xlabel(xAxisLabel, size=15, weight='normal', family='sans-serif')
 	ax.set_ylabel(yAxisLabel, size=15, weight='normal', family='sans-serif')
 	
 	ax.set_title(title, size=25, weight='normal', family='sans-serif')
-	plt.xlim( xMinimum - 0.1*xWidth, xMaximum + 0.1*xWidth )
-	plt.ylim( yMinimum - 0.1*yWidth, yMaximum + 0.1*yWidth )
+	
+	# Set plot limits
+	
+	xMinimumLim = xMinimum - 0.1*xWidth
+	xMaximumLim = xMaximum + 0.1*xWidth
+	
+	yMinimumLim = yMinimum - 0.1*yWidth
+	yMaximumLim = yMaximum + 0.1*yWidth
+	
+	plt.xlim( xMinimumLim, xMaximumLim )
+	plt.ylim( yMinimumLim, yMaximumLim )
+	
+	# Set plot ticks
+	
+	ax.tick_params(direction='both')
+	ax.minorticks_on()
+	
+#	rangeStep = numpy.round(xWidth , int( numpy.abs(numpy.log10(xWidth)) + 1  ) )
+#	xTicks = numpy.linspace(start=xMinimum , stop=xMaximum , num=10)
+#	yTicks = numpy.linspace(start=yMinimum , stop=yMaximum , num=20)
+#	
+#	ax.set_xticks( xTicks )
+#	ax.set_yticks( yTicks )
+
+	# Add grid
+	
+	ax.grid(visible=True , which='major')
+	ax.grid(visible=True , which='minor' , color=[0.5 , 0.5 , 0.5])
 	
 	print("xMinimum: ", xMinimum, "xMaximum: ", xMaximum, "yMinimum: ", yMinimum, "yMaximum: ", yMaximum)
 	
@@ -83,6 +107,7 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 		linewidth = 2.0,
 		label = "Total"
 		)
+	
 	
 	handles, labels = ax.get_legend_handles_labels()
 	handle_list, label_list = [], []
