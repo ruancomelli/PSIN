@@ -51,7 +51,7 @@ class PhysicalEntity: public Entity
 		void setGeometry(const GeometryType);
 		GeometryType getGeometry() const;
 		
-		// ---- Properties ----
+		// ---- Properties ----		
 		void requireProperties( const RawPropertyContainer & raw );
 
 			// dimension

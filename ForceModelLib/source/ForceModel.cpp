@@ -11,6 +11,8 @@
 using PropertyList::mass;
 using PropertyList::moment_of_inertia;
 
+
+
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
 { 
 	return nullVector3D(); 
@@ -27,7 +29,6 @@ void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, Spherica
 
 vector< vector< bool > > ForceModel::collisionFlag;
 int ForceModel::numberOfParticles;
-set<ForceModelPtr, ForceModel::ForceModelPtrCompare> ForceModel::forceModelList;
 
 
 ForceModel::ForceModel()
@@ -36,10 +37,6 @@ ForceModel::ForceModel()
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
 {
-	// forceModelList.insert( *this );
-	// every insert should verify if there was already a ForceModel with that name
-	// also, it would be better to use pointers instead of references
-	// DO IT LATER!
 }
 
 ForceModel::ForceModel(const string & name)
@@ -48,7 +45,6 @@ ForceModel::ForceModel(const string & name)
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
 {
-	// forceModelList.insert( *this );
 }
 
 ForceModel::ForceModel( const ForceModel & fm )
@@ -59,12 +55,6 @@ ForceModel::ForceModel( const ForceModel & fm )
 	requiredProperties( fm.requiredProperties ),
 	timeStep( fm.timeStep )
 {
-	// forceModelList.insert( *this );
-}
-
-void ForceModel::addToList(void)
-{
-	forceModelList.insert( shared_from_this() );
 }
 
 void ForceModel::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = {newNormal}; }

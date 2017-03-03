@@ -30,13 +30,6 @@ class ForceModel : public EnableSharedFromThis<ForceModel>
 		typedef void (*TangentialType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 		typedef void (*FieldType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
-		struct ForceModelPtrCompare{
-			bool operator()( const ForceModelPtr & left, const ForceModelPtr & right ) const
-			{ return left->getName() < right->getName();}
-		};
-		
-		static set<ForceModelPtr, ForceModelPtrCompare> forceModelList;
-
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
 		static void correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt );
@@ -54,9 +47,6 @@ class ForceModel : public EnableSharedFromThis<ForceModel>
 		ForceModel();
 		explicit ForceModel(const string & name);
 		ForceModel( const ForceModel & fm );
-
-		// ---- Add to List ----
-		void addToList(void);
 
 		// ---- Name ----
 		string getName(void) const;

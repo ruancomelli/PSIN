@@ -18,7 +18,7 @@
 <Radius> 1e-2
 <DissipativeConstant> 0.0
 <PoissonRatio> 0.3
-<ElasticModulus> 1e6
+<ElasticModulus> 1e7
 <TangentialDamping> 1000
 <FrictionParameter> 0.8
-<ElectricCharge> 2e-6
+<ElectricCharge> -1e-6

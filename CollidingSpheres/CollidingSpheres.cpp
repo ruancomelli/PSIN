@@ -104,10 +104,9 @@ int main(int argc, char **argv){
 
 	for(auto& particlePtr : particleArray){
 		double m = particlePtr->get( mass );
-		double r = particlePtr->get( mass );
+		double r = particlePtr->getGeometricParameter( RADIUS );
 
 		particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
-		//particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
 	}
 
 	particleArray[0]->setGravity(gravity);

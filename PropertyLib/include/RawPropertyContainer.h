@@ -30,13 +30,13 @@ class RawPropertyContainer
 		RawPropertyContainer( const RawPropertyContainer & other);
 
 		// Get a property's input method
-		inputMethodType getInputMethod(const string & rawName) const;
+		inputMethodType getInputMethod(const string & name) const;
 
 		// Get a property's output method
-		outputMethodType getOutputMethod(const string & rawName) const;
+		outputMethodType getOutputMethod(const string & name) const;
 
 		template<typename interfaceType, typename storedType>
-		void addProperty(const Property<interfaceType, storedType> & raw );
+		void addProperty(const Property<interfaceType, storedType> & property );
 
 		SharedPointer<set<string>> getPropertyNames(void) const;
 
