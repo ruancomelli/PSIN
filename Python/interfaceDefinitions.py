@@ -7,13 +7,16 @@ programName ='CollidingSpheres.exe'
 videoType = ["by time step" , "global" , "autoscale"]
 graphType = [ 'energy' , 'linear_momentum' , 'angular_momentum' , 'force' , 'torque' ]
 
+# simulate GUI
+programNameOption = StringVar()
+programNameOption.set( programName )
+
 # graphs bools
 possibleGraph = {}
 for i in range( len(graphType) ):
 	possibleGraph[ graphType[i] ] = BooleanVar()
 	possibleGraph[ graphType[i] ].set(True)
 	# use: possibleGraph[ graphType ].get()
-
 
 # video bools
 buildVideo = BooleanVar()
