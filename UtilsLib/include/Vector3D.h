@@ -43,7 +43,7 @@ double dot( const Vector3D& v0, const Vector3D& v1 );
 double triple( const Vector3D& v0, const Vector3D& v1, const Vector3D& v2 );
 Vector3D operator -( const Vector3D& v0, const Vector3D& v1 );
 Vector3D operator +( const Vector3D& v0, const Vector3D& v1 );
-Vector3D operator *( const double& scalar, const Vector3D& v );
+Vector3D operator *( const double scalar, const Vector3D& v );
 Vector3D operator *( const Vector3D& v, const double scalar );
 Vector3D operator /( const Vector3D& v, const double scalar );
 Vector3D operator - (const Vector3D& v);

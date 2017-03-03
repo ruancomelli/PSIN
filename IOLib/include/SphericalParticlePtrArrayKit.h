@@ -3,17 +3,12 @@
 
 // Standard
 #include <iostream>
-#include <ostream>
 #include <vector>
 #include <fstream>
 #include <string>
-#include <algorithm>
 
 // EntityLib
 #include <SphericalParticle.h>
-
-// UtilsLib
-#include <Foreach.h>
 
 // PropertyLib
 #include <RawPropertyContainer.h>
@@ -24,7 +19,7 @@
 // boost
 #include <boost/filesystem.hpp>
 
-using namespace std;
+using std::string;
 
 class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
 {

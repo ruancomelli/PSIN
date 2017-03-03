@@ -3,39 +3,40 @@
 
 // Standard
 #include <fstream>
-#include <iostream>
 #include <string>
-#include <stdexcept>
 
 // UtilsLib
-#include <vectorIO.h>
-#include <StringUtils.h>
 #include <Any.h>
+#include <StringUtils.h>
+#include <vectorIO.h>
 
-using namespace std;
+using std::string;
 
 class FileReader
 {
 	public:
+		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
+
 		FileReader();
-		FileReader(const string fileName);
+		FileReader(const string & fileName);
 		virtual ~FileReader();
 			
 
-		void setFileName(const string fileName);
+		void setFileName(const string & fileName);
 		string getFileName(void) const;
 
-		bool checkReady(void){ return this->isReady; }
+		bool checkReady(void) const;
 
-		void openFile(const string fileName);
+		void openFile(const string & fileName);
 
-		template <class type> bool readValue( const string & tag, type & value );
+		template <class type> 
+		bool readValue( const string & tag, type & value );
 
-		bool readAnyValue( const string & tag, Any & value, bool (*inputMethod)(ifstream & in, Any & value) );
+		bool readAnyValue( const string & tag, Any & value, inputMethodType inputMethod );
 		
 	private:
 		string fileName;
-		ifstream file;
+		std::ifstream file;
 		bool isReady;
 };
 

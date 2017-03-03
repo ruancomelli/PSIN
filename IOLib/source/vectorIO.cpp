@@ -1,11 +1,13 @@
 #include <vectorIO.h>
 
-ostream & operator << (ostream & stream, const Vector3D & v){
-	stream << v.x() << "    " << v.y() << "    " << v.z() << endl;
+
+
+std::ostream & operator << (std::ostream & stream, const Vector3D & v){
+	stream << v.x() << "    " << v.y() << "    " << v.z() << std::endl;
 	return stream;
 }
 
-istream & operator >> (istream & stream, Vector3D & v){
+std::istream & operator >> (std::istream & stream, Vector3D & v){
 	stream >> v.x();
 	stream >> v.y();
 	stream >> v.z();
@@ -14,12 +16,12 @@ istream & operator >> (istream & stream, Vector3D & v){
 }
 
 
-ofstream & operator << (ofstream & stream, const Vector3D & v){
-	stream << v.x() << "    " << v.y() << "    " << v.z() << endl;
+std::ofstream & operator << (std::ofstream & stream, const Vector3D & v){
+	stream << v.x() << "    " << v.y() << "    " << v.z() << std::endl;
 	return stream;
 }
 
-ifstream & operator >> (ifstream & stream, Vector3D & v){
+std::ifstream & operator >> (std::ifstream & stream, Vector3D & v){
 	stream >> v.x();
 	stream >> v.y();
 	stream >> v.z();

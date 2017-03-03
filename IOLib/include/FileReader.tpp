@@ -1,3 +1,5 @@
+#ifndef FILE_READER_TPP
+#define FILE_READER_TPP
 
 template <class type> 
 bool FileReader::readValue( const string & tag, type & value )
@@ -37,3 +39,4 @@ bool FileReader::readValue( const string & tag, type & value )
 	return returnFlag;
 }
 
+#endif

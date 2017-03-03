@@ -60,7 +60,7 @@ void SphericalParticlePtrArrayKit::openFiles(const string & outputPath)
 {
 	this->outFile.resize( this->size() );
 
-	foreach(SphericalParticlePtr particlePtr, *this)
+	for(SphericalParticlePtr particlePtr : *this)
 	{
 
 		string particleOutputPath = outputPath + "Particle" + to_string(particlePtr->getHandle()) + "/";
@@ -93,7 +93,7 @@ void SphericalParticlePtrArrayKit::openFiles(const string & outputPath)
 void SphericalParticlePtrArrayKit::exportTemporalData(const string & horizontalSeparator, const string & verticalSeparator) const
 {
 	if(this->isReady){
-		foreach(SphericalParticlePtr particlePtr, *this){
+		for(SphericalParticlePtr particlePtr : *this){
 			saveSphericalParticlePositionMatrix(*outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX],
 				particlePtr, horizontalSeparator, verticalSeparator);
 
@@ -137,7 +137,7 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 {
 	if(this->isReady)
 	{
-		foreach(SphericalParticlePtr particlePtr, *this){
+		for(SphericalParticlePtr particlePtr : *this){
 			*outFile[particlePtr->getHandle()][DATA_IDX] << "<Radius> " << particlePtr->getGeometricParameter(RADIUS) << verticalSeparator;
 
 

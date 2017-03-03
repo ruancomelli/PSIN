@@ -26,8 +26,10 @@
 
 // PropertyLib
 #include <PropertyContainer.h>
+#include <PropertyList.h>
 
 using namespace std;
+using namespace PropertyList;
 
 const string project_root_path = PROJECT_PATH;
 
