@@ -19,6 +19,7 @@
 // boost
 #include <boost/filesystem.hpp>
 
+using std::ofstream;
 using std::string;
 
 class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
@@ -34,10 +35,10 @@ class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
 		void openFiles(const string & outputPath);
 
 		void exportTemporalData(const string & horizontalSeparator, const string & verticalSeparator) const;
-		void exportTemporalDataCSV() const { exportTemporalData(",", "\n"); }
+		void exportTemporalDataCSV() const;
 
 		void exportAllData(const string & horizontalSeparator, const string & verticalSeparator) const;
-		void exportAllDataCSV() const { exportAllData(",", "\n"); }
+		void exportAllDataCSV() const;
 
 		void requireRawPropertyContainer( const RawPropertyContainer & required );
 

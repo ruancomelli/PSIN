@@ -133,6 +133,11 @@ void SphericalParticlePtrArrayKit::exportTemporalData(const string & horizontalS
 	}
 }
 
+void SphericalParticlePtrArrayKit::exportTemporalDataCSV() const
+{
+	exportTemporalData(",", "\n");
+}
+
 void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSeparator, const string & verticalSeparator) const
 {
 	if(this->isReady)
@@ -186,6 +191,11 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 	{
 		cerr << "Particle array is not ready to export data." << endl;
 	}
+}
+
+void SphericalParticlePtrArrayKit::exportAllDataCSV() const
+{
+	exportAllData(",", "\n");
 }
 
 void SphericalParticlePtrArrayKit::requireRawPropertyContainer( const RawPropertyContainer & required )
