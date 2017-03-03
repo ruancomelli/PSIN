@@ -4,7 +4,7 @@ from graphLimitsFunctions import *
 from interfaceDefinitions import *
 
 # def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
-def build_video(particleData , nParticles , scalarMap , outputFolder , fileName , videoBools):
+def build_video(particleData , nParticles , timeVector , scalarMap , outputFolder , fileName , videoBools):
 
 	# Config 
 	fig_dpi = 100
@@ -34,6 +34,7 @@ def build_video(particleData , nParticles , scalarMap , outputFolder , fileName 
 
 	# Initial function to animation
 	def init():
+		ax.set_title(str(timeVector[0]) + " s")
 		for p in range(nParticles):
 			radius = float( particleData[p]['main']['Radius'] )
 			timeStep = 0
@@ -60,6 +61,7 @@ def build_video(particleData , nParticles , scalarMap , outputFolder , fileName 
 		[ xmin , xmax , ymin , ymax ] = getLimits_byTimeStep( particleData , nParticles , t )
 		ax.set_xlim( (xmin , xmax) )
 		ax.set_ylim( (ymin , ymax) )
+		ax.set_title(str(timeVector[t]) + " s")
 		return circles
 
 	def animate_global(t):
@@ -75,6 +77,7 @@ def build_video(particleData , nParticles , scalarMap , outputFolder , fileName 
 		[ xmin , xmax , ymin , ymax ] = getLimits_global( particleData , nParticles )
 		ax.set_xlim( (xmin , xmax) )
 		ax.set_ylim( (ymin , ymax) )
+		ax.set_title(str(timeVector[t]) + " s")
 		return circles
 
 	def animate_autoscale(t):
@@ -90,11 +93,12 @@ def build_video(particleData , nParticles , scalarMap , outputFolder , fileName 
 		[ xmin , xmax , ymin , ymax ] = getLimits_autoscale( ax )
 		ax.set_xlim( (xmin , xmax) )
 		ax.set_ylim( (ymin , ymax) )
+		ax.set_title(str(timeVector[t]) + " s")
 		return circles
 
 	# Generating video
 	interval = 10
-	frames = 100
+	frames = len(timeVector)
 	fps = 30
 
 	print('interval = ' , interval)

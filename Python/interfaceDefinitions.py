@@ -15,7 +15,7 @@ programNameOption.set( programName )
 possibleGraph = {}
 for i in range( len(graphType) ):
 	possibleGraph[ graphType[i] ] = BooleanVar()
-	possibleGraph[ graphType[i] ].set(True)
+	possibleGraph[ graphType[i] ].set(False)
 	# use: possibleGraph[ graphType ].get()
 
 # video bools

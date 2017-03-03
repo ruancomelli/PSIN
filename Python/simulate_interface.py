@@ -13,7 +13,6 @@ class SimulateInterface( Frame ):
 		# processing before call 'generateGraphics'
 		graphBools = transformToBool( possibleGraph , graphType)
 		videoBools = transformToBool( possibleVideo , videoType)
-		print(videoBools)
 
 		# if some king of video was chosen, then 'buildVideo'
 		# is set True.
