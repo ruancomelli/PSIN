@@ -68,6 +68,7 @@ Vector3D normalForceViscoelasticSpheres( SphericalParticlePtr particle, Spherica
 		
 		particle->addContactForce( normalForce );
 		neighbor->addContactForce( - normalForce );
+
 		return normalForce;
 	}
 	// else, no forces are added.

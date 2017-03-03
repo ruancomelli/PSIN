@@ -21,4 +21,4 @@
 <ElasticModulus> 1e6
 <TangentialDamping> 1000
 <FrictionParameter> 0.6
-<ElectricCharge> 1e-6
+<ElectricCharge> 2e-6

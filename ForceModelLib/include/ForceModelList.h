@@ -17,6 +17,7 @@ STATIC_EXECUTE
 	viscoelasticSpheres.setNormal( normalForceViscoelasticSpheres );
 	viscoelasticSpheres.setTangential( tangentialForceHaffWerner );
 	viscoelasticSpheres.requireProperty(mass);
+	viscoelasticSpheres.requireProperty(moment_of_inertia);
 	viscoelasticSpheres.requireProperty(elastic_modulus);
 	viscoelasticSpheres.requireProperty(dissipative_constant);
 	viscoelasticSpheres.requireProperty(poisson_ratio);
@@ -30,6 +31,7 @@ STATIC_EXECUTE
 	electrostatic.setNormal( normalForceViscoelasticSpheres );
 	electrostatic.setTangential( tangentialForceHaffWerner );
 	electrostatic.requireProperty(mass);
+	electrostatic.requireProperty(moment_of_inertia);
 	electrostatic.requireProperty(elastic_modulus);
 	electrostatic.requireProperty(dissipative_constant);
 	electrostatic.requireProperty(poisson_ratio);

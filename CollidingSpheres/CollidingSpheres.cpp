@@ -102,13 +102,13 @@ int main(int argc, char **argv){
 
 	particleArray.inputParticles(numberOfParticles, particleInputFolder);
 
-	//foreach(SphericalParticlePtr particlePtr, particleArray){
-	//	const double m = particlePtr->get( mass );
-	//	const double r = particlePtr->get( mass );
+	for(auto& particlePtr : particleArray){
+		double m = particlePtr->get( mass );
+		double r = particlePtr->get( mass );
 
-	//	particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
-	//	particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
-	//}
+		particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
+		//particlePtr->set( volume, 4 * pi<double>() * r * r * r / 3 );
+	}
 
 	particleArray[0]->setGravity(gravity);
 	
