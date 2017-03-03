@@ -27,7 +27,7 @@ def getMinAndMax(particleData , nParticles , t , coor):
 	# max
 	coorMax = particleData[0]['position'][t,coor] + float( particleData[0]['main']['Radius'] )
 	for p in range(nParticles):
-		coorMax = max( coorMax , particleData[p]['position'][t,coor] - float(particleData[p]['main']['Radius']) )
+		coorMax = max( coorMax , particleData[p]['position'][t,coor] + float(particleData[p]['main']['Radius']) )
 
 	return [coorMin , coorMax]
 

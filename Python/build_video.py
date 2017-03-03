@@ -4,7 +4,7 @@ from graphLimitsFunctions import *
 from interfaceDefinitions import *
 
 # def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
-def build_video(particleData , nParticles , outputFolder , fileName , videoBools):
+def build_video(particleData , nParticles , scalarMap , outputFolder , fileName , videoBools):
 
 	# Config 
 	fig_dpi = 100
@@ -30,7 +30,7 @@ def build_video(particleData , nParticles , outputFolder , fileName , videoBools
 		Y = 1
 		xCenter = particleData[p]['position'][timeStep,X]
 		yCenter = particleData[p]['position'][timeStep,Y]
-		circles.append( plt.Circle( (xCenter , yCenter), radius , fill=True ) )
+		circles.append( plt.Circle( (xCenter , yCenter), radius , fill=True , fc=scalarMap.to_rgba(p) ) )
 
 	# Initial function to animation
 	def init():

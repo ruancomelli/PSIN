@@ -255,6 +255,7 @@ def generateGraphics( simulationName, programName , graphBools , buildVideo , vi
 		build_video(
 			particleData=particleData,
 			nParticles=nParticles,
+			scalarMap=scalarMap,
 			outputFolder=pythonOutputFolder,
 			fileName=fileName,
 			videoBools=videoBools
