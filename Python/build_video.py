@@ -1,8 +1,10 @@
 from matplotlib import pyplot as plt
 from matplotlib import animation
 from graphLimitsFunctions import *
+from interfaceDefinitions import *
 
-def build_video(particleData , nParticles):
+# def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
+def build_video(particleData , nParticles , outputFolder , fileName , videoBools):
 
 	# Config 
 	fig_dpi = 100
@@ -28,7 +30,7 @@ def build_video(particleData , nParticles):
 		Y = 1
 		xCenter = particleData[p]['position'][timeStep,X]
 		yCenter = particleData[p]['position'][timeStep,Y]
-		circles.append( plt.Circle( (xCenter , yCenter), radius , fill=True , facecolor='b' ) )
+		circles.append( plt.Circle( (xCenter , yCenter), radius , fill=True ) )
 
 	# Initial function to animation
 	def init():
@@ -45,7 +47,7 @@ def build_video(particleData , nParticles):
 		return circles
 
 	# Animate function
-	def animate(t):
+	def animate_byTimeStep(t):
 		for p in range(nParticles):
 			xCenter, yCente = circles[p].center
 			X = 0
@@ -55,8 +57,36 @@ def build_video(particleData , nParticles):
 			circles[p].center = (xCenter , yCenter)
 		print('t = ' , t)
 		# set graph limits
-#		[ xmin , xmax , ymin , ymax ] = getLimits_byTimeStep( particleData , nParticles , t )
-#		[ xmin , xmax , ymin , ymax ] = getLimits_global( particleData , nParticles )
+		[ xmin , xmax , ymin , ymax ] = getLimits_byTimeStep( particleData , nParticles , t )
+		ax.set_xlim( (xmin , xmax) )
+		ax.set_ylim( (ymin , ymax) )
+		return circles
+
+	def animate_global(t):
+		for p in range(nParticles):
+			xCenter, yCente = circles[p].center
+			X = 0
+			Y = 1
+			xCenter = particleData[p]['position'][t,X]
+			yCenter = particleData[p]['position'][t,Y]
+			circles[p].center = (xCenter , yCenter)
+		print('t = ' , t)
+		# set graph limits
+		[ xmin , xmax , ymin , ymax ] = getLimits_global( particleData , nParticles )
+		ax.set_xlim( (xmin , xmax) )
+		ax.set_ylim( (ymin , ymax) )
+		return circles
+
+	def animate_autoscale(t):
+		for p in range(nParticles):
+			xCenter, yCente = circles[p].center
+			X = 0
+			Y = 1
+			xCenter = particleData[p]['position'][t,X]
+			yCenter = particleData[p]['position'][t,Y]
+			circles[p].center = (xCenter , yCenter)
+		print('t = ' , t)
+		# set graph limits
 		[ xmin , xmax , ymin , ymax ] = getLimits_autoscale( ax )
 		ax.set_xlim( (xmin , xmax) )
 		ax.set_ylim( (ymin , ymax) )
@@ -71,7 +101,14 @@ def build_video(particleData , nParticles):
 	print('frames = ' , frames)
 	print('fps = ' , fps)
 
-	anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frames, interval=interval)
+	# define animate functions
+	animateFunction = {}
+	animateFunction["by time step"] = animate_byTimeStep
+	animateFunction["global"] = animate_global
+	animateFunction["autoscale"] = animate_autoscale
 
-	anim.save('CollidingSpheres.mp4', fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
-	print('nParticles = ' , nParticles)
+	for vt in videoType:
+		if( videoBools[vt] ):
+			anim = animation.FuncAnimation(fig, animateFunction[vt], init_func=init, frames=frames, interval=interval)
+			extension = "_" + vt + ".mp4"
+			anim.save(outputFolder + fileName + extension, fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
