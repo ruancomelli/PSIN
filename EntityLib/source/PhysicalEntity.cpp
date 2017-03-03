@@ -68,7 +68,7 @@ void PhysicalEntity::setTaylorOrder(const int taylorOrder)
 {
 	if(taylorOrder < 3 || taylorOrder > 5)
 	{
-		throw runtime_error("Invalid taylorOrder inserted. taylorOrder must be either 3, 4 or 5.");
+		throw std::runtime_error("Invalid taylorOrder inserted. taylorOrder must be either 3, 4 or 5.");
 	}
 	else
 	{
@@ -175,7 +175,7 @@ void PhysicalEntity::setDimension(const int dim)
 {
 	if( (dim != 2) && (dim != 3))
 	{
-		throw runtime_error("Invalid dimension value inserted. Dimension must be either 2 or 3.");
+		throw std::runtime_error("Invalid dimension value inserted. Dimension must be either 2 or 3.");
 	}
 	else
 	{
@@ -200,7 +200,7 @@ void PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Ve
 {
 	if( spatial.size() != (this->taylorOrder + 1) )
 	{
-		throw runtime_error("taylorOrder does not match spatial's size in function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
+		throw std::runtime_error("taylorOrder does not match spatial's size in function PhysicalEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
 	}
 	spatialToSet = spatial;
 }

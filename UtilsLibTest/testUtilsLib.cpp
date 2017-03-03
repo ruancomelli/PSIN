@@ -1,20 +1,19 @@
 #define BOOST_TEST_MODULE TestModule
 
-// std
+// Standard
 #include <string>
-#include <iostream>
-#include <fstream>
 
-// boost
-#include <Test.h>
+// UtilsLib
+#include <Any.h>
 #include <Foreach.h>
+#include <Mathematics.h>
 #include <SharedPointer.h>
-
-// our code
 #include <StringUtils.h>
+#include <Test.h>
 #include <Vector.h>
 #include <Vector3D.h>
-#include <Mathematics.h>
+
+using namespace std;
 
 TestCase( CheckEqualAndCheckClose ){
 	double i = 0;
@@ -22,6 +21,32 @@ TestCase( CheckEqualAndCheckClose ){
 
 	checkClose( i , j , 1.0e-12 );
 	checkEqual( i , j );
+}
+
+// ----- Any -----
+TestCase(AnyTest)
+{
+	int i = 3;
+	double d = 3.14;
+	string s = "oi";
+
+	Any any = i;
+	checkEqual(anyCast<int>(any), i);
+
+	any = d;
+	checkEqual(anyCast<double>(any), d);
+
+	any = s;
+	checkEqual(anyCast<string>(any), s);
+
+	Many many;
+	many.push_back(i);
+	many.push_back(d);
+	many.push_back(s);
+
+	checkEqual(anyCast<int>(many[0]), i);
+	checkEqual(anyCast<double>(many[1]), d);
+	checkEqual(anyCast<string>(many[2]), s);
 }
 
 TestCase( ForeachTest ){
@@ -51,13 +76,13 @@ TestCase(SharedPointerTest) {
 	
 	SharedPointer<Vector3D> v1(new Vector3D(*v0));
 
-	checkEqual((*v0).x(), (*v1).x());
-	checkEqual((*v0).y(), (*v1).y());
-	checkEqual((*v0).z(), (*v1).z());
+	checkEqual((*v0).x(), v1->x());
+	checkEqual((*v0).y(), v1->y());
+	checkEqual((*v0).z(), v1->z());
 }
 
 // StringUtils
-TestCase(StringCompare) {
+TestCase(StringCompareTest) {
 	string left("<LaTeX>");
 	string right("<latex>");
 
@@ -66,15 +91,11 @@ TestCase(StringCompare) {
 }
 
 // Mathematics
-TestCase(testMathematics) {
+TestCase(MathematicsTest) {
 
 	// math define
 	checkEqual(M_E, 2.71828182845904523536);
 	checkEqual(M_PI, 3.14159265358979323846);
-
-	// math function
-	checkClose(pow(2.3, 4.6), 46.12623908, 1e-7);
-	checkClose(tanh(5.87), 0.9999840629, 1e-9);
 
 	// factorial
 	checkEqual(factorial(6), 720);
@@ -218,7 +239,7 @@ TestCase( NullVectorTest ){
 	}
 }
 
-//Vector3D
+// ----- Vector3D -----
 
 TestCase(AssigningValueToVector3D) {
 	Vector3D v;
@@ -239,7 +260,7 @@ TestCase( Vector3DInitializationTest ){
 	checkEqual( 0.0 , v0.y() );
 	checkEqual( 0.0 , v0.z() );
 
-	// Passig three arguments to constructor
+	// Passing three arguments to constructor
 	Vector3D v1(1.0 , 2.0 , 3.0 );
 	checkEqual( 1.0 , v1.x() );
 	checkEqual( 2.0 , v1.y() );
@@ -334,20 +355,9 @@ TestCase( Vector3DIsEqualOperator ){
 	Vector3D v3( 1.0 , -3.4 , 9.0 );
 
 	// operator=
-	checkEqual( v1==v2 , true );
-	checkEqual( v1==v3 , false );
-	checkEqual( nullVector3D()==nullVector3D() , true );
-}
-
-#include <boost/any.hpp>
-
-TestCase(BOOST_AnyAssignment)
-{
-	int i = 3;
-	boost::any x = i;
-	boost::any y = x;
-
-	checkEqual(boost::any_cast<int>(y), i);
+	check( v1==v2 );
+	check( v1!=v3 );
+	check( nullVector3D()==nullVector3D() );
 }
 
 

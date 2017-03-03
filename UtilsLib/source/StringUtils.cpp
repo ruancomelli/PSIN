@@ -1,19 +1,16 @@
 #include <StringUtils.h>
 
+// Standard
+#include <algorithm>
+
 // Compare strings case sensitive or not
-int stringCompare( string left, string right, bool caseSensitive )
+int stringCompare( std::string left, std::string right, bool caseSensitive )
 {
 	if(!caseSensitive)
 	{
-		for(unsigned i = 0 ; i<left.length() ; ++i)
-		{
-			left[i] = tolower( left[i] );
-		}
-		for(unsigned i = 0 ; i<right.length() ; ++i)
-		{
-			right[i] = tolower( right[i] );
-		}
+		for(auto& c : left) c = ::tolower(c);
+		for(auto& c : right) c = ::tolower(c);
 	}
 
-	return strcmp( left.c_str() , right.c_str() );
+	return left.compare(right);
 }

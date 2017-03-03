@@ -1,0 +1,25 @@
+#ifndef VECTOR_TPP
+#define VECTOR_TPP
+
+template <class type> 
+bool operator==( vector<type> & left , vector<type> & right ){
+	if( left.size() == right.size() )
+	{
+		for( int i = 0 ; i < left.size() ; ++i ){
+			if( left[i] != right[i] ) return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
+}
+
+template <class type> 
+bool operator!=( vector<type> & left , vector<type> & right ){
+	return ! ( left==right );
+}
+
+#endif

@@ -12,6 +12,8 @@
 // UtilsLib
 #include <Vector3D.h>
 
+using namespace std;
+
 using std::vector;
 using std::runtime_error;
 

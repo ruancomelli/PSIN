@@ -2,15 +2,13 @@
 #define VECTOR_3D_H
 
 #include <vector>
-#include <math.h>
-#include <iostream>
 
-using namespace std;
+#define VECTOR_3D_EQUAL_TOLERANCE 1e-12
 
 enum Axis{
 	X, Y, Z, N_AXIS = 3
 };
-typedef vector< Axis > AxisArray;
+typedef std::vector< Axis > AxisArray;
 
 class Vector3D{
 public:
@@ -23,15 +21,15 @@ public:
 	double& x();
 	double& y();
 	double& z();
-	double getComponent( int pos ) const;
+	double getComponent( const int pos ) const;
 	double length() const;
 	double squaredLength() const;
 	void normalize();
 	double dist( const Vector3D& v ) const;
 	Vector3D operator +=( const Vector3D& v );
 	Vector3D operator -=( const Vector3D& v );
-	Vector3D operator *=( const double& scalar );
-	Vector3D operator /=( const double& scalar );
+	Vector3D operator *=( const double scalar );
+	Vector3D operator /=( const double scalar );
 	void print();
 
 	virtual ~Vector3D(){}
@@ -46,11 +44,11 @@ double triple( const Vector3D& v0, const Vector3D& v1, const Vector3D& v2 );
 Vector3D operator -( const Vector3D& v0, const Vector3D& v1 );
 Vector3D operator +( const Vector3D& v0, const Vector3D& v1 );
 Vector3D operator *( const double& scalar, const Vector3D& v );
-Vector3D operator *( const Vector3D& v, const double& scalar );
-Vector3D operator /( const Vector3D& v, const double& scalar );
+Vector3D operator *( const Vector3D& v, const double scalar );
+Vector3D operator /( const Vector3D& v, const double scalar );
 Vector3D operator - (const Vector3D& v);
 bool operator == ( const Vector3D & v1 , const Vector3D & v2 );//tol=1e-12
-
+bool operator != ( const Vector3D & v1 , const Vector3D & v2 );//tol=1e-12
 
 inline Vector3D nullVector3D(void){ return Vector3D(); }
 
