@@ -40,7 +40,7 @@ def simulation(simulationName, programName):
 	print( "< Simulation finished" )
 
 # generate the graphics and videos
-def generateGraphics( simulationName, programName , graphBools , buildVideo , videoBools ):
+def generateGraphics( simulationName, programName , graphBools , buildVideo , videoBools , videoTime):
 
 	#
 	# INITIALIZING
@@ -259,7 +259,8 @@ def generateGraphics( simulationName, programName , graphBools , buildVideo , vi
 			scalarMap=scalarMap,
 			outputFolder=pythonOutputFolder,
 			fileName=fileName,
-			videoBools=videoBools
+			videoBools=videoBools,
+			videoTime=videoTime
 			)
 
 		print("<< Done")

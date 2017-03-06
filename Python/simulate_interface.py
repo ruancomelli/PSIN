@@ -21,13 +21,17 @@ class SimulateInterface( Frame ):
 		else:
 			buildVideo = False
 
+		# video time
+		vt = float(videoTime.get())
+
 		# generate everything the user choose
 		generateGraphics(
 			simulationName = simulationName ,
 			programName = programName ,
 			graphBools = graphBools ,
 			buildVideo = buildVideo ,
-			videoBools = videoBools
+			videoBools = videoBools ,
+			videoTime = float(videoTime.get())
 			)
 
 	def __init__( self ):
@@ -75,6 +79,22 @@ class SimulateInterface( Frame ):
 			self.videoTypeOption = Checkbutton(self.frame2 , text=videoType[i] , variable=possibleVideo[ videoType[i] ])
 			# self.videoTypeOption = Radiobutton(self , text=videoTypes[i] , variable=videoTypeChoice , value=videoTypes[i])
 			self.videoTypeOption.grid(row=row , column=i, sticky=W+E+N+S )
+
+
+		# Frame 2 : video time option
+		self.frame3 = Frame( self )
+		self.frame3.grid( sticky=N+S )
+		# label
+		row = 0
+		column = 0
+		videoTimeText = "Video time: "
+		self.videoTimeLabel = Label(self.frame3 , text=videoTimeText)
+		self.videoTimeLabel.grid(row=row , column=column, sticky=W+E+N+S )
+		# choose video time
+		row = 0
+		column = 1
+		self.videoTime = Entry( self.frame3 , width=40 , font="Arial 10" , textvariable=videoTime )
+		self.videoTime.grid(row=row , column=column, sticky=W+E+N+S )
 		
 		# Frame 3 : generate graphs button
 		self.frame3 = Frame( self )

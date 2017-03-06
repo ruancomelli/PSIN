@@ -4,7 +4,7 @@ root = Tk()
 # Simulation definitions
 simulationName = 'Simulation1'
 programName ='CollidingSpheres.exe'
-videoType = ["by time step" , "global" , "autoscale"]
+videoType = ["by_time_step" , "global" , "autoscale"]
 graphType = [ 'energy' , 'linear_momentum' , 'angular_momentum' , 'force' , 'torque' ]
 
 # simulate GUI
@@ -34,3 +34,7 @@ def transformToBool( possibleSomething , somethingType ):
 		# use : bools[ type ]
 
 	return bools
+
+# video time
+videoTime = StringVar()
+videoTime.set(1)

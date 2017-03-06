@@ -4,7 +4,7 @@ from graphLimitsFunctions import *
 from interfaceDefinitions import *
 
 # def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
-def build_video(simulationSettings , particleData , timeVector , scalarMap , outputFolder , fileName , videoBools):
+def build_video(simulationSettings , particleData , timeVector , scalarMap , outputFolder , fileName , videoBools , videoTime):
 
 	# extracting information from 'simulationSettings'
 	nParticles = int(simulationSettings["nParticles"])
@@ -14,13 +14,11 @@ def build_video(simulationSettings , particleData , timeVector , scalarMap , out
 
 
 	# Config 
-	fig_dpi = 100
-	fig_x_size = 7
-	fig_y_size = 6.5
+	fig_x_size = 8
+	fig_y_size = 8
 
 	# create figure
 	fig = plt.figure()
-	fig.set_dpi(fig_dpi)
 	fig.set_size_inches(fig_x_size, fig_y_size)
 	ax = fig.add_subplot(111)
 	ax.grid(visible=True)
@@ -105,22 +103,17 @@ def build_video(simulationSettings , particleData , timeVector , scalarMap , out
 
 	# Generating video
 	totalTime = finalTime - initialTime
-	interval = 30
 	frames = len(timeVector)
-	fps = frames / totalTime
-
-	print('interval = ' , interval)
-	print('frames = ' , frames)
-	print('fps = ' , fps)
+	fps = frames/videoTime
 
 	# define animate functions
 	animateFunction = {}
-	animateFunction["by time step"] = animate_byTimeStep
+	animateFunction["by_time_step"] = animate_byTimeStep
 	animateFunction["global"] = animate_global
 	animateFunction["autoscale"] = animate_autoscale
 
 	for vt in videoType:
 		if( videoBools[vt] ):
-			anim = animation.FuncAnimation(fig, animateFunction[vt], init_func=init, frames=frames, interval=interval)
+			anim = animation.FuncAnimation(fig, animateFunction[vt], init_func=init, frames=frames , blit=True)
 			extension = "_" + vt + ".mp4"
-			anim.save(outputFolder + fileName + extension, fps=fps, extra_args=['-vcodec', 'h264', '-pix_fmt', 'yuv420p'])
+			anim.save(outputFolder + fileName + extension, fps=fps)
