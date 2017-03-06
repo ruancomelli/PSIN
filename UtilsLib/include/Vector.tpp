@@ -5,7 +5,7 @@ template <class type>
 bool operator==( vector<type> & left , vector<type> & right ){
 	if( left.size() == right.size() )
 	{
-		for( int i = 0 ; i < left.size() ; ++i ){
+		for( unsigned i = 0 ; i < left.size() ; ++i ){
 			if( left[i] != right[i] ) return false;
 		}
 	}

@@ -415,50 +415,54 @@ TestCase( FileReaderTest )
 //}
 
 // vector 3D IO
-//
-//TestCase( IntVectorInput ){
-//	std::ifstream inFile("../UtilsLibTest/fileVector.txt");
-//	//std::ofstream outFile("../UtilsLibTest/fileVector.txt", std::ofstream::app);
-//
-//	vector<int> tester(5);
-//		tester[0] = 3;
-//		tester[1] = 1;
-//		tester[2] = 4;
-//		tester[3] = 1;
-//		tester[4] = 5;
-//
-//	//outFile << tester;
-//
-//	vector<int> tested(5);
-//
-//	inFile >> tested;
-//
-//	check( tester == tested );
-//
-//	inFile.close();
-//	//outFile.close();
-//}
-//
-//TestCase( Vector3DIO ){
-//	std::ifstream inFile("../UtilsLibTest/fileVector3D.txt");
-//	std::ofstream outFile("../UtilsLibTest/fileVector3D.txt", std::ofstream::app);
-//
-//	Vector3D outVector(3.14159, 2.718281, 1.6180339);
-//	Vector3D inVector;
-//
-//	outFile << outVector;
-//	inFile >> inVector;
-//
-//	cout << outVector;
-//	cout << inVector;
-//
-//	checkClose(inVector.x(), outVector.x(), 1e-2);
-//	checkClose(inVector.y(), outVector.y(), 1e-2);
-//	checkClose(inVector.z(), outVector.z(), 1e-2);
-//
-//	inFile.close();
-//	outFile.close();
-//}
+
+TestCase( IntVectorInput ){
+	string fileName = "../UtilsLibTest/fileVector.txt";
+
+	// Output
+	std::ofstream outFile(fileName);
+
+	vector<int> tester(5);
+		tester[0] = 3;
+		tester[1] = 1;
+		tester[2] = 4;
+		tester[3] = 1;
+		tester[4] = 5;
+
+	outFile << tester;
+	outFile.close();
+
+	// Input
+	std::ifstream inFile(fileName);
+
+	vector<int> tested(5);
+
+	inFile >> tested;
+
+	check( tester == tested );
+
+	inFile.close();
+}
+
+TestCase( Vector3DIO ){
+	string fileName("../UtilsLibTest/fileVector3D.txt");
+
+	// Output
+	Vector3D outVector(3.14159, 2.718281, 1.6180339);
+	std::ofstream outFile(fileName);
+	outFile << outVector;
+	outFile.close();
+
+	// Input
+	Vector3D inVector;
+	std::ifstream inFile(fileName);
+	inFile >> inVector;
+	inFile.close();
+
+	checkClose(inVector.x(), outVector.x(), 1e-2);
+	checkClose(inVector.y(), outVector.y(), 1e-2);
+	checkClose(inVector.z(), outVector.z(), 1e-2);
+}
 
 
 #include <RawPropertyContainer.h>

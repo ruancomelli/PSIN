@@ -2,10 +2,10 @@
 #define SPHERICAL_PARTICLE_PTR_ARRAY_KIT_H
 
 // Standard
-#include <iostream>
 #include <vector>
 #include <fstream>
 #include <string>
+
 
 // EntityLib
 #include <SphericalParticle.h>
@@ -13,14 +13,11 @@
 // PropertyLib
 #include <RawPropertyContainer.h>
 
-// IOLib
-#include <FileReader.h>
-
-// boost
-#include <boost/filesystem.hpp>
 
 using std::ofstream;
 using std::string;
+using std::vector;
+
 
 class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
 {

@@ -1,5 +1,11 @@
 #include <SphericalParticlePtrArrayKit.h>
 
+// IOLib
+#include <FileReader.h>
+
+// UtilsLib
+#include <CreateDirectory.h>
+
 // ------------------------------- Constructor -------------------------------
 
 SphericalParticlePtrArrayKit::SphericalParticlePtrArrayKit() : isReady(false)
@@ -64,8 +70,7 @@ void SphericalParticlePtrArrayKit::openFiles(const string & outputPath)
 	{
 
 		string particleOutputPath = outputPath + "Particle" + to_string(particlePtr->getHandle()) + "/";
-		boost::filesystem::path particleOutputDir(particleOutputPath);
-		boost::filesystem::create_directory(particleOutputDir);
+		createDirectory(particleOutputPath);
 
 		outFile[particlePtr->getHandle()].resize( N_FILES_PER_PARTICLE );
 
