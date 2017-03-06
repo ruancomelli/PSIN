@@ -253,8 +253,8 @@ def generateGraphics( simulationName, programName , graphBools , buildVideo , vi
 		nParticles = simulationSettings["nParticles"]
 		fileName = "CollidingSpheres"
 		build_video(
+			simulationSettings=simulationSettings,
 			particleData=particleData,
-			nParticles=nParticles,
 			timeVector = timeVectorForPlot,
 			scalarMap=scalarMap,
 			outputFolder=pythonOutputFolder,

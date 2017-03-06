@@ -4,7 +4,14 @@ from graphLimitsFunctions import *
 from interfaceDefinitions import *
 
 # def build_video(particleData , nParticles , outputFolder , fileName , limitsType):
-def build_video(particleData , nParticles , timeVector , scalarMap , outputFolder , fileName , videoBools):
+def build_video(simulationSettings , particleData , timeVector , scalarMap , outputFolder , fileName , videoBools):
+
+	# extracting information from 'simulationSettings'
+	nParticles = int(simulationSettings["nParticles"])
+	initialTime = float(simulationSettings["initialTime"])
+	finalTime = float(simulationSettings["finalTime"])
+	timeStep = float(simulationSettings["timeStep"])
+
 
 	# Config 
 	fig_dpi = 100
@@ -97,9 +104,10 @@ def build_video(particleData , nParticles , timeVector , scalarMap , outputFolde
 		return circles
 
 	# Generating video
-	interval = 10
+	totalTime = finalTime - initialTime
+	interval = 30
 	frames = len(timeVector)
-	fps = 30
+	fps = frames / totalTime
 
 	print('interval = ' , interval)
 	print('frames = ' , frames)
