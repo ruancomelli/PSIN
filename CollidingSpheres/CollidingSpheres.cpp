@@ -18,10 +18,11 @@
 #include <SphericalParticle.h>
 
 // UtilsLib
-#include <Vector.h>
-#include <Mathematics.h>
+#include <CreateDirectory.h>
 #include <Foreach.h>
+#include <Mathematics.h>
 #include <SharedPointer.h>
+#include <Vector.h>
 
 // ForceModelLib
 #include <ForceModel.h>
@@ -32,14 +33,8 @@
 #include <FileReader.h>
 #include <SphericalParticlePtrArrayKit.h>
 
-// boost
-#include <boost/math/constants/constants.hpp>
-#include <boost/filesystem.hpp>
-
 using namespace std;
 using namespace PropertyList;
-
-using boost::math::constants::pi;
 
 const string project_root_path = PROJECT_PATH;
 
@@ -76,11 +71,8 @@ int main(int argc, char **argv){
 
 	string outputPath(project_root_path + "_output/" + simulationName + "/");
 
-	boost::filesystem::path outputDir(outputPath);
-	boost::filesystem::create_directory(outputDir);
-
-	boost::filesystem::path MATLAB_outputDir(outputPath + "MATLAB_output/");
-	boost::filesystem::create_directory(MATLAB_outputDir);
+	createDirectory(outputPath);
+	createDirectory(outputPath + "MATLAB_output/");
 
 	ForceModel forceModel;
 
