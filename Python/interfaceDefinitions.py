@@ -1,40 +1,57 @@
+import os
+from getSimulationData import getSimulationData
 from tkinter import *
 root = Tk()
 
-# Simulation definitions
+########## Simulation definitions ##########
+
+# General
 simulationName = 'Simulation1'
 programName ='CollidingSpheres.exe'
 videoType = ["by_time_step" , "global" , "autoscale"]
 graphType = [ 'energy' , 'linear_momentum' , 'angular_momentum' , 'force' , 'torque' ]
+
+# Paths
+simulationInputPath = "../_input/input.txt"
+simulationOutputFolder = "../_output/" + simulationName + "/"
+pythonOutputFolder = "../_output/" + simulationName + "/Python_output/"
+programFolder = "../_build/apps/Release/"
+
+os.makedirs(pythonOutputFolder, exist_ok=True)
+
+########## GUI utilities ##########
+
+# getData
+[simulationSettings , particleData , timeVectorForPlot , scalarMap] = getSimulationData(simulationName , simulationInputPath , simulationOutputFolder )
 
 # simulate GUI
 programNameOption = StringVar()
 programNameOption.set( programName )
 
 # graphs bools
-possibleGraph = {}
+graphBooleanVars = {}
 for i in range( len(graphType) ):
-	possibleGraph[ graphType[i] ] = BooleanVar()
-	possibleGraph[ graphType[i] ].set(False)
-	# use: possibleGraph[ graphType ].get()
+	graphBooleanVars[ graphType[i] ] = BooleanVar()
+	graphBooleanVars[ graphType[i] ].set(False)
+	# use: graphBooleanVars[ graphType ].get()
 
 # video bools
 buildVideo = BooleanVar()
-possibleVideo = {}
+videoBooleanVars = {}
 for i in range( len(videoType) ):
-	possibleVideo[ videoType[i] ] = BooleanVar()
-	possibleVideo[ videoType[i] ].set(False)
-	# use: possibleGraph[ graphType ].get()
+	videoBooleanVars[ videoType[i] ] = BooleanVar()
+	videoBooleanVars[ videoType[i] ].set(False)
+	# use: graphBooleanVars[ graphType ].get()
 
 # transform a 'BooleanVar' in a 'bool'
-def transformToBool( possibleSomething , somethingType ):
+def transformToBool( booleanVars , types ):
 	bools = {}
-	for i in range( len(possibleSomething) ):
-		bools[ somethingType[i] ] = possibleSomething[ somethingType[i] ].get()
+	for i in range( len(booleanVars) ):
+		bools[ types[i] ] = booleanVars[ types[i] ].get()
 		# use : bools[ type ]
 
 	return bools
 
 # video time
 videoTime = StringVar()
-videoTime.set(1)
+videoTime.set("1")

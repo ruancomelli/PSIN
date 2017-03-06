@@ -1,18 +1,20 @@
 from interfaceDefinitions import *
 from simulate import *
+from generateGraphics import *
+from generateVideo import *
 
 class SimulateInterface( Frame ):
 	
 	def simulateCommand( self ):
-		simulation(
-			simulationName = simulationName ,
+		simulate(
+			programFolder = programFolder ,
 			programName = programNameOption.get()
 			)
 
 	def generateCommand( self ):
 		# processing before call 'generateGraphics'
-		graphBools = transformToBool( possibleGraph , graphType)
-		videoBools = transformToBool( possibleVideo , videoType)
+		graphBools = transformToBool( graphBooleanVars , graphType)
+		videoBools = transformToBool( videoBooleanVars , videoType)
 
 		# if some king of video was chosen, then 'buildVideo'
 		# is set True.
@@ -21,18 +23,28 @@ class SimulateInterface( Frame ):
 		else:
 			buildVideo = False
 
-		# video time
-		vt = float(videoTime.get())
-
 		# generate everything the user choose
+
+		# Graphics
 		generateGraphics(
-			simulationName = simulationName ,
-			programName = programName ,
-			graphBools = graphBools ,
+			timeVectorForPlot =  timeVectorForPlot,
+			particleData =  particleData,
+			pythonOutputFolder =  pythonOutputFolder,
+			scalarMap =  scalarMap,
+			simulationSettings =  simulationSettings,
+			graphBools = graphBools
+			)
+
+		# Video
+		generateVideo(
+			timeVectorForPlot = timeVectorForPlot ,
+			scalarMap = scalarMap ,
+			pythonOutputFolder = pythonOutputFolder ,
+			simulationSettings = simulationSettings ,
+			particleData = particleData ,
 			buildVideo = buildVideo ,
 			videoBools = videoBools ,
-			videoTime = float(videoTime.get())
-			)
+			videoTime = float(videoTime.get()) )
 
 	def __init__( self ):
 
@@ -40,7 +52,6 @@ class SimulateInterface( Frame ):
 
 		# Main window config
 		self.master.title( 'Particle Simulator' )
-#		self.pack( expand=YES , fill=BOTH )
 		self.grid( sticky=W+E+N+S )
 		
 		# Frame 0 : simulate options
@@ -66,7 +77,7 @@ class SimulateInterface( Frame ):
 		row = 1
 		self.checkButton = []
 		for i in range( len(graphType) ):
-			cb = Checkbutton(self.frame1 , text=graphType[i] , variable=possibleGraph[graphType[i]] )
+			cb = Checkbutton(self.frame1 , text=graphType[i] , variable=graphBooleanVars[graphType[i]] )
 			self.checkButton.append( cb )
 			self.checkButton[i].grid(row=row , column=i, sticky=W+E+N+S )
 		
@@ -76,7 +87,7 @@ class SimulateInterface( Frame ):
 		# choose video types
 		row = 0
 		for i in range( len(videoType) ):
-			self.videoTypeOption = Checkbutton(self.frame2 , text=videoType[i] , variable=possibleVideo[ videoType[i] ])
+			self.videoTypeOption = Checkbutton(self.frame2 , text=videoType[i] , variable=videoBooleanVars[ videoType[i] ])
 			# self.videoTypeOption = Radiobutton(self , text=videoTypes[i] , variable=videoTypeChoice , value=videoTypes[i])
 			self.videoTypeOption.grid(row=row , column=i, sticky=W+E+N+S )
 
@@ -93,8 +104,8 @@ class SimulateInterface( Frame ):
 		# choose video time
 		row = 0
 		column = 1
-		self.videoTime = Entry( self.frame3 , width=40 , font="Arial 10" , textvariable=videoTime )
-		self.videoTime.grid(row=row , column=column, sticky=W+E+N+S )
+		self.videoTimeEntry = Entry( self.frame3 , width=40 , font="Arial 10" , textvariable=videoTime )
+		self.videoTimeEntry.grid(row=row , column=column, sticky=W+E+N+S )
 		
 		# Frame 3 : generate graphs button
 		self.frame3 = Frame( self )
@@ -105,9 +116,6 @@ class SimulateInterface( Frame ):
 		text = 'Generate Graphics'
 		self.generateGraph = Button(self.frame3 , text=text , command=self.generateCommand)
 		self.generateGraph.grid(row=row , column=column, sticky=W+E+N+S )
-		
-#		self.whatever = Whatever( self , width= , height= ,  )
-#		self.whatever.grid(row= , column= , columnspan= , rowspan= , sticky=W+E+N+S , padx= , pady= )
 
 def main():
 	SimulateInterface().mainloop() # starts event loop
