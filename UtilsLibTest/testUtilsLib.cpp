@@ -5,6 +5,7 @@
 
 // UtilsLib
 #include <Any.h>
+#include <CreateDirectory.h>
 #include <Foreach.h>
 #include <Mathematics.h>
 #include <SharedPointer.h>
@@ -12,6 +13,9 @@
 #include <Test.h>
 #include <Vector.h>
 #include <Vector3D.h>
+
+// boost
+#include <boost/filesystem.hpp>
 
 using namespace std;
 
@@ -49,6 +53,7 @@ TestCase(AnyTest)
 	checkEqual(anyCast<string>(many[2]), s);
 }
 
+// ----- Foreach -----
 TestCase( ForeachTest ){
 	DoubleVector values;
 	int nValues = 5;
@@ -65,7 +70,7 @@ TestCase( ForeachTest ){
 	}
 }
 
-// SharedPointer
+// ----- SharedPointer -----
 TestCase(SharedPointerTest) {
 	int testValue = 982;
 	SharedPointer<Vector3D> v0( new Vector3D );
@@ -360,49 +365,12 @@ TestCase( Vector3DIsEqualOperator ){
 	check( nullVector3D()==nullVector3D() );
 }
 
+TestCase(createDirectoryTest)
+{
+	string directoryName = "Mordor";
+	boost::filesystem::path directoryPath(directoryName);
 
-// vector 3D IO
-//
-//TestCase( IntVectorInput ){
-//	std::ifstream inFile("../UtilsLibTest/fileVector.txt");
-//	//std::ofstream outFile("../UtilsLibTest/fileVector.txt", std::ofstream::app);
-//
-//	vector<int> tester(5);
-//		tester[0] = 3;
-//		tester[1] = 1;
-//		tester[2] = 4;
-//		tester[3] = 1;
-//		tester[4] = 5;
-//
-//	//outFile << tester;
-//
-//	vector<int> tested(5);
-//
-//	inFile >> tested;
-//
-//	check( tester == tested );
-//
-//	inFile.close();
-//	//outFile.close();
-//}
-//
-//TestCase( Vector3DIO ){
-//	std::ifstream inFile("../UtilsLibTest/fileVector3D.txt");
-//	std::ofstream outFile("../UtilsLibTest/fileVector3D.txt", std::ofstream::app);
-//
-//	Vector3D outVector(3.14159, 2.718281, 1.6180339);
-//	Vector3D inVector;
-//
-//	outFile << outVector;
-//	inFile >> inVector;
-//
-//	cout << outVector;
-//	cout << inVector;
-//
-//	checkClose(inVector.x(), outVector.x(), 1e-2);
-//	checkClose(inVector.y(), outVector.y(), 1e-2);
-//	checkClose(inVector.z(), outVector.z(), 1e-2);
-//
-//	inFile.close();
-//	outFile.close();
-//}
+	createDirectory(directoryName);
+	
+	check( boost::filesystem::exists( directoryPath ) );
+}

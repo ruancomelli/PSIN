@@ -1,6 +1,8 @@
 #ifndef CREATE_DIRECTORY_H
 #define CREATE_DIRECTORY_H
 
-void createDirectory( const string & pathName );
+#include <string>
+
+void createDirectory( const std::string & pathName );
 
 #endif
