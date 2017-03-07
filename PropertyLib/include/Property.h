@@ -13,6 +13,7 @@ using std::string;
 using std::ifstream;
 using std::ofstream;
 
+
 template<typename...> class Property;
 
 template<typename type>
@@ -57,8 +58,8 @@ class Property<interfaceType, storedType>
 
 		void (*setter)(const interfaceType & value, storedType & destination) = NULL;
 		interfaceType (*getter)(const storedType &) = NULL;
-		bool (*inputMethod)(ifstream & in, Any & value) = NULL;
-		bool (*outputMethod)(ofstream & out, Any & value) = NULL;
+		inputMethodType inputMethod = NULL;
+		outputMethodType outputMethod = NULL;
 
 	private:
 
