@@ -12,14 +12,12 @@
 #include <Any.h>
 
 using std::string;
-using std::ifstream;
-using std::ofstream;
 
 class PropertyContainer : public RawPropertyContainer
 {
 	public:
-		typedef bool (*inputMethodType)(ifstream & in, Any & value);
-		typedef bool (*outputMethodType)(ofstream & in, Any & value);
+		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
+		typedef bool (*outputMethodType)(std::ofstream & in, Any & value);
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();
