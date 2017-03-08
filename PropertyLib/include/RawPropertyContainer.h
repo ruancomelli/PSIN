@@ -13,17 +13,14 @@
 #include <set>
 #include <vector>
 
-using std::set;
 using std::vector;
 using std::string;
-using std::ifstream;
-using std::ofstream;
 
 class RawPropertyContainer
 {
 	public:
-		typedef bool (*inputMethodType)(ifstream & in, Any & value);
-		typedef bool (*outputMethodType)(ofstream & in, Any & value);
+		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
+		typedef bool (*outputMethodType)(std::ofstream & in, Any & value);
 
 		// ---- Get, add and set properties and values ----
 		RawPropertyContainer();
@@ -38,10 +35,10 @@ class RawPropertyContainer
 		template<typename interfaceType, typename storedType>
 		void addProperty(const Property<interfaceType, storedType> & property );
 
-		SharedPointer<set<string>> getPropertyNames(void) const;
+		SharedPointer< std::set<string> > getPropertyNames(void) const;
 
 	protected:
-		SharedPointer< set<string> > propertyNames;
+		SharedPointer< std::set<string> > propertyNames;
 		SharedPointer< vector< inputMethodType > > inputMethods;
 		SharedPointer< vector< outputMethodType > > outputMethods;
 }; // class RawPropertyContainer

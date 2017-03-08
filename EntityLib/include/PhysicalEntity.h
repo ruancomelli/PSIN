@@ -63,13 +63,13 @@ class PhysicalEntity: public Entity
 
 			// set property
 		template< typename interfaceType, typename storedType, typename implicitInterfaceType >
-		void set( const Property<interfaceType, storedType> & raw, const implicitInterfaceType & value );
+		void set( const Property<interfaceType, storedType> & property, const implicitInterfaceType & value );
 
-		void set( const string & rawName, const Any & value );
+		void set( const string & rawName, const Any & value ); // CAUTION: inputMethod and outputMethod are not inserted!
 
 			// get property
 		template<typename interfaceType, typename storedType>
-		interfaceType get(const Property<interfaceType, storedType> & raw) const;
+		interfaceType get(const Property<interfaceType, storedType> & property) const;
 
 		Any getAsAnyValue( const string & name ) const;
 

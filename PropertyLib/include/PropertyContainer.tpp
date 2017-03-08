@@ -8,7 +8,7 @@
 template<typename interfaceType, typename storedType>
 interfaceType PropertyContainer::getValue(const Property<interfaceType, storedType> & property) const
 {
-	set<string>::iterator it = propertyNames->find( property.getName() );
+	std::set<string>::iterator it = propertyNames->find( property.getName() );
 
 	if( it != propertyNames->end() )	// In this case, the search was successfull
 	{
@@ -31,7 +31,7 @@ template<typename interfaceType, typename storedType, typename implicitInterface
 void PropertyContainer::setProperty(const Property<interfaceType, storedType> & property, const implicitInterfaceType & implicitValue )
 {
 	interfaceType value = interfaceType(implicitValue);
-	set<string>::iterator it = propertyNames->find( property.getName() );
+	std::set<string>::iterator it = propertyNames->find( property.getName() );
 
 	// Checks if the desired property was already inserted
 	if( it != propertyNames->end() )	// In this case, the search was successfull
@@ -44,7 +44,7 @@ void PropertyContainer::setProperty(const Property<interfaceType, storedType> & 
 	}
 	else	// Otherwise, a new property is inserted
 	{
-		std::pair< set<string>::iterator, bool > returnPair = propertyNames->insert( property.getName() );
+		std::pair< std::set<string>::iterator, bool > returnPair = propertyNames->insert( property.getName() );
 
 		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
 

@@ -11,7 +11,7 @@ type defaultGetter(const type & value)
 }
 
 template<typename type>
-bool defaultInputMethod(ifstream & in, Any & value)
+bool defaultInputMethod(std::ifstream & in, Any & value)
 {
 	type newValue;
 
@@ -22,7 +22,7 @@ bool defaultInputMethod(ifstream & in, Any & value)
 }
 
 template<typename type>
-bool defaultOutputMethod(ofstream & out, Any & value)
+bool defaultOutputMethod(std::ofstream & out, Any & value)
 {
 	out << anyCast<type>(value);
 
@@ -51,7 +51,7 @@ Property<interfaceType, storedType>::Property(const string & name)
 }
 
 template<typename interfaceType, typename storedType>
-Property<interfaceType, storedType>::Property(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
+Property<interfaceType, storedType>::Property(const string & name, setterType setterFunction, getterType getterFunction)
 {
 	this->name = name;
 
@@ -81,13 +81,13 @@ string Property<interfaceType, storedType>::getName(void) const
 
 // Set setter and getter
 template<typename interfaceType, typename storedType>
-void Property<interfaceType, storedType>::setSetterFunction( void (*setterFunction)(const interfaceType & value, storedType & destination) )
+void Property<interfaceType, storedType>::setSetterFunction( setterType setterFunction )
 {
 	this->setter = setterFunction;
 }
 
 template<typename interfaceType, typename storedType>
-void Property<interfaceType, storedType>::setGetterFunction( interfaceType (*getterFunction)(const storedType & value) )
+void Property<interfaceType, storedType>::setGetterFunction( getterType getterFunction )
 {
 	this->getter = getterFunction;
 }
@@ -120,7 +120,7 @@ Property<type>::Property()
 
 // If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
-Property<type>::Property(const string & name, void (*setterFunction)(const type &, type &), type (*getterFunction)(const type &))
+Property<type>::Property(const string & name, setterType setterFunction, getterType getterFunction)
 	: Property<type, type>(name, setterFunction, getterFunction)
 {
 }

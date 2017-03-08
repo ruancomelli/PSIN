@@ -1,7 +1,7 @@
 #include <RawPropertyContainer.h>
 
 RawPropertyContainer::RawPropertyContainer()
-	: propertyNames( new set<string> ),
+	: propertyNames( new std::set<string> ),
 	inputMethods( new vector<inputMethodType> ),
 	outputMethods( new vector<outputMethodType> )
 {
@@ -14,14 +14,14 @@ RawPropertyContainer::RawPropertyContainer( const RawPropertyContainer & other)
 {
 }
 
-SharedPointer<set<string>> RawPropertyContainer::getPropertyNames(void) const
+SharedPointer< std::set<string> > RawPropertyContainer::getPropertyNames(void) const
 {
 	return this->propertyNames;
 }
 
 RawPropertyContainer::inputMethodType RawPropertyContainer::getInputMethod(const string & rawName ) const
 {
-	set<string>::iterator it = propertyNames->find( rawName );
+	std::set<string>::iterator it = propertyNames->find( rawName );
 
 	int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
 
@@ -30,7 +30,7 @@ RawPropertyContainer::inputMethodType RawPropertyContainer::getInputMethod(const
 
 RawPropertyContainer::outputMethodType RawPropertyContainer::getOutputMethod(const string & rawName ) const
 {
-	set<string>::iterator it = propertyNames->find( rawName );
+	std::set<string>::iterator it = propertyNames->find( rawName );
 
 	int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
 

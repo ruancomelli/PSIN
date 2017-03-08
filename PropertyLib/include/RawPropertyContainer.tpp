@@ -7,7 +7,7 @@
 template<typename interfaceType, typename storedType>
 void RawPropertyContainer::addProperty(const Property<interfaceType, storedType> & property)
 {
-	set<string>::iterator it = propertyNames->find( property.getName() );
+	std::set<string>::iterator it = propertyNames->find( property.getName() );
 
 	// Checks if the desired property was already inserted
 	if( it != propertyNames->end() )	// In this case, the search was successfull
