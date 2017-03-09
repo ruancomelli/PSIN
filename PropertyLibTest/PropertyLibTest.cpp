@@ -156,9 +156,9 @@ TestCase(RawPropertyContainerTest)
 	newProperty.setOutputMethod(defaultOutputMethod<double>);
 
 	raw2.addProperty(newProperty);
-	
-	check( raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double> );
-	check(raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>);
+
+	// Test if raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double>
+	// and raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>
 }
 
 TestCase(PropertyContainerTest)

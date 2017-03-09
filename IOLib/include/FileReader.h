@@ -1,21 +1,22 @@
 #ifndef FILE_READER_H
 #define FILE_READER_H
 
-// Standard
-#include <fstream>
-#include <string>
-
 // UtilsLib
 #include <Any.h>
 #include <StringUtils.h>
 #include <vectorIO.h>
+
+// Standard
+#include <fstream>
+#include <functional>
+#include <string>
 
 using std::string;
 
 class FileReader
 {
 	public:
-		typedef bool (*InputMethodType)(std::ifstream & in, Any & value);
+		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
 
 		FileReader();
 		FileReader(const string & fileName);

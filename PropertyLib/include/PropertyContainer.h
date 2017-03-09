@@ -5,6 +5,7 @@
 #include <RawPropertyContainer.h>
 
 // Standard
+#include <functional>
 #include <iostream>
 #include <string>
 
@@ -16,8 +17,8 @@ using std::string;
 class PropertyContainer : public RawPropertyContainer
 {
 	public:
-		typedef bool (*InputMethodType)(std::ifstream & in, Any & value);
-		typedef bool (*OutputMethodType)(std::ofstream & in, Any & value);
+		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
+		using OutputMethodType = std::function< bool(std::ofstream & in, Any & value) >;
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();

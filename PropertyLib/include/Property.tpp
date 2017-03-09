@@ -114,8 +114,8 @@ template<typename type>
 Property<type>::Property()
 	: Property<type, type>()
 {
-	setter = defaultSetter;
-	getter = defaultGetter;
+	this->setter = defaultSetter<type>;
+	this->getter = defaultGetter<type>;
 }
 
 // If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)

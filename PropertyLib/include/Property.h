@@ -6,13 +6,15 @@
 #include <Any.h>
 
 // Standard
-#include <string>
 #include <fstream>
+#include <functional>
+#include <string>
 
 using std::string;
 
 
 template<typename...> class Property;
+
 
 template<typename type>
 void defaultSetter(const type & value, type & destination);
@@ -36,11 +38,11 @@ class Property<InterfaceType, StoredType>
 	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
 
 	public:
-		typedef bool (*InputMethodType)(std::ifstream & in, Any & value);
-		typedef bool (*OutputMethodType)(std::ofstream & in, Any & value);
+		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
+		using OutputMethodType = std::function< bool(std::ofstream & in, Any & value) >;
 
-		typedef void (*SetterType)(const InterfaceType & value, StoredType & destination);
-		typedef InterfaceType (*GetterType)(const StoredType & value);
+		using SetterType = std::function< void(const InterfaceType & value, StoredType & destination) >;
+		using GetterType = std::function< InterfaceType(const StoredType & value) >;
 
 		// Constructors
 		Property();
@@ -57,10 +59,10 @@ class Property<InterfaceType, StoredType>
 		void setInputMethod( InputMethodType newInputMethod );
 		void setOutputMethod( OutputMethodType newOutputMethod );
 
-		SetterType setter = NULL;
-		GetterType getter = NULL;
-		InputMethodType inputMethod = NULL;
-		OutputMethodType outputMethod = NULL;
+		SetterType setter;
+		GetterType getter;
+		InputMethodType inputMethod;
+		OutputMethodType outputMethod;
 
 	private:
 
@@ -78,10 +80,10 @@ class Property<type> : public Property<type, type>
 		// Constructors
 		Property();
 		explicit Property(const string & name, SetterType setterFunction = defaultSetter<type>, GetterType getterFunction = defaultGetter<type>);
-}; // class Property<type, type>
+}; // class Property<type>
 
-template<typename InterfaceType, typename StoredType>
-using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
+template<typename ... Args>
+using PropertyPtr = SharedPointer< Property<Args...> >;
 
 #include <Property.tpp>
 
