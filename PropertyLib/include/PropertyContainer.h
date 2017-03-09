@@ -7,6 +7,7 @@
 // Standard
 #include <functional>
 #include <iostream>
+#include <map>
 #include <string>
 
 // UtilsLib
@@ -34,8 +35,14 @@ class PropertyContainer : public RawPropertyContainer
 
 		void setProperty(const string & propertyName, const Any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
 
+		// Check whether a property was set. By-name and by-property versions
+		bool checkSetted(const string & propertyName);
+		template<typename InterfaceType, typename StoredType>
+		bool checkSetted(const Property<InterfaceType, StoredType> & property);
+
 	private:
 		SharedPointer< Many > propertyValues;
+		SharedPointer< std::map<string, bool> > settedValues; // asserts whether each value was set
 
 }; // class PropertyContainer
 

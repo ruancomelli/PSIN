@@ -41,6 +41,7 @@ void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & 
 		propertyValues->at(index) = value;
 		inputMethods->at( index ) = property.inputMethod;
 		outputMethods->at( index ) = property.outputMethod;
+		(*settedValues)[ property.getName() ] = true;
 	}
 	else	// Otherwise, a new property is inserted
 	{
@@ -51,7 +52,14 @@ void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & 
 		propertyValues->insert( propertyValues->begin() + index, value);
 		inputMethods->insert( inputMethods->begin() + index, property.inputMethod );
 		outputMethods->insert( outputMethods->begin() + index, property.outputMethod );
+		(*settedValues)[ property.getName() ] = true;
 	}
+}
+
+template<typename InterfaceType, typename StoredType>
+bool PropertyContainer::checkSetted(const Property<InterfaceType, StoredType> & property)
+{
+	return (*settedValues)[ property.getName() ];
 }
 
 #endif

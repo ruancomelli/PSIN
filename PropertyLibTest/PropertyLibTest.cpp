@@ -194,6 +194,9 @@ TestCase(PropertyContainerTest)
 	checkEqual(propertyContainer.getValue(integer), intValue);
 	checkEqual(propertyContainer.getValue(volume), volumeValue);
 
+	check(propertyContainer.checkSetted(mass));
+	check(propertyContainer.checkSetted(color.getName()));
+
 	RawPropertyContainer raw;
 	raw.addProperty(mass);
 
