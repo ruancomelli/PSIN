@@ -16,8 +16,8 @@ using std::string;
 class PropertyContainer : public RawPropertyContainer
 {
 	public:
-		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
-		typedef bool (*outputMethodType)(std::ofstream & in, Any & value);
+		typedef bool (*InputMethodType)(std::ifstream & in, Any & value);
+		typedef bool (*OutputMethodType)(std::ofstream & in, Any & value);
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();

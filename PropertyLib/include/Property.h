@@ -36,31 +36,31 @@ class Property<InterfaceType, StoredType>
 	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
 
 	public:
-		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
-		typedef bool (*outputMethodType)(std::ofstream & in, Any & value);
+		typedef bool (*InputMethodType)(std::ifstream & in, Any & value);
+		typedef bool (*OutputMethodType)(std::ofstream & in, Any & value);
 
-		typedef void (*setterType)(const InterfaceType & value, StoredType & destination);
-		typedef InterfaceType (*getterType)(const StoredType & value);
+		typedef void (*SetterType)(const InterfaceType & value, StoredType & destination);
+		typedef InterfaceType (*GetterType)(const StoredType & value);
 
 		// Constructors
 		Property();
 		explicit Property(const string & name);
-		Property(const string & name, setterType setterFunction, getterType getterFunction);
+		Property(const string & name, SetterType setterFunction, GetterType getterFunction);
 
 		// Set and get name
 		void setName(const string & name);
 		string getName(void) const;
 
 		// Set setter and getter
-		void setSetterFunction( setterType setterFunction );
-		void setGetterFunction( getterType getterFunction );
-		void setInputMethod( inputMethodType newInputMethod );
-		void setOutputMethod( outputMethodType newOutputMethod );
+		void setSetterFunction( SetterType setterFunction );
+		void setGetterFunction( GetterType getterFunction );
+		void setInputMethod( InputMethodType newInputMethod );
+		void setOutputMethod( OutputMethodType newOutputMethod );
 
-		setterType setter = NULL;
-		getterType getter = NULL;
-		inputMethodType inputMethod = NULL;
-		outputMethodType outputMethod = NULL;
+		SetterType setter = NULL;
+		GetterType getter = NULL;
+		InputMethodType inputMethod = NULL;
+		OutputMethodType outputMethod = NULL;
 
 	private:
 
@@ -72,12 +72,12 @@ template<typename type>
 class Property<type> : public Property<type, type>
 {
 	public:
-		typedef void (*setterType)(const type & value, type & destination);
-		typedef type (*getterType)(const type & value);
+		typedef void (*SetterType)(const type & value, type & destination);
+		typedef type (*GetterType)(const type & value);
 
 		// Constructors
 		Property();
-		explicit Property(const string & name, setterType setterFunction = defaultSetter<type>, getterType getterFunction = defaultGetter<type>);
+		explicit Property(const string & name, SetterType setterFunction = defaultSetter<type>, GetterType getterFunction = defaultGetter<type>);
 }; // class Property<type, type>
 
 template<typename InterfaceType, typename StoredType>
