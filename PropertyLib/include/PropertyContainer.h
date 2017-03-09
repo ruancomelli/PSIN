@@ -24,12 +24,12 @@ class PropertyContainer : public RawPropertyContainer
 		explicit PropertyContainer( const RawPropertyContainer & raw );
 
 		// Get a property's value
-		template<typename interfaceType, typename storedType>
-		interfaceType getValue(const Property<interfaceType, storedType> & property) const;
+		template<typename InterfaceType, typename storedType>
+		InterfaceType getValue(const Property<InterfaceType, storedType> & property) const;
 		Any getValue(const string & propertyName) const;
 
-		template<typename interfaceType, typename storedType, typename implicitInterfaceType>
-		void setProperty(const Property<interfaceType, storedType> & property, const implicitInterfaceType & value );
+		template<typename InterfaceType, typename storedType, typename implicitInterfaceType>
+		void setProperty(const Property<InterfaceType, storedType> & property, const implicitInterfaceType & value );
 
 		void setProperty(const string & propertyName, const Any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
 

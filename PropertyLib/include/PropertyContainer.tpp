@@ -5,8 +5,8 @@
 
 //	getValue:
 //		Returns the value of a Property
-template<typename interfaceType, typename storedType>
-interfaceType PropertyContainer::getValue(const Property<interfaceType, storedType> & property) const
+template<typename InterfaceType, typename storedType>
+InterfaceType PropertyContainer::getValue(const Property<InterfaceType, storedType> & property) const
 {
 	std::set<string>::iterator it = propertyNames->find( property.getName() );
 
@@ -14,23 +14,23 @@ interfaceType PropertyContainer::getValue(const Property<interfaceType, storedTy
 	{
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == property.getName()
 
-		interfaceType value = property.getter( anyCast<storedType>( propertyValues->at(index) ) );
+		InterfaceType value = property.getter( anyCast<storedType>( propertyValues->at(index) ) );
 
 		return value;
 	}
 	else
 	{
-		return interfaceType();
+		return InterfaceType();
 	}
 }
 
 //	setProperty:
 //		If property's name is already in propertyName, it's value is overwritten.
 //		Otherwise, a new property is inserted.
-template<typename interfaceType, typename storedType, typename implicitInterfaceType>
-void PropertyContainer::setProperty(const Property<interfaceType, storedType> & property, const implicitInterfaceType & implicitValue )
+template<typename InterfaceType, typename storedType, typename implicitInterfaceType>
+void PropertyContainer::setProperty(const Property<InterfaceType, storedType> & property, const implicitInterfaceType & implicitValue )
 {
-	interfaceType value = interfaceType(implicitValue);
+	InterfaceType value = InterfaceType(implicitValue);
 	std::set<string>::iterator it = propertyNames->find( property.getName() );
 
 	// Checks if the desired property was already inserted

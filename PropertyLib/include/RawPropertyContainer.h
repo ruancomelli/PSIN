@@ -32,8 +32,8 @@ class RawPropertyContainer
 		// Get a property's output method
 		outputMethodType getOutputMethod(const string & name) const;
 
-		template<typename interfaceType, typename storedType>
-		void addProperty(const Property<interfaceType, storedType> & property );
+		template<typename InterfaceType, typename storedType>
+		void addProperty(const Property<InterfaceType, storedType> & property );
 
 		SharedPointer< std::set<string> > getPropertyNames(void) const;
 

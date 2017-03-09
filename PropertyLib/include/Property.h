@@ -28,19 +28,19 @@ bool defaultOutputMethod(std::ofstream & out, Any & value);
 
 
 
-template<typename interfaceType, typename storedType>
-class Property<interfaceType, storedType>
+template<typename InterfaceType, typename storedType>
+class Property<InterfaceType, storedType>
 {
 
-	template<typename interfaceType, typename storedType>
-	using PropertyPtr = SharedPointer< Property<interfaceType, storedType> >;
+	template<typename InterfaceType, typename storedType>
+	using PropertyPtr = SharedPointer< Property<InterfaceType, storedType> >;
 
 	public:
 		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
 		typedef bool (*outputMethodType)(std::ofstream & in, Any & value);
 
-		typedef void (*setterType)(const interfaceType & value, storedType & destination);
-		typedef interfaceType (*getterType)(const storedType & value);
+		typedef void (*setterType)(const InterfaceType & value, storedType & destination);
+		typedef InterfaceType (*getterType)(const storedType & value);
 
 		// Constructors
 		Property();
@@ -66,7 +66,7 @@ class Property<interfaceType, storedType>
 
 		string name;
 
-}; // class Property<interfaceType, storedType>
+}; // class Property<InterfaceType, storedType>
 
 template<typename type>
 class Property<type> : public Property<type, type>
@@ -80,8 +80,8 @@ class Property<type> : public Property<type, type>
 		explicit Property(const string & name, setterType setterFunction = defaultSetter<type>, getterType getterFunction = defaultGetter<type>);
 }; // class Property<type, type>
 
-template<typename interfaceType, typename storedType>
-using PropertyPtr = SharedPointer< Property<interfaceType, storedType> >;
+template<typename InterfaceType, typename storedType>
+using PropertyPtr = SharedPointer< Property<InterfaceType, storedType> >;
 
 #include <Property.tpp>
 
