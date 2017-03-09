@@ -1,7 +1,7 @@
 #include <PropertyContainer.h>
 
 PropertyContainer::PropertyContainer()
-	: propertyValues( new Many ),
+	: propertyValues( new std::map<string, Any> ),
 	settedValues( new std::map<string, bool> ),
 	RawPropertyContainer()
 {
@@ -9,11 +9,10 @@ PropertyContainer::PropertyContainer()
 
 
 PropertyContainer::PropertyContainer( const RawPropertyContainer & raw )
-	: propertyValues( new Many ),
+	: propertyValues( new std::map<string, Any> ),
 	settedValues( new std::map<string, bool> ),
 	RawPropertyContainer( raw )
 {
-	this->propertyValues->resize( this->getPropertyNames()->size() );
 }
 
 void PropertyContainer::setProperty(const string & name, const Any & value )
@@ -25,7 +24,7 @@ void PropertyContainer::setProperty(const string & name, const Any & value )
 	{
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
 
-		propertyValues->at(index) = value;
+		(*propertyValues)[name] = value;
 		(*settedValues)[name] = true;
 	}
 	else	// Otherwise, a new property is inserted
@@ -34,7 +33,7 @@ void PropertyContainer::setProperty(const string & name, const Any & value )
 
 		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
 
-		propertyValues->insert( propertyValues->begin() + index, value );
+		(*propertyValues)[name] = value;
 		(*settedValues)[name] = true;
 	}
 }
@@ -47,7 +46,7 @@ Any PropertyContainer::getValue(const string & name) const
 	{
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
 
-		return propertyValues->at(index);
+		return (*propertyValues)[name];
 	}
 	else
 	{

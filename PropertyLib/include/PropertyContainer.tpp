@@ -14,7 +14,7 @@ InterfaceType PropertyContainer::getValue(const Property<InterfaceType, StoredTy
 	{
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == property.getName()
 
-		InterfaceType value = property.getter( anyCast<StoredType>( propertyValues->at(index) ) );
+		InterfaceType value = property.getter( anyCast<StoredType>( (*propertyValues)[property.getName()] ) );
 
 		return value;
 	}
@@ -38,7 +38,7 @@ void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & 
 	{
 		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == property.getName()
 
-		propertyValues->at(index) = value;
+		(*propertyValues)[property.getName()] = value;
 		inputMethods->at( index ) = property.inputMethod;
 		outputMethods->at( index ) = property.outputMethod;
 		(*settedValues)[ property.getName() ] = true;
@@ -49,7 +49,7 @@ void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & 
 
 		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
 
-		propertyValues->insert( propertyValues->begin() + index, value);
+		(*propertyValues)[property.getName()] = value;
 		inputMethods->insert( inputMethods->begin() + index, property.inputMethod );
 		outputMethods->insert( outputMethods->begin() + index, property.outputMethod );
 		(*settedValues)[ property.getName() ] = true;

@@ -41,7 +41,7 @@ class PropertyContainer : public RawPropertyContainer
 		bool checkSetted(const Property<InterfaceType, StoredType> & property);
 
 	private:
-		SharedPointer< Many > propertyValues;
+		SharedPointer< std::map<string, Any> > propertyValues;
 		SharedPointer< std::map<string, bool> > settedValues; // asserts whether each value was set
 
 }; // class PropertyContainer

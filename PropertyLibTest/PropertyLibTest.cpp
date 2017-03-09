@@ -196,6 +196,7 @@ TestCase(PropertyContainerTest)
 
 	check(propertyContainer.checkSetted(mass));
 	check(propertyContainer.checkSetted(color.getName()));
+	check(!propertyContainer.checkSetted("length"));	// Checks that "length" was not set
 
 	RawPropertyContainer raw;
 	raw.addProperty(mass);
