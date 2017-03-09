@@ -4,8 +4,8 @@
 //	addProperty:
 //		If argument's name is already in propertyName, its input and output methods are overwritten.
 //		Otherwise, a new property is inserted.
-template<typename InterfaceType, typename storedType>
-void RawPropertyContainer::addProperty(const Property<InterfaceType, storedType> & property)
+template<typename InterfaceType, typename StoredType>
+void RawPropertyContainer::addProperty(const Property<InterfaceType, StoredType> & property)
 {
 	std::set<string>::iterator it = propertyNames->find( property.getName() );
 

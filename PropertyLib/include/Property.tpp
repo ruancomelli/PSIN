@@ -33,16 +33,16 @@ bool defaultOutputMethod(std::ofstream & out, Any & value)
 
 // Constructors
 
-template<typename InterfaceType, typename storedType>
-Property<InterfaceType, storedType>::Property()
+template<typename InterfaceType, typename StoredType>
+Property<InterfaceType, StoredType>::Property()
 	: name("Nameless")
 {
 	this->inputMethod = defaultInputMethod<InterfaceType>;
 	this->outputMethod = defaultOutputMethod<InterfaceType>;
 }
 
-template<typename InterfaceType, typename storedType>
-Property<InterfaceType, storedType>::Property(const string & name)
+template<typename InterfaceType, typename StoredType>
+Property<InterfaceType, StoredType>::Property(const string & name)
 {
 	this->setName(name);
 
@@ -50,8 +50,8 @@ Property<InterfaceType, storedType>::Property(const string & name)
 	this->outputMethod = defaultOutputMethod<InterfaceType>;
 }
 
-template<typename InterfaceType, typename storedType>
-Property<InterfaceType, storedType>::Property(const string & name, setterType setterFunction, getterType getterFunction)
+template<typename InterfaceType, typename StoredType>
+Property<InterfaceType, StoredType>::Property(const string & name, setterType setterFunction, getterType getterFunction)
 {
 	this->name = name;
 
@@ -65,42 +65,42 @@ Property<InterfaceType, storedType>::Property(const string & name, setterType se
 
 // Set and get name
 
-template<typename InterfaceType, typename storedType>
-void Property<InterfaceType, storedType>::setName(const string & name)
+template<typename InterfaceType, typename StoredType>
+void Property<InterfaceType, StoredType>::setName(const string & name)
 {
 	if(!name.empty()) this->name = name;
 	else this->name = "Nameless";
 }
 
-template<typename InterfaceType, typename storedType>
-string Property<InterfaceType, storedType>::getName(void) const
+template<typename InterfaceType, typename StoredType>
+string Property<InterfaceType, StoredType>::getName(void) const
 {
 	return this->name;
 }
 
 
 // Set setter and getter
-template<typename InterfaceType, typename storedType>
-void Property<InterfaceType, storedType>::setSetterFunction( setterType setterFunction )
+template<typename InterfaceType, typename StoredType>
+void Property<InterfaceType, StoredType>::setSetterFunction( setterType setterFunction )
 {
 	this->setter = setterFunction;
 }
 
-template<typename InterfaceType, typename storedType>
-void Property<InterfaceType, storedType>::setGetterFunction( getterType getterFunction )
+template<typename InterfaceType, typename StoredType>
+void Property<InterfaceType, StoredType>::setGetterFunction( getterType getterFunction )
 {
 	this->getter = getterFunction;
 }
 
 // Set inputMethod and outputMethod
-template<typename InterfaceType, typename storedType>
-void Property<InterfaceType, storedType>::setInputMethod( inputMethodType newInputMethod )
+template<typename InterfaceType, typename StoredType>
+void Property<InterfaceType, StoredType>::setInputMethod( inputMethodType newInputMethod )
 {
 	this->inputMethod = newInputMethod;
 }
 
-template<typename InterfaceType, typename storedType>
-void Property<InterfaceType, storedType>::setOutputMethod( outputMethodType newOutputMethod )
+template<typename InterfaceType, typename StoredType>
+void Property<InterfaceType, StoredType>::setOutputMethod( outputMethodType newOutputMethod )
 {
 	this->outputMethod = newOutputMethod;
 }

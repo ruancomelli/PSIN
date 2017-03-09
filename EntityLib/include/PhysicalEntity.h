@@ -62,14 +62,14 @@ class PhysicalEntity: public Entity
 		int getTaylorOrder(void) const;
 
 			// set property
-		template< typename InterfaceType, typename storedType, typename implicitInterfaceType >
-		void set( const Property<InterfaceType, storedType> & property, const implicitInterfaceType & value );
+		template< typename InterfaceType, typename StoredType, typename implicitInterfaceType >
+		void set( const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value );
 
 		void set( const string & rawName, const Any & value ); // CAUTION: inputMethod and outputMethod are not inserted!
 
 			// get property
-		template<typename InterfaceType, typename storedType>
-		InterfaceType get(const Property<InterfaceType, storedType> & property) const;
+		template<typename InterfaceType, typename StoredType>
+		InterfaceType get(const Property<InterfaceType, StoredType> & property) const;
 
 		Any getAsAnyValue( const string & name ) const;
 
