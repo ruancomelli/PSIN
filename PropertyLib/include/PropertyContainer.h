@@ -42,7 +42,7 @@ class PropertyContainer : public RawPropertyContainer
 
 	private:
 		SharedPointer< std::map<string, Any> > propertyValues;
-		SharedPointer< std::map<string, bool> > settedValues; // asserts whether each value was set
+		SharedPointer< std::map<string, bool> > settedFlag; // asserts whether each value was set
 
 }; // class PropertyContainer
 

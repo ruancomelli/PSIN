@@ -8,19 +8,21 @@
 template<typename InterfaceType, typename StoredType>
 InterfaceType PropertyContainer::getValue(const Property<InterfaceType, StoredType> & property) const
 {
-	std::set<string>::iterator it = propertyNames->find( property.getName() );
+	string propertyName = property.getName();
+
+	std::set<string>::iterator it = propertyNames->find( propertyName );
 
 	if( it != propertyNames->end() )	// In this case, the search was successfull
 	{
-		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == property.getName()
-
-		InterfaceType value = property.getter( anyCast<StoredType>( (*propertyValues)[property.getName()] ) );
+		auto anyValue = (*propertyValues)[propertyName];
+		StoredType storedValue = anyCast<StoredType>( anyValue );
+		InterfaceType value = property.getter( storedValue );
 
 		return value;
 	}
 	else
 	{
-		return InterfaceType();
+		return InterfaceType();	// This line should be improved
 	}
 }
 
@@ -41,7 +43,7 @@ void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & 
 		(*propertyValues)[property.getName()] = value;
 		inputMethods->at( index ) = property.inputMethod;
 		outputMethods->at( index ) = property.outputMethod;
-		(*settedValues)[ property.getName() ] = true;
+		(*settedFlag)[ property.getName() ] = true;
 	}
 	else	// Otherwise, a new property is inserted
 	{
@@ -52,14 +54,14 @@ void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & 
 		(*propertyValues)[property.getName()] = value;
 		inputMethods->insert( inputMethods->begin() + index, property.inputMethod );
 		outputMethods->insert( outputMethods->begin() + index, property.outputMethod );
-		(*settedValues)[ property.getName() ] = true;
+		(*settedFlag)[ property.getName() ] = true;
 	}
 }
 
 template<typename InterfaceType, typename StoredType>
 bool PropertyContainer::checkSetted(const Property<InterfaceType, StoredType> & property)
 {
-	return (*settedValues)[ property.getName() ];
+	return (*settedFlag)[ property.getName() ];
 }
 
 #endif

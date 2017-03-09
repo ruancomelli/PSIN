@@ -7,15 +7,15 @@
 template<typename InterfaceType, typename StoredType>
 void RawPropertyContainer::addProperty(const Property<InterfaceType, StoredType> & property)
 {
+	string propertyName = property.getName();
+
 	std::set<string>::iterator it = propertyNames->find( property.getName() );
 
 	// Checks if the desired property was already inserted
 	if( it != propertyNames->end() )	// In this case, the search was successfull
 	{
-		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == property.getName()
-
-		inputMethods->at( index ) = property.inputMethod;
-		outputMethods->at( index ) = property.outputMethod;
+		(*inputMethods)[propertyName] = property.inputMethod;
+		(*outputMethods)[propertyName] = property.outputMethod;
 	}
 	else	// Otherwise, a new property is inserted
 	{
