@@ -15,11 +15,10 @@ PropertyContainer::PropertyContainer( const RawPropertyContainer & raw )
 {
 }
 
-void PropertyContainer::setProperty(const string & name, const Any & value )
+void PropertyContainer::setProperty(const string & name, const Any & value )	// This throws an exception if the desired property was not inserted yet
 {
-	propertyNames->insert( name );
-	(*propertyValues)[name] = value;
-	(*settedFlag)[name] = true;
+	propertyValues->at(name) = value;
+	settedFlag->at(name) = true;
 }
 
 Any PropertyContainer::getValue(const string & name) const

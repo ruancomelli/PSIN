@@ -13,9 +13,8 @@
 #include <map>
 #include <string>
 #include <set>
-#include <vector>
+// #include <vector>
 
-// using std::vector;
 using std::string;
 
 class RawPropertyContainer
@@ -41,8 +40,8 @@ class RawPropertyContainer
 
 	protected:
 		SharedPointer< std::set<string> > propertyNames;
-		SharedPointer< std::map< InputMethodType > > inputMethods;
-		SharedPointer< std::map< OutputMethodType > > outputMethods;
+		SharedPointer< std::map< string, InputMethodType > > inputMethods;
+		SharedPointer< std::map< string, OutputMethodType > > outputMethods;
 }; // class RawPropertyContainer
 
 #include <RawPropertyContainer.tpp>

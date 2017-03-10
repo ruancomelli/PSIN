@@ -33,29 +33,14 @@ template<typename InterfaceType, typename StoredType, typename implicitInterface
 void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & implicitValue )
 {
 	InterfaceType value = InterfaceType(implicitValue);
-	std::set<string>::iterator it = propertyNames->find( property.getName() );
+	string propertyName = property.getName();
+	
+	propertyNames->insert( propertyName );
 
-	// Checks if the desired property was already inserted
-	if( it != propertyNames->end() )	// In this case, the search was successfull
-	{
-		int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == property.getName()
-
-		(*propertyValues)[property.getName()] = value;
-		inputMethods->at( index ) = property.inputMethod;
-		outputMethods->at( index ) = property.outputMethod;
-		(*settedFlag)[ property.getName() ] = true;
-	}
-	else	// Otherwise, a new property is inserted
-	{
-		std::pair< std::set<string>::iterator, bool > returnPair = propertyNames->insert( property.getName() );
-
-		int index = std::distance( propertyNames->begin(), std::get<0>(returnPair) );	// Calculates the index where propertyNames[index] == property.getName()
-
-		(*propertyValues)[property.getName()] = value;
-		inputMethods->insert( inputMethods->begin() + index, property.inputMethod );
-		outputMethods->insert( outputMethods->begin() + index, property.outputMethod );
-		(*settedFlag)[ property.getName() ] = true;
-	}
+	(*propertyValues)[propertyName] = value;
+	(*inputMethods)[propertyName] = property.inputMethod;
+	(*outputMethods)[propertyName] = property.outputMethod;
+	(*settedFlag)[propertyName] = true;
 }
 
 template<typename InterfaceType, typename StoredType>

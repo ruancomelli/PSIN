@@ -17,6 +17,7 @@
 #include <PropertyContainer.h>
 
 using std::string;
+using std::vector;
 
 enum GeometryType{
 	SPHERE = 0,

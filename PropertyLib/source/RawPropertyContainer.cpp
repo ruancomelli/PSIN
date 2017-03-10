@@ -2,8 +2,8 @@
 
 RawPropertyContainer::RawPropertyContainer()
 	: propertyNames( new std::set<string> ),
-	inputMethods( new vector<InputMethodType> ),
-	outputMethods( new vector<OutputMethodType> )
+	inputMethods( new std::map< string, InputMethodType > ),
+	outputMethods( new std::map< string, OutputMethodType > )
 {
 }
 
@@ -21,18 +21,10 @@ SharedPointer< std::set<string> > RawPropertyContainer::getPropertyNames(void) c
 
 RawPropertyContainer::InputMethodType RawPropertyContainer::getInputMethod(const string & rawName ) const
 {
-	std::set<string>::iterator it = propertyNames->find( rawName );
-
-	int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
-
-	return inputMethods->at( index );
+	return inputMethods->at( rawName );
 }
 
 RawPropertyContainer::OutputMethodType RawPropertyContainer::getOutputMethod(const string & rawName ) const
 {
-	std::set<string>::iterator it = propertyNames->find( rawName );
-
-	int index = std::distance( propertyNames->begin(), it );	// Calculates the index where propertyNames[index] == raw.getName()
-
-	return outputMethods->at( index );
+	return outputMethods->at( rawName );
 }

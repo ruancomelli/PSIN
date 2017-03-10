@@ -33,8 +33,6 @@ bool defaultOutputMethod(std::ofstream & out, Any & value);
 template<typename InterfaceType, typename StoredType>
 class Property<InterfaceType, StoredType>
 {
-
-	template<typename InterfaceType, typename StoredType>
 	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
 
 	public:

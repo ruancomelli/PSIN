@@ -30,10 +30,13 @@ class PropertyContainer : public RawPropertyContainer
 		InterfaceType getValue(const Property<InterfaceType, StoredType> & property) const;
 		Any getValue(const string & propertyName) const;
 
+		// Set property - By-property and by-name versions
 		template<typename InterfaceType, typename StoredType, typename implicitInterfaceType>
 		void setProperty(const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value );
+			// Sets a value to the correspondent property. If the property was not inserted yet, it is.
 
 		void setProperty(const string & propertyName, const Any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
+			// Throws an exception if propertyName was not already inserted.
 
 		// Check whether a property was set. By-name and by-property versions
 		bool checkSetted(const string & propertyName);
