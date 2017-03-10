@@ -17,8 +17,18 @@ PropertyContainer::PropertyContainer( const RawPropertyContainer & raw )
 
 void PropertyContainer::setProperty(const string & name, const Any & value )	// This throws an exception if the desired property was not inserted yet
 {
-	propertyValues->at(name) = value;
-	settedFlag->at(name) = true;
+	std::set<string>::iterator it = propertyNames->find( name ); 
+ 
+	if( it != propertyNames->end() ) 
+	{ 
+		(*propertyValues)[name] = value; 
+		(*settedFlag)[name] = true; 
+	} 
+	else 
+	{ 
+		propertyValues->at(name) = value; 
+		settedFlag->at(name) = true; 
+	} 
 }
 
 Any PropertyContainer::getValue(const string & name) const
