@@ -1,21 +1,22 @@
 #ifndef FILE_READER_H
 #define FILE_READER_H
 
-// Standard
-#include <fstream>
-#include <string>
-
 // UtilsLib
 #include <Any.h>
 #include <StringUtils.h>
 #include <vectorIO.h>
+
+// Standard
+#include <fstream>
+#include <functional>
+#include <string>
 
 using std::string;
 
 class FileReader
 {
 	public:
-		typedef bool (*inputMethodType)(std::ifstream & in, Any & value);
+		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
 
 		FileReader();
 		FileReader(const string & fileName);
@@ -32,7 +33,7 @@ class FileReader
 		template <class type> 
 		bool readValue( const string & tag, type & value );
 
-		bool readAnyValue( const string & tag, Any & value, inputMethodType inputMethod );
+		bool readAnyValue( const string & tag, Any & value, InputMethodType inputMethod );
 		
 	private:
 		string fileName;

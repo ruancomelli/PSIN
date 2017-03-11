@@ -55,8 +55,8 @@ class ForceModel : public EnableSharedFromThis<ForceModel>
 		// ---- Required Properties ----
 		RawPropertyContainer getRequiredProperties(void);
 
-		template<typename interfaceType, typename storedType>
-		void requireProperty( const Property<interfaceType, storedType> & property );
+		template<typename InterfaceType, typename StoredType>
+		void requireProperty( const Property<InterfaceType, StoredType> & property );
 
 		// ---- Force Methods ----
 		void setTimeStep( double timeStep );

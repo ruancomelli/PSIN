@@ -75,7 +75,7 @@ type defaultGetter(const type & value)
 	return value;
 }
 
-template<typename interfaceType, typename storedType>
+template<typename InterfaceType, typename StoredType>
 class RawPhysicalProperty
 {
 	public:
@@ -83,7 +83,7 @@ class RawPhysicalProperty
 		RawPhysicalProperty()
 			: name("Nameless")
 		{
-			if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
+			if( std::is_same<InterfaceType, StoredType>::value )	// If both classes are equal, we can use default setter and getter functions
 			{
 				setter = defaultSetter;
 				getter = defaultGetter;
@@ -95,14 +95,14 @@ class RawPhysicalProperty
 			if(!name.empty()) setName(name);
 			else setName("Nameless");
 
-			if( std::is_same<interfaceType, storedType>::value )	// If both classes are equal, we can use default setter and getter functions
+			if( std::is_same<InterfaceType, StoredType>::value )	// If both classes are equal, we can use default setter and getter functions
 			{
 				setter = defaultSetter;
 				getter = defaultGetter;
 			}
 		}
 
-		RawPhysicalProperty(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
+		RawPhysicalProperty(const string & name, void (*setterFunction)(const InterfaceType &, StoredType &), InterfaceType (*getterFunction)(const StoredType &))
 		{
 			this->name = name;
 			this->setter = setterFunction;
@@ -121,19 +121,19 @@ class RawPhysicalProperty
 		}
 
 		// Set setter and getter
-		void setSetterFunction( void (*setterFunction)(const interfaceType & value, storedType & destination) )
+		void setSetterFunction( void (*setterFunction)(const InterfaceType & value, StoredType & destination) )
 		{
 			this->setter = setterFunction;
 		}
-		void setGetterFunction( interfaceType (*getterFunction)(const storedType & value) )
+		void setGetterFunction( InterfaceType (*getterFunction)(const StoredType & value) )
 		{
 			this->getter = getterFunction;
 		}
 
 
 	private:
-		void (*setter)(const interfaceType & value, storedType & destination) = NULL;
-		interfaceType (*getter)(const storedType &) = NULL;
+		void (*setter)(const InterfaceType & value, StoredType & destination) = NULL;
+		InterfaceType (*getter)(const StoredType &) = NULL;
 
 		string name;
 
@@ -141,7 +141,7 @@ class RawPhysicalProperty
 
 template<typename...> class PhysicalProperty;	// Allows multiple template arguments
 
-template<typename interfaceType, typename storedType>
+template<typename InterfaceType, typename StoredType>
 class PhysicalProperty
 {
 	public:
@@ -153,24 +153,24 @@ class PhysicalProperty
 			: rawProperty(name)
 		{}
 
-		PhysicalProperty(const string & name, void (*setterFunction)(const interfaceType &, storedType &), interfaceType (*getterFunction)(const storedType &))
+		PhysicalProperty(const string & name, void (*setterFunction)(const InterfaceType &, StoredType &), InterfaceType (*getterFunction)(const StoredType &))
 			: rawProperty(name, setterFunction, getterFunction)
 		{}
 
 		// Setter and getter functions
-		void set(const interfaceType & value)
+		void set(const InterfaceType & value)
 		{
 			rawProperty.setter(value, this->value);
 		}
 
-		interfaceType get(void)
+		InterfaceType get(void)
 		{
 			return rawProperty.getter(this->value);
 		}
 
 	private:
-		RawPhysicalProperty<interfaceType, storedType> rawProperty;
-		storedType value;
+		RawPhysicalProperty<InterfaceType, StoredType> rawProperty;
+		StoredType value;
 
 }; // class PhysicalProperty
 

@@ -8,42 +8,40 @@
 #include <Any.h>
 
 // Standard
+#include <functional>
 #include <iostream>
+#include <map>
 #include <string>
 #include <set>
-#include <vector>
+// #include <vector>
 
-using std::set;
-using std::vector;
 using std::string;
-using std::ifstream;
-using std::ofstream;
 
 class RawPropertyContainer
 {
 	public:
-		typedef bool (*inputMethodType)(ifstream & in, Any & value);
-		typedef bool (*outputMethodType)(ofstream & in, Any & value);
+		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
+		using OutputMethodType = std::function< bool(std::ofstream & in, Any & value) >;
 
 		// ---- Get, add and set properties and values ----
 		RawPropertyContainer();
 		RawPropertyContainer( const RawPropertyContainer & other);
 
 		// Get a property's input method
-		inputMethodType getInputMethod(const string & name) const;
+		InputMethodType getInputMethod(const string & name) const;
 
 		// Get a property's output method
-		outputMethodType getOutputMethod(const string & name) const;
+		OutputMethodType getOutputMethod(const string & name) const;
 
-		template<typename interfaceType, typename storedType>
-		void addProperty(const Property<interfaceType, storedType> & property );
+		template<typename InterfaceType, typename StoredType>
+		void addProperty(const Property<InterfaceType, StoredType> & property );
 
-		SharedPointer<set<string>> getPropertyNames(void) const;
+		SharedPointer< std::set<string> > getPropertyNames(void) const;
 
 	protected:
-		SharedPointer< set<string> > propertyNames;
-		SharedPointer< vector< inputMethodType > > inputMethods;
-		SharedPointer< vector< outputMethodType > > outputMethods;
+		SharedPointer< std::set<string> > propertyNames;
+		SharedPointer< std::map< string, InputMethodType > > inputMethods;
+		SharedPointer< std::map< string, OutputMethodType > > outputMethods;
 }; // class RawPropertyContainer
 
 #include <RawPropertyContainer.tpp>

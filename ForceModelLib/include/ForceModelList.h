@@ -26,6 +26,7 @@ STATIC_EXECUTE
 
 	forceModelSet.insert( viscoelasticSpheres );
 
+
 	ForceModel electrostatic("Electrostatic");
 	electrostatic.setField(electrostaticForce);
 	electrostatic.setNormal( normalForceViscoelasticSpheres );
