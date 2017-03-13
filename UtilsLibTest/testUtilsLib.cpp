@@ -373,4 +373,6 @@ TestCase(createDirectoryTest)
 	createDirectory(directoryName);
 	
 	check( boost::filesystem::exists( directoryPath ) );
+
+	boost::filesystem::remove_all(directoryPath);
 }
