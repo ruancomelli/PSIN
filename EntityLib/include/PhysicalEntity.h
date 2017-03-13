@@ -17,6 +17,7 @@
 #include <PropertyContainer.h>
 
 using std::string;
+using std::vector;
 
 enum GeometryType{
 	SPHERE = 0,
@@ -62,14 +63,14 @@ class PhysicalEntity: public Entity
 		int getTaylorOrder(void) const;
 
 			// set property
-		template< typename interfaceType, typename storedType, typename implicitInterfaceType >
-		void set( const Property<interfaceType, storedType> & raw, const implicitInterfaceType & value );
+		template< typename InterfaceType, typename StoredType, typename implicitInterfaceType >
+		void set( const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value );
 
-		void set( const string & rawName, const Any & value );
+		void set( const string & rawName, const Any & value ); // CAUTION: inputMethod and outputMethod are not inserted!
 
 			// get property
-		template<typename interfaceType, typename storedType>
-		interfaceType get(const Property<interfaceType, storedType> & raw) const;
+		template<typename InterfaceType, typename StoredType>
+		InterfaceType get(const Property<InterfaceType, StoredType> & property) const;
 
 		Any getAsAnyValue( const string & name ) const;
 

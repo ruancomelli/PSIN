@@ -50,18 +50,26 @@ TestCase( PropertyConstructorsTest )
 	int destination;
 	int destinationAnswer = otherName.length();
 
-	Property<string, int> raw1;
-	Property<string, int> raw2(name);
-	Property<string, int> raw3(otherName, setIntFromString, getStringFromInt);
+	Property<string, int> myProperty1;
+	Property<string, int> myProperty2(name);
+	Property<string, int> myProperty3(otherName, setIntFromString, getStringFromInt);
+	Property<string, int> myProperty4(otherName, 
+		[](const string & value, int & destination){ destination = value.length(); }, 
+		[](const int & value){ return to_string(value); });
 
-	checkEqual( raw1.getName(), defaultName );
-	checkEqual( raw2.getName(), name );
-	checkEqual( raw3.getName(), otherName );
+	checkEqual( myProperty1.getName(), defaultName );
+	checkEqual( myProperty2.getName(), name );
+	checkEqual( myProperty3.getName(), otherName );
+	checkEqual( myProperty4.getName(), otherName );
 
-	raw3.setter( otherName, destination );
-
+	myProperty3.setter( otherName, destination );
 	checkEqual( destination, destinationAnswer );
-	checkEqual( raw3.getter(6), "6" );
+	checkEqual( myProperty3.getter(6), "6" );
+
+	myProperty4.setter( name, destination );
+	checkEqual( destination, name.length() );
+	checkEqual( myProperty4.getter(6), "6" );
+
 }
 
 TestCase(PropertyWithSameTemplateConstructorsTest)
@@ -72,34 +80,34 @@ TestCase(PropertyWithSameTemplateConstructorsTest)
 
 	int destination;
 
-	Property<int> raw1;
-	Property<int> raw2(name);
-	Property<int> raw3(otherName, setIntAsDouble, getIntAsTriple);
-	Property<int, int> raw4;
+	Property<int> myProperty1;
+	Property<int> myProperty2(name);
+	Property<int> myProperty3(otherName, setIntAsDouble, getIntAsTriple);
+	Property<int, int> myProperty4;
 
 	// Check names
-	checkEqual(raw1.getName(), defaultName);
-	checkEqual(raw2.getName(), name);
-	checkEqual(raw3.getName(), otherName);
-	checkEqual(raw4.getName(), defaultName);
+	checkEqual(myProperty1.getName(), defaultName);
+	checkEqual(myProperty2.getName(), name);
+	checkEqual(myProperty3.getName(), otherName);
+	checkEqual(myProperty4.getName(), defaultName);
 
 	// Check setter and getter functions
-	raw1.setter(5, destination);
+	myProperty1.setter(5, destination);
 	checkEqual(5, destination);
-	checkEqual(7, raw1.getter(7));
+	checkEqual(7, myProperty1.getter(7));
 
-	raw2.setter(8, destination);
+	myProperty2.setter(8, destination);
 	checkEqual(8, destination);
-	checkEqual(15, raw2.getter(15));
+	checkEqual(15, myProperty2.getter(15));
 
-	raw3.setter(30, destination);
+	myProperty3.setter(30, destination);
 	checkEqual(destination, 60);
-	checkEqual(raw3.getter(33), 99);
+	checkEqual(myProperty3.getter(33), 99);
 
-	// The following code results in runtime error, for raw4.setter is NULL
-	//raw4.setter(10, destination);
+	// The following code results in runtime error, for myProperty4.setter is NULL
+	//myProperty4.setter(10, destination);
 	//checkEqual(destination, 10);
-	//checkEqual(raw4.getter(12), 12);
+	//checkEqual(myProperty4.getter(12), 12);
 }
 
 TestCase(PropertySetSetterAndGetterTest)
@@ -108,15 +116,15 @@ TestCase(PropertySetSetterAndGetterTest)
 	int destination;
 	int destinationAnswer = name.length();
 
-	Property<string, int> raw;
+	Property<string, int> myProperty;
 
-	raw.setSetterFunction(setIntFromString);
-	raw.setGetterFunction(getStringFromInt);
+	myProperty.setSetterFunction(setIntFromString);
+	myProperty.setGetterFunction(getStringFromInt);
 
-	raw.setter(name, destination);
+	myProperty.setter(name, destination);
 
 	checkEqual(destination, destinationAnswer);
-	checkEqual(raw.getter(6), "6");
+	checkEqual(myProperty.getter(6), "6");
 }
 
 TestCase(EqualFunctionsTest)
@@ -156,9 +164,9 @@ TestCase(RawPropertyContainerTest)
 	newProperty.setOutputMethod(defaultOutputMethod<double>);
 
 	raw2.addProperty(newProperty);
-	
-	check( raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double> );
-	check(raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>);
+
+	// Test if raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double>
+	// and raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>
 }
 
 TestCase(PropertyContainerTest)
@@ -185,6 +193,10 @@ TestCase(PropertyContainerTest)
 	checkEqual(propertyContainer.getValue(color), colorValue);
 	checkEqual(propertyContainer.getValue(integer), intValue);
 	checkEqual(propertyContainer.getValue(volume), volumeValue);
+
+	check(propertyContainer.checkSetted(mass));
+	check(propertyContainer.checkSetted(color.getName()));
+	check(!propertyContainer.checkSetted("length"));	// Checks that "length" was not set
 
 	RawPropertyContainer raw;
 	raw.addProperty(mass);

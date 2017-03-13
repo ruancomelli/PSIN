@@ -257,7 +257,7 @@ TestCase( FileReaderTest )
 //
 //	checkEqual(entity->getHandle(), handle );
 //}
-//
+
 //TestCase(ReadPhysicalEntity)
 //{
 //	RawPropertyContainer raw;

@@ -2,16 +2,16 @@
 #define PHYSICAL_ENTITY_TPP
 
 // ---- Get, add and set properties ----
-template< typename interfaceType, typename storedType, typename implicitInterfaceType >
-void PhysicalEntity::set( const Property<interfaceType, storedType> & raw, const implicitInterfaceType & value )
+template< typename InterfaceType, typename StoredType, typename implicitInterfaceType >
+void PhysicalEntity::set( const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value )
 {
-	propertyContainer.setProperty( raw, value );
+	propertyContainer.setProperty( property, value );
 }
 
-template<typename interfaceType, typename storedType>
-interfaceType PhysicalEntity::get(const Property<interfaceType, storedType> & raw) const
+template<typename InterfaceType, typename StoredType>
+InterfaceType PhysicalEntity::get(const Property<InterfaceType, StoredType> & property) const
 {
-	return propertyContainer.getValue( raw );
+	return propertyContainer.getValue( property );
 }
 
 #endif
