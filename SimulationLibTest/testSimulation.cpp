@@ -1,7 +1,12 @@
+#define BOOST_TEST_MODULE SimulationLibTest
 
-#include "Simulation.h"
-#include <iostream>
+// SimulationLib
+#include <Simulation.h>
 
-int main(){
-	return 0;	
+// UtilsLib
+#include <Test.h>
+
+TestCase( EmptyTest )
+{
+	Simulation("MakeSureThatThisFileDoesNotExist");
 }

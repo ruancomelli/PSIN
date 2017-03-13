@@ -18,13 +18,18 @@ using std::string;
 class Simulation
 {
 	public:
+		Simulation(const string inputFolder);
 
 		void inputMainData(void);
+
+		// Name
+		void setName( const string name );
+		string getName( void ) const;
 
 	private:
 		// Simulation Folders and Paths
 		string inputFolder;	// This should be something like project_root_path + "_input/"
-		string simulationName;	// This should be something like "Simulation1", or "MySimulation"
+		string name;	// This should be something like "Simulation1", or "MySimulation"
 
 		// Simulation data
 		double initialTime;

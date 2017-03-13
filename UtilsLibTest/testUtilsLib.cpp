@@ -5,7 +5,7 @@
 
 // UtilsLib
 #include <Any.h>
-#include <CreateDirectory.h>
+#include <FileSystem.h>
 #include <Foreach.h>
 #include <Mathematics.h>
 #include <SharedPointer.h>
@@ -372,7 +372,9 @@ TestCase(createDirectoryTest)
 
 	createDirectory(directoryName);
 	
-	check( boost::filesystem::exists( directoryPath ) );
+	check(checkPathExists(directoryName));
 
-	boost::filesystem::remove_all(directoryPath);
+	deletePath(directoryName);
+
+	check(!checkPathExists(directoryName));
 }
