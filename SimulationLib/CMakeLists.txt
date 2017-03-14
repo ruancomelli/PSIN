@@ -8,7 +8,7 @@ include_directories(${CMAKE_SOURCE_DIR}/PropertyLib/include)
 include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)
 include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 
-#LINK THE DIRECTORIES
+#LINK DIRECTORIES
 link_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
 link_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/source)
 link_directories(${CMAKE_SOURCE_DIR}/IOLib/source)

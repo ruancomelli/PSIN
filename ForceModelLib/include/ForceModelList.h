@@ -9,38 +9,38 @@
 
 // ForceModel
 #include <ForceModelSet.h>
-#include <ForceMethodsDefinitions.h>
+// #include <ForceMethodsDefinitions.h>
 
-STATIC_EXECUTE
-{
-	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
-	viscoelasticSpheres.setNormal( normalForceViscoelasticSpheres );
-	viscoelasticSpheres.setTangential( tangentialForceHaffWerner );
-	viscoelasticSpheres.requireProperty(mass);
-	viscoelasticSpheres.requireProperty(moment_of_inertia);
-	viscoelasticSpheres.requireProperty(elastic_modulus);
-	viscoelasticSpheres.requireProperty(dissipative_constant);
-	viscoelasticSpheres.requireProperty(poisson_ratio);
-	viscoelasticSpheres.requireProperty(tangential_damping);
-	viscoelasticSpheres.requireProperty(friction_parameter);
+// STATIC_EXECUTE
+// {
+// 	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
+// 	viscoelasticSpheres.setNormal( normalForceViscoelasticSpheres );
+// 	viscoelasticSpheres.setTangential( tangentialForceHaffWerner );
+// 	viscoelasticSpheres.requireProperty(mass);
+// 	viscoelasticSpheres.requireProperty(moment_of_inertia);
+// 	viscoelasticSpheres.requireProperty(elastic_modulus);
+// 	viscoelasticSpheres.requireProperty(dissipative_constant);
+// 	viscoelasticSpheres.requireProperty(poisson_ratio);
+// 	viscoelasticSpheres.requireProperty(tangential_damping);
+// 	viscoelasticSpheres.requireProperty(friction_parameter);
 
-	forceModelSet.insert( viscoelasticSpheres );
+// 	forceModelSet.insert( viscoelasticSpheres );
 
 
-	ForceModel electrostatic("Electrostatic");
-	electrostatic.setField(electrostaticForce);
-	electrostatic.setNormal( normalForceViscoelasticSpheres );
-	electrostatic.setTangential( tangentialForceHaffWerner );
-	electrostatic.requireProperty(mass);
-	electrostatic.requireProperty(moment_of_inertia);
-	electrostatic.requireProperty(elastic_modulus);
-	electrostatic.requireProperty(dissipative_constant);
-	electrostatic.requireProperty(poisson_ratio);
-	electrostatic.requireProperty(tangential_damping);
-	electrostatic.requireProperty(friction_parameter);
-	electrostatic.requireProperty(electric_charge);
+// 	ForceModel electrostatic("Electrostatic");
+// 	electrostatic.setField(electrostaticForce);
+// 	electrostatic.setNormal( normalForceViscoelasticSpheres );
+// 	electrostatic.setTangential( tangentialForceHaffWerner );
+// 	electrostatic.requireProperty(mass);
+// 	electrostatic.requireProperty(moment_of_inertia);
+// 	electrostatic.requireProperty(elastic_modulus);
+// 	electrostatic.requireProperty(dissipative_constant);
+// 	electrostatic.requireProperty(poisson_ratio);
+// 	electrostatic.requireProperty(tangential_damping);
+// 	electrostatic.requireProperty(friction_parameter);
+// 	electrostatic.requireProperty(electric_charge);
 
-	forceModelSet.insert( electrostatic );
-}
+// 	forceModelSet.insert( electrostatic );
+// }
 
 #endif
