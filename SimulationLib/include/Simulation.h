@@ -31,9 +31,7 @@
 
 // ForceModelLib
 #include <ForceModel.h>
-#include <ForceModelList.h>
 #include <ForceMethodsDefinitions.h>
-#include <ForceModelSet.h>
 
 // IOLib
 #include <FileReader.h>
@@ -61,33 +59,45 @@ using std::string;
 class Simulation
 {
 	public:
+		struct ForceModelCompare{
+			bool operator()( const ForceModel & left, const ForceModel & right ) const
+			{ return left.getName() < right.getName();}
+		};
+
 // ===============================================
 // ================= TEMPORARY: ==================
 		void doItAll(const string project_root_path);
 // ===============================================
 
-		Simulation(const string inputFolder);
+		// Simulation(const string inputFolder);
 
 		void inputMainData(void);
 
 		// Set files
 		bool setInputFolder(const string inputFolder);
-		bool setProjectRootPath(const string projectRootPath);
+		bool setProjectRootFolder(const string projectRootFolder);
 		bool setParticleInputFolder(const string particleInputFolder);
-		bool setOutputPath(const string outputPath);
+		bool setOutputFolder(const string outputFolder);
+
+		// Set simulation data
+		
 
 		// Name
+		void readName(void);
 		void setName( const string name );
-		string getName( void ) const;
+		string getName(void) const;
+
+		// ForceModel
+		void addForceModel( const ForceModel & fm );
 
 	private:
 		// Simulation Folders and Paths
 		string name;	// This should be something like "Simulation1", or "MySimulation"
 
-		string projectRootPath;	// This should be something like C:/ParticleSimulator/
+		string projectRootFolder;	// This should be something like C:/ParticleSimulator/
 		string inputFolder;	// This should be something like project_root_path + "_input/"
 		string particleInputFolder;
-		string outputPath;
+		string outputFolder;
 
 		// Simulation data
 		double initialTime;
@@ -102,8 +112,7 @@ class Simulation
 		// Simulation objects
 		SphericalParticlePtrArrayKit particleArray;
 		ForceModel forceModel;
-
-		bool isReady = false;
+		std::set<ForceModel, Simulation::ForceModelCompare> forceModelSet;
 
 }; // class Simulation
 

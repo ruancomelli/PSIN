@@ -1,8 +1,5 @@
 #include <Simulation.h>
 
-// ForceModelLib
-#include <ForceModelSet.h>
-
 // IOLib
 #include <FileReader.h>
 
@@ -12,84 +9,48 @@
 
 void Simulation::doItAll(const string project_root_path)
 {
-	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
-	viscoelasticSpheres.setNormal( normalForceViscoelasticSpheres );
-	viscoelasticSpheres.setTangential( tangentialForceHaffWerner );
-	viscoelasticSpheres.requireProperty(mass);
-	viscoelasticSpheres.requireProperty(moment_of_inertia);
-	viscoelasticSpheres.requireProperty(elastic_modulus);
-	viscoelasticSpheres.requireProperty(dissipative_constant);
-	viscoelasticSpheres.requireProperty(poisson_ratio);
-	viscoelasticSpheres.requireProperty(tangential_damping);
-	viscoelasticSpheres.requireProperty(friction_parameter);
-
-	forceModelSet.insert( viscoelasticSpheres );
-
-
-	ForceModel electrostatic("Electrostatic");
-	electrostatic.setField(electrostaticForce);
-	electrostatic.setNormal( normalForceViscoelasticSpheres );
-	electrostatic.setTangential( tangentialForceHaffWerner );
-	electrostatic.requireProperty(mass);
-	electrostatic.requireProperty(moment_of_inertia);
-	electrostatic.requireProperty(elastic_modulus);
-	electrostatic.requireProperty(dissipative_constant);
-	electrostatic.requireProperty(poisson_ratio);
-	electrostatic.requireProperty(tangential_damping);
-	electrostatic.requireProperty(friction_parameter);
-	electrostatic.requireProperty(electric_charge);
-
-	forceModelSet.insert( electrostatic );
-
-
-
 	int defaultDimension = 3; // This means that we are constrained to Vector3D
 
 	// Simulation data
-	string inputFolder(project_root_path + "_input/");	//
-	FileReader simulationFileReader(inputFolder + "input.txt");	//
-	string simulationName;	//
-	simulationFileReader.readValue("<simulationName>", simulationName);	//
+	string simulationName = this->getName();
 
-	FileReader inputData(inputFolder + simulationName + "/input.txt");	//
-	double initialTime; //
-	double timeStep; //
-	double finalTime; //
-	int taylorOrder; //
-	int dimension; //
-	int numberOfParticles; //
-	int timeStepsForOutput; //
-	string forceModelName; //
-	Vector3D gravity; //
+	FileReader inputData(this->inputFolder + simulationName + "/input.txt");
+	double initialTime;
+	double timeStep;
+	double finalTime;
+	int taylorOrder;
+	int dimension;
+	int numberOfParticles;
+	int timeStepsForOutput;
+	string forceModelName;
+	Vector3D gravity;
 
-	inputData.readValue("<initialTime>", initialTime); //
-	inputData.readValue("<timeStep>", timeStep); //
-	inputData.readValue("<finalTime>", finalTime); //
-	inputData.readValue("<taylorOrder>", taylorOrder); //
-	inputData.readValue("<dimension>", dimension); //
-	inputData.readValue("<numberOfParticles>", numberOfParticles); //
-	inputData.readValue("<gravity>", gravity); //
-	inputData.readValue("<timeStepsForOutput>", timeStepsForOutput); //
-	inputData.readValue("<ForceModelName>", forceModelName); //
+	inputData.readValue("<initialTime>", initialTime);
+	inputData.readValue("<timeStep>", timeStep);
+	inputData.readValue("<finalTime>", finalTime);
+	inputData.readValue("<taylorOrder>", taylorOrder);
+	inputData.readValue("<dimension>", dimension);
+	inputData.readValue("<numberOfParticles>", numberOfParticles);
+	inputData.readValue("<gravity>", gravity);
+	inputData.readValue("<timeStepsForOutput>", timeStepsForOutput);
+	inputData.readValue("<ForceModelName>", forceModelName);
 
-	string outputPath(project_root_path + "_output/" + simulationName + "/"); 
+	createDirectory(this->outputFolder);
+	createDirectory(this->outputFolder + "MATLAB_output/");
 
-	createDirectory(outputPath);
-	createDirectory(outputPath + "MATLAB_output/");
+	ForceModel forceModel;
 
-	ForceModel forceModel; //
-
-	for (auto& fm : forceModelSet) //
+	for (auto& fm : this->forceModelSet)
 	{
-		if (fm.getName() == forceModelName) //
+		if (fm.getName() == forceModelName)
 		{
-			forceModel = fm; //
-			break; //
+			forceModel = fm;
+			break;
 		}
 	}
 
 	// Input
-	string particleInputFolder(inputFolder + simulationName + "/");
+	string particleInputFolder(this->inputFolder + simulationName + "/");
 
 	SphericalParticlePtrArrayKit particleArray;
 
@@ -107,12 +68,12 @@ void Simulation::doItAll(const string project_root_path)
 	particleArray[0]->setGravity(gravity);
 	
 	// Output
-	particleArray.openFiles(outputPath);
+	particleArray.openFiles(this->outputFolder);
 	
 	string verticalSeparator = "\n";
 	string horizontalSeparator = ",";
 
-	ofstream mainOutFile(outputPath + "output.txt");
+	ofstream mainOutFile(this->outputFolder + "output.txt");
 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
 	mainOutFile << "<timeStep> "		<< timeStep				<< verticalSeparator;
@@ -121,8 +82,8 @@ void Simulation::doItAll(const string project_root_path)
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
 	mainOutFile << "<ForceModelName> " << forceModel.getName() << verticalSeparator;
 
-	ofstream timeVectorFile(outputPath + "timeVector.txt");
-	ofstream timeVectorForPlotFile(outputPath + "timeVectorForPlot.txt");
+	ofstream timeVectorFile(this->outputFolder + "timeVector.txt");
+	ofstream timeVectorForPlotFile(this->outputFolder + "timeVectorForPlot.txt");
 
 	particleArray.exportAllDataCSV();
 	timeVectorForPlotFile << 0 << verticalSeparator;
@@ -198,40 +159,52 @@ void Simulation::doItAll(const string project_root_path)
 	cout << endl << "Success" << endl << endl;
 }
 
-Simulation::Simulation(const string projectRootPath)
+// Simulation::Simulation(const string projectRootPath)
+// {
+// 	string inputFolder = projectRootPath + "_input/";
+
+// 	if( checkPathExists(inputFolder) )
+// 	{
+// 		this->inputFolder = inputFolder;
+
+// 		FileReader simulationFileReader(inputFolder + "input.txt");
+// 		string simulationName;
+// 		if( simulationFileReader.readValue("<simulationName>", simulationName) )
+// 		{
+// 			this->setName(simulationName);
+// 			this->outputFolder = projectRootPath + "_output/" + simulationName + "/";
+// 			this->particleInputFolder = inputFolder + simulationName + "/";
+
+// 			::createDirectory(this->outputFolder);
+// 			::createDirectory(this->outputFolder + "MATLAB_output/");
+
+// 			this->isReady = true;
+// 		}
+// 		else
+// 		{
+// 			this->setName("");
+// 		}
+// 	} 
+// 	else
+// 	{
+// 		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+// 			<< "Input Folder named \"" << inputFolder << "\" does not exist" << endl;
+// 	}
+// }
+
+// Set and get name
+void Simulation::readName(void)
 {
-	string inputFolder = projectRootPath + "_input/";
-
-	if( checkPathExists(inputFolder) )
+	if( checkPathExists(this->inputFolder + "input.txt") )
 	{
-		this->inputFolder = inputFolder;
+		FileReader simulationFileReader(this->inputFolder + "input.txt");
 
-		FileReader simulationFileReader(inputFolder + "input.txt");
 		string simulationName;
-		if( simulationFileReader.readValue("<simulationName>", simulationName) )
-		{
-			this->setName(simulationName);
-			this->outputPath = projectRootPath + "_output/" + simulationName + "/";
-			this->particleInputFolder = inputFolder + simulationName + "/";
-
-			::createDirectory(this->outputPath);
-			::createDirectory(this->outputPath + "MATLAB_output/");
-
-			this->isReady = true;
-		}
-		else
-		{
-			this->setName("");
-		}
-	} 
-	else
-	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Input Folder named \"" << inputFolder << "\" does not exist" << endl;
+		simulationFileReader.readValue("<simulationName>", simulationName);
+		this->setName(simulationName);
 	}
 }
 
-// Set and get name
 void Simulation::setName(const string name)
 {
 	if(!name.empty()) this->name = name;
@@ -243,6 +216,7 @@ string Simulation::getName(void) const
 	return this->name;
 }
 
+// Input main data
 void Simulation::inputMainData(void)
 {
 	FileReader inputData(this->inputFolder + this->getName() + "/input.txt");
@@ -269,4 +243,74 @@ void Simulation::inputMainData(void)
 			break;
 		}
 	}
+}
+
+// Set files' paths
+bool Simulation::setInputFolder(const string inputFolder)
+{
+	bool checkValue = checkPathExists(inputFolder);
+	if ( checkValue )
+	{
+		this->inputFolder = inputFolder;
+	}
+	else
+	{
+		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+			<< "Input Folder named \"" << inputFolder << "\" does not exist" << endl;
+	}
+
+	return checkValue;
+}
+
+bool Simulation::setProjectRootFolder(const string projectRootFolder)
+{
+	bool checkValue = checkPathExists(projectRootFolder);
+	if ( checkValue )
+	{
+		this->projectRootFolder = projectRootFolder;
+	}
+	else
+	{
+		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+			<< "Project Root Path named \"" << projectRootFolder << "\" does not exist" << endl;
+	}
+
+	return checkValue;
+}
+
+bool Simulation::setParticleInputFolder(const string particleInputFolder)
+{
+	bool checkValue = checkPathExists(particleInputFolder);
+	if ( checkValue )
+	{
+		this->particleInputFolder = particleInputFolder;
+	}
+	else
+	{
+		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+			<< "Particle Input Folder named \"" << particleInputFolder << "\" does not exist" << endl;
+	}
+
+	return checkValue;
+}
+
+bool Simulation::setOutputFolder(const string outputFolder)
+{
+	bool checkValue = checkPathExists(outputFolder);
+	if ( checkValue )
+	{
+		this->outputFolder = outputFolder;
+	}
+	else
+	{
+		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+			<< "Output Path named \"" << outputFolder << "\" does not exist" << endl;
+	}
+
+	return checkValue;
+}
+
+// ForceModel
+void Simulation::addForceModel( const ForceModel & fm ){
+	this->forceModelSet.insert(fm);
 }
