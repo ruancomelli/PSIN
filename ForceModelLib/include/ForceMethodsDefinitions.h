@@ -34,6 +34,7 @@ void tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticle
 // tangentialForceCundallStrack:
 //		Calculates tangential forces between two spherical particles according to equation (2.21) (see reference)
 void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
+
 void electrostaticForce( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
 #endif

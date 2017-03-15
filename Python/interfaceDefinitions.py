@@ -32,7 +32,7 @@ programNameOption.set( programName )
 graphBooleanVars = {}
 for i in range( len(graphType) ):
 	graphBooleanVars[ graphType[i] ] = BooleanVar()
-	graphBooleanVars[ graphType[i] ].set(False)
+	graphBooleanVars[ graphType[i] ].set(True)
 	# use: graphBooleanVars[ graphType ].get()
 
 # video bools

@@ -368,13 +368,10 @@ TestCase( Vector3DIsEqualOperator ){
 TestCase(createDirectoryTest)
 {
 	string directoryName = "Mordor";
-	boost::filesystem::path directoryPath(directoryName);
 
 	createDirectory(directoryName);
-	
 	check(checkPathExists(directoryName));
 
 	deletePath(directoryName);
-
 	check(!checkPathExists(directoryName));
 }

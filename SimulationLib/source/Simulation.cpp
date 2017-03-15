@@ -7,7 +7,7 @@
 #include <Debug.h>
 #include <FileSystem.h>
 
-void Simulation::doItAll(const string project_root_path)
+void Simulation::doItAll(void)
 {
 	int defaultDimension = 3; // This means that we are constrained to Vector3D
 
@@ -195,9 +195,9 @@ void Simulation::doItAll(const string project_root_path)
 // Set and get name
 void Simulation::readName(void)
 {
-	if( checkPathExists(this->inputFolder + "input.txt") )
+	if( checkPathExists(this->inputFolder + this->inputFileName) )
 	{
-		FileReader simulationFileReader(this->inputFolder + "input.txt");
+		FileReader simulationFileReader(this->inputFolder + this->inputFileName);
 
 		string simulationName;
 		simulationFileReader.readValue("<simulationName>", simulationName);
@@ -246,6 +246,22 @@ void Simulation::inputMainData(void)
 }
 
 // Set files' paths
+bool Simulation::setProjectRootFolder(const string projectRootFolder)
+{
+	bool checkValue = checkPathExists(projectRootFolder);
+	if ( checkValue )
+	{
+		this->projectRootFolder = projectRootFolder;
+	}
+	else
+	{
+		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+			<< "Project Root Path named \"" << projectRootFolder << "\" does not exist" << endl;
+	}
+
+	return checkValue;
+}
+
 bool Simulation::setInputFolder(const string inputFolder)
 {
 	bool checkValue = checkPathExists(inputFolder);
@@ -262,17 +278,33 @@ bool Simulation::setInputFolder(const string inputFolder)
 	return checkValue;
 }
 
-bool Simulation::setProjectRootFolder(const string projectRootFolder)
+bool Simulation::setInputFileName(const string inputFileName)
 {
-	bool checkValue = checkPathExists(projectRootFolder);
+	bool checkValue = checkPathExists(this->inputFolder + inputFileName);
 	if ( checkValue )
 	{
-		this->projectRootFolder = projectRootFolder;
+		this->inputFileName = inputFileName;
 	}
 	else
 	{
 		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Project Root Path named \"" << projectRootFolder << "\" does not exist" << endl;
+			<< "Input File named \"" << inputFileName << "\" does not exist in \"" << this->inputFolder << "\"" << endl;
+	}
+
+	return checkValue;
+}
+
+bool Simulation::setInputMainDataFilePath(const string inputMainDataFilePath)
+{
+	bool checkValue = checkPathExists(inputMainDataFilePath);
+	if ( checkValue )
+	{
+		this->inputMainDataFilePath = inputMainDataFilePath;
+	}
+	else
+	{
+		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
+			<< "Main Data Input File Path named \"" << inputMainDataFilePath << "\" does not exist" << endl;
 	}
 
 	return checkValue;
@@ -296,18 +328,10 @@ bool Simulation::setParticleInputFolder(const string particleInputFolder)
 
 bool Simulation::setOutputFolder(const string outputFolder)
 {
-	bool checkValue = checkPathExists(outputFolder);
-	if ( checkValue )
-	{
-		this->outputFolder = outputFolder;
-	}
-	else
-	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Output Path named \"" << outputFolder << "\" does not exist" << endl;
-	}
+	::createDirectory(outputFolder);
+	this->outputFolder = outputFolder;
 
-	return checkValue;
+	return true;
 }
 
 // ForceModel

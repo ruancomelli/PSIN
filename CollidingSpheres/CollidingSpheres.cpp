@@ -48,10 +48,13 @@ int main(int argc, char **argv){
 	simulation.addForceModel(electrostatic);
 
 	simulation.setInputFolder(project_root_path + "_input/");
+	simulation.setInputFileName("input.txt");
 	simulation.readName();
 
 	string simulationName = simulation.getName();
-	simulation.setOutputFolder(project_root_path + "_output/" + simulationName + "/");
 
-	simulation.doItAll(project_root_path);
+	simulation.setInputMainDataFilePath(project_root_path + "_input/");
+	simulation.setOutputFolder(project_root_path + "_output/" + simulation.getName() + "/");
+
+	simulation.doItAll();
 }

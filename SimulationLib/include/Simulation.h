@@ -66,7 +66,7 @@ class Simulation
 
 // ===============================================
 // ================= TEMPORARY: ==================
-		void doItAll(const string project_root_path);
+		void doItAll(void);
 // ===============================================
 
 		// Simulation(const string inputFolder);
@@ -74,9 +74,12 @@ class Simulation
 		void inputMainData(void);
 
 		// Set files
-		bool setInputFolder(const string inputFolder);
 		bool setProjectRootFolder(const string projectRootFolder);
+		bool setInputFolder(const string inputFolder);
+		bool setInputFileName(const string inputFileName);
+		bool setInputMainDataFilePath(const string inputMainDataFilePath);
 		bool setParticleInputFolder(const string particleInputFolder);
+
 		bool setOutputFolder(const string outputFolder);
 
 		// Set simulation data
@@ -94,10 +97,14 @@ class Simulation
 		// Simulation Folders and Paths
 		string name;	// This should be something like "Simulation1", or "MySimulation"
 
+		// input
 		string projectRootFolder;	// This should be something like C:/ParticleSimulator/
 		string inputFolder;	// This should be something like project_root_path + "_input/"
-		string particleInputFolder;
-		string outputFolder;
+		string inputFileName;	// This should be something like "input.txt" (to get the simulation's name)
+		string particleInputFolder;	// This should be something like inputFolder + simulationName + "/"
+		string inputMainDataFilePath; // This should be something like inputFolder + "Simulation1/" + "input.txt"
+		// output
+		string outputFolder;	// This shoul be something like project_root_path + "_output/"
 
 		// Simulation data
 		double initialTime;
