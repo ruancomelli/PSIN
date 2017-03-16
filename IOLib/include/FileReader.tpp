@@ -1,6 +1,9 @@
 #ifndef FILE_READER_TPP
 #define FILE_READER_TPP
 
+// Standard
+#include <iostream>
+
 template <class type> 
 bool FileReader::readValue( const string & tag, type & value )
 {
@@ -10,7 +13,7 @@ bool FileReader::readValue( const string & tag, type & value )
 	if( this->isReady )
 	{
 		this->file.clear();
-		this->file.seekg( 0, ios::beg );	// Go to the beginning of the file
+		this->file.seekg( 0, std::ios::beg );	// Go to the beginning of the file
 
 		while( stringCompare( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
 		{
@@ -19,8 +22,8 @@ bool FileReader::readValue( const string & tag, type & value )
 
 		if( this->file.eof() )
 		{ 
-			cerr << "There is no " << tag << " in the file" << endl
-					<< "Argument value not modified." << endl;
+			std::cerr << "There is no " << tag << " in the file" << std::endl
+					<< "Argument value not modified." << std::endl;
 		}
 		else
 		{
@@ -31,7 +34,7 @@ bool FileReader::readValue( const string & tag, type & value )
 	}
 	else
 	{
-		cerr << "FileReader is not ready." << endl;
+		std::cerr << "FileReader is not ready." << std::endl;
 	}
 
 	this->file.clear();

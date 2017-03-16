@@ -155,7 +155,8 @@ void SphericalParticlePtrArrayKit::exportAllData(const string & horizontalSepara
 			{
 				auto outputMethod = this->requiredProperties.getOutputMethod(name);
 				*outFile[particlePtr->getHandle()][DATA_IDX] << "<" + name + "> ";
-				outputMethod(*outFile[particlePtr->getHandle()][DATA_IDX], particlePtr->getAsAnyValue(name));
+				Any propertyValue = particlePtr->getAsAnyValue(name);
+				outputMethod(*outFile[particlePtr->getHandle()][DATA_IDX], propertyValue );
 				*outFile[particlePtr->getHandle()][DATA_IDX] << endl;
 			}
 
