@@ -11,6 +11,16 @@ class SimulateInterface( Frame ):
 			programName = programNameOption.get()
 			)
 
+		[	simulationSettings,
+			particleData,
+			timeVectorForPlot,
+			scalarMap
+		] = getSimulationData(
+			simulationName,
+			simulationInputPath,
+			simulationOutputFolder
+			)
+
 	def generateCommand( self ):
 		# processing before call 'generateGraphics'
 		graphBools = transformToBool( graphBooleanVars , graphType)
@@ -59,12 +69,18 @@ class SimulateInterface( Frame ):
 		self.frame0.grid( sticky=N+S )
 		
 		# simulation option
+
 		row = 0
+		column = 0
+		self.simulationNameEntry = Entry( self.frame0 , width=40 , font="Arial 10" , textvariable=simulationNameOption )
+		self.simulationNameEntry.grid(row=row , column=column, sticky=W+E+N+S )
+
+		row = 1
 		column = 0
 		self.simulationProgramEntry = Entry( self.frame0 , width=40 , font="Arial 10" , textvariable=programNameOption )
 		self.simulationProgramEntry.grid(row=row , column=column, sticky=W+E+N+S )
 
-		row = 0
+		row = 1
 		column = 2
 		text = 'Simulate'
 		self.simulateButton = Button(self.frame0 , text=text , command=self.simulateCommand)

@@ -22,9 +22,21 @@ os.makedirs(pythonOutputFolder, exist_ok=True)
 ########## GUI utilities ##########
 
 # getData
-[simulationSettings , particleData , timeVectorForPlot , scalarMap] = getSimulationData(simulationName , simulationInputPath , simulationOutputFolder )
+[	simulationSettings,
+	particleData,
+	timeVectorForPlot,
+	scalarMap
+] = getSimulationData(
+	simulationName,
+	simulationInputPath,
+	simulationOutputFolder
+	)
 
-# simulate GUI
+# simulate GUI - Simulation name
+simulationNameOption = StringVar()
+simulationNameOption.set( simulationName )
+
+# simulate GUI - Program name
 programNameOption = StringVar()
 programNameOption.set( programName )
 
