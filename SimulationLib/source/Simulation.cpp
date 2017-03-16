@@ -7,6 +7,12 @@
 #include <Debug.h>
 #include <FileSystem.h>
 
+// Standard
+#include <iostream>
+
+using std::ofstream;
+using std::string;
+
 // Simulation::Simulation(const string projectRootPath)
 // {
 // 	string inputFolder = projectRootPath + "_input/";
@@ -240,10 +246,10 @@ void Simulation::initializeParticleArray(void)
 	this->particleArray.inputParticles(this->numberOfParticles, this->particleInputFolder);
 
 	for(auto& particlePtr : particleArray){
-		double m = particlePtr->get( mass );
+		double m = particlePtr->get( PropertyDefinitions::mass );
 		double r = particlePtr->getGeometricParameter( RADIUS );
 
-		particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
+		particlePtr->set( PropertyDefinitions::moment_of_inertia, 2 * m * r * r / 5 );
 	}
 
 	particleArray[0]->setGravity(this->gravity);
@@ -251,8 +257,8 @@ void Simulation::initializeParticleArray(void)
 
 	ForceModel::setNumberOfParticles( this->numberOfParticles );
 
-	foreach( SphericalParticlePtr particle, particleArray ){
-		foreach( SphericalParticlePtr neighbor, particleArray ){
+	for( SphericalParticlePtr particle : particleArray ){
+		for( SphericalParticlePtr neighbor : particleArray ){
 			if( neighbor->getHandle() > particle->getHandle() ){
 				particle->addNeighbor( neighbor );
 			}
@@ -276,27 +282,27 @@ void Simulation::simulate(void)
 		this->timeVectorFile << t << "\n";
 
 		// Set forces and torques to zero
-		foreach( SphericalParticlePtr particle, particleArray ){
+		for( SphericalParticlePtr particle : particleArray ){
 			particle->setContactForce( nullVector3D() );
 			particle->setBodyForce( nullVector3D() );
 			particle->setResultingTorque( nullVector3D() );
 		}
 
 		// Body forces
-		foreach( SphericalParticlePtr particle, particleArray ){
-			particle->addBodyForce(particle->get( mass ) * gravity);
+		for( SphericalParticlePtr particle : particleArray ){
+			particle->addBodyForce(particle->get( PropertyDefinitions::mass ) * gravity);
 		}
 
 		// Predict position and orientation
-		foreach( SphericalParticlePtr particle, particleArray ){
+		for( SphericalParticlePtr particle : particleArray ){
 			particle->setPosition( ForceModel::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
 			particle->setOrientation( ForceModel::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
 		}
 
 		// Contact forces
 		
-		foreach( SphericalParticlePtr particle, particleArray ){
-			foreach( int handle, particle->getNeighborhood() ){
+		for( SphericalParticlePtr particle : particleArray ){
+			for( int handle : particle->getNeighborhood() ){
 				SphericalParticlePtr neighbor = particleArray[handle];
 
 				forceModel.calculate(particle, neighbor);
@@ -304,7 +310,7 @@ void Simulation::simulate(void)
 		}
 
 		// Correct position and orientation
-		foreach( SphericalParticlePtr particle, particleArray ){
+		for( SphericalParticlePtr particle : particleArray ){
 			ForceModel::correctPosition( particle , taylorOrder, timeStep );
 			ForceModel::correctOrientation( particle , taylorOrder, timeStep );
 		}

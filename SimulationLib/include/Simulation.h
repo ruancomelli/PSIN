@@ -1,63 +1,27 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-// ===============================================
-// ================= TEMPORARY: ==================
-// Standard
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <fstream>
-#include <cstdio>
-#include <iterator>
-#include <algorithm>
-#include <map>
-#include <string>
+// ForceModelLib
+#include <ForceModel.h>
+
+// IOLib
+#include <SphericalParticlePtrArrayKit.h>
 
 // PropertyLib
-#include <PropertyContainer.h>
 #include <PropertyDefinitions.h>
-
-// EntityLib
-#include <Particle.h>
-#include <SphericalParticle.h>
-
-// UtilsLib
-#include <FileSystem.h>
-#include <Foreach.h>
-#include <Mathematics.h>
-#include <SharedPointer.h>
-#include <Vector.h>
-
-// ForceModelLib
-#include <ForceModel.h>
-#include <ForceMethodsDefinitions.h>
-
-// IOLib
-#include <FileReader.h>
-#include <SphericalParticlePtrArrayKit.h>
-
-using namespace std;
-using namespace PropertyDefinitions;
-// ===============================================
-
-
-// ForceModelLib
-#include <ForceModel.h>
-
-// IOLib
-#include <SphericalParticlePtrArrayKit.h>
 
 // UtilsLib
 #include <Vector3D.h>
 
 // Standard
+#include <fstream>
 #include <string>
 
-using std::string;
 
 class Simulation
 {
+	using string = std::string;
+
 	public:
 		struct ForceModelCompare{
 			bool operator()( const ForceModel & left, const ForceModel & right ) const
@@ -114,8 +78,8 @@ class Simulation
 		string timeVectorForPlotOutputFileName; // This should be something like project_root_path + "_output/" + simulation.getName() + "/timeVectorForPlot.txt"
 
 		// Files
-		ofstream timeVectorFile;
-		ofstream timeVectorForPlotFile;
+		std::ofstream timeVectorFile;
+		std::ofstream timeVectorForPlotFile;
 
 		// Simulation data
 		double initialTime;
