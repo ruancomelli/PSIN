@@ -9,10 +9,10 @@ bool checkPathExists( const std::string pathName )
 	return boost::filesystem::exists( directory );
 }
 
-void createDirectory( const std::string pathName )
+bool createDirectory( const std::string pathName )
 {
 	boost::filesystem::path directory(pathName);
-	boost::filesystem::create_directory(directory);
+	return boost::filesystem::create_directories(directory);
 }
 
 void deletePath( const std::string pathName )

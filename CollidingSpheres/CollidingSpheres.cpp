@@ -5,13 +5,13 @@
 #include <ForceMethodsDefinitions.h>
 
 // PropertyLib
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 // SimulationLib
 #include <Simulation.h>
 
 using namespace std;
-using namespace PropertyList;
+using namespace PropertyDefinitions;
 
 const string project_root_path = PROJECT_PATH;
 
@@ -53,8 +53,19 @@ int main(int argc, char **argv){
 
 	string simulationName = simulation.getName();
 
-	simulation.setInputMainDataFilePath(project_root_path + "_input/");
-	simulation.setOutputFolder(project_root_path + "_output/" + simulation.getName() + "/");
+	simulation.setInputMainDataFilePath(project_root_path + "_input/" + simulationName + "/input.txt");
+	simulation.setParticleInputFolder(project_root_path + "_input/" + simulationName + "/");
+	simulation.setOutputFolder(project_root_path + "_output/" + simulationName + "/");
+	simulation.setTimeVectorOutputFileName("timeVector.txt");
+	simulation.setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
 
-	simulation.doItAll();
+	simulation.inputMainData();
+
+	simulation.initializeParticleArray();
+
+	simulation.outputMainData();
+
+	simulation.simulate();
+
+	simulation.printSuccessMessage();
 }

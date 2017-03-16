@@ -6,7 +6,7 @@
 
 bool checkPathExists( const std::string pathName );
 
-void createDirectory( const std::string pathName );
+bool createDirectory( const std::string pathName );
 
 void deletePath( const std::string pathName );
 

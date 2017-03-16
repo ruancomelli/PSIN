@@ -1,15 +1,15 @@
 #include <ForceModel.h>
 
 // PropertyLib
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 // UtilsLib
 #include <Mathematics.h>
 
 
 
-using PropertyList::mass;
-using PropertyList::moment_of_inertia;
+using PropertyDefinitions::mass;
+using PropertyDefinitions::moment_of_inertia;
 
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor )

@@ -7,7 +7,7 @@
 // Standard
 #include <string>
 
-namespace PropertyList{
+namespace PropertyDefinitions{
 
 	// Assigns value to destination if value is positive
 	void setPositive( const double & value, double & destination);

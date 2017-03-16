@@ -1,10 +1,10 @@
 #include <Particle.h>
 
 // PropertyLib
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
-using PropertyList::mass;
-using PropertyList::moment_of_inertia;
+using PropertyDefinitions::mass;
+using PropertyDefinitions::moment_of_inertia;
 
 Vector3D Particle::gravity = nullVector3D();
 

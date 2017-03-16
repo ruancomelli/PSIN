@@ -9,7 +9,7 @@
 
 // PropertyLib
 #include <PropertyContainer.h>
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 //EntityLib
 #include <Entity.h>

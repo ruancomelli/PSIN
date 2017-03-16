@@ -16,7 +16,7 @@
 
 // PropertyLib
 #include <PropertyContainer.h>
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 // EntityLib
 #include <Particle.h>
@@ -38,7 +38,7 @@
 #include <SphericalParticlePtrArrayKit.h>
 
 using namespace std;
-using namespace PropertyList;
+using namespace PropertyDefinitions;
 // ===============================================
 
 
@@ -64,14 +64,7 @@ class Simulation
 			{ return left.getName() < right.getName();}
 		};
 
-// ===============================================
-// ================= TEMPORARY: ==================
-		void doItAll(void);
-// ===============================================
-
 		// Simulation(const string inputFolder);
-
-		void inputMainData(void);
 
 		// Set files
 		bool setProjectRootFolder(const string projectRootFolder);
@@ -81,17 +74,29 @@ class Simulation
 		bool setParticleInputFolder(const string particleInputFolder);
 
 		bool setOutputFolder(const string outputFolder);
-
-		// Set simulation data
-		
+		bool setTimeVectorOutputFileName(const string timeVectorOutputFileName);
+		bool setTimeVectorForPlotOutputFileName(const string timeVectorForPlotOutputFileName);
 
 		// Name
-		void readName(void);
 		void setName( const string name );
 		string getName(void) const;
 
+		// Input
+		void readName(void);
+		void inputMainData(void);
+
+		// Output
+		void outputMainData(void);
+		void printSuccessMessage(void);
+
 		// ForceModel
 		void addForceModel( const ForceModel & fm );
+
+		// Particles
+		void initializeParticleArray(void);
+
+		// Simulate
+		void simulate(void);
 
 	private:
 		// Simulation Folders and Paths
@@ -104,7 +109,13 @@ class Simulation
 		string particleInputFolder;	// This should be something like inputFolder + simulationName + "/"
 		string inputMainDataFilePath; // This should be something like inputFolder + "Simulation1/" + "input.txt"
 		// output
-		string outputFolder;	// This shoul be something like project_root_path + "_output/"
+		string outputFolder;	// This should be something like project_root_path + "_output/"
+		string timeVectorOutputFileName; // This should be something like project_root_path + "_output/" + simulation.getName() + "/timeVector.txt"
+		string timeVectorForPlotOutputFileName; // This should be something like project_root_path + "_output/" + simulation.getName() + "/timeVectorForPlot.txt"
+
+		// Files
+		ofstream timeVectorFile;
+		ofstream timeVectorForPlotFile;
 
 		// Simulation data
 		double initialTime;
