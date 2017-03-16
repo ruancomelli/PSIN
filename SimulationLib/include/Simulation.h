@@ -28,7 +28,9 @@ class Simulation
 			{ return left.getName() < right.getName();}
 		};
 
-		// Simulation(const string inputFolder);
+		// Default Simulation
+		// This function sets paths, inputs and simulates
+		void defaultSimulate(const string projectRootFolder);
 
 		// Set files
 		bool setProjectRootFolder(const string projectRootFolder);

@@ -47,25 +47,5 @@ int main(int argc, char **argv){
 
 	simulation.addForceModel(electrostatic);
 
-	simulation.setInputFolder(project_root_path + "_input/");
-	simulation.setInputFileName("input.txt");
-	simulation.readName();
-
-	string simulationName = simulation.getName();
-
-	simulation.setInputMainDataFilePath(project_root_path + "_input/" + simulationName + "/input.txt");
-	simulation.setParticleInputFolder(project_root_path + "_input/" + simulationName + "/");
-	simulation.setOutputFolder(project_root_path + "_output/" + simulationName + "/");
-	simulation.setTimeVectorOutputFileName("timeVector.txt");
-	simulation.setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
-
-	simulation.inputMainData();
-
-	simulation.initializeParticleArray();
-
-	simulation.outputMainData();
-
-	simulation.simulate();
-
-	simulation.printSuccessMessage();
+	simulation.defaultSimulate(project_root_path);
 }

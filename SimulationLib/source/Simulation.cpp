@@ -13,38 +13,31 @@
 using std::ofstream;
 using std::string;
 
-// Simulation::Simulation(const string projectRootPath)
-// {
-// 	string inputFolder = projectRootPath + "_input/";
+// ----- Default simulation -----
+void Simulation::defaultSimulate(const string projectRootFolder)
+{
+	this->setInputFolder(projectRootFolder + "_input/");
+	this->setInputFileName("input.txt");
+	this->readName();
 
-// 	if( checkPathExists(inputFolder) )
-// 	{
-// 		this->inputFolder = inputFolder;
+	string simulationName = this->getName();
 
-// 		FileReader simulationFileReader(inputFolder + "input.txt");
-// 		string simulationName;
-// 		if( simulationFileReader.readValue("<simulationName>", simulationName) )
-// 		{
-// 			this->setName(simulationName);
-// 			this->outputFolder = projectRootPath + "_output/" + simulationName + "/";
-// 			this->particleInputFolder = inputFolder + simulationName + "/";
+	this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/input.txt");
+	this->setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
+	this->setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
+	this->setTimeVectorOutputFileName("timeVector.txt");
+	this->setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
 
-// 			::createDirectory(this->outputFolder);
-// 			::createDirectory(this->outputFolder + "MATLAB_output/");
+	this->inputMainData();
 
-// 			this->isReady = true;
-// 		}
-// 		else
-// 		{
-// 			this->setName("");
-// 		}
-// 	} 
-// 	else
-// 	{
-// 		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-// 			<< "Input Folder named \"" << inputFolder << "\" does not exist" << endl;
-// 	}
-// }
+	this->initializeParticleArray();
+
+	this->outputMainData();
+
+	this->simulate();
+
+	this->printSuccessMessage();
+}
 
 // ----- Set and get name -----
 void Simulation::setName(const string name)
