@@ -19,12 +19,13 @@
 
 //ForceModelLib
 #include <ForceModel.h>
-#include <ForceModelList.h>
 
 // IOLib
 #include <vectorIO.h>
 
 using std::vector;
+using PropertyDefinitions::mass;
+using PropertyDefinitions::volume;
 
 TestCase( TaylorPredictorTest )
 {

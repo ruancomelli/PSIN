@@ -8,5 +8,5 @@
 
 TestCase( EmptyTest )
 {
-	Simulation("MakeSureThatThisFileDoesNotExist");
+	//Simulation("MakeSureThatThisFileDoesNotExist");
 }

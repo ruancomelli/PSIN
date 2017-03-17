@@ -1,4 +1,4 @@
-_build/*
+_build*
 _tests/*
 _lib/*
 _apps/*

@@ -6,6 +6,9 @@
 // PropertyLib
 #include <PropertyDefinitions.h>
 
+// Standard
+#include <cmath>
+
 using namespace PropertyDefinitions;
 
 void resizeCummulativeZeta( std::vector< std::vector< Vector3D > > & cummulativeZeta, const int numberOfParticles )
