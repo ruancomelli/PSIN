@@ -28,6 +28,8 @@ class Simulation
 			{ return left.getName() < right.getName();}
 		};
 
+		static std::pair<std::string, std::string> getSimulationNameAndRootPath(int argc, char **argv);
+
 		// Default Simulation
 		// This function sets paths, inputs and simulates
 		void defaultSimulate(const string projectRootFolder);

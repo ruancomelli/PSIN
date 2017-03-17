@@ -13,6 +13,16 @@
 using std::ofstream;
 using std::string;
 
+static getSimulationNameAndRootPath(int argc, char **argv)
+{
+	string simulationName = "Simulation1";
+	string rootPath = "";
+
+	if(argc == 0)
+	{
+	}
+}
+
 // ----- Default simulation -----
 void Simulation::defaultSimulate(const string projectRootFolder)
 {
