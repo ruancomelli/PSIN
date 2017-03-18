@@ -22,9 +22,21 @@ os.makedirs(pythonOutputFolder, exist_ok=True)
 ########## GUI utilities ##########
 
 # getData
-[simulationSettings , particleData , timeVectorForPlot , scalarMap] = getSimulationData(simulationName , simulationInputPath , simulationOutputFolder )
+[	simulationSettings,
+	particleData,
+	timeVectorForPlot,
+	scalarMap
+] = getSimulationData(
+	simulationName,
+	simulationInputPath,
+	simulationOutputFolder
+	)
 
-# simulate GUI
+# simulate GUI - Simulation name
+simulationNameOption = StringVar()
+simulationNameOption.set( simulationName )
+
+# simulate GUI - Program name
 programNameOption = StringVar()
 programNameOption.set( programName )
 
@@ -32,7 +44,7 @@ programNameOption.set( programName )
 graphBooleanVars = {}
 for i in range( len(graphType) ):
 	graphBooleanVars[ graphType[i] ] = BooleanVar()
-	graphBooleanVars[ graphType[i] ].set(False)
+	graphBooleanVars[ graphType[i] ].set(True)
 	# use: graphBooleanVars[ graphType ].get()
 
 # video bools

@@ -1,6 +1,7 @@
 #include <Vector3D.h>
 
 // Standard
+#include <cmath>
 #include <iostream>
 
 Vector3D::Vector3D( void ){

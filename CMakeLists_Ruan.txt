@@ -9,31 +9,43 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/archives)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/apps)
 
-set (CMAKE_CXX_STANDARD 11)
-
 if(UNIX)
 	#SET THE DESIRED COMPILER
 	set(CMAKE_C_COMPILER "/usr/bin/gcc")
 	set(CMAKE_CXX_COMPILER "/usr/bin/g++")
-
+	
 	#SET DEBUG COMPILATION FLAGS
-	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -pedantic")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -pedantic -Wall -Wextra")
 
 	#SET RELEASE COMPILATION FLAGS
-	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra -pedantic -O2")
-
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -pedantic -O2")
+	
 	#SET BUILD TYPE
-	if(CMAKE_BUILD_TYPE MATCHES "Debug")
+	if(CMAKE_BUILD_TYPE MATCHES DEBUG)
 		set(CMAKE_BUILD_DIR	"Debug")
-	elseif(CMAKE_BUILD_TYPE MATCHES "Release")
+	elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
 		set(CMAKE_BUILD_DIR	"Release")
 	else()
-		set(CMAKE_BUILD_TYPE Debug)
-		set(CMAKE_BUILD_DIR	"Debug")
+		set(CMAKE_BUILD_TYPE "RELEASE")
+		set(CMAKE_BUILD_DIR	"Release")
 	endif()
+	message("-- Build type: ${CMAKE_BUILD_TYPE}")
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/${CMAKE_BUILD_DIR})
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_DIR})
+endif ()
+
+#SET BUILD TYPE
+if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+	set(CMAKE_BUILD_DIR	"Debug")
+elseif(CMAKE_BUILD_TYPE MATCHES RELEASE)
+	set(CMAKE_BUILD_DIR	"Release")
+else()
+	set(CMAKE_BUILD_TYPE "RELEASE")
+	set(CMAKE_BUILD_DIR	"Release")
 endif()
+message("-- Build type: ${CMAKE_BUILD_TYPE}")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/${CMAKE_BUILD_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_DIR})
 
 
 #ABOUT THE PROJECT
@@ -41,46 +53,33 @@ project(ParticleSimulator)
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "0")
 set(VERSION_PATCH "0")
-set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+set(VERSION "${VERSION_MAJOR}.${VERSION_MAJOR}.${VERSION_PATCH}")
 
 # BOOST
-if(UNIX)
-	set(BOOST_ROOT $ENV{BOOST_DIR})
-elseif(WIN32)
-	set (Boost_USE_STATIC_LIBS ON CACHE BOOL "Configuration set when building Boost")
-	set (Boost_USE_MULTITHREADED ON CACHE BOOL "Configuration set when building Boost")
-	get_filename_component(GIT_PROJECTS_DIR "${CMAKE_BINARY_DIR}/../.." ABSOLUTE)
-	if(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0)
-		set(BOOST_ROOT ${GIT_PROJECTS_DIR}/boost_1_63_0 CACHE PATH "Boost installation dir")
-	else()
-		set(BOOST_ROOT CACHE PATH "Boost installation dir")
-	endif()
+get_filename_component(GIT_PROJECTS_DIR "${CMAKE_BINARY_DIR}/../.." ABSOLUTE)
+
+if(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0)
+	set(BOOST_PATH ${GIT_PROJECTS_DIR}/boost_1_63_0)
+else()
+	set(BOOST_PATH CACHE PATH "Boost path")
 endif()
 
-set (Components_Boost filesystem test_exec_monitor unit_test_framework)
-find_package (Boost COMPONENTS ${Components_Boost} REQUIRED)
-if(Boost_FOUND)
-	include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+if(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/lib)
+	set(BOOST_LIBRARY_DIR ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/lib)
+elseif(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0/stage/lib)
+	set(BOOST_LIBRARY_DIR ${GIT_PROJECTS_DIR}/boost_1_63_0/stage/lib)
+else()
+	set(BOOST_LIBRARY_DIR CACHE PATH "Boost library path")
 endif()
 
-# MACROS
-# auto links with external libraries
-macro (add_executable _target)
-    _add_executable (${_target} ${ARGN})
-    target_link_libraries (${_target} ${Boost_LIBRARIES})
-endmacro()
-
-macro(add_library _target )
-   	_add_library (${_target} ${ARGN})
-   	target_link_libraries (${_target} ${Boost_LIBRARIES})
-endmacro()
+include_directories(${BOOST_PATH})
+link_directories(${BOOST_LIBRARY_DIR})
 
 #PRINT SOME MESSAGES
 message("\n-- Project: ${PROJECT_NAME} ${VERSION}")
 message("-- C++ compiler: ${CMAKE_CXX_COMPILER}")
 message("-- Debug flags: ${CMAKE_CXX_FLAGS_DEBUG}")
 message("-- Release flags: ${CMAKE_CXX_FLAGS_RELEASE}")
-message("-- Cmake build type: ${CMAKE_BUILD_TYPE}")
 
 # ROOT PATH TO USE IN PROGRAMS
 add_definitions(-DPROJECT_PATH="${CMAKE_SOURCE_DIR}/")

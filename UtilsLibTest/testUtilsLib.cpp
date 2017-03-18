@@ -5,7 +5,7 @@
 
 // UtilsLib
 #include <Any.h>
-#include <CreateDirectory.h>
+#include <FileSystem.h>
 #include <Foreach.h>
 #include <Mathematics.h>
 #include <SharedPointer.h>
@@ -368,9 +368,10 @@ TestCase( Vector3DIsEqualOperator ){
 TestCase(createDirectoryTest)
 {
 	string directoryName = "Mordor";
-	boost::filesystem::path directoryPath(directoryName);
 
 	createDirectory(directoryName);
-	
-	check( boost::filesystem::exists( directoryPath ) );
+	check(checkPathExists(directoryName));
+
+	deletePath(directoryName);
+	check(!checkPathExists(directoryName));
 }

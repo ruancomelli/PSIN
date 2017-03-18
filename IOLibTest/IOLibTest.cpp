@@ -26,10 +26,10 @@
 
 // PropertyLib
 #include <PropertyContainer.h>
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 using namespace std;
-using namespace PropertyList;
+using namespace PropertyDefinitions;
 
 const string project_root_path = PROJECT_PATH;
 
@@ -235,7 +235,7 @@ TestCase( FileReaderTest )
 }
 
 #include <RawPropertyContainer.h>
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 // For the next tests to work (ReadEntity, ReadPhysicalEntity, ReadParticle, ReadSphericalParticle),
 // it is needed to move readEntity, readPhysicalEntity, readParticle and readSphericalParticle
@@ -261,7 +261,7 @@ TestCase( FileReaderTest )
 //TestCase(ReadPhysicalEntity)
 //{
 //	RawPropertyContainer raw;
-//	raw.addProperty(PropertyList::mass);
+//	raw.addProperty(PropertyDefinitions::mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -312,7 +312,7 @@ TestCase( FileReaderTest )
 //TestCase(ReadParticle)
 //{
 //	RawPropertyContainer raw;
-//	raw.addProperty(PropertyList::mass);
+//	raw.addProperty(PropertyDefinitions::mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -363,7 +363,7 @@ TestCase( FileReaderTest )
 //TestCase(ReadSphericalParticle)
 //{
 //	RawPropertyContainer raw;
-//	raw.addProperty(PropertyList::mass);
+//	raw.addProperty(PropertyDefinitions::mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -466,14 +466,14 @@ TestCase( Vector3DIO ){
 
 
 #include <RawPropertyContainer.h>
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
 TestCase(InputParticle)
 {
 		Property<string> color("Color");
 
 		RawPropertyContainer raw;
-		raw.addProperty(PropertyList::mass);
+		raw.addProperty(PropertyDefinitions::mass);
 		raw.addProperty(color);
 	
 		int dimension = 3;

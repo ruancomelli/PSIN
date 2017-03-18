@@ -136,9 +136,9 @@ TestCase(EqualFunctionsTest)
 
 #include <RawPropertyContainer.h>
 #include <PropertyContainer.h>
-#include <PropertyList.h>
+#include <PropertyDefinitions.h>
 
-using namespace PropertyList;
+using namespace PropertyDefinitions;
 
 TestCase(RawPropertyContainerTest)
 {
