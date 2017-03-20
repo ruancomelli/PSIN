@@ -29,10 +29,12 @@ class Simulation
 		};
 
 		static std::pair<std::string, std::string> getSimulationNameAndRootPath(int argc, char **argv);
+		static std::string getSimulationName(int argc, char **argv);
+		static std::string getSimulationRootPath(int argc, char **argv);
 
 		// Default Simulation
 		// This function sets paths, inputs and simulates
-		void defaultSimulate(const string projectRootFolder);
+		void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
 
 		// Set files
 		bool setProjectRootFolder(const string projectRootFolder);

@@ -9,28 +9,67 @@
 
 // Standard
 #include <iostream>
+#include <regex>
 
 using std::ofstream;
 using std::string;
 
-static getSimulationNameAndRootPath(int argc, char **argv)
+std::pair<std::string, std::string> Simulation::getSimulationNameAndRootPath(int argc, char **argv)
 {
-	string simulationName = "Simulation1";
-	string rootPath = "";
+	std::string simulationName = "Simulation1";
+	std::string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
 
-	if(argc == 0)
+	if(argc > 1)
 	{
+		std::string argvString;
+
+		for( int i = 1 ; i<=argc ; ++i)
+		{
+			argvString += argv[i];
+			argvString += " ";
+		}
+
+		// Find simulation name
+		{
+			std::regex re("--simulation=\\\"(.*)\\\"");
+			std::smatch match;
+			std::regex_search(argvString, match, re);
+			if (match.size() == 2) {
+				simulationName = match.str(1);
+			}
+		}
+
+		// Find simulation root path
+		{
+			std::regex re("--root=\\\"(.*)\\\"");
+			std::smatch match;
+			std::regex_search(argvString, match, re);
+			if (match.size() == 2) {
+				rootPath = match.str(1);
+			}
+		}
 	}
+
+	return std::pair<std::string, std::string>( simulationName, rootPath );
+}
+
+std::string Simulation::getSimulationName(int argc, char **argv)
+{
+	return Simulation::getSimulationNameAndRootPath(argc, argv).first;
+}
+
+std::string Simulation::getSimulationRootPath(int argc, char **argv)
+{
+	return Simulation::getSimulationNameAndRootPath(argc, argv).second;
 }
 
 // ----- Default simulation -----
-void Simulation::defaultSimulate(const string projectRootFolder)
+void Simulation::defaultSimulate(const std::string simulationName, const std::string projectRootFolder)
 {
 	this->setInputFolder(projectRootFolder + "_input/");
 	this->setInputFileName("input.txt");
-	this->readName();
 
-	string simulationName = this->getName();
+	this->setName(simulationName);
 
 	this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/input.txt");
 	this->setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
@@ -50,7 +89,7 @@ void Simulation::defaultSimulate(const string projectRootFolder)
 }
 
 // ----- Set and get name -----
-void Simulation::setName(const string name)
+void Simulation::setName(const std::string name)
 {
 	if(!name.empty()) this->name = name;
 	else this->name = "Nameless";
@@ -62,7 +101,7 @@ string Simulation::getName(void) const
 }
 
 // ----- Set files -----
-bool Simulation::setProjectRootFolder(const string projectRootFolder)
+bool Simulation::setProjectRootFolder(const std::string projectRootFolder)
 {
 	bool checkValue = checkPathExists(projectRootFolder);
 	if ( checkValue )
@@ -71,14 +110,14 @@ bool Simulation::setProjectRootFolder(const string projectRootFolder)
 	}
 	else
 	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Project Root Path named \"" << projectRootFolder << "\" does not exist" << endl;
+		std::cerr << std::string("Error in ") + std::string(__CURRENT_FUNCTION__) << std::endl
+			<< "Project Root Path named \"" << projectRootFolder << "\" does not exist" << std::endl;
 	}
 
 	return checkValue;
 }
 
-bool Simulation::setInputFolder(const string inputFolder)
+bool Simulation::setInputFolder(const std::string inputFolder)
 {
 	bool checkValue = checkPathExists(inputFolder);
 	if ( checkValue )
@@ -87,14 +126,14 @@ bool Simulation::setInputFolder(const string inputFolder)
 	}
 	else
 	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Input Folder named \"" << inputFolder << "\" does not exist" << endl;
+		std::cerr << std::string("Error in ") + std::string(__CURRENT_FUNCTION__) << std::endl
+			<< "Input Folder named \"" << inputFolder << "\" does not exist" << std::endl;
 	}
 
 	return checkValue;
 }
 
-bool Simulation::setInputFileName(const string inputFileName)
+bool Simulation::setInputFileName(const std::string inputFileName)
 {
 	bool checkValue = checkPathExists(this->inputFolder + inputFileName);
 	if ( checkValue )
@@ -103,14 +142,14 @@ bool Simulation::setInputFileName(const string inputFileName)
 	}
 	else
 	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Input File named \"" << inputFileName << "\" does not exist in \"" << this->inputFolder << "\"" << endl;
+		std::cerr << std::string("Error in ") + std::string(__CURRENT_FUNCTION__) << std::endl
+			<< "Input File named \"" << inputFileName << "\" does not exist in \"" << this->inputFolder << "\"" << std::endl;
 	}
 
 	return checkValue;
 }
 
-bool Simulation::setInputMainDataFilePath(const string inputMainDataFilePath)
+bool Simulation::setInputMainDataFilePath(const std::string inputMainDataFilePath)
 {
 	bool checkValue = checkPathExists(inputMainDataFilePath);
 	if ( checkValue )
@@ -119,14 +158,14 @@ bool Simulation::setInputMainDataFilePath(const string inputMainDataFilePath)
 	}
 	else
 	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Main Data Input File Path named \"" << inputMainDataFilePath << "\" does not exist" << endl;
+		std::cerr << std::string("Error in ") + std::string(__CURRENT_FUNCTION__) << std::endl
+			<< "Main Data Input File Path named \"" << inputMainDataFilePath << "\" does not exist" << std::endl;
 	}
 
 	return checkValue;
 }
 
-bool Simulation::setParticleInputFolder(const string particleInputFolder)
+bool Simulation::setParticleInputFolder(const std::string particleInputFolder)
 {
 	bool checkValue = checkPathExists(particleInputFolder);
 	if ( checkValue )
@@ -135,14 +174,14 @@ bool Simulation::setParticleInputFolder(const string particleInputFolder)
 	}
 	else
 	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Particle Input Folder named \"" << particleInputFolder << "\" does not exist" << endl;
+		std::cerr << std::string("Error in ") + std::string(__CURRENT_FUNCTION__) << std::endl
+			<< "Particle Input Folder named \"" << particleInputFolder << "\" does not exist" << std::endl;
 	}
 
 	return checkValue;
 }
 
-bool Simulation::setOutputFolder(const string outputFolder)
+bool Simulation::setOutputFolder(const std::string outputFolder)
 {
 	bool boolFlag = ::createDirectory(outputFolder);
 	
@@ -154,7 +193,7 @@ bool Simulation::setOutputFolder(const string outputFolder)
 	return boolFlag;
 }
 
-bool Simulation::setTimeVectorOutputFileName(const string timeVectorOutputFileName)
+bool Simulation::setTimeVectorOutputFileName(const std::string timeVectorOutputFileName)
 {
 	this->timeVectorOutputFileName = timeVectorOutputFileName;
 
@@ -163,7 +202,7 @@ bool Simulation::setTimeVectorOutputFileName(const string timeVectorOutputFileNa
 	return !timeVectorFile.fail();
 }
 
-bool Simulation::setTimeVectorForPlotOutputFileName(const string timeVectorForPlotOutputFileName)
+bool Simulation::setTimeVectorForPlotOutputFileName(const std::string timeVectorForPlotOutputFileName)
 {
 	this->timeVectorForPlotOutputFileName = timeVectorForPlotOutputFileName;
 
@@ -179,7 +218,7 @@ void Simulation::readName(void)
 	{
 		FileReader simulationFileReader(this->inputFolder + this->inputFileName);
 
-		string simulationName;
+		std::string simulationName;
 		simulationFileReader.readValue("<simulationName>", simulationName);
 		this->setName(simulationName);
 	}
@@ -200,7 +239,7 @@ void Simulation::inputMainData(void)
 	inputData.readValue("<timeStepsForOutput>", this->timeStepsForOutput);
 
 	// Read ForceModel
-	string forceModelName;
+	std::string forceModelName;
 	inputData.readValue("<ForceModelName>", forceModelName);
 
 	for (auto& fm : forceModelSet)
@@ -216,10 +255,10 @@ void Simulation::inputMainData(void)
 // ----- Output -----
 void Simulation::outputMainData(void)
 {
-	string verticalSeparator = "\n";
-	string horizontalSeparator = ",";
+	std::string verticalSeparator = "\n";
+	std::string horizontalSeparator = ",";
 
-	ofstream mainOutFile(this->outputFolder + "output.txt");
+	std::ofstream mainOutFile(this->outputFolder + "output.txt");
 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
 	mainOutFile << "<timeStep> "		<< timeStep				<< verticalSeparator;
@@ -231,7 +270,7 @@ void Simulation::outputMainData(void)
 
 void Simulation::printSuccessMessage(void)
 {
-	cout << endl << "Success" << endl << endl;
+	std::cout << std::endl << "Success" << std::endl << std::endl;
 }
 
 // ForceModel
