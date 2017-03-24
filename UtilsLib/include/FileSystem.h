@@ -1,5 +1,5 @@
-#ifndef CREATE_DIRECTORY_H
-#define CREATE_DIRECTORY_H
+#ifndef FILE_SYSTEM_H
+#define FILE_SYSTEM_H
 
 // Standard
 #include <string>
