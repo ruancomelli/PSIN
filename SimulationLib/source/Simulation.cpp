@@ -6,6 +6,7 @@
 // UtilsLib
 #include <Debug.h>
 #include <FileSystem.h>
+#include <ProgramOptions.h>
 
 // Standard
 #include <iostream>
@@ -19,35 +20,29 @@ std::pair<std::string, std::string> Simulation::getSimulationNameAndRootPath(int
 	std::string simulationName = "Simulation1";
 	std::string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
 
-	if(argc > 1)
+	ProgramOptions::OptionsDescription desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
+		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
+	;
+
+	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
+
+	if(vm.count("help"))
 	{
-		std::string argvString;
+		cout << desc << "\n";
+		exit(0);
+	}
 
-		for( int i = 1 ; i<=argc ; ++i)
-		{
-			argvString += argv[i];
-			argvString += " ";
-		}
+	if(vm.count("simulation"))
+	{
+		simulationName = vm["simulation"].as<string>();
+	}
 
-		// Find simulation name
-		{
-			std::regex re("--simulation=\\\"(.*)\\\"");
-			std::smatch match;
-			std::regex_search(argvString, match, re);
-			if (match.size() == 2) {
-				simulationName = match.str(1);
-			}
-		}
-
-		// Find simulation root path
-		{
-			std::regex re("--root=\\\"(.*)\\\"");
-			std::smatch match;
-			std::regex_search(argvString, match, re);
-			if (match.size() == 2) {
-				rootPath = match.str(1);
-			}
-		}
+	if(vm.count("root"))
+	{
+		rootPath = vm["root"].as<string>();
 	}
 
 	return std::pair<std::string, std::string>( simulationName, rootPath );
@@ -237,7 +232,7 @@ void Simulation::inputMainData(void)
 }
 
 // ----- Output -----
-void Simulation::outputMainData(void)
+void Simulation::outputMainData(void) const
 {
 	std::string verticalSeparator = "\n";
 	std::string horizontalSeparator = ",";
@@ -253,7 +248,7 @@ void Simulation::outputMainData(void)
 	mainOutFile << "<ForceModelName> " << forceModel.getName() << verticalSeparator;
 }
 
-void Simulation::printSuccessMessage(void)
+void Simulation::printSuccessMessage(void) const
 {
 	std::cout << std::endl << "Success" << std::endl << std::endl;
 }

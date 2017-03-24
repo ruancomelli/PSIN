@@ -57,8 +57,8 @@ class Simulation
 		void inputMainData(void);
 
 		// Output
-		void outputMainData(void);
-		void printSuccessMessage(void);
+		void outputMainData(void) const;
+		void printSuccessMessage(void) const;
 
 		// ForceModel
 		void addForceModel( const ForceModel & fm );
@@ -105,11 +105,9 @@ class Simulation
 		std::set<ForceModel, Simulation::ForceModelCompare> forceModelSet;
 
 		// Auxiliary function
-		bool checkPathExistance(const string value, string & destination, const string name, const string functionName );
+		static bool checkPathExistance(const string value, string & destination, const string name, const string functionName );
 
 }; // class Simulation
 
 
 #endif	// SIMULATION_H
-
-

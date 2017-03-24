@@ -19,24 +19,45 @@ TestCase(GetSimulationNameAndRootPathTest)
 {
 	Simulation simulation;
 
-	string current = currentDirectory();
+	char * argv1[] = { "myProgramName", "--simulation=Sauron" }; // ./myProgramName --simulation=Sauron
+	char * argv2[] = { "myProgramName", "--root=Mordor" }; // ./myProgramName --root=Mordor
+	char * argv3[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mines of Moria" };
+		// ./myProgramName --simulation="The Lord of the Rings" --root="Mines of Moria"
 
-	char * argv1[] = { "--simulation=Sauron" };
-	char * argv2[] = { "--root=Mordor" };
-	char * argv3[] = { "--simulation=Sauron", "--root=Mordor" };
-
-	int argc1 = 1;
-	int argc2 = 1;
-	int argc3 = 2;
+	int argc1 = 2;
+	int argc2 = 2;
+	int argc3 = 3;
 
 	pair<string, string> config1 = simulation.getSimulationNameAndRootPath(argc1, argv1);
 	pair<string, string> config2 = simulation.getSimulationNameAndRootPath(argc2, argv2);
 	pair<string, string> config3 = simulation.getSimulationNameAndRootPath(argc3, argv3);
 
 	checkEqual(config1.first, "Sauron" );
-	checkEqual(config1.second, current);
 	checkEqual(config2.first, "Simulation1");
 	checkEqual(config2.second, "Mordor");
-	checkEqual(config3.first, "Sauron");
-	checkEqual(config3.second, "Mordor");
+	checkEqual(config3.first, "The Lord of the Rings");
+	checkEqual(config3.second, "Mines of Moria");
 }
+
+// For the next test to work, Simulation::checkPathExistance must be declared as public
+
+//TestCase(CheckPathExistanceTest)
+//{
+//	string current = currentDirectory();
+//
+//	string value = current + "Steve/";
+//	string destination = "empty";
+//	string name = "Folder";
+//	string functionName = "Test Function";
+//
+//	deletePath(current + "Steve/");
+//
+//	check( !Simulation::checkPathExistance(value, destination, name, functionName) );
+//	
+//	createDirectory(value);
+//
+//	check(Simulation::checkPathExistance(value, destination, name, functionName));
+//
+//	checkEqual(value, destination);
+//}
+

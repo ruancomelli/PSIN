@@ -8,14 +8,12 @@
 #include <FileSystem.h>
 #include <Foreach.h>
 #include <Mathematics.h>
+#include <ProgramOptions.h>
 #include <SharedPointer.h>
 #include <StringUtils.h>
 #include <Test.h>
 #include <Vector.h>
 #include <Vector3D.h>
-
-// boost
-#include <boost/filesystem.hpp>
 
 using namespace std;
 
@@ -374,4 +372,26 @@ TestCase(createDirectoryTest)
 
 	deletePath(directoryName);
 	check(!checkPathExists(directoryName));
+}
+
+TestCase(ProgramOptionsTest)
+{
+	ProgramOptions::OptionsDescription desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
+		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
+	;
+
+	int argc = 3;
+	char * argv[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mordor" };
+
+	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
+
+	checkEqual(vm.count("simulation"), 1);
+	checkEqual(vm.count("root"), 1);
+	checkEqual(vm.count("orcs"), 0);
+
+	checkEqual(vm["simulation"].as<string>(), "The Lord of the Rings");
+	checkEqual(vm["root"].as<string>(), "Mordor");
 }
