@@ -31,7 +31,7 @@ int ForceModel::numberOfParticles;
 
 
 ForceModel::ForceModel()
-	: name("Nameless"),
+	: Named(),
 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
@@ -39,7 +39,7 @@ ForceModel::ForceModel()
 }
 
 ForceModel::ForceModel(const string & name)
-	: name(name),
+	: Named(name),
 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
@@ -47,7 +47,7 @@ ForceModel::ForceModel(const string & name)
 }
 
 ForceModel::ForceModel( const ForceModel & fm )
-	: name( fm.name ),
+	: Named( fm.getName() ),
 	normalForceCalculationMethod( fm.normalForceCalculationMethod ),
 	tangentialForceCalculationMethod( fm.tangentialForceCalculationMethod ),
 	fieldForceCalculationMethod( fm.fieldForceCalculationMethod ),
@@ -187,16 +187,6 @@ void ForceModel::correctOrientation( SphericalParticlePtr particle, const int pr
 	vector<Vector3D> correctedOrientation = gearCorrector( orientation, angularAcceleration, predictionOrder, dt);
 	
 	particle->setOrientation(correctedOrientation);
-}
-
-string ForceModel::getName(void) const
-{ 
-	return this->name; 
-}
-
-void ForceModel::setName(const string & name)
-{ 
-	this->name = name;
 }
 
 void ForceModel::setNumberOfParticles( const int nParticles )

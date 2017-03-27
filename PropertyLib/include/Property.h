@@ -2,8 +2,9 @@
 #define RAW_PROPERTY_H
 
 // UtilsLib
-#include <SharedPointer.h>
 #include <Any.h>
+#include <Named.h>
+#include <SharedPointer.h>
 
 // Standard
 #include <fstream>
@@ -31,7 +32,7 @@ bool defaultOutputMethod(std::ofstream & out, Any & value);
 
 
 template<typename InterfaceType, typename StoredType>
-class Property<InterfaceType, StoredType>
+class Property<InterfaceType, StoredType> : public Named
 {
 	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
 
@@ -47,10 +48,6 @@ class Property<InterfaceType, StoredType>
 		explicit Property(const string & name);
 		Property(const string & name, SetterType setterFunction, GetterType getterFunction);
 
-		// Set and get name
-		void setName(const string & name);
-		string getName(void) const;
-
 		// Set setter and getter
 		void setSetterFunction( SetterType setterFunction );
 		void setGetterFunction( GetterType getterFunction );
@@ -62,18 +59,14 @@ class Property<InterfaceType, StoredType>
 		InputMethodType inputMethod;
 		OutputMethodType outputMethod;
 
-	private:
-
-		string name;
-
 }; // class Property<InterfaceType, StoredType>
 
 template<typename type>
 class Property<type> : public Property<type, type>
 {
 	public:
-		typedef void (*SetterType)(const type & value, type & destination);
-		typedef type (*GetterType)(const type & value);
+		using SetterType = std::function< void(const type & value, type & destination) >;
+		using GetterType = std::function< type(const type & value) >;
 
 		// Constructors
 		Property();

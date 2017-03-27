@@ -35,7 +35,7 @@ bool defaultOutputMethod(std::ofstream & out, Any & value)
 
 template<typename InterfaceType, typename StoredType>
 Property<InterfaceType, StoredType>::Property()
-	: name("Nameless")
+	: Named()
 {
 	this->inputMethod = defaultInputMethod<InterfaceType>;
 	this->outputMethod = defaultOutputMethod<InterfaceType>;
@@ -43,39 +43,21 @@ Property<InterfaceType, StoredType>::Property()
 
 template<typename InterfaceType, typename StoredType>
 Property<InterfaceType, StoredType>::Property(const string & name)
+	: Named(name)
 {
-	this->setName(name);
-
 	this->inputMethod = defaultInputMethod<InterfaceType>;
 	this->outputMethod = defaultOutputMethod<InterfaceType>;
 }
 
 template<typename InterfaceType, typename StoredType>
 Property<InterfaceType, StoredType>::Property(const string & name, SetterType setterFunction, GetterType getterFunction)
+	: Named(name)
 {
-	this->name = name;
-
 	this->setter = setterFunction;
 	this->getter = getterFunction;
 
 	this->inputMethod = defaultInputMethod<InterfaceType>;
 	this->outputMethod = defaultOutputMethod<InterfaceType>;
-}
-
-
-// Set and get name
-
-template<typename InterfaceType, typename StoredType>
-void Property<InterfaceType, StoredType>::setName(const string & name)
-{
-	if(!name.empty()) this->name = name;
-	else this->name = "Nameless";
-}
-
-template<typename InterfaceType, typename StoredType>
-string Property<InterfaceType, StoredType>::getName(void) const
-{
-	return this->name;
 }
 
 

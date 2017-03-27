@@ -82,8 +82,6 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	ax.grid(visible=True , which='major')
 	ax.grid(visible=True , which='minor' , color=[0.5 , 0.5 , 0.5])
 	
-	print("xMinimum: ", xMinimum, "xMaximum: ", xMaximum, "yMinimum: ", yMinimum, "yMaximum: ", yMaximum)
-	
 	ax.title.set_fontsize(25)
 	for label in (ax.get_xticklabels() + ax.get_yticklabels()):
 	    label.set_fontproperties( font_manager.FontProperties(family='sans-serif', style='normal',

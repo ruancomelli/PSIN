@@ -1,9 +1,0 @@
-<initialTime> 0.0
-<timeStep> 1e-6
-<finalTime> 2e-2
-<taylorOrder> 4
-<dimension> 3
-<numberOfParticles> 4
-<gravity>
-0.0 0.0 0.0
-<timeStepsForOutput> 100

@@ -11,6 +11,7 @@
 #include <PropertyDefinitions.h>
 
 // UtilsLib
+#include <Named.h>
 #include <Vector3D.h>
 
 // Standard
@@ -18,19 +19,18 @@
 #include <string>
 
 
-class Simulation
+class Simulation : public Named
 {
 	using string = std::string;
 
 	public:
-		struct ForceModelCompare{
-			bool operator()( const ForceModel & left, const ForceModel & right ) const
-			{ return left.getName() < right.getName();}
-		};
+		static std::pair<std::string, std::string> getSimulationNameAndRootPath(int argc, char **argv);
+		static std::string getSimulationName(int argc, char **argv);
+		static std::string getSimulationRootPath(int argc, char **argv);
 
 		// Default Simulation
 		// This function sets paths, inputs and simulates
-		void defaultSimulate(const string projectRootFolder);
+		void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
 
 		// Set files
 		bool setProjectRootFolder(const string projectRootFolder);
@@ -40,20 +40,17 @@ class Simulation
 		bool setParticleInputFolder(const string particleInputFolder);
 
 		bool setOutputFolder(const string outputFolder);
+		bool setNumericalOutputFolder(const string numericalOutputFolder);
+		bool setGraphicalOutputFolder(const string graphicalOutputFolder);
 		bool setTimeVectorOutputFileName(const string timeVectorOutputFileName);
 		bool setTimeVectorForPlotOutputFileName(const string timeVectorForPlotOutputFileName);
 
-		// Name
-		void setName( const string name );
-		string getName(void) const;
-
 		// Input
-		void readName(void);
 		void inputMainData(void);
 
 		// Output
-		void outputMainData(void);
-		void printSuccessMessage(void);
+		void outputMainData(void) const;
+		void printSuccessMessage(void) const;
 
 		// ForceModel
 		void addForceModel( const ForceModel & fm );
@@ -66,16 +63,16 @@ class Simulation
 
 	private:
 		// Simulation Folders and Paths
-		string name;	// This should be something like "Simulation1", or "MySimulation"
 
 		// input
 		string projectRootFolder;	// This should be something like C:/ParticleSimulator/
 		string inputFolder;	// This should be something like project_root_path + "_input/"
-		string inputFileName;	// This should be something like "input.txt" (to get the simulation's name)
-		string particleInputFolder;	// This should be something like inputFolder + simulationName + "/"
+		string particleInputFolder;	// This should be something like inputFolder + simulation.getName() + "/"
 		string inputMainDataFilePath; // This should be something like inputFolder + "Simulation1/" + "input.txt"
 		// output
 		string outputFolder;	// This should be something like project_root_path + "_output/"
+		string numericalOutputFolder;	// This should be something like outputFolder + simulation.getName() + "/Numerical/"
+		string graphicalOutputFolder;	// This should be something like outputFolder + simulation.getName() + "/Graphical/"
 		string timeVectorOutputFileName; // This should be something like project_root_path + "_output/" + simulation.getName() + "/timeVector.txt"
 		string timeVectorForPlotOutputFileName; // This should be something like project_root_path + "_output/" + simulation.getName() + "/timeVectorForPlot.txt"
 
@@ -96,11 +93,12 @@ class Simulation
 		// Simulation objects
 		SphericalParticlePtrArrayKit particleArray;
 		ForceModel forceModel;
-		std::set<ForceModel, Simulation::ForceModelCompare> forceModelSet;
+		std::set<ForceModel, Named::NamedCompare> forceModelSet;
+
+		// Auxiliary function
+		static bool checkPathExistance(const string value, string & destination, const string name, const string functionName );
 
 }; // class Simulation
 
 
 #endif	// SIMULATION_H
-
-

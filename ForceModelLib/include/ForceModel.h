@@ -2,11 +2,12 @@
 #define FORCE_MODEL_H
 
 // Standard
-#include <string>
+#include <functional>
 
 // UtilsLib
-#include <Vector3D.h>
+#include <Named.h>
 #include <SharedPointer.h>
+#include <Vector3D.h>
 
 // EntityLib
 #include <SphericalParticle.h>
@@ -15,20 +16,20 @@
 #include <Property.h>
 #include <RawPropertyContainer.h>
 
-using std::string;
-
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
-class ForceModel : public EnableSharedFromThis<ForceModel>
+class ForceModel : 
+	public EnableSharedFromThis<ForceModel>,
+	public Named
 {
 	public:	
-		typedef SharedPointer<ForceModel> ForceModelPtr;
+		using ForceModelPtr = SharedPointer<ForceModel>;
 
-		typedef Vector3D (*NormalType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-		typedef void (*TangentialType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
-		typedef void (*FieldType)( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+		using NormalType = std::function< Vector3D(SphericalParticlePtr, SphericalParticlePtr)>;
+		using TangentialType = std::function< void(SphericalParticlePtr, SphericalParticlePtr, Vector3D, double)>;
+		using FieldType = std::function< void(SphericalParticlePtr, SphericalParticlePtr)>;
 
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
@@ -47,10 +48,6 @@ class ForceModel : public EnableSharedFromThis<ForceModel>
 		ForceModel();
 		explicit ForceModel(const string & name);
 		ForceModel( const ForceModel & fm );
-
-		// ---- Name ----
-		string getName(void) const;
-		void setName(const string & name);
 
 		// ---- Required Properties ----
 		RawPropertyContainer getRequiredProperties(void);
@@ -84,8 +81,6 @@ class ForceModel : public EnableSharedFromThis<ForceModel>
 
 		static int numberOfParticles; // TO-DO: undo static!!
 
-		string name;
-
 		RawPropertyContainer requiredProperties;
 
 		double timeStep;
@@ -96,7 +91,7 @@ class ForceModel : public EnableSharedFromThis<ForceModel>
 
 };
 
-typedef ForceModel::ForceModelPtr ForceModelPtr;
+using ForceModelPtr = ForceModel::ForceModelPtr;
 
 #include <ForceModel.tpp>
 
