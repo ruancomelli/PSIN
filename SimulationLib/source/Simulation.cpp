@@ -31,7 +31,7 @@ std::pair<std::string, std::string> Simulation::getSimulationNameAndRootPath(int
 
 	if(vm.count("help"))
 	{
-		cout << desc << "\n";
+		std::cout << desc << "\n";
 		exit(0);
 	}
 

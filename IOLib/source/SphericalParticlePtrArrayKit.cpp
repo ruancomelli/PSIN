@@ -6,6 +6,12 @@
 // UtilsLib
 #include <FileSystem.h>
 
+
+using std::to_string;
+using std::cerr;
+using std::endl;
+
+
 // ------------------------------- Constructor -------------------------------
 
 SphericalParticlePtrArrayKit::SphericalParticlePtrArrayKit() : isReady(false)

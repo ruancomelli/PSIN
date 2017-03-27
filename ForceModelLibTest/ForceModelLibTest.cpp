@@ -23,7 +23,7 @@
 // IOLib
 #include <vectorIO.h>
 
-using std::vector;
+using namespace std;
 using PropertyDefinitions::mass;
 using PropertyDefinitions::volume;
 

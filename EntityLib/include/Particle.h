@@ -10,8 +10,6 @@
 // UtilsLib
 #include <SharedPointer.h>
 
-using namespace std;
-
 class Particle: public PhysicalEntity
 {
 	public:	

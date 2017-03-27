@@ -12,9 +12,6 @@
 // UtilsLib
 #include <Vector.h>
 
-using std::vector;
-using std::string;
-
 enum SphericalParticleGeometricParameter{
 	RADIUS = 0,
 	N_GEOMETRIC_PARAMETER
@@ -22,6 +19,12 @@ enum SphericalParticleGeometricParameter{
 
 class SphericalParticle: public Particle
 {
+	template<typename ... Args>
+	using vector = std::vector<Args...>;
+	
+	using ostream = std::ostream;
+	using string = std::string;
+
 	public:
 		typedef SharedPointer< SphericalParticle > SphericalParticlePtr;
 
@@ -51,7 +54,6 @@ class SphericalParticle: public Particle
 		
 		// ---- Distance ----
 		double distance( const SphericalParticlePtr neighbor) const;
-
 
 	private:
 		DoubleVector geometricParameter;

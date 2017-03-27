@@ -7,9 +7,11 @@
 #include <Mathematics.h>
 
 
-
 using PropertyDefinitions::mass;
 using PropertyDefinitions::moment_of_inertia;
+
+using std::min;
+using std::max;
 
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
@@ -159,7 +161,7 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 			correctorConstants[5] = 1./60.;
 			break;
 		default:
-			throw runtime_error("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
+			throw std::runtime_error("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
 			return predictedVector;
 	}
 

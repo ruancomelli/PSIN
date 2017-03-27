@@ -10,6 +10,8 @@
 #include <cmath>
 
 using namespace PropertyDefinitions;
+using std::min;
+using std::max;
 
 void resizeCummulativeZeta( std::vector< std::vector< Vector3D > > & cummulativeZeta, const int numberOfParticles )
 {
