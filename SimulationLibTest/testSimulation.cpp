@@ -37,6 +37,12 @@ TestCase(GetSimulationNameAndRootPathTest)
 	checkEqual(config2.second, "Mordor");
 	checkEqual(config3.first, "The Lord of the Rings");
 	checkEqual(config3.second, "Mines of Moria");
+
+	checkEqual(config1.first, simulation.getSimulationName(argc1, argv1));
+	checkEqual(config2.first, simulation.getSimulationName(argc2, argv2));
+	checkEqual(config2.second, simulation.getSimulationRootPath(argc2, argv2));
+	checkEqual(config3.first, simulation.getSimulationName(argc3, argv3));
+	checkEqual(config3.second, simulation.getSimulationRootPath(argc3, argv3));
 }
 
 // For the next test to work, Simulation::checkPathExistance must be declared as public
@@ -61,3 +67,10 @@ TestCase(GetSimulationNameAndRootPathTest)
 //	checkEqual(value, destination);
 //}
 
+TestCase(SimulateTest)
+{
+	/*TO DO*/
+	
+	// Probably, we should save a simulation that is known to be correct.
+	// This test would only run a simulation and compare the output values.
+}

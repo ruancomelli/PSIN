@@ -11,6 +11,7 @@
 #include <PropertyDefinitions.h>
 
 // UtilsLib
+#include <Named.h>
 #include <Vector3D.h>
 
 // Standard
@@ -18,16 +19,11 @@
 #include <string>
 
 
-class Simulation
+class Simulation : public Named
 {
 	using string = std::string;
 
 	public:
-		struct ForceModelCompare{
-			bool operator()( const ForceModel & left, const ForceModel & right ) const
-			{ return left.getName() < right.getName();}
-		};
-
 		static std::pair<std::string, std::string> getSimulationNameAndRootPath(int argc, char **argv);
 		static std::string getSimulationName(int argc, char **argv);
 		static std::string getSimulationRootPath(int argc, char **argv);
@@ -49,10 +45,6 @@ class Simulation
 		bool setTimeVectorOutputFileName(const string timeVectorOutputFileName);
 		bool setTimeVectorForPlotOutputFileName(const string timeVectorForPlotOutputFileName);
 
-		// Name
-		void setName( const string name );
-		string getName(void) const;
-
 		// Input
 		void inputMainData(void);
 
@@ -71,7 +63,6 @@ class Simulation
 
 	private:
 		// Simulation Folders and Paths
-		string name;	// This should be something like "Simulation1", or "MySimulation"
 
 		// input
 		string projectRootFolder;	// This should be something like C:/ParticleSimulator/
@@ -102,7 +93,7 @@ class Simulation
 		// Simulation objects
 		SphericalParticlePtrArrayKit particleArray;
 		ForceModel forceModel;
-		std::set<ForceModel, Simulation::ForceModelCompare> forceModelSet;
+		std::set<ForceModel, Named::NamedCompare> forceModelSet;
 
 		// Auxiliary function
 		static bool checkPathExistance(const string value, string & destination, const string name, const string functionName );

@@ -8,6 +8,7 @@
 #include <FileSystem.h>
 #include <Foreach.h>
 #include <Mathematics.h>
+#include <Named.h>
 #include <ProgramOptions.h>
 #include <SharedPointer.h>
 #include <StringUtils.h>
@@ -394,4 +395,24 @@ TestCase(ProgramOptionsTest)
 
 	checkEqual(vm["simulation"].as<string>(), "The Lord of the Rings");
 	checkEqual(vm["root"].as<string>(), "Mordor");
+}
+
+TestCase(NamedTest)
+{
+	string defaultName = "Nameless";
+	string name = "Rohan";
+	Named::NamedCompare namedCompareObject;
+
+	Named named1;
+	Named named2("Rohan");
+
+	checkEqual(named1.getName(), defaultName);
+	checkEqual(named2.getName(), name);
+
+	named1.setName(name);
+
+	checkEqual(named1.getName(), name);
+
+	check(defaultName < name);
+	check(namedCompareObject(defaultName, name));
 }

@@ -86,18 +86,6 @@ void Simulation::defaultSimulate(const string simulationName, const string proje
 	this->printSuccessMessage();
 }
 
-// ----- Set and get name -----
-void Simulation::setName(const std::string name)
-{
-	if(!name.empty()) this->name = name;
-	else this->name = "Nameless";
-}
-
-string Simulation::getName(void) const
-{
-	return this->name;
-}
-
 // ----- Set files -----
 bool Simulation::checkPathExistance(const string value, string & destination, const string name, const string functionName )
 {
