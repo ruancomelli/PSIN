@@ -13,7 +13,7 @@
 class Particle: public PhysicalEntity
 {
 	public:	
-		typedef SharedPointer< Particle > ParticlePtr;
+		using ParticlePtr = SharedPointer< Particle >;
 
 		// ---- Constructors ----
 		Particle();
@@ -59,17 +59,16 @@ class Particle: public PhysicalEntity
 		double distance(ParticlePtr particle);
 		
 	private:
-
 		Vector3D bodyForce;
 		Vector3D contactForce;
 
 		Vector3D resultingTorque;
-
-		static Vector3D gravity;
 		
 		vector<int> neighbor;
+
+		static Vector3D gravity;
 }; // class Particle
 
-typedef Particle::ParticlePtr ParticlePtr;
+using ParticlePtr = Particle::ParticlePtr;
 
 #endif

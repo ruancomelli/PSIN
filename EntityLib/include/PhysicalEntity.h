@@ -27,7 +27,7 @@ enum GeometryType{
 class PhysicalEntity: public Entity
 {
 	public:
-		typedef SharedPointer<PhysicalEntity> PhysicalEntityPtr;
+		using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
 
 		// ---- Constructors ----
 		PhysicalEntity();
@@ -98,7 +98,7 @@ class PhysicalEntity: public Entity
 		PropertyContainer propertyContainer;
 };
 
-typedef PhysicalEntity::PhysicalEntityPtr PhysicalEntityPtr;
+using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
 
 #include <PhysicalEntity.tpp>
 

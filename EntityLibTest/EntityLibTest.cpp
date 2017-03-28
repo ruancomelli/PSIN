@@ -8,6 +8,7 @@
 #include <Foreach.h>
 
 // EntityLib
+#include <Boundary.h>
 #include <Entity.h>
 #include <PhysicalEntity.h>
 #include <Particle.h>
@@ -285,4 +286,44 @@ TestCase( SphericalParticleDistance )
 
 	double distance = 14.7478676424763;
 	checkClose( sph0->distance(sph1) , distance , 1e-12 );
+}
+
+vector<Vector3D> pos(double t)
+{
+	vector<Vector3D> v;
+	v.push_back( Vector3D(t, t+1, t+2) );
+	v.push_back(Vector3D(t*t, 1, t/2));
+	v.push_back(Vector3D(t*t*t, -1, t / 4));
+	v.push_back(Vector3D(0, -t, -t*t));
+
+	return v;
+}
+vector<Vector3D> ori(double t)
+{
+	vector<Vector3D> v;
+	v.push_back(Vector3D(0, 1, 2));
+	v.push_back(Vector3D(t*t, t*t*t, t-1));
+	v.push_back(Vector3D(t*t - 6, t*t*(t-1), t + 1));
+	v.push_back(Vector3D(1, 2*t, 3*t));
+
+	return v;
+}
+
+TestCase(BoundaryTest)
+{
+	double t = 1.0;
+	vector<Vector3D> myPosition = pos(t);
+	vector<Vector3D> myOrientation = ori(t);
+
+	Boundary boundary;
+	boundary.setTaylorOrder(3);
+
+	boundary.setPositionFunction(pos);
+	boundary.setOrientationFunction(ori);
+
+	boundary.updatePosition(t);
+	boundary.updateOrientation(t);
+
+	checkEqual(myPosition, boundary.getPosition());
+	checkEqual(myOrientation, boundary.getOrientation());
 }
