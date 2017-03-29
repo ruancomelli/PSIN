@@ -27,4 +27,6 @@ class Boundary: public PhysicalEntity
 		std::function< Spatial(double)> orientationFunction;
 }; // class Boundary
 
+using BoundaryPtr = SharedPointer<Boundary>;
+
 #endif

@@ -96,7 +96,7 @@ class PhysicalEntity: public Entity
 
 		// properties
 		PropertyContainer propertyContainer;
-};
+}; // class PhysicalEntity
 
 using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
 
