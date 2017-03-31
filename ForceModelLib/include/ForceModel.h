@@ -20,9 +20,7 @@ Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, Sph
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
-class ForceModel : 
-	public EnableSharedFromThis<ForceModel>,
-	public Named
+class ForceModel : public Named
 {
 	public:	
 		using ForceModelPtr = SharedPointer<ForceModel>;

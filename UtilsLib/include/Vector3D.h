@@ -25,6 +25,7 @@ public:
 	double length() const;
 	double squaredLength() const;
 	void normalize();
+	Vector3D normalized() const;
 	double dist( const Vector3D& v ) const;
 	Vector3D operator +=( const Vector3D& v );
 	Vector3D operator -=( const Vector3D& v );

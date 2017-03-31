@@ -71,6 +71,11 @@ void Vector3D::normalize(){
 	}
 }
 
+Vector3D Vector3D::normalized() const
+{
+	return (*this) / this->length();
+}
+
 double Vector3D::dist( const Vector3D& v ) const
 {
 	double dist = 0.0;
