@@ -2,11 +2,11 @@
 #define FIXED_INFINITE_PLANE_H
 
 // EntityLib
-#include <Boundary.h>
+#include <Boundary.hpp>
 
 // UtilsLib
-#include <SharedPointer.h>
-#include <Vector3D.h>
+#include <SharedPointer.hpp>
+#include <Vector3D.hpp>
 
 class FixedInfinitePlane : public Boundary
 {

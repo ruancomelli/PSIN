@@ -2,7 +2,7 @@
 #define PROPERTY_CONTAINER_H
 
 // PropertyLib
-#include <RawPropertyContainer.h>
+#include <RawPropertyContainer.hpp>
 
 // Standard
 #include <functional>
@@ -11,7 +11,7 @@
 #include <string>
 
 // UtilsLib
-#include <Any.h>
+#include <Any.hpp>
 
 using std::string;
 

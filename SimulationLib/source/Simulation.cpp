@@ -1,12 +1,12 @@
-#include <Simulation.h>
+#include <Simulation.hpp>
 
 // IOLib
-#include <FileReader.h>
+#include <FileReader.hpp>
 
 // UtilsLib
-#include <Debug.h>
-#include <FileSystem.h>
-#include <ProgramOptions.h>
+#include <Debug.hpp>
+#include <FileSystem.hpp>
+#include <ProgramOptions.hpp>
 
 // Standard
 #include <iostream>

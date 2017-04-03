@@ -1,11 +1,11 @@
-#include <FileReader.h>
+#include <FileReader.hpp>
 
 // Standard
 #include <iostream>
 #include <stdexcept>
 
 // UtilsLib
-#include <vectorIO.h>
+#include <vectorIO.hpp>
 
 // Constructor
 FileReader::FileReader()

@@ -1,4 +1,4 @@
-#include <ProgramOptions.h>
+#include <ProgramOptions.hpp>
 
 ProgramOptions::VariablesMap parseCommandLine(int argc, char ** argv, ProgramOptions::OptionsDescription options)
 {

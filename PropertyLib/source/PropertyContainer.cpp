@@ -1,4 +1,4 @@
-#include <PropertyContainer.h>
+#include <PropertyContainer.hpp>
 
 PropertyContainer::PropertyContainer()
 	: propertyValues( new std::map<string, Any> ),

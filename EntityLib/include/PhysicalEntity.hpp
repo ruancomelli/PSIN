@@ -6,15 +6,15 @@
 #include <set>
 
 // EntityLib
-#include <Entity.h>
+#include <Entity.hpp>
 
 // UtilsLib
-#include <Vector3D.h>
-#include <SharedPointer.h>
-#include <Any.h>
+#include <Vector3D.hpp>
+#include <SharedPointer.hpp>
+#include <Any.hpp>
 
 // PropertyLib
-#include <PropertyContainer.h>
+#include <PropertyContainer.hpp>
 
 using std::string;
 using std::vector;

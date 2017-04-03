@@ -2,17 +2,17 @@
 #define SIMULATION_H
 
 // ForceModelLib
-#include <ForceModel.h>
+#include <ForceModel.hpp>
 
 // IOLib
-#include <SphericalParticlePtrArrayKit.h>
+#include <SphericalParticlePtrArrayKit.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // UtilsLib
-#include <Named.h>
-#include <Vector3D.h>
+#include <Named.hpp>
+#include <Vector3D.hpp>
 
 // Standard
 #include <fstream>

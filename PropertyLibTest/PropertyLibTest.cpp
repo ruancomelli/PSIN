@@ -6,11 +6,11 @@
 #include <iterator>
 
 // PropertyLib
-#include <Property.h>
-#include <Property.h>
+#include <Property.hpp>
+#include <Property.hpp>
 
 // UtilsLib
-#include <Test.h>
+#include <Test.hpp>
 
 using std::string;
 
@@ -134,9 +134,9 @@ TestCase(EqualFunctionsTest)
 }
 
 
-#include <RawPropertyContainer.h>
-#include <PropertyContainer.h>
-#include <PropertyDefinitions.h>
+#include <RawPropertyContainer.hpp>
+#include <PropertyContainer.hpp>
+#include <PropertyDefinitions.hpp>
 
 using namespace PropertyDefinitions;
 

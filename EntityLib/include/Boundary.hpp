@@ -5,10 +5,10 @@
 #include <functional>
 
 // EntityLib
-#include <PhysicalEntity.h>
+#include <PhysicalEntity.hpp>
 
 // UtilsLib
-#include <SharedPointer.h>
+#include <SharedPointer.hpp>
 
 class Boundary: public PhysicalEntity
 {

@@ -2,10 +2,10 @@
 #define RAW_PROPERTY_CONTAINER_H
 
 // PropertyLib
-#include <Property.h>
+#include <Property.hpp>
 
 // UtilsLib
-#include <Any.h>
+#include <Any.hpp>
 
 // Standard
 #include <functional>

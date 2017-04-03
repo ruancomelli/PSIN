@@ -1,10 +1,10 @@
-#include <SphericalParticlePtrArrayKit.h>
+#include <SphericalParticlePtrArrayKit.hpp>
 
 // IOLib
-#include <FileReader.h>
+#include <FileReader.hpp>
 
 // UtilsLib
-#include <FileSystem.h>
+#include <FileSystem.hpp>
 
 
 using std::to_string;

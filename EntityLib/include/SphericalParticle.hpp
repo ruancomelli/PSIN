@@ -7,10 +7,10 @@
 #include <string>
 
 // EntityLib
-#include <Particle.h>
+#include <Particle.hpp>
 
 // UtilsLib
-#include <Vector.h>
+#include <Vector.hpp>
 
 enum SphericalParticleGeometricParameter{
 	RADIUS = 0,

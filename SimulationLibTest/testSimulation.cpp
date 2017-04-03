@@ -1,17 +1,17 @@
 #define BOOST_TEST_MODULE SimulationLibTest
 
 // UtilsLib
-#include <Test.h>
+#include <Test.hpp>
 
 #ifdef BOOST_TEST_MODULE
 #	define private public
 #endif	// This allows the test to access classes' private members
 
 // SimulationLib
-#include <Simulation.h>
+#include <Simulation.hpp>
 
 // UtilsLib
-#include <FileSystem.h>
+#include <FileSystem.hpp>
 
 using namespace std;
 

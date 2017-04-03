@@ -1,4 +1,4 @@
-#include <Named.h>
+#include <Named.hpp>
 
 const std::string Named::defaultName = "Nameless";
 

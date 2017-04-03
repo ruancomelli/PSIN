@@ -6,27 +6,27 @@
 #include <string>
 
 // UtilsLib
-#include <Mathematics.h>
-#include <Vector3D.h>
-#include <Vector.h>
-#include <Test.h>
-#include <Foreach.h>
-#include <Any.h>
+#include <Mathematics.hpp>
+#include <Vector3D.hpp>
+#include <Vector.hpp>
+#include <Test.hpp>
+#include <Foreach.hpp>
+#include <Any.hpp>
 
 // EntityLib
-#include <Entity.h>
-#include <PhysicalEntity.h>
-#include <Particle.h>
-#include <SphericalParticle.h>
+#include <Entity.hpp>
+#include <PhysicalEntity.hpp>
+#include <Particle.hpp>
+#include <SphericalParticle.hpp>
 
 // IOLib
-#include <vectorIO.h>
-#include <FileReader.h>
-#include <SphericalParticlePtrArrayKit.h>
+#include <vectorIO.hpp>
+#include <FileReader.hpp>
+#include <SphericalParticlePtrArrayKit.hpp>
 
 // PropertyLib
-#include <PropertyContainer.h>
-#include <PropertyDefinitions.h>
+#include <PropertyContainer.hpp>
+#include <PropertyDefinitions.hpp>
 
 using namespace std;
 using namespace PropertyDefinitions;
@@ -234,8 +234,8 @@ TestCase( FileReaderTest )
 		checkEqual( readVectorVector3D, vectorVector3DValue);
 }
 
-#include <RawPropertyContainer.h>
-#include <PropertyDefinitions.h>
+#include <RawPropertyContainer.hpp>
+#include <PropertyDefinitions.hpp>
 
 // For the next tests to work (ReadEntity, ReadPhysicalEntity, ReadParticle, ReadSphericalParticle),
 // it is needed to move readEntity, readPhysicalEntity, readParticle and readSphericalParticle
@@ -465,8 +465,8 @@ TestCase( Vector3DIO ){
 }
 
 
-#include <RawPropertyContainer.h>
-#include <PropertyDefinitions.h>
+#include <RawPropertyContainer.hpp>
+#include <PropertyDefinitions.hpp>
 
 TestCase(InputParticle)
 {

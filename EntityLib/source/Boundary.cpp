@@ -1,4 +1,4 @@
-#include <Boundary.h>
+#include <Boundary.hpp>
 
 
 void Boundary::setPositionFunction( const std::function< Spatial(double)> & f )

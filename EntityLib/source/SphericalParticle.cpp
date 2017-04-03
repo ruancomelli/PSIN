@@ -1,4 +1,4 @@
-#include <SphericalParticle.h>
+#include <SphericalParticle.hpp>
 
 // ------------------------------- Constructor -------------------------------
 SphericalParticle::SphericalParticle()

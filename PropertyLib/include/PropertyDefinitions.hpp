@@ -2,7 +2,7 @@
 #define PROPERTY_LIST_H
 
 // PropertyLib
-#include <Property.h>
+#include <Property.hpp>
 
 // Standard
 #include <string>

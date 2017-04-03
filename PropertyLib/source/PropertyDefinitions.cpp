@@ -1,4 +1,4 @@
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // Standard
 #include <iostream>

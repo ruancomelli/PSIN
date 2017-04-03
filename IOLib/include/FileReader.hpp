@@ -2,9 +2,9 @@
 #define FILE_READER_H
 
 // UtilsLib
-#include <Any.h>
-#include <StringUtils.h>
-#include <vectorIO.h>
+#include <Any.hpp>
+#include <StringUtils.hpp>
+#include <vectorIO.hpp>
 
 // Standard
 #include <fstream>

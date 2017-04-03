@@ -1,10 +1,10 @@
-#include <ForceModel.h>
+#include <ForceModel.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // UtilsLib
-#include <Mathematics.h>
+#include <Mathematics.hpp>
 
 
 using PropertyDefinitions::mass;

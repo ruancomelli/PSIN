@@ -2,9 +2,9 @@
 #define RAW_PROPERTY_H
 
 // UtilsLib
-#include <Any.h>
-#include <Named.h>
-#include <SharedPointer.h>
+#include <Any.hpp>
+#include <Named.hpp>
+#include <SharedPointer.hpp>
 
 // Standard
 #include <fstream>

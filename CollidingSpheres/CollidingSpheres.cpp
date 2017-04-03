@@ -3,13 +3,13 @@
 #include <vector>
 
 // ForceModelLib
-#include <ForceMethodsDefinitions.h>
+#include <ForceMethodsDefinitions.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // SimulationLib
-#include <Simulation.h>
+#include <Simulation.hpp>
 
 using namespace std;
 using namespace PropertyDefinitions;

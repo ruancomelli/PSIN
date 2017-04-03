@@ -12,7 +12,7 @@ include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 link_directories(${CMAKE_SOURCE_DIR}/UtilsLib/source)
 
 #SEARCH FOR .CPP AND .H FILES
-file(GLOB ${PROJECT_NAME}_headers ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/*.h)
+file(GLOB ${PROJECT_NAME}_headers ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/*.hpp)
 file(GLOB ${PROJECT_NAME}_headers ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/*.tpp)
 file(GLOB ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/source/*.cpp)
 

@@ -1,4 +1,4 @@
-#include <RawPropertyContainer.h>
+#include <RawPropertyContainer.hpp>
 
 RawPropertyContainer::RawPropertyContainer()
 	: propertyNames( new std::set<string> ),

@@ -5,16 +5,16 @@
 #include <functional>
 
 // UtilsLib
-#include <Named.h>
-#include <SharedPointer.h>
-#include <Vector3D.h>
+#include <Named.hpp>
+#include <SharedPointer.hpp>
+#include <Vector3D.hpp>
 
 // EntityLib
-#include <SphericalParticle.h>
+#include <SphericalParticle.hpp>
 
 // PropertyLib
-#include <Property.h>
-#include <RawPropertyContainer.h>
+#include <Property.hpp>
+#include <RawPropertyContainer.hpp>
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );

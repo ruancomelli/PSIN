@@ -1,26 +1,26 @@
 #define BOOST_TEST_MODULE EntityLibTest
 
 // UtilsLib
-#include <Mathematics.h>
-#include <Vector3D.h>
-#include <Vector.h>
-#include <Test.h>
-#include <Foreach.h>
+#include <Mathematics.hpp>
+#include <Vector3D.hpp>
+#include <Vector.hpp>
+#include <Test.hpp>
+#include <Foreach.hpp>
 
 // EntityLib
-#include <Boundary.h>
-#include <FixedInfinitePlane.h>
+#include <Boundary.hpp>
+#include <FixedInfinitePlane.hpp>
 
-#include <Entity.h>
-#include <PhysicalEntity.h>
-#include <Particle.h>
-#include <SphericalParticle.h>
+#include <Entity.hpp>
+#include <PhysicalEntity.hpp>
+#include <Particle.hpp>
+#include <SphericalParticle.hpp>
 
 // IOLib
-#include <vectorIO.h>
+#include <vectorIO.hpp>
 
 // PropertyLib
-#include <PropertyContainer.h>
+#include <PropertyContainer.hpp>
 
 using namespace std;
 

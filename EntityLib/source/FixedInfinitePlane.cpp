@@ -1,4 +1,4 @@
-#include <FixedInfinitePlane.h>
+#include <FixedInfinitePlane.hpp>
 
 // Standard
 #include <stdexcept>

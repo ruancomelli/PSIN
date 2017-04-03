@@ -1,10 +1,10 @@
-#include <ForceMethodsDefinitions.h>
+#include <ForceMethodsDefinitions.hpp>
 
 // ForceModelLib
-#include <ForceModel.h>
+#include <ForceModel.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // Standard
 #include <cmath>

@@ -1,4 +1,4 @@
-#include <Mathematics.h>
+#include <Mathematics.hpp>
 
 unsigned long factorial( const unsigned n ){ 
   unsigned long nFactorial = 1;

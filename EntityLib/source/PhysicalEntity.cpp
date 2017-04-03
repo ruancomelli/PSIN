@@ -1,10 +1,10 @@
-#include <PhysicalEntity.h>
+#include <PhysicalEntity.hpp>
 
 // Standard
 #include <stdexcept>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // ------------------------------- Constructors -------------------------------
 int PhysicalEntity::dimension = 3;

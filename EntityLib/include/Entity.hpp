@@ -2,7 +2,7 @@
 #define ENTITY_H
 
 // UtilsLib
-#include <SharedPointer.h>
+#include <SharedPointer.hpp>
 
 class Entity
 {

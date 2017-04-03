@@ -2,10 +2,10 @@
 #define FORCE_METHODS_DEFINITIONS_H
 
 // EntityLib
-#include <SphericalParticle.h>
+#include <SphericalParticle.hpp>
 
 // UtilsLib
-#include <Vector3D.h>
+#include <Vector3D.hpp>
 
 // Standard
 #include <vector>

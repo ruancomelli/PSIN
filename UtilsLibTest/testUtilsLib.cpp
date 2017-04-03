@@ -4,17 +4,17 @@
 #include <string>
 
 // UtilsLib
-#include <Any.h>
-#include <FileSystem.h>
-#include <Foreach.h>
-#include <Mathematics.h>
-#include <Named.h>
-#include <ProgramOptions.h>
-#include <SharedPointer.h>
-#include <StringUtils.h>
-#include <Test.h>
-#include <Vector.h>
-#include <Vector3D.h>
+#include <Any.hpp>
+#include <FileSystem.hpp>
+#include <Foreach.hpp>
+#include <Mathematics.hpp>
+#include <Named.hpp>
+#include <ProgramOptions.hpp>
+#include <SharedPointer.hpp>
+#include <StringUtils.hpp>
+#include <Test.hpp>
+#include <Vector.hpp>
+#include <Vector3D.hpp>
 
 using namespace std;
 

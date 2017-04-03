@@ -5,10 +5,10 @@
 #include <vector>
 
 // EntityLib
-#include <PhysicalEntity.h>
+#include <PhysicalEntity.hpp>
 
 // UtilsLib
-#include <SharedPointer.h>
+#include <SharedPointer.hpp>
 
 class Particle: public PhysicalEntity
 {

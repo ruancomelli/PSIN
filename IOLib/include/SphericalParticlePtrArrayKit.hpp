@@ -8,10 +8,10 @@
 
 
 // EntityLib
-#include <SphericalParticle.h>
+#include <SphericalParticle.hpp>
 
 // PropertyLib
-#include <RawPropertyContainer.h>
+#include <RawPropertyContainer.hpp>
 
 
 using std::ofstream;
