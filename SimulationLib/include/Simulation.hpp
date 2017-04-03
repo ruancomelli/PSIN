@@ -53,7 +53,7 @@ class Simulation : public Named
 		void printSuccessMessage(void) const;
 
 		// ForceModel
-		void addForceModel( const ForceModel & fm );
+		void addForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
 
 		// Particles
 		void initializeParticleArray(void);
@@ -92,8 +92,8 @@ class Simulation : public Named
 
 		// Simulation objects
 		SphericalParticlePtrArrayKit particleArray;
-		ForceModel forceModel;
-		std::set<ForceModel, Named::NamedCompare> forceModelSet;
+		ForceModel<SphericalParticle, SphericalParticle> forceModel;
+		std::set<ForceModel<SphericalParticle, SphericalParticle>, Named::NamedCompare> forceModelSet;
 
 		// Auxiliary function
 		static bool checkPathExistance(const string value, string & destination, const string name, const string functionName );

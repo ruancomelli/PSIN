@@ -2,7 +2,7 @@
 #define FORCE_MODEL_TPP
 
 template<typename InterfaceType, typename StoredType>
-void ForceModel::requireProperty( const Property<InterfaceType, StoredType> & property )
+void ForceModel<SphericalParticle, SphericalParticle>::requireProperty( const Property<InterfaceType, StoredType> & property )
 {
 	this->requiredProperties.addProperty( property );
 }

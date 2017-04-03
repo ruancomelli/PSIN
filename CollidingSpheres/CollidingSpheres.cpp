@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 
 	Simulation simulation;
 
-	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
+	ForceModel<SphericalParticle, SphericalParticle> viscoelasticSpheres("ViscoElasticSpheres");
 	viscoelasticSpheres.setNormal(normalForceViscoelasticSpheres);
 	viscoelasticSpheres.setTangential(tangentialForceHaffWerner);
 	viscoelasticSpheres.requireProperty(mass);
@@ -37,7 +37,7 @@ int main(int argc, char **argv){
 	simulation.addForceModel(viscoelasticSpheres);
 
 
-	ForceModel electrostatic("Electrostatic");
+	ForceModel<SphericalParticle, SphericalParticle> electrostatic("Electrostatic");
 	electrostatic.setField(electrostaticForce);
 	electrostatic.setNormal(normalForceViscoelasticSpheres);
 	electrostatic.setTangential(tangentialForceHaffWerner);

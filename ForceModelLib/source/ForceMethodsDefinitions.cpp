@@ -152,12 +152,12 @@ void tangentialForceHaffWerner( SphericalParticlePtr particle, SphericalParticle
 void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep )
 {	
 	static std::vector< std::vector< Vector3D > > cummulativeZeta;
-	resizeCummulativeZeta( cummulativeZeta, ForceModel::getNumberOfParticles() );
+	resizeCummulativeZeta( cummulativeZeta, ForceModel<SphericalParticle, SphericalParticle>::getNumberOfParticles() );
 	if( particle->touches(neighbor) )
 	{
-		if( !ForceModel::checkCollision(particle, neighbor) )
+		if( !ForceModel<SphericalParticle, SphericalParticle>::checkCollision(particle, neighbor) )
 		{
-			ForceModel::startCollision( particle, neighbor );
+			ForceModel<SphericalParticle, SphericalParticle>::startCollision( particle, neighbor );
 			setZeta( cummulativeZeta, particle, neighbor, nullVector3D() );
 		}
 		// ---- Getting particles properties and parameters ----
@@ -190,9 +190,9 @@ void tangentialForceCundallStrack( SphericalParticlePtr particle, SphericalParti
 		particle->addTorque( cross(contactPoint - position1, tangentialForce) );
 		neighbor->addTorque( cross(contactPoint - position2, - tangentialForce) );
 	}// else, no forces and no torques are added.
-	else if( ForceModel::checkCollision(particle, neighbor) )
+	else if( ForceModel<SphericalParticle, SphericalParticle>::checkCollision(particle, neighbor) )
 	{
-		ForceModel::endCollision(particle, neighbor);
+		ForceModel<SphericalParticle, SphericalParticle>::endCollision(particle, neighbor);
 	}
 }
 

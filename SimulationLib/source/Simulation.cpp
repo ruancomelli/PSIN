@@ -242,7 +242,7 @@ void Simulation::printSuccessMessage(void) const
 }
 
 // ForceModel
-void Simulation::addForceModel( const ForceModel & fm ){
+void Simulation::addForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm ){
 	this->forceModelSet.insert(fm);
 }
 
@@ -265,7 +265,7 @@ void Simulation::initializeParticleArray(void)
 	particleArray[0]->setGravity(this->gravity);
 	particleArray.openFiles(this->numericalOutputFolder);
 
-	ForceModel::setNumberOfParticles( this->numberOfParticles );
+	ForceModel<SphericalParticle, SphericalParticle>::setNumberOfParticles( this->numberOfParticles );
 
 	for( SphericalParticlePtr particle : particleArray ){
 		for( SphericalParticlePtr neighbor : particleArray ){
@@ -305,8 +305,8 @@ void Simulation::simulate(void)
 
 		// Predict position and orientation
 		for( SphericalParticlePtr particle : particleArray ){
-			particle->setPosition( ForceModel::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
-			particle->setOrientation( ForceModel::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
+			particle->setPosition( ForceModel<SphericalParticle, SphericalParticle>::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
+			particle->setOrientation( ForceModel<SphericalParticle, SphericalParticle>::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
 		}
 
 		// Contact forces
@@ -321,8 +321,8 @@ void Simulation::simulate(void)
 
 		// Correct position and orientation
 		for( SphericalParticlePtr particle : particleArray ){
-			ForceModel::correctPosition( particle , taylorOrder, timeStep );
-			ForceModel::correctOrientation( particle , taylorOrder, timeStep );
+			ForceModel<SphericalParticle, SphericalParticle>::correctPosition( particle , taylorOrder, timeStep );
+			ForceModel<SphericalParticle, SphericalParticle>::correctOrientation( particle , taylorOrder, timeStep );
 		}
 
 

@@ -28,11 +28,11 @@ void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, Spherica
 }
 
 
-vector< vector< bool > > ForceModel::collisionFlag;
-int ForceModel::numberOfParticles;
+vector< vector< bool > > ForceModel<SphericalParticle, SphericalParticle>::collisionFlag;
+int ForceModel<SphericalParticle, SphericalParticle>::numberOfParticles;
 
 
-ForceModel::ForceModel()
+ForceModel<SphericalParticle, SphericalParticle>::ForceModel()
 	: Named(),
 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
@@ -40,7 +40,7 @@ ForceModel::ForceModel()
 {
 }
 
-ForceModel::ForceModel(const string & name)
+ForceModel<SphericalParticle, SphericalParticle>::ForceModel(const string & name)
 	: Named(name),
 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
@@ -48,7 +48,7 @@ ForceModel::ForceModel(const string & name)
 {
 }
 
-ForceModel::ForceModel( const ForceModel & fm )
+ForceModel<SphericalParticle, SphericalParticle>::ForceModel( const ForceModel & fm )
 	: Named( fm.getName() ),
 	normalForceCalculationMethod( fm.normalForceCalculationMethod ),
 	tangentialForceCalculationMethod( fm.tangentialForceCalculationMethod ),
@@ -58,18 +58,18 @@ ForceModel::ForceModel( const ForceModel & fm )
 {
 }
 
-void ForceModel::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = {newNormal}; }
-void ForceModel::setTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod = {newTangential}; }
-void ForceModel::setField( FieldType newField ){ this->fieldForceCalculationMethod = {newField}; }
-void ForceModel::setNormal( vector< NormalType > newNormal ){ this->normalForceCalculationMethod = newNormal; }
-void ForceModel::setTangential( vector< TangentialType > newTangential ){ this->tangentialForceCalculationMethod = newTangential; }
-void ForceModel::setField( vector< FieldType > newField ){ this->fieldForceCalculationMethod = newField; }
-void ForceModel::addNormal( NormalType newNormal ){ this->normalForceCalculationMethod.push_back( newNormal ); }
-void ForceModel::addTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod.push_back( newTangential ); }
-void ForceModel::addField( FieldType newField ){ this->fieldForceCalculationMethod.push_back( newField ); }
+void ForceModel<SphericalParticle, SphericalParticle>::setNormal( NormalType newNormal ){	this->normalForceCalculationMethod = {newNormal}; }
+void ForceModel<SphericalParticle, SphericalParticle>::setTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod = {newTangential}; }
+void ForceModel<SphericalParticle, SphericalParticle>::setField( FieldType newField ){ this->fieldForceCalculationMethod = {newField}; }
+void ForceModel<SphericalParticle, SphericalParticle>::setNormal( vector< NormalType > newNormal ){ this->normalForceCalculationMethod = newNormal; }
+void ForceModel<SphericalParticle, SphericalParticle>::setTangential( vector< TangentialType > newTangential ){ this->tangentialForceCalculationMethod = newTangential; }
+void ForceModel<SphericalParticle, SphericalParticle>::setField( vector< FieldType > newField ){ this->fieldForceCalculationMethod = newField; }
+void ForceModel<SphericalParticle, SphericalParticle>::addNormal( NormalType newNormal ){ this->normalForceCalculationMethod.push_back( newNormal ); }
+void ForceModel<SphericalParticle, SphericalParticle>::addTangential( TangentialType newTangential ){	this->tangentialForceCalculationMethod.push_back( newTangential ); }
+void ForceModel<SphericalParticle, SphericalParticle>::addField( FieldType newField ){ this->fieldForceCalculationMethod.push_back( newField ); }
 
 
-void ForceModel::calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
+void ForceModel<SphericalParticle, SphericalParticle>::calculate( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
 {
 	Vector3D normalForce;
 
@@ -98,7 +98,7 @@ void ForceModel::calculate( SphericalParticlePtr particle, SphericalParticlePtr 
 		For a sufficiently small dt, we can approximate f(t+dt) by its expansion in Taylor's sum and write r = 0
 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
 */
-vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt )
+vector<Vector3D> ForceModel<SphericalParticle, SphericalParticle>::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt )
 {
 	// predictionOrder is the order of the derivatives to be computed.
 	// dt is the time step for the predictionOrder
@@ -133,7 +133,7 @@ vector<Vector3D> ForceModel::taylorPredictor( const vector<Vector3D> & currentVe
 	return predictedVector;
 }
 
-vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt){
+vector<Vector3D> ForceModel<SphericalParticle, SphericalParticle>::gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt){
 
 	vector<Vector3D> correctedVector = predictedVector;
 	DoubleVector correctorConstants(predictionOrder + 1);
@@ -173,7 +173,7 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 }
 
 // Gear corrector
-void ForceModel::correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt )
+void ForceModel<SphericalParticle, SphericalParticle>::correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
 	vector<Vector3D> position = particle->getPosition();
 	Vector3D acceleration = particle->getResultingForce() / particle->get( mass );
@@ -182,7 +182,7 @@ void ForceModel::correctPosition( SphericalParticlePtr particle, const int predi
 	particle->setPosition(correctedPosition);
 }
 
-void ForceModel::correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt )
+void ForceModel<SphericalParticle, SphericalParticle>::correctOrientation( SphericalParticlePtr particle, const int predictionOrder, double dt )
 {
 	vector<Vector3D> orientation = particle->getOrientation();
 	Vector3D angularAcceleration = particle->getResultingTorque() / particle->get( moment_of_inertia );
@@ -191,18 +191,18 @@ void ForceModel::correctOrientation( SphericalParticlePtr particle, const int pr
 	particle->setOrientation(correctedOrientation);
 }
 
-void ForceModel::setNumberOfParticles( const int nParticles )
+void ForceModel<SphericalParticle, SphericalParticle>::setNumberOfParticles( const int nParticles )
 {
 	numberOfParticles = nParticles;
 	resizeCollisionFlag(nParticles);
 }
 
-int ForceModel::getNumberOfParticles( void )
+int ForceModel<SphericalParticle, SphericalParticle>::getNumberOfParticles( void )
 {
 	return ForceModel::numberOfParticles;
 }
 
-void ForceModel::resizeCollisionFlag( const int numberOfParticles )
+void ForceModel<SphericalParticle, SphericalParticle>::resizeCollisionFlag( const int numberOfParticles )
 {
 	collisionFlag.resize( numberOfParticles - 1 );
 
@@ -210,7 +210,7 @@ void ForceModel::resizeCollisionFlag( const int numberOfParticles )
 		collisionFlag[i].resize( numberOfParticles - 1 - i );
 }
 
-bool ForceModel::checkCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
+bool ForceModel<SphericalParticle, SphericalParticle>::checkCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
 {
 	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
 	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
@@ -218,7 +218,7 @@ bool ForceModel::checkCollision( const SphericalParticlePtr particle, const Sphe
 	return collisionFlag[index1][index2];
 }
 
-void ForceModel::startCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
+void ForceModel<SphericalParticle, SphericalParticle>::startCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
 {
 	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
 	const int index2 = max( particle->getHandle(), neighbor->getHandle() ) - index1 - 1;
@@ -226,7 +226,7 @@ void ForceModel::startCollision( const SphericalParticlePtr particle, const Sphe
 	collisionFlag[index1][index2] = true;
 }
 
-void ForceModel::endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
+void ForceModel<SphericalParticle, SphericalParticle>::endCollision( const SphericalParticlePtr particle, const SphericalParticlePtr neighbor )
 {
 	const int index1 = min( particle->getHandle(), neighbor->getHandle() );
 	const int index2 = max( particle->getHandle(), neighbor->getHandle() );
@@ -234,12 +234,12 @@ void ForceModel::endCollision( const SphericalParticlePtr particle, const Spheri
 	collisionFlag[index1][index2 - index1 - 1] = false;
 }
 
-RawPropertyContainer ForceModel::getRequiredProperties(void)
+RawPropertyContainer ForceModel<SphericalParticle, SphericalParticle>::getRequiredProperties(void)
 {
 	return requiredProperties;
 }
 
-void ForceModel::setTimeStep( double timeStep )
+void ForceModel<SphericalParticle, SphericalParticle>::setTimeStep( double timeStep )
 {
 	this->timeStep = timeStep;
 }
