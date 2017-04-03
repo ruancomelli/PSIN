@@ -21,7 +21,11 @@ class FixedInfinitePlane : public Boundary
 		static FixedInfinitePlane buildFromThreePoints(const Vector3D & point1, const Vector3D & point2, const Vector3D & point3);
 
 		// ---- Spatial ----
-		Vector3D getNormalVersor();
+		Vector3D getNormalVersor() const;
+		Vector3D getOrigin() const;
+
+		bool containsPoint(const Vector3D & point) const; // Yields true iff point is contained in this plane [ Is (point - origin) perpendicular to normalVersor? ]
+		bool containsVector(const Vector3D & v) const; // Yields true iff point is contained in this plane [ Is v perpendicular to normalVersor? ]
 
 	private:
 		Vector3D origin;
@@ -29,5 +33,7 @@ class FixedInfinitePlane : public Boundary
 }; // class FixedInfinitePlane
 
 using FixedInfinitePlanePtr = SharedPointer< FixedInfinitePlane >;
+
+bool operator==(const FixedInfinitePlane & left, const FixedInfinitePlane & right);
 
 #endif

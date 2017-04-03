@@ -9,6 +9,8 @@
 
 // EntityLib
 #include <Boundary.h>
+#include <FixedInfinitePlane.h>
+
 #include <Entity.h>
 #include <PhysicalEntity.h>
 #include <Particle.h>
@@ -326,4 +328,28 @@ TestCase(BoundaryTest)
 
 	checkEqual(myPosition, boundary.getPosition());
 	checkEqual(myOrientation, boundary.getOrientation());
+}
+
+TestCase(FixedInfinitePlaneTest)
+{
+	Vector3D origin1(1.0, 2.0, 3.0);
+	Vector3D normalVector1(1.0, 1.0, 0.0);
+
+	Vector3D origin2(-1.0, -1.0, -1.0);
+	Vector3D vector1(5.0, 6.9, 7.8);
+	Vector3D vector2(500, -9.5, 13.6);
+	Vector3D vector3 = cross(vector1, vector2);
+	double coefficient1 = 4.562;
+	double coefficient2 = -560.82;
+
+	FixedInfinitePlane plane1(origin1, normalVector1);
+	checkEqual(plane1.getNormalVersor(), normalVector1.normalized());
+
+	FixedInfinitePlane plane2 = FixedInfinitePlane::buildFromOriginAndTwoVectors(origin2, vector1, vector2);
+	check(plane2.containsVector(vector1));
+	check(plane2.containsVector(vector2));
+	check(plane2.containsVector(coefficient1*vector1 + coefficient2*vector2));
+
+	FixedInfinitePlane plane3 = FixedInfinitePlane::buildFromThreePoints(origin2, vector1 + origin2, vector2 + origin2);
+	check( plane2 == plane3 );
 }

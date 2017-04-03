@@ -20,7 +20,11 @@ Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, Sph
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
-class ForceModel : public Named
+// template<typename Particle, typename Interactor>
+// class ForceModel;
+
+// template<>
+class ForceModel /*<SphericalParticle, SphericalParticle>*/ : public Named
 {
 	public:	
 		using ForceModelPtr = SharedPointer<ForceModel>;
@@ -88,6 +92,9 @@ class ForceModel : public Named
 		vector< FieldType > fieldForceCalculationMethod;
 
 };
+
+// template<typename ... Args>
+// using ForceModelPtr = SharedPointer< ForceModel<Args...> >;
 
 using ForceModelPtr = ForceModel::ForceModelPtr;
 
