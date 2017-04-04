@@ -23,15 +23,18 @@ void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, Spherica
 template<typename Particle, typename Interactor>
 class ForceModel;
 
+template<typename ... Args>
+using ForceModelPtr = SharedPointer< ForceModel<Args...> >;
+
 template<>
 class ForceModel <SphericalParticle, SphericalParticle> : public Named
 {
 	public:	
-		using ForceModelPtr = SharedPointer<ForceModel>;
-
 		using NormalType = std::function< Vector3D(SphericalParticlePtr, SphericalParticlePtr)>;
 		using TangentialType = std::function< void(SphericalParticlePtr, SphericalParticlePtr, Vector3D, double)>;
 		using FieldType = std::function< void(SphericalParticlePtr, SphericalParticlePtr)>;
+
+
 
 		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
 		
@@ -49,7 +52,7 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 
 		ForceModel();
 		explicit ForceModel(const string & name);
-		ForceModel( const ForceModel & fm );
+		ForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
 
 		// ---- Required Properties ----
 		RawPropertyContainer getRequiredProperties(void);
@@ -92,9 +95,6 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 		vector< FieldType > fieldForceCalculationMethod;
 
 };
-
-template<typename ... Args>
-using ForceModelPtr = SharedPointer< ForceModel<Args...> >;
 
 #include <ForceModel.tpp>
 
