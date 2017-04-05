@@ -34,7 +34,7 @@ int main(int argc, char **argv){
 	viscoelasticSpheres.requireProperty(tangential_damping);
 	viscoelasticSpheres.requireProperty(friction_parameter);
 
-	simulation.addForceModel(viscoelasticSpheres);
+	simulation.appendForceModel(viscoelasticSpheres);
 
 
 	ForceModel<SphericalParticle, SphericalParticle> electrostatic("Electrostatic");
@@ -50,7 +50,7 @@ int main(int argc, char **argv){
 	electrostatic.requireProperty(friction_parameter);
 	electrostatic.requireProperty(electric_charge);
 
-	simulation.addForceModel(electrostatic);
+	simulation.appendForceModel(electrostatic);
 
 	simulation.defaultSimulate(simulationName, rootPath);
 }

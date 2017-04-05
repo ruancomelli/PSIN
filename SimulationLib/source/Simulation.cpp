@@ -242,7 +242,7 @@ void Simulation::printSuccessMessage(void) const
 }
 
 // ForceModel
-void Simulation::addForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm ){
+void Simulation::appendForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm ){
 	this->forceModelSet.insert(fm);
 }
 

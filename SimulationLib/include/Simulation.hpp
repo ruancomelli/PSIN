@@ -53,7 +53,7 @@ class Simulation : public Named
 		void printSuccessMessage(void) const;
 
 		// ForceModel
-		void addForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
+		void appendForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
 
 		// Particles
 		void initializeParticleArray(void);
