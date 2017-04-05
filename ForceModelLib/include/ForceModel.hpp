@@ -20,6 +20,8 @@ Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, Sph
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
+
+
 template<typename Particle, typename Interactor>
 class ForceModel;
 
