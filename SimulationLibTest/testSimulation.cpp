@@ -15,6 +15,56 @@
 
 using namespace std;
 
+// For the next test to work, SimulationFileTree::checkPathExistance must be declared as public
+
+//TestCase(CheckPathExistanceTest)
+//{
+//	string current = currentDirectory();
+//
+//	string value = current + "Steve/";
+//	string destination = "empty";
+//	string name = "Folder";
+//	string functionName = "Test Function";
+//
+//	deletePath(current + "Steve/");
+//
+//	check( !SimulationFileTree::checkPathExistance(value, destination, name, functionName) );
+//	
+//	createDirectory(value);
+//
+//	check(SimulationFileTree::checkPathExistance(value, destination, name, functionName));
+//
+//	checkEqual(value, destination);
+//}
+
+TestCase(SimulationFileTreeTest)
+{
+	SimulationFileTree fileTree;
+
+	string currentDir = ::currentDirectory();
+
+	string rootFolder = currentDir + "/root/";
+	::deletePath(rootFolder);
+	check(!fileTree.setProjectRootFolder(rootFolder));
+	::createDirectory(rootFolder);
+	check(fileTree.setProjectRootFolder(rootFolder));
+	checkEqual(fileTree.getProjectRootFolder(), rootFolder);
+
+	string inputFolder = rootFolder + "_input/";
+	::deletePath(inputFolder);
+	check(!fileTree.setInputFolder(inputFolder));
+	::createDirectory(inputFolder);
+	check(fileTree.setInputFolder(inputFolder));
+	checkEqual(fileTree.getInputFolder(), inputFolder);
+
+	string inputMainDataFilePath = inputFolder + "Rohan_Simulation/mainInfoInput.txt";
+	//::deletePath(inputMainDataFilePath);
+	check(!fileTree.setInputMainDataFilePath(inputMainDataFilePath));
+	::createDirectory(inputMainDataFilePath);
+	check(fileTree.setInputMainDataFilePath(inputMainDataFilePath));
+	checkEqual(fileTree.getInputMainDataFilePath(), inputMainDataFilePath);
+}
+
 TestCase(GetSimulationNameAndRootPathTest)
 {
 	Simulation simulation;
@@ -44,28 +94,6 @@ TestCase(GetSimulationNameAndRootPathTest)
 	checkEqual(config3.first, simulation.parseArgvIntoSimulationName(argc3, argv3));
 	checkEqual(config3.second, simulation.parseArgvIntoSimulationRootPath(argc3, argv3));
 }
-
-// For the next test to work, Simulation::checkPathExistance must be declared as public
-
-//TestCase(CheckPathExistanceTest)
-//{
-//	string current = currentDirectory();
-//
-//	string value = current + "Steve/";
-//	string destination = "empty";
-//	string name = "Folder";
-//	string functionName = "Test Function";
-//
-//	deletePath(current + "Steve/");
-//
-//	check( !Simulation::checkPathExistance(value, destination, name, functionName) );
-//	
-//	createDirectory(value);
-//
-//	check(Simulation::checkPathExistance(value, destination, name, functionName));
-//
-//	checkEqual(value, destination);
-//}
 
 TestCase(SimulateTest)
 {
