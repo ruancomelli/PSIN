@@ -15,7 +15,7 @@
 
 using namespace std;
 
-// For the next test to work, SimulationFileTree::checkPathExistance must be declared as public
+// For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public
 
 //TestCase(CheckPathExistanceTest)
 //{
@@ -28,11 +28,11 @@ using namespace std;
 //
 //	deletePath(current + "Steve/");
 //
-//	check( !SimulationFileTree::checkPathExistance(value, destination, name, functionName) );
+//	check( !SimulationFileTree::setPathIfPathExists(value, destination, name, functionName) );
 //	
 //	createDirectory(value);
 //
-//	check(SimulationFileTree::checkPathExistance(value, destination, name, functionName));
+//	check(SimulationFileTree::setPathIfPathExists(value, destination, name, functionName));
 //
 //	checkEqual(value, destination);
 //}
@@ -42,27 +42,46 @@ TestCase(SimulationFileTreeTest)
 	SimulationFileTree fileTree;
 
 	string currentDir = ::currentDirectory();
+	string simulationName = "RohanSimulation";
 
 	string rootFolder = currentDir + "/root/";
-	::deletePath(rootFolder);
-	check(!fileTree.setProjectRootFolder(rootFolder));
 	::createDirectory(rootFolder);
 	check(fileTree.setProjectRootFolder(rootFolder));
 	checkEqual(fileTree.getProjectRootFolder(), rootFolder);
 
 	string inputFolder = rootFolder + "_input/";
-	::deletePath(inputFolder);
-	check(!fileTree.setInputFolder(inputFolder));
 	::createDirectory(inputFolder);
 	check(fileTree.setInputFolder(inputFolder));
 	checkEqual(fileTree.getInputFolder(), inputFolder);
 
-	string inputMainDataFilePath = inputFolder + "Rohan_Simulation/mainInfoInput.txt";
-	//::deletePath(inputMainDataFilePath);
-	check(!fileTree.setInputMainDataFilePath(inputMainDataFilePath));
-	::createDirectory(inputMainDataFilePath);
+	string particleInputFolder = inputFolder + simulationName + "/";
+	::createDirectory(particleInputFolder);
+	check(fileTree.setParticleInputFolder(particleInputFolder));
+	checkEqual(fileTree.getParticleInputFolder(), particleInputFolder);
+
+	string inputMainDataFilePath = particleInputFolder + "mainInfoInput.txt";
+	::deletePath(inputMainDataFilePath);
+	ofstream of1(inputMainDataFilePath);
 	check(fileTree.setInputMainDataFilePath(inputMainDataFilePath));
 	checkEqual(fileTree.getInputMainDataFilePath(), inputMainDataFilePath);
+
+	string outputFolder = rootFolder + "_output/" + simulationName + "/";
+	check(fileTree.setOutputFolder(outputFolder));
+	checkEqual(fileTree.getOutputFolder(), outputFolder);
+
+	string numericalOutputFolder = rootFolder + "_output/" + simulationName + "/Numerical/";
+	check(fileTree.setNumericalOutputFolder(numericalOutputFolder));
+	checkEqual(fileTree.getNumericalOutputFolder(), numericalOutputFolder);
+
+	string graphicalOutputFolder = rootFolder + "_output/" + simulationName + "/Graphical/";
+	check(fileTree.setGraphicalOutputFolder(graphicalOutputFolder));
+	checkEqual(fileTree.getGraphicalOutputFolder(), graphicalOutputFolder);
+
+	string timeVectorFileName = "timeVector.txt";
+	check(fileTree.setTimeVectorOutputFileName(timeVectorFileName));
+
+	string timeVectorForPlotOutputFileName = "timeVectorForPlot.txt";
+	check(fileTree.setTimeVectorForPlotOutputFileName(timeVectorForPlotOutputFileName));
 }
 
 TestCase(GetSimulationNameAndRootPathTest)

@@ -8,7 +8,7 @@
 // ----- Set files -----
 bool SimulationFileTree::setProjectRootFolder(const string & projectRootFolder)
 {
-	return SimulationFileTree::checkPathExistance(
+	return SimulationFileTree::setPathIfPathExists(
 			projectRootFolder,
 			this->projectRootFolder,
 			"Project Root Path",
@@ -18,7 +18,7 @@ bool SimulationFileTree::setProjectRootFolder(const string & projectRootFolder)
 
 bool SimulationFileTree::setInputFolder(const string & inputFolder)
 {
-	return SimulationFileTree::checkPathExistance(
+	return SimulationFileTree::setPathIfPathExists(
 			inputFolder,
 			this->inputFolder,
 			"Input Folder",
@@ -28,7 +28,7 @@ bool SimulationFileTree::setInputFolder(const string & inputFolder)
 
 bool SimulationFileTree::setInputMainDataFilePath(const string & inputMainDataFilePath)
 {
-	return SimulationFileTree::checkPathExistance(
+	return SimulationFileTree::setPathIfPathExists(
 			inputMainDataFilePath,
 			this->inputMainDataFilePath,
 			"Main Data Input File Path",
@@ -38,7 +38,7 @@ bool SimulationFileTree::setInputMainDataFilePath(const string & inputMainDataFi
 
 bool SimulationFileTree::setParticleInputFolder(const string & particleInputFolder)
 {
-	return SimulationFileTree::checkPathExistance(
+	return SimulationFileTree::setPathIfPathExists(
 			particleInputFolder,
 			this->particleInputFolder,
 			"Particle Input Folder",
@@ -52,7 +52,7 @@ bool SimulationFileTree::setOutputFolder(const string & outputFolder)
 
 	this->outputFolder = outputFolder;
 
-	return true;
+	return ::checkPathExists(outputFolder);
 }
 
 bool SimulationFileTree::setNumericalOutputFolder(const string & numericalOutputFolder)
@@ -61,7 +61,7 @@ bool SimulationFileTree::setNumericalOutputFolder(const string & numericalOutput
 
 	this->numericalOutputFolder = numericalOutputFolder;
 
-	return true;
+	return ::checkPathExists(numericalOutputFolder);
 }
 
 bool SimulationFileTree::setGraphicalOutputFolder(const string & graphicalOutputFolder)
@@ -72,7 +72,7 @@ bool SimulationFileTree::setGraphicalOutputFolder(const string & graphicalOutput
 
 	this->graphicalOutputFolder = graphicalOutputFolder;
 
-	return true;
+	return ::checkPathExists(graphicalOutputFolder) && ::checkPathExists(graphicalOutputFolder + "Plots/") && ::checkPathExists(graphicalOutputFolder + "Animations/");
 }
 
 bool SimulationFileTree::setTimeVectorOutputFileName(const string & timeVectorOutputFileName)
@@ -106,44 +106,44 @@ string SimulationFileTree::getInputFolder(void) const
 
 string SimulationFileTree::getInputMainDataFilePath(void) const
 {
-	return inputMainDataFilePath;
+	return this->inputMainDataFilePath;
 }
 
 string SimulationFileTree::getParticleInputFolder(void) const
 {
-	return particleInputFolder;
+	return this->particleInputFolder;
 }
 
 
 string SimulationFileTree::getOutputFolder(void) const
 {
-	return outputFolder;
+	return this->outputFolder;
 }
 
 string SimulationFileTree::getNumericalOutputFolder(void) const
 {
-	return numericalOutputFolder;
+	return this->numericalOutputFolder;
 }
 
 string SimulationFileTree::getGraphicalOutputFolder(void) const
 {
-	return graphicalOutputFolder;
+	return this->graphicalOutputFolder;
 }
 
 string SimulationFileTree::getTimeVectorOutputFileName(void) const
 {
-	return timeVectorOutputFileName;
+	return this->timeVectorOutputFileName;
 }
 
 string SimulationFileTree::getTimeVectorForPlotOutputFileName(void) const
 {
-	return timeVectorForPlotOutputFileName;
+	return this->timeVectorForPlotOutputFileName;
 }
 
 
 
 // ---- Validate path ----
-bool SimulationFileTree::checkPathExistance(const string & value, string & destination, const string & name, const string & functionName )
+bool SimulationFileTree::setPathIfPathExists(const string & value, string & destination, const string & name, const string & functionName )
 {
 	bool checkValue = ::checkPathExists(value);
 	if ( checkValue )

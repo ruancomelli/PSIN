@@ -54,7 +54,7 @@ struct SimulationFileTree
 		string timeVectorForPlotOutputFileName; // This should be something like project_root_path + "_output/" + simulation.getName() + "/timeVectorForPlot.txt"
 
 		// Auxiliary function
-		static bool checkPathExistance(const string & value, string & destination, const string & name, const string & functionName );
+		static bool setPathIfPathExists(const string & value, string & destination, const string & name, const string & functionName );
 
 }; // class SimulationFileTree
 
