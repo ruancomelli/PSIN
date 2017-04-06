@@ -16,8 +16,6 @@
 // PropertyLib
 #include <PropertyContainer.hpp>
 
-using std::string;
-using std::vector;
 
 enum GeometryType{
 	SPHERE = 0,
@@ -26,6 +24,11 @@ enum GeometryType{
 
 class PhysicalEntity: public Entity
 {
+	using string = std::string;
+
+	template<typename ... Args>
+	using vector = std::vector<Args...>;
+
 	public:
 		using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
 

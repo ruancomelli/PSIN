@@ -6,6 +6,9 @@
 // PropertyLib
 #include <PropertyDefinitions.hpp>
 
+using std::string;
+using std::vector;
+
 // ------------------------------- Constructors -------------------------------
 int PhysicalEntity::dimension = 3;
 
