@@ -17,7 +17,7 @@ using namespace PropertyDefinitions;
 const string project_root_path = PROJECT_PATH;
 
 int main(int argc, char **argv){
-	pair<string, string> myPair = Simulation::getSimulationNameAndRootPath(argc, argv);
+	pair<string, string> myPair = Simulation::parseArgvIntoSimulationNameAndRootPath(argc, argv);
 	string simulationName = myPair.first;
 	string rootPath = myPair.second + "\\";
 

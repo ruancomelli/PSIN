@@ -3,19 +3,15 @@
 // IOLib
 #include <FileReader.hpp>
 
+// PropertyLib
+#include <PropertyDefinitions.hpp>
+
 // UtilsLib
-#include <Debug.hpp>
 #include <FileSystem.hpp>
 #include <ProgramOptions.hpp>
 
-// Standard
-#include <iostream>
-#include <regex>
 
-using std::ofstream;
-using std::string;
-
-std::pair<std::string, std::string> Simulation::getSimulationNameAndRootPath(int argc, char **argv)
+std::pair<std::string, std::string> Simulation::parseArgvIntoSimulationNameAndRootPath(int argc, char **argv)
 {
 	std::string simulationName = "Simulation1";
 	std::string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
@@ -48,32 +44,32 @@ std::pair<std::string, std::string> Simulation::getSimulationNameAndRootPath(int
 	return std::pair<std::string, std::string>( simulationName, rootPath );
 }
 
-std::string Simulation::getSimulationName(int argc, char **argv)
+std::string Simulation::parseArgvIntoSimulationName(int argc, char **argv)
 {
-	return Simulation::getSimulationNameAndRootPath(argc, argv).first;
+	return Simulation::parseArgvIntoSimulationNameAndRootPath(argc, argv).first;
 }
 
-std::string Simulation::getSimulationRootPath(int argc, char **argv)
+std::string Simulation::parseArgvIntoSimulationRootPath(int argc, char **argv)
 {
-	return Simulation::getSimulationNameAndRootPath(argc, argv).second;
+	return Simulation::parseArgvIntoSimulationNameAndRootPath(argc, argv).second;
 }
 
 // ----- Default simulation -----
 void Simulation::defaultSimulate(const string simulationName, const string projectRootFolder)
 {
-	this->setProjectRootFolder(projectRootFolder);
-	this->setInputFolder(projectRootFolder + "_input/");
+	this->fileTree.setProjectRootFolder(projectRootFolder);
+	this->fileTree.setInputFolder(projectRootFolder + "_input/");
 
 	this->setName(simulationName);
 
-	this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/mainInfoInput.txt");
-	this->setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
+	this->fileTree.setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/mainInfoInput.txt");
+	this->fileTree.setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
 
-	this->setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
-	this->setNumericalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Numerical/");
-	this->setGraphicalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Graphical/");
-	this->setTimeVectorOutputFileName("timeVector.txt");
-	this->setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
+	this->fileTree.setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
+	this->fileTree.setNumericalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Numerical/");
+	this->fileTree.setGraphicalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Graphical/");
+	this->fileTree.setTimeVectorOutputFileName("timeVector.txt");
+	this->fileTree.setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
 
 	this->inputMainData();
 
@@ -86,114 +82,10 @@ void Simulation::defaultSimulate(const string simulationName, const string proje
 	this->printSuccessMessage();
 }
 
-// ----- Set files -----
-bool Simulation::checkPathExistance(const string value, string & destination, const string name, const string functionName )
-{
-	bool checkValue = ::checkPathExists(value);
-	if ( checkValue )
-	{
-		destination = value;
-	}
-	else
-	{
-		std::cerr << std::string("Error in ") + functionName << std::endl
-			<< name << " named \"" << value << "\" does not exist" << std::endl;
-	}
-
-	return checkValue;
-}
-
-bool Simulation::setProjectRootFolder(const std::string projectRootFolder)
-{
-	return Simulation::checkPathExistance(
-			projectRootFolder,
-			this->projectRootFolder,
-			"Project Root Path",
-			std::string(__CURRENT_FUNCTION__)
-		);
-}
-
-bool Simulation::setInputFolder(const std::string inputFolder)
-{
-	return Simulation::checkPathExistance(
-			inputFolder,
-			this->inputFolder,
-			"Input Folder",
-			std::string(__CURRENT_FUNCTION__)
-		);
-}
-
-bool Simulation::setInputMainDataFilePath(const std::string inputMainDataFilePath)
-{
-	return Simulation::checkPathExistance(
-			inputMainDataFilePath,
-			this->inputMainDataFilePath,
-			"Main Data Input File Path",
-			std::string(__CURRENT_FUNCTION__)
-		);
-}
-
-bool Simulation::setParticleInputFolder(const std::string particleInputFolder)
-{
-	return Simulation::checkPathExistance(
-			particleInputFolder,
-			this->particleInputFolder,
-			"Particle Input Folder",
-			std::string(__CURRENT_FUNCTION__)
-		);
-}
-
-bool Simulation::setOutputFolder(const std::string outputFolder)
-{	
-	::createDirectory(outputFolder);
-
-	this->outputFolder = outputFolder;
-
-	return true;
-}
-
-bool Simulation::setNumericalOutputFolder(const std::string numericalOutputFolder)
-{	
-	::createDirectory(numericalOutputFolder);
-
-	this->numericalOutputFolder = numericalOutputFolder;
-
-	return true;
-}
-
-bool Simulation::setGraphicalOutputFolder(const std::string graphicalOutputFolder)
-{	
-	::createDirectory(graphicalOutputFolder);
-	::createDirectory(graphicalOutputFolder + "Plots/");
-	::createDirectory(graphicalOutputFolder + "Animations/");
-
-	this->graphicalOutputFolder = graphicalOutputFolder;
-
-	return true;
-}
-
-bool Simulation::setTimeVectorOutputFileName(const std::string timeVectorOutputFileName)
-{
-	this->timeVectorOutputFileName = timeVectorOutputFileName;
-
-	this->timeVectorFile.open(this->numericalOutputFolder + timeVectorOutputFileName);
-
-	return !timeVectorFile.fail();
-}
-
-bool Simulation::setTimeVectorForPlotOutputFileName(const std::string timeVectorForPlotOutputFileName)
-{
-	this->timeVectorForPlotOutputFileName = timeVectorForPlotOutputFileName;
-
-	this->timeVectorForPlotFile.open(this->numericalOutputFolder + timeVectorForPlotOutputFileName);
-
-	return !timeVectorForPlotFile.fail();
-}
-
 // ----- Input -----
 void Simulation::inputMainData(void)
 {
-	FileReader inputData(this->inputMainDataFilePath);
+	FileReader inputData(this->fileTree.getInputMainDataFilePath());
 
 	// Read simulation data
 	inputData.readValue("<initialTime>", this->initialTime);
@@ -225,7 +117,7 @@ void Simulation::outputMainData(void) const
 	std::string verticalSeparator = "\n";
 	std::string horizontalSeparator = ",";
 
-	std::ofstream mainOutFile(this->numericalOutputFolder + "mainInfoOutput.txt");
+	std::ofstream mainOutFile(this->fileTree.getNumericalOutputFolder() + "mainInfoOutput.txt");
 
 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
@@ -253,7 +145,7 @@ void Simulation::initializeParticleArray(void)
 	// Input
 	this->particleArray.requireRawPropertyContainer(this->forceModel.getRequiredProperties());
 
-	this->particleArray.inputParticles(this->numberOfParticles, this->particleInputFolder);
+	this->particleArray.inputParticles(this->numberOfParticles, this->fileTree.getParticleInputFolder());
 
 	for(auto& particlePtr : particleArray){
 		double m = particlePtr->get( PropertyDefinitions::mass );
@@ -263,7 +155,7 @@ void Simulation::initializeParticleArray(void)
 	}
 
 	particleArray[0]->setGravity(this->gravity);
-	particleArray.openFiles(this->numericalOutputFolder);
+	particleArray.openFiles(this->fileTree.getNumericalOutputFolder());
 
 	ForceModel<SphericalParticle, SphericalParticle>::setNumberOfParticles( this->numberOfParticles );
 
@@ -281,7 +173,7 @@ void Simulation::simulate(void)
 {
 	// Output
 	particleArray.exportAllDataCSV();
-	this->timeVectorForPlotFile << 0 << "\n";
+	this->fileTree.timeVectorForPlotFile << 0 << "\n";
 
 	// ===== Simulation =====
 
@@ -289,7 +181,7 @@ void Simulation::simulate(void)
 
 	for(double t = initialTime; t <= finalTime ; t += timeStep){
 
-		this->timeVectorFile << t << "\n";
+		this->fileTree.timeVectorFile << t << "\n";
 
 		// Set forces and torques to zero
 		for( SphericalParticlePtr particle : particleArray ){
@@ -334,7 +226,7 @@ void Simulation::simulate(void)
 
 			particleArray.exportTemporalDataCSV();
 
-			this->timeVectorForPlotFile << t << "\n";
+			this->fileTree.timeVectorForPlotFile << t << "\n";
 		}
 	}
 }

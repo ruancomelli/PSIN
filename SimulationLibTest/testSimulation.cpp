@@ -28,9 +28,9 @@ TestCase(GetSimulationNameAndRootPathTest)
 	int argc2 = 2;
 	int argc3 = 3;
 
-	pair<string, string> config1 = simulation.getSimulationNameAndRootPath(argc1, argv1);
-	pair<string, string> config2 = simulation.getSimulationNameAndRootPath(argc2, argv2);
-	pair<string, string> config3 = simulation.getSimulationNameAndRootPath(argc3, argv3);
+	pair<string, string> config1 = simulation.parseArgvIntoSimulationNameAndRootPath(argc1, argv1);
+	pair<string, string> config2 = simulation.parseArgvIntoSimulationNameAndRootPath(argc2, argv2);
+	pair<string, string> config3 = simulation.parseArgvIntoSimulationNameAndRootPath(argc3, argv3);
 
 	checkEqual(config1.first, "Sauron" );
 	checkEqual(config2.first, "Simulation1");
@@ -38,11 +38,11 @@ TestCase(GetSimulationNameAndRootPathTest)
 	checkEqual(config3.first, "The Lord of the Rings");
 	checkEqual(config3.second, "Mines of Moria");
 
-	checkEqual(config1.first, simulation.getSimulationName(argc1, argv1));
-	checkEqual(config2.first, simulation.getSimulationName(argc2, argv2));
-	checkEqual(config2.second, simulation.getSimulationRootPath(argc2, argv2));
-	checkEqual(config3.first, simulation.getSimulationName(argc3, argv3));
-	checkEqual(config3.second, simulation.getSimulationRootPath(argc3, argv3));
+	checkEqual(config1.first, simulation.parseArgvIntoSimulationName(argc1, argv1));
+	checkEqual(config2.first, simulation.parseArgvIntoSimulationName(argc2, argv2));
+	checkEqual(config2.second, simulation.parseArgvIntoSimulationRootPath(argc2, argv2));
+	checkEqual(config3.first, simulation.parseArgvIntoSimulationName(argc3, argv3));
+	checkEqual(config3.second, simulation.parseArgvIntoSimulationRootPath(argc3, argv3));
 }
 
 // For the next test to work, Simulation::checkPathExistance must be declared as public
