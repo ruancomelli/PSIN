@@ -143,20 +143,20 @@ using namespace PropertyDefinitions;
 TestCase(RawPropertyContainerTest)
 {
 	RawPropertyContainer raw;
-	raw.addProperty(mass);
+	raw.addProperty(Mass());
 
 	SharedPointer< set<string> > nameSet = raw.getPropertyNames();
 	set<string>::iterator it = nameSet->begin();
 
-	checkEqual( *it, mass.getName() );
+	checkEqual( *it, Mass().getName() );
 
 	RawPropertyContainer raw2(raw);
-	raw2.addProperty(volume);
+	raw2.addProperty(Volume());
 
 	nameSet = raw.getPropertyNames();
-	it = nameSet->find( volume.getName() );
+	it = nameSet->find( Volume().getName() );
 
-	checkEqual(*it, volume.getName());
+	checkEqual(*it, Volume().getName());
 
 	// Testing set and get input and output methods
 	Property<double> newProperty;
@@ -184,28 +184,28 @@ TestCase(PropertyContainerTest)
 
 	PropertyContainer propertyContainer;
 
-	propertyContainer.setProperty(mass, massValue);
+	propertyContainer.setProperty(Mass(), massValue);
 	propertyContainer.setProperty(color, colorValue);
 	propertyContainer.setProperty(integer, intValue);
-	propertyContainer.setProperty(volume, volumeValue);
+	propertyContainer.setProperty(Volume(), volumeValue);
 
-	checkEqual(propertyContainer.getValue(mass), massValue);
+	checkEqual(propertyContainer.getValue(Mass()), massValue);
 	checkEqual(propertyContainer.getValue(color), colorValue);
 	checkEqual(propertyContainer.getValue(integer), intValue);
-	checkEqual(propertyContainer.getValue(volume), volumeValue);
+	checkEqual(propertyContainer.getValue(Volume()), volumeValue);
 
-	check(propertyContainer.checkSetted(mass));
+	check(propertyContainer.checkSetted(Mass()));
 	check(propertyContainer.checkSetted(color.getName()));
 	check(!propertyContainer.checkSetted("length"));	// Checks that "length" was not set
 
 	RawPropertyContainer raw;
-	raw.addProperty(mass);
+	raw.addProperty(Mass());
 
 	PropertyContainer propertyContainer2(raw);
 	SharedPointer<set<string>> nameSet = propertyContainer2.getPropertyNames();
-	set<string>::iterator it = nameSet->find(mass.getName());
+	set<string>::iterator it = nameSet->find(Mass().getName());
 	
-	checkEqual( *it, mass.getName() );
+	checkEqual( *it, Mass().getName() );
 
 }
 
