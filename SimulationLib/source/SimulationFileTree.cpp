@@ -141,7 +141,6 @@ string SimulationFileTree::getTimeVectorForPlotOutputFileName(void) const
 }
 
 
-
 // ---- Validate path ----
 bool SimulationFileTree::setPathIfPathExists(const string & value, string & destination, const string & name, const string & functionName )
 {
