@@ -12,100 +12,60 @@ namespace PropertyDefinitions{
 	// Assigns value to destination if value is positive
 	void setPositive( const double & value, double & destination);
 
-	class Mass : public Property<double>
+	struct Mass : public Property<double>
 	{
-		Mass()
-			: Named("Mass"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		Mass();
+	};
 
-	class Volume : public Property<double>
+	struct Volume : public Property<double>
 	{
-		Volume()
-			: Named("Volume"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		Volume();
+	};
 	
-	class MomentOfInertia : public Property<double>
+	struct MomentOfInertia : public Property<double>
 	{
-		MomentOfInertia()
-			: Named("MomentOfInertia"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		MomentOfInertia();
+	};
 	
-	class ElasticModulus : public Property<double>
+	struct ElasticModulus : public Property<double>
 	{
-		ElasticModulus()
-			: Named("ElasticModulus"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		ElasticModulus();
+	};
 	
-	class DissipativeConstant : public Property<double>
+	struct DissipativeConstant : public Property<double>
 	{
-		DissipativeConstant()
-			: Named("DissipativeConstant"),
-		{}
-	}
+		DissipativeConstant();
+	};
 	
-	class PoissonRatio : public Property<double>
+	struct PoissonRatio : public Property<double>
 	{
-		PoissonRatio()
-			: Named("PoissonRatio"),
-		{}
-	}
+		PoissonRatio();
+	};
 	
-	class NormalDissipativeConstant : public Property<double>
+	struct NormalDissipativeConstant : public Property<double>
 	{
-		NormalDissipativeConstant()
-			: Named("NormalDissipativeConstant"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		NormalDissipativeConstant();
+	};
 	
-	class TangentialDamping : public Property<double>
+	struct TangentialDamping : public Property<double>
 	{
-		TangentialDamping()
-			: Named("TangentialDamping"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		TangentialDamping();
+	};
 	
-	class FrictionParameter : public Property<double>
+	struct FrictionParameter : public Property<double>
 	{
-		FrictionParameter()
-			: Named("FrictionParameter"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		FrictionParameter();
+	};
 	
-	class TangentialKappa : public Property<double>
+	struct TangentialKappa : public Property<double>
 	{
-		TangentialKappa()
-			: Named("TangentialKappa"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		TangentialKappa();
+	};
 	
-	class ElectricCharge : public Property<double>
+	struct ElectricCharge : public Property<double>
 	{
-		ElectricCharge()
-			: Named("ElectricCharge"),
-		{
-			this->setter = setPositive;
-		}
-	}
+		ElectricCharge();
+	};
 };
 
 #endif
