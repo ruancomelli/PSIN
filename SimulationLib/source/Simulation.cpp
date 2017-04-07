@@ -120,14 +120,7 @@ void Simulation::inputMainData(void)
 	std::string forceModelName;
 	inputData.readValue("<ForceModelName>", forceModelName);
 
-	for (auto& fm : forceModelSet)
-	{
-		if (fm.getName() == forceModelName)
-		{
-			this->forceModel = fm;
-			break;
-		}
-	}
+	this->setForceModel(forceModelName);
 }
 
 // ----- Output -----
@@ -178,6 +171,18 @@ void Simulation::initializeParticleArray(void)
 }
 
 // ForceModel
+void Simulation::setForceModel(const std::string & forceModelName)
+{
+	for (auto& fm : this->forceModelSet)
+	{
+		if (fm.getName() == forceModelName)
+		{
+			this->forceModel = fm;
+			break;
+		}
+	}
+}
+
 void Simulation::appendForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm ){
 	this->forceModelSet.insert(fm);
 }

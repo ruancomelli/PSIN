@@ -243,15 +243,15 @@ class Dimension : public Property<int>
 
 class LinearDashpotForce :
 	public NormalForceModel<
-			SphericalParticle, 
-			SphericalParticle, 
-			Properties<
-				Mass,
-				MomentOfInertia,
-				ElasticModulus,
-				NormalDissipativeConstant
-			>
+		SphericalParticle, 
+		SphericalParticle, 
+		Properties<
+			Mass,
+			MomentOfInertia,
+			ElasticModulus,
+			NormalDissipativeConstant
 		>
+	>
 {
 	LinearDashpotForce()
 		: Named("LinearDashpotForce")

@@ -37,7 +37,8 @@ class Simulation : public Named
 		void printSuccessMessage(void) const;
 
 		// ForceModel
-		void appendForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
+		void setForceModel(const std::string & forceModelName);
+		void appendForceModel(const ForceModel<SphericalParticle, SphericalParticle> & fm);
 
 		// Particles
 		void initializeParticleArray(void);
