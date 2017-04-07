@@ -11,8 +11,6 @@
 #include <functional>
 #include <string>
 
-using std::string;
-
 
 template<typename...> class Property;
 
@@ -34,6 +32,7 @@ bool defaultOutputMethod(std::ofstream & out, Any & value);
 template<typename InterfaceType, typename StoredType>
 class Property<InterfaceType, StoredType> : public Named
 {
+	using string = std::string;
 	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
 
 	public:
@@ -64,6 +63,8 @@ class Property<InterfaceType, StoredType> : public Named
 template<typename type>
 class Property<type> : public Property<type, type>
 {
+	using string = std::string;
+
 	public:
 		using SetterType = std::function< void(const type & value, type & destination) >;
 		using GetterType = std::function< type(const type & value) >;
