@@ -4,9 +4,6 @@
 // PropertyLib
 #include <Property.hpp>
 
-// Standard
-#include <string>
-
 namespace PropertyDefinitions{
 
 	// Assigns value to destination if value is positive

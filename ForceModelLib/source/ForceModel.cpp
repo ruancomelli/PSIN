@@ -234,7 +234,7 @@ void ForceModel<SphericalParticle, SphericalParticle>::endCollision( const Spher
 	collisionFlag[index1][index2 - index1 - 1] = false;
 }
 
-RawPropertyContainer ForceModel<SphericalParticle, SphericalParticle>::getRequiredProperties(void)
+PropertyContainer ForceModel<SphericalParticle, SphericalParticle>::getRequiredProperties(void)
 {
 	return requiredProperties;
 }

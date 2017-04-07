@@ -145,7 +145,7 @@ void Simulation::outputMainData(void) const
 void Simulation::initializeParticleArray(void)
 {
 	// Input
-	this->particleArray.requireRawPropertyContainer(this->forceModel.getRequiredProperties());
+	this->particleArray.requirePropertyContainer(this->forceModel.getRequiredProperties());
 
 	this->particleArray.inputParticles(this->numberOfParticles, this->fileTree.getParticleInputFolder());
 

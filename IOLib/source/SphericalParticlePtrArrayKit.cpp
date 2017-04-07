@@ -210,7 +210,7 @@ void SphericalParticlePtrArrayKit::exportAllDataCSV() const
 	exportAllData(",", "\n");
 }
 
-void SphericalParticlePtrArrayKit::requireRawPropertyContainer( const RawPropertyContainer & required )
+void SphericalParticlePtrArrayKit::requirePropertyContainer( const PropertyContainer & required )
 {
 	this->requiredProperties = required;
 }

@@ -14,7 +14,7 @@
 #include <Any.hpp>
 
 // PropertyLib
-#include <PropertyContainer.hpp>
+#include <ValuedPropertyContainer.hpp>
 
 
 enum GeometryType{
@@ -56,7 +56,7 @@ class PhysicalEntity: public Entity
 		GeometryType getGeometry() const;
 		
 		// ---- Properties ----		
-		void requireProperties( const RawPropertyContainer & raw );
+		void requireProperties( const PropertyContainer & raw );
 
 			// dimension
 		int getDimension(void) const;
@@ -98,7 +98,7 @@ class PhysicalEntity: public Entity
 		void setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial);
 
 		// properties
-		PropertyContainer propertyContainer;
+		ValuedPropertyContainer propertyContainer;
 }; // class PhysicalEntity
 
 using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;

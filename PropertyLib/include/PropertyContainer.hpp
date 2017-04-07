@@ -2,53 +2,52 @@
 #define PROPERTY_CONTAINER_H
 
 // PropertyLib
-#include <RawPropertyContainer.hpp>
+#include <Property.hpp>
+
+// UtilsLib
+#include <Any.hpp>
+#include <Variant.hpp>
 
 // Standard
 #include <functional>
 #include <iostream>
 #include <map>
 #include <string>
+#include <set>
 
-// UtilsLib
-#include <Any.hpp>
-
-using std::string;
-
-class PropertyContainer : public RawPropertyContainer
+template<typename ... PropertyTypes>
+class PropertyContainer
 {
+	using string = std::string;
+
 	public:
+		// typename std::function< bool(std::ifstream & in, Any & value) > InputMethodType;
 		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
 		using OutputMethodType = std::function< bool(std::ofstream & in, Any & value) >;
 
 		// ---- Get, add and set properties and values ----
 		PropertyContainer();
-		explicit PropertyContainer( const RawPropertyContainer & raw );
+		PropertyContainer( const PropertyContainer & other);
 
-		// Get a property's value
+		// Get a property's input method
+		InputMethodType getInputMethod(const string & name) const;
+
+		// Get a property's output method
+		OutputMethodType getOutputMethod(const string & name) const;
+
 		template<typename InterfaceType, typename StoredType>
-		InterfaceType getValue(const Property<InterfaceType, StoredType> & property) const;
-		Any getValue(const string & propertyName) const;
+		void insertProperty(const Property<InterfaceType, StoredType> & property );
 
-		// Set property - By-property and by-name versions
-		template<typename InterfaceType, typename StoredType, typename implicitInterfaceType>
-		void setProperty(const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value );
-			// Sets a value to the correspondent property. If the property was not inserted yet, it is.
+		SharedPointer< std::set<string> > getPropertyNames(void) const;
 
-		void setProperty(const string & propertyName, const Any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
-			// Throws an exception if propertyName was not already inserted.
+	protected:
+		std::map< string, Variant<PropertyTypes...> > propertyMap; 
 
-		// Check whether a property was set. By-name and by-property versions
-		bool checkSetted(const string & propertyName);
-		template<typename InterfaceType, typename StoredType>
-		bool checkSetted(const Property<InterfaceType, StoredType> & property);
-
-	private:
-		SharedPointer< std::map<string, Any> > propertyValues;
-		SharedPointer< std::map<string, bool> > settedFlag; // asserts whether each value was set
-
+		SharedPointer< std::set<string> > propertyNames;
+		SharedPointer< std::map< string, InputMethodType > > inputMethods;
+		SharedPointer< std::map< string, OutputMethodType > > outputMethods;
 }; // class PropertyContainer
 
 #include <PropertyContainer.tpp>
 
-#endif
+#endif // PROPERTY_CONTAINER_H

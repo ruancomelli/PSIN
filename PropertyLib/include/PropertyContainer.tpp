@@ -1,52 +1,59 @@
 #ifndef PROPERTY_CONTAINER_TPP
 #define PROPERTY_CONTAINER_TPP
 
-// ---- Get, add and set properties ----
-
-//	getValue:
-//		Returns the value of a Property
-template<typename InterfaceType, typename StoredType>
-InterfaceType PropertyContainer::getValue(const Property<InterfaceType, StoredType> & property) const
-{
-	string propertyName = property.getName();
-
-	std::set<string>::iterator it = propertyNames->find( propertyName );
-
-	if( it != propertyNames->end() )	// In this case, the search was successfull
-	{
-		auto anyValue = (*propertyValues)[propertyName];
-		StoredType storedValue = anyCast<StoredType>( anyValue );
-		InterfaceType value = property.getter( storedValue );
-
-		return value;
-	}
-	else
-	{
-		return InterfaceType();	// This line should be improved
-	}
-}
-
-//	setProperty:
-//		If property's name is already in propertyName, it's value is overwritten.
+//	insertProperty:
+//		If argument's name is already in propertyName, its input and output methods are overwritten.
 //		Otherwise, a new property is inserted.
-template<typename InterfaceType, typename StoredType, typename implicitInterfaceType>
-void PropertyContainer::setProperty(const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & implicitValue )
-{
-	InterfaceType value = InterfaceType(implicitValue);
-	string propertyName = property.getName();
-	
-	propertyNames->insert( propertyName );
 
-	(*propertyValues)[propertyName] = value;
+// template<typename InterfaceType, typename StoredType>
+template<typename ... PropertyTypes>
+template<typename InterfaceType, typename StoredType>
+void PropertyContainer<PropertyTypes...>::insertProperty(const Property<InterfaceType, StoredType> & property)
+{
+	using string = std::string;
+
+	string propertyName = property.getName();
+
+	std::set<string>::iterator it = this->propertyNames->find( property.getName() );
+
+	this->propertyNames->insert( propertyName );
+
 	(*inputMethods)[propertyName] = property.inputMethod;
 	(*outputMethods)[propertyName] = property.outputMethod;
-	(*settedFlag)[propertyName] = true;
 }
 
-template<typename InterfaceType, typename StoredType>
-bool PropertyContainer::checkSetted(const Property<InterfaceType, StoredType> & property)
+template<typename ... PropertyTypes>
+PropertyContainer<PropertyTypes...>::PropertyContainer()
+	: propertyNames( new std::set<std::string> ),
+	inputMethods( new std::map<std::string, InputMethodType> ),
+	outputMethods( new std::map<std::string, OutputMethodType> )
 {
-	return (*settedFlag)[ property.getName() ];
 }
 
-#endif
+template<typename ... PropertyTypes>
+PropertyContainer<PropertyTypes...>::PropertyContainer( const PropertyContainer & other)
+	: propertyNames( other.propertyNames ),
+	inputMethods( other.inputMethods ),
+	outputMethods( other.outputMethods )
+{
+}
+
+template<typename ... PropertyTypes>
+SharedPointer< std::set<std::string> > PropertyContainer<PropertyTypes...>::getPropertyNames(void) const
+{
+	return this->propertyNames;
+}
+
+template<typename ... PropertyTypes>
+typename PropertyContainer<PropertyTypes...>::InputMethodType	PropertyContainer<PropertyTypes...>::getInputMethod(const std::string & rawName ) const
+{
+	return inputMethods->at( rawName );
+}
+
+template<typename ... PropertyTypes>
+typename PropertyContainer<PropertyTypes...>::OutputMethodType	PropertyContainer<PropertyTypes...>::getOutputMethod(const std::string & rawName ) const
+{
+	return outputMethods->at( rawName );
+}
+
+#endif // PROPERTY_CONTAINER_H

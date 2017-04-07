@@ -8,7 +8,7 @@
 #include <Foreach.hpp>
 
 // PropertyLib
-#include <PropertyContainer.hpp>
+#include <ValuedPropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 //EntityLib
@@ -72,7 +72,7 @@ TestCase(RequirePropertiesTest)
 	fm.requireProperty(mass);
 	fm.requireProperty(volume);
 
-	RawPropertyContainer raw = fm.getRequiredProperties();
+	PropertyContainer raw = fm.getRequiredProperties();
 
 	SharedPointer< set<string> > mySetPtr = raw.getPropertyNames();
 	set<string>::iterator it = mySetPtr->find(mass.getName());

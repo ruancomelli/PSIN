@@ -20,7 +20,7 @@
 #include <vectorIO.hpp>
 
 // PropertyLib
-#include <PropertyContainer.hpp>
+#include <ValuedPropertyContainer.hpp>
 
 using namespace std;
 

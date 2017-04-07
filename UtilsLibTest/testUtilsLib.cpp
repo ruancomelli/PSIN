@@ -42,7 +42,7 @@ TestCase(AnyTest)
 	any = s;
 	checkEqual(anyCast<string>(any), s);
 
-	Many many;
+	std::vector< Any > many;
 	many.push_back(i);
 	many.push_back(d);
 	many.push_back(s);

@@ -52,9 +52,9 @@ PhysicalEntity::checkPropertyDependencies()
 
 // ==============================================================================================================================
 // ==============================================================================================================================
-// PropertyContainer.cpp
+// ValuedPropertyContainer.cpp
 // ==============================================================================================================================
-PropertyContainer::checkDependencies()
+ValuedPropertyContainer::checkDependencies()
 {
 	// Suppose that mass depends on volume and density or on radius and density. Then
 	// mass.dependencyListNames == { {"Volume", "Density"}, {"Radius", "Density"} }
@@ -93,7 +93,7 @@ PropertyContainer::checkDependencies()
 // For initialization, see http://en.cppreference.com/w/cpp/language/aggregate_initialization , http://en.cppreference.com/w/cpp/language/initializer_list and http://en.cppreference.com/w/cpp/language/list_initialization
 
 template<typename T, typename ... Args>
-void call( std::function<T (Args...)> f, Any& x, Many )
+void call( std::function<T (Args...)> f, Any& x, std::vector< Any > )
 {
 
 }

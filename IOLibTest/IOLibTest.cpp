@@ -25,7 +25,7 @@
 #include <SphericalParticlePtrArrayKit.hpp>
 
 // PropertyLib
-#include <PropertyContainer.hpp>
+#include <ValuedPropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 using namespace std;
@@ -234,7 +234,7 @@ TestCase( FileReaderTest )
 		checkEqual( readVectorVector3D, vectorVector3DValue);
 }
 
-#include <RawPropertyContainer.hpp>
+#include <PropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 // For the next tests to work (ReadEntity, ReadPhysicalEntity, ReadParticle, ReadSphericalParticle),
@@ -260,8 +260,8 @@ TestCase( FileReaderTest )
 
 //TestCase(ReadPhysicalEntity)
 //{
-//	RawPropertyContainer raw;
-//	raw.addProperty(PropertyDefinitions::mass);
+//	PropertyContainer raw;
+//	raw.insertProperty(PropertyDefinitions::mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -296,7 +296,7 @@ TestCase( FileReaderTest )
 //
 //	SphericalParticlePtrArrayKit particleArray;
 //
-//	particleArray.requireRawPropertyContainer(raw);
+//	particleArray.requirePropertyContainer(raw);
 //
 //	PhysicalEntityPtr physicalEntity( new PhysicalEntity() );
 //	check( particleArray.readPhysicalEntity(fileName, physicalEntity) );
@@ -311,8 +311,8 @@ TestCase( FileReaderTest )
 //
 //TestCase(ReadParticle)
 //{
-//	RawPropertyContainer raw;
-//	raw.addProperty(PropertyDefinitions::mass);
+//	PropertyContainer raw;
+//	raw.insertProperty(PropertyDefinitions::mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -347,7 +347,7 @@ TestCase( FileReaderTest )
 //
 //	SphericalParticlePtrArrayKit particleArray;
 //
-//	particleArray.requireRawPropertyContainer(raw);
+//	particleArray.requirePropertyContainer(raw);
 //
 //	ParticlePtr particle(new Particle());
 //	check(particleArray.readParticle(fileName, particle));
@@ -362,8 +362,8 @@ TestCase( FileReaderTest )
 //
 //TestCase(ReadSphericalParticle)
 //{
-//	RawPropertyContainer raw;
-//	raw.addProperty(PropertyDefinitions::mass);
+//	PropertyContainer raw;
+//	raw.insertProperty(PropertyDefinitions::mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -400,7 +400,7 @@ TestCase( FileReaderTest )
 //
 //	SphericalParticlePtrArrayKit particleArray;
 //
-//	particleArray.requireRawPropertyContainer(raw);
+//	particleArray.requirePropertyContainer(raw);
 //
 //	SphericalParticlePtr sphericalParticle(new SphericalParticle());
 //	check(particleArray.readSphericalParticle(fileName, sphericalParticle));
@@ -465,16 +465,16 @@ TestCase( Vector3DIO ){
 }
 
 
-#include <RawPropertyContainer.hpp>
+#include <PropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 TestCase(InputParticle)
 {
 		Property<string> color("Color");
 
-		RawPropertyContainer raw;
-		raw.addProperty(PropertyDefinitions::mass);
-		raw.addProperty(color);
+		PropertyContainer raw;
+		raw.insertProperty(PropertyDefinitions::mass);
+		raw.insertProperty(color);
 	
 		int dimension = 3;
 		int taylorOrder = 4;
@@ -515,7 +515,7 @@ TestCase(InputParticle)
 	
 		SphericalParticlePtrArrayKit particleArray;
 	
-		particleArray.requireRawPropertyContainer(raw);
+		particleArray.requirePropertyContainer(raw);
 	
 		check(particleArray.inputParticle(fileName));
 

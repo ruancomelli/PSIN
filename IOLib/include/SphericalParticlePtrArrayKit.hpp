@@ -11,7 +11,7 @@
 #include <SphericalParticle.hpp>
 
 // PropertyLib
-#include <RawPropertyContainer.hpp>
+#include <PropertyContainer.hpp>
 
 
 using std::ofstream;
@@ -37,7 +37,7 @@ class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
 		void exportAllData(const string & horizontalSeparator, const string & verticalSeparator) const;
 		void exportAllDataCSV() const;
 
-		void requireRawPropertyContainer( const RawPropertyContainer & required );
+		void requirePropertyContainer( const PropertyContainer & required );
 
 	private:
 		enum{
@@ -60,7 +60,7 @@ class SphericalParticlePtrArrayKit : public SphericalParticlePtrArray
 		bool isReady;
 		vector< vector< SharedPointer<ofstream> > > outFile;
 
-		RawPropertyContainer requiredProperties;
+		PropertyContainer requiredProperties;
 
 		bool readEntity( const string & fileName, EntityPtr & entity );
 		bool readPhysicalEntity( const string & fileName, PhysicalEntityPtr & physicalEntity );

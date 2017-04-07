@@ -134,24 +134,24 @@ TestCase(EqualFunctionsTest)
 }
 
 
-#include <RawPropertyContainer.hpp>
 #include <PropertyContainer.hpp>
+#include <ValuedPropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 using namespace PropertyDefinitions;
 
-TestCase(RawPropertyContainerTest)
+TestCase(PropertyContainerTest)
 {
-	RawPropertyContainer raw;
-	raw.addProperty(Mass());
+	PropertyContainer raw;
+	raw.insertProperty(Mass());
 
 	SharedPointer< set<string> > nameSet = raw.getPropertyNames();
 	set<string>::iterator it = nameSet->begin();
 
 	checkEqual( *it, Mass().getName() );
 
-	RawPropertyContainer raw2(raw);
-	raw2.addProperty(Volume());
+	PropertyContainer raw2(raw);
+	raw2.insertProperty(Volume());
 
 	nameSet = raw.getPropertyNames();
 	it = nameSet->find( Volume().getName() );
@@ -163,13 +163,13 @@ TestCase(RawPropertyContainerTest)
 	newProperty.setInputMethod(defaultInputMethod<double>);
 	newProperty.setOutputMethod(defaultOutputMethod<double>);
 
-	raw2.addProperty(newProperty);
+	raw2.insertProperty(newProperty);
 
 	// Test if raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double>
 	// and raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>
 }
 
-TestCase(PropertyContainerTest)
+TestCase(ValuedPropertyContainerTest)
 {
 	double massValue = 80.5;
 	double volumeValue = 10.0;
@@ -179,10 +179,10 @@ TestCase(PropertyContainerTest)
 	Property<string> color("Color");
 	Property<int> integer("Integer");
 
-	Many valueList;
+	std::vector< Any > valueList;
 	set<string> nameList;
 
-	PropertyContainer propertyContainer;
+	ValuedPropertyContainer propertyContainer;
 
 	propertyContainer.setProperty(Mass(), massValue);
 	propertyContainer.setProperty(color, colorValue);
@@ -198,10 +198,10 @@ TestCase(PropertyContainerTest)
 	check(propertyContainer.checkSetted(color.getName()));
 	check(!propertyContainer.checkSetted("length"));	// Checks that "length" was not set
 
-	RawPropertyContainer raw;
-	raw.addProperty(Mass());
+	PropertyContainer raw;
+	raw.insertProperty(Mass());
 
-	PropertyContainer propertyContainer2(raw);
+	ValuedPropertyContainer propertyContainer2(raw);
 	SharedPointer<set<string>> nameSet = propertyContainer2.getPropertyNames();
 	set<string>::iterator it = nameSet->find(Mass().getName());
 	

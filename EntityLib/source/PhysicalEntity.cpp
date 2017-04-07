@@ -55,9 +55,9 @@ PhysicalEntity::PhysicalEntity(const int taylorOrder, const int dim,  const Enti
 }
 // ------------------------------- Property -------------------------------
 
-void PhysicalEntity::requireProperties( const RawPropertyContainer & raw )
+void PhysicalEntity::requireProperties( const PropertyContainer & raw )
 {
-	this->propertyContainer = PropertyContainer(raw);
+	this->propertyContainer = ValuedPropertyContainer(raw);
 }
 
 	// dimension

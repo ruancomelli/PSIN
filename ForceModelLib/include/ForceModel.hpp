@@ -14,7 +14,7 @@
 
 // PropertyLib
 #include <Property.hpp>
-#include <RawPropertyContainer.hpp>
+#include <PropertyContainer.hpp>
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
@@ -57,7 +57,7 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 		ForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
 
 		// ---- Required Properties ----
-		RawPropertyContainer getRequiredProperties(void);
+		PropertyContainer getRequiredProperties(void);
 
 		template<typename InterfaceType, typename StoredType>
 		void requireProperty( const Property<InterfaceType, StoredType> & property );
@@ -88,7 +88,7 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 
 		static int numberOfParticles; // TO-DO: undo static!!
 
-		RawPropertyContainer requiredProperties;
+		PropertyContainer requiredProperties;
 
 		double timeStep;
 

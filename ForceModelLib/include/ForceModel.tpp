@@ -4,7 +4,7 @@
 template<typename InterfaceType, typename StoredType>
 void ForceModel<SphericalParticle, SphericalParticle>::requireProperty( const Property<InterfaceType, StoredType> & property )
 {
-	this->requiredProperties.addProperty( property );
+	this->requiredProperties.insertProperty( property );
 }
 
 #endif
