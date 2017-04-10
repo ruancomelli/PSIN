@@ -13,6 +13,7 @@
 #include <SharedPointer.hpp>
 #include <StringUtils.hpp>
 #include <Test.hpp>
+#include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
 
@@ -364,7 +365,7 @@ TestCase( Vector3DIsEqualOperator ){
 	check( nullVector3D()==nullVector3D() );
 }
 
-TestCase(createDirectoryTest)
+TestCase(FileSystemTest)
 {
 	string directoryName = "Mordor";
 
@@ -415,4 +416,44 @@ TestCase(NamedTest)
 
 	check(defaultName < name);
 	check(namedCompareObject(defaultName, name));
+}
+
+int f(int i)
+{
+	return 3 * i;
+}
+
+double f(double j)
+{
+	return 5.6 * j;
+}
+
+struct fVisitor : public staticVisitor<>
+{
+	void operator()(int & i) const
+	{
+		i = f(i);
+	}
+
+	void operator()(double & i) const
+	{
+		i = f(i);
+	}
+};
+
+TestCase(VariantTest)
+{
+	Variant<int, double> myVariant;
+	int intValue = 5;
+	int intAnswer = f(intValue);
+	double doubleValue = 9.8;
+	double doubleAnswer = f(doubleValue);
+
+	myVariant = intValue;
+	applyVisitor( fVisitor(), myVariant );
+	checkEqual(getVariant<int>(myVariant), intAnswer);
+
+	myVariant = doubleValue;
+	applyVisitor(fVisitor(), myVariant);
+	checkEqual(getVariant<double>(myVariant), doubleAnswer);
 }

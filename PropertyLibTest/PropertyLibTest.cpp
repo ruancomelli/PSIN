@@ -142,16 +142,16 @@ using namespace PropertyDefinitions;
 
 TestCase(PropertyContainerTest)
 {
-	PropertyContainer raw;
-	raw.insertProperty(Mass());
+	PropertyContainer<Mass, Volume> raw;
+	raw.insertProperty<Mass>();
 
 	SharedPointer< set<string> > nameSet = raw.getPropertyNames();
 	set<string>::iterator it = nameSet->begin();
 
 	checkEqual( *it, Mass().getName() );
 
-	PropertyContainer raw2(raw);
-	raw2.insertProperty(Volume());
+	PropertyContainer<Mass, Volume> raw2(raw);
+	raw2.insertProperty<Volume>();
 
 	nameSet = raw.getPropertyNames();
 	it = nameSet->find( Volume().getName() );
@@ -163,11 +163,21 @@ TestCase(PropertyContainerTest)
 	newProperty.setInputMethod(defaultInputMethod<double>);
 	newProperty.setOutputMethod(defaultOutputMethod<double>);
 
-	raw2.insertProperty(newProperty);
+	raw2.insertProperty<Property<double>>();
 
 	// Test if raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double>
 	// and raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>
 }
+
+struct Color : Property<string>
+{
+	Color() : Property<std::string>("Color") {}
+};
+
+struct Integer : Property<int>
+{
+	Integer() : Property<int>("Integer") {}
+};
 
 TestCase(ValuedPropertyContainerTest)
 {
@@ -176,32 +186,29 @@ TestCase(ValuedPropertyContainerTest)
 	string colorValue = "blue";
 	int intValue = 5;
 
-	Property<string> color("Color");
-	Property<int> integer("Integer");
-
 	std::vector< Any > valueList;
 	set<string> nameList;
 
-	ValuedPropertyContainer propertyContainer;
+	ValuedPropertyContainer<Mass, Color, Integer, Volume> valuedPropertyContainer;
 
-	propertyContainer.setProperty(Mass(), massValue);
-	propertyContainer.setProperty(color, colorValue);
-	propertyContainer.setProperty(integer, intValue);
-	propertyContainer.setProperty(Volume(), volumeValue);
+	valuedPropertyContainer.setProperty(Mass(), massValue);
+	valuedPropertyContainer.setProperty(Color(), colorValue);
+	valuedPropertyContainer.setProperty(Integer(), intValue);
+	valuedPropertyContainer.setProperty(Volume(), volumeValue);
 
-	checkEqual(propertyContainer.getValue(Mass()), massValue);
-	checkEqual(propertyContainer.getValue(color), colorValue);
-	checkEqual(propertyContainer.getValue(integer), intValue);
-	checkEqual(propertyContainer.getValue(Volume()), volumeValue);
+	checkEqual(valuedPropertyContainer.getValue(Mass()), massValue);
+	checkEqual(valuedPropertyContainer.getValue(Color()), colorValue);
+	checkEqual(valuedPropertyContainer.getValue(Integer()), intValue);
+	checkEqual(valuedPropertyContainer.getValue(Volume()), volumeValue);
 
-	check(propertyContainer.checkSetted(Mass()));
-	check(propertyContainer.checkSetted(color.getName()));
-	check(!propertyContainer.checkSetted("length"));	// Checks that "length" was not set
+	check(valuedPropertyContainer.checkSetted(Mass()));
+	check(valuedPropertyContainer.checkSetted(Color().getName()));
+	check(!valuedPropertyContainer.checkSetted("length"));	// Checks that "length" was not set
 
-	PropertyContainer raw;
-	raw.insertProperty(Mass());
+	PropertyContainer<Mass> raw;
+	raw.insertProperty<Mass>();
 
-	ValuedPropertyContainer propertyContainer2(raw);
+	ValuedPropertyContainer<Mass> propertyContainer2(raw);
 	SharedPointer<set<string>> nameSet = propertyContainer2.getPropertyNames();
 	set<string>::iterator it = nameSet->find(Mass().getName());
 	

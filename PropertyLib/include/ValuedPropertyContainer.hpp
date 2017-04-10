@@ -14,8 +14,8 @@
 #include <Any.hpp>
 
 
-
-class ValuedPropertyContainer : public PropertyContainer
+template<typename ... PropertyTypes>
+class ValuedPropertyContainer : public PropertyContainer<PropertyTypes...>
 {
 	using string = std::string;
 
@@ -25,7 +25,7 @@ class ValuedPropertyContainer : public PropertyContainer
 
 		// ---- Get, add and set properties and values ----
 		ValuedPropertyContainer();
-		explicit ValuedPropertyContainer( const PropertyContainer & raw );
+		explicit ValuedPropertyContainer( const PropertyContainer<PropertyTypes...> & propertyContainer );
 
 		// Get a property's value
 		template<typename InterfaceType, typename StoredType>

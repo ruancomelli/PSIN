@@ -35,8 +35,10 @@ class PropertyContainer
 		// Get a property's output method
 		OutputMethodType getOutputMethod(const string & name) const;
 
-		template<typename InterfaceType, typename StoredType>
-		void insertProperty(const Property<InterfaceType, StoredType> & property );
+		// template<typename InterfaceType, typename StoredType>
+		// void insertProperty(const Property<InterfaceType, StoredType> & property );
+		template<typename Property>
+		void insertProperty(void);
 
 		SharedPointer< std::set<string> > getPropertyNames(void) const;
 
