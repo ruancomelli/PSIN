@@ -18,25 +18,7 @@ PropertyContainer<PropertyTypes...>::PropertyContainer( const PropertyContainer 
 {
 }
 
-//	insertProperty:
-//		If argument's name is already in propertyName, its input and output methods are overwritten.
-//		Otherwise, a new property is inserted.
-
-// template<typename ... PropertyTypes>
-// template<typename InterfaceType, typename StoredType>
-// void PropertyContainer<PropertyTypes...>::insertProperty(const Property<InterfaceType, StoredType> & property)
-// {
-// 	using string = std::string;
-
-// 	string propertyName = property.getName();
-
-// 	std::set<string>::iterator it = this->propertyNames->find( propertyName );
-
-// 	this->propertyNames->insert( propertyName );
-
-// 	(*inputMethods)[propertyName] = property.inputMethod;
-// 	(*outputMethods)[propertyName] = property.outputMethod;
-// }
+// ----- Insert Property -----
 template<typename ... PropertyTypes>
 template<typename Property>
 void PropertyContainer<PropertyTypes...>::insertProperty(void)
@@ -53,6 +35,7 @@ void PropertyContainer<PropertyTypes...>::insertProperty(void)
 	(*outputMethods)[propertyName] = Property().outputMethod;
 }
 
+// ----- Get property names, input methods and output methods
 template<typename ... PropertyTypes>
 SharedPointer< std::set<std::string> > PropertyContainer<PropertyTypes...>::getPropertyNames(void) const
 {

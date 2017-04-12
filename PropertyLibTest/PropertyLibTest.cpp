@@ -148,15 +148,15 @@ TestCase(PropertyContainerTest)
 	SharedPointer< set<string> > nameSet = raw.getPropertyNames();
 	set<string>::iterator it = nameSet->begin();
 
-	checkEqual( *it, Mass().getName() );
+	checkEqual( *it, Mass::name );
 
 	PropertyContainer<Mass, Volume> raw2(raw);
 	raw2.insertProperty<Volume>();
 
 	nameSet = raw.getPropertyNames();
-	it = nameSet->find( Volume().getName() );
+	it = nameSet->find( Volume::name );
 
-	checkEqual(*it, Volume().getName());
+	checkEqual(*it, Volume::name);
 
 	// Testing set and get input and output methods
 	Property<double> newProperty;
@@ -172,12 +172,18 @@ TestCase(PropertyContainerTest)
 struct Color : Property<string>
 {
 	Color() : Property<std::string>("Color") {}
+
+	static const std::string name;
 };
+const std::string Color::name = "Color";
 
 struct Integer : Property<int>
 {
 	Integer() : Property<int>("Integer") {}
+
+	static const std::string name;
 };
+const std::string Integer::name = "Integer";
 
 TestCase(ValuedPropertyContainerTest)
 {
@@ -202,7 +208,7 @@ TestCase(ValuedPropertyContainerTest)
 	checkEqual(valuedPropertyContainer.getValue(Volume()), volumeValue);
 
 	check(valuedPropertyContainer.checkSetted(Mass()));
-	check(valuedPropertyContainer.checkSetted(Color().getName()));
+	check(valuedPropertyContainer.checkSetted(Color::name));
 	check(!valuedPropertyContainer.checkSetted("length"));	// Checks that "length" was not set
 
 	PropertyContainer<Mass> raw;
@@ -210,9 +216,9 @@ TestCase(ValuedPropertyContainerTest)
 
 	ValuedPropertyContainer<Mass> propertyContainer2(raw);
 	SharedPointer<set<string>> nameSet = propertyContainer2.getPropertyNames();
-	set<string>::iterator it = nameSet->find(Mass().getName());
+	set<string>::iterator it = nameSet->find(Mass::name);
 	
-	checkEqual( *it, Mass().getName() );
+	checkEqual( *it, Mass::name );
 
 }
 

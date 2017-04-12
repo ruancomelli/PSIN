@@ -13,6 +13,7 @@
 #include <SharedPointer.hpp>
 #include <StringUtils.hpp>
 #include <Test.hpp>
+#include <UniqueTypeList.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
@@ -456,4 +457,15 @@ TestCase(VariantTest)
 	myVariant = doubleValue;
 	applyVisitor(fVisitor(), myVariant);
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
+}
+
+TestCase(UniqueTypeListTest)
+{
+	UniqueTypeList<> u1;
+	UniqueTypeList<int> u2;
+	UniqueTypeList<int, double> u3;
+
+	// Uncomment the following line to check for compile errors:
+	
+	// UniqueTypeList<int, int> u4;
 }
