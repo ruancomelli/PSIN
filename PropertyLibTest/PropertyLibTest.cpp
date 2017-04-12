@@ -43,53 +43,41 @@ int getIntAsTriple(const int & value)
 
 TestCase( PropertyConstructorsTest )
 {
-	string defaultName = "Nameless";
-	string name = "Steve";
-	string otherName = "Rohan";
+	string string1 = "Steve";
+	string string2 = "Rohan";
 
 	int destination;
-	int destinationAnswer = otherName.length();
+	int destinationAnswer = string1.length();
 
+	// Default constructor - Test compilation
 	Property<string, int> myProperty1;
-	Property<string, int> myProperty2(name);
-	Property<string, int> myProperty3(otherName, setIntFromString, getStringFromInt);
-	Property<string, int> myProperty4(otherName, 
+
+	// Passing setter and getter functions - Passing function pointers
+	Property<string, int> myProperty2(setIntFromString, getStringFromInt);
+
+	myProperty2.setter( string1, destination );
+	checkEqual( destination, destinationAnswer );
+	checkEqual( myProperty2.getter(6), "6" );
+
+
+	// Passing setter and getter functions - Passing lambda expressions
+	Property<string, int> myProperty3( 
 		[](const string & value, int & destination){ destination = value.length(); }, 
 		[](const int & value){ return to_string(value); });
 
-	checkEqual( myProperty1.getName(), defaultName );
-	checkEqual( myProperty2.getName(), name );
-	checkEqual( myProperty3.getName(), otherName );
-	checkEqual( myProperty4.getName(), otherName );
-
-	myProperty3.setter( otherName, destination );
-	checkEqual( destination, destinationAnswer );
+	myProperty3.setter( string2, destination );
+	checkEqual( destination, string2.length() );
 	checkEqual( myProperty3.getter(6), "6" );
-
-	myProperty4.setter( name, destination );
-	checkEqual( destination, name.length() );
-	checkEqual( myProperty4.getter(6), "6" );
 
 }
 
 TestCase(PropertyWithSameTemplateConstructorsTest)
 {
-	string defaultName = "Nameless";
-	string name = "Steve";
-	string otherName = "Rohan";
-
 	int destination;
 
 	Property<int> myProperty1;
-	Property<int> myProperty2(name);
-	Property<int> myProperty3(otherName, setIntAsDouble, getIntAsTriple);
-	Property<int, int> myProperty4;
-
-	// Check names
-	checkEqual(myProperty1.getName(), defaultName);
-	checkEqual(myProperty2.getName(), name);
-	checkEqual(myProperty3.getName(), otherName);
-	checkEqual(myProperty4.getName(), defaultName);
+	Property<int> myProperty2(setIntAsDouble, getIntAsTriple);
+	Property<int, int> myProperty3;
 
 	// Check setter and getter functions
 	myProperty1.setter(5, destination);
@@ -100,14 +88,15 @@ TestCase(PropertyWithSameTemplateConstructorsTest)
 	checkEqual(8, destination);
 	checkEqual(15, myProperty2.getter(15));
 
-	myProperty3.setter(30, destination);
+	myProperty2.setter(30, destination);
 	checkEqual(destination, 60);
-	checkEqual(myProperty3.getter(33), 99);
+	checkEqual(myProperty2.getter(33), 99);
 
-	// The following code results in runtime error, for myProperty4.setter is NULL
-	//myProperty4.setter(10, destination);
+	// The following code results in runtime error, for myProperty3.setter is NULL
+
+	//myProperty3.setter(10, destination);
 	//checkEqual(destination, 10);
-	//checkEqual(myProperty4.getter(12), 12);
+	//checkEqual(myProperty3.getter(12), 12);
 }
 
 TestCase(PropertySetSetterAndGetterTest)
@@ -171,7 +160,8 @@ TestCase(PropertyContainerTest)
 
 struct Color : Property<string>
 {
-	Color() : Property<std::string>("Color") {}
+	Color()
+	{}
 
 	static const std::string name;
 };
@@ -179,7 +169,8 @@ const std::string Color::name = "Color";
 
 struct Integer : Property<int>
 {
-	Integer() : Property<int>("Integer") {}
+	Integer()
+	{}
 
 	static const std::string name;
 };
@@ -240,7 +231,7 @@ bool output3timesDouble(ofstream & out, Any & value)
 TestCase(PropertyInputAndOutputTest)
 {
 	string fileName = "rawPropertyInputAndOutput.txt";
-	Property<double> mass("Mass");
+	Property<double> mass;
 	double doubleValue = 5.6;
 
 	Any value = doubleValue;

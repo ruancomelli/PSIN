@@ -35,23 +35,13 @@ bool defaultOutputMethod(std::ofstream & out, Any & value)
 
 template<typename InterfaceType, typename StoredType>
 Property<InterfaceType, StoredType>::Property()
-	: Named()
 {
 	this->inputMethod = defaultInputMethod<InterfaceType>;
 	this->outputMethod = defaultOutputMethod<InterfaceType>;
 }
 
 template<typename InterfaceType, typename StoredType>
-Property<InterfaceType, StoredType>::Property(const string & name)
-	: Named(name)
-{
-	this->inputMethod = defaultInputMethod<InterfaceType>;
-	this->outputMethod = defaultOutputMethod<InterfaceType>;
-}
-
-template<typename InterfaceType, typename StoredType>
-Property<InterfaceType, StoredType>::Property(const string & name, SetterType setterFunction, GetterType getterFunction)
-	: Named(name)
+Property<InterfaceType, StoredType>::Property(SetterType setterFunction, GetterType getterFunction)
 {
 	this->setter = setterFunction;
 	this->getter = getterFunction;
@@ -102,7 +92,7 @@ Property<type>::Property()
 
 // If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
-Property<type>::Property(const string & name, SetterType setterFunction, GetterType getterFunction)
-	: Property<type, type>(name, setterFunction, getterFunction)
+Property<type>::Property(SetterType setterFunction, GetterType getterFunction)
+	: Property<type, type>(setterFunction, getterFunction)
 {
 }

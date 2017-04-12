@@ -9,7 +9,6 @@
 // Standard
 #include <fstream>
 #include <functional>
-#include <string>
 
 
 template<typename...>
@@ -29,9 +28,8 @@ template<typename type>
 bool defaultOutputMethod(std::ofstream & out, Any & value);
 
 template<typename InterfaceType, typename StoredType>
-class Property<InterfaceType, StoredType> : public Named
+class Property<InterfaceType, StoredType>
 {
-	using string = std::string;
 	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
 
 	public:
@@ -46,8 +44,7 @@ class Property<InterfaceType, StoredType> : public Named
 
 		// Constructors
 		Property();
-		explicit Property(const string & name);
-		Property(const string & name, SetterType setterFunction, GetterType getterFunction);
+		Property(SetterType setterFunction, GetterType getterFunction);
 
 		// Set setter and getter
 		void setSetterFunction( SetterType setterFunction );
@@ -68,8 +65,6 @@ class Property<InterfaceType, StoredType> : public Named
 template<typename type>
 class Property<type> : public Property<type, type>
 {
-	using string = std::string;
-
 	public:
 		using ValueType = type;
 
@@ -78,7 +73,7 @@ class Property<type> : public Property<type, type>
 
 		// Constructors
 		Property();
-		explicit Property(const string & name, SetterType setterFunction = defaultSetter<type>, GetterType getterFunction = defaultGetter<type>);
+		explicit Property(SetterType setterFunction, GetterType getterFunction = defaultGetter<type>);
 }; // class Property<type>
 
 template<typename ... Args>
