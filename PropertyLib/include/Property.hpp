@@ -1,83 +1,36 @@
-#ifndef RAW_PROPERTY_H
-#define RAW_PROPERTY_H
-
-// UtilsLib
-#include <Any.hpp>
-#include <Named.hpp>
-#include <SharedPointer.hpp>
+#ifndef PROPERTY_HPP
+#define PROPERTY_HPP
 
 // Standard
-#include <fstream>
-#include <functional>
-
-
-template<typename...>
-class Property;
-
+#include <iostream>
+#include <memory>
 
 template<typename type>
-void defaultSetter(const type & value, type & destination);
-
-template<typename type>
-type defaultGetter(const type & value);
-
-template<typename type>
-bool defaultInputMethod(std::ifstream & in, Any & value);
-
-template<typename type>
-bool defaultOutputMethod(std::ofstream & out, Any & value);
-
-template<typename InterfaceType, typename StoredType>
-class Property<InterfaceType, StoredType>
+class Property
 {
-	using PropertyPtr = SharedPointer< Property<InterfaceType, StoredType> >;
-
 	public:
-		typedef InterfaceType InterfaceType;
-		typedef StoredType StoredType;
-
-		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
-		using OutputMethodType = std::function< bool(std::ofstream & in, Any & value) >;
-
-		using SetterType = std::function< void(const InterfaceType & value, StoredType & destination) >;
-		using GetterType = std::function< InterfaceType(const StoredType & value) >;
+		using Type = type;
 
 		// Constructors
 		Property();
-		Property(SetterType setterFunction, GetterType getterFunction);
+		Property(const type & value);
 
-		// Set setter and getter
-		void setSetterFunction( SetterType setterFunction );
-		void setGetterFunction( GetterType getterFunction );
-		void setInputMethod( InputMethodType newInputMethod );
-		void setOutputMethod( OutputMethodType newOutputMethod );
+		void assign(const type & value);
+		virtual void set(const type & value);
+		virtual type get() const;
 
-		SetterType setter;
-		GetterType getter;
-		InputMethodType inputMethod;
-		OutputMethodType outputMethod;
+		virtual bool input(std::istream & in);
+		virtual bool output(std::ostream & out) const;
+
+		// Assigned
+		bool assigned() const;
 
 	protected:
-		SharedPointer<StoredType> value;
+		std::unique_ptr<type> value;
 
-}; // class Property<InterfaceType, StoredType>
+		bool assignedFlag = false;
 
-template<typename type>
-class Property<type> : public Property<type, type>
-{
-	public:
-		using ValueType = type;
-
-		using SetterType = std::function< void(const type & value, type & destination) >;
-		using GetterType = std::function< type(const type & value) >;
-
-		// Constructors
-		Property();
-		explicit Property(SetterType setterFunction, GetterType getterFunction = defaultGetter<type>);
 }; // class Property<type>
-
-template<typename ... Args>
-using PropertyPtr = SharedPointer< Property<Args...> >;
 
 #include <Property.tpp>
 

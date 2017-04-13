@@ -1,89 +1,68 @@
 #ifndef PROPERTY_LIST_H
 #define PROPERTY_LIST_H
 
+// Standard
+#include <string>
+
 // PropertyLib
+#include <PositiveProperty.hpp>
 #include <Property.hpp>
 
 namespace PropertyDefinitions{
 
-	// Assigns value to destination if value is positive
-	void setPositive( const double & value, double & destination);
-
-	struct Mass : public Property<double>
+	struct Mass : public PositiveProperty<double>
 	{
-		Mass();
-
 		static const std::string name;
 	};
 
 
-	struct Volume : public Property<double>
+	struct Volume : public PositiveProperty<double>
 	{
-		Volume();
-
 		static const std::string name;
 	};
 	
-	struct MomentOfInertia : public Property<double>
+	struct MomentOfInertia : public PositiveProperty<double>
 	{
-		MomentOfInertia();
-
 		static const std::string name;
 	};
 	
-	struct ElasticModulus : public Property<double>
+	struct ElasticModulus : public PositiveProperty<double>
 	{
-		ElasticModulus();
-
 		static const std::string name;
 	};
 	
 	struct DissipativeConstant : public Property<double>
 	{
-		DissipativeConstant();
-
 		static const std::string name;
 	};
 	
 	struct PoissonRatio : public Property<double>
 	{
-		PoissonRatio();
-
 		static const std::string name;
 	};
 	
-	struct NormalDissipativeConstant : public Property<double>
+	struct NormalDissipativeConstant : public PositiveProperty<double>
 	{
-		NormalDissipativeConstant();
-
 		static const std::string name;
 	};
 	
-	struct TangentialDamping : public Property<double>
+	struct TangentialDamping : public PositiveProperty<double>
 	{
-		TangentialDamping();
-
 		static const std::string name;
 	};
 	
-	struct FrictionParameter : public Property<double>
+	struct FrictionParameter : public PositiveProperty<double>
 	{
-		FrictionParameter();
-
 		static const std::string name;
 	};
 	
-	struct TangentialKappa : public Property<double>
+	struct TangentialKappa : public PositiveProperty<double>
 	{
-		TangentialKappa();
-
 		static const std::string name;
 	};
 	
-	struct ElectricCharge : public Property<double>
+	struct ElectricCharge : public PositiveProperty<double>
 	{
-		ElectricCharge();
-
 		static const std::string name;
 	};
 };

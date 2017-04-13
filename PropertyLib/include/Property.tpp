@@ -1,98 +1,65 @@
-template<typename type>
-void defaultSetter(const type & value, type & destination)
-{
-	destination = value;
-}
-
-template<typename type>
-type defaultGetter(const type & value)
-{
-	return value;
-}
-
-template<typename type>
-bool defaultInputMethod(std::ifstream & in, Any & value)
-{
-	type newValue;
-
-	in >> newValue;
-	value = newValue;
-
-	return true;
-}
-
-template<typename type>
-bool defaultOutputMethod(std::ofstream & out, Any & value)
-{
-	out << anyCast<type>(value);
-
-	return true;
-}
-
-
+#ifndef PROPERTY_TPP
+#define PROPERTY_TPP
 
 // Constructors
+template<typename type>
+Property<type>::Property()
+{}
 
-template<typename InterfaceType, typename StoredType>
-Property<InterfaceType, StoredType>::Property()
+template<typename type>
+Property<type>::Property(const type & value)
 {
-	this->inputMethod = defaultInputMethod<InterfaceType>;
-	this->outputMethod = defaultOutputMethod<InterfaceType>;
-}
-
-template<typename InterfaceType, typename StoredType>
-Property<InterfaceType, StoredType>::Property(SetterType setterFunction, GetterType getterFunction)
-{
-	this->setter = setterFunction;
-	this->getter = getterFunction;
-
-	this->inputMethod = defaultInputMethod<InterfaceType>;
-	this->outputMethod = defaultOutputMethod<InterfaceType>;
+	this->set(value);
 }
 
 
-// Set setter and getter
-template<typename InterfaceType, typename StoredType>
-void Property<InterfaceType, StoredType>::setSetterFunction( SetterType setterFunction )
+// Set and get value
+template<typename type>
+void Property<type>::assign(const type & value)
 {
-	this->setter = setterFunction;
+	this->value = std::make_unique<type>(value);
+	this->assignedFlag = true;
 }
 
-template<typename InterfaceType, typename StoredType>
-void Property<InterfaceType, StoredType>::setGetterFunction( GetterType getterFunction )
+template<typename type>
+void Property<type>::set(const type & value)
 {
-	this->getter = getterFunction;
+	this->assign(value);
+}
+
+template<typename type>
+type Property<type>::get(void) const
+{
+	return *this->value;
 }
 
 // Set inputMethod and outputMethod
-template<typename InterfaceType, typename StoredType>
-void Property<InterfaceType, StoredType>::setInputMethod( InputMethodType newInputMethod )
-{
-	this->inputMethod = newInputMethod;
-}
 
-template<typename InterfaceType, typename StoredType>
-void Property<InterfaceType, StoredType>::setOutputMethod( OutputMethodType newOutputMethod )
-{
-	this->outputMethod = newOutputMethod;
-}
-
-
-// Only one type
-
-// Constructors
-// If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
-Property<type>::Property()
-	: Property<type, type>()
+bool Property<type>::input(std::istream & in)
 {
-	this->setter = defaultSetter<type>;
-	this->getter = defaultGetter<type>;
+	type value;
+
+	in >> value;
+
+	this->assign(value);
+
+	return true;
 }
 
-// If types are equal, we are allowed to use defaultSetter and defaultGetter (copy setter and getters)
 template<typename type>
-Property<type>::Property(SetterType setterFunction, GetterType getterFunction)
-	: Property<type, type>(setterFunction, getterFunction)
+bool Property<type>::output(std::ostream & out) const
 {
+	out << *this->value;
+
+	return true;
 }
+
+// Assigned
+template<typename type>
+bool Property<type>::assigned() const
+{
+	return this->assignedFlag;
+}
+
+#endif // PROPERTY_TPP

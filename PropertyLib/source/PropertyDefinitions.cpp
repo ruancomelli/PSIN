@@ -3,61 +3,35 @@
 // Standard
 #include <iostream>
 
-void PropertyDefinitions::setPositive( const double & value, double & destination)
-{
-	if(value > 0) destination = value;
-	else std::cerr << "Error: Input value must be positive.";
-}
-
-PropertyDefinitions::Mass::Mass()
-	: Property<double>(setPositive)
-{}
+// ========================================== MASS ==========================================
 const std::string PropertyDefinitions::Mass::name = "Mass";
 
-PropertyDefinitions::Volume::Volume()
-	: Property<double>(setPositive)
-{}
+// ========================================== VOLUME ==========================================
 const std::string PropertyDefinitions::Volume::name = "Volume";
 
-PropertyDefinitions::MomentOfInertia::MomentOfInertia()
-	: Property<double>(setPositive)
-{}
+// ========================================== MOMENT OF INERTIA ==========================================
 const std::string PropertyDefinitions::MomentOfInertia::name = "MomentOfInertia";
 
-PropertyDefinitions::ElasticModulus::ElasticModulus()
-	: Property<double>(setPositive)
-{}
+// ========================================== ELASTIC MODULUS ==========================================
 const std::string PropertyDefinitions::ElasticModulus::name = "ElasticModulus";
 
-PropertyDefinitions::DissipativeConstant::DissipativeConstant()
-{}
+// ========================================== DISSIPATIVE CONSTANT ==========================================
 const std::string PropertyDefinitions::DissipativeConstant::name = "DissipativeConstant";
 
-PropertyDefinitions::PoissonRatio::PoissonRatio()
-{}
+// ========================================== POISSON RATIO ==========================================
 const std::string PropertyDefinitions::PoissonRatio::name = "PoissonRatio";
 
-PropertyDefinitions::NormalDissipativeConstant::NormalDissipativeConstant()
-	: Property<double>(setPositive)
-{}
+// ========================================== NORMAL DISSIPATIVE CONSTANT ==========================================
 const std::string PropertyDefinitions::NormalDissipativeConstant::name = "NormalDissipativeConstant";
 
-PropertyDefinitions::TangentialDamping::TangentialDamping()
-		: Property<double>(setPositive)
-{}
+// ========================================== TANGENTIAL DAMPING ==========================================
 const std::string PropertyDefinitions::TangentialDamping::name = "TangentialDamping";
 
-PropertyDefinitions::FrictionParameter::FrictionParameter()
-		: Property<double>(setPositive)
-{}
+// ========================================== FRICTION PARAMETER ==========================================
 const std::string PropertyDefinitions::FrictionParameter::name = "FrictionParameter";
 
-PropertyDefinitions::TangentialKappa::TangentialKappa()
-		: Property<double>(setPositive)
-{}
+// ========================================== TANGENTIAL KAPPA ==========================================
 const std::string PropertyDefinitions::TangentialKappa::name = "TangentialKappa";
 
-PropertyDefinitions::ElectricCharge::ElectricCharge()
-		: Property<double>(setPositive)
-{}
+// ========================================== ELECTRIC CHARGE ==========================================
 const std::string PropertyDefinitions::ElectricCharge::name = "ElectricCharge";
