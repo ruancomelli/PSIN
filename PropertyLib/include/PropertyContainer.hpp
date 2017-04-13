@@ -6,6 +6,7 @@
 
 // UtilsLib
 #include <Any.hpp>
+#include <UniqueTypeList.hpp>
 #include <Variant.hpp>
 
 // Standard
@@ -14,41 +15,43 @@
 #include <map>
 #include <string>
 #include <set>
+#include <tuple>
 
 template<typename ... PropertyTypes>
 class PropertyContainer
 {
-	using string = std::string;
+	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in PropertyContainer specialization.");
 
 	public:
-		// typename std::function< bool(std::ifstream & in, Any & value) > InputMethodType;
-		using InputMethodType = std::function< bool(std::ifstream & in, Any & value) >;
-		using OutputMethodType = std::function< bool(std::ofstream & in, Any & value) >;
-
 		// ---- Get, add and set properties and values ----
-		PropertyContainer();
-		PropertyContainer( const PropertyContainer & other);
+		ValuedPropertyContainer();
+		explicit ValuedPropertyContainer( const PropertyContainer<PropertyTypes...> & propertyContainer );
 
-		// Get a property's input method
-		InputMethodType getInputMethod(const string & name) const;
+		// Get a property's value
+		template<typename InterfaceType, typename StoredType>
+		InterfaceType getValue(const Property<InterfaceType, StoredType> & property) const;
+		Any getValue(const string & propertyName) const;
 
-		// Get a property's output method
-		OutputMethodType getOutputMethod(const string & name) const;
+		// Set property - By-property and by-name versions
+		template<typename InterfaceType, typename StoredType, typename implicitInterfaceType>
+		void setProperty(const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value );
+			// Sets a value to the correspondent property. If the property was not inserted yet, it is.
 
-		// template<typename InterfaceType, typename StoredType>
-		// void insertProperty(const Property<InterfaceType, StoredType> & property );
-		template<typename Property>
-		void insertProperty(void);
+		void setProperty(const string & propertyName, const Any & value );	// CAREFUL: THIS DOES NOT INSERT NEW I/O METHODS
+			// Throws an exception if propertyName was not already inserted.
 
-		SharedPointer< std::set<string> > getPropertyNames(void) const;
+		// Check whether a property was set. By-name and by-property versions
+		bool checkSetted(const string & propertyName);
+		template<typename InterfaceType, typename StoredType>
+		bool checkSetted(const Property<InterfaceType, StoredType> & property);
 
 	protected:
-		std::map< string, Variant<PropertyTypes...> > propertyMap; 
+		std::tuple<PropertyTypes...> property;
 
-		SharedPointer< std::set<string> > propertyNames;
-		SharedPointer< std::map< string, InputMethodType > > inputMethods;
-		SharedPointer< std::map< string, OutputMethodType > > outputMethods;
-}; // class PropertyContainer
+		SharedPointer< std::map<string, Any> > propertyValues;
+		SharedPointer< std::map<string, bool> > settedFlag; // asserts whether each value was set
+
+}; // class PropertyContainer<PropertyTypes...>
 
 #include <PropertyContainer.tpp>
 

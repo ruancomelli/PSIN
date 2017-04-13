@@ -44,7 +44,7 @@ struct is_unique_type_list<T, Ts...>
 	constexpr static bool value = is_unique_type_list<Ts...>::value && is_unique_type_in_list<T, Ts...>::value;
 };
 
-template<typename ... Ts>
+template<typename T, typename ... Ts>
 struct UniqueTypeList
 {
 	static_assert(is_unique_type_list<Ts...>::value, "UniqueTypeList can only be declared with unique types as template parameters");

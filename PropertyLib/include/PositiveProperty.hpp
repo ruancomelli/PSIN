@@ -15,7 +15,7 @@ class PositiveProperty : public Property<type>
 
 		virtual void set(const type & value);
 
-}; // class Property<type>
+}; // class PositiveProperty<type>
 
 #include <PositiveProperty.tpp>
 

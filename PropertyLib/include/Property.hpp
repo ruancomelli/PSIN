@@ -14,8 +14,6 @@ class Property
 		// Constructors
 		Property();
 		Property(const type & value);
-
-		void assign(const type & value);
 		virtual void set(const type & value);
 		virtual type get() const;
 
@@ -28,6 +26,7 @@ class Property
 	protected:
 		std::unique_ptr<type> value;
 
+		void assign(const type & value);
 		bool assignedFlag = false;
 
 }; // class Property<type>
