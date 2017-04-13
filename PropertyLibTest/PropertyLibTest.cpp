@@ -15,31 +15,6 @@
 using namespace PropertyDefinitions;
 using namespace std;
 
-void setIntFromString(const string & value, int & destination)
-{
-	destination = value.length();
-}
-
-void setIntFromString2(const string & value, int & destination)
-{
-	destination = 2*value.length();
-}
-
-string getStringFromInt(const int & value)
-{
-	return to_string(value);
-}
-
-void setIntAsDouble(const int & value, int & destination)
-{
-	destination = value * 2;
-}
-
-int getIntAsTriple(const int & value)
-{
-	return value * 3;
-}
-
 TestCase(PropertyConstructorsTest)
 {
 	double tolerance = 1e-12;
@@ -100,106 +75,6 @@ TestCase(PropertyDefinitionsTest)
 	checkClose(mass.get(), positiveValue, tolerance);
 
 }
-
-// TestCase(PropertyWithSameTemplateConstructorsTest)
-// {
-// 	int destination;
-
-// 	Property<int> myProperty1;
-// 	Property<int> myProperty2(setIntAsDouble, getIntAsTriple);
-// 	Property<int, int> myProperty3;
-
-// 	// Check setter and getter functions
-// 	myProperty1.setter(5, destination);
-// 	checkEqual(5, destination);
-// 	checkEqual(7, myProperty1.getter(7));
-
-// 	myProperty2.setter(8, destination);
-// 	checkEqual(8, destination);
-// 	checkEqual(15, myProperty2.getter(15));
-
-// 	myProperty2.setter(30, destination);
-// 	checkEqual(destination, 60);
-// 	checkEqual(myProperty2.getter(33), 99);
-
-// 	// The following code results in runtime error, for myProperty3.setter is NULL
-
-// 	//myProperty3.setter(10, destination);
-// 	//checkEqual(destination, 10);
-// 	//checkEqual(myProperty3.getter(12), 12);
-// }
-
-// TestCase(PropertySetSetterAndGetterTest)
-// {
-// 	string name = "Rohan";
-// 	int destination;
-// 	int destinationAnswer = name.length();
-
-// 	Property<string, int> myProperty;
-
-// 	myProperty.setSetterFunction(setIntFromString);
-// 	myProperty.setGetterFunction(getStringFromInt);
-
-// 	myProperty.setter(name, destination);
-
-// 	checkEqual(destination, destinationAnswer);
-// 	checkEqual(myProperty.getter(6), "6");
-// }
-
-// TestCase(EqualFunctionsTest)
-// {
-// 	check(setIntFromString == setIntFromString);
-// 	check(setIntFromString != setIntFromString2);
-// }
-
-// bool input2timesDouble(ifstream & in, Any & value)
-// {
-// 	double x;
-// 	in >> x;
-// 	value = 2 * x;
-// 	return true;
-// }
-
-// bool output3timesDouble(ofstream & out, Any & value)
-// {
-// 	double x = anyCast<double>(value);
-// 	out << 3 * x;
-// 	return true;
-// }
-
-// TestCase(PropertyInputAndOutputTest)
-// {
-// 	string fileName = "rawPropertyInputAndOutput.txt";
-// 	Property<double> mass;
-// 	double doubleValue = 5.6;
-
-// 	Any value = doubleValue;
-// 	Any secondValue;
-
-// 	ofstream outFile(fileName);
-// 	mass.outputMethod(outFile, value);
-// 	outFile.close();
-
-// 	ifstream inFile(fileName);
-// 	mass.inputMethod(inFile, secondValue);
-// 	inFile.close();
-	
-// 	checkClose(anyCast<double>(value), anyCast<double>(secondValue), 1e-10);
-
-// 	mass.setInputMethod(input2timesDouble);
-// 	mass.setOutputMethod(output3timesDouble);
-
-// 	ofstream outFile2(fileName);
-// 	mass.outputMethod(outFile2, value);
-// 	outFile2.close();
-
-// 	ifstream inFile2(fileName);
-// 	mass.inputMethod(inFile2, secondValue);
-// 	inFile2.close();
-
-// 	checkClose( 6 * anyCast<double>(value), anyCast<double>(secondValue), 1e-10);
-// }
-
 
 // #include <PropertyContainer.hpp>
 // #include <ValuedPropertyContainer.hpp>
