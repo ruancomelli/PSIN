@@ -1,23 +1,26 @@
 #define BOOST_TEST_MODULE EntityLibTest
 
 // UtilsLib
-#include <Mathematics.h>
-#include <Vector3D.h>
-#include <Vector.h>
-#include <Test.h>
-#include <Foreach.h>
+#include <Mathematics.hpp>
+#include <Vector3D.hpp>
+#include <Vector.hpp>
+#include <Test.hpp>
+#include <Foreach.hpp>
 
 // EntityLib
-#include <Entity.h>
-#include <PhysicalEntity.h>
-#include <Particle.h>
-#include <SphericalParticle.h>
+#include <Boundary.hpp>
+#include <FixedInfinitePlane.hpp>
+
+#include <Entity.hpp>
+#include <PhysicalEntity.hpp>
+#include <Particle.hpp>
+#include <SphericalParticle.hpp>
 
 // IOLib
-#include <vectorIO.h>
+#include <vectorIO.hpp>
 
 // PropertyLib
-#include <PropertyContainer.h>
+#include <PropertyContainer.hpp>
 
 using namespace std;
 
@@ -285,4 +288,68 @@ TestCase( SphericalParticleDistance )
 
 	double distance = 14.7478676424763;
 	checkClose( sph0->distance(sph1) , distance , 1e-12 );
+}
+
+vector<Vector3D> pos(double t)
+{
+	vector<Vector3D> v;
+	v.push_back( Vector3D(t, t+1, t+2) );
+	v.push_back(Vector3D(t*t, 1, t/2));
+	v.push_back(Vector3D(t*t*t, -1, t / 4));
+	v.push_back(Vector3D(0, -t, -t*t));
+
+	return v;
+}
+vector<Vector3D> ori(double t)
+{
+	vector<Vector3D> v;
+	v.push_back(Vector3D(0, 1, 2));
+	v.push_back(Vector3D(t*t, t*t*t, t-1));
+	v.push_back(Vector3D(t*t - 6, t*t*(t-1), t + 1));
+	v.push_back(Vector3D(1, 2*t, 3*t));
+
+	return v;
+}
+
+TestCase(BoundaryTest)
+{
+	double t = 1.0;
+	vector<Vector3D> myPosition = pos(t);
+	vector<Vector3D> myOrientation = ori(t);
+
+	Boundary boundary;
+	boundary.setTaylorOrder(3);
+
+	boundary.setPositionFunction(pos);
+	boundary.setOrientationFunction(ori);
+
+	boundary.updatePosition(t);
+	boundary.updateOrientation(t);
+
+	checkEqual(myPosition, boundary.getPosition());
+	checkEqual(myOrientation, boundary.getOrientation());
+}
+
+TestCase(FixedInfinitePlaneTest)
+{
+	Vector3D origin1(1.0, 2.0, 3.0);
+	Vector3D normalVector1(1.0, 1.0, 0.0);
+
+	Vector3D origin2(-1.0, -1.0, -1.0);
+	Vector3D vector1(5.0, 6.9, 7.8);
+	Vector3D vector2(500, -9.5, 13.6);
+	Vector3D vector3 = cross(vector1, vector2);
+	double coefficient1 = 4.562;
+	double coefficient2 = -560.82;
+
+	FixedInfinitePlane plane1(origin1, normalVector1);
+	checkEqual(plane1.getNormalVersor(), normalVector1.normalized());
+
+	FixedInfinitePlane plane2 = FixedInfinitePlane::buildFromOriginAndTwoVectors(origin2, vector1, vector2);
+	check(plane2.containsVector(vector1));
+	check(plane2.containsVector(vector2));
+	check(plane2.containsVector(coefficient1*vector1 + coefficient2*vector2));
+
+	FixedInfinitePlane plane3 = FixedInfinitePlane::buildFromThreePoints(origin2, vector1 + origin2, vector2 + origin2);
+	check( plane2 == plane3 );
 }

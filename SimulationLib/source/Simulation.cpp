@@ -1,30 +1,77 @@
-#include <Simulation.h>
+#include <Simulation.hpp>
 
 // IOLib
-#include <FileReader.h>
+#include <FileReader.hpp>
 
 // UtilsLib
-#include <Debug.h>
-#include <FileSystem.h>
+#include <Debug.hpp>
+#include <FileSystem.hpp>
+#include <ProgramOptions.hpp>
 
 // Standard
 #include <iostream>
+#include <regex>
 
 using std::ofstream;
 using std::string;
 
-// ----- Default simulation -----
-void Simulation::defaultSimulate(const string projectRootFolder)
+std::pair<std::string, std::string> Simulation::getSimulationNameAndRootPath(int argc, char **argv)
 {
+	std::string simulationName = "Simulation1";
+	std::string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
+
+	ProgramOptions::OptionsDescription desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
+		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
+	;
+
+	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
+
+	if(vm.count("help"))
+	{
+		std::cout << desc << "\n";
+		exit(0);
+	}
+
+	if(vm.count("simulation"))
+	{
+		simulationName = vm["simulation"].as<string>();
+	}
+
+	if(vm.count("root"))
+	{
+		rootPath = vm["root"].as<string>();
+	}
+
+	return std::pair<std::string, std::string>( simulationName, rootPath );
+}
+
+std::string Simulation::getSimulationName(int argc, char **argv)
+{
+	return Simulation::getSimulationNameAndRootPath(argc, argv).first;
+}
+
+std::string Simulation::getSimulationRootPath(int argc, char **argv)
+{
+	return Simulation::getSimulationNameAndRootPath(argc, argv).second;
+}
+
+// ----- Default simulation -----
+void Simulation::defaultSimulate(const string simulationName, const string projectRootFolder)
+{
+	this->setProjectRootFolder(projectRootFolder);
 	this->setInputFolder(projectRootFolder + "_input/");
-	this->setInputFileName("input.txt");
-	this->readName();
 
-	string simulationName = this->getName();
+	this->setName(simulationName);
 
-	this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/input.txt");
+	this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/mainInfoInput.txt");
 	this->setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
+
 	this->setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
+	this->setNumericalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Numerical/");
+	this->setGraphicalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Graphical/");
 	this->setTimeVectorOutputFileName("timeVector.txt");
 	this->setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
 
@@ -39,142 +86,111 @@ void Simulation::defaultSimulate(const string projectRootFolder)
 	this->printSuccessMessage();
 }
 
-// ----- Set and get name -----
-void Simulation::setName(const string name)
-{
-	if(!name.empty()) this->name = name;
-	else this->name = "Nameless";
-}
-
-string Simulation::getName(void) const
-{
-	return this->name;
-}
-
 // ----- Set files -----
-bool Simulation::setProjectRootFolder(const string projectRootFolder)
+bool Simulation::checkPathExistance(const string value, string & destination, const string name, const string functionName )
 {
-	bool checkValue = checkPathExists(projectRootFolder);
+	bool checkValue = ::checkPathExists(value);
 	if ( checkValue )
 	{
-		this->projectRootFolder = projectRootFolder;
+		destination = value;
 	}
 	else
 	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Project Root Path named \"" << projectRootFolder << "\" does not exist" << endl;
+		std::cerr << std::string("Error in ") + functionName << std::endl
+			<< name << " named \"" << value << "\" does not exist" << std::endl;
 	}
 
 	return checkValue;
 }
 
-bool Simulation::setInputFolder(const string inputFolder)
+bool Simulation::setProjectRootFolder(const std::string projectRootFolder)
 {
-	bool checkValue = checkPathExists(inputFolder);
-	if ( checkValue )
-	{
-		this->inputFolder = inputFolder;
-	}
-	else
-	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Input Folder named \"" << inputFolder << "\" does not exist" << endl;
-	}
-
-	return checkValue;
+	return Simulation::checkPathExistance(
+			projectRootFolder,
+			this->projectRootFolder,
+			"Project Root Path",
+			std::string(__CURRENT_FUNCTION__)
+		);
 }
 
-bool Simulation::setInputFileName(const string inputFileName)
+bool Simulation::setInputFolder(const std::string inputFolder)
 {
-	bool checkValue = checkPathExists(this->inputFolder + inputFileName);
-	if ( checkValue )
-	{
-		this->inputFileName = inputFileName;
-	}
-	else
-	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Input File named \"" << inputFileName << "\" does not exist in \"" << this->inputFolder << "\"" << endl;
-	}
-
-	return checkValue;
+	return Simulation::checkPathExistance(
+			inputFolder,
+			this->inputFolder,
+			"Input Folder",
+			std::string(__CURRENT_FUNCTION__)
+		);
 }
 
-bool Simulation::setInputMainDataFilePath(const string inputMainDataFilePath)
+bool Simulation::setInputMainDataFilePath(const std::string inputMainDataFilePath)
 {
-	bool checkValue = checkPathExists(inputMainDataFilePath);
-	if ( checkValue )
-	{
-		this->inputMainDataFilePath = inputMainDataFilePath;
-	}
-	else
-	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Main Data Input File Path named \"" << inputMainDataFilePath << "\" does not exist" << endl;
-	}
-
-	return checkValue;
+	return Simulation::checkPathExistance(
+			inputMainDataFilePath,
+			this->inputMainDataFilePath,
+			"Main Data Input File Path",
+			std::string(__CURRENT_FUNCTION__)
+		);
 }
 
-bool Simulation::setParticleInputFolder(const string particleInputFolder)
+bool Simulation::setParticleInputFolder(const std::string particleInputFolder)
 {
-	bool checkValue = checkPathExists(particleInputFolder);
-	if ( checkValue )
-	{
-		this->particleInputFolder = particleInputFolder;
-	}
-	else
-	{
-		cerr << string("Error in ") + string(__CURRENT_FUNCTION__) << endl
-			<< "Particle Input Folder named \"" << particleInputFolder << "\" does not exist" << endl;
-	}
-
-	return checkValue;
+	return Simulation::checkPathExistance(
+			particleInputFolder,
+			this->particleInputFolder,
+			"Particle Input Folder",
+			std::string(__CURRENT_FUNCTION__)
+		);
 }
 
-bool Simulation::setOutputFolder(const string outputFolder)
-{
-	bool boolFlag = ::createDirectory(outputFolder);
-	
-	if(boolFlag)
-	{
-		this->outputFolder = outputFolder;
-	}
+bool Simulation::setOutputFolder(const std::string outputFolder)
+{	
+	::createDirectory(outputFolder);
 
-	return boolFlag;
+	this->outputFolder = outputFolder;
+
+	return true;
 }
 
-bool Simulation::setTimeVectorOutputFileName(const string timeVectorOutputFileName)
+bool Simulation::setNumericalOutputFolder(const std::string numericalOutputFolder)
+{	
+	::createDirectory(numericalOutputFolder);
+
+	this->numericalOutputFolder = numericalOutputFolder;
+
+	return true;
+}
+
+bool Simulation::setGraphicalOutputFolder(const std::string graphicalOutputFolder)
+{	
+	::createDirectory(graphicalOutputFolder);
+	::createDirectory(graphicalOutputFolder + "Plots/");
+	::createDirectory(graphicalOutputFolder + "Animations/");
+
+	this->graphicalOutputFolder = graphicalOutputFolder;
+
+	return true;
+}
+
+bool Simulation::setTimeVectorOutputFileName(const std::string timeVectorOutputFileName)
 {
 	this->timeVectorOutputFileName = timeVectorOutputFileName;
 
-	this->timeVectorFile.open(this->outputFolder + timeVectorOutputFileName);
+	this->timeVectorFile.open(this->numericalOutputFolder + timeVectorOutputFileName);
 
 	return !timeVectorFile.fail();
 }
 
-bool Simulation::setTimeVectorForPlotOutputFileName(const string timeVectorForPlotOutputFileName)
+bool Simulation::setTimeVectorForPlotOutputFileName(const std::string timeVectorForPlotOutputFileName)
 {
 	this->timeVectorForPlotOutputFileName = timeVectorForPlotOutputFileName;
 
-	this->timeVectorForPlotFile.open(this->outputFolder + timeVectorForPlotOutputFileName);
+	this->timeVectorForPlotFile.open(this->numericalOutputFolder + timeVectorForPlotOutputFileName);
 
 	return !timeVectorForPlotFile.fail();
 }
 
 // ----- Input -----
-void Simulation::readName(void)
-{
-	if( checkPathExists(this->inputFolder + this->inputFileName) )
-	{
-		FileReader simulationFileReader(this->inputFolder + this->inputFileName);
-
-		string simulationName;
-		simulationFileReader.readValue("<simulationName>", simulationName);
-		this->setName(simulationName);
-	}
-}
-
 void Simulation::inputMainData(void)
 {
 	FileReader inputData(this->inputMainDataFilePath);
@@ -190,7 +206,7 @@ void Simulation::inputMainData(void)
 	inputData.readValue("<timeStepsForOutput>", this->timeStepsForOutput);
 
 	// Read ForceModel
-	string forceModelName;
+	std::string forceModelName;
 	inputData.readValue("<ForceModelName>", forceModelName);
 
 	for (auto& fm : forceModelSet)
@@ -204,12 +220,13 @@ void Simulation::inputMainData(void)
 }
 
 // ----- Output -----
-void Simulation::outputMainData(void)
+void Simulation::outputMainData(void) const
 {
-	string verticalSeparator = "\n";
-	string horizontalSeparator = ",";
+	std::string verticalSeparator = "\n";
+	std::string horizontalSeparator = ",";
 
-	ofstream mainOutFile(this->outputFolder + "output.txt");
+	std::ofstream mainOutFile(this->numericalOutputFolder + "mainInfoOutput.txt");
+
 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
 	mainOutFile << "<timeStep> "		<< timeStep				<< verticalSeparator;
@@ -219,9 +236,9 @@ void Simulation::outputMainData(void)
 	mainOutFile << "<ForceModelName> " << forceModel.getName() << verticalSeparator;
 }
 
-void Simulation::printSuccessMessage(void)
+void Simulation::printSuccessMessage(void) const
 {
-	cout << endl << "Success" << endl << endl;
+	std::cout << std::endl << "Success" << std::endl << std::endl;
 }
 
 // ForceModel
@@ -246,7 +263,7 @@ void Simulation::initializeParticleArray(void)
 	}
 
 	particleArray[0]->setGravity(this->gravity);
-	particleArray.openFiles(this->outputFolder);
+	particleArray.openFiles(this->numericalOutputFolder);
 
 	ForceModel::setNumberOfParticles( this->numberOfParticles );
 

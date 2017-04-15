@@ -4,11 +4,6 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.6)
 
-#SET WHERE THE FILES WILL BE CREATED
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/archives)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/apps)
-
 set (CMAKE_CXX_STANDARD 11)
 
 if(UNIX)
@@ -23,18 +18,33 @@ if(UNIX)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra -pedantic -O2")
 
 	#SET BUILD TYPE
-	if(CMAKE_BUILD_TYPE MATCHES "Debug")
+	if(CMAKE_BUILD_TYPE MATCHES Debug)
 		set(CMAKE_BUILD_DIR	"Debug")
-	elseif(CMAKE_BUILD_TYPE MATCHES "Release")
+	elseif(CMAKE_BUILD_TYPE MATCHES Release)
 		set(CMAKE_BUILD_DIR	"Release")
 	else()
-		set(CMAKE_BUILD_TYPE Debug)
-		set(CMAKE_BUILD_DIR	"Debug")
+		set(CMAKE_BUILD_TYPE Release)
+		set(CMAKE_BUILD_DIR	"Release")
 	endif()
-	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/${CMAKE_BUILD_DIR})
-	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_DIR})
-endif()
 
+	#SET WHERE THE FILES WILL BE CREATED
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/archives/${CMAKE_BUILD_DIR})
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs/${CMAKE_BUILD_DIR})
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/apps/${CMAKE_BUILD_DIR})
+
+elseif(WIN32)
+	#SET DEBUG COMPILATION FLAGS
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Za")
+
+	#SET RELEASE COMPILATION FLAGS
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Za")
+
+	#SET WHERE THE FILES WILL BE CREATED
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/archives/)
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/libs/)
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/apps/)
+
+endif()
 
 #ABOUT THE PROJECT
 project(ParticleSimulator)
@@ -46,34 +56,36 @@ set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 # BOOST
 if(UNIX)
 	set(BOOST_ROOT $ENV{BOOST_DIR})
-elseif(WIN32)
-	set (Boost_USE_STATIC_LIBS ON CACHE BOOL "Configuration set when building Boost")
-	set (Boost_USE_MULTITHREADED ON CACHE BOOL "Configuration set when building Boost")
-	get_filename_component(GIT_PROJECTS_DIR "${CMAKE_BINARY_DIR}/../.." ABSOLUTE)
-	if(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0)
-		set(BOOST_ROOT ${GIT_PROJECTS_DIR}/boost_1_63_0 CACHE PATH "Boost installation dir")
-	else()
-		set(BOOST_ROOT CACHE PATH "Boost installation dir")
+
+	# FIND BOOST
+	set (Components_Boost filesystem test_exec_monitor unit_test_framework)
+	find_package (Boost COMPONENTS ${Components_Boost} REQUIRED)
+	if(Boost_FOUND)
+		include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 	endif()
+
+	# MACROS
+	# auto links with external libraries
+	macro (add_executable _target)
+	    _add_executable (${_target} ${ARGN})
+	    target_link_libraries (${_target} ${Boost_LIBRARIES})
+	endmacro()
+
+	macro(add_library _target )
+	   	_add_library (${_target} ${ARGN})
+	   	target_link_libraries (${_target} ${Boost_LIBRARIES})
+	endmacro()
+elseif(WIN32)
+	get_filename_component(GIT_PROJECTS_DIR "${CMAKE_BINARY_DIR}/../.." ABSOLUTE)
+
+	if(EXISTS ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/)
+		set(BOOST_INCLUDE_DIR ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/)
+		set(BOOST_LIBRARY_DIR ${GIT_PROJECTS_DIR}/boost_1_63_0_compiled/lib)
+	endif()
+
+	include_directories(${BOOST_INCLUDE_DIR})
+	link_directories(${BOOST_LIBRARY_DIR})
 endif()
-
-set (Components_Boost filesystem test_exec_monitor unit_test_framework)
-find_package (Boost COMPONENTS ${Components_Boost} REQUIRED)
-if(Boost_FOUND)
-	include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
-endif()
-
-# MACROS
-# auto links with external libraries
-macro (add_executable _target)
-    _add_executable (${_target} ${ARGN})
-    target_link_libraries (${_target} ${Boost_LIBRARIES})
-endmacro()
-
-macro(add_library _target )
-   	_add_library (${_target} ${ARGN})
-   	target_link_libraries (${_target} ${Boost_LIBRARIES})
-endmacro()
 
 #PRINT SOME MESSAGES
 message("\n-- Project: ${PROJECT_NAME} ${VERSION}")

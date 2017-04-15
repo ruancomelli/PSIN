@@ -1,0 +1,37 @@
+A interface grafica precisa ter os objetos graficos,
+pegar os dados e executar o que nos pedirmos.
+
+*** Do que ela precisa:
+
+- Pegar as informacoes necessarias (do usuario
+	via interface grafica).
+
+- processar arquivos de saida do programa e gerar
+	as variaveis necessarias
+
+- saber os caminhos, todos eles, a partir dos
+	dados de entrada do usuario.
+
+- Rodar uma simulacao (executar o programa).
+
+- Gerar varios graficos
+
+- gerar videos.
+
+
+*** O como vai ser dividido:
+
+- um pedaco de codigo sera global, configuracoes DONE
+
+- uma classe vai cuidar da entrada de informacoes do usuario,
+	variaveis e interface grafica
+
+- uma classe vai cuidar de executar a simulacao
+
+- uma classe vai cuidar de obter as saidas da simulacao
+
+- uma classe vai cuidar de fazer os graficos
+
+- uma classe vai cuidar de fazer os videos
+
+- uma classe derivara de todas as outras

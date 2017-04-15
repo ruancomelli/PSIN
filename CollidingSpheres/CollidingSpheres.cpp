@@ -1,14 +1,15 @@
 // Standard
 #include <string>
+#include <vector>
 
 // ForceModelLib
-#include <ForceMethodsDefinitions.h>
+#include <ForceMethodsDefinitions.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // SimulationLib
-#include <Simulation.h>
+#include <Simulation.hpp>
 
 using namespace std;
 using namespace PropertyDefinitions;
@@ -16,7 +17,11 @@ using namespace PropertyDefinitions;
 const string project_root_path = PROJECT_PATH;
 
 int main(int argc, char **argv){
-	Simulation simulation; //(project_root_path);
+	pair<string, string> myPair = Simulation::getSimulationNameAndRootPath(argc, argv);
+	string simulationName = myPair.first;
+	string rootPath = myPair.second + "\\";
+
+	Simulation simulation;
 
 	ForceModel viscoelasticSpheres("ViscoElasticSpheres");
 	viscoelasticSpheres.setNormal(normalForceViscoelasticSpheres);
@@ -47,5 +52,5 @@ int main(int argc, char **argv){
 
 	simulation.addForceModel(electrostatic);
 
-	simulation.defaultSimulate(project_root_path);
+	simulation.defaultSimulate(simulationName, rootPath);
 }

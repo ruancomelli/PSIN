@@ -1,4 +1,4 @@
-#include <FileSystem.h>
+#include <FileSystem.hpp>
 
 // boost
 #include <boost/filesystem.hpp>
@@ -13,6 +13,17 @@ bool createDirectory( const std::string pathName )
 {
 	boost::filesystem::path directory(pathName);
 	return boost::filesystem::create_directories(directory);
+}
+
+std::string currentDirectory(void)
+{
+	return boost::filesystem::current_path().string();
+}
+
+std::string parentDirectory(const std::string pathName)
+{
+	boost::filesystem::path directory(pathName);
+	return directory.parent_path().string();
 }
 
 void deletePath( const std::string pathName )

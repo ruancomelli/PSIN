@@ -1,15 +1,17 @@
-#include <ForceMethodsDefinitions.h>
+#include <ForceMethodsDefinitions.hpp>
 
 // ForceModelLib
-#include <ForceModel.h>
+#include <ForceModel.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // Standard
 #include <cmath>
 
 using namespace PropertyDefinitions;
+using std::min;
+using std::max;
 
 void resizeCummulativeZeta( std::vector< std::vector< Vector3D > > & cummulativeZeta, const int numberOfParticles )
 {

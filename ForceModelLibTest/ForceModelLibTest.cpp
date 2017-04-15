@@ -1,29 +1,29 @@
 #define BOOST_TEST_MODULE ForceModelLibTest
 
 // UtilsLib
-#include <Mathematics.h>
-#include <Vector3D.h>
-#include <Vector.h>
-#include <Test.h>
-#include <Foreach.h>
+#include <Mathematics.hpp>
+#include <Vector3D.hpp>
+#include <Vector.hpp>
+#include <Test.hpp>
+#include <Foreach.hpp>
 
 // PropertyLib
-#include <PropertyContainer.h>
-#include <PropertyDefinitions.h>
+#include <PropertyContainer.hpp>
+#include <PropertyDefinitions.hpp>
 
 //EntityLib
-#include <Entity.h>
-#include <Particle.h>
-#include <PhysicalEntity.h>
-#include <SphericalParticle.h>
+#include <Entity.hpp>
+#include <Particle.hpp>
+#include <PhysicalEntity.hpp>
+#include <SphericalParticle.hpp>
 
 //ForceModelLib
-#include <ForceModel.h>
+#include <ForceModel.hpp>
 
 // IOLib
-#include <vectorIO.h>
+#include <vectorIO.hpp>
 
-using std::vector;
+using namespace std;
 using PropertyDefinitions::mass;
 using PropertyDefinitions::volume;
 

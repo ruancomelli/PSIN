@@ -1,15 +1,17 @@
-#include <ForceModel.h>
+#include <ForceModel.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 // UtilsLib
-#include <Mathematics.h>
-
+#include <Mathematics.hpp>
 
 
 using PropertyDefinitions::mass;
 using PropertyDefinitions::moment_of_inertia;
+
+using std::min;
+using std::max;
 
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor )
@@ -31,7 +33,7 @@ int ForceModel::numberOfParticles;
 
 
 ForceModel::ForceModel()
-	: name("Nameless"),
+	: Named(),
 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
@@ -39,7 +41,7 @@ ForceModel::ForceModel()
 }
 
 ForceModel::ForceModel(const string & name)
-	: name(name),
+	: Named(name),
 	normalForceCalculationMethod( {defaultNormalForceCalculationMethod} ),
 	tangentialForceCalculationMethod( {defaultTangentialForceCalculationMethod} ),
 	fieldForceCalculationMethod( {defaultFieldForceCalculationMethod} )
@@ -47,7 +49,7 @@ ForceModel::ForceModel(const string & name)
 }
 
 ForceModel::ForceModel( const ForceModel & fm )
-	: name( fm.name ),
+	: Named( fm.getName() ),
 	normalForceCalculationMethod( fm.normalForceCalculationMethod ),
 	tangentialForceCalculationMethod( fm.tangentialForceCalculationMethod ),
 	fieldForceCalculationMethod( fm.fieldForceCalculationMethod ),
@@ -159,7 +161,7 @@ vector<Vector3D> ForceModel::gearCorrector(const vector<Vector3D> & predictedVec
 			correctorConstants[5] = 1./60.;
 			break;
 		default:
-			throw runtime_error("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
+			throw std::runtime_error("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
 			return predictedVector;
 	}
 
@@ -187,16 +189,6 @@ void ForceModel::correctOrientation( SphericalParticlePtr particle, const int pr
 	vector<Vector3D> correctedOrientation = gearCorrector( orientation, angularAcceleration, predictionOrder, dt);
 	
 	particle->setOrientation(correctedOrientation);
-}
-
-string ForceModel::getName(void) const
-{ 
-	return this->name; 
-}
-
-void ForceModel::setName(const string & name)
-{ 
-	this->name = name;
 }
 
 void ForceModel::setNumberOfParticles( const int nParticles )

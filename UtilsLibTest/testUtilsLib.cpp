@@ -4,18 +4,17 @@
 #include <string>
 
 // UtilsLib
-#include <Any.h>
-#include <FileSystem.h>
-#include <Foreach.h>
-#include <Mathematics.h>
-#include <SharedPointer.h>
-#include <StringUtils.h>
-#include <Test.h>
-#include <Vector.h>
-#include <Vector3D.h>
-
-// boost
-#include <boost/filesystem.hpp>
+#include <Any.hpp>
+#include <FileSystem.hpp>
+#include <Foreach.hpp>
+#include <Mathematics.hpp>
+#include <Named.hpp>
+#include <ProgramOptions.hpp>
+#include <SharedPointer.hpp>
+#include <StringUtils.hpp>
+#include <Test.hpp>
+#include <Vector.hpp>
+#include <Vector3D.hpp>
 
 using namespace std;
 
@@ -374,4 +373,46 @@ TestCase(createDirectoryTest)
 
 	deletePath(directoryName);
 	check(!checkPathExists(directoryName));
+}
+
+TestCase(ProgramOptionsTest)
+{
+	ProgramOptions::OptionsDescription desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
+		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
+	;
+
+	int argc = 3;
+	char * argv[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mordor" };
+
+	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
+
+	checkEqual(vm.count("simulation"), 1);
+	checkEqual(vm.count("root"), 1);
+	checkEqual(vm.count("orcs"), 0);
+
+	checkEqual(vm["simulation"].as<string>(), "The Lord of the Rings");
+	checkEqual(vm["root"].as<string>(), "Mordor");
+}
+
+TestCase(NamedTest)
+{
+	string defaultName = "Nameless";
+	string name = "Rohan";
+	Named::NamedCompare namedCompareObject;
+
+	Named named1;
+	Named named2("Rohan");
+
+	checkEqual(named1.getName(), defaultName);
+	checkEqual(named2.getName(), name);
+
+	named1.setName(name);
+
+	checkEqual(named1.getName(), name);
+
+	check(defaultName < name);
+	check(namedCompareObject(defaultName, name));
 }

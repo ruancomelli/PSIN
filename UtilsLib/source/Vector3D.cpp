@@ -1,4 +1,4 @@
-#include <Vector3D.h>
+#include <Vector3D.hpp>
 
 // Standard
 #include <cmath>
@@ -69,6 +69,11 @@ void Vector3D::normalize(){
 	{
 		component *= invLength;
 	}
+}
+
+Vector3D Vector3D::normalized() const
+{
+	return (*this) / this->length();
 }
 
 double Vector3D::dist( const Vector3D& v ) const

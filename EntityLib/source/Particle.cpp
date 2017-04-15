@@ -1,7 +1,7 @@
-#include <Particle.h>
+#include <Particle.hpp>
 
 // PropertyLib
-#include <PropertyDefinitions.h>
+#include <PropertyDefinitions.hpp>
 
 using PropertyDefinitions::mass;
 using PropertyDefinitions::moment_of_inertia;
