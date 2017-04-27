@@ -1,11 +1,9 @@
 #ifndef UTILS_UNIQUE_TYPE_LIST_H
 #define UTILS_UNIQUE_TYPE_LIST_H
 
-template<typename ... Ts>
-struct equal_types;
-
+// ---- equal_types ----
 template<typename T, typename U>
-struct equal_types<T, U>
+struct equal_types
 {
 	constexpr static bool value = false;
 };
@@ -16,6 +14,7 @@ struct equal_types<T, T>
 	constexpr static bool value = true;
 };
 
+// ---- is_unique_type_in_list ----
 template<typename ... Ts>
 struct is_unique_type_in_list;
 
@@ -32,6 +31,7 @@ struct is_unique_type_in_list<T>
 };
 
 
+// ---- is_unique_type_list ----
 template<typename ... Ts>
 struct is_unique_type_list;
 
@@ -48,11 +48,9 @@ struct is_unique_type_list<>
 };
 
 
+// ---- UniqueTypeList ----
 template<typename ... Ts>
-struct UniqueTypeList;
-
-template<typename ... Ts>
-struct UniqueTypeList<Ts...>
+struct UniqueTypeList
 {
 	static_assert(is_unique_type_list<Ts...>::value, "UniqueTypeList can only be declared with unique types as template parameters");
 };

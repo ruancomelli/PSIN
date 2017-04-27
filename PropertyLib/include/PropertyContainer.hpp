@@ -6,6 +6,7 @@
 
 // UtilsLib
 #include <Any.hpp>
+#include <TypeIsInList.hpp>
 #include <UniqueTypeList.hpp>
 #include <Variant.hpp>
 
@@ -18,7 +19,7 @@
 #include <tuple>
 
 template<typename ... PropertyTypes>
-class PropertyProperty
+class PropertyContainer
 {
 	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in PropertyContainer specialization.");
 
@@ -50,13 +51,21 @@ class PropertyProperty
 		///////////////////////////// NEW /////////////////////////////
 
 		// Get property
-		template<typename PropertyType>
-		PropertyType get() const;
+		template<typename ValueType, typename PropertyType, typename Ret, typename ... Args>
+		Ret call(std::function<Ret(PropertyType &, Args...)> functionToCall, Args ... args)
+		{
+			static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, 
+				"Error: Cannot call call<PropertyType> if PropertyType is not a template parameter in the definition of a PropertyContainer\n");
+
+			return functionToCall(std::get<PropertyType>(property), args...);
+		}
 
 		template<typename ValueType, typename PropertyType, typename Ret, typename ... Args>
-		Particle::set(std::function<&PropertyType Ret(Args...)>, Args ... args)
+		Ret call( Ret (*functionToCall)(Args...), Args ... args)
 		{
+			std::function<Ret(PropertyType &, Args...)> f = functionToCall;
 
+			return call(f, args...);
 		}
 
 	protected:

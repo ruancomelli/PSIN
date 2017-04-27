@@ -3,11 +3,8 @@
 
 #include <UniqueTypeList.hpp>
 
-template<typename ... Ts>
-struct type_is_in_list;
-
 template<typename T, typename ... Ts>
-struct type_is_in_list<T, Ts...>
+struct type_is_in_list
 {
 	constexpr static bool value = !is_unique_type_in_list<T, Ts...>::value;
 };
