@@ -54,4 +54,18 @@ typename PropertyContainer<PropertyTypes...>::OutputMethodType PropertyContainer
 	return outputMethods->at( rawName );
 }
 
+
+
+///////////////////////////// NEW /////////////////////////////
+
+// Get property
+template<typename ... PropertyTypes>
+template<typename PropertyType>
+PropertyType PropertyContainer<PropertyTypes...>::get() const
+{
+	static_assert(/*Check that PropertyType is in PropertyTypes...*/);
+
+	return std::get<PropertyType>(this->property);
+}
+
 #endif // PROPERTY_CONTAINER_H

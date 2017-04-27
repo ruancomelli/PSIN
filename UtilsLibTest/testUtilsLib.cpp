@@ -13,6 +13,7 @@
 #include <SharedPointer.hpp>
 #include <StringUtils.hpp>
 #include <Test.hpp>
+#include <TypeIsInList.hpp>
 #include <UniqueTypeList.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>
@@ -240,7 +241,7 @@ TestCase( NormalizeOperator ){
 TestCase( NullVectorTest ){
 	DoubleVector null = nullVector(5);
 
-	foreach(double d, null){
+	for(double d : null){
 		checkEqual( d , 0.0 );
 	}
 }
@@ -467,5 +468,22 @@ TestCase(UniqueTypeListTest)
 
 	// Uncomment the following line to check for compile errors:
 	
-	// UniqueTypeList<int, int> u4;
+	 //UniqueTypeList<int, int> u4;
+
+	check(is_unique_type_in_list<double>::value);
+	check(!(is_unique_type_in_list<double, double>::value));	// I don't know why, but parenthesis are needed here
+	check((is_unique_type_in_list<double, char>::value));		// and here too
+	check((is_unique_type_in_list<double, int, char>::value));	// and here
+	check(!(is_unique_type_in_list<double, int, char, double>::value));	// and here
+
+	check(is_unique_type_list<>::value);
+	check(is_unique_type_list<double>::value);
+	check((is_unique_type_list<double, char>::value));
+	check(!(is_unique_type_list<double, double>::value));
+}
+
+TestCase(TypeIsInListTest)
+{
+	check((type_is_in_list<double, int, double>::value));
+	check(!(type_is_in_list<double, int, char>::value));
 }

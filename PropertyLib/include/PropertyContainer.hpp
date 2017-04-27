@@ -18,14 +18,14 @@
 #include <tuple>
 
 template<typename ... PropertyTypes>
-class PropertyContainer
+class PropertyProperty
 {
 	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in PropertyContainer specialization.");
 
 	public:
 		// ---- Get, add and set properties and values ----
-		ValuedPropertyContainer();
-		explicit ValuedPropertyContainer( const PropertyContainer<PropertyTypes...> & propertyContainer );
+		PropertyContainer();
+		explicit PropertyContainer( const PropertyContainer<PropertyTypes...> & propertyContainer );
 
 		// Get a property's value
 		template<typename InterfaceType, typename StoredType>
@@ -45,11 +45,22 @@ class PropertyContainer
 		template<typename InterfaceType, typename StoredType>
 		bool checkSetted(const Property<InterfaceType, StoredType> & property);
 
+
+
+		///////////////////////////// NEW /////////////////////////////
+
+		// Get property
+		template<typename PropertyType>
+		PropertyType get() const;
+
+		template<typename ValueType, typename PropertyType, typename Ret, typename ... Args>
+		Particle::set(std::function<&PropertyType Ret(Args...)>, Args ... args)
+		{
+
+		}
+
 	protected:
 		std::tuple<PropertyTypes...> property;
-
-		SharedPointer< std::map<string, Any> > propertyValues;
-		SharedPointer< std::map<string, bool> > settedFlag; // asserts whether each value was set
 
 }; // class PropertyContainer<PropertyTypes...>
 
