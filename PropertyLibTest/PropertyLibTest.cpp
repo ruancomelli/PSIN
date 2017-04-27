@@ -7,6 +7,7 @@
 
 // PropertyLib
 #include <Property.hpp>
+#include <PropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
@@ -76,7 +77,40 @@ TestCase(PropertyDefinitionsTest)
 
 }
 
-// #include <PropertyContainer.hpp>
+struct A
+{
+	int returnOne()
+	{
+		return 1;
+	}
+};
+
+struct B
+{
+	double returnOneHalf()
+	{
+		return 0.5;
+	}
+};
+
+TestCase(PropertyContainerDeclarationTest)
+{
+	PropertyContainer<int, double, char> propertyContainerSuccess;
+
+	//Uncomment the following line to get compile errors:
+	//PropertyContainer<int, double, double> propertyContainerFail;
+}
+
+TestCase(PropertyContainerCallTest)
+{
+	int AReturn = 1;
+	double BReturn = 0.5;
+
+	PropertyContainer<A, B> propertyContainer;
+
+	// FINISH THIS!!!
+}
+
 // #include <ValuedPropertyContainer.hpp>
 // #include <PropertyDefinitions.hpp>
 
