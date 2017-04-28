@@ -51,28 +51,24 @@ class PropertyContainer
 		///////////////////////////// NEW /////////////////////////////
 
 		// Get property
-		template<typename ValueType, typename PropertyType, typename Ret, typename ... Args>
-		Ret call(std::function<Ret(PropertyType &, Args...)> functionToCall, Args ... args)
-		{
-			static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, 
-				"Error: Cannot call call<PropertyType> if PropertyType is not a template parameter in the definition of a PropertyContainer\n");
+		template<typename PropertyType, typename Ret, typename ... Args>
+		Ret call(std::function<Ret(PropertyType &, Args...)> functionToCall, Args ... args);
 
-			return functionToCall(std::get<PropertyType>(property), args...);
-		}
+		template<typename PropertyType, typename Ret, typename ... Args>
+		Ret call( Ret (PropertyType::* functionToCall)(Args...), Args ... args);
 
-		template<typename ValueType, typename PropertyType, typename Ret, typename ... Args>
-		Ret call( Ret (*functionToCall)(Args...), Args ... args)
-		{
-			std::function<Ret(PropertyType &, Args...)> f = functionToCall;
-
-			return call(f, args...);
-		}
+		// template<typename T>		// MAKE THIS WORK, PLEASE!!!
+		// T p = get<T>(property);
 
 	protected:
 		std::tuple<PropertyTypes...> property;
 
 }; // class PropertyContainer<PropertyTypes...>
 
-// #include <PropertyContainer.tpp>
+#include <PropertyContainer.tpp>
 
 #endif // PROPERTY_CONTAINER_H
+
+// CRIAR CLASSE has_properties<P...>, da qual as partículas devem DERIVAR (pois elas têm propriedades)
+// has_properties<P...> deve ter um dado membro público (ou função) template<Prop> property, que é a propriedade em questão. 
+

@@ -77,6 +77,14 @@ TestCase(PropertyDefinitionsTest)
 
 }
 
+TestCase(PropertyContainerInstantiationTest)
+{
+	PropertyContainer<int, double, char> propertyContainerSuccess;
+
+	//Uncomment the following line to get compile errors:
+	//PropertyContainer<int, double, double> propertyContainerFail;
+}
+
 struct A
 {
 	int returnOne()
@@ -87,28 +95,32 @@ struct A
 
 struct B
 {
-	double returnOneHalf()
+	double returnHalf(double d)
 	{
-		return 0.5;
+		return 0.5*d;
 	}
 };
 
-TestCase(PropertyContainerDeclarationTest)
+struct C 
 {
-	PropertyContainer<int, double, char> propertyContainerSuccess;
-
-	//Uncomment the following line to get compile errors:
-	//PropertyContainer<int, double, double> propertyContainerFail;
-}
+	int returnOne()
+	{
+		return 1;
+	}
+};
 
 TestCase(PropertyContainerCallTest)
 {
 	int AReturn = 1;
-	double BReturn = 0.5;
+	double BReturn = 3.5;
 
 	PropertyContainer<A, B> propertyContainer;
 
-	// FINISH THIS!!!
+	checkEqual(propertyContainer.call(A::returnOne), AReturn );
+	//checkEqual(propertyContainer.call(&B::returnHalf, 7), BReturn);
+
+	//Uncomment the following line to get compile errors:
+	//propertyContainer.call<C>(&C::returnOne);
 }
 
 // #include <ValuedPropertyContainer.hpp>

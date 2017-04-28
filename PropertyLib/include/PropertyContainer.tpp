@@ -57,15 +57,23 @@ typename PropertyContainer<PropertyTypes...>::OutputMethodType PropertyContainer
 
 
 ///////////////////////////// NEW /////////////////////////////
-
-// Get property
 template<typename ... PropertyTypes>
-template<typename PropertyType>
-PropertyType PropertyContainer<PropertyTypes...>::get() const
+template<typename PropertyType, typename Ret, typename ... Args>
+Ret PropertyContainer<PropertyTypes...>::call(std::function<Ret(PropertyType &, Args...)> functionToCall, Args ... args)
 {
-	static_assert(/*Check that PropertyType is in PropertyTypes...*/);
+	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, 
+		"Error: Cannot call call<PropertyType> when PropertyType is not a template parameter in the definition of a PropertyContainer\n");
 
-	return std::get<PropertyType>(this->property);
+	return functionToCall(std::get<PropertyType>(property), args...);
+}
+
+template<typename ... PropertyTypes>
+template<typename PropertyType, typename Ret, typename ... Args>
+Ret PropertyContainer<PropertyTypes...>::call( Ret (PropertyType::* functionToCall)(Args...), Args ... args)
+{
+	std::function<Ret(PropertyType &, Args...)> f = functionToCall;
+
+	return call(f, args...);
 }
 
 #endif // PROPERTY_CONTAINER_H
