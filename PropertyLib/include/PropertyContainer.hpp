@@ -43,7 +43,7 @@ class PropertyContainer
 		bool assigned() const;
 
 	protected:
-		std::tuple<PropertyTypes...> property;
+		std::tuple<PropertyTypes...> propertyTuple;
 
 }; // class PropertyContainer<PropertyTypes...>
 

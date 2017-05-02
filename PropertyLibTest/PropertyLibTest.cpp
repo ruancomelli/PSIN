@@ -7,7 +7,7 @@
 
 // PropertyLib
 #include <Property.hpp>
-//#include <PropertyContainer.hpp>
+#include <PropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
@@ -85,62 +85,53 @@ TestCase(PropertyContainerInstantiationTest)
 	//PropertyContainer<int, double, double> propertyContainerFail;
 }
 
-struct A
+TestCase(PropertyContainerPropertyTest)
 {
-	int returnOne()
-	{
-		return 1;
-	}
-};
+	int intValue = 3;
+	double doubleValue = 5.6;
 
-struct B
-{
-	double returnHalf(double d)
-	{
-		return 0.5*d;
-	}
-};
+	PropertyContainer<int, double> propertyContainer;
+	propertyContainer.property<int>() = intValue;
+	propertyContainer.property<double>() = doubleValue;
 
-struct C 
-{
-	int returnOne()
-	{
-		return 1;
-	}
-};
+	checkEqual(propertyContainer.property<int>(), intValue);
+	checkEqual(propertyContainer.property<double>(), doubleValue);
 
-TestCase(PropertyContainerCallTest)
-{
-	int AReturn = 1;
-	double BReturn = 3.5;
+	auto x = propertyContainer.property<double>();
+	x *= 2;
 
-	PropertyContainer<A, B> propertyContainer;
-
-	checkEqual(propertyContainer.call(A::returnOne), AReturn );
-	//checkEqual(propertyContainer.call(&B::returnHalf, 7), BReturn);
-
-	//Uncomment the following line to get compile errors:
-	//propertyContainer.call<C>(&C::returnOne);
+	// Check that propertyContainer.property<double>() didn't change
+	checkEqual(propertyContainer.property<double>(), doubleValue);
 }
 
-struct B
+struct ATest
 {
-	double value;
+	int f()
+	{
+		return 5;
+	}
 };
 
-struct HasProperties
+TestCase(PropertyContainerCallPropertyMemberFunctionTest)
 {
-	template<typename P>
-	P property;
-};
+	int returnValue = 5;
+	PropertyContainer<ATest> propertyContainer;
 
-struct A : HasProperties
-{};
+	checkEqual(propertyContainer.property<ATest>().f(), returnValue);
+}
 
-TestCase(DerivedFromHasPropertyTest)
+TestCase(MassInPropertyContainerTest)
 {
-	A a;
-	a.property<B>.value = 3;
+	double massValue = 5;
+	PropertyContainer<Mass> propertyContainer;
+
+	check( !( propertyContainer.assigned<Mass>() ) );
+
+	propertyContainer.property<Mass>().set(massValue);
+
+	check(( propertyContainer.assigned<Mass>() ));
+
+	checkEqual(propertyContainer.property<Mass>().get(), massValue);
 }
 
 // #include <ValuedPropertyContainer.hpp>

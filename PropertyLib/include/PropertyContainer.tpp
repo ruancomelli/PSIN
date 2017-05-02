@@ -9,7 +9,7 @@ PropertyType& PropertyContainer<PropertyTypes...>::property()
 {
 	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'property' must be in template parameter list in the specialization of 'PropertyContainer'");
 
-	return std::get<PropertyType>(this->property);
+	return std::get<PropertyType>(this->propertyTuple);
 }
 
 template<typename ... PropertyTypes>
@@ -18,7 +18,7 @@ PropertyType PropertyContainer<PropertyTypes...>::property() const
 {
 	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'property' must be in template parameter list in the specialization of 'PropertyContainer'");
 
-	return std::get<PropertyType>(this->property);
+	return std::get<PropertyType>(this->propertyTuple);
 }
 
 // Input and output property
@@ -28,7 +28,7 @@ bool PropertyContainer<PropertyTypes...>::input(std::istream & in)
 {
 	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'input' must be in template parameter list in the specialization of 'PropertyContainer'");
 
-	return std::get<PropertyType>(this->property).input(in);
+	return std::get<PropertyType>(this->propertyTuple).input(in);
 }
 
 template<typename ... PropertyTypes>
@@ -37,7 +37,7 @@ bool PropertyContainer<PropertyTypes...>::output(std::ostream & out) const
 {
 	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'output' must be in template parameter list in the specialization of 'PropertyContainer'");
 
-	return std::get<PropertyType>(this->property).output(out);
+	return std::get<PropertyType>(this->propertyTuple).output(out);
 }
 
 // Check whether a property was assigned
@@ -47,7 +47,7 @@ bool PropertyContainer<PropertyTypes...>::assigned() const
 {
 	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'assigned' must be in template parameter list in the specialization of 'PropertyContainer'");
 
-	return std::get<PropertyType>(this->property).assigned();
+	return std::get<PropertyType>(this->propertyTuple).assigned();
 }
 
 #endif // PROPERTY_CONTAINER_TPP
