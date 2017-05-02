@@ -53,12 +53,18 @@ set(VERSION_MINOR "0")
 set(VERSION_PATCH "0")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
+# USER MODULES LOCATION
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake_modules")
+
 # BOOST
 if(UNIX)
-	set(BOOST_ROOT $ENV{BOOST_DIR})
-
+	set(BOOST_ROOT $ENV{BOOST_DIR}/${CMAKE_BUILD_TYPE})
+	
 	# FIND BOOST
 	set (Components_Boost filesystem test_exec_monitor unit_test_framework)
+	set (Boost_USE_STATIC_LIBS ON)
+	set (Boost_USE_STATIC_RUNTIME ON)
+	set (Boost_USE_MULTITHREADED ON)
 	find_package (Boost COMPONENTS ${Components_Boost} REQUIRED)
 	if(Boost_FOUND)
 		include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
