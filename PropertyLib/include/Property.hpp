@@ -14,7 +14,7 @@ class Property
 		// Constructors
 		Property();
 		Property(const type & value);
-		
+
 		virtual void set(const type & value);
 		virtual type get() const;
 
@@ -34,4 +34,4 @@ class Property
 
 #include <Property.tpp>
 
-#endif
+#endif // PROPERTY_HPP
