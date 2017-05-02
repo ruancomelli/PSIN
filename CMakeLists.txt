@@ -61,7 +61,7 @@ if(UNIX)
 	set(BOOST_ROOT $ENV{BOOST_DIR}/${CMAKE_BUILD_TYPE})
 	
 	# FIND BOOST
-	set (Components_Boost filesystem test_exec_monitor unit_test_framework)
+	set (Components_Boost filesystem program_options system test_exec_monitor unit_test_framework)
 	set (Boost_USE_STATIC_LIBS ON)
 	set (Boost_USE_STATIC_RUNTIME ON)
 	set (Boost_USE_MULTITHREADED ON)
