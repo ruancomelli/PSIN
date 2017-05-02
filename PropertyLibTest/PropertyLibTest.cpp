@@ -7,7 +7,7 @@
 
 // PropertyLib
 #include <Property.hpp>
-#include <PropertyContainer.hpp>
+//#include <PropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
@@ -121,6 +121,26 @@ TestCase(PropertyContainerCallTest)
 
 	//Uncomment the following line to get compile errors:
 	//propertyContainer.call<C>(&C::returnOne);
+}
+
+struct B
+{
+	double value;
+};
+
+struct HasProperties
+{
+	template<typename P>
+	P property;
+};
+
+struct A : HasProperties
+{};
+
+TestCase(DerivedFromHasPropertyTest)
+{
+	A a;
+	a.property<B>.value = 3;
 }
 
 // #include <ValuedPropertyContainer.hpp>

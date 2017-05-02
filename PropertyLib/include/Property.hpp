@@ -14,6 +14,7 @@ class Property
 		// Constructors
 		Property();
 		Property(const type & value);
+		
 		virtual void set(const type & value);
 		virtual type get() const;
 

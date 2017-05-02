@@ -49,16 +49,13 @@ class PropertyContainer
 
 
 		///////////////////////////// NEW /////////////////////////////
+		template<typename PropertyType>
+		PropertyType& property();
 
-		// Get property
-		template<typename PropertyType, typename Ret, typename ... Args>
-		Ret call(std::function<Ret(PropertyType &, Args...)> functionToCall, Args ... args);
+		template<typename PropertyType>
+		PropertyType property() const;
 
-		template<typename PropertyType, typename Ret, typename ... Args>
-		Ret call( Ret (PropertyType::* functionToCall)(Args...), Args ... args);
-
-		// template<typename T>		// MAKE THIS WORK, PLEASE!!!
-		// T p = get<T>(property);
+		
 
 	protected:
 		std::tuple<PropertyTypes...> property;

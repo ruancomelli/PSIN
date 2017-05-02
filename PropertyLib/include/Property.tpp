@@ -33,8 +33,7 @@ type Property<type>::get(void) const
 	return *this->value;
 }
 
-// Set inputMethod and outputMethod
-
+// Input and output property
 template<typename type>
 bool Property<type>::input(std::istream & in)
 {
