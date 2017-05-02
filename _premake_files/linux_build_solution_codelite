@@ -1,3 +1,0 @@
-#!/bin/bash
-premake4 --file=premake4_linux.lua codelite
-codelite ../_build/ParticleSimulator.workspace &
