@@ -14,6 +14,7 @@
 #include <StringUtils.hpp>
 #include <Test.hpp>
 #include <TypeIsInList.hpp>
+#include <UniquePointer.hpp>
 #include <UniqueTypeList.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>
@@ -82,6 +83,22 @@ TestCase(SharedPointerTest) {
 	(*v0).z() = 3.0;
 	
 	SharedPointer<Vector3D> v1(new Vector3D(*v0));
+
+	checkEqual((*v0).x(), v1->x());
+	checkEqual((*v0).y(), v1->y());
+	checkEqual((*v0).z(), v1->z());
+}
+
+TestCase(UniquePointerTest)
+{
+	int testValue = 982;
+	UniquePointer<Vector3D> v0( new Vector3D );
+
+	(*v0).x() = 1.0;
+	(*v0).y() = 2.0;
+	(*v0).z() = 3.0;
+	
+	UniquePointer<Vector3D> v1 = makeUnique<Vector3D>( *v0 );
 
 	checkEqual((*v0).x(), v1->x());
 	checkEqual((*v0).y(), v1->y());

@@ -3,7 +3,9 @@
 
 // Standard
 #include <iostream>
-#include <memory>
+
+// UtilsLib
+#include <UniquePointer.hpp>
 
 template<typename type = double>
 class Property
@@ -25,7 +27,7 @@ class Property
 		bool assigned() const;
 
 	protected:
-		std::unique_ptr<type> value;
+		UniquePointer<type> value;
 
 		void assign(const type & value);
 		bool assignedFlag = false;

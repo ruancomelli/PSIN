@@ -17,7 +17,7 @@ Property<type>::Property(const type & value)
 template<typename type>
 void Property<type>::assign(const type & value)
 {
-	this->value = std::make_unique<type>(value);
+	this->value = makeUnique<type>(value);
 	this->assignedFlag = true;
 }
 

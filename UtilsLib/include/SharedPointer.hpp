@@ -1,5 +1,5 @@
-#ifndef UTILS_SHARED_POINTER_H
-#define UTILS_SHARED_POINTER_H
+#ifndef UTILS_SHARED_POINTER_HPP
+#define UTILS_SHARED_POINTER_HPP
 
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
@@ -10,4 +10,4 @@
 #define StaticPointerCast boost::static_pointer_cast
 #define EnableSharedFromThis boost::enable_shared_from_this
 
-#endif //UTILS_SHARED_POINTER_H
+#endif
