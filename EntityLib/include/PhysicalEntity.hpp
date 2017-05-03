@@ -1,5 +1,5 @@
-#ifndef PHYSICAL_ENTITY_H
-#define PHYSICAL_ENTITY_H
+#ifndef PHYSICAL_ENTITY_HPP
+#define PHYSICAL_ENTITY_HPP
 
 // Standard
 #include <vector>
@@ -14,7 +14,7 @@
 #include <Any.hpp>
 
 // PropertyLib
-#include <ValuedPropertyContainer.hpp>
+#include <PropertyContainer.hpp>
 
 
 enum GeometryType{
@@ -22,6 +22,7 @@ enum GeometryType{
 	DEFAULT = SPHERE
 };
 
+template<typename ... Properties>
 class PhysicalEntity: public Entity
 {
 	using string = std::string;
@@ -99,7 +100,7 @@ class PhysicalEntity: public Entity
 
 		// properties
 		ValuedPropertyContainer propertyContainer;
-}; // class PhysicalEntity
+};
 
 using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
 

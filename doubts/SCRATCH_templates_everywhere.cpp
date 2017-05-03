@@ -2,6 +2,15 @@
 // Each property must be a class
 // Each ForceModel must be a class
 
+// NEW STRUCTURE:
+class HandledEntity;	// Defines handle
+class SocialEntity : public HandledEntity;	// Defines neighborhood
+class SpatialEntity;	// Defines position and orientation
+class PhysicalEntity<Props...>;	// Defines properties
+
+class Particle<Props...> : public SocialEntity, public SpatialEntity, public PhysicalEntity<Mass, MomentOfInertia, Props...>;	// Defines energy and forces
+class SphericalParticle<Props...> : public Particle<Radius, Props...>;
+
 // ==============================================================================================================================
 // ==============================================================================================================================
 // Simulation.h
