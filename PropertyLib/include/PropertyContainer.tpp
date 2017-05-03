@@ -1,8 +1,10 @@
 #ifndef PROPERTY_CONTAINER_TPP
 #define PROPERTY_CONTAINER_TPP
 
+// UtilsLib
+#include <TypeIsInList.hpp>
 
-// Return property
+// ----- Return property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType>
 PropertyType& PropertyContainer<PropertyTypes...>::property()
@@ -21,7 +23,7 @@ PropertyType PropertyContainer<PropertyTypes...>::property() const
 	return std::get<PropertyType>(this->propertyTuple);
 }
 
-// Input and output property
+// ----- Input and output property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType>
 bool PropertyContainer<PropertyTypes...>::input(std::istream & in)
@@ -40,7 +42,7 @@ bool PropertyContainer<PropertyTypes...>::output(std::ostream & out) const
 	return std::get<PropertyType>(this->propertyTuple).output(out);
 }
 
-// Check whether a property was assigned
+// ----- Check whether a property was assigned -----
 template<typename ... PropertyTypes>
 template<typename PropertyType>
 bool PropertyContainer<PropertyTypes...>::assigned() const
@@ -50,4 +52,4 @@ bool PropertyContainer<PropertyTypes...>::assigned() const
 	return std::get<PropertyType>(this->propertyTuple).assigned();
 }
 
-#endif // PROPERTY_CONTAINER_TPP
+#endif

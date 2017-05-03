@@ -9,4 +9,4 @@ struct type_is_in_list
 	constexpr static bool value = !is_unique_type_in_list<T, Ts...>::value;
 };
 
-#endif //UTILS_TYPE_IS_IN_LIST_H
+#endif

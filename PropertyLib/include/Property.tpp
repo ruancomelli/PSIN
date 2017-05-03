@@ -61,4 +61,4 @@ bool Property<type>::assigned() const
 	return this->assignedFlag;
 }
 
-#endif // PROPERTY_TPP
+#endif

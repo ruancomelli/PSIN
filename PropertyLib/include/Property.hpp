@@ -5,7 +5,7 @@
 #include <iostream>
 #include <memory>
 
-template<typename type>
+template<typename type = double>
 class Property
 {
 	public:
@@ -30,8 +30,8 @@ class Property
 		void assign(const type & value);
 		bool assignedFlag = false;
 
-}; // class Property<type>
+};
 
 #include <Property.tpp>
 
-#endif // PROPERTY_HPP
+#endif

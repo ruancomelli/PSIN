@@ -65,6 +65,6 @@ namespace PropertyDefinitions{
 	{
 		static const std::string name;
 	};
-};
+}
 
 #endif

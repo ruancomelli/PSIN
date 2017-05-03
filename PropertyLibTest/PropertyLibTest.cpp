@@ -74,7 +74,6 @@ TestCase(PropertyDefinitionsTest)
 	mass.set(negativeValue);
 	check(!mass.assigned());
 	checkClose(mass.get(), positiveValue, tolerance);
-
 }
 
 TestCase(PropertyContainerInstantiationTest)
@@ -120,6 +119,34 @@ TestCase(PropertyContainerCallPropertyMemberFunctionTest)
 	checkEqual(propertyContainer.property<ATest>().f(), returnValue);
 }
 
+struct TestedProperty : public Property<double>
+{};
+
+TestCase(PropertyContainerInputAndOutputTest)
+{
+	double tolerance = 1e-12;
+	double defaultValue = 0.0;
+	double value = 3.14;
+
+	PropertyContainer<TestedProperty> inputter;
+	PropertyContainer<TestedProperty> outputter;
+
+	inputter.property<TestedProperty>().set(defaultValue);
+	outputter.property<TestedProperty>().set(value);
+
+	string fileName = "PropertyContainer_Input_Output_Test.txt";
+	fstream file(fileName, fstream::in | fstream::out | fstream::trunc);
+
+	outputter.output<TestedProperty>(file);
+
+	file.clear();
+	file.seekg(0, ios::beg);
+
+	inputter.input<TestedProperty>(file);
+
+	checkClose(inputter.property<TestedProperty>().get(), value, tolerance);
+}
+
 TestCase(MassInPropertyContainerTest)
 {
 	double massValue = 5;
@@ -133,92 +160,3 @@ TestCase(MassInPropertyContainerTest)
 
 	checkEqual(propertyContainer.property<Mass>().get(), massValue);
 }
-
-// #include <ValuedPropertyContainer.hpp>
-// #include <PropertyDefinitions.hpp>
-
-// using namespace PropertyDefinitions;
-
-// TestCase(PropertyContainerTest)
-// {
-// 	PropertyContainer<Mass, Volume> raw;
-// 	raw.insertProperty<Mass>();
-
-// 	SharedPointer< set<string> > nameSet = raw.getPropertyNames();
-// 	set<string>::iterator it = nameSet->begin();
-
-// 	checkEqual( *it, Mass::name );
-
-// 	PropertyContainer<Mass, Volume> raw2(raw);
-// 	raw2.insertProperty<Volume>();
-
-// 	nameSet = raw.getPropertyNames();
-// 	it = nameSet->find( Volume::name );
-
-// 	checkEqual(*it, Volume::name);
-
-// 	// Testing set and get input and output methods
-// 	Property<double> newProperty;
-// 	newProperty.setInputMethod(defaultInputMethod<double>);
-// 	newProperty.setOutputMethod(defaultOutputMethod<double>);
-
-// 	raw2.insertProperty<Property<double>>();
-
-// 	// Test if raw2.getInputMethod( newProperty.getName() ) == defaultInputMethod<double>
-// 	// and raw2.getOutputMethod(newProperty.getName()) == defaultOutputMethod<double>
-// }
-
-// struct Color : Property<string>
-// {
-// 	Color()
-// 	{}
-
-// 	static const std::string name;
-// };
-// const std::string Color::name = "Color";
-
-// struct Integer : Property<int>
-// {
-// 	Integer()
-// 	{}
-
-// 	static const std::string name;
-// };
-// const std::string Integer::name = "Integer";
-
-// TestCase(ValuedPropertyContainerTest)
-// {
-// 	double massValue = 80.5;
-// 	double volumeValue = 10.0;
-// 	string colorValue = "blue";
-// 	int intValue = 5;
-
-// 	std::vector< Any > valueList;
-// 	set<string> nameList;
-
-// 	ValuedPropertyContainer<Mass, Color, Integer, Volume> valuedPropertyContainer;
-
-// 	valuedPropertyContainer.setProperty(Mass(), massValue);
-// 	valuedPropertyContainer.setProperty(Color(), colorValue);
-// 	valuedPropertyContainer.setProperty(Integer(), intValue);
-// 	valuedPropertyContainer.setProperty(Volume(), volumeValue);
-
-// 	checkEqual(valuedPropertyContainer.getValue(Mass()), massValue);
-// 	checkEqual(valuedPropertyContainer.getValue(Color()), colorValue);
-// 	checkEqual(valuedPropertyContainer.getValue(Integer()), intValue);
-// 	checkEqual(valuedPropertyContainer.getValue(Volume()), volumeValue);
-
-// 	check(valuedPropertyContainer.checkSetted(Mass()));
-// 	check(valuedPropertyContainer.checkSetted(Color::name));
-// 	check(!valuedPropertyContainer.checkSetted("length"));	// Checks that "length" was not set
-
-// 	PropertyContainer<Mass> raw;
-// 	raw.insertProperty<Mass>();
-
-// 	ValuedPropertyContainer<Mass> propertyContainer2(raw);
-// 	SharedPointer<set<string>> nameSet = propertyContainer2.getPropertyNames();
-// 	set<string>::iterator it = nameSet->find(Mass::name);
-	
-// 	checkEqual( *it, Mass::name );
-
-// }
