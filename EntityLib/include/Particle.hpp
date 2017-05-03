@@ -1,5 +1,5 @@
-#ifndef PARTICLE_H
-#define PARTICLE_H
+#ifndef PARTICLE_HPP
+#define PARTICLE_HPP
 
 // Standard
 #include <vector>
@@ -67,8 +67,6 @@ class Particle: public PhysicalEntity
 		vector<int> neighbor;
 
 		static Vector3D gravity;
-}; // class Particle
-
-using ParticlePtr = Particle::ParticlePtr;
+};
 
 #endif
