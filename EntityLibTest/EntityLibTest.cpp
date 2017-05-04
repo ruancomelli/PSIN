@@ -2,8 +2,8 @@
 
 // UtilsLib
 // #include <Mathematics.hpp>
-// #include <Vector3D.hpp>
-// #include <Vector.hpp>
+#include <Vector3D.hpp>
+#include <Vector.hpp>
 #include <Test.hpp>
 // #include <Foreach.hpp>
 
@@ -103,6 +103,7 @@ TestCase(SocialEntityNeighborhoodTest)
 TestCase(SpatialEntityTaylorOrderTest)
 {
 	int validTaylorOrder = 4;
+	int validTaylorOrder2 = 5;
 	int invalidTaylorOrder = -1;
 
 	SpatialEntity spatial(validTaylorOrder);
@@ -110,6 +111,186 @@ TestCase(SpatialEntityTaylorOrderTest)
 
 	// Uncomment the following line to get runtime errors:
 	// SpatialEntity invalidSpatial(invalidTaylorOrder);
+
+	spatial.setTaylorOrder(validTaylorOrder2);
+	checkEqual(spatial.getTaylorOrder(), validTaylorOrder2);
+
+	// Uncomment the following line to get runtime errors:
+	// spatial.setTaylorOrder(invalidTaylorOrder);
+
+	SpatialEntity spatial3;
+	checkEqual(spatial3.getTaylorOrder(), DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+}
+
+std::ostream & operator << (std::ostream & stream, const Vector3D & v){
+	stream << v.x() << "    " << v.y() << "    " << v.z() << std::endl;
+	return stream;
+}
+
+template <class type> 
+std::ostream & operator<<( std::ostream & outputFile , const std::vector<type> & v){
+	for( type entry : v )
+	{
+		outputFile << entry << std::endl;
+	}
+
+	return outputFile;
+}
+
+TestCase(SpatialEntityPositionMatrixOrientationMatrixTest)
+{
+	std::vector<Vector3D> positionMatrix;
+	positionMatrix.push_back( Vector3D(1.8, 2.5, 3.9) );
+	positionMatrix.push_back( Vector3D(8.6, 7.4, 2.1) );
+	positionMatrix.push_back( Vector3D(-1.2, 0.0, 300.5) );
+	positionMatrix.push_back( Vector3D(-9.9, 0.31, 0.0021) );
+	positionMatrix.push_back( Vector3D(8.9, -1111.0, 3.9) );
+
+	std::vector<Vector3D> orientationMatrix;
+	orientationMatrix.push_back( Vector3D(5.8, -4.65, -0.12) );
+	orientationMatrix.push_back( Vector3D(86.9, 61.45, -10.89) );
+	orientationMatrix.push_back( Vector3D(1.89, -65.0, 0.0) );
+	orientationMatrix.push_back( Vector3D(0.0, 18.5, 11.54) );
+	orientationMatrix.push_back( Vector3D(-89.56, 112.0, 123456789.0) );
+
+	SpatialEntity spatial( positionMatrix.size() - 1 );
+	spatial.setPositionMatrix(positionMatrix);
+	spatial.setOrientationMatrix(orientationMatrix);
+
+	checkEqual(spatial.getPositionMatrix(), positionMatrix);
+	checkEqual(spatial.getOrientationMatrix(), orientationMatrix);
+
+	// Uncomment the following lines to get runtime errors:
+	// orientationMatrix.push_back( Vector3D(-0.5, 12.13, 89.78) );
+	// spatial.setOrientationMatrix(orientationMatrix);
+}
+
+TestCase(SpatialEntityPositionVelocityAccelerationTest)
+{
+	int validDerivative = 3;
+	int invalidDerivative = -1;
+
+	SpatialEntity spatial;
+
+	Vector3D position1(1.5, 1.6, 1.7);
+	Vector3D position2(-0.5, 1.55, 30.65);
+	Vector3D position3(3.14159, 1.55, 0.0);
+
+	spatial.setPosition(position1);
+	checkEqual(spatial.getPosition(), position1);
+
+	spatial.setPosition(position2.x(), position2.y(), position2.z());
+	checkEqual(spatial.getPosition(), position2);
+
+	spatial.setPosition(position3.x(), position3.y());
+	checkEqual(spatial.getPosition(), position3);
+
+	Vector3D velocity1(8.9, 11.5, 36.5);
+	Vector3D velocity2(7.1, 131.7, 0.58);
+	Vector3D velocity3(-11.25, 0.56, 0.0);
+
+	spatial.setVelocity(velocity1);
+	checkEqual(spatial.getVelocity(), velocity1);
+
+	spatial.setVelocity(velocity2.x(), velocity2.y(), velocity2.z());
+	checkEqual(spatial.getVelocity(), velocity2);
+
+	spatial.setVelocity(velocity3.x(), velocity3.y());
+	checkEqual(spatial.getVelocity(), velocity3);
+
+	Vector3D acceleration1(18.07, -3.141598, 1.618);
+	Vector3D acceleration2(1.2351, -485.6, 12.5);
+	Vector3D acceleration3(88.97, 15.65, 0.0);
+
+	spatial.setAcceleration(acceleration1);
+	checkEqual(spatial.getAcceleration(), acceleration1);
+
+	spatial.setAcceleration(acceleration2.x(), acceleration2.y(), acceleration2.z());
+	checkEqual(spatial.getAcceleration(), acceleration2);
+
+	spatial.setAcceleration(acceleration3.x(), acceleration3.y());
+	checkEqual(spatial.getAcceleration(), acceleration3);
+
+	Vector3D derivative1(2.98, 9.87, -8251.02);
+	Vector3D derivative2(0.0, -68.1, 48.8);
+	Vector3D derivative3(-64.5, 112358.1321, 0.0);
+
+	spatial.setPositionDerivative(validDerivative, derivative1);
+	checkEqual(spatial.getPositionDerivative(validDerivative), derivative1);
+
+	spatial.setPositionDerivative(validDerivative, derivative2.x(), derivative2.y(), derivative2.z());
+	checkEqual(spatial.getPositionDerivative(validDerivative), derivative2);
+
+	spatial.setPositionDerivative(validDerivative, derivative3.x(), derivative3.y());
+	checkEqual(spatial.getPositionDerivative(validDerivative), derivative3);
+
+	// Uncomment the following lines to get runtime errors:
+	// spatial.setPositionDerivative(invalidDerivative, derivative1);
+	// spatial.getPositionDerivative(invalidDerivative);
+}
+
+TestCase(SpatialEntityAngularPositionVelocityAccelerationTest)
+{
+	int validDerivative = 3;
+	int invalidDerivative = -1;
+
+	SpatialEntity spatial;
+
+	Vector3D orientation1(1.5, 1.6, 1.7);
+	Vector3D orientation2(-0.5, 1.55, 30.65);
+	Vector3D orientation3(3.14159, 1.55, 0.0);
+
+	spatial.setOrientation(orientation1);
+	checkEqual(spatial.getOrientation(), orientation1);
+
+	spatial.setOrientation(orientation2.x(), orientation2.y(), orientation2.z());
+	checkEqual(spatial.getOrientation(), orientation2);
+
+	spatial.setOrientation(orientation3.x(), orientation3.y());
+	checkEqual(spatial.getOrientation(), orientation3);
+
+	Vector3D angularVelocity1(8.9, 11.5, 36.5);
+	Vector3D angularVelocity2(7.1, 131.7, 0.58);
+	Vector3D angularVelocity3(-11.25, 0.56, 0.0);
+
+	spatial.setAngularVelocity(angularVelocity1);
+	checkEqual(spatial.getAngularVelocity(), angularVelocity1);
+
+	spatial.setAngularVelocity(angularVelocity2.x(), angularVelocity2.y(), angularVelocity2.z());
+	checkEqual(spatial.getAngularVelocity(), angularVelocity2);
+
+	spatial.setAngularVelocity(angularVelocity3.x(), angularVelocity3.y());
+	checkEqual(spatial.getAngularVelocity(), angularVelocity3);
+
+	Vector3D angularAcceleration1(18.07, -3.141598, 1.618);
+	Vector3D angularAcceleration2(1.2351, -485.6, 12.5);
+	Vector3D angularAcceleration3(88.97, 15.65, 0.0);
+
+	spatial.setAngularAcceleration(angularAcceleration1);
+	checkEqual(spatial.getAngularAcceleration(), angularAcceleration1);
+
+	spatial.setAngularAcceleration(angularAcceleration2.x(), angularAcceleration2.y(), angularAcceleration2.z());
+	checkEqual(spatial.getAngularAcceleration(), angularAcceleration2);
+
+	spatial.setAngularAcceleration(angularAcceleration3.x(), angularAcceleration3.y());
+	checkEqual(spatial.getAngularAcceleration(), angularAcceleration3);
+
+	Vector3D derivative1(2.98, 9.87, -8251.02);
+	Vector3D derivative2(0.0, -68.1, 48.8);
+	Vector3D derivative3(-64.5, 112358.1321, 0.0);
+
+	spatial.setOrientationDerivative(validDerivative, derivative1);
+	checkEqual(spatial.getOrientationDerivative(validDerivative), derivative1);
+
+	spatial.setOrientationDerivative(validDerivative, derivative2.x(), derivative2.y(), derivative2.z());
+	checkEqual(spatial.getOrientationDerivative(validDerivative), derivative2);
+
+	spatial.setOrientationDerivative(validDerivative, derivative3.x(), derivative3.y());
+	checkEqual(spatial.getOrientationDerivative(validDerivative), derivative3);
+
+	// Uncomment the following lines to get runtime errors:
+	// spatial.setOrientationDerivative(invalidDerivative, derivative1);
+	// spatial.getOrientationDerivative(invalidDerivative);
 }
 
 // TestCase( PhysicalEntityDefaultConstructor )

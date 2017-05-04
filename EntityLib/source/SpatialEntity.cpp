@@ -3,6 +3,11 @@
 // Standard
 #include <stdexcept>
 
+SpatialEntity::SpatialEntity()
+{
+	this->setTaylorOrder(DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+}
+
 SpatialEntity::SpatialEntity(const int taylorOrder)
 {
 	this->setTaylorOrder(taylorOrder);
@@ -215,7 +220,7 @@ void SpatialEntity::setTaylorOrder(const int taylorOrder)
 	}
 }
 
-int SpatialEntity::getTaylorOrder()
+int SpatialEntity::getTaylorOrder() const
 {
 	return this->taylorOrder;
 }

@@ -7,10 +7,13 @@
 // Standard
 #include <vector>
 
+#define DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER 4
+
 class SpatialEntity
 {
 	public:
-		SpatialEntity(const int taylorOrder);
+		SpatialEntity();
+		explicit SpatialEntity(const int taylorOrder);
 
 		// ----- Position -----
 		void setPosition(const double x, const double y, const double z = 0);
@@ -60,7 +63,7 @@ class SpatialEntity
 
 		// ----- Taylor Order -----
 		void setTaylorOrder(const int taylorOrder); // throws
-		int getTaylorOrder();
+		int getTaylorOrder() const;
 
 
 	private:
