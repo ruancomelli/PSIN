@@ -4,7 +4,7 @@
 // #include <Mathematics.hpp>
 // #include <Vector3D.hpp>
 // #include <Vector.hpp>
-// #include <Test.hpp>
+#include <Test.hpp>
 // #include <Foreach.hpp>
 
 // EntityLib
@@ -12,6 +12,8 @@
 // #include <FixedInfinitePlane.hpp>
 
 #include <HandledEntity.hpp>
+#include <SpatialEntity.hpp>
+#include <SocialEntity.hpp>
 // #include <PhysicalEntity.hpp>
 // #include <Particle.hpp>
 // #include <SphericalParticle.hpp>
@@ -31,7 +33,7 @@ TestCase( HandledEntityTest )
 	HandledEntity entity1;
 
 	// Test the default handle and the getHandle function
-	int defaultHandle = -1;
+	int defaultHandle = DEFAULT_HANDLED_ENTITY_HANDLE;
 	checkEqual( entity1.getHandle() , defaultHandle );
 
 	// Test the setHandle function
@@ -54,6 +56,60 @@ TestCase( HandledEntityTest )
 	HandledEntity entity5(commonHandle);
 
 	check(entity4 == entity5);
+}
+
+TestCase( SocialEntityBaseClassTest )
+{
+	int defaultHandle = -1;
+	int handleToSet = 3;
+
+	SocialEntity social1;
+
+	checkEqual(social1.getHandle(), defaultHandle);
+
+	social1.setHandle(handleToSet);
+
+	checkEqual(social1.getHandle(), handleToSet);
+
+	SocialEntity social2(handleToSet);
+
+	checkEqual(social2.getHandle(), handleToSet);
+}
+
+TestCase(SocialEntityNeighborhoodTest)
+{
+	int handle1 = 3;
+	int handle2 = 10;
+
+	SocialEntity social;
+
+	check(social.getNeighborhood().empty());
+
+	SocialEntity neighbor1(handle1);
+	SocialEntity neighbor2(handle2);
+
+	social.addNeighbor(neighbor1);
+	social.addNeighbor(neighbor2);
+
+	check(social.getNeighborhood().count(handle1));
+	check(social.getNeighborhood().count(handle2));
+
+	social.removeNeighbor(neighbor2);
+
+	check(social.getNeighborhood().count(handle1));
+	check(!social.getNeighborhood().count(handle2));
+}
+
+TestCase(SpatialEntityTaylorOrderTest)
+{
+	int validTaylorOrder = 4;
+	int invalidTaylorOrder = -1;
+
+	SpatialEntity spatial(validTaylorOrder);
+	checkEqual(spatial.getTaylorOrder(), validTaylorOrder);
+
+	// Uncomment the following line to get runtime errors:
+	// SpatialEntity invalidSpatial(invalidTaylorOrder);
 }
 
 // TestCase( PhysicalEntityDefaultConstructor )

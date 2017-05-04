@@ -1,5 +1,15 @@
 #include <SocialEntity.hpp>
 
+SocialEntity::SocialEntity()
+	: HandledEntity()
+{
+}
+
+SocialEntity::SocialEntity(const int handle)
+	: HandledEntity(handle)
+{
+}
+
 void SocialEntity::addNeighbor(const SocialEntity &  newNeighbor)
 {
 	this->neighborhood.insert(newNeighbor.getHandle());

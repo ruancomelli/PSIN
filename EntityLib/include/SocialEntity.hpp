@@ -10,6 +10,9 @@
 class SocialEntity : public HandledEntity
 {
 	public:
+		SocialEntity();
+		explicit SocialEntity(const int handle);
+
 		void addNeighbor(const SocialEntity & newNeighbor);
 		void removeNeighbor(const SocialEntity & newNeighbor);
 		std::set<int> getNeighborhood(void) const;
