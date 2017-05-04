@@ -1,17 +1,55 @@
-// #ifndef PHYSICAL_ENTITY_TPP
-// #define PHYSICAL_ENTITY_TPP
+#ifndef PHYSICAL_ENTITY_TPP
+#define PHYSICAL_ENTITY_TPP
 
-// // ---- Get, add and set properties ----
-// template< typename InterfaceType, typename StoredType, typename implicitInterfaceType >
-// void PhysicalEntity::set( const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value )
-// {
-// 	propertyContainer.setProperty( property, value );
-// }
+// UtilsLib
+#include <TypeIsInList.hpp>
 
-// template<typename InterfaceType, typename StoredType>
-// InterfaceType PhysicalEntity::get(const Property<InterfaceType, StoredType> & property) const
-// {
-// 	return propertyContainer.getValue( property );
-// }
+// ----- Return property -----
+template<typename ... PropertyTypes>
+template<typename PropertyType>
+PropertyType& PhysicalEntity<PropertyTypes...>::property()
+{
+	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'property' must be in template parameter list in the specialization of 'PhysicalEntity'");
 
-// #endif
+	return std::get<PropertyType>(this->propertyTuple);
+}
+
+template<typename ... PropertyTypes>
+template<typename PropertyType>
+PropertyType PhysicalEntity<PropertyTypes...>::property() const
+{
+	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'property' must be in template parameter list in the specialization of 'PhysicalEntity'");
+
+	return std::get<PropertyType>(this->propertyTuple);
+}
+
+// ----- Input and output property -----
+template<typename ... PropertyTypes>
+template<typename PropertyType>
+bool PhysicalEntity<PropertyTypes...>::input(std::istream & in)
+{
+	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'input' must be in template parameter list in the specialization of 'PhysicalEntity'");
+
+	return std::get<PropertyType>(this->propertyTuple).input(in);
+}
+
+template<typename ... PropertyTypes>
+template<typename PropertyType>
+bool PhysicalEntity<PropertyTypes...>::output(std::ostream & out) const
+{
+	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'output' must be in template parameter list in the specialization of 'PhysicalEntity'");
+
+	return std::get<PropertyType>(this->propertyTuple).output(out);
+}
+
+// ----- Check whether a property was assigned -----
+template<typename ... PropertyTypes>
+template<typename PropertyType>
+bool PhysicalEntity<PropertyTypes...>::assigned() const
+{
+	static_assert(type_is_in_list<PropertyType, PropertyTypes...>::value, "Template parameter for function 'assigned' must be in template parameter list in the specialization of 'PhysicalEntity'");
+
+	return std::get<PropertyType>(this->propertyTuple).assigned();
+}
+
+#endif

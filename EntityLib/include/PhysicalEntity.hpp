@@ -1,89 +1,41 @@
-// #ifndef PHYSICAL_ENTITY_HPP
-// #define PHYSICAL_ENTITY_HPP
+#ifndef PHYSICAL_ENTITY_HPP
+#define PHYSICAL_ENTITY_HPP
 
-// // Standard
-// #include <vector>
-// #include <set>
+// UtilsLib
+#include <UniqueTypeList.hpp>
 
-// // EntityLib
-// #include <Entity.hpp>
+// Standard
+#include <iostream>
+#include <tuple>
 
-// // UtilsLib
-// #include <Vector3D.hpp>
-// #include <SharedPointer.hpp>
-// #include <Any.hpp>
+template<typename ... PropertyTypes>
+class PhysicalEntity
+{
+	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in PhysicalEntity specialization.");
 
-// // PropertyLib
-// #include <PropertyContainer.hpp>
+	public:
+		// ----- Return property -----
+		template<typename PropertyType>
+		PropertyType& property();
 
+		template<typename PropertyType>
+		PropertyType property() const;
 
-// enum GeometryType{
-// 	SPHERE = 0,
-// 	DEFAULT = SPHERE
-// };
+		// ----- Input and output property -----
+		template<typename PropertyType>
+		bool input(std::istream & in);
 
-// template<typename ... Properties>
-// class PhysicalEntity: public Entity
-// {
-// 	using string = std::string;
+		template<typename PropertyType>
+		bool output(std::ostream & out) const;
 
-// 	template<typename ... Args>
-// 	using vector = std::vector<Args...>;
+		// Check whether a property was assigned
+		template<typename PropertyType>
+		bool assigned() const;
 
-// 	public:
-// 		using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
+	protected:
+		std::tuple<PropertyTypes...> propertyTuple;
+};
 
-// 		// ---- Constructors ----
-// 		PhysicalEntity();
-// 		explicit PhysicalEntity(const Entity & base); // Creates a PhysicalEntity based on an Entity
-// 		PhysicalEntity(const int taylorOrder, const int dim, const int handle = -1);
-// 		PhysicalEntity(const int taylorOrder, const int dim, const Entity & base);
+#include <PhysicalEntity.tpp>
 
-// 		// ---- Spatial localization ----
-		
-// 		// ---- Geometry ----
-// 		void setGeometry(const GeometryType);
-// 		GeometryType getGeometry() const;
-		
-// 		// ---- Properties ----		
-// 		void requireProperties( const PropertyContainer & raw );
-
-// 			// dimension
-// 		int getDimension(void) const;
-
-// 			// taylorOrder
-// 		void setTaylorOrder(const int taylorOrder);
-// 		int getTaylorOrder(void) const;
-
-// 			// set property
-// 		template< typename InterfaceType, typename StoredType, typename implicitInterfaceType >
-// 		void set( const Property<InterfaceType, StoredType> & property, const implicitInterfaceType & value );
-
-// 		void set( const string & rawName, const Any & value ); // CAUTION: inputMethod and outputMethod are not inserted!
-
-// 			// get property
-// 		template<typename InterfaceType, typename StoredType>
-// 		InterfaceType get(const Property<InterfaceType, StoredType> & property) const;
-
-// 		Any getAsAnyValue( const string & name ) const;
-
-// 		SharedPointer<std::set<string>> getPropertyNames( void ) const;
-		
-// 	private:
-// 		int			 taylorOrder; // Number of derivates. If zero, there is just the position (not the velocity)
-// 		static int	 dimension; // Dimension of simulation. ( = 2 ) or ( = 3 )
-// 		GeometryType geometry;
-		
-
-// 		static void setDimension(const int dim);
-
-// 		// properties
-// 		ValuedPropertyContainer propertyContainer;
-// };
-
-// using PhysicalEntityPtr = SharedPointer<PhysicalEntity>;
-
-// #include <PhysicalEntity.tpp>
-
-
-// #endif
+#endif

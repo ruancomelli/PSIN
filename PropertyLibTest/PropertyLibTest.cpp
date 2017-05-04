@@ -7,7 +7,6 @@
 
 // PropertyLib
 #include <Property.hpp>
-#include <PropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
@@ -76,87 +75,4 @@ TestCase(PropertyDefinitionsTest)
 	checkClose(mass.get(), positiveValue, tolerance);
 }
 
-TestCase(PropertyContainerInstantiationTest)
-{
-	PropertyContainer<int, double, char> propertyContainerSuccess;
 
-	//Uncomment the following line to get compile errors:
-	//PropertyContainer<int, double, double> propertyContainerFail;
-}
-
-TestCase(PropertyContainerPropertyTest)
-{
-	int intValue = 3;
-	double doubleValue = 5.6;
-
-	PropertyContainer<int, double> propertyContainer;
-	propertyContainer.property<int>() = intValue;
-	propertyContainer.property<double>() = doubleValue;
-
-	checkEqual(propertyContainer.property<int>(), intValue);
-	checkEqual(propertyContainer.property<double>(), doubleValue);
-
-	auto x = propertyContainer.property<double>();
-	x *= 2;
-
-	// Check that propertyContainer.property<double>() didn't change
-	checkEqual(propertyContainer.property<double>(), doubleValue);
-}
-
-struct ATest
-{
-	int f()
-	{
-		return 5;
-	}
-};
-
-TestCase(PropertyContainerCallPropertyMemberFunctionTest)
-{
-	int returnValue = 5;
-	PropertyContainer<ATest> propertyContainer;
-
-	checkEqual(propertyContainer.property<ATest>().f(), returnValue);
-}
-
-struct TestedProperty : public Property<double>
-{};
-
-TestCase(PropertyContainerInputAndOutputTest)
-{
-	double tolerance = 1e-12;
-	double defaultValue = 0.0;
-	double value = 3.14;
-
-	PropertyContainer<TestedProperty> inputter;
-	PropertyContainer<TestedProperty> outputter;
-
-	inputter.property<TestedProperty>().set(defaultValue);
-	outputter.property<TestedProperty>().set(value);
-
-	string fileName = "PropertyContainer_Input_Output_Test.txt";
-	fstream file(fileName, fstream::in | fstream::out | fstream::trunc);
-
-	outputter.output<TestedProperty>(file);
-
-	file.clear();
-	file.seekg(0, ios::beg);
-
-	inputter.input<TestedProperty>(file);
-
-	checkClose(inputter.property<TestedProperty>().get(), value, tolerance);
-}
-
-TestCase(MassInPropertyContainerTest)
-{
-	double massValue = 5;
-	PropertyContainer<Mass> propertyContainer;
-
-	check( !( propertyContainer.assigned<Mass>() ) );
-
-	propertyContainer.property<Mass>().set(massValue);
-
-	check(( propertyContainer.assigned<Mass>() ));
-
-	checkEqual(propertyContainer.property<Mass>().get(), massValue);
-}

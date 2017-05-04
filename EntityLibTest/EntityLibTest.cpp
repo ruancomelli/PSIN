@@ -14,7 +14,7 @@
 #include <HandledEntity.hpp>
 #include <SpatialEntity.hpp>
 #include <SocialEntity.hpp>
-// #include <PhysicalEntity.hpp>
+#include <PhysicalEntity.hpp>
 // #include <Particle.hpp>
 // #include <SphericalParticle.hpp>
 
@@ -22,8 +22,10 @@
 // #include <vectorIO.hpp>
 
 // PropertyLib
-// #include <ValuedPropertyContainer.hpp>
+#include <Property.hpp>
+#include <PropertyDefinitions.hpp>
 
+using namespace PropertyDefinitions;
 using namespace std;
 
 
@@ -293,180 +295,93 @@ TestCase(SpatialEntityAngularPositionVelocityAccelerationTest)
 	// spatial.getOrientationDerivative(invalidDerivative);
 }
 
-// TestCase( PhysicalEntityDefaultConstructor )
-// {
-// 	// Default Constructor
-// 	PhysicalEntity 		physicalEntity;
-// 	int 				defaultTaylorOrder 	= 3;
-// 	int 				defaultSize 		= defaultTaylorOrder + 1;
-// 	int 				defaultDimension 	= 3;
-// 	int					defaultHandle		= -1;
-// 	GeometryType geometryType = DEFAULT;
+TestCase(PhysicalEntityInstantiationTest)
+{
+	PhysicalEntity<int, double, char> physicalEntitySuccess;
 
-// 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
-// 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
-	
-// 	checkEqual( physicalEntity.getHandle() , defaultHandle );
-// 	checkEqual( defaultPosition.size() , defaultSize );
-// 	checkEqual( defaultOrientation.size() , defaultSize );
-// 	checkEqual( physicalEntity.getDimension() , defaultDimension );
-// 	checkEqual( physicalEntity.getGeometry(), geometryType );
-// }
+	//Uncomment the following line to get compile errors:
+	//PhysicalEntity<int, double, double> physicalEntityFail;
+}
 
-// TestCase( PhysicalEntityConstructorWithEntity )
-// {
-// 	int 				defaultTaylorOrder 	= 3;
-// 	int 				defaultSize 		= defaultTaylorOrder + 1;
-// 	int 				defaultDimension 	= 3;
-// 	int					handle				= 5;
-// 	GeometryType geometryType = DEFAULT;
+TestCase(PhysicalEntityPropertyTest)
+{
+	int intValue = 3;
+	double doubleValue = 5.6;
 
-// 	Entity				entity(handle);
-	
-// 	PhysicalEntity 		physicalEntity(entity);
+	PhysicalEntity<int, double> physicalEntity;
+	physicalEntity.property<int>() = intValue;
+	physicalEntity.property<double>() = doubleValue;
 
-// 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
-// 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
-	
-// 	checkEqual( physicalEntity.getHandle() , handle );
-// 	checkEqual( defaultPosition.size() , defaultSize );
-// 	checkEqual( defaultOrientation.size() , defaultSize );
-// 	checkEqual( physicalEntity.getDimension() , defaultDimension );
-// 	checkEqual(physicalEntity.getGeometry(), geometryType);
-// }
+	checkEqual(physicalEntity.property<int>(), intValue);
+	checkEqual(physicalEntity.property<double>(), doubleValue);
 
-// TestCase( PhysicalEntityConstructorWithParameters )
-// {
-// 	int taylorOrder	= 3;
-// 	int size		= taylorOrder + 1;
-// 	int dimension	= 2;
-// 	int handle		= 5;
+	auto x = physicalEntity.property<double>();
+	x *= 2;
 
-// 	// Constructor with non-default parameters
-// 	// Properties allocator not tested
-// 	PhysicalEntity physicalEntity(taylorOrder, dimension, handle);
+	// Check that physicalEntity.property<double>() didn't change
+	checkEqual(physicalEntity.property<double>(), doubleValue);
+}
 
-// 	vector<Vector3D> 	position 		= physicalEntity.getPosition();
-// 	vector<Vector3D> 	orientation 	= physicalEntity.getOrientation();
+struct ATest
+{
+	int f()
+	{
+		return 5;
+	}
+};
 
-// 	checkEqual( physicalEntity.getHandle() , handle );
-// 	checkEqual( position.size() , size );
-// 	checkEqual( orientation.size() , size );
-// 	checkEqual( physicalEntity.getDimension() , dimension );
+TestCase(PhysicalEntityCallPropertyMemberFunctionTest)
+{
+	int returnValue = 5;
+	PhysicalEntity<ATest> physicalEntity;
 
-// 	// Constructor with non-default parameters, but without handle
-// 	int defaultHandle = -1;
-// 	PhysicalEntity physicalEntity2(taylorOrder, dimension);
+	checkEqual(physicalEntity.property<ATest>().f(), returnValue);
+}
 
-// 	vector<Vector3D> 	position2 = physicalEntity2.getPosition();
-// 	vector<Vector3D> 	orientation2 = physicalEntity2.getOrientation();
+struct TestedProperty : public Property<double>
+{};
 
-// 	checkEqual(physicalEntity2.getHandle(), defaultHandle);
-// 	checkEqual(position2.size(), size);
-// 	checkEqual(orientation2.size(), size);
-// 	checkEqual(physicalEntity2.getDimension(), dimension);
-	
-// }
+TestCase(PhysicalEntityInputAndOutputTest)
+{
+	double tolerance = 1e-12;
+	double defaultValue = 0.0;
+	double value = 3.14;
 
-// TestCase( PhysicalEntityConstructorWithEntityAndParameters )
-// {
-// 	int taylorOrder	= 5;
-// 	int size		= taylorOrder + 1;
-// 	int dimension	= 2;
-// 	int handle		= 5;
+	PhysicalEntity<TestedProperty> inputter;
+	PhysicalEntity<TestedProperty> outputter;
 
-// 	Entity entity(handle);
+	inputter.property<TestedProperty>().set(defaultValue);
+	outputter.property<TestedProperty>().set(value);
 
-// 	// Constructor with non-default parameters and an Entity as parameter
-// 	// Properties allocator not tested
-// 	PhysicalEntity physicalEntity(taylorOrder, dimension, entity);
+	string fileName = "PhysicalEntity_Input_Output_Test.txt";
+	fstream file(fileName, fstream::in | fstream::out | fstream::trunc);
 
-// 	vector<Vector3D> 	position 		= physicalEntity.getPosition();
-// 	vector<Vector3D> 	orientation 	= physicalEntity.getOrientation();
+	outputter.output<TestedProperty>(file);
 
-// 	checkEqual( physicalEntity.getHandle() , handle );
-// 	checkEqual( position.size() , size );
-// 	checkEqual( orientation.size() , size );
-// 	checkEqual( physicalEntity.getDimension() , dimension );
+	file.clear();
+	file.seekg(0, ios::beg);
 
-// 	vector<Vector3D> 			defaultPosition 	= physicalEntity.getPosition();
-// 	vector<Vector3D> 			defaultOrientation 	= physicalEntity.getOrientation();
-	
-// 	checkEqual( physicalEntity.getHandle() , handle );
-// 	checkEqual( defaultPosition.size() , size );
-// 	checkEqual( defaultOrientation.size() , size );
-// 	checkEqual( physicalEntity.getDimension() , dimension );
-// }
+	inputter.input<TestedProperty>(file);
 
-// TestCase( SpacialSetFunctions )
-// {
+	checkClose(inputter.property<TestedProperty>().get(), value, tolerance);
+}
 
-// 	int taylorOrder	= 3;
-// 	int dimension	= 3;
-// 	int handle		= 0;
-// 	PhysicalEntity physicalEntity(taylorOrder, dimension, handle);
+TestCase(MassInPhysicalEntityTest)
+{
+	double massValue = 5;
+	PhysicalEntity<Mass> physicalEntity;
 
-// 	// setPosition(derivative, x, y, z)
-// 	{
-// 	double x = -5.4;
-// 	double y = 8.3;
-// 	double z = -1.7;
-// 	int derivative = 0;
+	check( !( physicalEntity.assigned<Mass>() ) );
 
-// 	Vector3D pos0(x , y , z);
-// 	physicalEntity.setPosition(derivative, x, y, z);
-// 	check( pos0==physicalEntity.getPosition(0) );
-// 	}
+	physicalEntity.property<Mass>().set(massValue);
 
-// 	// setPosition(derivative, vector3D)
-// 	{
-// 	double x = -8.6;
-// 	double y = 4.9;
-// 	double z = -6.8;
-// 	int derivative = 1;
+	check(( physicalEntity.assigned<Mass>() ));
 
-// 	Vector3D pos0(x , y , z);
-// 	physicalEntity.setPosition(derivative, pos0);
-// 	check( pos0==physicalEntity.getPosition(derivative) );
-// 	}
+	checkEqual(physicalEntity.property<Mass>().get(), massValue);
+}
 
-// 	// setPosition( vector<Vector3D> )
-// 	{
-// 	Vector3D pos0( 1.0 , -3.7 , -7.4 );
-// 	Vector3D pos1( 6.2 , 1.9 , -2.8 );
-// 	Vector3D pos2( 0.0 , 3.14 , 15.9);
-// 	Vector3D pos3( -1.5 , 2.5 , 3.8);
-// 	vector<Vector3D> posVec = { pos0, pos1, pos2, pos3 };
 
-// 	physicalEntity.setPosition(posVec);
 
-// 	check( pos0 == physicalEntity.getPosition()[0] );
-// 	check( pos1 == physicalEntity.getPosition()[1] );
-// 	check( pos2 == physicalEntity.getPosition()[2] );
-// 	check( pos3 == physicalEntity.getPosition()[3] );
-// 	}
-// }
-
-// TestCase( PropertiesTest )
-// {
-// 	PhysicalEntity	physicalEntity;
-// 	int taylorOrder	= 4;
-// 	int size		= taylorOrder + 1;
-
-// 	// setTaylorOrder
-// 	physicalEntity.setTaylorOrder(taylorOrder);
-// 	checkEqual( physicalEntity.getTaylorOrder() , taylorOrder );
-// 	checkEqual( physicalEntity.getPosition().size() , size );
-
-// 	// set and get properties
-// 	double elasticModulus = 14.95;
-// 	Property<double> elastic_modulus("ElasticModulus");
-
-// 	physicalEntity.set(elastic_modulus, elasticModulus );
-// 	checkEqual( physicalEntity.get(elastic_modulus) , elasticModulus );
-// 	checkEqual(anyCast<double>(physicalEntity.getAsAnyValue(elastic_modulus.getName())),
-// 		elasticModulus);
-// }
 
 // TestCase( ParticleConstructors )
 // {
