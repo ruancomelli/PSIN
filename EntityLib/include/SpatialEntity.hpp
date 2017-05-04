@@ -9,6 +9,9 @@
 
 #define DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER 4
 
+template<typename T, typename U>
+double distance(const T & left, const U & right);	// distance function. Must be specialized for every pair of types
+
 class SpatialEntity
 {
 	public:
