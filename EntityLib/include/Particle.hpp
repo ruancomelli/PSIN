@@ -15,10 +15,12 @@ class Particle :
 	public SocialEntity,
 	public SpatialEntity
 {
+	using BasePhysicalEntity = PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>;
+
 	public:	
 		// ---- Constructors ----
 		explicit Particle(const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
-		// explicit Particle(const PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...> & base, const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+		explicit Particle(const BasePhysicalEntity & base, const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
 		// ---- Dynamics ----
 		void addBodyForce(const Vector3D & force);

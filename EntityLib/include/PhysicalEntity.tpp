@@ -4,6 +4,17 @@
 // UtilsLib
 #include <TypeIsInList.hpp>
 
+// ----- Constructors -----
+template<typename ... PropertyTypes>
+PhysicalEntity<PropertyTypes...>::PhysicalEntity()
+{}
+
+template<typename ... PropertyTypes>
+PhysicalEntity<PropertyTypes...>::PhysicalEntity(const PhysicalEntity<PropertyTypes...> & other)
+{
+	this->propertyTuple = other.propertyTuple;
+}
+
 // ----- Return property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType>

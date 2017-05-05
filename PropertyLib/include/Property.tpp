@@ -1,7 +1,20 @@
 #ifndef PROPERTY_TPP
 #define PROPERTY_TPP
 
-// Constructors
+
+template<typename type>
+Property<type>& Property<type>::operator=(const Property<type> & other)
+{
+	if(other.value)
+	{
+		this->value = makeUnique<type>( *other.value );
+	}
+	this->assignedFlag = other.assignedFlag;
+
+	return *this;
+}
+
+// ----- Constructors -----
 template<typename type>
 Property<type>::Property()
 {}
@@ -12,8 +25,18 @@ Property<type>::Property(const type & value)
 	this->set(value);
 }
 
+template<typename type>
+Property<type>::Property(const Property<type> & other)
+	: assignedFlag(other.assignedFlag)
+{
+	if(other.value)
+	{
+		this->value = makeUnique<type>( *other.value );
+	}
+}
 
-// Set and get value
+
+// ----- Set and get value -----
 template<typename type>
 void Property<type>::assign(const type & value)
 {
@@ -33,7 +56,7 @@ type Property<type>::get(void) const
 	return *this->value;
 }
 
-// Input and output property
+// ----- Input and output property -----
 template<typename type>
 bool Property<type>::input(std::istream & in)
 {
@@ -54,7 +77,7 @@ bool Property<type>::output(std::ostream & out) const
 	return true;
 }
 
-// Assigned
+// ----- Assigned -----
 template<typename type>
 bool Property<type>::assigned() const
 {

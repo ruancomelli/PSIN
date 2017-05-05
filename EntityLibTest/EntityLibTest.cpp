@@ -335,6 +335,12 @@ TestCase(PhysicalEntityPropertyTest)
 
 	// Check that physicalEntity.property<double>() didn't change
 	checkEqual(physicalEntity.property<double>(), doubleValue);
+
+	PhysicalEntity<int, double> physicalEntity1;
+	physicalEntity1.property<int>() = intValue;
+
+	PhysicalEntity<int, double> physicalEntity2(physicalEntity1);
+	checkEqual(physicalEntity2.property<int>(), intValue);
 }
 
 struct ATest
@@ -395,33 +401,33 @@ TestCase(MassInPhysicalEntityTest)
 	checkEqual(physicalEntity.property<Mass>().get(), massValue);
 }
 
-// TestCase(ParticleConstructorTest)
-// {
-// 	int defaultHandle = DEFAULT_HANDLED_ENTITY_HANDLE;
-// 	int defaultTaylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER;
+TestCase(ParticleConstructorTest)
+{
+	int defaultHandle = DEFAULT_HANDLED_ENTITY_HANDLE;
+	int defaultTaylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER;
 
-// 	int handle = 5;
-// 	int taylorOrder = 4;
+	int handle = 5;
+	int taylorOrder = 4;
 
-// 	double massValue = 3.1415;
-// 	double volumeValue = 1.618;
+	double massValue = 3.1415;
+	double volumeValue = 1.618;
 
-// 	PhysicalEntity<Mass, MomentOfInertia, Volume> physicalEntity;
-// 	physicalEntity.property<Mass>().set(massValue);
-// 	physicalEntity.property<Volume>().set(volumeValue);
+	Particle<Volume> particle1;
+	checkEqual(particle1.getHandle(), defaultHandle);
+	checkEqual(particle1.getTaylorOrder(), defaultTaylorOrder);
 
-// 	Particle<Volume> particle1;
-// 	checkEqual(particle1.getHandle(), defaultHandle);
-// 	checkEqual(particle1.getTaylorOrder(), defaultTaylorOrder);
+	Particle<Volume> particle2(handle, taylorOrder);
+	checkEqual(particle2.getHandle(), handle);
+	checkEqual(particle2.getTaylorOrder(), taylorOrder);
 
-// 	Particle<Volume> particle2(handle, taylorOrder);
-// 	checkEqual(particle2.getHandle(), handle);
-// 	checkEqual(particle2.getTaylorOrder(), taylorOrder);
+	PhysicalEntity<Mass, MomentOfInertia, Volume> physicalEntity;
+	physicalEntity.property<Mass>().set(massValue);
+	physicalEntity.property<Volume>().set(volumeValue);
 
-// 	Particle<Volume> particle3(physicalEntity);
-// 	checkEqual(particle3.property<Mass>().get(), massValue);
-// 	checkEqual(particle3.property<Volume>().get(), volumeValue);
-// }
+	Particle<Volume> particle3(physicalEntity);
+	checkEqual(particle3.property<Mass>().get(), massValue);
+	checkEqual(particle3.property<Volume>().get(), volumeValue);
+}
 
 
 // TestCase( ParticleConstructors )

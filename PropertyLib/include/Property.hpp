@@ -11,11 +11,14 @@ template<typename type = double>
 class Property
 {
 	public:
+		Property<type>& operator=(const Property<type> & other);
+
 		using Type = type;
 
 		// Constructors
 		Property();
 		Property(const type & value);
+		Property(const Property<type> & other);
 
 		virtual void set(const type & value);
 		virtual type get() const;

@@ -10,8 +10,8 @@ Particle<PropertyTypes...>::Particle(const int handle, const int taylorOrder)
 }
 
 template<typename ... PropertyTypes>
-Particle<PropertyTypes...>::Particle(const PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...> & base, const int handle, const int taylorOrder)
-	: PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>::PhysicalEntity(base),
+Particle<PropertyTypes...>::Particle(const BasePhysicalEntity & base, const int handle, const int taylorOrder)
+	: BasePhysicalEntity::PhysicalEntity(base),
 	SocialEntity(handle),
 	SpatialEntity(taylorOrder)
 {
@@ -74,16 +74,16 @@ Vector3D Particle<PropertyTypes...>::getResultingTorque() const
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::getLinearMomentum() const
 {
-	PropertyDefinitions::Mass myMass = PhysicalEntity<PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>>::template property<PropertyDefinitions::Mass>();
-	double mass = this->property<PropertyDefinitions::Mass>().get();
+	double mass = BasePhysicalEntity::template property<PropertyDefinitions::Mass>().get();
 
 	return mass * this->getVelocity();
 }
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::getAngularMomentum() const
 {
-	double mass = this->property<PropertyDefinitions::Mass>().get();
-	double momentOfInertia = this->property<PropertyDefinitions::MomentOfInertia>().get();
+	double mass = BasePhysicalEntity::template property<PropertyDefinitions::Mass>().get();
+
+	double momentOfInertia = BasePhysicalEntity::template property<PropertyDefinitions::MomentOfInertia>().get();
 
 	return momentOfInertia * this->getAngularVelocity() +
 			mass * cross( this->getPosition(), this->getVelocity() );
@@ -92,14 +92,14 @@ Vector3D Particle<PropertyTypes...>::getAngularMomentum() const
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getTranslationalEnergy() const
 {
-	double mass = this->property<PropertyDefinitions::Mass>().get();
+	double mass = BasePhysicalEntity::template property<PropertyDefinitions::Mass>().get();
 
 	return 0.5 * mass * this->getVelocity().squaredLength();
 }
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getRotationalEnergy() const
 {
-	double momentOfInertia = this->property<PropertyDefinitions::MomentOfInertia>().get();
+	double momentOfInertia = BasePhysicalEntity::template property<PropertyDefinitions::MomentOfInertia>().get();
 
 	return 0.5 * momentOfInertia * this->getAngularVelocity().squaredLength();
 }
@@ -111,7 +111,7 @@ double Particle<PropertyTypes...>::getKineticEnergy() const
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getPotentialEnergy() const
 {
-	double mass = this->property<PropertyDefinitions::Mass>().get();
+	double mass = BasePhysicalEntity::template property<PropertyDefinitions::Mass>().get();
 
 	return - mass * dot( this->getGravity(), this->getPosition() );
 }

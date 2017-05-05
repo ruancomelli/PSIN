@@ -14,6 +14,9 @@ class PhysicalEntity
 	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
 
 	public:
+		PhysicalEntity();
+		PhysicalEntity(const PhysicalEntity<PropertyTypes...> & other);
+
 		// ----- Return property -----
 		template<typename PropertyType>
 		PropertyType& property();
