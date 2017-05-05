@@ -1,61 +1,60 @@
-// #ifndef PARTICLE_HPP
-// #define PARTICLE_HPP
+#ifndef PARTICLE_HPP
+#define PARTICLE_HPP
 
-// // Standard
-// #include <vector>
+// EntityLib
+#include <PhysicalEntity.hpp>
+#include <SocialEntity.hpp>
+#include <SpatialEntity.hpp>
 
-// // EntityLib
-// #include <PhysicalEntity.hpp>
+// PropertyLib
+#include <PropertyDefinitions.hpp>
 
-// // UtilsLib
-// #include <SharedPointer.hpp>
-
-// class Particle: public PhysicalEntity
-// {
-// 	public:	
-// 		using ParticlePtr = SharedPointer< Particle >;
-
-// 		// ---- Constructors ----
-// 		Particle();
-// 		explicit Particle(const PhysicalEntity & base);
-// 		Particle(const int taylorOrder, const int dimension, const int handle = -1);
+template<typename ... PropertyTypes>
+class Particle :
+	public PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>,
+	public SocialEntity,
+	public SpatialEntity
+{
+	public:	
+		// ---- Constructors ----
+		explicit Particle(const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+		// explicit Particle(const PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...> & base, const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
-// 		// ---- Dynamics ----
-// 		void addBodyForce(const Vector3D force){ this->bodyForce += force; }
-// 		void addContactForce(const Vector3D force){ this->contactForce += force; }
-// 		void setBodyForce(const Vector3D force){ this->bodyForce = force; } 
-// 		void setContactForce(const Vector3D force){ this->contactForce = force; }
+		// ---- Dynamics ----
+		void addBodyForce(const Vector3D & force);
+		void addContactForce(const Vector3D & force);
+		void setBodyForce(const Vector3D & force);
+		void setContactForce(const Vector3D & force);
 
-// 		Vector3D getBodyForce(void) const { return this->bodyForce; }
-// 		Vector3D getContactForce(void) const { return this->contactForce; }
-// 		Vector3D getResultingForce(void) const { return this->getBodyForce() + this->getContactForce(); }
+		Vector3D getBodyForce(void) const;
+		Vector3D getContactForce(void) const;
+		Vector3D getResultingForce(void) const;
 		
-// 		void addTorque(const Vector3D torque){ this->resultingTorque += torque; }
-// 		void setResultingTorque(const Vector3D torque){ this->resultingTorque = torque; }
-// 		Vector3D getResultingTorque(void) const { return this->resultingTorque; }
+		void addTorque(const Vector3D & torque);
+		void setResultingTorque(const Vector3D & torque);
+		Vector3D getResultingTorque(void) const;
 
-// 		Vector3D getLinearMomentum(void) const;
-// 		Vector3D getAngularMomentum(void) const;
+		Vector3D getLinearMomentum(void) const;
+		Vector3D getAngularMomentum(void) const;
 
-// 		double getKineticEnergy(void) const;
-// 		double getTranslationalEnergy(void) const;
-// 		double getRotationalEnergy(void) const;
-// 		double getPotentialEnergy(void) const;
-// 		double getMechanicalEnergy(void) const;
+		double getKineticEnergy(void) const;
+		double getTranslationalEnergy(void) const;
+		double getRotationalEnergy(void) const;
+		double getPotentialEnergy(void) const;
+		double getMechanicalEnergy(void) const;
 
-// 		void setGravity(Vector3D gravity){this->gravity = gravity;}
-// 		Vector3D getGravity(void) const {return this->gravity;}		
+		void setGravity(const Vector3D & gravity);
+		Vector3D getGravity(void) const;	
 		
-// 		// ---- Distance ----
-// 		double distance(ParticlePtr particle);
-		
-// 	private:
-// 		Vector3D bodyForce;
-// 		Vector3D contactForce;
+	private:
+		Vector3D bodyForce;
+		Vector3D contactForce;
 
-// 		Vector3D resultingTorque;
+		Vector3D resultingTorque;
 
-// 		static Vector3D gravity;
-// };
+		static Vector3D gravity;
+};
 
-// #endif
+#include <Particle.tpp>
+
+#endif

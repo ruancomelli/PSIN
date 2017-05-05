@@ -11,7 +11,7 @@
 template<typename ... PropertyTypes>
 class PhysicalEntity
 {
-	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in PhysicalEntity specialization.");
+	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
 
 	public:
 		// ----- Return property -----
