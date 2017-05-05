@@ -1,6 +1,9 @@
 #ifndef PARTICLE_TPP
 #define PARTICLE_TPP
 
+template<typename ... PropertyTypes>
+Vector3D Particle<PropertyTypes...>::gravity = nullVector3D();
+
 // ------------------------------- Constructors -------------------------------
 template<typename ... PropertyTypes>
 Particle<PropertyTypes...>::Particle(const int handle, const int taylorOrder)

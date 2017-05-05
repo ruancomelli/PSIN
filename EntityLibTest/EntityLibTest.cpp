@@ -429,46 +429,101 @@ TestCase(ParticleConstructorTest)
 	checkEqual(particle3.property<Volume>().get(), volumeValue);
 }
 
+TestCase( ParticleForcesAndTorquesTest )
+{
+	Particle<> particle;
 
-// TestCase( ParticleConstructors )
-// {
-// 	int taylorOrder = 4;
-// 	int dimension = 3;
-// 	int handle = 5;
+	checkEqual(particle.getBodyForce(), nullVector3D());
+	checkEqual(particle.getContactForce(), nullVector3D());
+	checkEqual(particle.getResultingForce(), nullVector3D());
+	checkEqual(particle.getResultingTorque(), nullVector3D());
 
-// 	int defaultTaylorOrder = 3;
-// 	int defaultDimension = 3;
-// 	int defaultHandle = -1;
+	Vector3D bodyForce1(1, 0.5, 3.14);
+	particle.addBodyForce(bodyForce1);
+	checkEqual(particle.getBodyForce(), bodyForce1);
+	checkEqual(particle.getContactForce(), nullVector3D());
+	checkEqual(particle.getResultingForce(), bodyForce1);
 
-// 	PhysicalEntity base(taylorOrder, dimension, handle);
+	Vector3D bodyForce2(-9.81, 5.5, 1.618);
+	particle.addBodyForce(bodyForce2);
+	checkEqual(particle.getBodyForce(), bodyForce1 + bodyForce2);
+	checkEqual(particle.getContactForce(), nullVector3D());
+	checkEqual(particle.getResultingForce(), bodyForce1 + bodyForce2);
 
-// 	Particle particle0;
-// 	Particle particle1(taylorOrder, dimension, handle);
-// 	Particle particle2(base);
+	Vector3D contactForce1(0.1, 2.3, 4.5);
+	particle.addContactForce(contactForce1);
+	checkEqual(particle.getBodyForce(), bodyForce1 + bodyForce2);
+	checkEqual(particle.getContactForce(), contactForce1);
+	checkEqual(particle.getResultingForce(), bodyForce1 + bodyForce2 + contactForce1);
 
-// 	checkEqual(particle0.getHandle(), defaultHandle);
-// 	checkEqual(particle0.getTaylorOrder(), defaultTaylorOrder);
-// 	checkEqual(particle0.getDimension(), defaultDimension);
+	Vector3D contactForce2(-4.5, 11.1, 10000);
+	particle.addContactForce(contactForce2);
+	checkEqual(particle.getBodyForce(), bodyForce1 + bodyForce2);
+	checkEqual(particle.getContactForce(), contactForce1 + contactForce2);
+	checkEqual(particle.getResultingForce(), bodyForce1 + bodyForce2 + contactForce1 + contactForce2);
 
-// 	checkEqual(particle1.getHandle(), handle);
-// 	checkEqual(particle1.getTaylorOrder(), taylorOrder);
-// 	checkEqual(particle1.getDimension(), dimension);
-	
+	Vector3D bodyForce3(8.9, -6.5, 0);
+	Vector3D contactForce3(0, 0, 7);
+	particle.setBodyForce(bodyForce3);
+	particle.setContactForce(contactForce3);
+	checkEqual(particle.getBodyForce(), bodyForce3);
+	checkEqual(particle.getContactForce(), contactForce3);
+	checkEqual(particle.getResultingForce(), bodyForce3 + contactForce3);
 
-// 	checkEqual(particle2.getHandle(), handle);
-// 	checkEqual(particle2.getTaylorOrder(), taylorOrder);
-// 	checkEqual(particle2.getDimension(), dimension);
-// }
+	Vector3D torque1(-1, 0.5, 6.9);
+	particle.addTorque(torque1);
+	checkEqual(particle.getResultingTorque(), torque1);
 
-// TestCase( ForcesAndTorques )
-// {
-// 	Particle particle;
+	Vector3D torque2(99, 66, 33);
+	particle.addTorque(torque2);
+	checkEqual(particle.getResultingTorque(), torque1 + torque2);
 
-// 	checkEqual(particle.getBodyForce(), nullVector3D());
-// 	checkEqual(particle.getContactForce(), nullVector3D());
-// 	checkEqual(particle.getResultingForce(), nullVector3D());
-// 	checkEqual(particle.getResultingTorque(), nullVector3D());
-// }
+	Vector3D torque3(-9, 0.45, 3.14159);
+	particle.setResultingTorque(torque3);
+	checkEqual(particle.getResultingTorque(), torque3);
+}
+
+TestCase( ParticleMomentumAndEnergyTest )
+{
+	double tolerance = 1e-12;
+
+	double mass = 55;
+	double momentOfInertia = 78.56;
+
+	Vector3D gravity(0, -9.81, 0);
+
+	Vector3D position(8.8, -5.7, 0.23);
+	Vector3D velocity(1.5, -4.8, 9.9);
+	Vector3D angularVelocity(8.9, 7.7, -11.1);
+
+	Vector3D linearMomentum = mass * velocity;
+	Vector3D angularMomentum = mass * cross( position, velocity ) + momentOfInertia * angularVelocity;
+
+	double translationalEnergy = 0.5 * mass * velocity.squaredLength();
+	double rotationalEnergy = 0.5 * momentOfInertia * angularVelocity.squaredLength();
+	double kineticEnergy = translationalEnergy + rotationalEnergy;
+	double potentialEnergy = - mass * dot(gravity, position);
+	double mechanicalEnergy = potentialEnergy + kineticEnergy;
+
+	Particle<> particle;
+
+	particle.setGravity(gravity);
+
+	particle.property<Mass>().set(mass);
+	particle.property<MomentOfInertia>().set(momentOfInertia);
+
+	particle.setPosition(position);
+	particle.setVelocity(velocity);
+	particle.setAngularVelocity(angularVelocity);
+
+	checkEqual(particle.getLinearMomentum(), linearMomentum);
+	checkEqual(particle.getAngularMomentum(), angularMomentum);
+	checkClose(particle.getKineticEnergy(), kineticEnergy, tolerance);
+	checkClose(particle.getTranslationalEnergy(), translationalEnergy, tolerance);
+	checkClose(particle.getRotationalEnergy(), rotationalEnergy, tolerance);
+	checkClose(particle.getPotentialEnergy(), potentialEnergy, tolerance);
+	checkClose(particle.getMechanicalEnergy(), mechanicalEnergy, tolerance);
+}
 
 // TestCase( SphericalParticleDistance )
 // {
