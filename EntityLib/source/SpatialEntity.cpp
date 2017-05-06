@@ -232,7 +232,6 @@ void SpatialEntity::resizePositionOrientation()
 	this->orientationMatrix.resize(size);
 }
 
-template<>
 double distance(const SpatialEntity & left, const SpatialEntity & right)
 {
 	return (left.getPosition() - right.getPosition()).length();
