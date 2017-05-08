@@ -17,14 +17,12 @@ if(UNIX)
 	#SET RELEASE COMPILATION FLAGS
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra -pedantic -O2")
 
-	#SET BUILD TYPE
-	if(CMAKE_BUILD_TYPE MATCHES Debug)
-		set(CMAKE_BUILD_DIR	"Debug")
-	elseif(CMAKE_BUILD_TYPE MATCHES Release)
-		set(CMAKE_BUILD_DIR	"Release")
+	if(DEFINED CMAKE_BUILD_TYPE)
+		set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "Choose the type of
+		build, options are: Debug Release.")
 	else()
-		set(CMAKE_BUILD_TYPE Release)
-		set(CMAKE_BUILD_DIR	"Release")
+		set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of
+		build, options are: Debug Release.")
 	endif()
 
 	#SET WHERE THE FILES WILL BE CREATED
