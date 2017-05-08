@@ -1,5 +1,5 @@
-#ifndef UTILS_UNIQUE_TYPE_LIST_H
-#define UTILS_UNIQUE_TYPE_LIST_H
+#ifndef UTILS_UNIQUE_TYPE_LIST_HPP
+#define UTILS_UNIQUE_TYPE_LIST_HPP
 
 
 #include <EqualTypes.hpp>
@@ -47,4 +47,4 @@ struct UniqueTypeList
 	static_assert(is_unique_type_list<Ts...>::value, "UniqueTypeList can only be declared with unique types as template parameters");
 };
 
-#endif //UTILS_UNIQUE_TYPE_LIST_H
+#endif
