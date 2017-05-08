@@ -16,6 +16,7 @@
 #include <TypeIsInList.hpp>
 #include <UniquePointer.hpp>
 #include <UniqueTypeList.hpp>
+#include <UniqueTypeListSpecialization.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
@@ -503,4 +504,14 @@ TestCase(TypeIsInListTest)
 {
 	check((type_is_in_list<double, int, double>::value));
 	check(!(type_is_in_list<double, int, char>::value));
+}
+
+TestCase(UniqueTypeListSpecialization)
+{
+	bool hi = equal_types<
+		type_list<int>,
+		typename unique_type_list<int, int>::value
+	>::value;
+
+	check( hi );
 }
