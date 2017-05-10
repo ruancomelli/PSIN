@@ -2,25 +2,10 @@
 #define UTILS_UNIQUE_TYPE_LIST_HPP
 
 
-#include <EqualTypes.hpp>
-
-
-
-// ---- is_unique_type_in_list ----
-template<typename ... Ts>
-struct is_unique_type_in_list;
-
-template<typename T, typename U, typename ... Ts>
-struct is_unique_type_in_list<T, U, Ts...>
-{
-	constexpr static bool value = is_unique_type_in_list<T, Ts...>::value && !(equal_types<T, U>::value);
-};
-
-template<typename T>
-struct is_unique_type_in_list<T>
-{
-	constexpr static bool value = true;
-};
+#include <IfThenElse.hpp>
+#include <TypeIsInList.hpp>
+#include <TypeList.hpp>
+#include <IsUniqueTypeInList.hpp>
 
 
 // ---- is_unique_type_list ----
@@ -39,12 +24,25 @@ struct is_unique_type_list<>
 	constexpr static bool value = true;
 };
 
+// ---- unique_type_list ----
+template<typename ... RepeatedArgs>
+struct unique_type_list;
 
-// ---- UniqueTypeList ----
-template<typename ... Ts>
-struct UniqueTypeList
+template<typename T, typename...Ts>
+struct unique_type_list<T, Ts...>
 {
-	static_assert(is_unique_type_list<Ts...>::value, "UniqueTypeList can only be declared with unique types as template parameters");
+	using value = typename if_then_else<
+			type_is_in_list<T, Ts...>::value,
+			typename unique_type_list<Ts...>::value,
+			prepend_type_to_type_list<T, typename unique_type_list<Ts...>::value>
+		>::value;
 };
+
+template<typename T>
+struct unique_type_list<T>
+{
+	using value = type_list<T>;
+};
+
 
 #endif

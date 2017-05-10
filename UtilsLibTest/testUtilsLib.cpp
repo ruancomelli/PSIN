@@ -2,11 +2,15 @@
 
 // Standard
 #include <string>
+#include <tuple>
 
 // UtilsLib
 #include <Any.hpp>
+#include <EqualTypes.hpp>
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
+#include <IfThenElse.hpp>
+#include <IsUniqueTypeInList.hpp>
 #include <Mathematics.hpp>
 #include <Named.hpp>
 #include <ProgramOptions.hpp>
@@ -478,21 +482,36 @@ TestCase(VariantTest)
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
 }
 
-TestCase(UniqueTypeListTest)
+TestCase(EqualTypesTest)
 {
-	UniqueTypeList<> u1;
-	UniqueTypeList<int> u2;
-	UniqueTypeList<int, double> u3;
+	check( (equal_types<int, int>::value) );
+	check( (equal_types<int, double>::value) );
+}
 
-	// Uncomment the following line to check for compile errors:
-	
-	 //UniqueTypeList<int, int> u4;
+TestCase(IfThenElseTest)
+{
+	check((
+		equal_types<
+			if_then_else<true, int, double>::value,
+			int
+		>::value
+	));
 
+	check((
+		equal_types<
+			if_then_else<false, int, double>::value,
+			double
+		>::value
+	));
+}
+
+TestCase(IsUniqueTypeInListTest)
+{
 	check(is_unique_type_in_list<double>::value);
-	check(!(is_unique_type_in_list<double, double>::value));	// I don't know why, but parenthesis are needed here
-	check((is_unique_type_in_list<double, char>::value));		// and here too
-	check((is_unique_type_in_list<double, int, char>::value));	// and here
-	check(!(is_unique_type_in_list<double, int, char, double>::value));	// and here
+	check(!(is_unique_type_in_list<double, double>::value));
+	check((is_unique_type_in_list<double, char>::value));
+	check((is_unique_type_in_list<double, int, char>::value));
+	check(!(is_unique_type_in_list<double, int, char, double>::value));
 
 	check(is_unique_type_list<>::value);
 	check(is_unique_type_list<double>::value);
@@ -506,12 +525,48 @@ TestCase(TypeIsInListTest)
 	check(!(type_is_in_list<double, int, char>::value));
 }
 
-TestCase(UniqueTypeListSpecialization)
+TestCase(TypeListTest)
 {
-	bool hi = equal_types<
-		type_list<int>,
-		typename unique_type_list<int, int>::value
-	>::value;
+	check((
+		equal_types<
+			prepend_type_to_type_list<double, type_list<char, char, int>>::value,
+			type_list<double, char, char, int>
+		>::value
+	));
+}
 
-	check( hi );
+TestCase(UniqueTypeListTest)
+{
+	check(( is_unique_type_list<int, double, char>::value ));
+	check(!( is_unique_type_list<char, double, char>::value ));
+
+	check((
+		equal_types<
+			unique_type_list<int, int, double, int, double, char, double>::value,
+			type_list<int, double, char>
+		>::value
+	));
+}
+
+TestCase(UniqueTypeListSpecializationTest)
+{
+	check((
+		equal_types<
+			specialize_from_type_list<
+				std::tuple, 
+				type_list<int, double, double, char>
+			>::value,
+			std::tuple<int, double, double, char>
+		>::value
+	));
+
+	check((
+		equal_types<
+			unique_type_list_specialization<
+				std::tuple, 
+				type_list<int, double, double, int, int, char>
+			>::value,
+			std::tuple<int, double, char>
+		>::value
+	));
 }

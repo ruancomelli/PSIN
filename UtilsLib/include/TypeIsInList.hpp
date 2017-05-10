@@ -1,7 +1,7 @@
 #ifndef UTILS_TYPE_IS_IN_LIST_H
 #define UTILS_TYPE_IS_IN_LIST_H
 
-#include <UniqueTypeList.hpp>
+#include <IsUniqueTypeInList.hpp>
 
 template<typename T, typename ... Ts>
 struct type_is_in_list
