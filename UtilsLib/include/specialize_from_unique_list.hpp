@@ -2,8 +2,8 @@
 #define UTILS_UNIQUE_TYPE_LIST_SPECIALIZATION_HPP
 
 // UtilsLib
-#include <MakeUniqueTypeList.hpp>
-#include <TypeList.hpp>
+#include <make_unique_type_list.hpp>
+#include <type_list.hpp>
 
 
 template<template<typename...> class T, typename U>

@@ -5,21 +5,21 @@
 
 // UtilsLib
 #include <Any.hpp>
-#include <EqualTypes.hpp>
+#include <equal_types.hpp>
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
-#include <IfThenElse.hpp>
-#include <InsertNewTypesIntoTypeList.hpp>
-#include <IsUniqueTypeList.hpp>
+#include <if_then_else.hpp>
+#include <insert_new_types_into_type_list.hpp>
+#include <is_unique_type_list.hpp>
 #include <Mathematics.hpp>
 #include <Named.hpp>
 #include <ProgramOptions.hpp>
 #include <SharedPointer.hpp>
 #include <StringUtils.hpp>
 #include <Test.hpp>
-#include <TypeIsInList.hpp>
+#include <type_is_in_list.hpp>
 #include <UniquePointer.hpp>
-#include <MakeUniqueTypeList.hpp>
+#include <make_unique_type_list.hpp>
 #include <specialize_from_unique_list.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>

@@ -2,8 +2,8 @@
 #define UTILS_INSERT_NEW_TYPES_INTO_TYPE_LIST_HPP
 
 
-#include <TypeIsInList.hpp>
-#include <TypeList.hpp>
+#include <type_is_in_list.hpp>
+#include <type_list.hpp>
 
 
 template<typename T, typename...Ts>

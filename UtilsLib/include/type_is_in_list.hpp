@@ -2,7 +2,7 @@
 #define UTILS_TYPE_IS_IN_LIST_H
 
 
-#include <EqualTypes.hpp>
+#include <equal_types.hpp>
 
 
 
