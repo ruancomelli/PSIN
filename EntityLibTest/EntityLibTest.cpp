@@ -424,7 +424,7 @@ TestCase(ParticleConstructorTest)
 	physicalEntity.property<Mass>().set(massValue);
 	physicalEntity.property<Volume>().set(volumeValue);
 
-	Particle<Volume> particle3(physicalEntity);
+	Particle<Mass, Volume, MomentOfInertia> particle3(physicalEntity);
 	checkEqual(particle3.property<Mass>().get(), massValue);
 	checkEqual(particle3.property<Volume>().get(), volumeValue);
 }

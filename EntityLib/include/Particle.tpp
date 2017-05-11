@@ -14,7 +14,7 @@ Particle<PropertyTypes...>::Particle(const int handle, const int taylorOrder)
 
 template<typename ... PropertyTypes>
 Particle<PropertyTypes...>::Particle(const BasePhysicalEntity & base, const int handle, const int taylorOrder)
-	: BasePhysicalEntity::PhysicalEntity(base),
+	: BasePhysicalEntity(base),
 	SocialEntity(handle),
 	SpatialEntity(taylorOrder)
 {

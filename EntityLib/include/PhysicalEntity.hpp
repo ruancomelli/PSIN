@@ -2,20 +2,21 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
-#include <UniqueTypeList.hpp>
+#include <is_unique_type_list.hpp>
+#include <specialize_from_unique_list.hpp>
 
 // Standard
 #include <iostream>
 #include <tuple>
 
 template<typename ... PropertyTypes>
-class PhysicalEntity
+class PhysicalEntityModel
 {
 	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
 
 	public:
-		PhysicalEntity();
-		PhysicalEntity(const PhysicalEntity<PropertyTypes...> & other);
+		PhysicalEntityModel();
+		PhysicalEntityModel(const PhysicalEntityModel<PropertyTypes...> & other);
 
 		// ----- Return property -----
 		template<typename PropertyType>
@@ -38,6 +39,9 @@ class PhysicalEntity
 	protected:
 		std::tuple<PropertyTypes...> propertyTuple;
 };
+
+template <typename...Ts>
+using PhysicalEntity = typename specialize_from_unique_list<PhysicalEntityModel, Ts...>::value;
 
 #include <PhysicalEntity.tpp>
 

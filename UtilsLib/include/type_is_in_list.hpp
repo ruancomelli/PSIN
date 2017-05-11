@@ -5,7 +5,6 @@
 #include <equal_types.hpp>
 
 
-
 template<typename T, typename ... Ts>
 struct type_is_in_list;
 
