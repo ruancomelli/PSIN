@@ -2,9 +2,7 @@
 #define UTILS_UNIQUE_TYPE_LIST_SPECIALIZATION_HPP
 
 // UtilsLib
-#include <EqualTypes.hpp>
-#include <IfThenElse.hpp>
-#include <UniqueTypeList.hpp>
+#include <MakeUniqueTypeList.hpp>
 #include <TypeList.hpp>
 
 
@@ -18,13 +16,14 @@ struct specialize_from_type_list<T, type_list<Ts...> >
 };
 
 template< template<typename...> class T , typename ... RepeatedArgs >
-struct unique_type_list_specialization
+struct specialize_from_unique_list
 {
-	using value = specialize_from_type_list<
+	using value = typename specialize_from_type_list<
 		T,
-		typename unique_type_list<RepeatedArgs...>::value
-	>;
+		typename make_unique_type_list<RepeatedArgs...>::value
+	>::value;
 };
 
 
 #endif
+

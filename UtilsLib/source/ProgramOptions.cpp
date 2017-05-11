@@ -1,6 +1,6 @@
 #include <ProgramOptions.hpp>
 
-ProgramOptions::VariablesMap parseCommandLine(int argc, char ** argv, ProgramOptions::OptionsDescription options)
+ProgramOptions::VariablesMap parseCommandLine(const int argc, const char ** argv, ProgramOptions::OptionsDescription options)
 {
 	ProgramOptions::VariablesMap vm;
 

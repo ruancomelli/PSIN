@@ -14,6 +14,6 @@ namespace boost
 
 namespace ProgramOptions = boost::program_options;
 
-ProgramOptions::VariablesMap parseCommandLine(int argc, char ** argv, ProgramOptions::OptionsDescription options);
+ProgramOptions::VariablesMap parseCommandLine(const int argc, const char ** argv, ProgramOptions::OptionsDescription options);
 
 #endif //UTILS_PROGRAM_OPTIONS_H

@@ -2,7 +2,6 @@
 
 // Standard
 #include <string>
-#include <tuple>
 
 // UtilsLib
 #include <Any.hpp>
@@ -10,7 +9,8 @@
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
 #include <IfThenElse.hpp>
-#include <IsUniqueTypeInList.hpp>
+#include <InsertNewTypesIntoTypeList.hpp>
+#include <IsUniqueTypeList.hpp>
 #include <Mathematics.hpp>
 #include <Named.hpp>
 #include <ProgramOptions.hpp>
@@ -19,8 +19,8 @@
 #include <Test.hpp>
 #include <TypeIsInList.hpp>
 #include <UniquePointer.hpp>
-#include <UniqueTypeList.hpp>
-#include <UniqueTypeListSpecialization.hpp>
+#include <MakeUniqueTypeList.hpp>
+#include <specialize_from_unique_list.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
@@ -80,7 +80,6 @@ TestCase( ForeachTest ){
 
 // ----- SharedPointer -----
 TestCase(SharedPointerTest) {
-	int testValue = 982;
 	SharedPointer<Vector3D> v0( new Vector3D );
 
 	(*v0).x() = 1.0;
@@ -96,7 +95,6 @@ TestCase(SharedPointerTest) {
 
 TestCase(UniquePointerTest)
 {
-	int testValue = 982;
 	UniquePointer<Vector3D> v0( new Vector3D );
 
 	(*v0).x() = 1.0;
@@ -410,7 +408,7 @@ TestCase(ProgramOptionsTest)
 	;
 
 	int argc = 3;
-	char * argv[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mordor" };
+	const char * argv[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mordor" };
 
 	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
 
@@ -484,8 +482,9 @@ TestCase(VariantTest)
 
 TestCase(EqualTypesTest)
 {
+
 	check( (equal_types<int, int>::value) );
-	check( (equal_types<int, double>::value) );
+	check( !(equal_types<int, double>::value) );
 }
 
 TestCase(IfThenElseTest)
@@ -505,14 +504,8 @@ TestCase(IfThenElseTest)
 	));
 }
 
-TestCase(IsUniqueTypeInListTest)
+TestCase(IsUniqueTypeListTest)
 {
-	check(is_unique_type_in_list<double>::value);
-	check(!(is_unique_type_in_list<double, double>::value));
-	check((is_unique_type_in_list<double, char>::value));
-	check((is_unique_type_in_list<double, int, char>::value));
-	check(!(is_unique_type_in_list<double, int, char, double>::value));
-
 	check(is_unique_type_list<>::value);
 	check(is_unique_type_list<double>::value);
 	check((is_unique_type_list<double, char>::value));
@@ -535,38 +528,88 @@ TestCase(TypeListTest)
 	));
 }
 
-TestCase(UniqueTypeListTest)
+TestCase(insert_new_types_into_type_list_Test)
 {
-	check(( is_unique_type_list<int, double, char>::value ));
-	check(!( is_unique_type_list<char, double, char>::value ));
+	check((
+		equal_types<
+			insert_new_types_into_type_list<
+				type_list<int, double>
+			>::value,
+			type_list<int, double>
+		>::value
+	));
 
 	check((
 		equal_types<
-			unique_type_list<int, int, double, int, double, char, double>::value,
+			insert_new_types_into_type_list<
+				type_list<int, double>,
+				int
+			>::value,
+			type_list<int, double>
+		>::value
+	));
+
+	check((
+		equal_types<
+			insert_new_types_into_type_list<
+				type_list<int, double>,
+				int,
+				char,
+				double
+			>::value,
+			type_list<int, double, char>
+		>::value
+	));
+
+	check((
+		equal_types<
+			insert_new_types_into_type_list<
+				type_list<>,
+				int,
+				double,
+				char
+			>::value,
 			type_list<int, double, char>
 		>::value
 	));
 }
 
-TestCase(UniqueTypeListSpecializationTest)
+TestCase(MakeUniqueTypeListTest)
 {
 	check((
 		equal_types<
-			specialize_from_type_list<
-				std::tuple, 
-				type_list<int, double, double, char>
-			>::value,
-			std::tuple<int, double, double, char>
+			make_unique_type_list<int, int, double, int>::value,
+			type_list<int, double>
 		>::value
 	));
 
 	check((
 		equal_types<
-			unique_type_list_specialization<
-				std::tuple, 
-				type_list<int, double, double, int, int, char>
+			make_unique_type_list<int, int, double, int, double, char, double>::value,
+			type_list<int, double, char>
+		>::value
+	));
+}
+
+TestCase(specialize_from_unique_list_Test)
+{
+	check((
+		equal_types<
+			specialize_from_type_list<
+				type_list, 
+				type_list<int, double, double, char>
 			>::value,
-			std::tuple<int, double, char>
+			type_list<int, double, double, char>
+		>::value
+	));
+
+	check((
+		equal_types<
+			specialize_from_unique_list<
+				type_list, 
+				int, double, double, int, int, char
+			>::value,
+			type_list<int, double, char>
 		>::value
 	));
 }
