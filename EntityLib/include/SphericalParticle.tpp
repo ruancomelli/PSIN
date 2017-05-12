@@ -1,6 +1,14 @@
 #ifndef SPHERICAL_PARTICLE_TPP
 #define SPHERICAL_PARTICLE_TPP
 
+
+template<typename ... Args>
+bool touches(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
+{
+	return distance(left, right) > (left.property<Radius>().get(), right.property<Radius>.get());
+}
+
+
 // ------------------------------- Constructor -------------------------------
 SphericalParticle::SphericalParticle()
 	: Particle()

@@ -17,7 +17,8 @@ enum SphericalParticleGeometricParameter{
 	N_GEOMETRIC_PARAMETER
 };
 
-class SphericalParticle: public Particle
+template<typename ... PropertyTypes>
+class SphericalParticle: public Particle<PropertyDefinitions::Radius, PropertyTypes...>
 {
 	template<typename ... Args>
 	using vector = std::vector<Args...>;
@@ -61,13 +62,8 @@ class SphericalParticle: public Particle
 		void reserveGeometricParameterMemory(void);
 };
 
-
-
 template<typename ... Args>
-bool touches(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
-{
-	return distance(left, right) > (left.property<Radius>().get(), right.property<Radius>.get());
-}
+bool touches(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
 
 
 

@@ -12,6 +12,9 @@ const std::string PropertyDefinitions::Volume::name = "Volume";
 // ========================================== MOMENT OF INERTIA ==========================================
 const std::string PropertyDefinitions::MomentOfInertia::name = "MomentOfInertia";
 
+// ========================================== MOMENT OF INERTIA ==========================================
+const std::string PropertyDefinitions::Radius::name = "Radius";
+
 // ========================================== ELASTIC MODULUS ==========================================
 const std::string PropertyDefinitions::ElasticModulus::name = "ElasticModulus";
 

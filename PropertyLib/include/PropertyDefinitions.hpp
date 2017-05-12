@@ -25,6 +25,11 @@ namespace PropertyDefinitions{
 	{
 		static const std::string name;
 	};
+
+	struct Radius : public PositiveProperty<double>
+	{
+		static const std::string name;
+	};
 	
 	struct ElasticModulus : public PositiveProperty<double>
 	{

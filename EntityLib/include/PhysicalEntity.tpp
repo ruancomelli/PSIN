@@ -11,9 +11,8 @@ PhysicalEntityModel<PropertyTypes...>::PhysicalEntityModel()
 
 template<typename ... PropertyTypes>
 PhysicalEntityModel<PropertyTypes...>::PhysicalEntityModel(const PhysicalEntityModel<PropertyTypes...> & other)
-{
-	this->propertyTuple = other.propertyTuple;
-}
+	: propertyTuple(other.propertyTuple)
+{}
 
 // ----- Return property -----
 template<typename ... PropertyTypes>
