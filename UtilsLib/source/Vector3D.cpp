@@ -182,3 +182,8 @@ bool operator == ( const Vector3D & v1 , const Vector3D & v2 ){
 bool operator != ( const Vector3D & v1 , const Vector3D & v2 ){
 	return ! ( v1==v2 );
 }
+
+double distance(const Vector3D & left, const Vector3D & right)
+{
+	return left.dist(right);
+}

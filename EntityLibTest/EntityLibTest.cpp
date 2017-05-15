@@ -16,7 +16,7 @@
 #include <PhysicalEntity.hpp>
 #include <SpatialEntity.hpp>
 #include <SocialEntity.hpp>
-// #include <SphericalParticle.hpp>
+#include <SphericalParticle.hpp>
 
 // IOLib
 // #include <vectorIO.hpp>
@@ -525,26 +525,32 @@ TestCase( ParticleMomentumAndEnergyTest )
 	checkClose(particle.getMechanicalEnergy(), mechanicalEnergy, tolerance);
 }
 
-// TestCase( SphericalParticleDistance )
-// {
-// 	SphericalParticlePtr sph0( new SphericalParticle );
-// 	SphericalParticlePtr sph1( new SphericalParticle );
+TestCase( SphericalParticleTouch )
+{
+	SphericalParticle<> sph0;
+	SphericalParticle<> sph1;
+	SphericalParticle<> sph2;
 
-// 	double x[2], y[2], z[2];
+	Vector3D position0(0.0, 0.0, 0.0);
+	Vector3D position1(0.0, 0.0, 1.0);
+	Vector3D position2(1000.0, 0.0, 0.0);
 
-// 	x[0] = -3.7;
-// 	y[0] = 4.9;
-// 	z[0] = 5.31;
-// 	sph0->setPosition( 0 , x[0] , y[0] , z[0] );
+	double radius0 = 0.8;
+	double radius1 = 0.6;
+	double radius2 = 0.5;
 
-// 	x[1] = 3.5;
-// 	y[1] = -6.9;
-// 	z[1] = 0.17;
-// 	sph1->setPosition( 0 , x[1] , y[1] , z[1] );
+	sph0.setPosition(position0);
+	sph1.setPosition(position1);
+	sph2.setPosition(position2);
 
-// 	double distance = 14.7478676424763;
-// 	checkClose( sph0->distance(sph1) , distance , 1e-12 );
-// }
+	sph0.property<Radius>().set(radius0);
+	sph1.property<Radius>().set(radius1);
+	sph2.property<Radius>().set(radius2);
+
+	check(touch(sph0, sph1));
+	check(!touch(sph0, sph2));
+	check(!touch(sph1, sph2));
+}
 
 // vector<Vector3D> pos(double t)
 // {

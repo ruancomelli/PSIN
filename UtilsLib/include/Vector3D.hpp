@@ -37,7 +37,7 @@ public:
 
 protected:
 	double components[ N_AXIS ];
-}; //class Vector3D;
+};
 
 Vector3D cross( const Vector3D& v0, const Vector3D& v1 );
 double dot( const Vector3D& v0, const Vector3D& v1 );
@@ -50,6 +50,7 @@ Vector3D operator /( const Vector3D& v, const double scalar );
 Vector3D operator - (const Vector3D& v);
 bool operator == ( const Vector3D & v1 , const Vector3D & v2 );
 bool operator != ( const Vector3D & v1 , const Vector3D & v2 );
+double distance(const Vector3D & left, const Vector3D & right);
 
 inline Vector3D nullVector3D(void){ return Vector3D(); }
 
