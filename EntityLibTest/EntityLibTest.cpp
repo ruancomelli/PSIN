@@ -552,6 +552,30 @@ TestCase( SphericalParticleTouch )
 	check(!touch(sph1, sph2));
 }
 
+TestCase( SphericalParticleOverlap )
+{
+	double tolerance = 1e-12;
+
+	SphericalParticle<> sph0;
+	SphericalParticle<> sph1;
+
+	Vector3D position0(0.0, 0.0, 0.0);
+	Vector3D position1(0.0, 0.0, 1.0);
+
+	double radius0 = 0.8;
+	double radius1 = 0.6;
+
+	sph0.setPosition(position0);
+	sph1.setPosition(position1);
+
+	sph0.property<Radius>().set(radius0);
+	sph1.property<Radius>().set(radius1);
+
+	double over = 0.4;
+
+	checkClose(overlap(sph0, sph1), over, tolerance);
+}
+
 // vector<Vector3D> pos(double t)
 // {
 // 	vector<Vector3D> v;

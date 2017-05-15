@@ -59,6 +59,9 @@ class SphericalParticle : public Particle<PropertyDefinitions::Radius, PropertyT
 template<typename ... Args>
 bool touch(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
 
+template<typename ... Args>
+double overlap(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
+
 
 #include <SphericalParticle.tpp>
 

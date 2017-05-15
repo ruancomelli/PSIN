@@ -8,7 +8,27 @@ bool touch(const SphericalParticle<Args...> & left, const SphericalParticle<Args
 
 	double radius1 = left.template property<Radius>().get();
 	double radius2 = right.template property<PropertyDefinitions::Radius>().get();
-	return distance(left, right) < radius1 + radius2;
+
+	return distance(left, right) <= radius1 + radius2;
+}
+
+template<typename ... Args>
+double overlap(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
+{
+	using Radius = PropertyDefinitions::Radius;
+
+	double radius1 = left.template property<Radius>().get();
+	double radius2 = right.template property<PropertyDefinitions::Radius>().get();
+	double dist = distance(left, right);
+
+	if(dist <= radius1 + radius2)
+	{
+		return radius1 + radius2 - dist;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 
