@@ -63,6 +63,9 @@ class SpatialEntity
 		Vector3D getOrientationDerivative(const int derivative) const; // throws
 		
 
+		// ----- Normal Versor -----
+		Vector3D normalVersor( const SpatialEntity & neighbor ) const;
+
 		// ----- Taylor Order -----
 		void setTaylorOrder(const int taylorOrder); // throws
 		int getTaylorOrder() const;

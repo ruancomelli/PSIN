@@ -131,7 +131,7 @@ std::ostream & operator << (std::ostream & stream, const Vector3D & v){
 
 template <class type> 
 std::ostream & operator<<( std::ostream & outputFile , const std::vector<type> & v){
-	for( type entry : v )
+	for( const type & entry : v )
 	{
 		outputFile << entry << std::endl;
 	}
@@ -310,6 +310,23 @@ TestCase(SpatialEntityDistanceTest)
 	checkEqual(distance(left, right), distanceValue);
 }
 
+TestCase(SpatialEntityNormalDirectionTest)
+{
+	SpatialEntity spatial0;
+	SpatialEntity spatial1;
+
+	Vector3D normalVector(5.6, 7.8, 9.1);
+	Vector3D normalVersor(normalVector.normalized());
+
+	Vector3D position0(-8.5, 1.4, 20.6);
+	Vector3D position1(position0 + normalVector);
+
+	spatial0.setPosition(position0);
+	spatial1.setPosition(position1);
+
+	checkEqual(spatial0.normalVersor(spatial1), normalVersor);
+}
+
 TestCase(PhysicalEntityInstantiationTest)
 {
 	PhysicalEntity<int, double, char> physicalEntitySuccess;
@@ -429,7 +446,7 @@ TestCase(ParticleConstructorTest)
 	checkEqual(particle3.property<Volume>().get(), volumeValue);
 }
 
-TestCase( ParticleForcesAndTorquesTest )
+TestCase(ParticleForcesAndTorquesTest)
 {
 	Particle<> particle;
 
@@ -483,7 +500,7 @@ TestCase( ParticleForcesAndTorquesTest )
 	checkEqual(particle.getResultingTorque(), torque3);
 }
 
-TestCase( ParticleMomentumAndEnergyTest )
+TestCase(ParticleMomentumAndEnergyTest)
 {
 	double tolerance = 1e-12;
 
@@ -525,7 +542,7 @@ TestCase( ParticleMomentumAndEnergyTest )
 	checkClose(particle.getMechanicalEnergy(), mechanicalEnergy, tolerance);
 }
 
-TestCase( SphericalParticleTouch )
+TestCase(SphericalParticleTouchTest)
 {
 	SphericalParticle<> sph0;
 	SphericalParticle<> sph1;
@@ -552,7 +569,7 @@ TestCase( SphericalParticleTouch )
 	check(!touch(sph1, sph2));
 }
 
-TestCase( SphericalParticleOverlap )
+TestCase(SphericalParticleOverlapTest)
 {
 	double tolerance = 1e-12;
 

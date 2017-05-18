@@ -169,6 +169,12 @@ Vector3D SpatialEntity::getOrientationDerivative(const int derivative) const
 	}
 }
 
+Vector3D SpatialEntity::normalVersor( const SpatialEntity & neighbor ) const
+{
+	Vector3D normalDirection = (neighbor.getPosition() - this->getPosition()).normalized();
+	return normalDirection;
+}
+
 void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z)
 {
 	if(derivative < 0 || derivative > this->taylorOrder)

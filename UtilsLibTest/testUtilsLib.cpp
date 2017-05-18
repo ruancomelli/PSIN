@@ -303,11 +303,6 @@ TestCase( Vector3DInitializationTest ){
 TestCase( Vector3DFunctionsMembers ){
 	Vector3D v1( 1.0 , 2.0 , 3.0 );
 
-	//Vector3D::getComponent()
-	for(int i=0 ; i<3 ; ++i){
-		checkEqual( i+1 , v1.getComponent(i) );
-	}
-
 	//Vector3D::length()
 	double len = v1.length();
 	checkClose(len , 3.74165738677394 , 1.0e-8 );
