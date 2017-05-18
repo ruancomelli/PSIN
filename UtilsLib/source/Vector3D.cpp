@@ -5,70 +5,65 @@
 #include <iostream>
 
 Vector3D::Vector3D( void ){
-	this->components[ X ] = 0.0;
-	this->components[ Y ] = 0.0;
-	this->components[ Z ] = 0.0;
+	this->xComponent = 0.0;
+	this->yComponent = 0.0;
+	this->zComponent = 0.0;
 }
 
 Vector3D::Vector3D( const double& x, const double& y, const double& z ){
-	this->components[ X ] = x;
-	this->components[ Y ] = y;
-	this->components[ Z ] = z;
+	this->xComponent = x;
+	this->yComponent = y;
+	this->zComponent = z;
 }
 
 double Vector3D::x() const{
-	return this->components[ X ];
+	return this->xComponent;
 }
 
 double Vector3D::y() const{
-	return this->components[ Y ];
+	return this->yComponent;
 }
 
 double Vector3D::z() const{
-	return this->components[ Z ];
+	return this->zComponent;
 }
 
 double& Vector3D::x(){
-	return this->components[ X ];
+	return this->xComponent;
 }
 
 double& Vector3D::y(){
-	return this->components[ Y ];
+	return this->yComponent;
 }
 
 double& Vector3D::z(){
-	return this->components[ Z ];
-}
-
-double Vector3D::getComponent( const int pos ) const
-{
-	return this->components[pos];
+	return this->zComponent;
 }
 
 double Vector3D::length() const
 {
 	return sqrt( 
-		this->components[ X ]*this->components[ X ]
-		+ this->components[ Y ]*this->components[ Y ]
-		+ this->components[ Z ]*this->components[ Z ] 
+		this->xComponent * this->xComponent
+		+ this->yComponent * this->yComponent
+		+ this->zComponent * this->zComponent 
 	);
 }
 
 double Vector3D::squaredLength() const
 {
 	return ( 
-		this->components[ X ]*this->components[ X ]
-		+ this->components[ Y ]*this->components[ Y ]
-		+ this->components[ Z ]*this->components[ Z ] 
+		this->xComponent * this->xComponent
+		+ this->yComponent * this->yComponent
+		+ this->zComponent * this->zComponent 
 	);
 }
 
 void Vector3D::normalize(){
 	double invLength = 1.0/this->length();
-	for( auto& component : this->components )
-	{
-		component *= invLength;
-	}
+
+	xComponent *= invLength;
+	yComponent *= invLength;
+	zComponent *= invLength;
 }
 
 Vector3D Vector3D::normalized() const
@@ -78,46 +73,42 @@ Vector3D Vector3D::normalized() const
 
 double Vector3D::dist( const Vector3D& v ) const
 {
-	double dist = 0.0;
-	for( int i = 0; i < N_AXIS; ++i ){
-		dist += ( this->components[ i ] - v.components[ i ] )*
-			( this->components[ i ] - v.components[ i ] );
-	}
-	return sqrt( dist );
+	double dist = (*this - v).length();
+	return dist;
 }
 
 void Vector3D::print() {
-	std::cout << this->x() << ", " << this->y() << ", " << this->z() << ";" << std::endl; 
+	std::cout << this->xComponent << ", " << this->yComponent << ", " << this->zComponent << ";" << std::endl; 
 }
 
 Vector3D Vector3D::operator +=( const Vector3D& v ){
-	for( int i = 0; i < N_AXIS; ++i ){
-		this->components[ i ] += v.components[ i ];
-	}
+	this->xComponent += v.xComponent;
+	this->yComponent += v.yComponent;
+	this->zComponent += v.zComponent;
+
 	return *this;
 }
 
 Vector3D Vector3D::operator -=( const Vector3D& v ){
-	for( int i = 0; i < N_AXIS; ++i ){
-		this->components[ i ] -= v.components[ i ];
-	}
+	this->xComponent -= v.xComponent;
+	this->yComponent -= v.yComponent;
+	this->zComponent -= v.zComponent;
+
 	return *this;
 }
 
 Vector3D Vector3D::operator *=( const double scalar ){
-	for( auto& component : this->components )
-	{
-		component *= scalar;
-	}
+	this->xComponent *= scalar;
+	this->yComponent *= scalar;
+	this->zComponent *= scalar;
 
 	return *this;
 }
 
 Vector3D Vector3D::operator /=( const double scalar ){
-	for( auto& component : this->components )
-	{
-		component /= scalar;
-	}
+	this->xComponent /= scalar;
+	this->yComponent /= scalar;
+	this->zComponent /= scalar;
 
 	return *this;
 }

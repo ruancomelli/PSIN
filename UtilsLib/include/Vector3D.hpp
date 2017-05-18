@@ -1,14 +1,7 @@
 #ifndef VECTOR_3D_H
 #define VECTOR_3D_H
 
-#include <vector>
-
 #define VECTOR_3D_EQUAL_TOLERANCE 1e-12
-
-enum Axis{
-	X, Y, Z, N_AXIS = 3
-};
-typedef std::vector< Axis > AxisArray;
 
 class Vector3D{
 public:
@@ -21,7 +14,6 @@ public:
 	double& x();
 	double& y();
 	double& z();
-	double getComponent( const int pos ) const;
 	double length() const;
 	double squaredLength() const;
 	void normalize();
@@ -36,7 +28,9 @@ public:
 	virtual ~Vector3D(){}
 
 protected:
-	double components[ N_AXIS ];
+	double xComponent;
+	double yComponent;
+	double zComponent;
 };
 
 Vector3D cross( const Vector3D& v0, const Vector3D& v1 );
