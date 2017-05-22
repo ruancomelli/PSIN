@@ -63,7 +63,7 @@ Vector3D contactPoint(const SphericalParticle<Args...> & left, const SphericalPa
 	}
 	else
 	{
-		return nullVector3D();
+		throw std::runtime_error("Error in contactPoint(SphericalParticle, SphericalParticle): Particles that do not touch each other do not have a contactPoint.");
 	}
 }
 
