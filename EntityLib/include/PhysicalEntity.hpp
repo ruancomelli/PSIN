@@ -32,7 +32,7 @@ class PhysicalEntityModel
 		template<typename PropertyType>
 		bool output(std::ostream & out) const;
 
-		// Check whether a property was assigned
+		// ----- Check whether a property was assigned -----
 		template<typename PropertyType>
 		bool assigned() const;
 

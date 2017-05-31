@@ -542,6 +542,77 @@ TestCase(ParticleMomentumAndEnergyTest)
 	checkClose(particle.getMechanicalEnergy(), mechanicalEnergy, tolerance);
 }
 
+TestCase(SphericalParticleConstructorsTest)
+{
+	// Default constructor
+	{
+		SphericalParticle<> sph;
+
+		checkEqual(sph.getHandle(), DEFAULT_HANDLED_ENTITY_HANDLE);
+		checkEqual(sph.getTaylorOrder(), DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+	}
+
+	// Constructor with parameters
+	{	
+		int handle = 8;
+		int taylorOrder = 4;
+
+		SphericalParticle<> sph(handle, taylorOrder);
+
+		checkEqual(sph.getHandle(), handle);
+		checkEqual(sph.getTaylorOrder(), taylorOrder);
+	}
+	
+	// Constructor with base particle
+	{
+		int handle = 8;
+		int taylorOrder = 4;
+		
+		Particle<Radius> particle(handle, taylorOrder);
+		Vector3D position(1.1, 2.5, 9.7);
+
+		particle.setPosition(position);
+
+		SphericalParticle<> sph(particle);
+
+		checkEqual(sph.getHandle(), handle);
+		checkEqual(sph.getTaylorOrder(), taylorOrder);
+		checkEqual(sph.getPosition(), position);
+	}
+}
+
+TestCase(SphericalParticle_relativeTangentialVelocity_Test)
+{
+	// {	// Calculate using random numbers
+	// 	SphericalParticle<> sph0;
+	// 	SphericalParticle<> sph1;
+
+	// 	Vector3D position0(1.5, 0.8, 8.7);
+	// 	Vector3D position1(-8.5, 7.5, 0.84);
+
+	// 	Vector3D velocity0(8.99, 7.88, 5.64);
+	// 	Vector3D velocity1(0.25, 22.7, 9.78);
+
+	// 	double radius0 = 0.6 * distance(position0, position1);
+	// 	double radius1 = 0.5 * distance(position0, position1);
+
+	// 	sph0.setPosition(position0);
+	// 	sph1.setPosition(position1);
+
+	// 	sph0.setVelocity(velocity0);
+	// 	sph1.setVelocity(velocity1);
+
+	// 	Vector3D normalVersor = position1 - position0;
+	// 	Vector3D velocityDifference = velocity1 - velocity0;
+
+	// }
+}
+
+TestCase(SphericalParticle_tangentialVersor_Test)
+{
+	//TODO
+}
+
 TestCase(SphericalParticleTouchTest)
 {
 	SphericalParticle<> sph0;
@@ -591,6 +662,68 @@ TestCase(SphericalParticleOverlapTest)
 	double over = 0.4;
 
 	checkClose(overlap(sph0, sph1), over, tolerance);
+}
+
+TestCase(SphericalParticleOverlapDerivativeTest)
+{
+	double tolerance = 1e-12;
+
+	SphericalParticle<> sph0;
+	SphericalParticle<> sph1;
+
+	Vector3D position0(0.0, 0.0, 0.0);
+	Vector3D position1(0.0, 0.0, 1.0);
+
+	Vector3D velocity0(5.8, 9.7, 4.5);
+	Vector3D velocity1(5.8, 9.7, 3.5);
+
+	double radius0 = 0.8;
+	double radius1 = 0.6;
+
+	sph0.setPosition(position0);
+	sph1.setPosition(position1);
+
+	sph0.setVelocity(velocity0);
+	sph1.setVelocity(velocity1);
+
+	sph0.property<Radius>().set(radius0);
+	sph1.property<Radius>().set(radius1);
+
+	Vector3D positionDifference = position1 - position0;
+	Vector3D velocityDifference = velocity1 - velocity0;
+	double overlapDeriv = - dot(positionDifference, velocityDifference) / positionDifference.length();
+
+	checkClose(overlapDerivative(sph0, sph1), overlapDeriv, tolerance);
+}
+
+TestCase(SphericalParticleContactPointTest)
+{
+	SphericalParticle<> sph0;
+	SphericalParticle<> sph1;
+	SphericalParticle<> sph2;
+
+	Vector3D position0(0.0, 0.0, 0.0);
+	Vector3D position1(1.0, 0.0, 0.0);
+	Vector3D position2(2.0, 0.0, 0.0);
+
+	double radius0 = 0.8;
+	double radius1 = 0.2;
+	double radius2 = 0.2;
+
+	sph0.property<Radius>().set(radius0);
+	sph1.property<Radius>().set(radius1);
+	sph2.property<Radius>().set(radius2);
+
+	sph0.setPosition(position0);
+	sph1.setPosition(position1);
+	sph2.setPosition(position2);
+
+	Vector3D contact(0.8, 0.0, 0.0);
+
+	checkEqual(contactPoint(sph0, sph1), contact);
+
+	// Uncomment the following line to get runtime errors:
+	// contactPoint(sph0, sph2);
 }
 
 // vector<Vector3D> pos(double t)

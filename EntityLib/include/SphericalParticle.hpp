@@ -23,11 +23,11 @@ class SphericalParticle : public Particle<PropertyDefinitions::Radius, PropertyT
 	public:
 		SphericalParticle();
 		explicit SphericalParticle(const BaseParticle & base);
-		SphericalParticle(const int order, const int dimension, const int handle = -1);
+		explicit SphericalParticle(const int handle, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
-		// // ---- Collision ----
-		Vector3D relativeTangentialVelocity( const SphericalParticle<PropertyTypes...> & neighbor ) const;
-		Vector3D tangentialVersor( const SphericalParticle<PropertyTypes...> & neighbor ) const;
+		// ---- Collision ----
+		Vector3D relativeTangentialVelocity(const SphericalParticle<PropertyTypes...> & neighbor) const;
+		Vector3D tangentialVersor(const SphericalParticle<PropertyTypes...> & neighbor) const;
 };
 
 
