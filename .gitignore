@@ -19,3 +19,5 @@ _premake_files/premake4
 *.exe
 *.asv
 *.log
+
+.vscode*
