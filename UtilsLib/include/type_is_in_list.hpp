@@ -1,9 +1,7 @@
-#ifndef UTILS_TYPE_IS_IN_LIST_H
-#define UTILS_TYPE_IS_IN_LIST_H
+#ifndef TYPE_IS_IN_LIST_H
+#define TYPE_IS_IN_LIST_H
 
-
-#include <equal_types.hpp>
-
+#include <type_traits>
 
 template<typename T, typename ... Ts>
 struct type_is_in_list;
@@ -17,7 +15,7 @@ struct type_is_in_list<T>
 template<typename T, typename U, typename ... Ts>
 struct type_is_in_list<T, U, Ts...>
 {
-	constexpr static bool value = equal_types<T,U>::value || type_is_in_list<T, Ts...>::value;
+	constexpr static bool value = std::is_same<T,U>::value || type_is_in_list<T, Ts...>::value;
 };
 
 #endif

@@ -25,6 +25,9 @@
 #include <Property.hpp>
 #include <PropertyDefinitions.hpp>
 
+// Standard
+#include <type_traits>
+
 using namespace PropertyDefinitions;
 using namespace std;
 

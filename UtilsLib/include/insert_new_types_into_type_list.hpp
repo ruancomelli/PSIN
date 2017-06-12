@@ -23,7 +23,7 @@ struct insert_new_types_into_type_list<type_list<Ts...>, T, Us...>
 				type_list<Ts...>,
 				Us...
 			>::value
-		>::value;
+		>::type;
 };
 
 template<typename...Ts>

@@ -2,10 +2,10 @@
 
 // Standard
 #include <string>
+#include <type_traits>
 
 // UtilsLib
 #include <Any.hpp>
-#include <equal_types.hpp>
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
 #include <if_then_else.hpp>
@@ -475,25 +475,18 @@ TestCase(VariantTest)
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
 }
 
-TestCase(EqualTypesTest)
-{
-
-	check( (equal_types<int, int>::value) );
-	check( !(equal_types<int, double>::value) );
-}
-
 TestCase(IfThenElseTest)
 {
 	check((
-		equal_types<
-			if_then_else<true, int, double>::value,
+		std::is_same<
+			if_then_else<true, int, double>::type,
 			int
 		>::value
 	));
 
 	check((
-		equal_types<
-			if_then_else<false, int, double>::value,
+		std::is_same<
+			if_then_else<false, int, double>::type,
 			double
 		>::value
 	));
@@ -516,7 +509,7 @@ TestCase(TypeIsInListTest)
 TestCase(TypeListTest)
 {
 	check((
-		equal_types<
+		std::is_same<
 			prepend_type_to_type_list<double, type_list<char, char, int>>::value,
 			type_list<double, char, char, int>
 		>::value
@@ -526,7 +519,7 @@ TestCase(TypeListTest)
 TestCase(insert_new_types_into_type_list_Test)
 {
 	check((
-		equal_types<
+		std::is_same<
 			insert_new_types_into_type_list<
 				type_list<int, double>
 			>::value,
@@ -535,7 +528,7 @@ TestCase(insert_new_types_into_type_list_Test)
 	));
 
 	check((
-		equal_types<
+		std::is_same<
 			insert_new_types_into_type_list<
 				type_list<int, double>,
 				int
@@ -545,7 +538,7 @@ TestCase(insert_new_types_into_type_list_Test)
 	));
 
 	check((
-		equal_types<
+		std::is_same<
 			insert_new_types_into_type_list<
 				type_list<int, double>,
 				int,
@@ -557,7 +550,7 @@ TestCase(insert_new_types_into_type_list_Test)
 	));
 
 	check((
-		equal_types<
+		std::is_same<
 			insert_new_types_into_type_list<
 				type_list<>,
 				int,
@@ -572,14 +565,14 @@ TestCase(insert_new_types_into_type_list_Test)
 TestCase(MakeUniqueTypeListTest)
 {
 	check((
-		equal_types<
+		std::is_same<
 			make_unique_type_list<int, int, double, int>::value,
 			type_list<int, double>
 		>::value
 	));
 
 	check((
-		equal_types<
+		std::is_same<
 			make_unique_type_list<int, int, double, int, double, char, double>::value,
 			type_list<int, double, char>
 		>::value
@@ -589,7 +582,7 @@ TestCase(MakeUniqueTypeListTest)
 TestCase(specialize_from_unique_list_Test)
 {
 	check((
-		equal_types<
+		std::is_same<
 			specialize_from_type_list<
 				type_list, 
 				type_list<int, double, double, char>
@@ -599,7 +592,7 @@ TestCase(specialize_from_unique_list_Test)
 	));
 
 	check((
-		equal_types<
+		std::is_same<
 			specialize_from_unique_list<
 				type_list, 
 				int, double, double, int, int, char
