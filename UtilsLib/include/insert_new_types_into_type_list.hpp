@@ -1,11 +1,12 @@
-#ifndef UTILS_INSERT_NEW_TYPES_INTO_TYPE_LIST_HPP
-#define UTILS_INSERT_NEW_TYPES_INTO_TYPE_LIST_HPP
+#ifndef INSERT_NEW_TYPES_INTO_TYPE_LIST_HPP
+#define INSERT_NEW_TYPES_INTO_TYPE_LIST_HPP
 
-
-#include <if_then_else.hpp>
+// UtilsLib
 #include <type_is_in_list.hpp>
 #include <type_list.hpp>
 
+// Standard
+#include <type_traits>
 
 template<typename T, typename...Ts>
 struct insert_new_types_into_type_list;
@@ -13,7 +14,7 @@ struct insert_new_types_into_type_list;
 template<typename...Ts, typename T, typename...Us>
 struct insert_new_types_into_type_list<type_list<Ts...>, T, Us...>
 {
-	using value = typename if_then_else<
+	using value = typename std::conditional<
 			!type_is_in_list<T, Ts...>::value,
 			typename insert_new_types_into_type_list<
 				type_list<Ts..., T>,

@@ -8,7 +8,6 @@
 #include <Any.hpp>
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
-#include <if_then_else.hpp>
 #include <insert_new_types_into_type_list.hpp>
 #include <is_unique_type_list.hpp>
 #include <Mathematics.hpp>
@@ -473,23 +472,6 @@ TestCase(VariantTest)
 	myVariant = doubleValue;
 	applyVisitor(fVisitor(), myVariant);
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
-}
-
-TestCase(IfThenElseTest)
-{
-	check((
-		std::is_same<
-			if_then_else<true, int, double>::type,
-			int
-		>::value
-	));
-
-	check((
-		std::is_same<
-			if_then_else<false, int, double>::type,
-			double
-		>::value
-	));
 }
 
 TestCase(IsUniqueTypeListTest)
