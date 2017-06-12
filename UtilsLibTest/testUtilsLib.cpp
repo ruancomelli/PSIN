@@ -8,6 +8,7 @@
 #include <Any.hpp>
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
+#include <can_call.hpp>
 #include <insert_new_types_into_type_list.hpp>
 #include <is_unique_type_list.hpp>
 #include <Mathematics.hpp>
@@ -580,6 +581,48 @@ TestCase(specialize_from_unique_list_Test)
 				int, double, double, int, int, char
 			>::value,
 			type_list<int, double, char>
+		>::value
+	));
+}
+
+namespace can_call_Test_namespace
+{
+	struct A
+	{};
+
+	struct B
+	{
+		double f(A, int);
+	};
+
+	define_can_call(f);
+}
+
+TestCase(can_call_Test)
+{
+	using namespace can_call_Test_namespace;
+
+	check(!(
+		can_call_f<
+			A,
+			A,
+			int
+		>::value
+	));
+
+	check((
+		can_call_f<
+			B,
+			A,
+			int
+		>::value
+	));
+
+	check((
+		can_call_f<
+			B,
+			A,
+			double
 		>::value
 	));
 }
