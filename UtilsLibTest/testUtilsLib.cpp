@@ -10,6 +10,7 @@
 #include <Foreach.hpp>
 #include <can_call.hpp>
 #include <insert_new_types_into_type_list.hpp>
+#include <is_callable.hpp>
 #include <is_unique_type_list.hpp>
 #include <Mathematics.hpp>
 #include <Named.hpp>
@@ -623,6 +624,51 @@ TestCase(can_call_Test)
 			B,
 			A,
 			double
+		>::value
+	));
+}
+
+namespace is_callable_Test_namespace
+{
+	struct A{};
+
+	double f(int, double){return 0;}
+
+	define_is_callable(f);
+
+	define_is_callable_operator(sum, +);
+}
+
+
+TestCase(is_callable_Test)
+{
+	using namespace is_callable_Test_namespace;
+
+	check((
+		is_callable_f<
+			int,
+			double
+		>::value
+	));
+
+	check((
+		is_callable_f<
+			int,
+			int
+		>::value
+	));
+
+	check(!(
+		is_callable_f<
+			int,
+			A
+		>::value
+	));
+
+	check((
+		is_callable_operator_sum<
+			int,
+			int
 		>::value
 	));
 }

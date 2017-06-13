@@ -4,23 +4,23 @@
 // UtilsLib
 #include <sfinae_true.hpp>
 
-#define define_can_call(FUNCTION_NAME)                                         \
-    namespace detail{                                                                     \
-        template<typename T, typename...Args>                                             \
+#define define_can_call(FUNCTION_NAME)                                        \
+    namespace detail{                                                         \
+        template<typename T, typename...Args>                                 \
         static auto test_can_call_ ## FUNCTION_NAME(int)                      \
-            -> sfinae_true<                                                               \
-                decltype(                                                                 \
-                    std::declval<T>().FUNCTION_NAME(                                      \
-                        std::declval<Args>()...                                           \
-                    )                                                                     \
-                )                                                                         \
-            >;                                                                            \
-        template<typename, typename...Args>                                               \
+            -> sfinae_true<                                                   \
+                decltype(                                                     \
+                    std::declval<T>().FUNCTION_NAME(                          \
+                        std::declval<Args>()...                               \
+                    )                                                         \
+                )                                                             \
+            >;                                                                \
+        template<typename, typename...Args>                                   \
         static auto test_can_call_ ## FUNCTION_NAME(long) -> std::false_type; \
-    }                                                                                     \
-                                                                                          \
-    template<typename T, typename...Args>                                              \
-    struct can_call_ ## FUNCTION_NAME :                                        \
+    }                                                                         \
+                                                                              \
+    template<typename T, typename...Args>                                     \
+    struct can_call_ ## FUNCTION_NAME :                                       \
         decltype(detail::test_can_call_ ## FUNCTION_NAME<T, Args...>(0)){}
 
 // Explanation:
