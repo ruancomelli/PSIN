@@ -8,27 +8,29 @@
 #include <Any.hpp>
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
-#include <can_call.hpp>
-#include <insert_new_types_into_type_list.hpp>
-#include <is_callable.hpp>
-#include <is_unique_type_list.hpp>
 #include <Mathematics.hpp>
 #include <Named.hpp>
 #include <ProgramOptions.hpp>
 #include <SharedPointer.hpp>
 #include <StringUtils.hpp>
 #include <Test.hpp>
-#include <type_is_in_list.hpp>
 #include <UniquePointer.hpp>
-#include <make_unique_type_list.hpp>
-#include <specialize_from_unique_list.hpp>
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
+#include <Metaprogramming/insert_new_types_into_type_list.hpp>
+#include <Metaprogramming/is_callable.hpp>
+#include <Metaprogramming/is_callable_binary_operator.hpp>
+#include <Metaprogramming/is_callable_member.hpp>
+#include <Metaprogramming/is_unique_type_list.hpp>
+#include <Metaprogramming/type_is_in_list.hpp>
+#include <Metaprogramming/make_unique_type_list.hpp>
+#include <Metaprogramming/specialize_from_unique_list.hpp>
 
 using namespace std;
 
-TestCase( CheckEqualAndCheckClose ){
+TestCase( CheckEqualAndCheckClose )
+{
 	double i = 0;
 	double j = 0;
 
@@ -586,7 +588,7 @@ TestCase(specialize_from_unique_list_Test)
 	));
 }
 
-namespace can_call_Test_namespace
+namespace is_callable_member_Test_namespace
 {
 	struct A
 	{};
@@ -594,17 +596,18 @@ namespace can_call_Test_namespace
 	struct B
 	{
 		double f(A, int);
+		void operator[](int);
 	};
 
-	define_can_call(f);
+	define_is_callable_member(f, f);
 }
 
-TestCase(can_call_Test)
+TestCase(is_callable_member_Test)
 {
-	using namespace can_call_Test_namespace;
+	using namespace is_callable_member_Test_namespace;
 
 	check(!(
-		can_call_f<
+		f_is_callable_member<
 			A,
 			A,
 			int
@@ -612,7 +615,7 @@ TestCase(can_call_Test)
 	));
 
 	check((
-		can_call_f<
+		f_is_callable_member<
 			B,
 			A,
 			int
@@ -620,9 +623,30 @@ TestCase(can_call_Test)
 	));
 
 	check((
-		can_call_f<
+		f_is_callable_member<
 			B,
 			A,
+			double
+		>::value
+	));
+
+	check(!(
+		subscript_operator_is_callable_member<
+			A,
+			int
+		>::value
+	));
+
+	check((
+		subscript_operator_is_callable_member<
+			B,
+			int
+		>::value
+	));
+
+	check((
+		subscript_operator_is_callable_member<
+			B,
 			double
 		>::value
 	));
@@ -634,41 +658,84 @@ namespace is_callable_Test_namespace
 
 	double f(int, double){return 0;}
 
-	define_is_callable(f);
+	A& operator+(const A&, const A&);
 
-	define_is_callable_operator(sum, +);
+	define_is_callable(f, f);
 }
-
 
 TestCase(is_callable_Test)
 {
 	using namespace is_callable_Test_namespace;
 
 	check((
-		is_callable_f<
+		f_is_callable<
 			int,
 			double
 		>::value
 	));
 
 	check((
-		is_callable_f<
+		f_is_callable<
 			int,
 			int
 		>::value
 	));
 
 	check(!(
-		is_callable_f<
+		f_is_callable<
 			int,
 			A
 		>::value
 	));
 
 	check((
-		is_callable_operator_sum<
-			int,
-			int
+		addition_operator_is_callable<
+			A,
+			A
+		>::value
+	));
+}
+
+namespace is_callable_binary_operator_Test_namespace
+{
+	struct A {};
+	struct B
+	{
+		B& operator=(const B&);
+	};
+
+	A& operator+(const A&, const A&);
+}
+
+TestCase(is_callable_binary_operator_Test)
+{
+	using namespace is_callable_binary_operator_Test_namespace;
+
+	check(!(
+		simple_assignment_is_callable_binary_operator<
+			A,
+			B
+		>::value
+	));
+
+	check((
+		simple_assignment_is_callable_binary_operator<
+			B,
+			B
+		>::value
+	));
+
+	check((
+		addition_is_callable_binary_operator<
+			A,
+			A
+		>::value
+	));
+
+	check(!(
+		addition_is_callable_binary_operator<
+			B,
+			B
 		>::value
 	));
 }

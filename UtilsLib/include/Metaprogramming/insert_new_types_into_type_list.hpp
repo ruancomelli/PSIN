@@ -2,8 +2,8 @@
 #define INSERT_NEW_TYPES_INTO_TYPE_LIST_HPP
 
 // UtilsLib
-#include <type_is_in_list.hpp>
-#include <type_list.hpp>
+#include <Metaprogramming/type_is_in_list.hpp>
+#include <Metaprogramming/type_list.hpp>
 
 // Standard
 #include <type_traits>
