@@ -1,11 +1,9 @@
 #define BOOST_TEST_MODULE EntityLibTest
 
 // UtilsLib
-// #include <Mathematics.hpp>
 #include <Vector3D.hpp>
 #include <Vector.hpp>
 #include <Test.hpp>
-// #include <Foreach.hpp>
 
 // EntityLib
 // #include <Boundary.hpp>
@@ -107,21 +105,22 @@ TestCase(SocialEntityNeighborhoodTest)
 
 TestCase(SpatialEntityTaylorOrderTest)
 {
-	int validTaylorOrder = 4;
+	int validTaylorOrder1 = 4;
 	int validTaylorOrder2 = 5;
-	int invalidTaylorOrder = -1;
 
-	SpatialEntity spatial(validTaylorOrder);
-	checkEqual(spatial.getTaylorOrder(), validTaylorOrder);
+	SpatialEntity spatial(validTaylorOrder1);
+	checkEqual(spatial.getTaylorOrder(), validTaylorOrder1);
 
-	// Uncomment the following line to get runtime errors:
-	// SpatialEntity invalidSpatial(invalidTaylorOrder);
+	// Uncomment the following lines to get runtime errors:
+	// int invalidTaylorOrder1 = -1;
+	// SpatialEntity invalidSpatial(invalidTaylorOrder1);
 
 	spatial.setTaylorOrder(validTaylorOrder2);
 	checkEqual(spatial.getTaylorOrder(), validTaylorOrder2);
 
-	// Uncomment the following line to get runtime errors:
-	// spatial.setTaylorOrder(invalidTaylorOrder);
+	// Uncomment the following lines to get runtime errors:
+	// int invalidTaylorOrder2 = -1;
+	// spatial.setTaylorOrder(invalidTaylorOrder2);
 
 	SpatialEntity spatial3;
 	checkEqual(spatial3.getTaylorOrder(), DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
@@ -173,7 +172,6 @@ TestCase(SpatialEntityPositionMatrixOrientationMatrixTest)
 TestCase(SpatialEntityPositionVelocityAccelerationTest)
 {
 	int validDerivative = 3;
-	int invalidDerivative = -1;
 
 	SpatialEntity spatial;
 
@@ -230,6 +228,7 @@ TestCase(SpatialEntityPositionVelocityAccelerationTest)
 	checkEqual(spatial.getPositionDerivative(validDerivative), derivative3);
 
 	// Uncomment the following lines to get runtime errors:
+	// int invalidDerivative = -1;
 	// spatial.setPositionDerivative(invalidDerivative, derivative1);
 	// spatial.getPositionDerivative(invalidDerivative);
 }
@@ -237,7 +236,6 @@ TestCase(SpatialEntityPositionVelocityAccelerationTest)
 TestCase(SpatialEntityAngularPositionVelocityAccelerationTest)
 {
 	int validDerivative = 3;
-	int invalidDerivative = -1;
 
 	SpatialEntity spatial;
 
@@ -294,6 +292,7 @@ TestCase(SpatialEntityAngularPositionVelocityAccelerationTest)
 	checkEqual(spatial.getOrientationDerivative(validDerivative), derivative3);
 
 	// Uncomment the following lines to get runtime errors:
+	// int invalidDerivative = -1;
 	// spatial.setOrientationDerivative(invalidDerivative, derivative1);
 	// spatial.getOrientationDerivative(invalidDerivative);
 }
@@ -332,10 +331,18 @@ TestCase(SpatialEntityNormalDirectionTest)
 
 TestCase(PhysicalEntityInstantiationTest)
 {
-	PhysicalEntity<int, double, char> physicalEntitySuccess;
+	PhysicalEntity<int, double, char> physicalEntitySuccess1;
+	PhysicalEntity<int, double, double> physicalEntitySuccess2;
+}
 
-	//Uncomment the following line to get compile errors:
-	//PhysicalEntity<int, double, double> physicalEntityFail;
+TestCase(PhysicalEntityPropertyListTest)
+{
+	PhysicalEntity<int, double, char> physicalEntity;
+
+	check((std::is_same<
+		PhysicalEntity<int, double, char>::PropertyList,
+		type_list<int, double, char>
+	>::value));
 }
 
 TestCase(PhysicalEntityPropertyTest)
@@ -405,6 +412,36 @@ TestCase(PhysicalEntityInputAndOutputTest)
 	inputter.input<TestedProperty>(file);
 
 	checkClose(inputter.property<TestedProperty>().get(), value, tolerance);
+}
+
+namespace PhysicalEntity_set__and__get_Test_namespace
+{
+	struct DummyType {};
+	struct PropertyWithoutGetAndSetFunctions
+		: public Property<DummyType> 
+	{};
+}
+
+TestCase(PhysicalEntity_set__and__get_Test)
+{
+	using namespace PhysicalEntity_set__and__get_Test_namespace;
+
+	{
+		double tolerance = 1e-12;
+		double massValue = 15.4;
+
+		PhysicalEntity<Mass> physicalEntity;
+
+		physicalEntity.set<Mass>(massValue);
+		checkClose(physicalEntity.get<Mass>(), massValue, tolerance);
+	}
+
+	// Uncomment the following test to get compilation errors because PhysicalEntity_set__and__get_Test_PropertyWithoutGetAndSetFunctions has no functions 'set' and 'get'
+	{
+		PropertyWithoutGetAndSetFunctions physicalEntity;
+		// physicalEntity.get<DummyType>();
+	}
+
 }
 
 TestCase(MassInPhysicalEntityTest)
@@ -586,34 +623,157 @@ TestCase(SphericalParticleConstructorsTest)
 
 TestCase(SphericalParticle_relativeTangentialVelocity_Test)
 {
-	// {	// Calculate using random numbers
-	// 	SphericalParticle<> sph0;
-	// 	SphericalParticle<> sph1;
+	{	// Calculate using random numbers
+		SphericalParticle<> sph0;
+		SphericalParticle<> sph1;
 
-	// 	Vector3D position0(1.5, 0.8, 8.7);
-	// 	Vector3D position1(-8.5, 7.5, 0.84);
+		Vector3D position0(1.5, 0.8, 8.7);
+		Vector3D position1(-8.5, 7.5, 0.84);
 
-	// 	Vector3D velocity0(8.99, 7.88, 5.64);
-	// 	Vector3D velocity1(0.25, 22.7, 9.78);
+		Vector3D velocity0(8.99, 7.88, 5.64);
+		Vector3D velocity1(0.25, 22.7, 9.78);
 
-	// 	double radius0 = 0.6 * distance(position0, position1);
-	// 	double radius1 = 0.5 * distance(position0, position1);
+		Vector3D angularVelocity0(3.15, 7.89, -98.55);
+		Vector3D angularVelocity1(6.52, -8.74, -0.25);
 
-	// 	sph0.setPosition(position0);
-	// 	sph1.setPosition(position1);
+		double radius0 = 0.6 * distance(position0, position1);
+		double radius1 = 0.5 * distance(position0, position1);
 
-	// 	sph0.setVelocity(velocity0);
-	// 	sph1.setVelocity(velocity1);
+		sph0.property<Radius>().set(radius0);
+		sph1.property<Radius>().set(radius1);
 
-	// 	Vector3D normalVersor = position1 - position0;
-	// 	Vector3D velocityDifference = velocity1 - velocity0;
+		sph0.setPosition(position0);
+		sph1.setPosition(position1);
 
-	// }
+		sph0.setVelocity(velocity0);
+		sph1.setVelocity(velocity1);
+
+		sph0.setAngularVelocity(angularVelocity0);
+		sph1.setAngularVelocity(angularVelocity1);
+
+		Vector3D normalVersor = position1 - position0;
+		Vector3D velocityDifference = velocity1 - velocity0;
+
+		Vector3D contact = contactPoint(sph0, sph1);
+
+		Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
+		Vector3D relativeTangentialRotationalVelocity = cross(angularVelocity1, contact - position1) - cross(angularVelocity0, contact - position0);
+
+		Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
+
+		checkEqual(sph0.relativeTangentialVelocity(sph1), relativeTangentialVelocity);
+	}
+
+	{	// Intuitive case
+		SphericalParticle<> sph0;
+		SphericalParticle<> sph1;
+		SphericalParticle<> sph2;
+
+		double radius0 = 1.0;
+		double radius1 = 1.0;
+		double radius2 = 1.0;
+
+		Vector3D position0(0.0, 0.0, 0.0);
+		Vector3D position1(2.0, 0.0, 0.0);
+		Vector3D position2(-2.0, 0.0, 0.0);
+
+		Vector3D velocity0(0.0, 0.0, 0.0);
+		Vector3D velocity1(0.0, 0.0, 0.0);
+		Vector3D velocity2(0.0, 1.0, 0.0);
+
+		Vector3D angularVelocity0(0.0, 0.0, 0.0);
+		Vector3D angularVelocity1(0.0, 0.0, 1.0);
+		Vector3D angularVelocity2(0.0, 0.0, 0.0);
+
+		Vector3D relativeTangentialVelocity01(0.0, -1.0, 0.0);	// angularVelocity1 * radius1
+		Vector3D relativeTangentialVelocity02(0.0, 1.0, 0.0);
+		
+		sph0.set<Radius>(radius0);
+		sph1.set<Radius>(radius1);
+		sph2.set<Radius>(radius2);
+
+		sph0.setPosition(position0);
+		sph1.setPosition(position1);
+		sph2.setPosition(position2);
+		
+		sph0.setVelocity(velocity0);
+		sph1.setVelocity(velocity1);
+		sph2.setVelocity(velocity2);
+		
+		sph0.setAngularVelocity(angularVelocity0);
+		sph1.setAngularVelocity(angularVelocity1);
+		sph2.setAngularVelocity(angularVelocity2);
+
+		checkEqual(sph0.relativeTangentialVelocity(sph1), relativeTangentialVelocity01);
+		checkEqual(sph0.relativeTangentialVelocity(sph2), relativeTangentialVelocity02);
+	}
 }
 
 TestCase(SphericalParticle_tangentialVersor_Test)
 {
-	//TODO
+	{	// General case
+		SphericalParticle<> sph0;
+		SphericalParticle<> sph1;
+
+		Vector3D position0(1.5, 0.8, 8.7);
+		Vector3D position1(-8.5, 7.5, 0.84);
+
+		Vector3D velocity0(8.99, 7.88, 5.64);
+		Vector3D velocity1(0.25, 22.7, 9.78);
+
+		Vector3D angularVelocity0(3.15, 7.89, -98.55);
+		Vector3D angularVelocity1(6.52, -8.74, -0.25);
+
+		double radius0 = 0.6 * distance(position0, position1);
+		double radius1 = 0.5 * distance(position0, position1);
+		
+		sph0.set<Radius>(radius0);
+		sph1.set<Radius>(radius1);
+
+		sph0.setPosition(position0);
+		sph1.setPosition(position1);
+		
+		sph0.setVelocity(velocity0);
+		sph1.setVelocity(velocity1);
+		
+		sph0.setAngularVelocity(angularVelocity0);
+		sph1.setAngularVelocity(angularVelocity1);
+
+		Vector3D tangentialVersor = sph0.relativeTangentialVelocity(sph1).normalized();
+
+		checkEqual(sph0.tangentialVersor(sph1), tangentialVersor);
+	}
+
+	{	// Intuitive case
+		SphericalParticle<> sph0;
+		SphericalParticle<> sph1;
+
+		double radius0 = 1.0;
+		double radius1 = 1.0;
+
+		Vector3D position0(0.0, 0.0, 0.0);
+		Vector3D position1(2.0, 0.0, 0.0);
+
+		Vector3D velocity0(0.0, 0.0, 0.0);
+		Vector3D velocity1(0.0, 0.0, 1.0);
+
+		Vector3D angularVelocity0(0.0, 0.0, 0.0);
+		Vector3D angularVelocity1(0.0, 0.0, 1.0);
+		
+		sph0.set<Radius>(radius0);
+		sph1.set<Radius>(radius1);
+
+		sph0.setPosition(position0);
+		sph1.setPosition(position1);
+		
+		sph0.setVelocity(velocity0);
+		sph1.setVelocity(velocity1);
+		
+		sph0.setAngularVelocity(angularVelocity0);
+		sph1.setAngularVelocity(angularVelocity1);
+
+		Vector3D tangentialVersor = (velocity1 - angularVelocity1*radius1).normalized();
+	}
 }
 
 TestCase(SphericalParticleTouchTest)

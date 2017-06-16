@@ -89,12 +89,12 @@ template<typename ... PropertyTypes>
 Vector3D SphericalParticle<PropertyTypes...>::relativeTangentialVelocity(const SphericalParticle<PropertyTypes...> & neighbor) const
 {
 	const Vector3D normalVersor = this->normalVersor( neighbor );
-	const Vector3D velocityDifference = neighbor->getVelocity() - this->getVelocity();
-	const Vector3D contactPoint = contactPoint(*this, neighbor);
+	const Vector3D velocityDifference = neighbor.getVelocity() - this->getVelocity();
+	const Vector3D contact = contactPoint(*this, neighbor);
 
 	const Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
-	const Vector3D relativeTangentialRotationalVelocity =	cross(neighbor->getAngularVelocity(), contactPoint - neighbor->getPosition()) -
-															cross(this->getAngularVelocity(), contactPoint - this->getPosition());
+	const Vector3D relativeTangentialRotationalVelocity =	cross(neighbor.getAngularVelocity(), contact - neighbor.getPosition()) -
+															cross(this->getAngularVelocity(), contact - this->getPosition());
 
 	const Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
 

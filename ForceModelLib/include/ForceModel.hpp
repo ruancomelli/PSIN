@@ -95,7 +95,6 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 		vector< NormalType > normalForceCalculationMethod;
 		vector< TangentialType > tangentialForceCalculationMethod;
 		vector< FieldType > fieldForceCalculationMethod;
-
 };
 
 #include <ForceModel.tpp>

@@ -1,18 +1,21 @@
 // ----- Constructors -----
-template<typename type>
-PositiveProperty<type>::PositiveProperty()
+#include <iostream>
+
+template<typename T>
+PositiveProperty<T>::PositiveProperty()
 {}
 
-template<typename type>
-PositiveProperty<type>::PositiveProperty(const type & value)
+template<typename T>
+PositiveProperty<T>::PositiveProperty(const T & value)
 {
 	this->set(value);
 }
 
 
 // Set and get value
-template<typename type>
-void PositiveProperty<type>::set(const type & value)
+template<typename T>
+template<typename U>
+void PositiveProperty<T>::set(const U & value)
 {
 	if(value > 0)
 	{

@@ -2,11 +2,11 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
-#include <is_unique_type_list.hpp>
-#include <specialize_from_unique_list.hpp>
+#include <Metaprogramming/type_list.hpp>
+#include <Metaprogramming/is_unique_type_list.hpp>
+#include <Metaprogramming/specialize_from_unique_list.hpp>
 
 // Standard
-#include <iostream>
 #include <tuple>
 
 template<typename ... PropertyTypes>
@@ -15,6 +15,8 @@ class PhysicalEntityModel
 	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
 
 	public:
+		using PropertyList = type_list<PropertyTypes...>;
+
 		PhysicalEntityModel();
 		PhysicalEntityModel(const PhysicalEntityModel<PropertyTypes...> & other);
 
@@ -26,11 +28,18 @@ class PhysicalEntityModel
 		PropertyType property() const;
 
 		// ----- Input and output property -----
-		template<typename PropertyType>
-		bool input(std::istream & in);
+		template<typename PropertyType, typename istream_type>
+		bool input(istream_type & in);
+
+		template<typename PropertyType, typename ostream_type>
+		bool output(ostream_type & out) const;
+
+		// ----- Set and get property -----
+		template<typename PropertyType, typename ValueType>
+		void set(const ValueType & value);
 
 		template<typename PropertyType>
-		bool output(std::ostream & out) const;
+		typename PropertyType::ValueType get() const;
 
 		// ----- Check whether a property was assigned -----
 		template<typename PropertyType>

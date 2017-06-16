@@ -42,6 +42,8 @@ TestCase(PropertyConstructorsTest)
 
 	// Assert that a property can be defined using a parameter A that does not define stream operators
 	Property<A> property3;
+
+	// Uncomment the following line to get compilation errors, for there is no operator(std::istream &, A&) defined
 	// property3.input(std::cin);
 }
 

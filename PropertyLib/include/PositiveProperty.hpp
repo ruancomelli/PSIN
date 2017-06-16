@@ -3,17 +3,18 @@
 
 #include <Property.hpp>
 
-template<typename type>
-class PositiveProperty : public Property<type>
+template<typename T>
+class PositiveProperty : public Property<T>
 {
 	public:
-		using Type = type;
+		using ValueType = T;
 
 		// Constructors
 		PositiveProperty();
-		PositiveProperty(const type & value);
+		PositiveProperty(const T & value);
 
-		virtual void set(const type & value);
+		template<typename U>
+		void set(const U & value);
 
 };
 

@@ -4,9 +4,6 @@
 // UtilsLib
 #include <UniquePointer.hpp>
 
-// Standard
-#include <iostream>
-
 template<typename T = double>
 class Property
 {
