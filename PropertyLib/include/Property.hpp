@@ -1,40 +1,44 @@
 #ifndef PROPERTY_HPP
 #define PROPERTY_HPP
 
-// Standard
-#include <iostream>
-
 // UtilsLib
 #include <UniquePointer.hpp>
 
-template<typename type = double>
+// Standard
+#include <iostream>
+
+template<typename T = double>
 class Property
 {
 	public:
-		Property<type>& operator=(const Property<type> & other);
+		Property<T>& operator=(const Property<T> & other);
 
-		using Type = type;
+		using ValueType = T;
 
 		// Constructors
 		Property();
-		Property(const type & value);
-		Property(const Property<type> & other);
+		Property(const T & value);
+		Property(const Property<T> & other);
 
-		virtual void set(const type & value);
-		virtual type get() const;
+		template<typename U>
+		void set(const U & value);
 
-		virtual bool input(std::istream & in);
-		virtual bool output(std::ostream & out) const;
+		virtual T get() const;
+
+		template<typename istream_type>
+		bool input(istream_type & in);
+
+		template<typename ostream_type>
+		bool output(ostream_type & out) const;
 
 		// Assigned
 		bool assigned() const;
 
 	protected:
-		UniquePointer<type> value;
+		UniquePointer<T> value;
 
-		void assign(const type & value);
+		void assign(const T & value);
 		bool assignedFlag = false;
-
 };
 
 #include <Property.tpp>

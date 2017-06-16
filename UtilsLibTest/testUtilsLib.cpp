@@ -19,9 +19,6 @@
 #include <Vector.hpp>
 #include <Vector3D.hpp>
 #include <Metaprogramming/insert_new_types_into_type_list.hpp>
-#include <Metaprogramming/is_callable.hpp>
-#include <Metaprogramming/is_callable_binary_operator.hpp>
-#include <Metaprogramming/is_callable_member.hpp>
 #include <Metaprogramming/is_unique_type_list.hpp>
 #include <Metaprogramming/type_is_in_list.hpp>
 #include <Metaprogramming/make_unique_type_list.hpp>

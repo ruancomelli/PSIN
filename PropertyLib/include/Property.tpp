@@ -2,12 +2,12 @@
 #define PROPERTY_TPP
 
 
-template<typename type>
-Property<type>& Property<type>::operator=(const Property<type> & other)
+template<typename T>
+Property<T>& Property<T>::operator=(const Property<T> & other)
 {
 	if(other.value)
 	{
-		this->value = makeUnique<type>( *other.value );
+		this->value = makeUnique<T>( *other.value );
 	}
 	this->assignedFlag = other.assignedFlag;
 
@@ -15,52 +15,47 @@ Property<type>& Property<type>::operator=(const Property<type> & other)
 }
 
 // ----- Constructors -----
-template<typename type>
-Property<type>::Property()
+template<typename T>
+Property<T>::Property()
 {}
 
-template<typename type>
-Property<type>::Property(const type & value)
+template<typename T>
+Property<T>::Property(const T & value)
 {
 	this->set(value);
 }
 
-template<typename type>
-Property<type>::Property(const Property<type> & other)
+template<typename T>
+Property<T>::Property(const Property<T> & other)
 	: assignedFlag(other.assignedFlag)
 {
 	if(other.value)
 	{
-		this->value = makeUnique<type>( *other.value );
+		this->value = makeUnique<T>( *other.value );
 	}
 }
 
 
 // ----- Set and get value -----
-template<typename type>
-void Property<type>::assign(const type & value)
-{
-	this->value = makeUnique<type>(value);
-	this->assignedFlag = true;
-}
-
-template<typename type>
-void Property<type>::set(const type & value)
+template<typename T>
+template<typename U>
+void Property<T>::set(const U & value)
 {
 	this->assign(value);
 }
 
-template<typename type>
-type Property<type>::get(void) const
+template<typename T>
+T Property<T>::get() const
 {
 	return *this->value;
 }
 
-// ----- Input and output property -----
-template<typename type>
-bool Property<type>::input(std::istream & in)
+// ----- Input and output value -----
+template<typename T>
+template<typename istream_type>
+bool Property<T>::input(istream_type & in)
 {
-	type value;
+	T value;
 
 	in >> value;
 
@@ -69,17 +64,25 @@ bool Property<type>::input(std::istream & in)
 	return true;
 }
 
-template<typename type>
-bool Property<type>::output(std::ostream & out) const
+template<typename T>
+template<typename ostream_type>
+bool Property<T>::output(ostream_type & out) const
 {
 	out << *this->value;
 
 	return true;
 }
 
+template<typename T>
+void Property<T>::assign(const T & value)
+{
+	this->value = makeUnique<T>(value);
+	this->assignedFlag = true;
+}
+
 // ----- Assigned -----
-template<typename type>
-bool Property<type>::assigned() const
+template<typename T>
+bool Property<T>::assigned() const
 {
 	return this->assignedFlag;
 }

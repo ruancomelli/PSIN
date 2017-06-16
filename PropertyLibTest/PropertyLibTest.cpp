@@ -15,8 +15,15 @@
 using namespace PropertyDefinitions;
 using namespace std;
 
+namespace PropertyConstructorsTest_namespace
+{
+	struct A{};
+}
+
 TestCase(PropertyConstructorsTest)
 {
+	using namespace PropertyConstructorsTest_namespace;
+
 	double tolerance = 1e-12;
 	double value = 3.14;
 
@@ -32,6 +39,10 @@ TestCase(PropertyConstructorsTest)
 	Property<double> property2(value);
 	check(property2.assigned());
 	checkClose(property2.get(), value, tolerance);
+
+	// Assert that a property can be defined using a parameter A that does not define stream operators
+	Property<A> property3;
+	// property3.input(std::cin);
 }
 
 TestCase(PropertyInputAndOutputTest)
@@ -55,6 +66,16 @@ TestCase(PropertyInputAndOutputTest)
 	checkClose(property2.get(), value, tolerance);
 }
 
+TestCase(Property_ValueType_Test)
+{
+	check((
+		std::is_same<
+			PropertyDefinitions::Mass::ValueType,
+			double
+		>::value
+	));
+}
+
 TestCase(PropertyDefinitionsTest)
 {
 	string massName = "Mass";
@@ -74,5 +95,3 @@ TestCase(PropertyDefinitionsTest)
 	check(!mass.assigned());
 	checkClose(mass.get(), positiveValue, tolerance);
 }
-
-
