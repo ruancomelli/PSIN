@@ -7,4 +7,4 @@
 <gravity>
 0.0 0.0 0.0
 <timeStepsForOutput> 1000
-<ForceModelName> ViscoElasticSpheres
+<InteractionName> ViscoElasticSpheres

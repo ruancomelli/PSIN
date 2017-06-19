@@ -1,8 +1,8 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-// ForceModelLib
-#include <ForceModel.hpp>
+// InteractionLib
+#include <Interaction.hpp>
 
 // IOLib
 #include <SphericalParticlePtrArrayKit.hpp>
@@ -36,9 +36,9 @@ class Simulation : public Named
 		void outputMainData(void) const;
 		void printSuccessMessage(void) const;
 
-		// ForceModel
-		void setForceModel(const std::string & forceModelName);
-		void appendForceModel(const ForceModel<SphericalParticle, SphericalParticle> & fm);
+		// Interaction
+		void setInteraction(const std::string & InteractionName);
+		void appendInteraction(const Interaction<SphericalParticle, SphericalParticle> & fm);
 
 		// Particles
 		void initializeParticleArray(void);
@@ -63,8 +63,8 @@ class Simulation : public Named
 
 		// Simulation objects
 		SphericalParticlePtrArrayKit particleArray;
-		ForceModel<SphericalParticle, SphericalParticle> forceModel;
-		std::set<ForceModel<SphericalParticle, SphericalParticle>, Named::NamedCompare> forceModelSet;
+		Interaction<SphericalParticle, SphericalParticle> Interaction;
+		std::set<Interaction<SphericalParticle, SphericalParticle>, Named::NamedCompare> InteractionSet;
 
 }; // class Simulation
 

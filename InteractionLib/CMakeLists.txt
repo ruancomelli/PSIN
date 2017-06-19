@@ -2,7 +2,7 @@
 #
 #
 
-project(ForceModelLib)
+project(InteractionLib)
 
 #INCLUDE DIRECTORIES
 include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)

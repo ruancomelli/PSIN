@@ -2,7 +2,7 @@ project(SimulationLib)
 
 #INCLUDE DIRECTORIES
 include_directories(${CMAKE_SOURCE_DIR}/EntityLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/include)
+include_directories(${CMAKE_SOURCE_DIR}/InteractionLib/include)
 include_directories(${CMAKE_SOURCE_DIR}/IOLib/include)
 include_directories(${CMAKE_SOURCE_DIR}/PropertyLib/include)
 include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)
@@ -10,7 +10,7 @@ include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 
 #LINK DIRECTORIES
 link_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/ForceModelLib/source)
+link_directories(${CMAKE_SOURCE_DIR}/InteractionLib/source)
 link_directories(${CMAKE_SOURCE_DIR}/IOLib/source)
 link_directories(${CMAKE_SOURCE_DIR}/PropertyLib/source)
 link_directories(${CMAKE_SOURCE_DIR}/UtilsLib/source)
@@ -24,7 +24,7 @@ add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_sources} ${${PROJECT_NAME}_
 
 #LINK LIBRARIES
 target_link_libraries(${PROJECT_NAME} EntityLib)
-target_link_libraries(${PROJECT_NAME} ForceModelLib)
+target_link_libraries(${PROJECT_NAME} InteractionLib)
 target_link_libraries(${PROJECT_NAME} IOLib)
 target_link_libraries(${PROJECT_NAME} PropertyLib)
 target_link_libraries(${PROJECT_NAME} UtilsLib)

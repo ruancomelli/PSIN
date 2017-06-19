@@ -1,6 +1,6 @@
 // What to do:
 // Each property must be a class
-// Each ForceModel must be a class
+// Each Interaction must be a class
 
 // NEW STRUCTURE:
 class HandledEntity;	// Defines handle
@@ -19,8 +19,8 @@ class SphericalParticle<Props...> : public Particle<Radius, Props...>;
 template<typename ... PropertyTypes>
 struct Properties< PropertyTypes ... > {};
 
-template<typename ... ForceModelTypes>
-struct ForceModels< ForceModelTypes ... > {};
+template<typename ... InteractionTypes>
+struct Interactions< InteractionTypes ... > {};
 
 template<typename ... ParticleTypes>
 struct Particles< ParticleTypes ... > {};
@@ -30,13 +30,13 @@ struct Boundaries< BoundaryTypes ... > {};
 
 template<
 	typename ... PropertyTypes,
-	typename ... ForceModelTypes,
+	typename ... InteractionTypes,
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes
 >
 class Simulation<
 	Properties< PropertyTypes... >,
-	ForceModels< ForceModelTypes...>,
+	Interactions< InteractionTypes...>,
 	Particles< ParticleTypes ... >,
 	Boundaries< BoundaryTypes ... >
 >
@@ -51,8 +51,8 @@ class Simulation<
 
 		std::map<
 			std::string, 
-			boost::variant< ForceModelTypes... >
-		> forceModels;
+			boost::variant< InteractionTypes... >
+		> Interactions;
 
 		vector< boost::variant< ParticleTypes... > > particles;
 
@@ -67,7 +67,7 @@ class Simulation<
 			Property<double>
 		>,
 
-		ForceModels<
+		Interactions<
 			LinearDashpotForce
 		>,
 
@@ -95,10 +95,10 @@ class Mass : public Property;
 
 // ==============================================================================================================================
 // ==============================================================================================================================
-// ForceModel.h
+// Interaction.h
 // ==============================================================================================================================
 
-class LinearDashpotForce : public NormalForceModel<SphericalParticle, SphericalParticle>
+class LinearDashpotForce : public NormalInteraction<SphericalParticle, SphericalParticle>
 {
 	LinearDashpotForce()
 		: Named("LinearDashpotForce")
@@ -141,7 +141,7 @@ class LinearDashpotForce : public NormalForceModel<SphericalParticle, SphericalP
 Property<double> mass("Mass", setPositive);
 Property<int> dimension("Dimension", setFromOneToThree);
 
-class LinearDashpotForce : public NormalForceModel<SphericalParticle, SphericalParticle>
+class LinearDashpotForce : public NormalInteraction<SphericalParticle, SphericalParticle>
 {
 	LinearDashpotForce()
 		: Named("LinearDashpotForce")
@@ -182,7 +182,7 @@ class LinearDashpotForce : public NormalForceModel<SphericalParticle, SphericalP
 	}
 }
 
-class LinearDashpotForceWall : public NormalForceModel<SphericalParticle, FixedInfinitePlane>
+class LinearDashpotForceWall : public NormalInteraction<SphericalParticle, FixedInfinitePlane>
 {
 	LinearDashpotForceWall()
 		: Named("LinearDashpotForceWall")
@@ -213,7 +213,7 @@ int main()
 			Property<double>
 		>,
 
-		ForceModels<
+		Interactions<
 			LinearDashpotForce,
 			LinearDashpotForceWall
 		>,
@@ -251,7 +251,7 @@ class Dimension : public Property<int>
 }
 
 class LinearDashpotForce :
-	public NormalForceModel<
+	public NormalInteraction<
 		SphericalParticle, 
 		SphericalParticle, 
 		Properties<
@@ -298,7 +298,7 @@ class LinearDashpotForce :
 	}
 }
 
-class LinearDashpotForceWall : public NormalForceModel<SphericalParticle, FixedInfinitePlane>
+class LinearDashpotForceWall : public NormalInteraction<SphericalParticle, FixedInfinitePlane>
 {
 	// ...
 }
@@ -306,7 +306,7 @@ class LinearDashpotForceWall : public NormalForceModel<SphericalParticle, FixedI
 int main()
 {
 	Simulation<
-		ForceModels<
+		Interactions<
 			LinearDashpotForce,
 			LinearDashpotForceWall
 		>,

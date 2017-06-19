@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE ForceModelLibTest
+#define BOOST_TEST_MODULE InteractionLibTest
 
 // UtilsLib
 #include <Mathematics.hpp>
@@ -17,8 +17,8 @@
 #include <PhysicalEntity.hpp>
 #include <SphericalParticle.hpp>
 
-//ForceModelLib
-#include <ForceModel.hpp>
+//InteractionLib
+#include <Interaction.hpp>
 
 // IOLib
 #include <vectorIO.hpp>
@@ -54,7 +54,7 @@ TestCase( TaylorPredictorTest )
 		solution[1].z() = -0.5;
 		solution[2].z() = -5.0;
 
-		vector<Vector3D> predictedVector = ForceModel<SphericalParticle, SphericalParticle>::taylorPredictor( currentVector, predictionOrder, dx );
+		vector<Vector3D> predictedVector = Interaction<SphericalParticle, SphericalParticle>::taylorPredictor( currentVector, predictionOrder, dx );
 
 		for(int i=0 ; i<=predictionOrder ; ++i)
 		{
@@ -67,7 +67,7 @@ TestCase( TaylorPredictorTest )
 
 TestCase(RequirePropertiesTest)
 {
-	ForceModel<SphericalParticle, SphericalParticle> fm;
+	Interaction<SphericalParticle, SphericalParticle> fm;
 
 	fm.requireProperty(mass);
 	fm.requireProperty(volume);
@@ -90,19 +90,19 @@ TestCase(ConstructorsTest)
 	string defaultName = "Nameless";
 	string name = "DarkSideOfTheForce";
 
-	ForceModel<SphericalParticle, SphericalParticle> fm0;
+	Interaction<SphericalParticle, SphericalParticle> fm0;
 	fm0.calculate(sph0, sph1);
 	checkEqual(fm0.getName(), defaultName);
 	checkEqual(sph0->getResultingForce(), nullVector3D());
 	checkEqual(sph1->getResultingForce(), nullVector3D());
 
-	ForceModel<SphericalParticle, SphericalParticle> fm1(name);
+	Interaction<SphericalParticle, SphericalParticle> fm1(name);
 	fm1.calculate(sph0, sph1);
 	checkEqual(fm1.getName(), name);
 	checkEqual(sph0->getResultingForce(), nullVector3D());
 	checkEqual(sph1->getResultingForce(), nullVector3D());
 
-	ForceModel<SphericalParticle, SphericalParticle> fm2(fm1);
+	Interaction<SphericalParticle, SphericalParticle> fm2(fm1);
 	fm2.calculate(sph0, sph1);
 	checkEqual(fm2.getName(), name);
 	checkEqual(sph0->getResultingForce(), nullVector3D());
@@ -136,7 +136,7 @@ TestCase(SetForceMethodsTest)
 	Vector3D tangentialForce = Vector3D(0.0, 1.0, 0.0);
 
 
-	ForceModel<SphericalParticle, SphericalParticle> fm0(name);
+	Interaction<SphericalParticle, SphericalParticle> fm0(name);
 	fm0.setNormal(myNormalForce);
 	fm0.setTangential(myTangentialForce);
 	fm0.calculate(sph0, sph1);
@@ -144,13 +144,13 @@ TestCase(SetForceMethodsTest)
 	checkEqual(sph0->getResultingForce(), normalForce + tangentialForce);
 	checkEqual(sph1->getResultingForce(), normalForce + tangentialForce);
 
-	ForceModel<SphericalParticle, SphericalParticle> fm1(fm0);
+	Interaction<SphericalParticle, SphericalParticle> fm1(fm0);
 	fm1.calculate(sph2, sph3);
 	checkEqual(fm1.getName(), name);
 	checkEqual(sph2->getResultingForce(), normalForce + tangentialForce);
 	checkEqual(sph3->getResultingForce(), normalForce + tangentialForce);
 
-	ForceModel<SphericalParticle, SphericalParticle> fm2;
+	Interaction<SphericalParticle, SphericalParticle> fm2;
 	fm2.setNormal({ myNormalForce, myNormalForce });
 	fm2.setTangential(myTangentialForce);
 	fm2.addTangential(myTangentialForce);
@@ -169,7 +169,7 @@ TestCase(SetTimeStepAndNumberOfParticlesTest)
 	SphericalParticlePtr sph0(new SphericalParticle());
 	SphericalParticlePtr sph1(new SphericalParticle());
 
-	ForceModel<SphericalParticle, SphericalParticle> fm;
+	Interaction<SphericalParticle, SphericalParticle> fm;
 	int numberOfParticles = 100;
 	double timeStep = 0.8;
 

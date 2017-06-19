@@ -67,8 +67,8 @@ void Simulation::simulate(void)
 
 		// Predict position and orientation
 		for( SphericalParticlePtr particle : particleArray ){
-			particle->setPosition( ForceModel<SphericalParticle, SphericalParticle>::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
-			particle->setOrientation( ForceModel<SphericalParticle, SphericalParticle>::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
+			particle->setPosition( Interaction<SphericalParticle, SphericalParticle>::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
+			particle->setOrientation( Interaction<SphericalParticle, SphericalParticle>::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
 		}
 
 		// Contact forces
@@ -77,14 +77,14 @@ void Simulation::simulate(void)
 			for( int handle : particle->getNeighborhood() ){
 				SphericalParticlePtr neighbor = particleArray[handle];
 
-				forceModel.calculate(particle, neighbor);
+				Interaction.calculate(particle, neighbor);
 			}
 		}
 
 		// Correct position and orientation
 		for( SphericalParticlePtr particle : particleArray ){
-			ForceModel<SphericalParticle, SphericalParticle>::correctPosition( particle , taylorOrder, timeStep );
-			ForceModel<SphericalParticle, SphericalParticle>::correctOrientation( particle , taylorOrder, timeStep );
+			Interaction<SphericalParticle, SphericalParticle>::correctPosition( particle , taylorOrder, timeStep );
+			Interaction<SphericalParticle, SphericalParticle>::correctOrientation( particle , taylorOrder, timeStep );
 		}
 
 
@@ -116,11 +116,11 @@ void Simulation::inputMainData(void)
 	inputData.readValue("<gravity>", this->gravity);
 	inputData.readValue("<timeStepsForOutput>", this->timeStepsForOutput);
 
-	// Read ForceModel
-	std::string forceModelName;
-	inputData.readValue("<ForceModelName>", forceModelName);
+	// Read Interaction
+	std::string InteractionName;
+	inputData.readValue("<InteractionName>", InteractionName);
 
-	this->setForceModel(forceModelName);
+	this->setInteraction(InteractionName);
 }
 
 // ----- Output -----
@@ -137,7 +137,7 @@ void Simulation::outputMainData(void) const
 	mainOutFile << "<finalTime> "		<< finalTime			<< verticalSeparator;
 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
-	mainOutFile << "<ForceModelName> " << forceModel.getName() << verticalSeparator;
+	mainOutFile << "<InteractionName> " << Interaction.getName() << verticalSeparator;
 }
 
 
@@ -145,7 +145,7 @@ void Simulation::outputMainData(void) const
 void Simulation::initializeParticleArray(void)
 {
 	// Input
-	this->particleArray.requirePropertyContainer(this->forceModel.getRequiredProperties());
+	this->particleArray.requirePropertyContainer(this->Interaction.getRequiredProperties());
 
 	this->particleArray.inputParticles(this->numberOfParticles, this->fileTree.getParticleInputFolder());
 
@@ -159,7 +159,7 @@ void Simulation::initializeParticleArray(void)
 	particleArray[0]->setGravity(this->gravity);
 	particleArray.openFiles(this->fileTree.getNumericalOutputFolder());
 
-	ForceModel<SphericalParticle, SphericalParticle>::setNumberOfParticles( this->numberOfParticles );
+	Interaction<SphericalParticle, SphericalParticle>::setNumberOfParticles( this->numberOfParticles );
 
 	for( SphericalParticlePtr particle : particleArray ){
 		for( SphericalParticlePtr neighbor : particleArray ){
@@ -170,21 +170,21 @@ void Simulation::initializeParticleArray(void)
 	}
 }
 
-// ForceModel
-void Simulation::setForceModel(const std::string & forceModelName)
+// Interaction
+void Simulation::setInteraction(const std::string & InteractionName)
 {
-	for (auto& fm : this->forceModelSet)
+	for (auto& fm : this->InteractionSet)
 	{
-		if (fm.getName() == forceModelName)
+		if (fm.getName() == InteractionName)
 		{
-			this->forceModel = fm;
+			this->Interaction = fm;
 			break;
 		}
 	}
 }
 
-void Simulation::appendForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm ){
-	this->forceModelSet.insert(fm);
+void Simulation::appendInteraction( const Interaction<SphericalParticle, SphericalParticle> & fm ){
+	this->InteractionSet.insert(fm);
 }
 
 // Parse command line

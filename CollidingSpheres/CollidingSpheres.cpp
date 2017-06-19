@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-// ForceModelLib
+// InteractionLib
 #include <ForceMethodsDefinitions.hpp>
 
 // PropertyLib
@@ -23,7 +23,7 @@ int main(int argc, char **argv){
 
 	Simulation simulation;
 
-	ForceModel<SphericalParticle, SphericalParticle> viscoelasticSpheres("ViscoElasticSpheres");
+	Interaction<SphericalParticle, SphericalParticle> viscoelasticSpheres("ViscoElasticSpheres");
 	viscoelasticSpheres.setNormal(normalForceViscoelasticSpheres);
 	viscoelasticSpheres.setTangential(tangentialForceHaffWerner);
 	viscoelasticSpheres.requireProperty(mass);
@@ -34,10 +34,10 @@ int main(int argc, char **argv){
 	viscoelasticSpheres.requireProperty(tangential_damping);
 	viscoelasticSpheres.requireProperty(friction_parameter);
 
-	simulation.appendForceModel(viscoelasticSpheres);
+	simulation.appendInteraction(viscoelasticSpheres);
 
 
-	ForceModel<SphericalParticle, SphericalParticle> electrostatic("Electrostatic");
+	Interaction<SphericalParticle, SphericalParticle> electrostatic("Electrostatic");
 	electrostatic.setField(electrostaticForce);
 	electrostatic.setNormal(normalForceViscoelasticSpheres);
 	electrostatic.setTangential(tangentialForceHaffWerner);
@@ -50,7 +50,7 @@ int main(int argc, char **argv){
 	electrostatic.requireProperty(friction_parameter);
 	electrostatic.requireProperty(electric_charge);
 
-	simulation.appendForceModel(electrostatic);
+	simulation.appendInteraction(electrostatic);
 
 	simulation.defaultSimulate(simulationName, rootPath);
 }

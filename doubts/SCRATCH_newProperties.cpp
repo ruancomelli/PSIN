@@ -229,8 +229,8 @@ int main(int argc, char **argv){
 
 	// ----------------------------------------------------- begin NEW THINGS -----------------------------------------------------
 
-	// Creating a new forceModel:
-	ForceModel viscoSpheres;
+	// Creating a new Interaction:
+	Interaction viscoSpheres;
 	viscoSpheres.normalForceCalculationMethod( normalForceViscoelasticSpheres );
 	viscoSpheres.tangentialForceCalculationMethod( tangentialForceHaffWerner );
 	viscoSpheres.setName( "Viscoelastic Spheres" );
@@ -240,31 +240,31 @@ int main(int argc, char **argv){
 	viscoSpheres.requireProperty( dissipativeConstant );
 	viscoSpheres.requireProperty( poissonRatio );
 	viscoSpheres.requireProperty( mass );
-	forceModelList.add(viscoSpheres);
+	InteractionList.add(viscoSpheres);
 
 	// ---
 
-	ForceModel forceModel;	// This is the force model currently in use
-	string forceModelName;
+	Interaction Interaction;	// This is the force model currently in use
+	string InteractionName;
 
-	inputData.readValue("<forceModel>", forceModelName);	// Read desired forceModel from input file
+	inputData.readValue("<Interaction>", InteractionName);	// Read desired Interaction from input file
 
-	extern vector<ForceModel> forceModelList;	// This is a list of ForceModel objects. Any new ForceModel instance can be added to the global forceModelList using forceModelList.append( newForceModel )
-	foreach( ForceModel fm, forceModelList )	// This sets forceModel as required by the user
+	extern vector<Interaction> InteractionList;	// This is a list of Interaction objects. Any new Interaction instance can be added to the global InteractionList using InteractionList.append( newInteraction )
+	foreach( Interaction fm, InteractionList )	// This sets Interaction as required by the user
 	{
-		if( fm.getName() == forceModelName )
+		if( fm.getName() == InteractionName )
 		{
-			forceModel = fm;
+			Interaction = fm;
 			break;
 		}
 	}
 
-	forceModel.requireProperties( particleArray ); // forceModel has a list of properties that particleArray must have in order to compute forces
+	Interaction.requireProperties( particleArray ); // Interaction has a list of properties that particleArray must have in order to compute forces
 	// OR
-	particleArray.setRequiredProperties( forceModel.getRequiredProperties() );
+	particleArray.setRequiredProperties( Interaction.getRequiredProperties() );
 
 
-	bool successfullInput = particleArray.inputParticles(numberOfParticles, particleInputFolder); // Inputs particles as required by the forceModel
+	bool successfullInput = particleArray.inputParticles(numberOfParticles, particleInputFolder); // Inputs particles as required by the Interaction
 	bool successfullPropertyDetermination = particleArray.checkPropertyRedundances();
 	// Maybe in the input files there was not "Volume", but there was "Radius". We can easily deduce "Volume" through the expression Volume = 4/3 * pi * Radius
 	// CAUTION: Actually, "Volume" is not always dependent on "Radius". This only happens to SphericalParticles
@@ -273,7 +273,7 @@ int main(int argc, char **argv){
 	{
 		cerr 	<< "Error: The selected force model requires some properties that are not in input files" << endl
 				<< "Required properties are:" << endl
-				<< forceModel.requiredPropertiesNames() << endl;
+				<< Interaction.requiredPropertiesNames() << endl;
 	}
 
 	// ----------------------------------------------------- end NEW THINGS -----------------------------------------------------
@@ -313,7 +313,7 @@ int main(int argc, char **argv){
 	timeVectorForPlotFile << 0 << verticalSeparator;
 
 	// ===== Simulation =====
-	ForceModel::setNumberOfParticles( numberOfParticles );
+	Interaction::setNumberOfParticles( numberOfParticles );
 
 	foreach( SphericalParticlePtr particle, particleArray ){
 		foreach( SphericalParticlePtr neighbor, particleArray ){
@@ -343,8 +343,8 @@ int main(int argc, char **argv){
 
 		// Predict position and orientation
 		foreach( SphericalParticlePtr particle, particleArray ){
-			particle->setPosition( ForceModel::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
-			particle->setOrientation( ForceModel::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
+			particle->setPosition( Interaction::taylorPredictor( particle->getPosition(), taylorOrder, timeStep ) );
+			particle->setOrientation( Interaction::taylorPredictor( particle->getOrientation(), taylorOrder, timeStep ) );
 		}
 
 		// Contact forces
@@ -358,7 +358,7 @@ int main(int argc, char **argv){
 
 	// ----------------------------------------------------- begin NEW THINGS -----------------------------------------------------
 
-					forceModel.calculate(particle, neighbor)
+					Interaction.calculate(particle, neighbor)
 
 	// ----------------------------------------------------- end NEW THINGS -----------------------------------------------------
 				}
@@ -367,8 +367,8 @@ int main(int argc, char **argv){
 
 		// Correct position and orientation
 		foreach( SphericalParticlePtr particle, particleArray ){
-			ForceModel::correctPosition( particle , taylorOrder, timeStep );
-			ForceModel::correctOrientation( particle , taylorOrder, timeStep );
+			Interaction::correctPosition( particle , taylorOrder, timeStep );
+			Interaction::correctOrientation( particle , taylorOrder, timeStep );
 		}
 
 

@@ -1,5 +1,5 @@
-#ifndef FORCE_MODEL_H
-#define FORCE_MODEL_H
+#ifndef INTERACTION_HPP
+#define INTERACTION_HPP
 
 // Standard
 #include <functional>
@@ -14,22 +14,17 @@
 
 // PropertyLib
 #include <Property.hpp>
-#include <PropertyContainer.hpp>
 
 Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
 
-
 template<typename Particle, typename Interactor>
-class ForceModel;
-
-template<typename ... Args>
-using ForceModelPtr = SharedPointer< ForceModel<Args...> >;
+class Interaction;
 
 template<>
-class ForceModel <SphericalParticle, SphericalParticle> : public Named
+class Interaction <SphericalParticle, SphericalParticle> : public Named
 {
 	public:	
 		using NormalType = std::function< Vector3D(SphericalParticlePtr, SphericalParticlePtr)>;
@@ -52,9 +47,9 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 		static void setNumberOfParticles( const int nParticles );
 		static int getNumberOfParticles( void );
 
-		ForceModel();
-		explicit ForceModel(const string & name);
-		ForceModel( const ForceModel<SphericalParticle, SphericalParticle> & fm );
+		Interaction();
+		explicit Interaction(const string & name);
+		Interaction( const Interaction<SphericalParticle, SphericalParticle> & fm );
 
 		// ---- Required Properties ----
 		PropertyContainer getRequiredProperties(void);
@@ -97,6 +92,6 @@ class ForceModel <SphericalParticle, SphericalParticle> : public Named
 		vector< FieldType > fieldForceCalculationMethod;
 };
 
-#include <ForceModel.tpp>
+#include <Interaction.tpp>
 
 #endif
