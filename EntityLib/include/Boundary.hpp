@@ -1,32 +1,37 @@
-// #ifndef BOUNDARY_H
-// #define BOUNDARY_H
+#ifndef BOUNDARY_H
+#define BOUNDARY_H
 
-// // Standard
-// #include <functional>
+// Standard
+#include <functional>
 
-// // EntityLib
-// #include <PhysicalEntity.hpp>
+// EntityLib
+#include <PhysicalEntity.hpp>
+#include <SocialEntity.hpp>
+#include <SpatialEntity.hpp>
 
-// // UtilsLib
-// #include <SharedPointer.hpp>
+// UtilsLib
+#include <SharedPointer.hpp>
 
-// class Boundary: public PhysicalEntity
-// {
-// 	using BoundaryPtr = SharedPointer<Boundary>;
-// 	using Spatial = vector<Vector3D>;
+template<typename ... PropertyTypes>
+class Boundary : 
+    public PhysicalEntity<PropertyTypes...>,
+    public SocialEntity,
+    public SpatialEntity
+{
+	using Spatial = vector<Vector3D>;
 
-// 	public:
-// 		void setPositionFunction( const std::function< Spatial(double)> & f );
-// 		void setOrientationFunction( const std::function< Spatial(double)> & f );
+	public:
+		void setPositionFunction( const std::function< Spatial(double)> & f );
+		void setOrientationFunction( const std::function< Spatial(double)> & f );
 
-// 		void updatePosition(double t);
-// 		void updateOrientation(double t);
+		void updatePosition(double t);
+		void updateOrientation(double t);
 		
-// 	private:
-// 		std::function< Spatial(double)> positionFunction;
-// 		std::function< Spatial(double)> orientationFunction;
-// }; // class Boundary
+	private:
+		std::function< Spatial(double)> positionFunction;
+		std::function< Spatial(double)> orientationFunction;
+};
 
-// using BoundaryPtr = SharedPointer<Boundary>;
+#include <Boundary.tpp>
 
-// #endif
+#endif

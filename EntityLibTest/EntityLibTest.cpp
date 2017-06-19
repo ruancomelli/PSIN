@@ -6,7 +6,7 @@
 #include <Test.hpp>
 
 // EntityLib
-// #include <Boundary.hpp>
+#include <Boundary.hpp>
 // #include <FixedInfinitePlane.hpp>
 
 #include <HandledEntity.hpp>
@@ -889,45 +889,50 @@ TestCase(SphericalParticleContactPointTest)
 	// contactPoint(sph0, sph2);
 }
 
-// vector<Vector3D> pos(double t)
-// {
-// 	vector<Vector3D> v;
-// 	v.push_back( Vector3D(t, t+1, t+2) );
-// 	v.push_back(Vector3D(t*t, 1, t/2));
-// 	v.push_back(Vector3D(t*t*t, -1, t / 4));
-// 	v.push_back(Vector3D(0, -t, -t*t));
+namespace Boundary_Test_namespace
+{
+	vector<Vector3D> pos(double t)
+	{
+		vector<Vector3D> v;
+		v.push_back( Vector3D(t, t+1, t+2) );
+		v.push_back(Vector3D(t*t, 1, t/2));
+		v.push_back(Vector3D(t*t*t, -1, t / 4));
+		v.push_back(Vector3D(0, -t, -t*t));
 
-// 	return v;
-// }
-// vector<Vector3D> ori(double t)
-// {
-// 	vector<Vector3D> v;
-// 	v.push_back(Vector3D(0, 1, 2));
-// 	v.push_back(Vector3D(t*t, t*t*t, t-1));
-// 	v.push_back(Vector3D(t*t - 6, t*t*(t-1), t + 1));
-// 	v.push_back(Vector3D(1, 2*t, 3*t));
+		return v;
+	}
+	vector<Vector3D> ori(double t)
+	{
+		vector<Vector3D> v;
+		v.push_back(Vector3D(0, 1, 2));
+		v.push_back(Vector3D(t*t, t*t*t, t-1));
+		v.push_back(Vector3D(t*t - 6, t*t*(t-1), t + 1));
+		v.push_back(Vector3D(1, 2*t, 3*t));
 
-// 	return v;
-// }
+		return v;
+	}
+}
 
-// TestCase(BoundaryTest)
-// {
-// 	double t = 1.0;
-// 	vector<Vector3D> myPosition = pos(t);
-// 	vector<Vector3D> myOrientation = ori(t);
+TestCase(Boundary_Test)
+{
+	using namespace Boundary_Test_namespace;
 
-// 	Boundary boundary;
-// 	boundary.setTaylorOrder(3);
+	double t = 1.0;
+	vector<Vector3D> positionMatrix = pos(t);
+	vector<Vector3D> orientationMatrix = ori(t);
 
-// 	boundary.setPositionFunction(pos);
-// 	boundary.setOrientationFunction(ori);
+	Boundary<> boundary;
+	boundary.setTaylorOrder(3);
 
-// 	boundary.updatePosition(t);
-// 	boundary.updateOrientation(t);
+	boundary.setPositionFunction(pos);
+	boundary.setOrientationFunction(ori);
 
-// 	checkEqual(myPosition, boundary.getPosition());
-// 	checkEqual(myOrientation, boundary.getOrientation());
-// }
+	boundary.updatePosition(t);
+	boundary.updateOrientation(t);
+
+	checkEqual(boundary.getPositionMatrix(), positionMatrix);
+	checkEqual(boundary.getOrientationMatrix(), orientationMatrix);
+}
 
 // TestCase(FixedInfinitePlaneTest)
 // {
