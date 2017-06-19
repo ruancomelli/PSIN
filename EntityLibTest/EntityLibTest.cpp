@@ -639,8 +639,8 @@ TestCase(SphericalParticle_relativeTangentialVelocity_Test)
 		double radius0 = 0.6 * distance(position0, position1);
 		double radius1 = 0.5 * distance(position0, position1);
 
-		sph0.property<Radius>().set(radius0);
-		sph1.property<Radius>().set(radius1);
+		sph0.set<Radius>(radius0);
+		sph1.set<Radius>(radius1);
 
 		sph0.setPosition(position0);
 		sph1.setPosition(position1);
@@ -651,7 +651,7 @@ TestCase(SphericalParticle_relativeTangentialVelocity_Test)
 		sph0.setAngularVelocity(angularVelocity0);
 		sph1.setAngularVelocity(angularVelocity1);
 
-		Vector3D normalVersor = position1 - position0;
+		Vector3D normalVersor = (position1 - position0).normalized();
 		Vector3D velocityDifference = velocity1 - velocity0;
 
 		Vector3D contact = contactPoint(sph0, sph1);

@@ -6,10 +6,10 @@ bool touch(const SphericalParticle<Args...> & left, const SphericalParticle<Args
 {
 	using Radius = PropertyDefinitions::Radius;
 
-	double radius1 = left.template property<Radius>().get();
-	double radius2 = right.template property<PropertyDefinitions::Radius>().get();
+	double radius1 = left.template get<Radius>();
+	double radius2 = right.template get<Radius>();
 
-	return distance(left, right) <= radius1 + radius2;
+	return (distance(left, right) <= radius1 + radius2);
 }
 
 template<typename ... Args>
@@ -17,8 +17,8 @@ double overlap(const SphericalParticle<Args...> & left, const SphericalParticle<
 {
 	using Radius = PropertyDefinitions::Radius;
 
-	double radius1 = left.template property<Radius>().get();
-	double radius2 = right.template property<PropertyDefinitions::Radius>().get();
+	double radius1 = left.template get<Radius>();
+	double radius2 = right.template get<Radius>();
 	double dist = distance(left, right);
 	double overlap = 0;
 
@@ -49,10 +49,12 @@ double overlapDerivative(const SphericalParticle<Args...> & left, const Spherica
 template<typename ... Args>
 Vector3D contactPoint(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
 {
+	using Radius = PropertyDefinitions::Radius;
+
 	if( touch(left, right ) )
 	{
-		const double radius1 = left.template property<PropertyDefinitions::Radius>().get();
-		const double radius2 = right.template property<PropertyDefinitions::Radius>().get();
+		const double radius1 = left.template get<Radius>();
+		const double radius2 = right.template get<Radius>();
 
 		const double distance = ::distance(left, right);
 
