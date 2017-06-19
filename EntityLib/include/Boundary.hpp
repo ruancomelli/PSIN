@@ -1,5 +1,5 @@
-#ifndef BOUNDARY_H
-#define BOUNDARY_H
+#ifndef BOUNDARY_HPP
+#define BOUNDARY_HPP
 
 // Standard
 #include <functional>
@@ -8,9 +8,6 @@
 #include <PhysicalEntity.hpp>
 #include <SocialEntity.hpp>
 #include <SpatialEntity.hpp>
-
-// UtilsLib
-#include <SharedPointer.hpp>
 
 template<typename ... PropertyTypes>
 class Boundary : 
@@ -21,11 +18,11 @@ class Boundary :
 	using Spatial = vector<Vector3D>;
 
 	public:
-		void setPositionFunction( const std::function< Spatial(double)> & f );
-		void setOrientationFunction( const std::function< Spatial(double)> & f );
+		virtual void setPositionFunction( const std::function< Spatial(double)> & f );
+		virtual void setOrientationFunction( const std::function< Spatial(double)> & f );
 
-		void updatePosition(double t);
-		void updateOrientation(double t);
+		virtual void updatePosition(const double & t);
+		virtual void updateOrientation(const double & t);
 		
 	private:
 		std::function< Spatial(double)> positionFunction;

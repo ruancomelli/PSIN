@@ -14,13 +14,13 @@ void Boundary<PropertyTypes...>::setOrientationFunction( const std::function< Sp
 }
 
 template<typename ... PropertyTypes>
-void Boundary<PropertyTypes...>::updatePosition(double t)
+void Boundary<PropertyTypes...>::updatePosition(const double & t)
 {
 	this->setPositionMatrix( this->positionFunction(t) );
 }
 
 template<typename ... PropertyTypes>
-void Boundary<PropertyTypes...>::updateOrientation(double t)
+void Boundary<PropertyTypes...>::updateOrientation(const double & t)
 {
 	this->setOrientationMatrix( this->orientationFunction(t) );
 }

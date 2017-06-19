@@ -7,7 +7,8 @@
 
 // EntityLib
 #include <Boundary.hpp>
-// #include <FixedInfinitePlane.hpp>
+#include <FixedBoundary.hpp>
+#include <FixedInfinitePlane.hpp>
 
 #include <HandledEntity.hpp>
 #include <Particle.hpp>
@@ -934,26 +935,55 @@ TestCase(Boundary_Test)
 	checkEqual(boundary.getOrientationMatrix(), orientationMatrix);
 }
 
-// TestCase(FixedInfinitePlaneTest)
-// {
-// 	Vector3D origin1(1.0, 2.0, 3.0);
-// 	Vector3D normalVector1(1.0, 1.0, 0.0);
+TestCase(FixedBoundary_Test)
+{
+	Vector3D position(5.4, 7.8, 9.9);
+	Vector3D orientation(7.8, -99.5, 11.3);
 
-// 	Vector3D origin2(-1.0, -1.0, -1.0);
-// 	Vector3D vector1(5.0, 6.9, 7.8);
-// 	Vector3D vector2(500, -9.5, 13.6);
-// 	Vector3D vector3 = cross(vector1, vector2);
-// 	double coefficient1 = 4.562;
-// 	double coefficient2 = -560.82;
+	double time = 3.14159;
 
-// 	FixedInfinitePlane plane1(origin1, normalVector1);
-// 	checkEqual(plane1.getNormalVersor(), normalVector1.normalized());
+	FixedBoundary<> fixed( position, orientation );
 
-// 	FixedInfinitePlane plane2 = FixedInfinitePlane::buildFromOriginAndTwoVectors(origin2, vector1, vector2);
-// 	check(plane2.containsVector(vector1));
-// 	check(plane2.containsVector(vector2));
-// 	check(plane2.containsVector(coefficient1*vector1 + coefficient2*vector2));
+	checkEqual(fixed.getPosition(), position);
+	checkEqual(fixed.getVelocity(), nullVector3D());
+	checkEqual(fixed.getAcceleration(), nullVector3D());
 
-// 	FixedInfinitePlane plane3 = FixedInfinitePlane::buildFromThreePoints(origin2, vector1 + origin2, vector2 + origin2);
-// 	check( plane2 == plane3 );
-// }
+	checkEqual(fixed.getOrientation(), orientation);
+	checkEqual(fixed.getAngularVelocity(), nullVector3D());
+	checkEqual(fixed.getAngularAcceleration(), nullVector3D());
+
+	fixed.updatePosition(time);
+	fixed.updateOrientation(time);
+
+	checkEqual(fixed.getPosition(), position);
+	checkEqual(fixed.getVelocity(), nullVector3D());
+	checkEqual(fixed.getAcceleration(), nullVector3D());
+
+	checkEqual(fixed.getOrientation(), orientation);
+	checkEqual(fixed.getAngularVelocity(), nullVector3D());
+	checkEqual(fixed.getAngularAcceleration(), nullVector3D());
+}
+
+TestCase(FixedInfinitePlaneTest)
+{
+	Vector3D origin1(1.0, 2.0, 3.0);
+	Vector3D normalVector1(1.0, 1.0, 0.0);
+
+	Vector3D origin2(-1.0, -1.0, -1.0);
+	Vector3D vector1(5.0, 6.9, 7.8);
+	Vector3D vector2(500, -9.5, 13.6);
+	Vector3D vector3 = cross(vector1, vector2);
+	double coefficient1 = 4.562;
+	double coefficient2 = -560.82;
+
+	FixedInfinitePlane<> plane1(origin1, normalVector1);
+	checkEqual(plane1.getNormalVersor(), normalVector1.normalized());
+
+	FixedInfinitePlane<> plane2 = FixedInfinitePlane<>::buildFromOriginAndTwoVectors(origin2, vector1, vector2);
+	check(plane2.containsVector(vector1));
+	check(plane2.containsVector(vector2));
+	check(plane2.containsVector(coefficient1*vector1 + coefficient2*vector2));
+
+	FixedInfinitePlane<> plane3 = FixedInfinitePlane<>::buildFromThreePoints(origin2, vector1 + origin2, vector2 + origin2);
+	check( plane2 == plane3 );
+}
