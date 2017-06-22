@@ -25,6 +25,7 @@
 #include <PropertyDefinitions.hpp>
 
 // Standard
+#include <cstdio>
 #include <type_traits>
 
 using namespace PropertyDefinitions;
@@ -371,27 +372,37 @@ TestCase(PhysicalEntityPropertyTest)
 	checkEqual(physicalEntity2.property<int>(), intValue);
 }
 
-struct ATest
+namespace PhysicalEntityCallPropertyMemberFunction_Test_namespace
 {
-	int f()
+	struct A
 	{
-		return 5;
-	}
-};
-
-TestCase(PhysicalEntityCallPropertyMemberFunctionTest)
-{
-	int returnValue = 5;
-	PhysicalEntity<ATest> physicalEntity;
-
-	checkEqual(physicalEntity.property<ATest>().f(), returnValue);
+		int f()
+		{
+			return 5;
+		}
+	};
 }
 
-struct TestedProperty : public Property<double>
-{};
-
-TestCase(PhysicalEntityInputAndOutputTest)
+TestCase(PhysicalEntityCallPropertyMemberFunction_Test)
 {
+	using namespace PhysicalEntityCallPropertyMemberFunction_Test_namespace;
+	
+	int returnValue = 5;
+	PhysicalEntity<A> physicalEntity;
+
+	checkEqual(physicalEntity.property<A>().f(), returnValue);
+}
+
+namespace PhysicalEntityInputAndOutput_Test_namespace
+{
+	struct TestedProperty : public Property<double>
+	{};
+}
+
+TestCase(PhysicalEntityInputAndOutput_Test)
+{
+	using namespace PhysicalEntityInputAndOutput_Test_namespace;
+
 	double tolerance = 1e-12;
 	double defaultValue = 0.0;
 	double value = 3.14;
@@ -413,6 +424,10 @@ TestCase(PhysicalEntityInputAndOutputTest)
 	inputter.input<TestedProperty>(file);
 
 	checkClose(inputter.property<TestedProperty>().get(), value, tolerance);
+
+	file.close();
+
+	std::remove(fileName);
 }
 
 namespace PhysicalEntity_set__and__get_Test_namespace
@@ -452,11 +467,11 @@ TestCase(MassInPhysicalEntityTest)
 
 	check( !( physicalEntity.assigned<Mass>() ) );
 
-	physicalEntity.property<Mass>().set(massValue);
+	physicalEntity.set<Mass>(massValue);
 
 	check(( physicalEntity.assigned<Mass>() ));
 
-	checkEqual(physicalEntity.property<Mass>().get(), massValue);
+	checkEqual(physicalEntity.get<Mass>(), massValue);
 }
 
 TestCase(ParticleConstructorTest)
@@ -479,12 +494,12 @@ TestCase(ParticleConstructorTest)
 	checkEqual(particle2.getTaylorOrder(), taylorOrder);
 
 	PhysicalEntity<Mass, MomentOfInertia, Volume> physicalEntity;
-	physicalEntity.property<Mass>().set(massValue);
-	physicalEntity.property<Volume>().set(volumeValue);
+	physicalEntity.set<Mass>(massValue);
+	physicalEntity.set<Volume>(volumeValue);
 
 	Particle<Mass, Volume, MomentOfInertia> particle3(physicalEntity);
-	checkEqual(particle3.property<Mass>().get(), massValue);
-	checkEqual(particle3.property<Volume>().get(), volumeValue);
+	checkEqual(particle3.get<Mass>(), massValue);
+	checkEqual(particle3.get<Volume>(), volumeValue);
 }
 
 TestCase(ParticleForcesAndTorquesTest)
@@ -567,8 +582,8 @@ TestCase(ParticleMomentumAndEnergyTest)
 
 	particle.setGravity(gravity);
 
-	particle.property<Mass>().set(mass);
-	particle.property<MomentOfInertia>().set(momentOfInertia);
+	particle.set<Mass>(mass);
+	particle.set<MomentOfInertia>(momentOfInertia);
 
 	particle.setPosition(position);
 	particle.setVelocity(velocity);
