@@ -32,13 +32,15 @@ template<
 	typename ... PropertyTypes,
 	typename ... InteractionTypes,
 	typename ... ParticleTypes,
-	typename ... BoundaryTypes
+	typename ... BoundaryTypes,
+	typename ... SeekerTypes
 >
 class Simulation<
 	Properties< PropertyTypes... >,
 	Interactions< InteractionTypes...>,
 	Particles< ParticleTypes ... >,
-	Boundaries< BoundaryTypes ... >
+	Boundaries< BoundaryTypes ... >,
+	Seekers< SeekerTypes ... >	//	Find neighbors
 >
 {
 
