@@ -493,8 +493,15 @@ TestCase(TypeListTest)
 {
 	check((
 		std::is_same<
-			prepend_type_to_type_list<double, type_list<char, char, int>>::value,
+			type_list<char, char, int>::prepend<double>,
 			type_list<double, char, char, int>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			type_list<char, char, int>::append<int>,
+			type_list<char, char, int, int>
 		>::value
 	));
 }
