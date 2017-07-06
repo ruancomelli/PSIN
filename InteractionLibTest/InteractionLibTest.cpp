@@ -8,7 +8,7 @@
 #include <Foreach.hpp>
 
 // PropertyLib
-#include <ValuedPropertyContainer.hpp>
+// #include <ValuedPropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 //EntityLib

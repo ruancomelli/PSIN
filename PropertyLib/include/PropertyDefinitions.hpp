@@ -66,7 +66,7 @@ namespace PropertyDefinitions{
 		static const std::string name;
 	};
 	
-	struct ElectricCharge : public PositiveProperty<double>
+	struct ElectricCharge : public Property<double>
 	{
 		static const std::string name;
 	};

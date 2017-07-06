@@ -1,5 +1,5 @@
-#ifndef SIMULATION_H
-#define SIMULATION_H
+#ifndef SIMULATION_HPP
+#define SIMULATION_HPP
 
 // InteractionLib
 #include <Interaction.hpp>
@@ -17,8 +17,17 @@
 // Standard
 #include <string>
 
+template<typename ... InteractionTypes> 
+using Interactions = type_list<InteractionTypes...>;
 
-class Simulation : public Named
+template<typename ...> class Simulation;
+
+template<
+	typename ... InteractionTypes,
+>
+class Simulation<
+	Interactions<InteractionTypes...>,
+> : public Named
 {
 	public:
 		static std::pair<std::string, std::string> parseArgvIntoSimulationNameAndRootPath(int argc, char **argv);
@@ -47,7 +56,6 @@ class Simulation : public Named
 		void simulate(void);
 
 	private:
-
 		// Files
 		SimulationFileTree fileTree;
 
@@ -66,7 +74,7 @@ class Simulation : public Named
 		Interaction<SphericalParticle, SphericalParticle> Interaction;
 		std::set<Interaction<SphericalParticle, SphericalParticle>, Named::NamedCompare> InteractionSet;
 
-}; // class Simulation
+};
 
 
-#endif	// SIMULATION_H
+#endif
