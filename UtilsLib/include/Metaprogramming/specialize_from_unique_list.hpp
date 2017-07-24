@@ -1,5 +1,5 @@
-#ifndef UTILS_SPECIALIZE_FROM_UNIQUE_LIST_HPP
-#define UTILS_SPECIALIZE_FROM_UNIQUE_LIST_HPP
+#ifndef SPECIALIZE_FROM_UNIQUE_LIST_HPP
+#define SPECIALIZE_FROM_UNIQUE_LIST_HPP
 
 // UtilsLib
 #include <Metaprogramming/make_unique_type_list.hpp>
@@ -12,16 +12,16 @@ struct specialize_from_type_list;
 template<template<typename...> class T, typename...Ts>
 struct specialize_from_type_list<T, type_list<Ts...> >
 {
-	using value = T<Ts...>;
+	using type = T<Ts...>;
 };
 
 template< template<typename...> class T , typename ... RepeatedArgs >
 struct specialize_from_unique_list
 {
-	using value = typename specialize_from_type_list<
+	using type = typename specialize_from_type_list<
 		T,
-		typename make_unique_type_list<RepeatedArgs...>::value
-	>::value;
+		make_unique_type_list<RepeatedArgs...>
+	>::type;
 };
 
 

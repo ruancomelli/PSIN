@@ -18,9 +18,7 @@
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
-#include <Metaprogramming/insert_new_types_into_type_list.hpp>
-#include <Metaprogramming/is_unique_type_list.hpp>
-#include <Metaprogramming/type_is_in_list.hpp>
+#include <Metaprogramming/type_list.hpp>
 #include <Metaprogramming/make_unique_type_list.hpp>
 #include <Metaprogramming/specialize_from_unique_list.hpp>
 
@@ -475,78 +473,67 @@ TestCase(VariantTest)
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
 }
 
-TestCase(IsUniqueTypeListTest)
+TestCase(type_list_append_and_prepend_Test)
 {
-	check(is_unique_type_list<>::value);
-	check(is_unique_type_list<double>::value);
-	check((is_unique_type_list<double, char>::value));
-	check(!(is_unique_type_list<double, double>::value));
-}
-
-TestCase(TypeIsInListTest)
-{
-	check((type_is_in_list<double, int, double>::value));
-	check(!(type_is_in_list<double, int, char>::value));
-}
-
-TestCase(TypeListTest)
-{
-	check((
-		std::is_same<
-			type_list<char, char, int>::prepend<double>,
-			type_list<double, char, char, int>
-		>::value
-	));
-
 	check((
 		std::is_same<
 			type_list<char, char, int>::append<int>,
 			type_list<char, char, int, int>
 		>::value
 	));
+
+	check((
+		std::is_same<
+			type_list<char, char, int>::prepend<double>,
+			type_list<double, char, char, int>
+		>::value
+	));
 }
 
-TestCase(insert_new_types_into_type_list_Test)
+TestCase(type_list_contains_and_has_repeated_types_Test)
+{
+	check((type_list<double, int>::contains<double>));
+	check(!(type_list<double, int>::contains<char>));
+
+	check(!(type_list<>::has_repeated_types));
+	check(!(type_list<double>::has_repeated_types));
+	check(!(type_list<double, char>::has_repeated_types));
+	check((type_list<double, double>::has_repeated_types));
+}
+
+TestCase(type_list_append_if_new_types_Test)
 {
 	check((
 		std::is_same<
-			insert_new_types_into_type_list<
-				type_list<int, double>
-			>::value,
+			type_list<char, int>::append_if_new_types<char, double, int, bool>,
+			type_list<char, int, double, bool>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			type_list<int, double>::append_if_new_types<>,
 			type_list<int, double>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			insert_new_types_into_type_list<
-				type_list<int, double>,
-				int
-			>::value,
+			type_list<int, double>::append_if_new_types<int>,
 			type_list<int, double>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			insert_new_types_into_type_list<
-				type_list<int, double>,
-				int,
-				char,
-				double
-			>::value,
+			type_list<int, double>::append_if_new_types<int, char, double>,
 			type_list<int, double, char>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			insert_new_types_into_type_list<
-				type_list<>,
-				int,
-				double,
-				char
-			>::value,
+			type_list<>::append_if_new_types<int, double, double, char>,
 			type_list<int, double, char>
 		>::value
 	));
@@ -556,14 +543,14 @@ TestCase(MakeUniqueTypeListTest)
 {
 	check((
 		std::is_same<
-			make_unique_type_list<int, int, double, int>::value,
+			make_unique_type_list<int, int, double, int>,
 			type_list<int, double>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			make_unique_type_list<int, int, double, int, double, char, double>::value,
+			make_unique_type_list<int, int, double, int, double, char, double>,
 			type_list<int, double, char>
 		>::value
 	));
@@ -576,7 +563,7 @@ TestCase(specialize_from_unique_list_Test)
 			specialize_from_type_list<
 				type_list, 
 				type_list<int, double, double, char>
-			>::value,
+			>::type,
 			type_list<int, double, double, char>
 		>::value
 	));
@@ -586,7 +573,7 @@ TestCase(specialize_from_unique_list_Test)
 			specialize_from_unique_list<
 				type_list, 
 				int, double, double, int, int, char
-			>::value,
+			>::type,
 			type_list<int, double, char>
 		>::value
 	));
