@@ -427,7 +427,7 @@ TestCase(PhysicalEntityInputAndOutput_Test)
 
 	file.close();
 
-	std::remove(fileName);
+	std::remove(fileName.c_str());
 }
 
 namespace PhysicalEntity_set__and__get_Test_namespace

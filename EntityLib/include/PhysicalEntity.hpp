@@ -3,7 +3,6 @@
 
 // UtilsLib
 #include <Metaprogramming/type_list.hpp>
-#include <Metaprogramming/is_unique_type_list.hpp>
 #include <Metaprogramming/specialize_from_unique_list.hpp>
 
 // Standard
@@ -12,7 +11,7 @@
 template<typename ... PropertyTypes>
 class PhysicalEntityModel
 {
-	static_assert(is_unique_type_list<PropertyTypes...>::value, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
+	static_assert(!type_list<PropertyTypes...>::has_repeated_types, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
 
 	public:
 		using PropertyList = type_list<PropertyTypes...>;
@@ -50,7 +49,7 @@ class PhysicalEntityModel
 };
 
 template <typename...Ts>
-using PhysicalEntity = typename specialize_from_unique_list<PhysicalEntityModel, Ts...>::value;
+using PhysicalEntity = typename specialize_from_unique_list<PhysicalEntityModel, Ts...>::type;
 
 #include <PhysicalEntity.tpp>
 
