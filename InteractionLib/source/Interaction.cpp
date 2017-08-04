@@ -1,10 +1,18 @@
+#ifndef INTERACTION_CPP
+#define INTERACTION_CPP
+
+#include <Interaction.hpp>
+
+// Standard
+#include <stdexcept>
+
 // #include <Interaction.hpp>
 
 // // PropertyLib
 // #include <PropertyDefinitions.hpp>
 
-// // UtilsLib
-// #include <Mathematics.hpp>
+// UtilsLib
+#include <Mathematics.hpp>
 
 
 // using PropertyDefinitions::mass;
@@ -133,44 +141,46 @@
 // 	return predictedVector;
 // }
 
-// vector<Vector3D> Interaction<SphericalParticle, SphericalParticle>::gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt){
+std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt)
+{
+	using std::vector;
 
-// 	vector<Vector3D> correctedVector = predictedVector;
-// 	DoubleVector correctorConstants(predictionOrder + 1);
+	vector<Vector3D> correctedVector = predictedVector;
+	vector<double> correctorConstants(predictionOrder + 1);
 
-// 	switch(predictionOrder){
-// 		case 3:
-// 			correctorConstants[0] = 1./6.;
-// 			correctorConstants[1] = 5./6.;
-// 			correctorConstants[2] = 1.;
-// 			correctorConstants[3] = 1./3.;
-// 			break;
-// 		case 4:
-// 			correctorConstants[0] = 19./90.;
-// 			correctorConstants[1] = 3./4.;
-// 			correctorConstants[2] = 1.;
-// 			correctorConstants[3] = 1./2.;
-// 			correctorConstants[4] = 1./12.;
-// 			break;
-// 		case 5:
-// 			correctorConstants[0] = 3./16.;
-// 			correctorConstants[1] = 251./360.;
-// 			correctorConstants[2] = 1.;
-// 			correctorConstants[3] = 11./18.;
-// 			correctorConstants[4] = 1./6.;
-// 			correctorConstants[5] = 1./60.;
-// 			break;
-// 		default:
-// 			throw std::runtime_error("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
-// 			return predictedVector;
-// 	}
+	switch(predictionOrder){
+		case 3:
+			correctorConstants[0] = 1./6.;
+			correctorConstants[1] = 5./6.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 1./3.;
+			break;
+		case 4:
+			correctorConstants[0] = 19./90.;
+			correctorConstants[1] = 3./4.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 1./2.;
+			correctorConstants[4] = 1./12.;
+			break;
+		case 5:
+			correctorConstants[0] = 3./16.;
+			correctorConstants[1] = 251./360.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 11./18.;
+			correctorConstants[4] = 1./6.;
+			correctorConstants[5] = 1./60.;
+			break;
+		default:
+			throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
+			return predictedVector;
+	}
 
-// 	for(int i = 0 ; i <= predictionOrder ; ++i){
-// 		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2.0) ) * (doubleDerivative - predictedVector[2]);
-// 	}
+	for(int i = 0 ; i <= predictionOrder ; ++i){
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2.0) ) * (doubleDerivative - predictedVector[2]);
+	}
 
-// 	return correctedVector;
-// }
+	return correctedVector;
+}
 
 // // Gear corrector
 // void Interaction<SphericalParticle, SphericalParticle>::correctPosition( SphericalParticlePtr particle, const int predictionOrder, double dt )
@@ -243,3 +253,5 @@
 // {
 // 	this->timeStep = timeStep;
 // }
+
+#endif

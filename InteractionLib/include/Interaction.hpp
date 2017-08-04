@@ -1,32 +1,46 @@
 #ifndef INTERACTION_HPP
 #define INTERACTION_HPP
 
-// Standard
-#include <functional>
-
-// UtilsLib
-#include <Named.hpp>
-#include <SharedPointer.hpp>
+// // UtilsLib
+// #include <Named.hpp>
+// #include <SharedPointer.hpp>
+#include <type_list.hpp>
 #include <Vector3D.hpp>
 
-// EntityLib
-#include <SphericalParticle.hpp>
+// // EntityLib
+// #include <SphericalParticle.hpp>
 
-// PropertyLib
-#include <Property.hpp>
+// // PropertyLib
+// #include <Property.hpp>
 
-Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
-void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
-void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+// Standard
+#include <vector>
+
+// Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
+// void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
+// void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
 
 template<typename ...>
 class Interaction;
 
 template<>
-class Interaction <SphericalParticle, SphericalParticle> : public Named
+class Interaction<>
 {
-	// public:	
+	template<typename...Ts>	using vector = std::vector<Ts...>;
+
+	public:
+		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
+		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
+	private:
+
+};
+
+template<typename...Ts>
+class Interaction <Ts...> : public Named
+{
+	public:	
+		using required_properties = type_list<Ts...>;
 	// 	using NormalType = std::function< Vector3D(SphericalParticlePtr, SphericalParticlePtr)>;
 	// 	using TangentialType = std::function< void(SphericalParticlePtr, SphericalParticlePtr, Vector3D, double)>;
 	// 	using FieldType = std::function< void(SphericalParticlePtr, SphericalParticlePtr)>;
