@@ -539,6 +539,13 @@ TestCase(type_list_append_if_new_types_Test)
 	));
 }
 
+TestCase(type_list_superlist_and_sublist_Test)
+{
+	check((
+		type_list<int, int, double>::is_super_list<
+	))
+}
+
 TestCase(MakeUniqueTypeListTest)
 {
 	check((

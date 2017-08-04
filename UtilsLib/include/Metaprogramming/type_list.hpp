@@ -24,9 +24,15 @@ struct type_list
 
 	constexpr static bool has_repeated_types = type_list_traits::has_repeated_types<Ts...>::value;
 
-	// using remove_repeated_types = type_list<>::append_if_new_types<Ts...>;
+	constexpr static unsigned size = type_list_traits::size<Ts...>::value;
 
-	constexpr static unsigned count = type_list_traits::count<Ts...>::value;
+	// template<typename U>
+	// constexpr static bool is_superlist_of = type_list_traits::is_superlist_of<type_list<Ts...>, U>::value;
+
+	// template<typename U>
+	// constexpr static bool is_sublist_of = type_list_traits::is_sublist_of<type_list<Ts...>, U>::value;
+
+	// using remove_repeated_types = type_list<>::append_if_new_types<Ts...>;
 };
 
 #endif
