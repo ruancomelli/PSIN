@@ -19,6 +19,7 @@
 #include <Vector.hpp>
 #include <Vector3D.hpp>
 #include <Metaprogramming/type_list.hpp>
+#include <Metaprogramming/type_collection.hpp>
 #include <Metaprogramming/make_unique_type_list.hpp>
 #include <Metaprogramming/specialize_from_unique_list.hpp>
 
@@ -473,6 +474,16 @@ TestCase(VariantTest)
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
 }
 
+TestCase(type_list_identity_Test)
+{
+	check((
+		std::is_same<
+			type_list<char, char, int, double>::identity,
+			type_list<char, char, int, double>
+		>::value
+	));
+}
+
 TestCase(type_list_append_and_prepend_Test)
 {
 	check((
@@ -490,15 +501,29 @@ TestCase(type_list_append_and_prepend_Test)
 	));
 }
 
-TestCase(type_list_contains_and_has_repeated_types_Test)
+TestCase(type_list_contains_and_has_repeated_types_and_is_empty_Test)
 {
 	check((type_list<double, int>::contains<double>));
 	check(!(type_list<double, int>::contains<char>));
+	check((type_list<double, int>::contains<double, double, int>));
+	check(!(type_list<double, int>::contains<double, double, bool, int>));
 
 	check(!(type_list<>::has_repeated_types));
 	check(!(type_list<double>::has_repeated_types));
 	check(!(type_list<double, char>::has_repeated_types));
 	check((type_list<double, double>::has_repeated_types));
+	
+	check(!(type_list<double, int>::is_empty));
+	check((type_list<>::is_empty));
+}
+
+TestCase(type_list_size_Test)
+{
+	std::size_t size1 = type_list<int, double, double, int, char, bool>::size;
+	checkEqual(size1, 6);
+
+	std::size_t size2 = type_list<>::size;
+	checkEqual(size2, 0);
 }
 
 TestCase(type_list_append_if_new_types_Test)
@@ -537,13 +562,6 @@ TestCase(type_list_append_if_new_types_Test)
 			type_list<int, double, char>
 		>::value
 	));
-}
-
-TestCase(type_list_superlist_and_sublist_Test)
-{
-	check((
-		type_list<int, int, double>::is_super_list<
-	))
 }
 
 TestCase(MakeUniqueTypeListTest)
@@ -586,3 +604,84 @@ TestCase(specialize_from_unique_list_Test)
 	));
 }
 
+TestCase(type_collection_identity_Test)
+{
+	check((
+		std::is_same<
+			type_collection<char, char, int, double>::identity,
+			type_collection<char, char, int, double>
+		>::value
+	));
+}
+
+TestCase(type_collection_contains_Test)
+{
+	check((type_collection<double, int>::contains<double>));
+	check(!(type_collection<double, int>::contains<char>));
+}
+
+TestCase(type_collection_is_empty_Test)
+{
+	check(!(type_collection<double, int>::is_empty));
+	check((type_collection<>::is_empty));
+}
+
+TestCase(type_collection_size_Test)
+{
+	std::size_t size1 = type_collection<int, double, double, int, char, bool>::size;
+	checkEqual(
+		size1,
+		4
+	);
+
+	std::size_t size2 = type_collection<>::size;
+	checkEqual(
+		size2,
+		0
+	);
+}
+
+TestCase(type_collection_is_superset_of_Test)
+{
+	check((
+		type_collection<int, int, double, char>::is_superset_of< type_collection<int, double, double, double> >
+	));
+	check((
+		type_collection<int, int, double, char>::is_superset_of< type_collection<> >
+	));
+	check(!(
+		type_collection<>::is_superset_of< type_collection<int> >
+	));
+	check(!(
+		type_collection<int, double>::is_superset_of< type_collection<int, char> >
+	));
+}
+
+TestCase(type_collection_is_subset_of_Test)
+{
+	check((
+		type_collection<int, double, double, double>::is_subset_of< type_collection<int, int, double, char> >
+	));
+	check((
+		type_collection<>::is_subset_of< type_collection<int, int, double, char> >
+	));
+	check(!(
+		type_collection<int>::is_subset_of< type_collection<> >
+	));
+	check(!(
+		type_collection<int, char>::is_subset_of< type_collection<int, double> >
+	));
+}
+
+TestCase(type_collection_is_equal_to_Test)
+{
+	check((
+		type_collection<int, double, double>::is_equal_to< type_collection<int, int, double> >
+	));
+	check((
+		type_collection<>::is_equal_to< type_collection<> >
+	));
+	check(!(
+		type_collection<int, double, double>::is_equal_to< type_collection<int, char, double> >
+	));
+}

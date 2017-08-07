@@ -1,38 +1,35 @@
 #ifndef TYPE_LIST_HPP
 #define TYPE_LIST_HPP
 
-#include <type_traits>
+// UtilsLib / Traits
+#include <Metaprogramming/traits/type_list.hpp>
 
-#include <Metaprogramming/traits/type_list_traits.hpp>
+// Standard
+#include <cstddef>
+#include <type_traits>
 
 template<typename...Ts>
 struct type_list
 {
+	using identity = type_list<Ts...>;
+
 	template<typename ... Us>
 	using append = type_list<Ts..., Us...>;
 
 	template<typename...Us>
-	using append_if_new_types = typename type_list_traits::append_if_new_types<type_list<Ts...>, Us...>::type;
+	using append_if_new_types = typename traits::append_if_new_types<identity, Us...>::type;
 
 	template<typename ... Us>
 	using prepend = type_list<Us..., Ts...>;
 
 	template<typename U, typename ... Us>
-	constexpr static bool contains = type_list_traits::contains<type_list<Ts...>, U, Us...>::value;
+	constexpr static bool contains = traits::contains<identity, U, Us...>::value;
 
-	constexpr static bool is_empty = type_list_traits::is_empty<Ts...>::value;
+	constexpr static bool is_empty = traits::is_empty<Ts...>::value;
 
-	constexpr static bool has_repeated_types = type_list_traits::has_repeated_types<Ts...>::value;
+	constexpr static bool has_repeated_types = traits::has_repeated_types< type_list<Ts...> >::value;
 
-	constexpr static unsigned size = type_list_traits::size<Ts...>::value;
-
-	// template<typename U>
-	// constexpr static bool is_superlist_of = type_list_traits::is_superlist_of<type_list<Ts...>, U>::value;
-
-	// template<typename U>
-	// constexpr static bool is_sublist_of = type_list_traits::is_sublist_of<type_list<Ts...>, U>::value;
-
-	// using remove_repeated_types = type_list<>::append_if_new_types<Ts...>;
+	constexpr static std::size_t size = traits::size<Ts...>::value;
 };
 
 #endif
