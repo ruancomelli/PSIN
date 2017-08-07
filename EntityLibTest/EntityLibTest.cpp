@@ -343,7 +343,7 @@ TestCase(PhysicalEntityPropertyListTest)
 
 	check((std::is_same<
 		PhysicalEntity<int, double, char>::PropertyList,
-		type_list<int, double, char>
+		type_collection<int, double, char>
 	>::value));
 }
 

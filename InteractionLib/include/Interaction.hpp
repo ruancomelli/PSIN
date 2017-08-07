@@ -2,9 +2,9 @@
 #define INTERACTION_HPP
 
 // // UtilsLib
-// #include <Named.hpp>
+#include <Named.hpp>
 // #include <SharedPointer.hpp>
-#include <type_list.hpp>
+#include <Metaprogramming/type_collection.hpp>
 #include <Vector3D.hpp>
 
 // // EntityLib
@@ -21,26 +21,11 @@
 // void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
 
-template<typename ...>
-class Interaction;
-
-template<>
-class Interaction<>
-{
-	template<typename...Ts>	using vector = std::vector<Ts...>;
-
-	public:
-		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
-		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
-	private:
-
-};
-
 template<typename...Ts>
-class Interaction <Ts...> : public Named
+class Interaction : public Named
 {
 	public:	
-		using required_properties = type_list<Ts...>;
+		using required_properties = type_collection<Ts...>;
 	// 	using NormalType = std::function< Vector3D(SphericalParticlePtr, SphericalParticlePtr)>;
 	// 	using TangentialType = std::function< void(SphericalParticlePtr, SphericalParticlePtr, Vector3D, double)>;
 	// 	using FieldType = std::function< void(SphericalParticlePtr, SphericalParticlePtr)>;
@@ -102,6 +87,18 @@ class Interaction <Ts...> : public Named
 	// 	vector< NormalType > normalForceCalculationMethod;
 	// 	vector< TangentialType > tangentialForceCalculationMethod;
 	// 	vector< FieldType > fieldForceCalculationMethod;
+};
+
+template<>
+class Interaction<>
+{
+	template<typename...Ts>	using vector = std::vector<Ts...>;
+
+	public:
+		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
+		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
+	private:
+
 };
 
 #include <Interaction.tpp>

@@ -2,8 +2,7 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
-#include <Metaprogramming/type_list.hpp>
-#include <Metaprogramming/specialize_from_unique_list.hpp>
+#include <Metaprogramming/type_collection.hpp>
 
 // Standard
 #include <tuple>
@@ -14,7 +13,7 @@ class PhysicalEntityModel
 	static_assert(!type_list<PropertyTypes...>::has_repeated_types, "Template parameters cannot be repeated in 'PhysicalEntity' specialization.");
 
 	public:
-		using PropertyList = type_list<PropertyTypes...>;
+		using PropertyList = type_collection<PropertyTypes...>;
 
 		PhysicalEntityModel();
 		PhysicalEntityModel(const PhysicalEntityModel<PropertyTypes...> & other);
@@ -49,7 +48,7 @@ class PhysicalEntityModel
 };
 
 template <typename...Ts>
-using PhysicalEntity = typename specialize_from_unique_list<PhysicalEntityModel, Ts...>::type;
+using PhysicalEntity = typename type_collection<Ts...>::template specialize<PhysicalEntityModel>;
 
 #include <PhysicalEntity.tpp>
 

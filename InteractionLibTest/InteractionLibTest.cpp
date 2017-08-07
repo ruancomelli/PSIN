@@ -12,7 +12,7 @@
 #include <PropertyDefinitions.hpp>
 
 //EntityLib
-#include <Entity.hpp>
+// #include <Entity.hpp>
 #include <Particle.hpp>
 #include <PhysicalEntity.hpp>
 #include <SphericalParticle.hpp>
@@ -21,11 +21,11 @@
 #include <Interaction.hpp>
 
 // IOLib
-#include <vectorIO.hpp>
+// #include <vectorIO.hpp>
 
 using namespace std;
-using PropertyDefinitions::mass;
-using PropertyDefinitions::volume;
+using PropertyDefinitions::Mass;
+using PropertyDefinitions::Mass;
 
 TestCase( TaylorPredictorTest )
 {
@@ -54,14 +54,11 @@ TestCase( TaylorPredictorTest )
 		solution[1].z() = -0.5;
 		solution[2].z() = -5.0;
 
-		vector<Vector3D> predictedVector = Interaction<SphericalParticle, SphericalParticle>::taylorPredictor( currentVector, predictionOrder, dx );
+		vector<Vector3D> predictedVector = Interaction<>::taylorPredictor( currentVector, predictionOrder, dx );
 
 		for(int i=0 ; i<=predictionOrder ; ++i)
 		{
-			for(int j=0 ; j<=predictionOrder ; ++j)
-			{
-				checkEqual( predictedVector[i].getComponent(j) , solution[i].getComponent(j) );
-			}
+			checkEqual( predictedVector[i], solution[i] );
 		}
 }
 
