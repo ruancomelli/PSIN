@@ -30,6 +30,9 @@ struct type_list
 	constexpr static bool has_repeated_types = traits::has_repeated_types< type_list<Ts...> >::value;
 
 	constexpr static std::size_t size = traits::size<Ts...>::value;
+
+	template<template<typename...> class ClassToSpecialize>
+	using specialize = ClassToSpecialize<Ts...>;
 };
 
 #endif

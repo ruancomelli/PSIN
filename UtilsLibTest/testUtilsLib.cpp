@@ -21,7 +21,6 @@
 #include <Metaprogramming/type_list.hpp>
 #include <Metaprogramming/type_collection.hpp>
 #include <Metaprogramming/make_unique_type_list.hpp>
-#include <Metaprogramming/specialize_from_unique_list.hpp>
 
 using namespace std;
 
@@ -581,24 +580,18 @@ TestCase(MakeUniqueTypeListTest)
 	));
 }
 
-TestCase(specialize_from_unique_list_Test)
+TestCase(specialize_from_list_Test)
 {
 	check((
 		std::is_same<
-			specialize_from_type_list<
-				type_list, 
-				type_list<int, double, double, char>
-			>::type,
+			type_list<int, double, double, char>::specialize<type_list>,
 			type_list<int, double, double, char>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			specialize_from_unique_list<
-				type_list, 
-				int, double, double, int, int, char
-			>::type,
+			type_collection<int, double, double, int, int, char>::specialize<type_list>,
 			type_list<int, double, char>
 		>::value
 	));

@@ -28,6 +28,9 @@ struct type_collection
 
 	template<typename U>
 	constexpr static bool is_equal_to = is_superset_of<U> && is_subset_of<U>;
+
+	template<template<typename...> class ClassToSpecialize>
+	using specialize = typename equivalent_type_list::template specialize<ClassToSpecialize>;
 };
 
 #endif
