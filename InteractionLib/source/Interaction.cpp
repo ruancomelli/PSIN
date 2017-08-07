@@ -98,48 +98,48 @@
 
 // }
 
-// /* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
-// 		currentVector = (f(t), f'(t), f''(t), ..., f^(n)(t))
-// 		Given dt in R, Taylor theorem says that
-// 		f(t + dt) = f(t) + dt * f'(t) + (1/2) * dt^2 * f''(t) + ... + (1/n!) * dt^n * f^(n)(t) + r(dt)	,
-// 		where r is a function such that the limit of r(h) when h tends to zero is zero
-// 		For a sufficiently small dt, we can approximate f(t+dt) by its expansion in Taylor's sum and write r = 0
-// 		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
-// */
-// vector<Vector3D> Interaction<SphericalParticle, SphericalParticle>::taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt )
-// {
-// 	// predictionOrder is the order of the derivatives to be computed.
-// 	// dt is the time step for the predictionOrder
-// 	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
+/* taylorPredictor: Let f: A -> R^k be a function of class C^n, where A is in R. Let t be in A, and define
+		currentVector = (f(t), f'(t), f''(t), ..., f^(n)(t))
+		Given dt in R, Taylor theorem says that
+		f(t + dt) = f(t) + dt * f'(t) + (1/2) * dt^2 * f''(t) + ... + (1/n!) * dt^n * f^(n)(t) + r(dt)	,
+		where r is a function such that the limit of r(h) when h tends to zero is zero
+		For a sufficiently small dt, we can approximate f(t+dt) by its expansion in Taylor's sum and write r = 0
+		The following function then calculates a new vector (f(t+dt), f'(t+dt), f''(t+dt), ..., f^(n)(t+dt)).
+*/
+std::vector<Vector3D> Interaction<>::taylorPredictor( const std::vector<Vector3D> & currentVector, const int predictionOrder, const double dt )
+{
+	// predictionOrder is the order of the derivatives to be computed.
+	// dt is the time step for the predictionOrder
+	// currentVector is a matrix of size predictionOrder X nDimensions, where nDimensions is the number of dimensions of the function to be predicted
 
-// 	// This algorithm is an implementation of equation (2.24) (see reference)
+	// This algorithm is an implementation of equation (2.24) (see reference)
 
-// 	vector<Vector3D> predictedVector;
-// 	Vector3D taylorExpansion;
+	std::vector<Vector3D> predictedVector;
+	Vector3D taylorExpansion;
 
-// 	// initialize predictedVector and taylorExpansion
-// 	predictedVector.resize( currentVector.size() );
+	// initialize predictedVector and taylorExpansion
+	predictedVector.resize( currentVector.size() );
 
-// 	// predict position
-// 	for( int i = 0; i <= predictionOrder; ++i ){
+	// predict position
+	for( int i = 0; i <= predictionOrder; ++i ){
 
-// 		// set each entry of taylorExpansion to zero
-// 		taylorExpansion.x() = 0.0;
-// 		taylorExpansion.y() = 0.0;
-// 		taylorExpansion.z() = 0.0;
+		// set each entry of taylorExpansion to zero
+		taylorExpansion.x() = 0.0;
+		taylorExpansion.y() = 0.0;
+		taylorExpansion.z() = 0.0;
 
-// 		// perform summation
-// 		for( int j = i; j <= predictionOrder; ++j ){
-// 			taylorExpansion += ( pow( dt , j - i) / factorial( j - i ) ) * currentVector[j];
-// 		}
+		// perform summation
+		for( int j = i; j <= predictionOrder; ++j ){
+			taylorExpansion += ( pow( dt , j - i) / factorial( j - i ) ) * currentVector[j];
+		}
 
-// 		// set the i-th predicted derivative as the calculated Taylor expansion
-// 		predictedVector[i] = taylorExpansion;
+		// set the i-th predicted derivative as the calculated Taylor expansion
+		predictedVector[i] = taylorExpansion;
 
-// 	}
+	}
 
-// 	return predictedVector;
-// }
+	return predictedVector;
+}
 
 std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt)
 {

@@ -14,6 +14,7 @@
 // #include <Property.hpp>
 
 // Standard
+#include <type_traits>
 #include <vector>
 
 // Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
@@ -26,6 +27,9 @@ class Interaction : public Named
 {
 	public:	
 		using required_properties = type_collection<Ts...>;
+
+		template<typename X>
+		constexpr static bool has_required_properties = X::PropertyList::template is_superset_of< required_properties >;
 	// 	using NormalType = std::function< Vector3D(SphericalParticlePtr, SphericalParticlePtr)>;
 	// 	using TangentialType = std::function< void(SphericalParticlePtr, SphericalParticlePtr, Vector3D, double)>;
 	// 	using FieldType = std::function< void(SphericalParticlePtr, SphericalParticlePtr)>;
