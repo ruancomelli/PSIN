@@ -8,27 +8,24 @@
 #include <Foreach.hpp>
 
 // PropertyLib
-// #include <ValuedPropertyContainer.hpp>
 #include <PropertyDefinitions.hpp>
 
 //EntityLib
-// #include <Entity.hpp>
 #include <Particle.hpp>
 #include <PhysicalEntity.hpp>
 #include <SphericalParticle.hpp>
 
 //InteractionLib
 #include <Interaction.hpp>
+#include <InteractionDefinitions.hpp>
 
 // IOLib
 // #include <vectorIO.hpp>
 
 using namespace std;
-using PropertyDefinitions::Mass;
-using PropertyDefinitions::Volume;
-using PropertyDefinitions::ElectricCharge;
+using namespace PropertyDefinitions;
 
-TestCase( TaylorPredictorTest )
+TestCase( TaylorPredictor_Test )
 {
 		int predictionOrder = 2;
 		double dx = 0.5;
@@ -65,7 +62,7 @@ TestCase( TaylorPredictorTest )
 		}
 }
 
-TestCase(RequirePropertiesTest)
+TestCase(RequireProperties_Test)
 {
 	// check((
 	// 	Interaction<Mass, Volume>::has_required_properties< SphericalParticle<Volume> >
@@ -88,6 +85,117 @@ TestCase(RequirePropertiesTest)
 	// checkEqual(*it2, volume.getName());
 }
 
+TestCase(ElectrostaticForce_Test)
+{
+	double k = 9e+9;
+	double charge1 = 1.5; // [C]
+	double charge2 = -1.8; // [C]
+	Vector3D position1( 0.0, 0.0, 0.0 );
+	Vector3D position2( 1.0, 0.0, 0.0 );
+
+	Vector3D ResultingForceOnP1 = - k * charge1 * charge2 * Vector3D(1, 0, 0) / (position2 - position1).squaredLength();
+	Vector3D ResultingForceOnP2 = - ResultingForceOnP1;
+
+	Particle<ElectricCharge> p1;
+	Particle<ElectricCharge> p2;
+
+	p1.set<ElectricCharge>(charge1);
+	p2.set<ElectricCharge>(charge2);
+	p1.setPosition(position1);
+	p2.setPosition(position2);
+
+	ElectrostaticForce::calculate(p1, p2);
+
+	check(p1.getResultingForce() == ResultingForceOnP1);
+	check(p2.getResultingForce() == ResultingForceOnP2);
+}
+
+
+TestCase(NormalForceLinearDashpotForce_Test)
+{
+	double elasticModulus1 = 1e9;
+	double elasticModulus2 = 1e8;
+
+	double normalDissipativeConstant1 = 104;
+	double normalDissipativeConstant2 = 650;
+
+	double radius1 = 0.6;
+	double radius2 = 0.8;
+
+	Vector3D position1(0.0, 0.0, 0.0);
+	Vector3D position2(1.0, 0.0, 0.0);
+
+	Vector3D velocity1(0.0, 0.0, 0.0);
+	Vector3D velocity2(-1.0, 0.0, 0.0);
+
+	SphericalParticle<ElasticModulus, NormalDissipativeConstant> p1;
+	SphericalParticle<ElasticModulus, NormalDissipativeConstant> p2;
+
+	p1.set<ElasticModulus>(elasticModulus1);
+	p2.set<ElasticModulus>(elasticModulus2);
+
+	p1.set<NormalDissipativeConstant>(normalDissipativeConstant1);
+	p2.set<NormalDissipativeConstant>(normalDissipativeConstant2); 
+			
+	p1.set<Radius>(radius1);
+	p2.set<Radius>(radius2);
+
+	p1.setPosition(position1);
+	p2.setPosition(position2);
+
+	p1.setPosition(position1);
+	p2.setPosition(position2);
+
+	NormalForceLinearDashpotForce::calculate(p1, p2);
+
+	//TODO check values
+}
+
+TestCase(NormalForceViscoelasticSpheres_Test)
+{
+	double elasticModulus1 = 1e9;
+	double elasticModulus2 = 1e8;
+
+	double dissipativeConstant1 = 104;
+	double dissipativeConstant2 = 650;
+
+	double poissonRatio1 = 0.3;
+	double poissonRatio2 = 0.4;
+
+	double radius1 = 0.6;
+	double radius2 = 0.8;
+
+	Vector3D position1(0.0, 0.0, 0.0);
+	Vector3D position2(1.0, 0.0, 0.0);
+
+	Vector3D velocity1(0.0, 0.0, 0.0);
+	Vector3D velocity2(-1.0, 0.0, 0.0);
+
+	SphericalParticle<ElasticModulus, DissipativeConstant> p1;
+	SphericalParticle<ElasticModulus, DissipativeConstant> p2;
+
+	p1.set<ElasticModulus>(elasticModulus1);
+	p2.set<ElasticModulus>(elasticModulus2);
+
+	p1.set<DissipativeConstant>(dissipativeConstant1);
+	p2.set<DissipativeConstant>(dissipativeConstant2); 
+
+	p1.set<PoissonRatio>(poissonRatio1);
+	p2.set<PoissonRatio>(poissonRatio2); 
+			
+	p1.set<Radius>(radius1);
+	p2.set<Radius>(radius2);
+
+	p1.setPosition(position1);
+	p2.setPosition(position2);
+
+	p1.setPosition(position1);
+	p2.setPosition(position2);
+
+	NormalForceViscoelasticSpheres::calculate(p1, p2);
+
+	//TODO check values
+}
 // TestCase(ConstructorsTest)
 // {
 // 	SphericalParticlePtr sph0( new SphericalParticle() );

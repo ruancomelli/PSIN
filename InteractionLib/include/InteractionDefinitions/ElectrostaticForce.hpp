@@ -19,11 +19,11 @@ struct ElectrostaticForce
 
 		double charge1 = particle.template get<ElectricCharge>();
 		double charge2 = neighbor.template get<ElectricCharge>();
-		double r = particle.distance(neighbor);
+		double r = distance(particle, neighbor);
 
 		double force = - k * charge1 * charge2 / ( r * r );
 
-		Vector3D electricForce = force * particle.normalDirection(neighbor);
+		Vector3D electricForce = force * particle.normalVersor(neighbor);
 
 		particle.addBodyForce( electricForce );
 		neighbor.addBodyForce( - electricForce );

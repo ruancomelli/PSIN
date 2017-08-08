@@ -1,6 +1,15 @@
 #ifndef NORMAL_FORCE_LINEAR_DASHPOT_HPP
 #define NORMAL_FORCE_LINEAR_DASHPOT_HPP
 
+// EntityLib
+#include <SphericalParticle.hpp>
+
+// PropertyLib
+#include <PropertyDefinitions.hpp>
+
+// Standard
+#include <algorithm>
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -9,30 +18,33 @@
 //		Calculates normal forces between two spherical particles according to equation (2.8) (see reference)
 struct NormalForceLinearDashpotForce
 {
+	using ElasticModulus = PropertyDefinitions::ElasticModulus;
+	using NormalDissipativeConstant = PropertyDefinitions::NormalDissipativeConstant;
+
 	template<typename...Ts, typename...Us>
-	static Vector3D calculate(SphericalParticle<Ts...> particle1, SphericalParticle<Us...> particle2)
+	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
 	{
-		const double overlap = particle->overlap(neighbor);
+		const double overlap = ::overlap(particle, neighbor);
 		
 		if(overlap > 0)
 		{
 			// ---- Get physical properties and calculate effective parameters ----
-			const double elasticModulus1 = particle->get( elastic_modulus );
-			const double elasticModulus2 = neighbor->get( elastic_modulus );
+			const double elasticModulus1 = particle.template get<ElasticModulus>();
+			const double elasticModulus2 = neighbor.template get<ElasticModulus>();
 			
-			const double normalDissipativeConstant1 = particle->get( normal_dissipative_constant );
-			const double normalDissipativeConstant2 = neighbor->get( normal_dissipative_constant );
+			const double normalDissipativeConstant1 = particle.template get<NormalDissipativeConstant>();
+			const double normalDissipativeConstant2 = neighbor.template get<NormalDissipativeConstant>();
 			
 			// ---- Calculate normal force ----
-			const double overlapDerivative = particle->overlapDerivative( neighbor );
+			const double overlapDerivative = ::overlapDerivative(particle, neighbor);
 			
-			const double normalForceModulus = max( (elasticModulus1 + elasticModulus2) * overlap + 
+			const double normalForceModulus = std::max( (elasticModulus1 + elasticModulus2) * overlap + 
 											(normalDissipativeConstant1 + normalDissipativeConstant2) * overlapDerivative , 0.0 );
 			
-			const Vector3D normalForce = - normalForceModulus * particle->normalDirection( neighbor );
+			const Vector3D normalForce = - normalForceModulus * particle.normalVersor( neighbor );
 			
-			particle->addContactForce( normalForce );
-			neighbor->addContactForce( - normalForce );
+			particle.addContactForce( normalForce );
+			neighbor.addContactForce( - normalForce );
 			return normalForce;
 		}
 		// else, no forces are added.
