@@ -12,7 +12,7 @@ include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)
 link_directories(${CMAKE_SOURCE_DIR}/UtilsLib/source)
 
 #SEARCH FOR .CPP FILES
-file(GLOB ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
+file(GLOB_RECURSE${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
 
 #ADD EXECUTABLE
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
