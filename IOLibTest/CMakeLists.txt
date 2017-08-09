@@ -19,7 +19,7 @@ link_directories(${CMAKE_SOURCE_DIR}/InteractionLib/source)
 link_directories(${CMAKE_SOURCE_DIR}/IOLib/source)
 
 #SEARCH FOR .CPP FILES
-file(GLOB ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
+file(GLOB_RECURSE ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
 
 #ADD EXECUTABLE
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
