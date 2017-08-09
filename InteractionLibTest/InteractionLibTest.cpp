@@ -171,8 +171,8 @@ TestCase(NormalForceViscoelasticSpheres_Test)
 	Vector3D velocity1(0.0, 0.0, 0.0);
 	Vector3D velocity2(-1.0, 0.0, 0.0);
 
-	SphericalParticle<ElasticModulus, DissipativeConstant> p1;
-	SphericalParticle<ElasticModulus, DissipativeConstant> p2;
+	SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio> p1;
+	SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio> p2;
 
 	p1.set<ElasticModulus>(elasticModulus1);
 	p2.set<ElasticModulus>(elasticModulus2);
@@ -189,13 +189,14 @@ TestCase(NormalForceViscoelasticSpheres_Test)
 	p1.setPosition(position1);
 	p2.setPosition(position2);
 
-	p1.setPosition(position1);
-	p2.setPosition(position2);
+	p1.setVelocity(velocity1);
+	p2.setVelocity(velocity2);
 
 	NormalForceViscoelasticSpheres::calculate(p1, p2);
 
 	//TODO check values
 }
+
 // TestCase(ConstructorsTest)
 // {
 // 	SphericalParticlePtr sph0( new SphericalParticle() );
