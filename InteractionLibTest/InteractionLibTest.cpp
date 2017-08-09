@@ -241,8 +241,56 @@ TestCase(TangentialForceCundallStrack_Test)
 	Vector3D normalForce(500, 0, 0);
 	double timeStep = 0.5;
 
-	TangentialForceCundallStrack::startCollision(p1, p2);
-	// TangentialForceCundallStrack::calculate(p1, p2, normalForce, timeStep);
+	TangentialForceCundallStrack::calculate(p1, p2, normalForce, timeStep);
+
+	//TODO check values
+}
+
+TestCase(TangentialForceHaffWerner_Test)
+{
+	double tangentialDamping1 = 650;
+	double tangentialDamping2 = 500;
+
+	double frictionParameter1 = 0.5;
+	double frictionParameter2 = 0.75;
+
+	double radius1 = 0.6;
+	double radius2 = 0.8;
+
+	Vector3D position1(0.0, 0.0, 0.0);
+	Vector3D position2(1.0, 0.0, 0.0);
+
+	Vector3D velocity1(0.0, 0.0, 0.0);
+	Vector3D velocity2(-1.0, 0.0, 0.0);
+
+	Vector3D angularVelocity1(0.5, 0, 3);
+	Vector3D angularVelocity2(-1, 0, -5);
+
+	SphericalParticle<TangentialDamping, FrictionParameter, PoissonRatio> p1;
+	SphericalParticle<TangentialDamping, FrictionParameter> p2;
+
+	p1.set<TangentialDamping>(tangentialDamping1);
+	p2.set<TangentialDamping>(tangentialDamping2);
+
+	p1.set<FrictionParameter>(frictionParameter1);
+	p2.set<FrictionParameter>(frictionParameter2); 
+			
+	p1.set<Radius>(radius1);
+	p2.set<Radius>(radius2);
+
+	p1.setPosition(position1);
+	p2.setPosition(position2);
+
+	p1.setVelocity(velocity1);
+	p2.setVelocity(velocity2);
+
+	p1.setAngularVelocity(angularVelocity1);
+	p2.setAngularVelocity(angularVelocity2);
+
+	Vector3D normalForce(500, 0, 0);
+	double timeStep = 0.5;
+
+	TangentialForceHaffWerner::calculate(p1, p2, normalForce, timeStep);
 
 	//TODO check values
 }

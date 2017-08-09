@@ -1,7 +1,3 @@
-#Felipe Giacomelli - UFSC, SINMEC - November, 2016 - felipe.g@sinmec.ufsc.br
-#
-#
-
 CMAKE_MINIMUM_REQUIRED(VERSION 3.6)
 
 set (CMAKE_CXX_STANDARD 14)
