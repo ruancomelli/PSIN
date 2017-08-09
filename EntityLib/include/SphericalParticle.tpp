@@ -1,8 +1,8 @@
 #ifndef SPHERICAL_PARTICLE_TPP
 #define SPHERICAL_PARTICLE_TPP
 
-template<typename ... Args>
-bool touch(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
+template<typename...Ts, typename...Us>
+bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
 	using Radius = PropertyDefinitions::Radius;
 
@@ -12,8 +12,8 @@ bool touch(const SphericalParticle<Args...> & left, const SphericalParticle<Args
 	return (distance(left, right) <= radius1 + radius2);
 }
 
-template<typename ... Args>
-double overlap(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
+template<typename...Ts, typename...Us>
+double overlap(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
 	using Radius = PropertyDefinitions::Radius;
 
@@ -30,8 +30,8 @@ double overlap(const SphericalParticle<Args...> & left, const SphericalParticle<
 	return overlap;
 }
 
-template<typename ... Args>
-double overlapDerivative(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
+template<typename...Ts, typename...Us>
+double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
 	if(touch(left, right))
 	{
@@ -46,8 +46,8 @@ double overlapDerivative(const SphericalParticle<Args...> & left, const Spherica
 	}
 }
 
-template<typename ... Args>
-Vector3D contactPoint(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right)
+template<typename...Ts, typename...Us>
+Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
 	using Radius = PropertyDefinitions::Radius;
 
@@ -88,7 +88,8 @@ SphericalParticle<PropertyTypes...>::SphericalParticle(const BaseParticle & base
 
 // // ------------------------------- Collision detector -------------------------------
 template<typename ... PropertyTypes>
-Vector3D SphericalParticle<PropertyTypes...>::relativeTangentialVelocity(const SphericalParticle<PropertyTypes...> & neighbor) const
+template<typename ... Us>
+Vector3D SphericalParticle<PropertyTypes...>::relativeTangentialVelocity(const SphericalParticle<Us...> & neighbor) const
 {
 	const Vector3D normalVersor = this->normalVersor( neighbor );
 	const Vector3D velocityDifference = neighbor.getVelocity() - this->getVelocity();
@@ -104,7 +105,8 @@ Vector3D SphericalParticle<PropertyTypes...>::relativeTangentialVelocity(const S
 }
 
 template<typename ... PropertyTypes>
-Vector3D SphericalParticle<PropertyTypes...>::tangentialVersor(const SphericalParticle<PropertyTypes...> & neighbor) const
+template<typename ... Us>
+Vector3D SphericalParticle<PropertyTypes...>::tangentialVersor(const SphericalParticle<Us...> & neighbor) const
 {
 	const Vector3D relativeTangentialVelocity = this->relativeTangentialVelocity( neighbor );
 	const double relativeTangentialVelocityLength = relativeTangentialVelocity.length();

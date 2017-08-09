@@ -26,22 +26,25 @@ class SphericalParticle : public Particle<PropertyDefinitions::Radius, PropertyT
 		explicit SphericalParticle(const int handle, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
 		// ---- Collision ----
-		Vector3D relativeTangentialVelocity(const SphericalParticle<PropertyTypes...> & neighbor) const;
-		Vector3D tangentialVersor(const SphericalParticle<PropertyTypes...> & neighbor) const;
+		template<typename...Us>
+		Vector3D relativeTangentialVelocity(const SphericalParticle<Us...> & neighbor) const;
+		
+		template<typename...Us>
+		Vector3D tangentialVersor(const SphericalParticle<Us...> & neighbor) const;
 };
 
 
-template<typename ... Args>
-bool touch(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
+template<typename...Ts, typename...Us>
+bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
 
-template<typename ... Args>
-double overlap(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
+template<typename...Ts, typename...Us>
+double overlap(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
 
-template<typename ... Args>
-double overlapDerivative(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
+template<typename...Ts, typename...Us>
+double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
 
-template<typename ... Args>
-Vector3D contactPoint(const SphericalParticle<Args...> & left, const SphericalParticle<Args...> & right);
+template<typename...Ts, typename...Us>
+Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
 
 
 #include <SphericalParticle.tpp>
