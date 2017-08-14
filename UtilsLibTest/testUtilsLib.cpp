@@ -677,4 +677,14 @@ TestCase(type_collection_is_equal_to_Test)
 	check(!(
 		type_collection<int, double, double>::is_equal_to< type_collection<int, char, double> >
 	));
+
+TestCase(bool_type_Test)
+{
+	check((
+			bool_type<true>::value
+		));
+
+	check(!(
+			bool_type<false>::value
+		));
 }
