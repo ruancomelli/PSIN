@@ -18,6 +18,7 @@
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
+#include <Metaprogramming/bool_type.hpp>
 #include <Metaprogramming/type_list.hpp>
 #include <Metaprogramming/type_collection.hpp>
 #include <Metaprogramming/make_unique_type_list.hpp>
@@ -525,6 +526,31 @@ TestCase(type_list_size_Test)
 	checkEqual(size2, 0);
 }
 
+TestCase(type_list_get_Test)
+{
+	check((
+		std::is_same<
+			type_list<char, int>::get<0>,
+			char
+		>::value
+	));
+
+	check((
+		std::is_same<
+			type_list<char, int>::get<1>,
+			int
+		>::value
+	));
+
+	// Uncomment the following lines to get compilation errors:
+	// check((
+	// 	std::is_same<
+	// 		type_list<char, int>::get<2>,
+	// 		int
+	// 	>::value
+	// ));
+}
+
 TestCase(type_list_append_if_new_types_Test)
 {
 	check((
@@ -563,7 +589,31 @@ TestCase(type_list_append_if_new_types_Test)
 	));
 }
 
-TestCase(MakeUniqueTypeListTest)
+TestCase(type_list_concatenate_Test)
+{
+	check((
+		std::is_same<
+			type_list<>::concatenate< type_list<int, int, bool, int> >,
+			type_list<int, int, bool, int>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			type_list<char, int>::concatenate< type_list<int, int, bool, int> >,
+			type_list<char, int, int, int, bool, int>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			type_list<char, int>::concatenate< type_list<> >,
+			type_list<char, int>
+		>::value
+	));
+}
+
+TestCase(make_unique_type_list_Test)
 {
 	check((
 		std::is_same<
@@ -677,6 +727,7 @@ TestCase(type_collection_is_equal_to_Test)
 	check(!(
 		type_collection<int, double, double>::is_equal_to< type_collection<int, char, double> >
 	));
+}
 
 TestCase(bool_type_Test)
 {

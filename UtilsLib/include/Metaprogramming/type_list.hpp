@@ -29,10 +29,16 @@ struct type_list
 
 	constexpr static bool has_repeated_types = traits::has_repeated_types< type_list<Ts...> >::value;
 
-	constexpr static std::size_t size = traits::size<Ts...>::value;
+	constexpr static std::size_t size = traits::size< identity >::value;
 
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = ClassToSpecialize<Ts...>;
+
+	template<typename TypeList>
+	using concatenate = typename traits::concatenate<identity, TypeList>::type;
+
+	template<std::size_t position>
+	using get = typename traits::get<identity, position>::type;
 };
 
 #endif
@@ -41,4 +47,4 @@ struct type_list
 // That is, 'type_list<Ts...>::append<T>' is the same as 'type_list<Ts..., T>'.
 // The problem is that, in 'std::' syntax, there is a 'type', as in
 // 		std::conditional<true, int, double>::type;
-// Should we change our code? If so, this would change a lot the 'type_list', and the implementation would be more polluted.
+// Should we change our code? If so, this would change a lot the 'type_list', and the implementation would be more polluted... Or maybe not!
