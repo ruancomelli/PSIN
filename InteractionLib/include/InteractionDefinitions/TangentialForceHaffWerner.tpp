@@ -40,7 +40,7 @@ void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, S
 		const Vector3D relativeTangentialVelocity = particle.relativeTangentialVelocity(neighbor) ;
 		
 		const Vector3D tangentialVersor = particle.tangentialVersor( neighbor );
-		const Vector3D tangentialForce =	std::min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
+		const Vector3D tangentialForce = std::min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
 			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
 		
 		particle.addContactForce( tangentialForce );

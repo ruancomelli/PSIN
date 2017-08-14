@@ -11,8 +11,6 @@
 template<typename P1, typename P2>
 void ElectrostaticForce::calculate(P1 & particle, P2 & neighbor)
 {
-	using ElectricCharge = PropertyDefinitions::ElectricCharge;
-
 	double k = 9e+9;
 
 	double charge1 = particle.template get<ElectricCharge>();

@@ -19,9 +19,6 @@
 template<typename...Ts, typename...Us>
 Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
 {
-	using ElasticModulus = PropertyDefinitions::ElasticModulus;
-	using NormalDissipativeConstant = PropertyDefinitions::NormalDissipativeConstant;
-
 	const double overlap = ::overlap(particle, neighbor);
 	
 	if(overlap > 0)

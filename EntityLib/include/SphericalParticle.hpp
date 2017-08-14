@@ -46,6 +46,11 @@ double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalP
 template<typename...Ts, typename...Us>
 Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
 
+template<typename T>
+struct is_spherical;
+
+template<typename...Ts>
+struct is_spherical< SphericalParticle<Ts...> > : std::true_type {};
 
 #include <SphericalParticle.tpp>
 

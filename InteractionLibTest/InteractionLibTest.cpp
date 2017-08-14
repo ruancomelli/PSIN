@@ -108,6 +108,13 @@ TestCase(ElectrostaticForce_Test)
 
 	check(p1.getResultingForce() == ResultingForceOnP1);
 	check(p2.getResultingForce() == ResultingForceOnP2);
+
+	check((
+		ElectrostaticForce::check< Particle<ElectricCharge> >
+	));
+	check(!(
+		ElectrostaticForce::check< Particle<> >
+	));
 }
 
 
