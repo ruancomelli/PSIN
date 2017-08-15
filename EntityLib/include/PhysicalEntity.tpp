@@ -6,29 +6,30 @@
 
 // ----- Constructors -----
 template<typename ... PropertyTypes>
-PhysicalEntityModel<PropertyTypes...>::PhysicalEntityModel()
+PhysicalEntity<PropertyTypes...>::PhysicalEntity()
 {}
 
 template<typename ... PropertyTypes>
-PhysicalEntityModel<PropertyTypes...>::PhysicalEntityModel(const PhysicalEntityModel<PropertyTypes...> & other)
+template<typename...Us>
+PhysicalEntity<PropertyTypes...>::PhysicalEntity(const PhysicalEntity<Us...> & other)
 	: propertyTuple(other.propertyTuple)
 {}
 
 // ----- Return property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType>
-PropertyType& PhysicalEntityModel<PropertyTypes...>::property()
+PropertyType& PhysicalEntity<PropertyTypes...>::property()
 {
-	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntityModel<PropertyTypes...>::property' must be in template parameter list in the specialization of 'PhysicalEntity'");
+	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntity<PropertyTypes...>::property' must be in template parameter list in the specialization of 'PhysicalEntity'");
 
 	return std::get<PropertyType>(this->propertyTuple);
 }
 
 template<typename ... PropertyTypes>
 template<typename PropertyType>
-PropertyType PhysicalEntityModel<PropertyTypes...>::property() const
+PropertyType PhysicalEntity<PropertyTypes...>::property() const
 {
-	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntityModel<PropertyTypes...>::property' must be in template parameter list in the specialization of 'PhysicalEntity'");
+	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntity<PropertyTypes...>::property' must be in template parameter list in the specialization of 'PhysicalEntity'");
 
 	return std::get<PropertyType>(this->propertyTuple);
 }
@@ -36,18 +37,18 @@ PropertyType PhysicalEntityModel<PropertyTypes...>::property() const
 // ----- Input and output property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType, typename istream_type>
-bool PhysicalEntityModel<PropertyTypes...>::input(istream_type & in)
+bool PhysicalEntity<PropertyTypes...>::input(istream_type & in)
 {
-	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntityModel<PropertyTypes...>::input' must be in template parameter list in the specialization of 'PhysicalEntity'");
+	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntity<PropertyTypes...>::input' must be in template parameter list in the specialization of 'PhysicalEntity'");
 
 	return std::get<PropertyType>(this->propertyTuple).input(in);
 }
 
 template<typename ... PropertyTypes>
 template<typename PropertyType, typename ostream_type>
-bool PhysicalEntityModel<PropertyTypes...>::output(ostream_type & out) const
+bool PhysicalEntity<PropertyTypes...>::output(ostream_type & out) const
 {
-	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntityModel<PropertyTypes...>::output' must be in template parameter list in the specialization of 'PhysicalEntity'");
+	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntity<PropertyTypes...>::output' must be in template parameter list in the specialization of 'PhysicalEntity'");
 
 	return std::get<PropertyType>(this->propertyTuple).output(out);
 }
@@ -55,7 +56,7 @@ bool PhysicalEntityModel<PropertyTypes...>::output(ostream_type & out) const
 // ----- Set and get property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType, typename ValueType>
-void PhysicalEntityModel<PropertyTypes...>::set(const ValueType & value)
+void PhysicalEntity<PropertyTypes...>::set(const ValueType & value)
 {
 	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, 
 		"Template parameter for function 'PhysicalEntity<PropertyTypes...>::set' must be in template parameter list in the specialization of 'PhysicalEntity'");
@@ -65,7 +66,7 @@ void PhysicalEntityModel<PropertyTypes...>::set(const ValueType & value)
 
 template<typename ... PropertyTypes>
 template<typename PropertyType>
-typename PropertyType::ValueType PhysicalEntityModel<PropertyTypes...>::get() const
+typename PropertyType::ValueType PhysicalEntity<PropertyTypes...>::get() const
 {
 	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, 
 		"Template parameter for function 'PhysicalEntity<PropertyTypes...>::get' must be in template parameter list in the specialization of 'PhysicalEntity'");
@@ -76,7 +77,7 @@ typename PropertyType::ValueType PhysicalEntityModel<PropertyTypes...>::get() co
 // ----- Check whether a property was assigned -----
 template<typename ... PropertyTypes>
 template<typename PropertyType>
-bool PhysicalEntityModel<PropertyTypes...>::assigned() const
+bool PhysicalEntity<PropertyTypes...>::assigned() const
 {
 	static_assert(type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'assigned' must be in template parameter list in the specialization of 'PhysicalEntity'");
 

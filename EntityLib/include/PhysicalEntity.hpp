@@ -2,6 +2,7 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
+#include <Metaprogramming/bool_type.hpp>
 #include <Metaprogramming/type_collection.hpp>
 
 // Standard
@@ -9,23 +10,22 @@
 #include <type_traits>
 
 template<typename ... PropertyTypes>
-class PhysicalEntityModel
+class PhysicalEntity
 {
-	static_assert(!type_list<PropertyTypes...>::has_repeated_types, "Template parameters cannot be repeated in 'PhysicalEntityModel' specialization.");
+	template<typename...Us>
+	friend class PhysicalEntity;
 
 	public:
 		using PropertyList = type_collection<PropertyTypes...>;
 
 		template<typename Pr>
-		struct has_property : std::conditional<
-				PropertyList::template contains<Pr>,
-				std::true_type,
-				std::false_type
-			>::type
+		struct has_property : bool_type< PropertyList::template contains<Pr> >
 		{};
 
-		PhysicalEntityModel();
-		PhysicalEntityModel(const PhysicalEntityModel<PropertyTypes...> & other);
+		PhysicalEntity();
+
+		template<typename...Us>
+		PhysicalEntity(const PhysicalEntity<Us...> & other);
 
 		// ----- Return property -----
 		template<typename PropertyType>
@@ -53,11 +53,8 @@ class PhysicalEntityModel
 		bool assigned() const;
 
 	protected:
-		std::tuple<PropertyTypes...> propertyTuple;
+		typename type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
 };
-
-template<typename...Ts>
-using PhysicalEntity = typename type_collection<Ts...>::template specialize<PhysicalEntityModel>;
 
 #include <PhysicalEntity.tpp>
 
