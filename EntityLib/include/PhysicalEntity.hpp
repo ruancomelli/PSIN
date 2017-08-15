@@ -24,8 +24,8 @@ class PhysicalEntity
 
 		PhysicalEntity();
 
-		template<typename...Us>
-		PhysicalEntity(const PhysicalEntity<Us...> & other);
+		// template<typename...Us>
+		// PhysicalEntity(const PhysicalEntity<Us...> & other);
 
 		// ----- Return property -----
 		template<typename PropertyType>

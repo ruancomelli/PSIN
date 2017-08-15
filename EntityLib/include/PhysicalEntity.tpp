@@ -9,11 +9,14 @@ template<typename ... PropertyTypes>
 PhysicalEntity<PropertyTypes...>::PhysicalEntity()
 {}
 
-template<typename ... PropertyTypes>
-template<typename...Us>
-PhysicalEntity<PropertyTypes...>::PhysicalEntity(const PhysicalEntity<Us...> & other)
-	: propertyTuple(other.propertyTuple)
-{}
+// template<typename ... PropertyTypes>
+// template<typename...Us>
+// PhysicalEntity<PropertyTypes...>::PhysicalEntity(const PhysicalEntity<Us...> & other)
+// {
+// 	static_assert(type_list<PropertyTypes...>::template contains<Us...>, "Cannot construct PhysicalEntity");
+
+// 	(std::get<Us>(this->propertyTuple) = std::get<Us>(other.propertyTuple));...
+// }
 
 // ----- Return property -----
 template<typename ... PropertyTypes>

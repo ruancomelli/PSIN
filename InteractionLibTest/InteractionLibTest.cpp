@@ -110,7 +110,7 @@ TestCase(ElectrostaticForce_Test)
 	check(p2.getResultingForce() == ResultingForceOnP2);
 
 	check((
-		ElectrostaticForce::check< Particle<ElectricCharge> >
+		ElectrostaticForce::check< Particle<ElectricCharge>, Particle<ElectricCharge> >::value
 	));
 	check(!(
 		ElectrostaticForce::check< Particle<> >
