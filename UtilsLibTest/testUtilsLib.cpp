@@ -21,6 +21,7 @@
 #include <MP/bool_type.hpp>
 #include <MP/combinatory.hpp>
 #include <MP/get.hpp>
+#include <MP/length.hpp>
 #include <MP/make_unique_type_list.hpp>
 #include <MP/metafunction.hpp>
 #include <MP/type_list.hpp>
@@ -807,4 +808,25 @@ TestCase(combinatory_Test)
 			type_list<double, std::size_t, bool>
 		>::value
 	));
+}
+
+TestCase(length_Test)
+{
+	size_t size1 = length< type_list<int, double, double, char, bool> >::value;
+	checkEqual(
+		size1,
+		5
+	);
+
+	size_t size2 = length< tuple<double, bool> >::value;
+	checkEqual(
+		size2,
+		2
+	);
+
+	size_t size3 = length< tuple<> >::value;
+	checkEqual(
+		size3,
+		0
+	);
 }

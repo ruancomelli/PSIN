@@ -16,8 +16,10 @@ namespace mp {
 		Subjects
 	>
 	{
-		using type = typename generate_pairs<I, Subjects>::type::concatenate< 
-			generate_pairs<Is..., Subjects>::type
+		using blah = typename generate_pairs<I, Subjects>::type;
+		using foo = typename generate_pairs<Is..., Subjects>::type;
+		using type = typename blah::template concatenate< 
+			foo
 		>;
 	};
 
@@ -31,8 +33,8 @@ namespace mp {
 			I::template check<S>::value,
 			type_list< type_pair<I, S> >,
 			type_list<>
-		>::type::concatenate< 
-			generate_pairs<I, Ss...>
+		>::type::template concatenate< 
+			generate_pairs<I, Ss...>::type
 		>;
 	};
 

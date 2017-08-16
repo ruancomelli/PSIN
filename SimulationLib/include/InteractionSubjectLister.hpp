@@ -10,7 +10,10 @@
 class InteractionSubjectLister
 {
 	template<typename Interactions, typename Subjects>
-	using generate_pairs = mp::generate_pairs<Interactions, Subjects>::type;
+	using generate_pairs = typename mp::generate_pairs<Interactions, Subjects>::type;
+
+	template<typename Interactions, typename Subjects>
+	using list = typename mp::generate_pairs<Interactions, Subjects>::type;
 };
 
 #endif
