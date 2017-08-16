@@ -1,6 +1,9 @@
 #ifndef CONCATENATE_HPP
 #define CONCATENATE_HPP
 
+// UtilsLib
+#include <MP/metafunction.hpp>
+
 namespace traits {
 	template<typename TypeList1, typename TypeList2>
 	struct concatenate;
@@ -9,10 +12,8 @@ namespace traits {
 	struct concatenate<
 		TypeList<Is...>,
 		TypeList<Js...>
-	>
-	{
-		using type = TypeList<Is..., Js...>;
-	};
+	> : metafunction< TypeList<Is..., Js...> >
+	{};
 } // traits
 
 #endif // CONCATENATE_HPP

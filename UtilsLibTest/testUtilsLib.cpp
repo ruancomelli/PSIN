@@ -795,6 +795,19 @@ TestCase(bool_type_Test)
 		));
 }
 
+TestCase(format_indexes_based_on_limits_Test)
+{
+	check((
+		std::is_same<
+			traits::format_indexes_based_on_limits<
+				std::index_sequence<7, 4, 1>,
+				std::index_sequence<5, 5, 3>
+			>::type,
+			std::index_sequence<2, 0, 2>
+		>::value
+	));
+}
+
 TestCase(combinatory_Test)
 {
 	check((
