@@ -812,19 +812,19 @@ TestCase(combinatory_Test)
 
 TestCase(length_Test)
 {
-	size_t size1 = length< type_list<int, double, double, char, bool> >::value;
+	size_t size1 = traits::length< type_list<int, double, double, char, bool> >::value;
 	checkEqual(
 		size1,
 		5
 	);
 
-	size_t size2 = length< tuple<double, bool> >::value;
+	size_t size2 = traits::length< tuple<double, bool> >::value;
 	checkEqual(
 		size2,
 		2
 	);
 
-	size_t size3 = length< tuple<> >::value;
+	size_t size3 = traits::length< tuple<> >::value;
 	checkEqual(
 		size3,
 		0
