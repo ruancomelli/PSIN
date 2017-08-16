@@ -19,6 +19,7 @@
 #include <Vector.hpp>
 #include <Vector3D.hpp>
 #include <MP/bool_type.hpp>
+#include <MP/combinatory.hpp>
 #include <MP/type_list.hpp>
 #include <MP/type_collection.hpp>
 #include <MP/make_unique_type_list.hpp>
@@ -738,4 +739,19 @@ TestCase(bool_type_Test)
 	check(!(
 			bool_type<false>::value
 		));
+}
+
+TestCase(combinatory_Test)
+{
+	check((
+		std::is_same<
+			combinatory::get_combination<
+				std::index_sequence<1, 0, 3>,
+				type_list<int, double, char>,
+				type_list<std::size_t, double, std::string>,
+				type_list<int, double, char, bool, char>
+			>::type,
+			type_list<double, std::size_t, bool>
+		>::value
+	));
 }

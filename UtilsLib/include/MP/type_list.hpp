@@ -1,7 +1,9 @@
 #ifndef TYPE_LIST_HPP
 #define TYPE_LIST_HPP
 
-// UtilsLib / Traits
+// UtilsLib
+#include <MP/concatenate.hpp>
+#include <MP/get.hpp>
 #include <MP/type_list.tpp>
 
 // Standard
