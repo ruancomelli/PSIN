@@ -5,11 +5,7 @@
 
 template<bool X>
 struct bool_type 
-	: std::conditional<
-		X,
-		std::true_type,
-		std::false_type
-	>::type
+	: std::integral_constant<bool, X>
 {};
 
 #endif
