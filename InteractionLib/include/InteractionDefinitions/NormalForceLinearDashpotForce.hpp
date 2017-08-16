@@ -15,10 +15,19 @@ struct NormalForceLinearDashpotForce
 	using ElasticModulus = PropertyDefinitions::ElasticModulus;
 	using NormalDissipativeConstant = PropertyDefinitions::NormalDissipativeConstant;
 
-	template<typename P>
-	constexpr static bool check = P::template has_property<ElasticModulus>
-		&& P::template has_property<NormalDissipativeConstant>
-		&& is_spherical<P>::value;
+	template<typename P1, typename P2>
+	struct check : bool_type<
+		P1::template has_property<ElasticModulus>
+		&& P1::template has_property<NormalDissipativeConstant>
+		&& is_spherical<P1>::value
+		&& P2::template has_property<ElasticModulus>
+		&& P2::template has_property<NormalDissipativeConstant>
+		&& is_spherical<P2>::value
+		>
+	{};
+
+	template<typename P1, typename P2>
+	constexpr static bool check_v = check<P1, P2>::value;
 
 	template<typename...Ts, typename...Us>
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);

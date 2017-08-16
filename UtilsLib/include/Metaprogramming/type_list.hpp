@@ -39,6 +39,9 @@ struct type_list
 
 	template<std::size_t position>
 	using get = typename traits::get<identity, position>::type;
+
+	// template<typename TypeList>
+	// using intersection = typename traits::intersection<TypeList>;
 };
 
 #endif
