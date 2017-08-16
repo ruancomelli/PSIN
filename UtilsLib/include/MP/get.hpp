@@ -1,35 +1,35 @@
 #ifndef GET_HPP
 #define GET_HPP
 
+// UtilsLib
+#include <MP/metafunction.hpp>
+
 // Standard
 #include <cstddef>
 
 namespace traits {
-	template<typename TypeList, std::size_t position>
+	template<std::size_t position, typename TypeList>
 	struct get;
 
+	// Type version
 	template<template<typename...> class TypeList, typename T, typename...Ts, std::size_t position>
 	struct get<
-		TypeList<T, Ts...>,
-		position
-	>
-	{
-		using type = typename get< TypeList<Ts...> , position - 1>::type;
-	};
+		position,
+		TypeList<T, Ts...>
+	> : metafunction< typename get< position - 1, TypeList<Ts...>>::type >
+	{};
 
 	template<template<typename...> class TypeList, typename T, typename...Ts>
 	struct get<
-		TypeList<T, Ts...>,
-		0
-	>
-	{
-		using type = T;
-	};
+		0,
+		TypeList<T, Ts...>
+	> : metafunction<T>
+	{};
 
 	template<template<typename...> class TypeList, std::size_t position>
 	struct get<
-		TypeList<>,
-		position
+		position,
+		TypeList<>
 	>
 	{
 		static_assert( position >= 0,

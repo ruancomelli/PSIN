@@ -20,9 +20,11 @@
 #include <Vector3D.hpp>
 #include <MP/bool_type.hpp>
 #include <MP/combinatory.hpp>
+#include <MP/get.hpp>
+#include <MP/make_unique_type_list.hpp>
+#include <MP/metafunction.hpp>
 #include <MP/type_list.hpp>
 #include <MP/type_collection.hpp>
-#include <MP/make_unique_type_list.hpp>
 
 using namespace std;
 
@@ -473,6 +475,57 @@ TestCase(VariantTest)
 	myVariant = doubleValue;
 	applyVisitor(fVisitor(), myVariant);
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
+}
+
+TestCase(metafunction_Test)
+{
+	check((
+		std::is_same<
+			metafunction<double>::type,
+			double
+		>::value
+	));
+}
+
+TestCase(get_Test)
+{
+	check((
+		std::is_same<
+			traits::get<1, type_list<int, double, double> >::type,
+			double
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::get<2, std::tuple<int, double, char> >::type,
+			char
+		>::value
+	));
+}
+
+TestCase(concatenate_Test)
+{
+	check((
+		std::is_same<
+			traits::concatenate< type_list<int, double>, type_list<double, char, char, bool> >::type,
+			type_list<int, double, double, char, char, bool>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::concatenate< type_list<int, double>, type_list<> >::type,
+			type_list<int, double>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::concatenate< tuple<int, double>, tuple<double, char, char, bool> >::type,
+			tuple<int, double, double, char, char, bool>
+		>::value
+	));
 }
 
 TestCase(type_list_identity_Test)

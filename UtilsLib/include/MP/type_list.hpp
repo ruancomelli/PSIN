@@ -40,7 +40,7 @@ struct type_list
 	using concatenate = typename traits::concatenate<identity, TypeList>::type;
 
 	template<std::size_t position>
-	using get = typename traits::get<identity, position>::type;
+	using get = typename traits::get<position, identity>::type;
 
 	// template<typename TypeList>
 	// using intersection = typename traits::intersection<TypeList>;
