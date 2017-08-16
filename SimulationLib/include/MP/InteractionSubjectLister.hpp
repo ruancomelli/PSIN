@@ -1,7 +1,7 @@
 #ifndef MP_INTERACTION_SUBJECT_LISTER_HPP
 #define MP_INTERACTION_SUBJECT_LISTER_HPP
 
-#include <type_list.hpp>
+#include <MP/type_list.hpp>
 
 namespace mp {
 	template<typename T, typename U>
@@ -16,8 +16,8 @@ namespace mp {
 		Subjects
 	>
 	{
-		using type = generate_pairs<I, Subjects>::concatenate< 
-			generate_pairs<Is..., Subjects> 
+		using type = typename generate_pairs<I, Subjects>::type::concatenate< 
+			generate_pairs<Is..., Subjects>::type
 		>;
 	};
 

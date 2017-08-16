@@ -66,6 +66,9 @@ TestCase(PropertyInputAndOutputTest)
 
 	check(property2.assigned());
 	checkClose(property2.get(), value, tolerance);
+
+	if( remove(fileName.c_str()) != 0 )
+    	throw std::runtime_error("Error deleting \"Property_Input_Output_Test.txt\"");
 }
 
 TestCase(Property_ValueType_Test)

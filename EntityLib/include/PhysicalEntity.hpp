@@ -2,8 +2,8 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
-#include <Metaprogramming/bool_type.hpp>
-#include <Metaprogramming/type_collection.hpp>
+#include <MP/bool_type.hpp>
+#include <MP/type_collection.hpp>
 
 // Standard
 #include <tuple>

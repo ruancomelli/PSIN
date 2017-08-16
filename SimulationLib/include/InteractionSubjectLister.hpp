@@ -1,6 +1,9 @@
 #ifndef INTERACTION_SUBJECT_LISTER_HPP
 #define INTERACTION_SUBJECT_LISTER_HPP
 
+// SimulationLib
+#include <MP/InteractionSubjectLister.hpp>
+
 // UtilsLib
 #include <metaprogramming.hpp>
 

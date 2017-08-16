@@ -18,10 +18,10 @@
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
-#include <Metaprogramming/bool_type.hpp>
-#include <Metaprogramming/type_list.hpp>
-#include <Metaprogramming/type_collection.hpp>
-#include <Metaprogramming/make_unique_type_list.hpp>
+#include <MP/bool_type.hpp>
+#include <MP/type_list.hpp>
+#include <MP/type_collection.hpp>
+#include <MP/make_unique_type_list.hpp>
 
 using namespace std;
 

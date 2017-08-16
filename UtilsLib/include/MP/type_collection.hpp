@@ -2,9 +2,9 @@
 #define TYPE_COLLECTION_HPP
 
 // Utils / Metaprogramming
-#include <Metaprogramming/type_collection.tpp>
-#include <Metaprogramming/type_list.hpp>
-#include <Metaprogramming/make_unique_type_list.hpp>
+#include <MP/type_collection.tpp>
+#include <MP/type_list.hpp>
+#include <MP/make_unique_type_list.hpp>
 
 template<typename...Ts>
 struct type_collection

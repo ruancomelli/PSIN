@@ -2,7 +2,7 @@
 #define TYPE_LIST_HPP
 
 // UtilsLib / Traits
-#include <Metaprogramming/type_list.tpp>
+#include <MP/type_list.tpp>
 
 // Standard
 #include <cstddef>

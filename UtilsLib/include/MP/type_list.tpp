@@ -2,7 +2,7 @@
 #define TYPE_LIST_TPP
 
 // UtilsLib
-#include <bool_type.hpp>
+#include <MP/bool_type.hpp>
 
 // Standard
 #include <cstddef>
@@ -45,14 +45,9 @@ namespace traits
 	template<typename T>
 	struct size;
 	
-	template<typename T, typename ... Ts>
-	struct size< type_list<T, Ts...> >
-		: std::integral_constant<std::size_t, 1 + size< type_list<Ts...> >::value>
-	{};
-	
-	template<>
-	struct size< type_list<> >
-		: std::integral_constant<std::size_t, 0>
+	template<typename ... Ts>
+	struct size< type_list<Ts...> >
+		: std::integral_constant<std::size_t, sizeof...(Ts)>
 	{};
 
 

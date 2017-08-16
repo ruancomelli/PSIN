@@ -2,7 +2,7 @@
 #define PHYSICAL_ENTITY_TPP
 
 // UtilsLib
-#include <Metaprogramming/type_list.hpp>
+#include <MP/type_list.hpp>
 
 // ----- Constructors -----
 template<typename ... PropertyTypes>
