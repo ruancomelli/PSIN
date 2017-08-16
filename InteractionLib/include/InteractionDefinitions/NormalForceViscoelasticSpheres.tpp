@@ -19,11 +19,6 @@
 template<typename...Ts, typename...Us>
 Vector3D NormalForceViscoelasticSpheres::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
 {
-	using Radius = PropertyDefinitions::Radius;
-	using ElasticModulus = PropertyDefinitions::ElasticModulus;
-	using DissipativeConstant = PropertyDefinitions::DissipativeConstant;
-	using PoissonRatio = PropertyDefinitions::PoissonRatio;
-
 	// Calculations
 	const double overlap = ::overlap(particle, neighbor);
 	

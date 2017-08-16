@@ -21,9 +21,6 @@
 template<typename...Ts, typename...Us>
 void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep)
 {
-	using TangentialKappa = PropertyDefinitions::TangentialKappa;
-	using FrictionParameter = PropertyDefinitions::FrictionParameter;
-
 	if( touch(particle, neighbor) )
 	{
 		if( !checkCollision(particle, neighbor) )

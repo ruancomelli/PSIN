@@ -7,6 +7,7 @@
 
 // UtilsLib
 #include <Vector3D.hpp>
+#include <MP/bool_type.hpp>
 
 // Standard
 #include <map>
@@ -21,6 +22,21 @@
 struct TangentialForceCundallStrack
 {
 	public:
+		using TangentialKappa = PropertyDefinitions::TangentialKappa;
+		using FrictionParameter = PropertyDefinitions::FrictionParameter;
+
+		template<typename P1, typename P2>
+		struct check : bool_type<
+			P1::template has_property<TangentialKappa>::value
+			&& P1::template has_property<FrictionParameter>::value
+			&& is_spherical<P1>::value
+
+			&& P2::template has_property<TangentialKappa>::value
+			&& P2::template has_property<FrictionParameter>::value
+			&& is_spherical<P2>::value
+			>
+		{};
+
 		template<typename...Ts, typename...Us>
 		static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
 

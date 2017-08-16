@@ -4,6 +4,9 @@
 // EntityLib
 #include <SphericalParticle.hpp>
 
+// UtilsLib
+#include <MP/bool_type.hpp>
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -17,11 +20,11 @@ struct NormalForceLinearDashpotForce
 
 	template<typename P1, typename P2>
 	struct check : bool_type<
-		P1::template has_property<ElasticModulus>
-		&& P1::template has_property<NormalDissipativeConstant>
+		P1::template has_property<ElasticModulus>::value
+		&& P1::template has_property<NormalDissipativeConstant>::value
 		&& is_spherical<P1>::value
-		&& P2::template has_property<ElasticModulus>
-		&& P2::template has_property<NormalDissipativeConstant>
+		&& P2::template has_property<ElasticModulus>::value
+		&& P2::template has_property<NormalDissipativeConstant>::value
 		&& is_spherical<P2>::value
 		>
 	{};

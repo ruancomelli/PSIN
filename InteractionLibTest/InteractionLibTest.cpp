@@ -104,17 +104,17 @@ TestCase(ElectrostaticForce_Test)
 	p1.setPosition(position1);
 	p2.setPosition(position2);
 
+	check((
+		ElectrostaticForce::check< Particle<ElectricCharge>, Particle<ElectricCharge, Volume> >::value
+	));
+	check(!(
+		ElectrostaticForce::check< Particle<>, Particle<ElectricCharge, Volume> >::value
+	));
+
 	ElectrostaticForce::calculate(p1, p2);
 
 	check(p1.getResultingForce() == ResultingForceOnP1);
 	check(p2.getResultingForce() == ResultingForceOnP2);
-
-	check((
-		ElectrostaticForce::check< Particle<ElectricCharge>, Particle<ElectricCharge> >::value
-	));
-	check(!(
-		ElectrostaticForce::check< Particle<> >
-	));
 }
 
 
@@ -152,6 +152,17 @@ TestCase(NormalForceLinearDashpotForce_Test)
 
 	p1.setPosition(position1);
 	p2.setPosition(position2);
+
+	check((
+		NormalForceLinearDashpotForce::check< SphericalParticle<ElasticModulus, NormalDissipativeConstant>, 
+			SphericalParticle<ElasticModulus, NormalDissipativeConstant, Volume> 
+			>::value
+	));
+	check(!(
+		NormalForceLinearDashpotForce::check< Particle<NormalDissipativeConstant>, 
+			Particle<ElasticModulus, Volume> 
+			>::value
+	));
 
 	NormalForceLinearDashpotForce::calculate(p1, p2);
 
@@ -198,6 +209,17 @@ TestCase(NormalForceViscoelasticSpheres_Test)
 
 	p1.setVelocity(velocity1);
 	p2.setVelocity(velocity2);
+
+	check((
+		NormalForceViscoelasticSpheres::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
+			SphericalParticle<ElasticModulus, DissipativeConstant, Volume, PoissonRatio> 
+			>::value
+	));
+	check(!(
+		NormalForceViscoelasticSpheres::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
+			Particle<ElasticModulus, Volume> 
+			>::value
+	));
 
 	NormalForceViscoelasticSpheres::calculate(p1, p2);
 
@@ -248,6 +270,17 @@ TestCase(TangentialForceCundallStrack_Test)
 	Vector3D normalForce(500, 0, 0);
 	double timeStep = 0.5;
 
+	check((
+		TangentialForceCundallStrack::check< SphericalParticle<TangentialKappa, FrictionParameter, PoissonRatio>, 
+			SphericalParticle<TangentialKappa, ElasticModulus, DissipativeConstant, Volume, PoissonRatio, FrictionParameter> 
+			>::value
+	));
+	check(!(
+		TangentialForceCundallStrack::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
+			SphericalParticle<TangentialKappa, ElasticModulus, DissipativeConstant, Volume, PoissonRatio, FrictionParameter>
+			>::value
+	));
+
 	TangentialForceCundallStrack::calculate(p1, p2, normalForce, timeStep);
 
 	//TODO check values
@@ -296,6 +329,16 @@ TestCase(TangentialForceHaffWerner_Test)
 
 	Vector3D normalForce(500, 0, 0);
 	double timeStep = 0.5;
+	check((
+		TangentialForceHaffWerner::check< SphericalParticle<TangentialDamping, FrictionParameter, PoissonRatio>, 
+			SphericalParticle<TangentialKappa, ElasticModulus, TangentialDamping, Volume, PoissonRatio, FrictionParameter> 
+			>::value
+	));
+	check(!(
+		TangentialForceHaffWerner::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
+			SphericalParticle<TangentialKappa, ElasticModulus, DissipativeConstant, Volume, PoissonRatio, FrictionParameter>
+			>::value
+	));
 
 	TangentialForceHaffWerner::calculate(p1, p2, normalForce, timeStep);
 
