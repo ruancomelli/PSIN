@@ -1,6 +1,10 @@
-#ifndef TYPE_LIST_TRAITS_HPP
-#define TYPE_LIST_TRAITS_HPP
+#ifndef TYPE_LIST_TPP
+#define TYPE_LIST_TPP
 
+// UtilsLib
+#include <bool_type.hpp>
+
+// Standard
 #include <cstddef>
 #include <type_traits>
 
@@ -17,11 +21,7 @@ namespace traits
 
 	template<typename TypeList, typename U, typename...Us>
 	struct contains<TypeList, U, Us...>
-		: std::conditional<
-			contains<TypeList, U>::value && contains<TypeList, Us...>::value,
-			std::true_type,
-			std::false_type
-		>::type
+		: bool_type< contains<TypeList, U>::value && contains<TypeList, Us...>::value >
 	{};
 
 	template<typename U>
@@ -29,11 +29,7 @@ namespace traits
 
 	template<typename T, typename...Ts, typename U>
 	struct contains< type_list<T, Ts...>, U>
-		: std::conditional<
-			std::is_same<T, U>::value || contains< type_list<Ts...>, U>::value,
-			std::true_type,
-			std::false_type
-		>::type
+		: bool_type< std::is_same<T, U>::value || contains< type_list<Ts...>, U>::value >
 	{};
 
 
@@ -51,15 +47,13 @@ namespace traits
 	
 	template<typename T, typename ... Ts>
 	struct size< type_list<T, Ts...> >
-	{
-		constexpr static std::size_t value = 1 + size< type_list<Ts...> >::value;
-	};
+		: std::integral_constant<std::size_t, 1 + size< type_list<Ts...> >::value>
+	{};
 	
 	template<>
 	struct size< type_list<> >
-	{
-		constexpr static std::size_t value = 0;
-	};
+		: std::integral_constant<std::size_t, 0>
+	{};
 
 
 	template<typename T, typename...Us>
@@ -103,11 +97,7 @@ namespace traits
 
 	template<typename T, typename ... Ts>
 	struct has_repeated_types< type_list<T, Ts...> >
-		: std::conditional<
-			has_repeated_types< type_list<Ts...> >::value || contains<type_list<Ts...>, T>::value,
-			std::true_type,
-			std::false_type
-		>::type
+		: bool_type< has_repeated_types< type_list<Ts...> >::value || contains<type_list<Ts...>, T>::value >
 	{};
 
 	template<>
@@ -158,17 +148,7 @@ namespace traits
 
 		using type = void;
 	};
-
-	// template<std::size_t position>
-	// struct get<
-	// 	type_list<>,
-	// 	position
-	// >
-	// {
-	// 	static_assert(
-	// 		type_list<T, Ts...>::size > position,
-	// 		"Error: 'position' in expression 'TypeList::get<position>' must be less than 'TypeList::size'");
-	// };
+	
 
 	// template<typename T, typename U>
 	// struct is_permutation

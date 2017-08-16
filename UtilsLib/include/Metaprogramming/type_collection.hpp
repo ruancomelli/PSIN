@@ -2,7 +2,7 @@
 #define TYPE_COLLECTION_HPP
 
 // Utils / Metaprogramming
-#include <Metaprogramming/traits/type_collection.hpp>
+#include <Metaprogramming/type_collection.tpp>
 #include <Metaprogramming/type_list.hpp>
 #include <Metaprogramming/make_unique_type_list.hpp>
 

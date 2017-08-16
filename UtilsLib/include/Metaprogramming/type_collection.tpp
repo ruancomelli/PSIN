@@ -1,5 +1,5 @@
-#ifndef TYPE_COLLECTION_TRAITS_HPP
-#define TYPE_COLLECTION_TRAITS_HPP
+#ifndef TYPE_COLLECTION_TPP
+#define TYPE_COLLECTION_TPP
 
 // UtilsLib
 #include <Metaprogramming/type_list.hpp>
