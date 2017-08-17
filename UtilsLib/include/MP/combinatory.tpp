@@ -180,7 +180,7 @@ namespace traits {
 	template<typename...TypeLists>
 	struct generate_list
 		: iterate_generate_list<
-			typename make_constant_index_sequence<length<TypeLists...>::value, 0>::type, 
+			typename make_constant_index_sequence<sizeof...(TypeLists), 0>::type, 
 			TypeLists...
 		>
 	{};

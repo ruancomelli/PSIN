@@ -997,6 +997,37 @@ TestCase(iterate_generate_list_Test)
 
 TestCase(combinatory_generate_list_Test)
 {
+	check((
+		std::is_same<
+			combinatory::generate_list<
+				type_list<int, double, char>,
+				type_list<size_t, double, std::string>,
+				type_list<bool, char>
+			>::type,
+			type_list<
+				type_list<int, size_t, bool>,
+				type_list<double, size_t, bool>,
+				type_list<char, size_t, bool>,
+				type_list<int, double, bool>,
+				type_list<double, double, bool>,
+				type_list<char, double, bool>,
+				type_list<int, std::string, bool>,
+				type_list<double, std::string, bool>,
+				type_list<char, std::string, bool>,
+
+				type_list<int, size_t, char>,
+				type_list<double, size_t, char>,
+				type_list<char, size_t, char>,
+				type_list<int, double, char>,
+				type_list<double, double, char>,
+				type_list<char, double, char>,
+				type_list<int, std::string, char>,
+				type_list<double, std::string, char>,
+				type_list<char, std::string, char>
+			>
+		>::value
+	));
+}
 	// check((
 	// 	std::is_same<
 	// 		combinatory::generate_list<
