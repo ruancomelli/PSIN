@@ -5,7 +5,6 @@
 #include <MP/bool_type.hpp>
 
 // Standard
-#include <cstddef>
 #include <type_traits>
 
 template<typename...Ts>
@@ -47,7 +46,7 @@ namespace traits
 	
 	template<typename ... Ts>
 	struct size< type_list<Ts...> >
-		: std::integral_constant<std::size_t, sizeof...(Ts)>
+		: std::integral_constant<size_t, sizeof...(Ts)>
 	{};
 
 

@@ -478,6 +478,17 @@ TestCase(VariantTest)
 	checkEqual(getVariant<double>(myVariant), doubleAnswer);
 }
 
+TestCase(bool_type_Test)
+{
+	check((
+			bool_type<true>::value
+		));
+
+	check(!(
+			bool_type<false>::value
+		));
+}
+
 TestCase(metafunction_Test)
 {
 	check((
@@ -527,6 +538,13 @@ TestCase(concatenate_Test)
 			tuple<int, double, double, char, char, bool>
 		>::value
 	));
+
+	check((
+		std::is_same<
+			traits::concatenate< index_sequence<2, 3>, index_sequence<3, 0, 0, 1> >::type,
+			index_sequence<2, 3, 3, 0, 0, 1>
+		>::value
+	));
 }
 
 TestCase(type_list_identity_Test)
@@ -574,10 +592,10 @@ TestCase(type_list_contains_and_has_repeated_types_and_is_empty_Test)
 
 TestCase(type_list_size_Test)
 {
-	std::size_t size1 = type_list<int, double, double, int, char, bool>::size;
+	size_t size1 = type_list<int, double, double, int, char, bool>::size;
 	checkEqual(size1, 6);
 
-	std::size_t size2 = type_list<>::size;
+	size_t size2 = type_list<>::size;
 	checkEqual(size2, 0);
 }
 
@@ -726,13 +744,13 @@ TestCase(type_collection_is_empty_Test)
 
 TestCase(type_collection_size_Test)
 {
-	std::size_t size1 = type_collection<int, double, double, int, char, bool>::size;
+	size_t size1 = type_collection<int, double, double, int, char, bool>::size;
 	checkEqual(
 		size1,
 		4
 	);
 
-	std::size_t size2 = type_collection<>::size;
+	size_t size2 = type_collection<>::size;
 	checkEqual(
 		size2,
 		0
@@ -784,19 +802,54 @@ TestCase(type_collection_is_equal_to_Test)
 	));
 }
 
-TestCase(bool_type_Test)
+TestCase(make_constant_index_sequence_Test)
 {
 	check((
-			bool_type<true>::value
-		));
+		std::is_same<
+			traits::make_constant_index_sequence<>::type,
+			std::index_sequence<>
+		>::value
+	));
 
-	check(!(
-			bool_type<false>::value
-		));
+	check((
+		std::is_same<
+			traits::make_constant_index_sequence<0>::type,
+			std::index_sequence<>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::make_constant_index_sequence<2>::type,
+			std::index_sequence<0, 0>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::make_constant_index_sequence<3, 5>::type,
+			std::index_sequence<5, 5, 5>
+		>::value
+	));
 }
 
 TestCase(format_indexes_based_on_limits_Test)
 {
+	check((
+		std::is_same<
+			traits::format_indexes_based_on_limits<
+				std::index_sequence<>,
+				std::index_sequence<>
+			>::type,
+			std::index_sequence<>
+		>::value
+	));
+	size_t remainder1 = traits::format_indexes_based_on_limits<
+			std::index_sequence<>,
+			std::index_sequence<>
+		>::remainder;
+	checkEqual(remainder1, 0);
+
 	check((
 		std::is_same<
 			traits::format_indexes_based_on_limits<
@@ -806,19 +859,62 @@ TestCase(format_indexes_based_on_limits_Test)
 			std::index_sequence<2, 0, 2>
 		>::value
 	));
+	size_t remainder2 = traits::format_indexes_based_on_limits<
+			std::index_sequence<7, 4, 1>,
+			std::index_sequence<5, 5, 3>
+		>::remainder;
+	checkEqual(remainder2, 0);
+
+	check((
+		std::is_same<
+			traits::format_indexes_based_on_limits<
+				std::index_sequence<5, 4, 2>,
+				std::index_sequence<5, 5, 3>
+			>::type,
+			std::index_sequence<0, 0, 0>
+		>::value
+	));
+	size_t remainder3 = traits::format_indexes_based_on_limits<
+			std::index_sequence<5, 5, 3>,
+			std::index_sequence<5, 5, 3>
+		>::remainder;
+	checkEqual(remainder3, 1);
 }
 
-TestCase(combinatory_Test)
+TestCase(last_combination_indexes_Test)
 {
 	check((
 		std::is_same<
-			combinatory::get_combination<
-				std::index_sequence<1, 0, 3>,
-				type_list<int, double, char>,
-				type_list<std::size_t, double, std::string>,
-				type_list<int, double, char, bool, char>
+			traits::last_combination_indexes<
+				type_list<int, double, double, char>,
+				std::tuple<std::string>,
+				std::tuple<int, char>,
+				type_list<int, double, bool, char>
 			>::type,
-			type_list<double, std::size_t, bool>
+			std::index_sequence<3, 0, 1, 3>
+		>::value
+	));
+}
+
+TestCase(next_combination_indexes_Test)
+{
+	check((
+		std::is_same<
+			traits::next_combination_indexes<
+				std::index_sequence<1, 3, 2>,
+				std::index_sequence<3, 4, 5>
+			>::type,
+			std::index_sequence<2, 3, 2>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::next_combination_indexes<
+				std::index_sequence<2, 3, 2>,
+				std::index_sequence<3, 4, 5>
+			>::type,
+			std::index_sequence<0, 0, 3>
 		>::value
 	));
 }
@@ -842,4 +938,93 @@ TestCase(length_Test)
 		size3,
 		0
 	);
+}
+
+TestCase(iterate_generate_list_Test)
+{
+	check((
+		std::is_same<
+			traits::iterate_generate_list<
+				std::index_sequence<0, 0, 0>,
+				type_list<int, double, char>,
+				type_list<size_t, double, std::string>,
+				type_list<bool, char >
+			>::type,
+			type_list<
+				type_list<int, size_t, bool>,
+				type_list<double, size_t, bool>,
+				type_list<char, size_t, bool>,
+				type_list<int, double, bool>,
+				type_list<double, double, bool>,
+				type_list<char, double, bool>,
+				type_list<int, std::string, bool>,
+				type_list<double, std::string, bool>,
+				type_list<char, std::string, bool>,
+
+				type_list<int, size_t, char>,
+				type_list<double, size_t, char>,
+				type_list<char, size_t, char>,
+				type_list<int, double, char>,
+				type_list<double, double, char>,
+				type_list<char, double, char>,
+				type_list<int, std::string, char>,
+				type_list<double, std::string, char>,
+				type_list<char, std::string, char>
+			>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::iterate_generate_list<
+				std::index_sequence<2, 0, 1>,
+				type_list<int, double, char>,
+				type_list<size_t, double, std::string>,
+				type_list<bool, char>
+			>::type,
+			type_list<
+				type_list<char, size_t, char>,
+				type_list<int, double, char>,
+				type_list<double, double, char>,
+				type_list<char, double, char>,
+				type_list<int, std::string, char>,
+				type_list<double, std::string, char>,
+				type_list<char, std::string, char>
+			>
+		>::value
+	));
+}
+
+TestCase(combinatory_generate_list_Test)
+{
+	// check((
+	// 	std::is_same<
+	// 		combinatory::generate_list<
+	// 			type_list<int, double, char>,
+	// 			type_list<size_t, double, std::string>,
+	// 			type_list<bool, char>
+	// 		>::type,
+	// 		type_list<
+	// 			type_list<int, size_t, bool>,
+	// 			type_list<double, size_t, bool>,
+	// 			type_list<char, size_t, bool>,
+	// 			type_list<int, double, bool>,
+	// 			type_list<double, double, bool>,
+	// 			type_list<char, double, bool>,
+	// 			type_list<int, std::string, bool>,
+	// 			type_list<double, std::string, bool>,
+	// 			type_list<char, std::string, bool>,
+
+	// 			type_list<int, size_t, char>,
+	// 			type_list<double, size_t, char>,
+	// 			type_list<char, size_t, char>,
+	// 			type_list<int, double, char>,
+	// 			type_list<double, double, char>,
+	// 			type_list<char, double, char>,
+	// 			type_list<int, std::string, char>,
+	// 			type_list<double, std::string, char>,
+	// 			type_list<char, std::string, char>
+	// 		>
+	// 	>::value
+	// ));
 }

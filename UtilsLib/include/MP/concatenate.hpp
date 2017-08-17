@@ -14,6 +14,13 @@ namespace traits {
 		TypeList<Js...>
 	> : metafunction< TypeList<Is..., Js...> >
 	{};
+
+	template<typename T, template<typename, T...> class TypeList, T...Is, T...Js>
+	struct concatenate<
+		TypeList<T, Is...>,
+		TypeList<T, Js...>
+	> : metafunction< TypeList<T, Is..., Js...> >
+	{};
 } // traits
 
 #endif // CONCATENATE_HPP

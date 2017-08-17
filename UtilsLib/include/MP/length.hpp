@@ -10,7 +10,7 @@ namespace traits {
 
 	template<template<typename...> class TypeList, typename...Ts>
 	struct length< TypeList<Ts...> >
-		: std::integral_constant<std::size_t, sizeof...(Ts)>
+		: std::integral_constant<size_t, sizeof...(Ts)>
 	{};
 } // traits
 

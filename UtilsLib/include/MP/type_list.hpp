@@ -7,7 +7,6 @@
 #include <MP/type_list.tpp>
 
 // Standard
-#include <cstddef>
 #include <type_traits>
 
 template<typename...Ts>
@@ -31,7 +30,7 @@ struct type_list
 
 	constexpr static bool has_repeated_types = traits::has_repeated_types< type_list<Ts...> >::value;
 
-	constexpr static std::size_t size = traits::size< identity >::value;
+	constexpr static size_t size = traits::size< identity >::value;
 
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = ClassToSpecialize<Ts...>;
@@ -39,7 +38,7 @@ struct type_list
 	template<typename TypeList>
 	using concatenate = typename traits::concatenate<identity, TypeList>::type;
 
-	template<std::size_t position>
+	template<size_t position>
 	using get = typename traits::get<position, identity>::type;
 
 	// template<typename TypeList>

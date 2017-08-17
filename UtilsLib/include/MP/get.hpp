@@ -5,14 +5,14 @@
 #include <MP/metafunction.hpp>
 
 // Standard
-#include <cstddef>
+#include <type_traits>
 
 namespace traits {
-	template<std::size_t position, typename TypeList>
+	template<size_t position, typename TypeList>
 	struct get;
 
 	// Type version
-	template<template<typename...> class TypeList, typename T, typename...Ts, std::size_t position>
+	template<template<typename...> class TypeList, typename T, typename...Ts, size_t position>
 	struct get<
 		position,
 		TypeList<T, Ts...>
@@ -26,7 +26,7 @@ namespace traits {
 	> : metafunction<T>
 	{};
 
-	template<template<typename...> class TypeList, std::size_t position>
+	template<template<typename...> class TypeList, size_t position>
 	struct get<
 		position,
 		TypeList<>
