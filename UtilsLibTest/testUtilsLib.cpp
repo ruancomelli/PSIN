@@ -24,6 +24,7 @@
 #include <MP/length.hpp>
 #include <MP/make_unique_type_list.hpp>
 #include <MP/metafunction.hpp>
+#include <MP/purge.hpp>
 #include <MP/type_list.hpp>
 #include <MP/type_collection.hpp>
 
@@ -1028,34 +1029,43 @@ TestCase(combinatory_generate_list_Test)
 		>::value
 	));
 }
+
+namespace purge_Test_namespace {
+	template<typename T>
+	struct test : std::false_type
+	{};
+
+	template<>
+	struct test<bool> : std::true_type
+	{};
+
+	template<>
+	struct test<int> : std::true_type
+	{};
+} // purge_Test_namespace
+
+TestCase(purge_Test)
+{
+	using namespace purge_Test_namespace;
+
+	mp::purge::apply<test>::type x;
+
 	// check((
 	// 	std::is_same<
-	// 		combinatory::generate_list<
-	// 			type_list<int, double, char>,
-	// 			type_list<size_t, double, std::string>,
-	// 			type_list<bool, char>
+	// 		mp::purge::apply<
+	// 			test
 	// 		>::type,
-	// 		type_list<
-	// 			type_list<int, size_t, bool>,
-	// 			type_list<double, size_t, bool>,
-	// 			type_list<char, size_t, bool>,
-	// 			type_list<int, double, bool>,
-	// 			type_list<double, double, bool>,
-	// 			type_list<char, double, bool>,
-	// 			type_list<int, std::string, bool>,
-	// 			type_list<double, std::string, bool>,
-	// 			type_list<char, std::string, bool>,
+	// 		type_list<>
+	// 	>::value
+	// ));
 
-	// 			type_list<int, size_t, char>,
-	// 			type_list<double, size_t, char>,
-	// 			type_list<char, size_t, char>,
-	// 			type_list<int, double, char>,
-	// 			type_list<double, double, char>,
-	// 			type_list<char, double, char>,
-	// 			type_list<int, std::string, char>,
-	// 			type_list<double, std::string, char>,
-	// 			type_list<char, std::string, char>
-	// 		>
+	// check((
+	// 	std::is_same<
+	// 		typename purge::apply<
+	// 			test,
+	// 			int, char, int, double, bool, bool, int, char
+	// 		>::type,
+	// 		type_list<int, int, bool, bool, int>
 	// 	>::value
 	// ));
 }
