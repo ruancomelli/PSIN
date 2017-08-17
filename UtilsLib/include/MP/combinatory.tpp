@@ -3,40 +3,27 @@
 
 // UtilsLib
 #include <MP/concatenate.hpp>
+#include <MP/get.hpp>
 #include <MP/length.hpp>
 #include <MP/type_list.hpp>
 
 // Standard
+#include <utility>
 #include <type_traits>
 
 namespace traits {
-	template<typename...TypeLists>
-	struct generate_list;
+	template<size_t S = 0, size_t Value = 0>
+	struct make_constant_index_sequence;
 
-	template<>
-	struct generate_list<>
-	{
-		using type = type_list<>;
-	};
+	template<size_t S, size_t Value>
+	struct make_constant_index_sequence<S, Value>
+		: concatenate< index_sequence<Value>, make_constant_index_sequence<S-1, Value> >::type
+	{};
 
-	template<typename T, typename...Ts, typename...TypeLists>
-	struct generate_list<type_list<T, Ts...>, TypeLists...>
-	{
-		
-	};
-
-
-	template<typename Indexes, typename...TypeLists>
-	struct get_combination;
-
-	template<std::size_t...Is, typename...TLs>
-	struct get_combination< std::index_sequence<Is...>, TLs... >
-	{
-		using type = type_list< typename TLs::template get<Is> ... >;
-	};
-
-
-
+	template<size_t Value>
+	struct make_constant_index_sequence<0, Value>
+		: std::index_sequence<>
+	{};
 
 
 	template<typename Indexes, typename Limits>
@@ -95,6 +82,47 @@ namespace traits {
 			std::index_sequence<length<TLs>::value...>
 		>
 	{};
+
+
+	template<typename...TypeLists>
+	struct index_limit
+		: metafunction< std::index_sequence< length<TypeLists>... > >
+	{};
+
+	template<typename...TypeLists>
+	struct last_combination_indexes
+		: metafunction< std::index_sequence< length<TypeLists> - 1... > >
+	{};
+
+
+	template<typename Indexes, typename...TypeLists>
+	struct get_combination;
+
+	template<std::size_t...Is, typename...TLs>
+	struct get_combination< std::index_sequence<Is...>, TLs... >
+		: metafunction< type_list< typename get<Is, TLs> ... > >
+	{};
+
+
+
+
+
+	template<typename...TypeLists>
+	struct generate_list;
+
+	template<>
+	struct generate_list<>
+		: metafunction< type_list<> >
+	{};
+
+	template<typename T, typename...Ts, typename...TypeLists>
+	struct generate_list<type_list<T, Ts...>, TypeLists...>
+	{
+		// To implement	
+	};
+
+
+
 } // traits
 
 #endif // COMBINATORY_TPP
