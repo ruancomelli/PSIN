@@ -56,9 +56,8 @@ namespace traits
 
 	template<typename...Ts, typename...Us>
 	struct append< type_list<Ts...>, Us...>
-	{
-		using type = type_list<Ts..., Us...>;	
-	};
+		: metafunction< type_list<Ts..., Us...> >
+	{};
 
 
 
@@ -67,9 +66,8 @@ namespace traits
 
 	template<typename TypeList>
 	struct append_if_new_types<TypeList>
-	{
-		using type = TypeList;
-	};
+		: metafunction< TypeList >
+	{};
 
 	template<typename TypeList, typename U, typename...Us>
 	struct append_if_new_types<TypeList, U, Us...>
@@ -96,7 +94,9 @@ namespace traits
 	{};
 
 	template<>
-	struct has_repeated_types< type_list<> > : std::false_type {};
+	struct has_repeated_types< type_list<> > 
+		: std::false_type
+	{};
 
 	// template<typename T, typename U>
 	// struct is_permutation
