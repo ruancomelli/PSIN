@@ -9,7 +9,7 @@ struct combinatory
 	using get_combination = traits::get_combination<IndexSequence, TypeLists...>;
 
 	template<typename...TypeLists>
-	using generate_list = traits::generate_list<TypeLists...>;
+	using generate_combination_list = traits::generate_list<TypeLists...>;
 };
 
 #endif // COMBINATORY_HPP

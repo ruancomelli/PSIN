@@ -996,11 +996,11 @@ TestCase(iterate_generate_list_Test)
 	));
 }
 
-TestCase(combinatory_generate_list_Test)
+TestCase(combinatory_generate_combination_list_Test)
 {
 	check((
 		std::is_same<
-			combinatory::generate_list<
+			combinatory::generate_combination_list<
 				type_list<int, double, char>,
 				type_list<size_t, double, std::string>,
 				type_list<bool, char>
@@ -1048,24 +1048,23 @@ TestCase(purge_Test)
 {
 	using namespace purge_Test_namespace;
 
-	mp::purge::apply<test>::type x;
+	check((
+		std::is_same<
+			typename mp::purge::apply<
+				type_list<>,
+				test
+			>::type,
+			type_list<>
+		>::value
+	));
 
-	// check((
-	// 	std::is_same<
-	// 		mp::purge::apply<
-	// 			test
-	// 		>::type,
-	// 		type_list<>
-	// 	>::value
-	// ));
-
-	// check((
-	// 	std::is_same<
-	// 		typename purge::apply<
-	// 			test,
-	// 			int, char, int, double, bool, bool, int, char
-	// 		>::type,
-	// 		type_list<int, int, bool, bool, int>
-	// 	>::value
-	// ));
+	check((
+		std::is_same<
+			typename mp::purge::apply<
+				type_list<int, char, int, double, bool, bool, int, char>,
+				test
+			>::type,
+			type_list<int, int, bool, bool, int>
+		>::value
+	));
 }
