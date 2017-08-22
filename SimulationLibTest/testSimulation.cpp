@@ -1,20 +1,102 @@
 #define BOOST_TEST_MODULE SimulationLibTest
 
 // UtilsLib
+#include <FileSystem.hpp>
 #include <Test.hpp>
 
 // SimulationLib
 #include <InteractionSubjectLister.hpp>
 #include <Simulation.hpp>
 
-// UtilsLib
-#include <FileSystem.hpp>
+// Standard
+#include <type_traits>
 
 using namespace std;
 
+namespace InteractionSubjectLister_Test_namespace {
+	struct A
+	{};
+
+	struct B
+	{};
+	
+	struct C
+	{};
+
+	struct I
+	{
+		template<typename T, typename U>
+		struct check : bool_type< (is_same<T, A>::value || is_same<T, B>::value) && (is_same<U, A>::value || is_same<U, B>::value) >
+		{};
+	};
+
+	struct J
+	{
+		template<typename T, typename U>
+		struct check : bool_type< is_same<T, C>::value && is_same<U, B>::value >
+		{};
+	};
+} // InteractionSubjectLister_Test_namespace
+
 TestCase(InteractionSubjectLister_Test)
 {
-	
+	using namespace InteractionSubjectLister_Test_namespace;
+
+	check((
+		std::is_same<
+			traits::generate_triplets< type_list<I, J>, type_list<A, B, C> >::type,
+			type_list<
+				type_list<I, A, A>,
+				type_list<J, A, A>,
+				type_list<I, B, A>,
+				type_list<J, B, A>,
+				type_list<I, C, A>,
+				type_list<J, C, A>,
+
+				type_list<I, A, B>,
+				type_list<J, A, B>,
+				type_list<I, B, B>,
+				type_list<J, B, B>,
+				type_list<I, C, B>,
+				type_list<J, C, B>,
+
+				type_list<I, A, C>,
+				type_list<J, A, C>,
+				type_list<I, B, C>,
+				type_list<J, B, C>,
+				type_list<I, C, C>,
+				type_list<J, C, C>
+			>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			traits::get_valid_triplets< traits::generate_triplets< type_list<I, J>, type_list<A, B, C> >::type >::type,
+			type_list<
+				type_list<I, A, A>,
+				type_list<I, B, A>,
+
+				type_list<I, A, B>,
+				type_list<I, B, B>,
+				type_list<J, C, B>
+			>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			InteractionSubjectLister::generate_combinations< type_list<I, J>, type_list<A, B, C> >::type,
+			type_list<
+				type_list<I, A, A>,
+				type_list<I, B, A>,
+
+				type_list<I, A, B>,
+				type_list<I, B, B>,
+				type_list<J, C, B>
+			>
+		>::value
+	));
 }
 
 // For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public
