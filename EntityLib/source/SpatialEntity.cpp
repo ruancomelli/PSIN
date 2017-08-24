@@ -8,7 +8,7 @@ SpatialEntity::SpatialEntity()
 	this->setTaylorOrder(DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 }
 
-SpatialEntity::SpatialEntity(const int taylorOrder)
+SpatialEntity::SpatialEntity(const size_t taylorOrder)
 {
 	this->setTaylorOrder(taylorOrder);
 }
@@ -48,12 +48,12 @@ void SpatialEntity::setPositionMatrix(const std::vector<Vector3D> & positionMatr
 	this->setSpatial(this->positionMatrix, positionMatrix);
 }
 
-void SpatialEntity::setPositionDerivative(const int derivative, const double x, const double y, const double z)
+void SpatialEntity::setPositionDerivative(const size_t derivative, const double x, const double y, const double z)
 {
 	this->setSpatial(this->positionMatrix, derivative, x, y, z);
 }
 
-void SpatialEntity::setPositionDerivative(const int derivative, const Vector3D & vec)
+void SpatialEntity::setPositionDerivative(const size_t derivative, const Vector3D & vec)
 {
 	this->setSpatial(this->positionMatrix, derivative, vec);
 }
@@ -78,9 +78,9 @@ std::vector<Vector3D> SpatialEntity::getPositionMatrix(void) const
 	return this->positionMatrix;
 }
 
-Vector3D SpatialEntity::getPositionDerivative(const int derivative) const
+Vector3D SpatialEntity::getPositionDerivative(const size_t derivative) const
 {
-	if(derivative < 0 || derivative > this->taylorOrder)
+	if(derivative > this->taylorOrder)
 	{
 		throw std::runtime_error("Invalid derivative inserted. Derivative must be positive and less or equal to taylorOrder");
 	}
@@ -127,12 +127,12 @@ void SpatialEntity::setOrientationMatrix(const std::vector<Vector3D> & orientati
 	this->setSpatial(this->orientationMatrix, orientationMatrix);
 }
 
-void SpatialEntity::setOrientationDerivative(const int derivative, const double x, const double y, const double z)
+void SpatialEntity::setOrientationDerivative(const size_t derivative, const double x, const double y, const double z)
 {
 	this->setSpatial(this->orientationMatrix, derivative, x, y, z);
 }
 
-void SpatialEntity::setOrientationDerivative(const int derivative, const Vector3D & vec)
+void SpatialEntity::setOrientationDerivative(const size_t derivative, const Vector3D & vec)
 {
 	this->setSpatial(this->orientationMatrix, derivative, vec);
 }
@@ -157,9 +157,9 @@ std::vector<Vector3D> SpatialEntity::getOrientationMatrix(void) const
 	return this->orientationMatrix;
 }
 
-Vector3D SpatialEntity::getOrientationDerivative(const int derivative) const
+Vector3D SpatialEntity::getOrientationDerivative(const size_t derivative) const
 {
-	if(derivative < 0 || derivative > this->taylorOrder)
+	if(derivative > this->taylorOrder)
 	{
 		throw std::runtime_error("Invalid derivative inserted. Derivative must be positive and less or equal to taylorOrder");
 	}
@@ -175,9 +175,9 @@ Vector3D SpatialEntity::normalVersor( const SpatialEntity & neighbor ) const
 	return normalDirection;
 }
 
-void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const int derivative, const double x, const double y, const double z)
+void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const size_t derivative, const double x, const double y, const double z)
 {
-	if(derivative < 0 || derivative > this->taylorOrder)
+	if(derivative > this->taylorOrder)
 	{
 		throw std::runtime_error("Invalid derivative inserted. Derivative must be positive and less or equal to taylorOrder");
 	}
@@ -189,9 +189,9 @@ void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const int deriva
 	}
 }
 
-void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const int derivative, const Vector3D & vec)
+void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const size_t derivative, const Vector3D & vec)
 {
-	if(derivative < 0 || derivative > this->taylorOrder)
+	if(derivative > this->taylorOrder)
 	{
 		throw std::runtime_error("Invalid derivative inserted. Derivative must be positive and less or equal to taylorOrder");
 	}
@@ -213,7 +213,7 @@ void SpatialEntity::setSpatial(std::vector<Vector3D> & spatialToSet, const std::
 	}
 }
 
-void SpatialEntity::setTaylorOrder(const int taylorOrder)
+void SpatialEntity::setTaylorOrder(const size_t taylorOrder)
 {
 	if(taylorOrder < 3 || taylorOrder > 5)
 	{
@@ -226,14 +226,14 @@ void SpatialEntity::setTaylorOrder(const int taylorOrder)
 	}
 }
 
-int SpatialEntity::getTaylorOrder() const
+size_t SpatialEntity::getTaylorOrder() const
 {
 	return this->taylorOrder;
 }
 
 void SpatialEntity::resizePositionOrientation()
 {
-	int size = taylorOrder + 1;
+	size_t size = taylorOrder + 1;
 	this->positionMatrix.resize(size);
 	this->orientationMatrix.resize(size);
 }
