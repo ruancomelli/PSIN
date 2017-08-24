@@ -24,6 +24,7 @@
 #include <MP/length.hpp>
 #include <MP/make_unique_type_list.hpp>
 #include <MP/metafunction.hpp>
+#include <MP/name.hpp>
 #include <MP/purge.hpp>
 #include <MP/type_list.hpp>
 #include <MP/type_collection.hpp>
@@ -1068,3 +1069,19 @@ TestCase(purge_Test)
 		>::value
 	));
 }
+
+namespace name_Test_namespace
+{
+	struct A 
+	{};
+	template<> const std::string name<A>::value = "A";
+}
+
+TestCase(name_Test)
+{
+	using namespace name_Test_namespace;
+
+	check(
+		name<A>::value == "A"
+	);
+}	

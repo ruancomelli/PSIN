@@ -3,6 +3,7 @@
 
 // UtilsLib
 #include <MP/bool_type.hpp>
+#include <MP/name.hpp>
 #include <MP/type_collection.hpp>
 
 // Standard
@@ -55,6 +56,13 @@ class PhysicalEntity
 	protected:
 		typename type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
 };
+
+
+template<typename...Ts>
+struct name< PhysicalEntity<Ts...> >;
+
+template<typename...Ts>
+const std::string name< PhysicalEntity<Ts...> >::value = "PhysicalEntity";
 
 #include <PhysicalEntity.tpp>
 

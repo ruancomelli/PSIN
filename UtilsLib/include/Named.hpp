@@ -1,30 +1,31 @@
-#ifndef NAMED_H
-#define NAMED_H
+#ifndef NAMED_HPP
+#define NAMED_HPP
 
 #include <string>
 
-class Named{
-	public:
-		using string = std::string;
+class Named
+{
+public:
+	using string = std::string;
 
-		static const string defaultName;
+	static const string defaultName;
 
-		struct NamedCompare
-		{
-			bool operator()( const Named & left, const Named & right ) const
-			{ return left.getName() < right.getName();}
-		};
+	struct NamedCompare
+	{
+		bool operator()( const Named & left, const Named & right ) const
+		{ return left.getName() < right.getName();}
+	};
 
-		Named();
-		Named(const string & name);
+	Named();
+	Named(const string & name);
 
-		void setName(const string & name);
-		string getName(void) const;
+	void setName(const string & name);
+	string getName(void) const;
 
-	private:
-		string name;
+private:
+	string name;
 }; //class Named
 
 bool operator<(const Named & left, const Named & right);
 
-#endif // NAMED_H
+#endif // NAMED_HPP
