@@ -34,6 +34,8 @@ struct TangentialForceHaffWerner
 	static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
 };
 
+template<> const std::string NamedType<TangentialForceHaffWerner>::name = "TangentialForceHaffWerner";
+
 #include <InteractionDefinitions/TangentialForceHaffWerner.tpp>
 
 #endif

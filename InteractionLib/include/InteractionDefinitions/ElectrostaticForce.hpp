@@ -29,6 +29,8 @@ struct ElectrostaticForce
 	static void calculate(P1 & particle, P2 & neighbor);
 };
 
+template<> const std::string NamedType<ElectrostaticForce>::name = "ElectrostaticForce";
+
 #include <InteractionDefinitions/ElectrostaticForce.tpp>
 
 #endif

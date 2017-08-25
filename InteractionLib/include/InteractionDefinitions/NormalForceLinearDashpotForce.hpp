@@ -36,6 +36,8 @@ struct NormalForceLinearDashpotForce
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);
 };
 
+template<> const std::string NamedType<NormalForceLinearDashpotForce>::name = "NormalForceLinearDashpotForce";
+
 #include <InteractionDefinitions/NormalForceLinearDashpotForce.tpp>
 
 #endif

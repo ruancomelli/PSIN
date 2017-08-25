@@ -10,6 +10,8 @@
 #include <Foreach.hpp>
 #include <Mathematics.hpp>
 #include <Named.hpp>
+#include <NamedType.hpp>
+#include <NamedGroup.hpp>
 #include <ProgramOptions.hpp>
 #include <SharedPointer.hpp>
 #include <StringUtils.hpp>
@@ -24,7 +26,6 @@
 #include <MP/length.hpp>
 #include <MP/make_unique_type_list.hpp>
 #include <MP/metafunction.hpp>
-#include <MP/name.hpp>
 #include <MP/purge.hpp>
 #include <MP/type_list.hpp>
 #include <MP/type_collection.hpp>
@@ -438,6 +439,48 @@ TestCase(NamedTest)
 
 	check(defaultName < name);
 	check(namedCompareObject(defaultName, name));
+}
+
+namespace NamedType_Test_namespace {
+	struct A 
+	{};
+
+	template<typename T>
+	struct B
+	{};
+
+	template<> const std::string NamedType<A>::name("A");
+	template<> const std::string NamedType<B<int>>::name = "B_int";
+} // NamedType_Test_namespace
+
+TestCase(NamedType_Test)
+{
+	using namespace NamedType_Test_namespace;
+
+	check(NamedType<A>::name == "A");
+	check(NamedType<B<int>>::name == "B_int");
+}
+
+namespace NamedGroup_Test_namespace {
+	template<typename T>
+	struct A 
+	{};
+
+	template<> const std::string NamedGroup<A>::name = "A";
+
+	template<typename T, typename U>
+	struct B
+	{};
+
+	template<> const std::string NamedGroup<B>::name = "B";
+} // NamedType_Test_namespace
+
+TestCase(NamedGroup_Test)
+{
+	using namespace NamedGroup_Test_namespace;
+
+	check(NamedGroup<A>::name == "A");
+	check(NamedGroup<B>::name == "B");
 }
 
 int f(int i)
@@ -1069,19 +1112,3 @@ TestCase(purge_Test)
 		>::value
 	));
 }
-
-namespace name_Test_namespace
-{
-	struct A 
-	{};
-	template<> const std::string name<A>::value = "A";
-}
-
-TestCase(name_Test)
-{
-	using namespace name_Test_namespace;
-
-	check(
-		name<A>::value == "A"
-	);
-}	

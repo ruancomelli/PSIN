@@ -13,6 +13,7 @@
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
+#include <NamedGroup.hpp>
 #include <Vector.hpp>
 
 template<typename ... PropertyTypes>
@@ -33,6 +34,7 @@ class SphericalParticle : public Particle<PropertyDefinitions::Radius, PropertyT
 		Vector3D tangentialVersor(const SphericalParticle<Us...> & neighbor) const;
 };
 
+template<> const std::string NamedGroup<SphericalParticle>::name = "SphericalParticle";
 
 template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);

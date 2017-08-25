@@ -52,6 +52,8 @@ struct TangentialForceCundallStrack
 		static void endCollision(const HandledEntity & particle, const HandledEntity & neighbor);
 };
 
+template<> const std::string NamedType<TangentialForceCundallStrack>::name = "TangentialForceCundallStrack";
+
 #include <InteractionDefinitions/TangentialForceCundallStrack.tpp>
 
 #endif

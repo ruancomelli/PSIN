@@ -40,6 +40,8 @@ struct NormalForceViscoelasticSpheres
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);
 };
 
+template<> const std::string NamedType<NormalForceViscoelasticSpheres>::name = "NormalForceViscoelasticSpheres";
+
 #include <InteractionDefinitions/NormalForceViscoelasticSpheres.tpp>
 
 #endif
