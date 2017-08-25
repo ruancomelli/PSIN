@@ -17,14 +17,12 @@
 // Standard
 #include <string>
 
-template<typename ... PropertyTypes> using PropertyList = type_list<PropertyTypes...>;
 template<typename ... ParticleTypes> using ParticleList = type_list<ParticleTypes...>;
 template<typename ... InteractionTypes> using InteractionList = type_list<InteractionTypes...>;
 template<typename ... LooperTypes> using LooperList = type_list<LooperTypes...>;
 template<typename ... SeekerTypes> using SeekerList = type_list<SeekerTypes...>;
 
 template<
-	typename Properties,
 	typename Particles,
 	typename Interactions,
 	typename Loopers,
@@ -33,20 +31,22 @@ template<
 class Simulation;
 
 template<
-	typename ... PropertyTypes,
 	typename ... ParticleTypes,
 	typename ... InteractionTypes,
 	typename ... LooperTypes,
 	typename ... SeekerTypes
 >
 class Simulation<
-	PropertyList<PropertyTypes...>,
 	ParticleList<ParticleTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<LooperTypes...>,
-	SeekerList<SeekerTypes...>
+	SeekerList<CollisionSeeker>
 > : public Named
 {
+
+};
+
+
 	// public:
 	// 	static std::pair<std::string, std::string> parseArgvIntoSimulationNameAndRootPath(int argc, char **argv);
 	// 	static std::string parseArgvIntoSimulationName(int argc, char **argv);
@@ -91,8 +91,5 @@ class Simulation<
 	// 	SphericalParticlePtrArrayKit particleArray;
 	// 	Interaction<SphericalParticle, SphericalParticle> Interaction;
 	// 	std::set<Interaction<SphericalParticle, SphericalParticle>, Named::NamedCompare> InteractionSet;
-
-};
-
 
 #endif
