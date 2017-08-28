@@ -306,6 +306,24 @@ TestCase( Vector3DInitializationTest ){
 	checkEqual( 3.0 , v2.z() );
 }
 
+TestCase(Vector3D_access_operator_Test)
+{
+	double tolerance = 1e-12;
+	double x = 5;
+	double y = -3.14;
+	double z = 0.12;
+
+	Vector3D v;
+
+	v[0] = x;
+	v[1] = y;
+	v[2] = z;
+
+	checkClose(v[0], x, tolerance);
+	checkClose(v[1], y, tolerance);
+	checkClose(v[2], z, tolerance);
+}
+
 TestCase( Vector3DFunctionsMembers ){
 	Vector3D v1( 1.0 , 2.0 , 3.0 );
 

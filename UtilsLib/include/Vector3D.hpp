@@ -1,7 +1,9 @@
-#ifndef VECTOR_3D_H
-#define VECTOR_3D_H
+#ifndef VECTOR_3D_HPP
+#define VECTOR_3D_HPP
 
 #define VECTOR_3D_EQUAL_TOLERANCE 1e-12
+
+#include <array>
 
 class Vector3D{
 public:
@@ -19,18 +21,19 @@ public:
 	void normalize();
 	Vector3D normalized() const;
 	double dist( const Vector3D& v ) const;
+	double operator[](const std::size_t & pos) const;
+	double& operator[](const std::size_t & pos);
 	Vector3D operator +=( const Vector3D& v );
 	Vector3D operator -=( const Vector3D& v );
 	Vector3D operator *=( const double scalar );
 	Vector3D operator /=( const double scalar );
 	void print();
 
+
 	virtual ~Vector3D(){}
 
 protected:
-	double xComponent;
-	double yComponent;
-	double zComponent;
+	std::array<double, 3> components;
 };
 
 Vector3D cross( const Vector3D& v0, const Vector3D& v1 );
