@@ -13,19 +13,8 @@
 // // ----- Default simulation -----
 // void Simulation::defaultSimulate(const string simulationName, const string projectRootFolder)
 // {
-// 	this->fileTree.setProjectRootFolder(projectRootFolder);
-// 	this->fileTree.setInputFolder(projectRootFolder + "_input/");
-
 // 	this->setName(simulationName);
-
-// 	this->fileTree.setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/mainInfoInput.txt");
-// 	this->fileTree.setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
-
-// 	this->fileTree.setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
-// 	this->fileTree.setNumericalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Numerical/");
-// 	this->fileTree.setGraphicalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Graphical/");
-// 	this->fileTree.setTimeVectorOutputFileName("timeVector.txt");
-// 	this->fileTree.setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
+// 	this->fileTree.setTree(simulationName, projectRootFolder);
 
 // 	this->inputMainData();
 
