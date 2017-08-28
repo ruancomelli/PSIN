@@ -2,21 +2,23 @@
 #define PURGE_TPP
 
 // UtilsLib
-#include <MP/concatenate.hpp>
-#include <MP/metafunction.hpp>
+#include <mp/concatenate.hpp>
+#include <mp/metafunction.hpp>
 
-namespace traits {
+namespace psin {
+namespace detail {
+
 	template<typename TypeList, template<typename> class CheckMF>
 	struct purge_apply;
 
 	template<template<typename...> class TypeList, template<typename> class CheckMF>
-	struct purge_apply<TypeList<>, CheckMF> : metafunction< TypeList<> >
+	struct purge_apply<TypeList<>, CheckMF> : mp::metafunction< TypeList<> >
 	{};
 
 	template<template<typename...> class TypeList, template<typename> class CheckMF, typename T, typename...Ts>
 	struct purge_apply<TypeList<T, Ts...>, CheckMF>
-		: metafunction<
-			typename concatenate<
+		: mp::metafunction<
+			typename mp::concatenate<
 				typename std::conditional<
 					CheckMF<T>::value,
 					TypeList<T>,
@@ -26,6 +28,8 @@ namespace traits {
 			>::type
 		>
 	{};
-} // traits
+
+} // detail
+} // psin
 
 #endif // PURGE_TPP

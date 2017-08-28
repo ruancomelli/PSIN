@@ -1,5 +1,5 @@
-#ifndef PROPERTY_DEFINITIONS_H
-#define PROPERTY_DEFINITIONS_H
+#ifndef PROPERTY_DEFINITIONS_HPP
+#define PROPERTY_DEFINITIONS_HPP
 
 // Standard
 #include <string>
@@ -8,6 +8,7 @@
 #include <PositiveProperty.hpp>
 #include <Property.hpp>
 
+namespace psin {
 namespace PropertyDefinitions{
 
 	struct Mass : public PositiveProperty<double>
@@ -70,6 +71,7 @@ namespace PropertyDefinitions{
 	{
 		static const std::string name;
 	};
-}
+} // PropertyDefinitions
+} // psin
 
-#endif
+#endif // PROPERTY_DEFINITIONS_HPP

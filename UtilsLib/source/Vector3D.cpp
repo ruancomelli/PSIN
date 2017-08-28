@@ -4,6 +4,8 @@
 #include <cmath>
 #include <iostream>
 
+namespace psin {
+
 Vector3D::Vector3D( void ){
 	this->components[0] = 0.0;
 	this->components[1] = 0.0;
@@ -77,7 +79,8 @@ double Vector3D::dist( const Vector3D& v ) const
 	return dist;
 }
 
-void Vector3D::print() {
+void Vector3D::print() const
+{
 	std::cout << this->components[0] << ", " << this->components[1] << ", " << this->components[2] << ";" << std::endl; 
 }
 
@@ -187,3 +190,5 @@ double distance(const Vector3D & left, const Vector3D & right)
 {
 	return left.dist(right);
 }
+
+} // psin

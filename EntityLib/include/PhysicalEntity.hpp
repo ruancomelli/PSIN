@@ -2,12 +2,14 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
-#include <MP/bool_type.hpp>
-#include <MP/type_collection.hpp>
+#include <mp/bool_constant.hpp>
+#include <mp/type_collection.hpp>
 
 // Standard
 #include <tuple>
 #include <type_traits>
+
+namespace psin {
 
 template<typename ... PropertyTypes>
 class PhysicalEntity
@@ -16,10 +18,10 @@ class PhysicalEntity
 	friend class PhysicalEntity;
 
 	public:
-		using PropertyList = type_collection<PropertyTypes...>;
+		using PropertyList = mp::type_collection<PropertyTypes...>;
 
 		template<typename Pr>
-		struct has_property : bool_type< PropertyList::template contains<Pr> >
+		struct has_property : mp::bool_constant< PropertyList::template contains<Pr> >
 		{};
 
 		PhysicalEntity();
@@ -53,8 +55,10 @@ class PhysicalEntity
 		bool assigned() const;
 
 	protected:
-		typename type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
+		typename mp::type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
 };
+
+} // psin
 
 #include <PhysicalEntity.tpp>
 

@@ -6,7 +6,7 @@
 
 // UtilsLib
 #include <NamedType.hpp>
-#include <MP/bool_type.hpp>
+#include <mp/bool_constant.hpp>
 
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
@@ -20,7 +20,7 @@ struct TangentialForceHaffWerner
 	using FrictionParameter = PropertyDefinitions::FrictionParameter;
 
 	template<typename P1, typename P2>
-	struct check : bool_type<
+	struct check : bool_constant<
 		P1::template has_property<TangentialDamping>::value
 		&& P1::template has_property<FrictionParameter>::value
 		&& is_spherical<P1>::value

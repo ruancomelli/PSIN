@@ -1,5 +1,7 @@
 #include <SocialEntity.hpp>
 
+namespace psin {
+
 SocialEntity::SocialEntity()
 	: HandledEntity()
 {
@@ -24,3 +26,5 @@ std::set<int> SocialEntity::getNeighborhood(void) const
 { 
 	return this->neighborhood; 
 }
+
+} // psin

@@ -4,6 +4,8 @@
 // UtilsLib
 #include <UniquePointer.hpp>
 
+namespace psin {
+
 template<typename T = double>
 class Property
 {
@@ -32,12 +34,14 @@ class Property
 		bool assigned() const;
 
 	protected:
-		UniquePointer<T> value;
+		unique_ptr<T> value;
 
 		void assign(const T & value);
 		bool assignedFlag = false;
 };
 
+} // psin
+
 #include <Property.tpp>
 
-#endif
+#endif // PROPERTY_HPP

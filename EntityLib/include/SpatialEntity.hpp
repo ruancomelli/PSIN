@@ -9,7 +9,7 @@
 
 #define DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER 4
 
-
+namespace psin {
 
 class SpatialEntity
 {
@@ -91,5 +91,6 @@ class SpatialEntity
 double distance(const SpatialEntity & left, const SpatialEntity & right);	// distance function. Must be specialized for every pair of types
 
 
+} // psin
 
 #endif

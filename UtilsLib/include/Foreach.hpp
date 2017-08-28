@@ -1,5 +1,5 @@
-#ifndef UTILS_FOREACH_H
-#define UTILS_FOREACH_H
+#ifndef FOREACH_HPP
+#define FOREACH_HPP
 
 #include <boost/foreach.hpp>
 

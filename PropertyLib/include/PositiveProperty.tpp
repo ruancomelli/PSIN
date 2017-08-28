@@ -1,6 +1,8 @@
 // ----- Constructors -----
 #include <iostream>
 
+namespace psin {
+	
 template<typename T>
 PositiveProperty<T>::PositiveProperty()
 {}
@@ -27,3 +29,5 @@ void PositiveProperty<T>::set(const U & value)
 		this->assignedFlag = false;
 	}
 }
+
+} // psin

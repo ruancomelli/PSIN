@@ -7,6 +7,8 @@
 // UtilsLib
 #include <Vector3D.hpp>
 
+namespace psin {
+
 template<typename ... PropertyTypes>
 class FixedInfinitePlane : public FixedBoundary<PropertyTypes...>
 {
@@ -35,6 +37,8 @@ bool operator==(const FixedInfinitePlane<PropertyTypes...> & left, const FixedIn
 
 template<typename Plane1, typename Plane2>
 bool parallelPlanes(const Plane1 & left, const Plane2 & right);
+
+} // psin
 
 #include <FixedInfinitePlane.tpp>
 

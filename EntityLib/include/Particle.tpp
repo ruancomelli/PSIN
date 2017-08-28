@@ -1,6 +1,8 @@
 #ifndef PARTICLE_TPP
 #define PARTICLE_TPP
 
+namespace psin {
+
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::gravity = nullVector3D();
 
@@ -144,5 +146,7 @@ Vector3D Particle<PropertyTypes...>::getGravity() const
 {
 	return this->gravity;
 }	
+
+} // psin
 
 #endif

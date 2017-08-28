@@ -1,5 +1,7 @@
 #include <ProgramOptions.hpp>
 
+namespace psin {
+	
 ProgramOptions::VariablesMap parseCommandLine(const int argc, const char ** argv, ProgramOptions::OptionsDescription options)
 {
 	ProgramOptions::VariablesMap vm;
@@ -12,3 +14,5 @@ ProgramOptions::VariablesMap parseCommandLine(const int argc, const char ** argv
 
 	return vm;
 }
+
+} // psin

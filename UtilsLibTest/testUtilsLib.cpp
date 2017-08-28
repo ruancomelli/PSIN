@@ -20,17 +20,11 @@
 #include <Variant.hpp>
 #include <Vector.hpp>
 #include <Vector3D.hpp>
-#include <MP/bool_type.hpp>
-#include <MP/combinatory.hpp>
-#include <MP/get.hpp>
-#include <MP/length.hpp>
-#include <MP/make_unique_type_list.hpp>
-#include <MP/metafunction.hpp>
-#include <MP/purge.hpp>
-#include <MP/type_list.hpp>
-#include <MP/type_collection.hpp>
+#include <metaprogramming.hpp>
 
-using namespace std;
+// using namespace std;
+using namespace psin;
+using namespace mp;
 
 TestCase( CheckEqualAndCheckClose )
 {
@@ -46,25 +40,25 @@ TestCase(AnyTest)
 {
 	int i = 3;
 	double d = 3.14;
-	string s = "oi";
+	string s = "The Winter is coming.";
 
 	Any any = i;
-	checkEqual(anyCast<int>(any), i);
+	checkEqual(any_cast<int>(any), i);
 
 	any = d;
-	checkEqual(anyCast<double>(any), d);
+	checkEqual(any_cast<double>(any), d);
 
 	any = s;
-	checkEqual(anyCast<string>(any), s);
+	checkEqual(any_cast<string>(any), s);
 
 	std::vector< Any > many;
 	many.push_back(i);
 	many.push_back(d);
 	many.push_back(s);
 
-	checkEqual(anyCast<int>(many[0]), i);
-	checkEqual(anyCast<double>(many[1]), d);
-	checkEqual(anyCast<string>(many[2]), s);
+	checkEqual(any_cast<int>(many[0]), i);
+	checkEqual(any_cast<double>(many[1]), d);
+	checkEqual(any_cast<string>(many[2]), s);
 }
 
 // ----- Foreach -----
@@ -84,30 +78,30 @@ TestCase( ForeachTest ){
 	}
 }
 
-// ----- SharedPointer -----
-TestCase(SharedPointerTest) {
-	SharedPointer<Vector3D> v0( new Vector3D );
+// ----- shared_ptr -----
+TestCase(shared_ptr_Test) {
+	shared_ptr<Vector3D> v0( new Vector3D );
 
 	(*v0).x() = 1.0;
 	(*v0).y() = 2.0;
 	(*v0).z() = 3.0;
 	
-	SharedPointer<Vector3D> v1(new Vector3D(*v0));
+	shared_ptr<Vector3D> v1(new Vector3D(*v0));
 
 	checkEqual((*v0).x(), v1->x());
 	checkEqual((*v0).y(), v1->y());
 	checkEqual((*v0).z(), v1->z());
 }
 
-TestCase(UniquePointerTest)
+TestCase(unique_ptr_Test)
 {
-	UniquePointer<Vector3D> v0( new Vector3D );
+	unique_ptr<Vector3D> v0( new Vector3D );
 
 	(*v0).x() = 1.0;
 	(*v0).y() = 2.0;
 	(*v0).z() = 3.0;
 	
-	UniquePointer<Vector3D> v1 = makeUnique<Vector3D>( *v0 );
+	unique_ptr<Vector3D> v1 = make_unique<Vector3D>( *v0 );
 
 	checkEqual((*v0).x(), v1->x());
 	checkEqual((*v0).y(), v1->y());
@@ -511,7 +505,7 @@ double f(double j)
 	return 5.6 * j;
 }
 
-struct fVisitor : public staticVisitor<>
+struct fVisitor : public variant::static_visitor<>
 {
 	void operator()(int & i) const
 	{
@@ -526,29 +520,29 @@ struct fVisitor : public staticVisitor<>
 
 TestCase(VariantTest)
 {
-	Variant<int, double> myVariant;
+	variant::variant<int, double> myVariant;
 	int intValue = 5;
 	int intAnswer = f(intValue);
 	double doubleValue = 9.8;
 	double doubleAnswer = f(doubleValue);
 
 	myVariant = intValue;
-	applyVisitor( fVisitor(), myVariant );
-	checkEqual(getVariant<int>(myVariant), intAnswer);
+	variant::apply_visitor( fVisitor(), myVariant );
+	checkEqual(variant::get<int>(myVariant), intAnswer);
 
 	myVariant = doubleValue;
-	applyVisitor(fVisitor(), myVariant);
-	checkEqual(getVariant<double>(myVariant), doubleAnswer);
+	variant::apply_visitor(fVisitor(), myVariant);
+	checkEqual(variant::get<double>(myVariant), doubleAnswer);
 }
 
-TestCase(bool_type_Test)
+TestCase(bool_constant_Test)
 {
 	check((
-			bool_type<true>::value
+			bool_constant<true>::value
 		));
 
 	check(!(
-			bool_type<false>::value
+			bool_constant<false>::value
 		));
 }
 
@@ -566,14 +560,14 @@ TestCase(get_Test)
 {
 	check((
 		std::is_same<
-			traits::get<1, type_list<int, double, double> >::type,
+			mp::get<1, type_list<int, double, double> >::type,
 			double
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::get<2, std::tuple<int, double, char> >::type,
+			mp::get<2, std::tuple<int, double, char> >::type,
 			char
 		>::value
 	));
@@ -583,28 +577,28 @@ TestCase(concatenate_Test)
 {
 	check((
 		std::is_same<
-			traits::concatenate< type_list<int, double>, type_list<double, char, char, bool> >::type,
+			mp::concatenate< type_list<int, double>, type_list<double, char, char, bool> >::type,
 			type_list<int, double, double, char, char, bool>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::concatenate< type_list<int, double>, type_list<> >::type,
+			mp::concatenate< type_list<int, double>, type_list<> >::type,
 			type_list<int, double>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::concatenate< tuple<int, double>, tuple<double, char, char, bool> >::type,
-			tuple<int, double, double, char, char, bool>
+			mp::concatenate< std::tuple<int, double>, std::tuple<double, char, char, bool> >::type,
+			std::tuple<int, double, double, char, char, bool>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::concatenate< index_sequence<2, 3>, index_sequence<3, 0, 0, 1> >::type,
+			mp::concatenate< index_sequence<2, 3>, index_sequence<3, 0, 0, 1> >::type,
 			index_sequence<2, 3, 3, 0, 0, 1>
 		>::value
 	));
@@ -869,28 +863,28 @@ TestCase(make_constant_index_sequence_Test)
 {
 	check((
 		std::is_same<
-			traits::make_constant_index_sequence<>::type,
+			detail::make_constant_index_sequence<>::type,
 			std::index_sequence<>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::make_constant_index_sequence<0>::type,
+			detail::make_constant_index_sequence<0>::type,
 			std::index_sequence<>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::make_constant_index_sequence<2>::type,
+			detail::make_constant_index_sequence<2>::type,
 			std::index_sequence<0, 0>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::make_constant_index_sequence<3, 5>::type,
+			detail::make_constant_index_sequence<3, 5>::type,
 			std::index_sequence<5, 5, 5>
 		>::value
 	));
@@ -900,14 +894,14 @@ TestCase(format_indexes_based_on_limits_Test)
 {
 	check((
 		std::is_same<
-			traits::format_indexes_based_on_limits<
+			detail::format_indexes_based_on_limits<
 				std::index_sequence<>,
 				std::index_sequence<>
 			>::type,
 			std::index_sequence<>
 		>::value
 	));
-	size_t remainder1 = traits::format_indexes_based_on_limits<
+	size_t remainder1 = detail::format_indexes_based_on_limits<
 			std::index_sequence<>,
 			std::index_sequence<>
 		>::remainder;
@@ -915,14 +909,14 @@ TestCase(format_indexes_based_on_limits_Test)
 
 	check((
 		std::is_same<
-			traits::format_indexes_based_on_limits<
+			detail::format_indexes_based_on_limits<
 				std::index_sequence<7, 4, 1>,
 				std::index_sequence<5, 5, 3>
 			>::type,
 			std::index_sequence<2, 0, 2>
 		>::value
 	));
-	size_t remainder2 = traits::format_indexes_based_on_limits<
+	size_t remainder2 = detail::format_indexes_based_on_limits<
 			std::index_sequence<7, 4, 1>,
 			std::index_sequence<5, 5, 3>
 		>::remainder;
@@ -930,14 +924,14 @@ TestCase(format_indexes_based_on_limits_Test)
 
 	check((
 		std::is_same<
-			traits::format_indexes_based_on_limits<
+			detail::format_indexes_based_on_limits<
 				std::index_sequence<5, 4, 2>,
 				std::index_sequence<5, 5, 3>
 			>::type,
 			std::index_sequence<0, 0, 0>
 		>::value
 	));
-	size_t remainder3 = traits::format_indexes_based_on_limits<
+	size_t remainder3 = detail::format_indexes_based_on_limits<
 			std::index_sequence<5, 5, 3>,
 			std::index_sequence<5, 5, 3>
 		>::remainder;
@@ -948,7 +942,7 @@ TestCase(last_combination_indexes_Test)
 {
 	check((
 		std::is_same<
-			traits::last_combination_indexes<
+			detail::last_combination_indexes<
 				type_list<int, double, double, char>,
 				std::tuple<std::string>,
 				std::tuple<int, char>,
@@ -963,7 +957,7 @@ TestCase(next_combination_indexes_Test)
 {
 	check((
 		std::is_same<
-			traits::next_combination_indexes<
+			detail::next_combination_indexes<
 				std::index_sequence<1, 3, 2>,
 				std::index_sequence<3, 4, 5>
 			>::type,
@@ -973,7 +967,7 @@ TestCase(next_combination_indexes_Test)
 
 	check((
 		std::is_same<
-			traits::next_combination_indexes<
+			detail::next_combination_indexes<
 				std::index_sequence<2, 3, 2>,
 				std::index_sequence<3, 4, 5>
 			>::type,
@@ -984,19 +978,19 @@ TestCase(next_combination_indexes_Test)
 
 TestCase(length_Test)
 {
-	size_t size1 = traits::length< type_list<int, double, double, char, bool> >::value;
+	size_t size1 = mp::length< type_list<int, double, double, char, bool> >::value;
 	checkEqual(
 		size1,
 		5
 	);
 
-	size_t size2 = traits::length< tuple<double, bool> >::value;
+	size_t size2 = mp::length< std::tuple<double, bool> >::value;
 	checkEqual(
 		size2,
 		2
 	);
 
-	size_t size3 = traits::length< tuple<> >::value;
+	size_t size3 = mp::length< std::tuple<> >::value;
 	checkEqual(
 		size3,
 		0
@@ -1007,7 +1001,7 @@ TestCase(iterate_generate_list_Test)
 {
 	check((
 		std::is_same<
-			traits::iterate_generate_list<
+			detail::iterate_generate_list<
 				std::index_sequence<0, 0, 0>,
 				type_list<int, double, char>,
 				type_list<size_t, double, std::string>,
@@ -1039,7 +1033,7 @@ TestCase(iterate_generate_list_Test)
 
 	check((
 		std::is_same<
-			traits::iterate_generate_list<
+			detail::iterate_generate_list<
 				std::index_sequence<2, 0, 1>,
 				type_list<int, double, char>,
 				type_list<size_t, double, std::string>,

@@ -4,6 +4,8 @@
 // EntityLib
 #include <Boundary.hpp>
 
+namespace psin {
+
 template<typename ... PropertyTypes>
 class FixedBoundary : 
     public Boundary<PropertyTypes...>
@@ -21,6 +23,8 @@ class FixedBoundary :
 		using BaseBoundary::setPositionFunction;
 		using BaseBoundary::setOrientationFunction;
 };
+
+} // psin
 
 #include <FixedBoundary.tpp>
 

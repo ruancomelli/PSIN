@@ -3,8 +3,10 @@
 // Standard
 #include <algorithm>
 
+namespace psin {
+
 // Compare strings case sensitive or not
-int stringCompare( std::string left, std::string right, bool caseSensitive )
+int stringCompare( std::string left, std::string right, const bool caseSensitive )
 {
 	if(!caseSensitive)
 	{
@@ -14,3 +16,5 @@ int stringCompare( std::string left, std::string right, bool caseSensitive )
 
 	return left.compare(right);
 }
+
+} // psin

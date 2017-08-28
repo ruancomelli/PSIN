@@ -1,6 +1,8 @@
 #ifndef SPHERICAL_PARTICLE_TPP
 #define SPHERICAL_PARTICLE_TPP
 
+namespace psin {
+
 template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
@@ -56,7 +58,7 @@ Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalPart
 		const double radius1 = left.template get<Radius>();
 		const double radius2 = right.template get<Radius>();
 
-		const double distance = ::distance(left, right);
+		const double distance = psin::distance(left, right);
 
 		const double contactPointSize = ( (radius1*radius1) - (radius2*radius2) + (distance*distance) ) / ( 2 * distance );	// See law of cosines
 		const Vector3D contactPoint = contactPointSize * left.normalVersor( right ) + left.getPosition();
@@ -120,5 +122,7 @@ Vector3D SphericalParticle<PropertyTypes...>::tangentialVersor(const SphericalPa
 		return nullVector3D();
 	}
 }
+
+} // psin
 
 #endif

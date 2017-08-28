@@ -1,12 +1,18 @@
-#ifndef UTILS_VARIANT_H
-#define UTILS_VARIANT_H
+#ifndef VARIANT_HPP
+#define VARIANT_HPP
 
 // boost
 #include <boost/variant.hpp>
 
-#define Variant boost::variant
-#define staticVisitor boost::static_visitor
-#define applyVisitor boost::apply_visitor
-#define getVariant boost::get
+namespace psin {
 
-#endif //UTILS_VARIANT_H
+namespace variant {
+	using boost::variant;
+	using boost::static_visitor;
+	using boost::apply_visitor;
+	using boost::get;
+} // variant
+
+} // psin
+
+#endif //VARIANT_HPP

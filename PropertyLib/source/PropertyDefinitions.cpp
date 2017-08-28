@@ -3,6 +3,8 @@
 // Standard
 #include <iostream>
 
+namespace psin {
+	
 // ========================================== MASS ==========================================
 const std::string PropertyDefinitions::Mass::name = "Mass";
 
@@ -38,3 +40,5 @@ const std::string PropertyDefinitions::TangentialKappa::name = "TangentialKappa"
 
 // ========================================== ELECTRIC CHARGE ==========================================
 const std::string PropertyDefinitions::ElectricCharge::name = "ElectricCharge";
+
+} // psin

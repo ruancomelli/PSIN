@@ -7,6 +7,8 @@
 // Standard
 #include <set>
 
+namespace psin {
+
 class SocialEntity : public HandledEntity
 {
 	public:
@@ -20,5 +22,7 @@ class SocialEntity : public HandledEntity
 	private:
 		std::set<int> neighborhood;
 };
+
+} // psin
 
 #endif

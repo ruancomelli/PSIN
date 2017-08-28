@@ -1,5 +1,5 @@
-#ifndef UTILS_ANY_H
-#define UTILS_ANY_H
+#ifndef ANY_HPP
+#define ANY_HPP
 
 // Standard
 #include <vector>
@@ -7,7 +7,11 @@
 // boost
 #include <boost/any.hpp>
 
-#define Any boost::any
-#define anyCast boost::any_cast
+namespace psin {
 
-#endif //UTILS_SHARED_POINTER_H
+using Any = boost::any;
+using boost::any_cast;
+
+} // psin
+
+#endif //ANY_HPP

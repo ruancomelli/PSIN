@@ -1,19 +1,19 @@
-#ifndef UTILS_PROGRAM_OPTIONS_H
-#define UTILS_PROGRAM_OPTIONS_H
+#ifndef PROGRAM_OPTIONS_HPP
+#define PROGRAM_OPTIONS_HPP
 
 #include <boost/program_options.hpp>
 
-namespace boost
-{
-	namespace program_options
-	{
-		using OptionsDescription = options_description;
-		using VariablesMap = variables_map;
-	}
-}
+namespace psin {
 
-namespace ProgramOptions = boost::program_options;
+namespace ProgramOptions
+{
+	using namespace boost::program_options;
+	using OptionsDescription = options_description;
+	using VariablesMap = variables_map;
+}
 
 ProgramOptions::VariablesMap parseCommandLine(const int argc, const char ** argv, ProgramOptions::OptionsDescription options);
 
-#endif //UTILS_PROGRAM_OPTIONS_H
+} // psin
+
+#endif //PROGRAM_OPTIONS_HPP

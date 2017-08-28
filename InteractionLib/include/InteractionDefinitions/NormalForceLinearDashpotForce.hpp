@@ -6,7 +6,7 @@
 
 // UtilsLib
 #include <NamedType.hpp>
-#include <MP/bool_type.hpp>
+#include <mp/bool_constant.hpp>
 
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
@@ -20,7 +20,7 @@ struct NormalForceLinearDashpotForce
 	using NormalDissipativeConstant = PropertyDefinitions::NormalDissipativeConstant;
 
 	template<typename P1, typename P2>
-	struct check : bool_type<
+	struct check : bool_constant<
 		P1::template has_property<ElasticModulus>::value
 		&& P1::template has_property<NormalDissipativeConstant>::value
 		&& is_spherical<P1>::value

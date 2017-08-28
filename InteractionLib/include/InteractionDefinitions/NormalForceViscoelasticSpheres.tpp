@@ -9,6 +9,7 @@
 
 // Standard
 #include <algorithm>
+#include <cmath>
 
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
@@ -40,8 +41,8 @@ Vector3D NormalForceViscoelasticSpheres::calculate(SphericalParticle<Ts...> & pa
 		
 		// ---- Calculate normal force ----
 		const double overlapDerivative = ::overlapDerivative(particle, neighbor);
-		const double term1 = (4/3) * sqrt(effectiveRadius);
-		const double term2 = sqrt(overlap) * (overlap + 0.5 * (dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
+		const double term1 = (4/3) * std::sqrt(effectiveRadius);
+		const double term2 = std::sqrt(overlap) * (overlap + 0.5 * (dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
 		const double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
 		
 		const double normalForceModulus = std::max( term1 * term2 / term3 , 0.0 );

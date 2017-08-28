@@ -5,6 +5,8 @@
 
 #include <array>
 
+namespace psin {
+
 class Vector3D{
 public:
 	Vector3D( void );
@@ -27,7 +29,7 @@ public:
 	Vector3D operator -=( const Vector3D& v );
 	Vector3D operator *=( const double scalar );
 	Vector3D operator /=( const double scalar );
-	void print();
+	void print() const;
 
 
 	virtual ~Vector3D(){}
@@ -51,5 +53,6 @@ double distance(const Vector3D & left, const Vector3D & right);
 
 inline Vector3D nullVector3D(void){ return Vector3D(); }
 
+} // psin
 
-#endif
+#endif // VECTOR_3D_HPP

@@ -1,5 +1,5 @@
-#ifndef VECTOR_IO_H
-#define VECTOR_IO_H
+#ifndef VECTOR_IO_HPP
+#define VECTOR_IO_HPP
 
 // Standard
 #include <fstream>

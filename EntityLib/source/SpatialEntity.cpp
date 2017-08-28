@@ -3,6 +3,8 @@
 // Standard
 #include <stdexcept>
 
+namespace psin {
+
 SpatialEntity::SpatialEntity()
 {
 	this->setTaylorOrder(DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
@@ -242,3 +244,5 @@ double distance(const SpatialEntity & left, const SpatialEntity & right)
 {
 	return (left.getPosition() - right.getPosition()).length();
 }
+
+} // psin

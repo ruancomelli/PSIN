@@ -12,6 +12,7 @@
 // UtilsLib
 #include <Test.hpp>
 
+using namespace psin;
 using namespace PropertyDefinitions;
 using namespace std;
 

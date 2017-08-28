@@ -1,16 +1,15 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 
 // Standard
 #include <vector>
 
+namespace psin {
 
 using std::vector;
 
-
-typedef vector< double > DoubleVector;
-typedef vector< DoubleVector > DoubleVector2D;
-
+using DoubleVector = vector< double >;
+using DoubleVector2D = vector< DoubleVector >;
 
 // DoubleVector Basic Operations
 DoubleVector operator *(const double & scalar, DoubleVector vec);
@@ -38,6 +37,9 @@ template <class type>
 bool operator==( vector<type> & left , vector<type> & right );
 template <class type> 
 bool operator!=( vector<type> & left , vector<type> & right );
+
+} // psin
+
 
 #include <Vector.tpp>
 

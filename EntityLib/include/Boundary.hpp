@@ -9,6 +9,8 @@
 #include <SocialEntity.hpp>
 #include <SpatialEntity.hpp>
 
+namespace psin {
+	
 template<typename ... PropertyTypes>
 class Boundary : 
     public PhysicalEntity<PropertyTypes...>,
@@ -28,6 +30,8 @@ class Boundary :
 		std::function< Spatial(double)> positionFunction;
 		std::function< Spatial(double)> orientationFunction;
 };
+
+} // psin
 
 #include <Boundary.tpp>
 

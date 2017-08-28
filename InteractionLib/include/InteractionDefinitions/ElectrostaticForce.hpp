@@ -6,7 +6,7 @@
 
 // UtilsLib
 #include <NamedType.hpp>
-#include <MP/bool_type.hpp>
+#include <mp/bool_constant.hpp>
 
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
@@ -17,7 +17,7 @@ struct ElectrostaticForce
 	using ElectricCharge = PropertyDefinitions::ElectricCharge;
 
 	template<typename P1, typename P2>
-	struct check : bool_type<
+	struct check : bool_constant<
 		P1::template has_property<ElectricCharge>::value
 		&& P2::template has_property<ElectricCharge>::value
 		>

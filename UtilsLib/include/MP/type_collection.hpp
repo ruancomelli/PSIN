@@ -2,9 +2,12 @@
 #define TYPE_COLLECTION_HPP
 
 // UtilsLib
-#include <MP/type_collection.tpp>
-#include <MP/type_list.hpp>
-#include <MP/make_unique_type_list.hpp>
+#include <mp/type_collection.tpp>
+#include <mp/type_list.hpp>
+#include <mp/make_unique_type_list.hpp>
+
+namespace psin {
+namespace mp {
 
 template<typename...Ts>
 struct type_collection
@@ -21,10 +24,10 @@ struct type_collection
 	constexpr static unsigned size = equivalent_type_list::size;
 
 	template<typename U>
-	constexpr static bool is_superset_of = traits::is_superset_of<identity, U>::value;
+	constexpr static bool is_superset_of = detail::is_superset_of<identity, U>::value;
 
 	template<typename U>
-	constexpr static bool is_subset_of = traits::is_subset_of<identity, U>::value;
+	constexpr static bool is_subset_of = detail::is_subset_of<identity, U>::value;
 
 	template<typename U>
 	constexpr static bool is_equal_to = is_superset_of<U> && is_subset_of<U>;
@@ -32,5 +35,8 @@ struct type_collection
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = typename equivalent_type_list::template specialize<ClassToSpecialize>;
 };
+
+} // mp
+} // psin
 
 #endif

@@ -6,6 +6,8 @@
 #include <numeric>
 #include <stdexcept>
 
+namespace psin {
+
 using std::runtime_error;
 
 // DoubleVectorOperations
@@ -145,3 +147,5 @@ DoubleVector2D operator *( const DoubleVector2D & A, const DoubleVector2D & B ){
 DoubleVector nullVector(int dimension){
 	return DoubleVector(dimension, 0);
 }
+
+} // psin

@@ -2,12 +2,13 @@
 #define GET_HPP
 
 // UtilsLib
-#include <MP/metafunction.hpp>
+#include <mp/metafunction.hpp>
 
 // Standard
 #include <type_traits>
 
-namespace traits {
+namespace psin {
+namespace mp {
 	template<size_t position, typename TypeList>
 	struct get;
 
@@ -37,6 +38,7 @@ namespace traits {
 
 		using type = void;
 	};
-} // traits
+} // mp
+} // psin
 
 #endif // GET_HPP

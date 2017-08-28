@@ -1,10 +1,14 @@
-#ifndef QUATERNION_H
-#define QUATERNION_H
+#ifndef QUATERNION_HPP
+#define QUATERNION_HPP
 
 // UtilsLib
 #include <boost/math/quaternion.hpp>
 
+namespace psin {
+	
 template<typename ... Ts>
 using Quaternion = boost::math::quaternion<Ts ...>;
 
-#endif
+} // psin
+
+#endif //QUATERNION_HPP

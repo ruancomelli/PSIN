@@ -2,21 +2,23 @@
 #define COMBINATORY_TPP
 
 // UtilsLib
-#include <MP/concatenate.hpp>
-#include <MP/get.hpp>
-#include <MP/length.hpp>
-#include <MP/metafunction.hpp>
-#include <MP/type_list.hpp>
+#include <mp/concatenate.hpp>
+#include <mp/get.hpp>
+#include <mp/length.hpp>
+#include <mp/metafunction.hpp>
+#include <mp/type_list.hpp>
 
 // Standard
 #include <utility>
 #include <type_traits>
 
-namespace traits {
+namespace psin {
+namespace detail {
+	
 	template<size_t S = 0, size_t Value = 0>
 	struct make_constant_index_sequence
-		: metafunction< 
-			typename concatenate< 
+		: mp::metafunction< 
+			typename mp::concatenate< 
 				std::index_sequence<Value>, 
 				typename make_constant_index_sequence<S-1, Value>::type 
 			>::type 
@@ -25,7 +27,7 @@ namespace traits {
 
 	template<size_t Value>
 	struct make_constant_index_sequence<0, Value>
-		: metafunction< std::index_sequence<> >
+		: mp::metafunction< std::index_sequence<> >
 	{};
 
 
@@ -36,7 +38,7 @@ namespace traits {
 	struct format_indexes_based_on_limits<
 		List<>,
 		List<>
-	> : metafunction< List<> >
+	> : mp::metafunction< List<> >
 	{
 		constexpr static size_t remainder = 0;
 	};
@@ -45,7 +47,7 @@ namespace traits {
 	struct format_indexes_based_on_limits<
 		List<T>,
 		List<T>
-	> : metafunction< List<T> >
+	> : mp::metafunction< List<T> >
 	{
 		constexpr static T remainder = 0;
 	};
@@ -56,7 +58,7 @@ namespace traits {
 	struct format_indexes_based_on_limits<
 		List<I>,
 		List<L>
-	> : metafunction< List<I%L> >
+	> : mp::metafunction< List<I%L> >
 	{
 		constexpr static size_t remainder = I/L;
 	};
@@ -65,7 +67,7 @@ namespace traits {
 	struct format_indexes_based_on_limits<
 		List<T, I>,
 		List<T, L>
-	> : metafunction< List<T, I%L> >
+	> : mp::metafunction< List<T, I%L> >
 	{
 		constexpr static T remainder = I/L;
 	};
@@ -76,8 +78,8 @@ namespace traits {
 	struct format_indexes_based_on_limits<
 		List<I1, I2, Is...>,
 		List<L1, L2, Ls...>
-	> : metafunction<
-			typename concatenate< 
+	> : mp::metafunction<
+			typename mp::concatenate< 
 				List<I1%L1>,
 				typename format_indexes_based_on_limits<
 					List<I2 + I1/L1, Is...>,
@@ -98,8 +100,8 @@ namespace traits {
 	struct format_indexes_based_on_limits<
 		List<T, I1, I2, Is...>,
 		List<T, L1, L2, Ls...>
-	> : metafunction<
-			typename concatenate< 
+	> : mp::metafunction<
+			typename mp::concatenate< 
 				List<T, I1%L1>,
 				typename format_indexes_based_on_limits<
 					List<T, I2 + I1/L1, Is...>,
@@ -117,12 +119,12 @@ namespace traits {
 
 	template<typename...TypeLists>
 	struct index_limit
-		: metafunction< std::index_sequence< length<TypeLists>::value ... > >
+		: mp::metafunction< std::index_sequence< mp::length<TypeLists>::value ... > >
 	{};
 
 	template<typename...TypeLists>
 	struct last_combination_indexes
-		: metafunction< std::index_sequence< length<TypeLists>::value - 1 ... > >
+		: mp::metafunction< std::index_sequence< mp::length<TypeLists>::value - 1 ... > >
 	{};
 
 	template<typename Indexes, typename Limits>
@@ -142,16 +144,16 @@ namespace traits {
 
 	template<size_t...Is, typename...TLs>
 	struct get_combination< std::index_sequence<Is...>, TLs... >
-		: metafunction< type_list< typename get<Is, TLs>::type ... > >
+		: mp::metafunction< mp::type_list< typename mp::get<Is, TLs>::type ... > >
 	{};
 
 
 
 	template<typename Indexes, typename...TLs>
 	struct iterate_generate_list
-		: metafunction<
-			typename concatenate<
-				type_list<typename get_combination<Indexes, TLs...>::type>,
+		: mp::metafunction<
+			typename mp::concatenate<
+				mp::type_list<typename get_combination<Indexes, TLs...>::type>,
 				typename iterate_generate_list<
 					typename next_combination_indexes<Indexes, typename index_limit<TLs...>::type>::type, 
 					TLs...
@@ -165,8 +167,8 @@ namespace traits {
 		typename last_combination_indexes<TLs...>::type,
 		TLs...
 	>
-		: metafunction<	
-			type_list<
+		: mp::metafunction<	
+			mp::type_list<
 				typename get_combination<
 					typename last_combination_indexes<TLs...>::type, 
 					TLs...
@@ -185,6 +187,7 @@ namespace traits {
 		>
 	{};
 
-} // traits
+} // detail
+} // psin
 
 #endif // COMBINATORY_TPP

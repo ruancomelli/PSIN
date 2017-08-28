@@ -8,6 +8,7 @@
 #include <SphericalParticlePtrArrayKit.hpp>
 
 // SimulationLib
+#include <SeekerDefinitions.hpp>
 #include <SimulationFileTree.hpp>
 
 // UtilsLib
@@ -26,15 +27,14 @@ template<
 	typename Particles,
 	typename Interactions,
 	typename Loopers,
-	typename SeekerList
+	typename Seekers
 > 
 class Simulation;
 
 template<
 	typename ... ParticleTypes,
 	typename ... InteractionTypes,
-	typename ... LooperTypes,
-	typename ... SeekerTypes
+	typename ... LooperTypes
 >
 class Simulation<
 	ParticleList<ParticleTypes...>,
@@ -43,7 +43,7 @@ class Simulation<
 	SeekerList<CollisionSeeker>
 > : public Named
 {
-
+	
 };
 
 

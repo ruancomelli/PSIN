@@ -1,5 +1,7 @@
 #include <Named.hpp>
 
+namespace psin {
+
 const std::string Named::defaultName = "Nameless";
 
 // Constructors
@@ -31,3 +33,5 @@ bool operator<(const Named & left, const Named & right)
 	Named::NamedCompare namedCompareObject;
 	return namedCompareObject(left, right);
 }
+
+} // psin

@@ -1,5 +1,5 @@
-#ifndef UTILS_TEST_H
-#define UTILS_TEST_H
+#ifndef TEST_HPP
+#define TEST_HPP
 
 #include <boost/test/included/execution_monitor.hpp>
 #include <boost/test/included/unit_test.hpp>
@@ -16,4 +16,4 @@
 #define checkClose BOOST_CHECK_CLOSE
 #define checkEqual BOOST_CHECK_EQUAL
 
-#endif // UTILS_TEST_H
+#endif // TEST_HPP

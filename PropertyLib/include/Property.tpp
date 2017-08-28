@@ -1,13 +1,14 @@
 #ifndef PROPERTY_TPP
 #define PROPERTY_TPP
 
+namespace psin {
 
 template<typename T>
 Property<T>& Property<T>::operator=(const Property<T> & other)
 {
 	if(other.value)
 	{
-		this->value = makeUnique<T>( *other.value );
+		this->value = make_unique<T>( *other.value );
 	}
 	this->assignedFlag = other.assignedFlag;
 
@@ -31,7 +32,7 @@ Property<T>::Property(const Property<T> & other)
 {
 	if(other.value)
 	{
-		this->value = makeUnique<T>( *other.value );
+		this->value = make_unique<T>( *other.value );
 	}
 }
 
@@ -76,7 +77,7 @@ bool Property<T>::output(ostream_type & out) const
 template<typename T>
 void Property<T>::assign(const T & value)
 {
-	this->value = makeUnique<T>(value);
+	this->value = make_unique<T>(value);
 	this->assignedFlag = true;
 }
 
@@ -87,4 +88,7 @@ bool Property<T>::assigned() const
 	return this->assignedFlag;
 }
 
-#endif
+
+} // psin
+
+#endif // PROPERTY_TPP

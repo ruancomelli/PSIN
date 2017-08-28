@@ -3,6 +3,8 @@
 
 #include <string>
 
+namespace psin {
+
 class Named
 {
 public:
@@ -27,5 +29,7 @@ private:
 }; //class Named
 
 bool operator<(const Named & left, const Named & right);
+
+} // psin
 
 #endif // NAMED_HPP

@@ -1,5 +1,7 @@
 #include <HandledEntity.hpp>
 
+namespace psin {
+
 // Constructor
 HandledEntity::HandledEntity(void)
 	: handle( DEFAULT_HANDLED_ENTITY_HANDLE )
@@ -30,3 +32,5 @@ bool operator==( const HandledEntity & left, const HandledEntity & right)
 {
 	return left.getHandle() == right.getHandle();
 }
+
+} // psin

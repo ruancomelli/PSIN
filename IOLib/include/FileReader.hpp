@@ -1,5 +1,5 @@
-#ifndef FILE_READER_H
-#define FILE_READER_H
+#ifndef FILE_READER_HPP
+#define FILE_READER_HPP
 
 // UtilsLib
 #include <Any.hpp>

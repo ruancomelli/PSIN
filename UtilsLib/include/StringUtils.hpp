@@ -1,8 +1,14 @@
-#ifndef UTILSLIB_STRING_H
-#define UTILSLIB_STRING_H
+#ifndef STRING_UTILS_HPP
+#define STRING_UTILS_HPP
 
 #include <string>
 
-int stringCompare( std::string left, std::string right, bool caseSensitive=false );
+namespace psin {
+
+using std::string;
+
+int stringCompare( std::string left, std::string right, const bool caseSensitive=false );
+
+} // psin
 
 #endif

@@ -2,12 +2,15 @@
 #define TYPE_LIST_HPP
 
 // UtilsLib
-#include <MP/concatenate.hpp>
-#include <MP/get.hpp>
-#include <MP/type_list.tpp>
+#include <mp/concatenate.hpp>
+#include <mp/get.hpp>
+#include <mp/type_list.tpp>
 
 // Standard
 #include <type_traits>
+
+namespace psin {
+namespace mp {
 
 template<typename...Ts>
 struct type_list
@@ -18,32 +21,35 @@ struct type_list
 	using append = type_list<Ts..., Us...>;
 
 	template<typename...Us>
-	using append_if_new_types = typename traits::append_if_new_types<identity, Us...>::type;
+	using append_if_new_types = typename detail::append_if_new_types<identity, Us...>::type;
 
 	template<typename ... Us>
 	using prepend = type_list<Us..., Ts...>;
 
 	template<typename U, typename ... Us>
-	constexpr static bool contains = traits::contains<identity, U, Us...>::value;
+	constexpr static bool contains = detail::contains<identity, U, Us...>::value;
 
-	constexpr static bool is_empty = traits::is_empty<Ts...>::value;
+	constexpr static bool is_empty = detail::is_empty<Ts...>::value;
 
-	constexpr static bool has_repeated_types = traits::has_repeated_types< type_list<Ts...> >::value;
+	constexpr static bool has_repeated_types = detail::has_repeated_types< type_list<Ts...> >::value;
 
-	constexpr static size_t size = traits::size< identity >::value;
+	constexpr static size_t size = detail::size< identity >::value;
 
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = ClassToSpecialize<Ts...>;
 
 	template<typename TypeList>
-	using concatenate = typename traits::concatenate<identity, TypeList>::type;
+	using concatenate = typename mp::concatenate<identity, TypeList>::type;
 
 	template<size_t position>
-	using get = typename traits::get<position, identity>::type;
+	using get = typename mp::get<position, identity>::type;
 
 	// template<typename TypeList>
-	// using intersection = typename traits::intersection<TypeList>;
+	// using intersection = typename detail::intersection<TypeList>;
 };
+
+} // mp
+} // psin
 
 #endif
 

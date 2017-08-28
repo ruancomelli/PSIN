@@ -3,6 +3,8 @@
 // boost
 #include <boost/filesystem.hpp>
 
+namespace psin {
+
 bool checkPathExists( const std::string pathName )
 {
 	boost::filesystem::path directory(pathName);
@@ -31,3 +33,5 @@ void deletePath( const std::string pathName )
 	boost::filesystem::path directory(pathName);
 	boost::filesystem::remove_all(directory);
 }
+
+} // psin

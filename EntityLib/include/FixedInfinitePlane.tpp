@@ -4,7 +4,7 @@
 // Standard
 #include <stdexcept>
 
-
+namespace psin {
 
 // ---- Constructors ----
 template<typename ... PropertyTypes>
@@ -104,5 +104,7 @@ bool parallelPlanes(const Plane1 & left, const Plane2 & right)
 
     return ( leftVersor == rightVersor ) || ( leftVersor == - rightVersor );
 }
+
+} // psin
 
 #endif

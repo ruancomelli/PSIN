@@ -28,10 +28,20 @@
 #include <cstdio>
 #include <type_traits>
 
+using namespace psin;
 using namespace PropertyDefinitions;
 using namespace std;
 
-
+namespace boost { namespace test_tools {
+template<>           
+struct print_log_value<Vector3D> {
+void operator()( std::ostream& os,
+    const Vector3D & v)
+{
+    v.print();
+}
+};                                                          
+}}
 
 TestCase( HandledEntityTest )
 {
@@ -343,7 +353,7 @@ TestCase(PhysicalEntityPropertyListTest)
 
 	check((std::is_same<
 		PhysicalEntity<int, double, char>::PropertyList,
-		type_collection<int, double, char>
+		mp::type_collection<int, double, char>
 	>::value));
 }
 

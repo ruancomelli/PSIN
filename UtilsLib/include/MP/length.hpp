@@ -4,7 +4,8 @@
 // Standard
 #include <type_traits>
 
-namespace traits {
+namespace psin {
+namespace mp {
 	template<typename T>
 	struct length;
 
@@ -12,6 +13,7 @@ namespace traits {
 	struct length< TypeList<Ts...> >
 		: std::integral_constant<size_t, sizeof...(Ts)>
 	{};
-} // traits
+} // mp
+} // psin
 
 #endif // LENGTH_HPP

@@ -9,6 +9,8 @@
 // PropertyLib
 #include <PropertyDefinitions.hpp>
 
+namespace psin {
+
 template<typename ... PropertyTypes>
 class Particle :
 	public PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>,
@@ -56,6 +58,8 @@ class Particle :
 
 		static Vector3D gravity;
 };
+
+} // psin
 
 #include <Particle.tpp>
 

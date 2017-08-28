@@ -1,5 +1,5 @@
-#ifndef STATIC_EXECUTE_H
-#define STATIC_EXECUTE_H
+#ifndef STATIC_EXECUTE_HPP
+#define STATIC_EXECUTE_HPP
 
 // boost
 #include <boost/preprocessor.hpp>

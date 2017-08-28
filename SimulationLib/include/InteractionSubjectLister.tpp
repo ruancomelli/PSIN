@@ -13,7 +13,7 @@ namespace traits {
 
 	template<typename Triplet>
 	struct is_valid_triplet
-		: bool_type<
+		: bool_constant<
 			Triplet::template get<0>::template check<
 				typename Triplet::template get<1>,
 				typename Triplet::template get<2>

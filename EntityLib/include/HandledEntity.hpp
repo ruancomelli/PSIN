@@ -3,6 +3,8 @@
 
 #define DEFAULT_HANDLED_ENTITY_HANDLE -1
 
+namespace psin {
+
 class HandledEntity
 {
 	public:
@@ -19,5 +21,7 @@ class HandledEntity
 };
 
 bool operator==( const HandledEntity & left, const HandledEntity & right );
+
+} // psin
 
 #endif

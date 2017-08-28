@@ -2,28 +2,32 @@
 #define TYPE_COLLECTION_TPP
 
 // UtilsLib
-#include <MP/type_list.hpp>
+#include <mp/type_list.hpp>
 
 // Standard
 #include <type_traits>
 
-template<typename...Ts>
-struct type_collection;
+namespace psin {
+	
+namespace mp {
+	template<typename...Ts>
+	struct type_collection;
+} // mp
 
-namespace traits
+namespace detail
 {
 	template<typename T, typename U>
 	struct is_superset_of;
 
 	template<typename...Ts>
-	struct is_superset_of< type_collection<Ts...>,  type_collection<> >
+	struct is_superset_of< mp::type_collection<Ts...>,  mp::type_collection<> >
 		: std::true_type
 	{};
 
 	template<typename...Ts, typename U, typename...Us>
-	struct is_superset_of< type_collection<Ts...>,  type_collection<U, Us...> >
+	struct is_superset_of< mp::type_collection<Ts...>,  mp::type_collection<U, Us...> >
 		: std::conditional<
-			type_list<Ts...>::template contains<U, Us...>,
+			mp::type_list<Ts...>::template contains<U, Us...>,
 			std::true_type,
 			std::false_type
 		>::type
@@ -31,6 +35,8 @@ namespace traits
 
 	template<typename T, typename U>
 	using is_subset_of = is_superset_of<U, T>;
-}
+} // detail
+
+} // psin
 
 #endif

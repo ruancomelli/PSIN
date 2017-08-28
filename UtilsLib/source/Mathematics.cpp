@@ -1,5 +1,7 @@
 #include <Mathematics.hpp>
 
+namespace psin {
+	
 unsigned long factorial( const unsigned n ){ 
   unsigned long nFactorial = 1;
 	
@@ -8,3 +10,5 @@ unsigned long factorial( const unsigned n ){
 	
 	return nFactorial;
 }
+
+} // psin

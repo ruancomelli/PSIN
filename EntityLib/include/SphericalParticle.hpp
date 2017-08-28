@@ -16,6 +16,8 @@
 #include <NamedGroup.hpp>
 #include <Vector.hpp>
 
+namespace psin {
+
 template<typename ... PropertyTypes>
 class SphericalParticle : public Particle<PropertyDefinitions::Radius, PropertyTypes...>
 {
@@ -53,6 +55,8 @@ struct is_spherical : std::false_type {};
 
 template<typename...Ts>
 struct is_spherical< SphericalParticle<Ts...> > : std::true_type {};
+
+} // psin
 
 #include <SphericalParticle.tpp>
 

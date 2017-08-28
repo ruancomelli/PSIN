@@ -3,6 +3,8 @@
 
 #include <Property.hpp>
 
+namespace psin {
+	
 template<typename T>
 class PositiveProperty : public Property<T>
 {
@@ -17,6 +19,8 @@ class PositiveProperty : public Property<T>
 		void set(const U & value);
 
 };
+
+} // psin
 
 #include <PositiveProperty.tpp>
 

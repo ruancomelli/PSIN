@@ -3,6 +3,7 @@
 
 #include <InteractionDefinitions.hpp>
 
-
+struct CollisionSeeker
+{};
 
 #endif // COLLISION_SEEKER_HPP

@@ -1,6 +1,8 @@
 #ifndef BOUNDARY_TPP
 #define BOUNDARY_TPP
 
+namespace psin {
+
 template<typename ... PropertyTypes>
 void Boundary<PropertyTypes...>::setPositionFunction( const std::function< Spatial(double)> & f )
 {
@@ -24,5 +26,7 @@ void Boundary<PropertyTypes...>::updateOrientation(const double & t)
 {
 	this->setOrientationMatrix( this->orientationFunction(t) );
 }
+
+} // psin
 
 #endif
