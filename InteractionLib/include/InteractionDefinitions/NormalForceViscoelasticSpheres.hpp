@@ -5,6 +5,7 @@
 #include <SphericalParticle.hpp>
 
 // UtilsLib
+#include <NamedType.hpp>
 #include <MP/bool_type.hpp>
 
 // ------------------ FORCE CALCULATION ------------------

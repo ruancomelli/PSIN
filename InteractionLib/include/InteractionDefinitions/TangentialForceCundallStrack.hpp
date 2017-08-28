@@ -6,6 +6,7 @@
 #include <SphericalParticle.hpp>
 
 // UtilsLib
+#include <NamedType.hpp>
 #include <Vector3D.hpp>
 #include <MP/bool_type.hpp>
 

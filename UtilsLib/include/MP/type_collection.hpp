@@ -1,7 +1,7 @@
 #ifndef TYPE_COLLECTION_HPP
 #define TYPE_COLLECTION_HPP
 
-// Utils / Metaprogramming
+// UtilsLib
 #include <MP/type_collection.tpp>
 #include <MP/type_list.hpp>
 #include <MP/make_unique_type_list.hpp>
