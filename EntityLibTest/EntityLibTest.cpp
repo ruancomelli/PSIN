@@ -26,24 +26,33 @@
 
 // Standard
 #include <cstdio>
+#include <iostream>
 #include <type_traits>
 
 using namespace psin;
 using namespace PropertyDefinitions;
 using namespace std;
 
-namespace boost { namespace test_tools {
-template<>           
-struct print_log_value<Vector3D> {
-void operator()( std::ostream& os,
-    const Vector3D & v)
-{
-    v.print();
-}
-};                                                          
-}}
+namespace psin {
+	template<typename Out>
+	Out& operator<<(Out& out, const Vector3D & v)
+	{
+		return out << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")";
+	}
 
-TestCase( HandledEntityTest )
+	template<typename Out>
+	Out& operator<<(Out& out, const std::vector<Vector3D> & v)
+	{
+		for( auto&& entry : v )
+		{
+			out << entry << std::endl;
+		}
+
+		return out;
+	}
+} // psin
+
+TestCase(HandledEntity_Test)
 {
 	HandledEntity entity1;
 
@@ -73,7 +82,7 @@ TestCase( HandledEntityTest )
 	check(entity4 == entity5);
 }
 
-TestCase( SocialEntityBaseClassTest )
+TestCase(SocialEntityBaseClass_Test)
 {
 	int defaultHandle = -1;
 	int handleToSet = 3;
@@ -91,7 +100,7 @@ TestCase( SocialEntityBaseClassTest )
 	checkEqual(social2.getHandle(), handleToSet);
 }
 
-TestCase(SocialEntityNeighborhoodTest)
+TestCase(SocialEntityNeighborhood_Test)
 {
 	int handle1 = 3;
 	int handle2 = 10;
@@ -136,21 +145,6 @@ TestCase(SpatialEntityTaylorOrderTest)
 
 	SpatialEntity spatial3;
 	checkEqual(spatial3.getTaylorOrder(), DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
-}
-
-std::ostream & operator << (std::ostream & stream, const Vector3D & v){
-	stream << v.x() << "    " << v.y() << "    " << v.z() << std::endl;
-	return stream;
-}
-
-template <class type> 
-std::ostream & operator<<( std::ostream & outputFile , const std::vector<type> & v){
-	for( const type & entry : v )
-	{
-		outputFile << entry << std::endl;
-	}
-
-	return outputFile;
 }
 
 TestCase(SpatialEntityPositionMatrixOrientationMatrixTest)

@@ -31,7 +31,6 @@ public:
 	Vector3D operator /=( const double scalar );
 	void print() const;
 
-
 	virtual ~Vector3D(){}
 
 protected:
