@@ -10,6 +10,8 @@
 // Standard
 #include <algorithm>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -19,7 +21,7 @@
 template<typename...Ts, typename...Us>
 Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
 {
-	const double overlap = ::overlap(particle, neighbor);
+	const double overlap = psin::overlap(particle, neighbor);
 	
 	if(overlap > 0)
 	{
@@ -31,7 +33,7 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 		const double normalDissipativeConstant2 = neighbor.template get<NormalDissipativeConstant>();
 		
 		// ---- Calculate normal force ----
-		const double overlapDerivative = ::overlapDerivative(particle, neighbor);
+		const double overlapDerivative = psin::overlapDerivative(particle, neighbor);
 		
 		const double normalForceModulus = std::max( (elasticModulus1 + elasticModulus2) * overlap + 
 										(normalDissipativeConstant1 + normalDissipativeConstant2) * overlapDerivative , 0.0 );
@@ -45,5 +47,7 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 	// else, no forces are added.
 	return nullVector3D();
 }
+
+} // psin
 
 #endif

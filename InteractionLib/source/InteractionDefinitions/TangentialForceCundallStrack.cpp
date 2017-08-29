@@ -8,6 +8,10 @@
 #include <map>
 #include <utility>
 
+namespace psin {
+
+template<> const std::string NamedType<TangentialForceCundallStrack>::name = "TangentialForceCundallStrack";
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -60,3 +64,5 @@ void TangentialForceCundallStrack::endCollision(const HandledEntity & particle, 
 
 	collisionFlag[ std::pair<unsigned, unsigned>(handle1, handle2) ] = false;
 }
+
+} // psin

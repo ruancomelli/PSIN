@@ -21,12 +21,13 @@
 // void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
 // void defaultFieldForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 
+namespace psin {
 
 template<typename...Ts>
 class Interaction : public Named
 {
 	public:	
-		using required_properties = type_collection<Ts...>;
+		using required_properties = mp::type_collection<Ts...>;
 
 		template<typename X>
 		constexpr static bool has_required_properties = X::PropertyList::template is_superset_of< required_properties >;
@@ -104,6 +105,8 @@ class Interaction<>
 	private:
 
 };
+
+} // psin
 
 #include <Interaction.tpp>
 

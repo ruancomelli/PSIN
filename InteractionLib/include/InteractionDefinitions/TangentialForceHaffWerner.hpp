@@ -8,6 +8,8 @@
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -20,7 +22,7 @@ struct TangentialForceHaffWerner
 	using FrictionParameter = PropertyDefinitions::FrictionParameter;
 
 	template<typename P1, typename P2>
-	struct check : bool_constant<
+	struct check : mp::bool_constant<
 		P1::template has_property<TangentialDamping>::value
 		&& P1::template has_property<FrictionParameter>::value
 		&& is_spherical<P1>::value
@@ -35,7 +37,7 @@ struct TangentialForceHaffWerner
 	static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
 };
 
-template<> const std::string NamedType<TangentialForceHaffWerner>::name = "TangentialForceHaffWerner";
+} // psin
 
 #include <InteractionDefinitions/TangentialForceHaffWerner.tpp>
 

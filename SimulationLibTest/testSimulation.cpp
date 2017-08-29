@@ -12,6 +12,7 @@
 #include <type_traits>
 
 using namespace std;
+using namespace psin;
 
 namespace InteractionSubjectLister_Test_namespace {
 	struct A
@@ -26,14 +27,14 @@ namespace InteractionSubjectLister_Test_namespace {
 	struct I
 	{
 		template<typename T, typename U>
-		struct check : bool_constant< (is_same<T, A>::value || is_same<T, B>::value) && (is_same<U, A>::value || is_same<U, B>::value) >
+		struct check : mp::bool_constant< (is_same<T, A>::value || is_same<T, B>::value) && (is_same<U, A>::value || is_same<U, B>::value) >
 		{};
 	};
 
 	struct J
 	{
 		template<typename T, typename U>
-		struct check : bool_constant< is_same<T, C>::value && is_same<U, B>::value >
+		struct check : mp::bool_constant< is_same<T, C>::value && is_same<U, B>::value >
 		{};
 	};
 } // InteractionSubjectLister_Test_namespace
@@ -44,56 +45,56 @@ TestCase(InteractionSubjectLister_Test)
 
 	check((
 		std::is_same<
-			traits::generate_triplets< type_list<I, J>, type_list<A, B, C> >::type,
-			type_list<
-				type_list<I, A, A>,
-				type_list<J, A, A>,
-				type_list<I, B, A>,
-				type_list<J, B, A>,
-				type_list<I, C, A>,
-				type_list<J, C, A>,
+			detail::generate_triplets< mp::type_list<I, J>, mp::type_list<A, B, C> >::type,
+			mp::type_list<
+				mp::type_list<I, A, A>,
+				mp::type_list<J, A, A>,
+				mp::type_list<I, B, A>,
+				mp::type_list<J, B, A>,
+				mp::type_list<I, C, A>,
+				mp::type_list<J, C, A>,
 
-				type_list<I, A, B>,
-				type_list<J, A, B>,
-				type_list<I, B, B>,
-				type_list<J, B, B>,
-				type_list<I, C, B>,
-				type_list<J, C, B>,
+				mp::type_list<I, A, B>,
+				mp::type_list<J, A, B>,
+				mp::type_list<I, B, B>,
+				mp::type_list<J, B, B>,
+				mp::type_list<I, C, B>,
+				mp::type_list<J, C, B>,
 
-				type_list<I, A, C>,
-				type_list<J, A, C>,
-				type_list<I, B, C>,
-				type_list<J, B, C>,
-				type_list<I, C, C>,
-				type_list<J, C, C>
+				mp::type_list<I, A, C>,
+				mp::type_list<J, A, C>,
+				mp::type_list<I, B, C>,
+				mp::type_list<J, B, C>,
+				mp::type_list<I, C, C>,
+				mp::type_list<J, C, C>
 			>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			traits::get_valid_triplets< traits::generate_triplets< type_list<I, J>, type_list<A, B, C> >::type >::type,
-			type_list<
-				type_list<I, A, A>,
-				type_list<I, B, A>,
+			detail::get_valid_triplets< detail::generate_triplets< mp::type_list<I, J>, mp::type_list<A, B, C> >::type >::type,
+			mp::type_list<
+				mp::type_list<I, A, A>,
+				mp::type_list<I, B, A>,
 
-				type_list<I, A, B>,
-				type_list<I, B, B>,
-				type_list<J, C, B>
+				mp::type_list<I, A, B>,
+				mp::type_list<I, B, B>,
+				mp::type_list<J, C, B>
 			>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			InteractionSubjectLister::generate_combinations< type_list<I, J>, type_list<A, B, C> >::type,
-			type_list<
-				type_list<I, A, A>,
-				type_list<I, B, A>,
+			InteractionSubjectLister::generate_combinations< mp::type_list<I, J>, mp::type_list<A, B, C> >::type,
+			mp::type_list<
+				mp::type_list<I, A, A>,
+				mp::type_list<I, B, A>,
 
-				type_list<I, A, B>,
-				type_list<I, B, B>,
-				type_list<J, C, B>
+				mp::type_list<I, A, B>,
+				mp::type_list<I, B, B>,
+				mp::type_list<J, C, B>
 			>
 		>::value
 	));
@@ -121,56 +122,61 @@ TestCase(InteractionSubjectLister_Test)
 //	checkEqual(value, destination);
 //}
 
-// TestCase(SimulationFileTreeTest)
-// {
-// 	SimulationFileTree fileTree;
+TestCase(SimulationFileTreeTest)
+{
+	SimulationFileTree fileTree;
 
-// 	string currentDir = ::currentDirectory();
-// 	string simulationName = "RohanSimulation";
+	string currentDir = psin::currentDirectory();
+	string simulationName = "RohanSimulation";
 
-// 	string rootFolder = currentDir + "/root/";
-// 	::createDirectory(rootFolder);
-// 	check(fileTree.setProjectRootFolder(rootFolder));
-// 	checkEqual(fileTree.getProjectRootFolder(), rootFolder);
+	string rootFolder = currentDir + "/root/";
+	psin::createDirectory(rootFolder);
+	check(fileTree.setProjectRootFolder(rootFolder));
+	checkEqual(fileTree.getProjectRootFolder(), rootFolder);
 
-// 	string inputFolder = rootFolder + "_input/";
-// 	::createDirectory(inputFolder);
-// 	check(fileTree.setInputFolder(inputFolder));
-// 	checkEqual(fileTree.getInputFolder(), inputFolder);
+	string inputFolder = rootFolder + "_input/";
+	psin::createDirectory(inputFolder);
+	check(fileTree.setInputFolder(inputFolder));
+	checkEqual(fileTree.getInputFolder(), inputFolder);
 
-// 	string particleInputFolder = inputFolder + simulationName + "/";
-// 	::createDirectory(particleInputFolder);
-// 	check(fileTree.setParticleInputFolder(particleInputFolder));
-// 	checkEqual(fileTree.getParticleInputFolder(), particleInputFolder);
+	string particleInputFolder = inputFolder + simulationName + "/";
+	psin::createDirectory(particleInputFolder);
+	check(fileTree.setParticleInputFolder(particleInputFolder));
+	checkEqual(fileTree.getParticleInputFolder(), particleInputFolder);
 
-// 	string inputMainDataFilePath = particleInputFolder + "mainInfoInput.txt";
-// 	::deletePath(inputMainDataFilePath);
-// 	ofstream of1(inputMainDataFilePath);
-// 	check(fileTree.setInputMainDataFilePath(inputMainDataFilePath));
-// 	checkEqual(fileTree.getInputMainDataFilePath(), inputMainDataFilePath);
+	string inputMainDataFilePath = particleInputFolder + "mainInfoInput.txt";
+	psin::deletePath(inputMainDataFilePath);
+	ofstream of1(inputMainDataFilePath);
+	check(fileTree.setInputMainDataFilePath(inputMainDataFilePath));
+	checkEqual(fileTree.getInputMainDataFilePath(), inputMainDataFilePath);
 
-// 	string outputFolder = rootFolder + "_output/" + simulationName + "/";
-// 	check(fileTree.setOutputFolder(outputFolder));
-// 	checkEqual(fileTree.getOutputFolder(), outputFolder);
+	string outputFolder = rootFolder + "_output/" + simulationName + "/";
+	check(fileTree.setOutputFolder(outputFolder));
+	checkEqual(fileTree.getOutputFolder(), outputFolder);
 
-// 	string numericalOutputFolder = rootFolder + "_output/" + simulationName + "/Numerical/";
-// 	check(fileTree.setNumericalOutputFolder(numericalOutputFolder));
-// 	checkEqual(fileTree.getNumericalOutputFolder(), numericalOutputFolder);
+	string numericalOutputFolder = rootFolder + "_output/" + simulationName + "/Numerical/";
+	check(fileTree.setNumericalOutputFolder(numericalOutputFolder));
+	checkEqual(fileTree.getNumericalOutputFolder(), numericalOutputFolder);
 
-// 	string graphicalOutputFolder = rootFolder + "_output/" + simulationName + "/Graphical/";
-// 	check(fileTree.setGraphicalOutputFolder(graphicalOutputFolder));
-// 	checkEqual(fileTree.getGraphicalOutputFolder(), graphicalOutputFolder);
+	string graphicalOutputFolder = rootFolder + "_output/" + simulationName + "/Graphical/";
+	check(fileTree.setGraphicalOutputFolder(graphicalOutputFolder));
+	checkEqual(fileTree.getGraphicalOutputFolder(), graphicalOutputFolder);
 
-// 	string timeVectorFileName = "timeVector.txt";
-// 	check(fileTree.setTimeVectorOutputFileName(timeVectorFileName));
+	string timeVectorFileName = "timeVector.txt";
+	check(fileTree.setTimeVectorOutputFileName(timeVectorFileName));
 
-// 	string timeVectorForPlotOutputFileName = "timeVectorForPlot.txt";
-// 	check(fileTree.setTimeVectorForPlotOutputFileName(timeVectorForPlotOutputFileName));
-// }
+	string timeVectorForPlotOutputFileName = "timeVectorForPlot.txt";
+	check(fileTree.setTimeVectorForPlotOutputFileName(timeVectorForPlotOutputFileName));
+}
 
 // TestCase(GetSimulationNameAndRootPathTest)
 // {
-// 	Simulation simulation;
+// 	Simulation<
+// 		mp::type_list<>,
+// 		mp::type_list<>,
+// 		mp::type_list<>,
+// 		mp::type_list<CollisionSeeker>
+// 	> simulation;
 
 // 	char * argv1[] = { "myProgramName", "--simulation=Sauron" }; // ./myProgramName --simulation=Sauron
 // 	char * argv2[] = { "myProgramName", "--root=Mordor" }; // ./myProgramName --root=Mordor

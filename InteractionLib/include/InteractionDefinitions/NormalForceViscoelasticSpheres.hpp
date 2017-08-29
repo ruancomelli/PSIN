@@ -8,6 +8,8 @@
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -22,7 +24,7 @@ struct NormalForceViscoelasticSpheres
 	using PoissonRatio = PropertyDefinitions::PoissonRatio;
 
 	template<typename P1, typename P2>
-	struct check : bool_constant<
+	struct check : mp::bool_constant<
 		P1::template has_property<Radius>::value
 		&& P1::template has_property<ElasticModulus>::value
 		&& P1::template has_property<DissipativeConstant>::value
@@ -41,7 +43,7 @@ struct NormalForceViscoelasticSpheres
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);
 };
 
-template<> const std::string NamedType<NormalForceViscoelasticSpheres>::name = "NormalForceViscoelasticSpheres";
+} // psin
 
 #include <InteractionDefinitions/NormalForceViscoelasticSpheres.tpp>
 

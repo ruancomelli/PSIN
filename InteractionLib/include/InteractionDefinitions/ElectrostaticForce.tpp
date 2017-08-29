@@ -4,6 +4,8 @@
 // PropertyLib
 #include <PropertyDefinitions.hpp>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -24,6 +26,8 @@ void ElectrostaticForce::calculate(P1 & particle, P2 & neighbor)
 	particle.addBodyForce( electricForce );
 	neighbor.addBodyForce( - electricForce );
 }
+
+} // psin
 
 
 #endif

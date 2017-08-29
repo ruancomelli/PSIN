@@ -8,6 +8,8 @@
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -17,7 +19,7 @@ struct ElectrostaticForce
 	using ElectricCharge = PropertyDefinitions::ElectricCharge;
 
 	template<typename P1, typename P2>
-	struct check : bool_constant<
+	struct check : mp::bool_constant<
 		P1::template has_property<ElectricCharge>::value
 		&& P2::template has_property<ElectricCharge>::value
 		>
@@ -30,7 +32,7 @@ struct ElectrostaticForce
 	static void calculate(P1 & particle, P2 & neighbor);
 };
 
-template<> const std::string NamedType<ElectrostaticForce>::name = "ElectrostaticForce";
+} // psin
 
 #include <InteractionDefinitions/ElectrostaticForce.tpp>
 

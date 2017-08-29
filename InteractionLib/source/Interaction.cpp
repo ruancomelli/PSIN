@@ -14,6 +14,7 @@
 // UtilsLib
 #include <Mathematics.hpp>
 
+namespace psin {
 
 // using PropertyDefinitions::mass;
 // using PropertyDefinitions::moment_of_inertia;
@@ -253,5 +254,7 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 // {
 // 	this->timeStep = timeStep;
 // }
+
+} // psin
 
 #endif

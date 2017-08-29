@@ -4,6 +4,8 @@
 // Standard
 #include <iostream>
 
+namespace psin {
+
 template <class type> 
 bool FileReader::readValue( const string & tag, type & value )
 {
@@ -41,5 +43,7 @@ bool FileReader::readValue( const string & tag, type & value )
 
 	return returnFlag;
 }
+
+} // psin
 
 #endif

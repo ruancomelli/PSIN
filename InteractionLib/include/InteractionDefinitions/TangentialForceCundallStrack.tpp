@@ -12,6 +12,8 @@
 #include <map>
 #include <utility>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -40,7 +42,7 @@ void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle
 		const double effectiveFrictionParameter = std::min( frictionParameter1, frictionParameter2 );
 		
 		// Calculate tangential force
-		const Vector3D contactPoint = ::contactPoint(particle, neighbor);
+		const Vector3D contactPoint = psin::contactPoint(particle, neighbor);
 		
 		const Vector3D relativeTangentialVelocity = particle.relativeTangentialVelocity( neighbor );
 		
@@ -63,5 +65,7 @@ void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle
 		endCollision(particle, neighbor);
 	}
 }
+
+} // psin
 
 #endif

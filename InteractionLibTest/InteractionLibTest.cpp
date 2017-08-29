@@ -22,6 +22,7 @@
 // IOLib
 // #include <vectorIO.hpp>
 
+using namespace psin;
 using namespace std;
 using namespace PropertyDefinitions;
 

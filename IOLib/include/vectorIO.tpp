@@ -1,6 +1,8 @@
 #ifndef VECTOR_IO_TPP
 #define VECTOR_IO_TPP
 
+namespace psin {
+
 template <class type> 
 std::ostream & operator<<( std::ostream & outputFile , const vector<type> & v){
 	for( const type & entry : v )
@@ -37,5 +39,7 @@ std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
 
 	return inputFile;
 }
+
+} // psin
 
 #endif

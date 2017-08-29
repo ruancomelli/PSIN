@@ -4,6 +4,7 @@
 #include <Debug.hpp>
 #include <FileSystem.hpp>
 
+namespace psin {
 
 bool SimulationFileTree::setTree(const std::string & simulationName, const std::string & projectRootFolder)
 {
@@ -75,31 +76,31 @@ bool SimulationFileTree::setParticleInputFolder(const std::string & particleInpu
 
 bool SimulationFileTree::setOutputFolder(const std::string & outputFolder)
 {	
-	::createDirectory(outputFolder);
+	psin::createDirectory(outputFolder);
 
 	this->outputFolder = outputFolder;
 
-	return ::checkPathExists(outputFolder);
+	return psin::checkPathExists(outputFolder);
 }
 
 bool SimulationFileTree::setNumericalOutputFolder(const std::string & numericalOutputFolder)
 {	
-	::createDirectory(numericalOutputFolder);
+	psin::createDirectory(numericalOutputFolder);
 
 	this->numericalOutputFolder = numericalOutputFolder;
 
-	return ::checkPathExists(numericalOutputFolder);
+	return psin::checkPathExists(numericalOutputFolder);
 }
 
 bool SimulationFileTree::setGraphicalOutputFolder(const std::string & graphicalOutputFolder)
 {	
-	::createDirectory(graphicalOutputFolder);
-	::createDirectory(graphicalOutputFolder + "Plots/");
-	::createDirectory(graphicalOutputFolder + "Animations/");
+	psin::createDirectory(graphicalOutputFolder);
+	psin::createDirectory(graphicalOutputFolder + "Plots/");
+	psin::createDirectory(graphicalOutputFolder + "Animations/");
 
 	this->graphicalOutputFolder = graphicalOutputFolder;
 
-	return ::checkPathExists(graphicalOutputFolder) && ::checkPathExists(graphicalOutputFolder + "Plots/") && ::checkPathExists(graphicalOutputFolder + "Animations/");
+	return psin::checkPathExists(graphicalOutputFolder) && psin::checkPathExists(graphicalOutputFolder + "Plots/") && psin::checkPathExists(graphicalOutputFolder + "Animations/");
 }
 
 bool SimulationFileTree::setTimeVectorOutputFileName(const std::string & timeVectorOutputFileName)
@@ -171,7 +172,7 @@ std::string SimulationFileTree::getTimeVectorForPlotOutputFileName(void) const
 // ---- Validate path ----
 bool SimulationFileTree::setPathIfPathExists(const std::string & value, std::string & destination, const std::string & name, const std::string & functionName )
 {
-	bool checkValue = ::checkPathExists(value);
+	bool checkValue = psin::checkPathExists(value);
 	if ( checkValue )
 	{
 		destination = value;
@@ -184,3 +185,5 @@ bool SimulationFileTree::setPathIfPathExists(const std::string & value, std::str
 
 	return checkValue;
 }
+
+} // psin

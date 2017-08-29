@@ -1,6 +1,6 @@
 #include <vectorIO.hpp>
 
-
+namespace psin {
 
 std::ostream & operator << (std::ostream & stream, const Vector3D & v){
 	stream << v.x() << "    " << v.y() << "    " << v.z() << std::endl;
@@ -28,3 +28,5 @@ std::ifstream & operator >> (std::ifstream & stream, Vector3D & v){
 
 	return stream;
 }
+
+} // psin

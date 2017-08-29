@@ -11,6 +11,8 @@
 #include <algorithm>
 #include <cmath>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -21,7 +23,7 @@ template<typename...Ts, typename...Us>
 Vector3D NormalForceViscoelasticSpheres::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
 {
 	// Calculations
-	const double overlap = ::overlap(particle, neighbor);
+	const double overlap = psin::overlap(particle, neighbor);
 	
 	if(overlap > 0)
 	{
@@ -40,7 +42,7 @@ Vector3D NormalForceViscoelasticSpheres::calculate(SphericalParticle<Ts...> & pa
 		const double poissonRatio2 = neighbor.template get<PoissonRatio>();
 		
 		// ---- Calculate normal force ----
-		const double overlapDerivative = ::overlapDerivative(particle, neighbor);
+		const double overlapDerivative = psin::overlapDerivative(particle, neighbor);
 		const double term1 = (4/3) * std::sqrt(effectiveRadius);
 		const double term2 = std::sqrt(overlap) * (overlap + 0.5 * (dissipativeConstant1 + dissipativeConstant2) * overlapDerivative );
 		const double term3 = (1 - poissonRatio1*poissonRatio1)/elasticModulus1 + (1 - poissonRatio2*poissonRatio2)/elasticModulus2;
@@ -57,5 +59,7 @@ Vector3D NormalForceViscoelasticSpheres::calculate(SphericalParticle<Ts...> & pa
 	// else, no forces are added.
 	return nullVector3D();
 }
+
+} // psin
 
 #endif

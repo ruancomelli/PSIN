@@ -10,6 +10,8 @@
 // Standard
 #include <algorithm>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -36,7 +38,7 @@ void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, S
 		const double effectiveFrictionParameter = std::min( frictionParameter1, frictionParameter2 );
 		
 		// ---- Calculate tangential force ----
-		const Vector3D contactPoint = ::contactPoint(particle, neighbor);		
+		const Vector3D contactPoint = psin::contactPoint(particle, neighbor);		
 		const Vector3D relativeTangentialVelocity = particle.relativeTangentialVelocity(neighbor) ;
 		
 		const Vector3D tangentialVersor = particle.tangentialVersor( neighbor );
@@ -51,5 +53,7 @@ void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, S
 	}
 	// else, no forces and no torques are added.
 }
+
+} // psin
 
 #endif

@@ -4,41 +4,45 @@
 // UtilsLib
 #include <metaprogramming.hpp>
 
-namespace traits {
-	template<typename Interactions, typename Subjects>
-	struct generate_triplets
-		: combinatory::generate_combination_list<Interactions, Subjects, Subjects>
-	{};
+namespace psin {
+namespace detail {
+	
+template<typename Interactions, typename Subjects>
+struct generate_triplets
+	: mp::combinatory::generate_combination_list<Interactions, Subjects, Subjects>
+{};
 
 
-	template<typename Triplet>
-	struct is_valid_triplet
-		: bool_constant<
-			Triplet::template get<0>::template check<
-				typename Triplet::template get<1>,
-				typename Triplet::template get<2>
-			>::value
-		>
-	{};
+template<typename Triplet>
+struct is_valid_triplet
+	: mp::bool_constant<
+		Triplet::template get<0>::template check<
+			typename Triplet::template get<1>,
+			typename Triplet::template get<2>
+		>::value
+	>
+{};
 
-	template<typename CombinationList>
-	struct get_valid_triplets
-		: metafunction<
-			typename mp::purge::apply<
-				CombinationList,
-				is_valid_triplet
-			>::type
-		>
-	{};
+template<typename CombinationList>
+struct get_valid_triplets
+	: mp::metafunction<
+		typename mp::purge::apply<
+			CombinationList,
+			is_valid_triplet
+		>::type
+	>
+{};
 
-	template<typename Interactions, typename Subjects>
-	struct generate_combinations
-		: metafunction<
-			typename get_valid_triplets<
-				typename generate_triplets<Interactions, Subjects>::type
-			>::type
-		>
-	{};
-} // traits
+template<typename Interactions, typename Subjects>
+struct generate_combinations
+	: mp::metafunction<
+		typename get_valid_triplets<
+			typename generate_triplets<Interactions, Subjects>::type
+		>::type
+	>
+{};
+
+} // detail
+} // psin
 
 #endif

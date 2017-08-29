@@ -8,6 +8,8 @@
 // UtilsLib
 #include <Vector3D.hpp>
 
+namespace psin {
+
 using std::vector;
 
 
@@ -31,6 +33,8 @@ std::istream & operator >> (std::istream & stream, Vector3D & v);
 
 std::ofstream & operator << (std::ofstream & stream, const Vector3D & v);
 std::ifstream & operator >> (std::ifstream & stream, Vector3D & v);
+
+} // psin
 
 
 

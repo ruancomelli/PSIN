@@ -8,6 +8,8 @@
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -20,7 +22,7 @@ struct NormalForceLinearDashpotForce
 	using NormalDissipativeConstant = PropertyDefinitions::NormalDissipativeConstant;
 
 	template<typename P1, typename P2>
-	struct check : bool_constant<
+	struct check : mp::bool_constant<
 		P1::template has_property<ElasticModulus>::value
 		&& P1::template has_property<NormalDissipativeConstant>::value
 		&& is_spherical<P1>::value
@@ -37,7 +39,7 @@ struct NormalForceLinearDashpotForce
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);
 };
 
-template<> const std::string NamedType<NormalForceLinearDashpotForce>::name = "NormalForceLinearDashpotForce";
+} // psin
 
 #include <InteractionDefinitions/NormalForceLinearDashpotForce.tpp>
 

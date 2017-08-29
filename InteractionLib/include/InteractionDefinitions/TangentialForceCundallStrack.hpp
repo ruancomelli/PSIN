@@ -14,6 +14,8 @@
 #include <map>
 #include <utility>
 
+namespace psin {
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
@@ -27,7 +29,7 @@ struct TangentialForceCundallStrack
 		using FrictionParameter = PropertyDefinitions::FrictionParameter;
 
 		template<typename P1, typename P2>
-		struct check : bool_constant<
+		struct check : mp::bool_constant<
 			P1::template has_property<TangentialKappa>::value
 			&& P1::template has_property<FrictionParameter>::value
 			&& is_spherical<P1>::value
@@ -53,7 +55,7 @@ struct TangentialForceCundallStrack
 		static void endCollision(const HandledEntity & particle, const HandledEntity & neighbor);
 };
 
-template<> const std::string NamedType<TangentialForceCundallStrack>::name = "TangentialForceCundallStrack";
+} // psin
 
 #include <InteractionDefinitions/TangentialForceCundallStrack.tpp>
 

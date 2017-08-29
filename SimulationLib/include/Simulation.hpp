@@ -18,10 +18,12 @@
 // Standard
 #include <string>
 
-template<typename ... ParticleTypes> using ParticleList = type_list<ParticleTypes...>;
-template<typename ... InteractionTypes> using InteractionList = type_list<InteractionTypes...>;
-template<typename ... LooperTypes> using LooperList = type_list<LooperTypes...>;
-template<typename ... SeekerTypes> using SeekerList = type_list<SeekerTypes...>;
+namespace psin {
+
+template<typename ... ParticleTypes> using ParticleList = mp::type_list<ParticleTypes...>;
+template<typename ... InteractionTypes> using InteractionList = mp::type_list<InteractionTypes...>;
+template<typename ... LooperTypes> using LooperList = mp::type_list<LooperTypes...>;
+template<typename ... SeekerTypes> using SeekerList = mp::type_list<SeekerTypes...>;
 
 template<
 	typename Particles,
@@ -91,5 +93,8 @@ class Simulation<
 	// 	SphericalParticlePtrArrayKit particleArray;
 	// 	Interaction<SphericalParticle, SphericalParticle> Interaction;
 	// 	std::set<Interaction<SphericalParticle, SphericalParticle>, Named::NamedCompare> InteractionSet;
+
+
+} // psin
 
 #endif

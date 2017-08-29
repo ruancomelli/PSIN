@@ -7,6 +7,8 @@
 // UtilsLib
 #include <vectorIO.hpp>
 
+namespace psin {
+
 // Constructor
 FileReader::FileReader()
 {
@@ -102,3 +104,5 @@ bool FileReader::readAnyValue( const string & tag, Any & value, InputMethodType 
 
 	return returnFlag;
 }
+
+} // psin

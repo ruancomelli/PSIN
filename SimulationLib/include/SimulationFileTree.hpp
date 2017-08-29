@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 
+namespace psin {
 
 struct SimulationFileTree
 {
@@ -65,5 +66,7 @@ private:
 
 }; // class SimulationFileTree
 
+
+} // psin
 
 #endif	// SIMULATION_FILE_TREE_HPP
