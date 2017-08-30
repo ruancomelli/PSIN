@@ -4,6 +4,9 @@
 // PropertyLib
 #include <PropertyDefinitions.hpp>
 
+// UtilsLib
+#include <Vector3D.hpp>
+
 namespace psin {
 
 // ------------------ FORCE CALCULATION ------------------

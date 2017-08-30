@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <map>
 #include <utility>
+#include <string>
 
 namespace psin {
 
