@@ -1,0 +1,6 @@
+string retrieving_a_string
+{
+	// this script file accepts comments;
+	// this space between the "//" and the comment itself is required!!
+	string Test
+}
