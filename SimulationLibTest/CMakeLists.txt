@@ -1,15 +1,10 @@
 project(SimulationLibTest)
 
-set(Dependencies UtilsLib EntityLib PropertyLib InteractionLib IOLib SimulationLib)
+set(Dependencies UtilsLib PropertyLib EntityLib InteractionLib IOLib SimulationLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})
 	include_directories(${CMAKE_SOURCE_DIR}/${Dependency}/include)
-endforeach()
-
-#LINK DIRECTORIES
-foreach(Dependency ${Dependencies})
-	link_directories(${CMAKE_SOURCE_DIR}/${Dependency}/source)
 endforeach()
 
 #SEARCH FOR .CPP FILES

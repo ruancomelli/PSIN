@@ -1,19 +1,10 @@
-#Felipe Giacomelli - UFSC, SINMEC - October, 2016 - felipe.g@sinmec.ufsc.br
-#
-#
-
 project(InteractionLibTest)
 
-set(Dependencies UtilsLib EntityLib PropertyLib InteractionLib)
+set(Dependencies UtilsLib PropertyLib EntityLib InteractionLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})
-	include_directories (${CMAKE_SOURCE_DIR}/${Dependency}/include)
-endforeach()
-
-#LINK DIRECTORIES
-foreach(Dependency ${Dependencies})
-	link_directories(${CMAKE_SOURCE_DIR}/${Dependency}/source)
+	include_directories(${CMAKE_SOURCE_DIR}/${Dependency}/include)
 endforeach()
 
 #SEARCH FOR .CPP FILES
@@ -24,7 +15,7 @@ add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
 #LINK LIBRARIES
 foreach(Dependency ${Dependencies})
-	target_link_libraries(${PROJECT_NAME} ${Dependencies})
+	target_link_libraries(${PROJECT_NAME} ${Dependency})
 endforeach()
 
 #DEFINE OUTPUT LOCATION

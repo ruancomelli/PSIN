@@ -1,15 +1,12 @@
-#Felipe Giacomelli - UFSC, SINMEC - October, 2016 - felipe.g@sinmec.ufsc.br
-#
-#
-
 project(PropertyLib)
 
-#INCLUDE DIRECTORIES
-include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
+set(Dependencies UtilsLib)
 
-#LINK DIRECTORIES
-link_directories(${CMAKE_SOURCE_DIR}/UtilsLib/source)
+#INCLUDE DIRECTORIES
+foreach(Dependency ${Dependencies})
+	include_directories (${CMAKE_SOURCE_DIR}/${Dependency}/include)
+endforeach()
+include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 
 #SEARCH FOR .CPP AND .H FILES
 file(GLOB_RECURSE ${PROJECT_NAME}_headers ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/*.hpp)
@@ -20,7 +17,9 @@ file(GLOB_RECURSE ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/so
 add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_sources} ${${PROJECT_NAME}_headers})
 
 #LINK LIBRARIES
-target_link_libraries(${PROJECT_NAME} UtilsLib)
+foreach (Dependency ${Dependencies})
+	target_link_libraries (${PROJECT_NAME} ${Dependency})
+endforeach ()
 
 #DEFINE OUTPUT LOCATION
 install(

@@ -1,18 +1,11 @@
-#Felipe Giacomelli - UFSC, SINMEC - October, 2016 - felipe.g@sinmec.ufsc.br
-#
-#
-
 project(EntityLibTest)
 
-#INCLUDE DIRECTORIES
-include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/EntityLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/PropertyLib/include)
+set(Dependencies UtilsLib EntityLib PropertyLib)
 
-#LINK DIRECTORIES
-link_directories(${CMAKE_SOURCE_DIR}/UtilsLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/PropertyLib/source)
+#INCLUDE DIRECTORIES
+foreach(Dependency ${Dependencies})
+	include_directories (${CMAKE_SOURCE_DIR}/${Dependency}/include)
+endforeach()
 
 #SEARCH FOR .CPP FILES
 file(GLOB_RECURSE ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
@@ -21,9 +14,9 @@ file(GLOB_RECURSE ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
 #LINK LIBRARIES
-target_link_libraries(${PROJECT_NAME} UtilsLib)
-target_link_libraries(${PROJECT_NAME} EntityLib)
-target_link_libraries(${PROJECT_NAME} PropertyLib)
+foreach(Dependency ${Dependencies})
+	target_link_libraries(${PROJECT_NAME} ${Dependency})
+endforeach()
 
 #DEFINE OUTPUT LOCATION
 install(

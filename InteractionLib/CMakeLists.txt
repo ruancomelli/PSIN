@@ -1,10 +1,10 @@
 project(InteractionLib)
 
-set(Dependencies UtilsLib EntityLib PropertyLib)
+set(Dependencies UtilsLib PropertyLib EntityLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})
-	include_directories (${CMAKE_SOURCE_DIR}/${Dependency}/include)
+	include_directories(${CMAKE_SOURCE_DIR}/${Dependency}/include)
 endforeach()
 include_directories(${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include)
 
