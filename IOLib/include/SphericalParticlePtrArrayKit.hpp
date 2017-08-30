@@ -58,7 +58,7 @@
 // 		};
 
 // 		bool isReady;
-// 		vector< vector< SharedPointer<ofstream> > > outFile;
+// 		vector< vector< shared_ptr<ofstream> > > outFile;
 
 // 		PropertyContainer requiredProperties;
 

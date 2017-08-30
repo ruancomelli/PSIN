@@ -78,7 +78,7 @@ TestCase(RequireProperties_Test)
 
 	// PropertyContainer raw = fm.getRequiredProperties();
 
-	// SharedPointer< set<string> > mySetPtr = raw.getPropertyNames();
+	// shared_ptr< set<string> > mySetPtr = raw.getPropertyNames();
 	// set<string>::iterator it = mySetPtr->find(mass.getName());
 	// set<string>::iterator it2 = mySetPtr->find(volume.getName());
 

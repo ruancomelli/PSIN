@@ -19,6 +19,6 @@ class Sphere
 		double radius;
 };
 
-typedef SharedPointer< Sphere > SpherePtr;
+typedef shared_ptr< Sphere > SpherePtr;
 
 #endif

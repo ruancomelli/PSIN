@@ -87,7 +87,7 @@ class RawPhysicalProperty<type> : public RawPhysicalProperty<type, type>
 {};
 
 template<typename InterfaceType, typename StoredType>
-using RawPhysicalPropertyPtr = SharedPointer< RawPhysicalProperty<InterfaceType, StoredType> >
+using RawPhysicalPropertyPtr = shared_ptr< RawPhysicalProperty<InterfaceType, StoredType> >
 
 
 template<typename...> class PhysicalProperty;	// Allows multiple template arguments

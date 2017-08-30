@@ -80,18 +80,18 @@
 
 // 		outFile[particlePtr->getHandle()].resize( N_FILES_PER_PARTICLE );
 
-// 		this->outFile[particlePtr->getHandle()][DATA_IDX					] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "data.txt")); 
-// 		this->outFile[particlePtr->getHandle()][FORCE_IDX					] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "force.txt")); 
-// 		this->outFile[particlePtr->getHandle()][TORQUE_IDX					] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "torque.txt")); 
-// 		this->outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX			] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "position_matrix.txt")); 
-// 		this->outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "orientation_matrix.txt")); 
-// 		this->outFile[particlePtr->getHandle()][POSITION_IDX				] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "position.txt")); 
-// 		this->outFile[particlePtr->getHandle()][ORIENTATION_IDX				] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "orientation.txt")); 
-// 		this->outFile[particlePtr->getHandle()][VELOCITY_IDX				] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "velocity.txt")); 
-// 		this->outFile[particlePtr->getHandle()][ROTATIONAL_VELOCITY_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "rotational_velocity.txt")); 
-// 		this->outFile[particlePtr->getHandle()][LINEAR_MOMENTUM_IDX			] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "linear_momentum.txt")); 
-// 		this->outFile[particlePtr->getHandle()][ANGULAR_MOMENTUM_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "angular_momentum.txt")); 
-// 		this->outFile[particlePtr->getHandle()][MECHANICAL_ENERGY_IDX		] = SharedPointer<ofstream>( new ofstream(particleOutputPath + "energy.txt")); 
+// 		this->outFile[particlePtr->getHandle()][DATA_IDX					] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "data.txt")); 
+// 		this->outFile[particlePtr->getHandle()][FORCE_IDX					] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "force.txt")); 
+// 		this->outFile[particlePtr->getHandle()][TORQUE_IDX					] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "torque.txt")); 
+// 		this->outFile[particlePtr->getHandle()][POSITION_MATRIX_IDX			] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "position_matrix.txt")); 
+// 		this->outFile[particlePtr->getHandle()][ORIENTATION_MATRIX_IDX		] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "orientation_matrix.txt")); 
+// 		this->outFile[particlePtr->getHandle()][POSITION_IDX				] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "position.txt")); 
+// 		this->outFile[particlePtr->getHandle()][ORIENTATION_IDX				] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "orientation.txt")); 
+// 		this->outFile[particlePtr->getHandle()][VELOCITY_IDX				] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "velocity.txt")); 
+// 		this->outFile[particlePtr->getHandle()][ROTATIONAL_VELOCITY_IDX		] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "rotational_velocity.txt")); 
+// 		this->outFile[particlePtr->getHandle()][LINEAR_MOMENTUM_IDX			] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "linear_momentum.txt")); 
+// 		this->outFile[particlePtr->getHandle()][ANGULAR_MOMENTUM_IDX		] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "angular_momentum.txt")); 
+// 		this->outFile[particlePtr->getHandle()][MECHANICAL_ENERGY_IDX		] = shared_ptr<ofstream>( new ofstream(particleOutputPath + "energy.txt")); 
 
 // 		// We must check if all files were successfully opened
 
