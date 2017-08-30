@@ -102,6 +102,7 @@ message("(do not copy and paste somewhere else).")
 message("Possible errors in programs (executables) and in python (process data)\n")
 
 #ADD SUBDIRECTORIES
+add_subdirectory(MuParserLib)
 add_subdirectory(UtilsLib)
 add_subdirectory(UtilsLibTest)
 add_subdirectory(EntityLib)
