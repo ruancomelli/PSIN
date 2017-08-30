@@ -4,16 +4,11 @@
 // boost
 #include <boost/math/constants/constants.hpp>
 
-#ifndef M_E
-#define M_E boost::math::constants::e<double>()
-#endif
-
-#ifndef M_PI
-#define M_PI boost::math::constants::pi<double>()
-#endif
-
 namespace psin {
-	
+
+using boost::math::constants::e;
+using boost::math::constants::pi;
+
 // factorial:
 //	Calculates n!, where n is a nonnegative integer
 unsigned long factorial( const unsigned n );

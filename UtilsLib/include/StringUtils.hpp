@@ -7,7 +7,9 @@ namespace psin {
 
 using std::string;
 
-int stringCompare( std::string left, std::string right, const bool caseSensitive=false );
+int stringCompare(const string & left, const string & right, const bool caseSensitive=false);
+void toUpper(string & s);
+void toLower(string & s);
 
 } // psin
 
