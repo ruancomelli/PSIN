@@ -176,50 +176,6 @@
 // 	this->InteractionSet.insert(fm);
 // }
 
-// // Parse command line
-// std::string Simulation::parseArgvIntoSimulationName(int argc, char **argv)
-// {
-// 	return Simulation::parseArgvIntoSimulationNameAndRootPath(argc, argv).first;
-// }
-
-// std::string Simulation::parseArgvIntoSimulationRootPath(int argc, char **argv)
-// {
-// 	return Simulation::parseArgvIntoSimulationNameAndRootPath(argc, argv).second;
-// }
-
-// std::pair<std::string, std::string> Simulation::parseArgvIntoSimulationNameAndRootPath(int argc, char **argv)
-// {
-// 	std::string simulationName = "Simulation1";
-// 	std::string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
-
-// 	ProgramOptions::OptionsDescription desc("Allowed options");
-// 	desc.add_options()
-// 		("help", "produce help message")
-// 		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
-// 		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
-// 	;
-
-// 	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
-
-// 	if(vm.count("help"))
-// 	{
-// 		std::cout << desc << "\n";
-// 		exit(0);
-// 	}
-
-// 	if(vm.count("simulation"))
-// 	{
-// 		simulationName = vm["simulation"].as<string>();
-// 	}
-
-// 	if(vm.count("root"))
-// 	{
-// 		rootPath = vm["root"].as<string>();
-// 	}
-
-// 	return std::pair<std::string, std::string>( simulationName, rootPath );
-// }
-
 // // Ending simulation
 // void Simulation::printSuccessMessage(void) const
 // {

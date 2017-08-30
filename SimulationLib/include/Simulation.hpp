@@ -45,15 +45,41 @@ class Simulation<
 	SeekerList<CollisionSeeker>
 > : public Named
 {
-	
+public:
+	// Default Simulation
+	// This function sets paths, inputs and simulates
+	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
+
+	// Input
+	void inputMainData(void);
+
+	// Output
+	void outputMainData(void) const;
+	void printSuccessMessage(void) const;
+
+	// Particles
+	void initializeParticleArray(void);
+
+	// Simulate
+	void simulate(void);
+
+private:	
+	SimulationFileTree fileTree;
+
+	double initialTime;
+	double timeStep;
+	double finalTime;
+	int taylorOrder;
+	int dimension;
+	int numberOfParticles;
+	int timeStepsForOutput;
+
+	std::tuple< std::vector<ParticleTypes>... > particles;
+
 };
 
 
 	// public:
-	// 	static std::pair<std::string, std::string> parseArgvIntoSimulationNameAndRootPath(int argc, char **argv);
-	// 	static std::string parseArgvIntoSimulationName(int argc, char **argv);
-	// 	static std::string parseArgvIntoSimulationRootPath(int argc, char **argv);
-
 	// 	// Default Simulation
 	// 	// This function sets paths, inputs and simulates
 	// 	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);

@@ -5,6 +5,7 @@
 #include <Test.hpp>
 
 // SimulationLib
+#include <CommandLineParser.hpp>
 #include <InteractionSubjectLister.hpp>
 #include <Simulation.hpp>
 
@@ -169,40 +170,33 @@ TestCase(SimulationFileTreeTest)
 	check(fileTree.setTimeVectorForPlotOutputFileName(timeVectorForPlotOutputFileName));
 }
 
-// TestCase(GetSimulationNameAndRootPathTest)
-// {
-// 	Simulation<
-// 		mp::type_list<>,
-// 		mp::type_list<>,
-// 		mp::type_list<>,
-// 		mp::type_list<CollisionSeeker>
-// 	> simulation;
+TestCase(GetSimulationNameAndRootPathTest)
+{
+	char * argv1[] = { (char*) "myProgramName", (char*) "--simulation=Sauron" }; // ./myProgramName --simulation=Sauron
+	char * argv2[] = { (char*) "myProgramName", (char*) "--root=Mordor" }; // ./myProgramName --root=Mordor
+	char * argv3[] = { (char*) "myProgramName", (char*) "--simulation=The Lord of the Rings", (char*) "--root=Mines of Moria" };
+		// ./myProgramName --simulation="The Lord of the Rings" --root="Mines of Moria"
 
-// 	char * argv1[] = { "myProgramName", "--simulation=Sauron" }; // ./myProgramName --simulation=Sauron
-// 	char * argv2[] = { "myProgramName", "--root=Mordor" }; // ./myProgramName --root=Mordor
-// 	char * argv3[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mines of Moria" };
-// 		// ./myProgramName --simulation="The Lord of the Rings" --root="Mines of Moria"
+	int argc1 = 2;
+	int argc2 = 2;
+	int argc3 = 3;
 
-// 	int argc1 = 2;
-// 	int argc2 = 2;
-// 	int argc3 = 3;
+	pair<string, string> config1 = CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc1, argv1);
+	pair<string, string> config2 = CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc2, argv2);
+	pair<string, string> config3 = CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc3, argv3);
 
-// 	pair<string, string> config1 = simulation.parseArgvIntoSimulationNameAndRootPath(argc1, argv1);
-// 	pair<string, string> config2 = simulation.parseArgvIntoSimulationNameAndRootPath(argc2, argv2);
-// 	pair<string, string> config3 = simulation.parseArgvIntoSimulationNameAndRootPath(argc3, argv3);
+	checkEqual(config1.first, "Sauron" );
+	checkEqual(config2.first, "Simulation1");
+	checkEqual(config2.second, "Mordor");
+	checkEqual(config3.first, "The Lord of the Rings");
+	checkEqual(config3.second, "Mines of Moria");
 
-// 	checkEqual(config1.first, "Sauron" );
-// 	checkEqual(config2.first, "Simulation1");
-// 	checkEqual(config2.second, "Mordor");
-// 	checkEqual(config3.first, "The Lord of the Rings");
-// 	checkEqual(config3.second, "Mines of Moria");
-
-// 	checkEqual(config1.first, simulation.parseArgvIntoSimulationName(argc1, argv1));
-// 	checkEqual(config2.first, simulation.parseArgvIntoSimulationName(argc2, argv2));
-// 	checkEqual(config2.second, simulation.parseArgvIntoSimulationRootPath(argc2, argv2));
-// 	checkEqual(config3.first, simulation.parseArgvIntoSimulationName(argc3, argv3));
-// 	checkEqual(config3.second, simulation.parseArgvIntoSimulationRootPath(argc3, argv3));
-// }
+	checkEqual(config1.first, CommandLineParser::parseArgvIntoSimulationName(argc1, argv1));
+	checkEqual(config2.first, CommandLineParser::parseArgvIntoSimulationName(argc2, argv2));
+	checkEqual(config2.second, CommandLineParser::parseArgvIntoSimulationRootPath(argc2, argv2));
+	checkEqual(config3.first, CommandLineParser::parseArgvIntoSimulationName(argc3, argv3));
+	checkEqual(config3.second, CommandLineParser::parseArgvIntoSimulationRootPath(argc3, argv3));
+}
 
 // TestCase(SimulateTest)
 // {
