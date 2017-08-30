@@ -421,7 +421,7 @@ TestCase(ProgramOptionsTest)
 	;
 
 	int argc = 3;
-	const char * argv[] = { "myProgramName", "--simulation=The Lord of the Rings", "--root=Mordor" };
+	char * argv[] = { (char*) "myProgramName", (char*) "--simulation=The Lord of the Rings", (char*) "--root=Mordor" };
 
 	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
 
