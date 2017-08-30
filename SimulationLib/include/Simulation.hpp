@@ -75,9 +75,7 @@ private:
 	int timeStepsForOutput;
 
 	std::tuple< std::vector<ParticleTypes>... > particles;
-
 };
-
 
 	// public:
 	// 	// Default Simulation
@@ -122,5 +120,7 @@ private:
 
 
 } // psin
+
+#include <Simulation.tpp>
 
 #endif

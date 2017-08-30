@@ -12,9 +12,7 @@
 #include <string>
 
 namespace psin {
-
-using std::string;
-
+	
 class FileReader
 {
 public:
@@ -35,7 +33,7 @@ public:
 	template <class type> 
 	bool readValue( const string & tag, type & value );
 
-	bool readAnyValue( const string & tag, Any & value, InputMethodType inputMethod );
+	// bool readAnyValue( const string & tag, Any & value, InputMethodType inputMethod );
 	
 private:
 	string fileName;

@@ -15,7 +15,7 @@ std::ostream & operator<<( std::ostream & outputFile , const vector<type> & v){
 
 template <class type> 
 std::istream & operator>>( std::istream & inputFile , vector<type> & v){
-	for( type && entry : v ){
+	for( type & entry : v ){
 		inputFile >> entry;
 	}
 
@@ -33,7 +33,7 @@ std::ofstream & operator<<( std::ofstream & outputFile , const vector<type> & v)
 
 template <class type> 
 std::ifstream & operator>>( std::ifstream & inputFile , vector<type> & v){
-	for( type && entry : v ){
+	for( type & entry : v ){
 		inputFile >> entry;
 	}
 

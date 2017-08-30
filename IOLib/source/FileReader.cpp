@@ -18,7 +18,7 @@ FileReader::FileReader()
 FileReader::FileReader(const string & fileName)
 {
 	this->isReady = false;
-	openFile(fileName);
+	this->openFile(fileName);
 }
 
 // Destructor
@@ -69,40 +69,40 @@ void FileReader::openFile(const string & fileName)
 	}
 }
 
-bool FileReader::readAnyValue( const string & tag, Any & value, InputMethodType inputMethod )
-{
-	string buffer = "NULL";
-	bool returnFlag = false;
+// bool FileReader::readAnyValue( const string & tag, Any & value, InputMethodType inputMethod )
+// {
+// 	string buffer = "NULL";
+// 	bool returnFlag = false;
 
-	if( this->isReady )
-	{
-		this->file.clear();
-		this->file.seekg( 0, std::ios::beg );	// Go to the beginning of the file
+// 	if( this->isReady )
+// 	{
+// 		this->file.clear();
+// 		this->file.seekg( 0, std::ios::beg );	// Go to the beginning of the file
 
-		while( stringCompare( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
-		{
-			this->file >> buffer;
-		}
+// 		while( psin::stringCompare( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
+// 		{
+// 			this->file >> buffer;
+// 		}
 
-		if( this->file.eof() )
-		{ 
-			std::cerr << "There is no " << tag << " in the file" << std::endl
-					<< "Argument value not modified." << std::endl;
-		}
-		else
-		{
-			returnFlag = inputMethod( this->file, value );
-		}
+// 		if( this->file.eof() )
+// 		{ 
+// 			std::cerr << "There is no " << tag << " in the file" << std::endl
+// 					<< "Argument value not modified." << std::endl;
+// 		}
+// 		else
+// 		{
+// 			returnFlag = inputMethod( this->file, value );
+// 		}
 
-	}
-	else
-	{
-		std::cerr << "FileReader is not ready." << std::endl;
-	}
+// 	}
+// 	else
+// 	{
+// 		std::cerr << "FileReader is not ready." << std::endl;
+// 	}
 
-	this->file.clear();
+// 	this->file.clear();
 
-	return returnFlag;
-}
+// 	return returnFlag;
+// }
 
 } // psin
