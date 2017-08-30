@@ -1,20 +1,16 @@
 project(SimulationLibTest)
 
+set(Dependencies UtilsLib EntityLib PropertyLib InteractionLib IOLib SimulationLib)
+
 #INCLUDE DIRECTORIES
-include_directories(${CMAKE_SOURCE_DIR}/UtilsLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/EntityLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/InteractionLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/PropertyLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/IOLib/include)
-include_directories(${CMAKE_SOURCE_DIR}/SimulationLib/include)
+foreach(Dependency ${Dependencies})
+	include_directories(${CMAKE_SOURCE_DIR}/${Dependency}/include)
+endforeach()
 
 #LINK DIRECTORIES
-link_directories(${CMAKE_SOURCE_DIR}/UtilsLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/EntityLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/InteractionLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/PropertyLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/IOLib/source)
-link_directories(${CMAKE_SOURCE_DIR}/SimulationLib/source)
+foreach(Dependency ${Dependencies})
+	link_directories(${CMAKE_SOURCE_DIR}/${Dependency}/source)
+endforeach()
 
 #SEARCH FOR .CPP FILES
 file(GLOB_RECURSE ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.cpp)
@@ -23,12 +19,9 @@ file(GLOB_RECURSE ${PROJECT_NAME}_sources ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/*.
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_sources})
 
 #LINK LIBRARIES
-target_link_libraries(${PROJECT_NAME} UtilsLib)
-target_link_libraries(${PROJECT_NAME} EntityLib)
-target_link_libraries(${PROJECT_NAME} InteractionLib)
-target_link_libraries(${PROJECT_NAME} PropertyLib)
-target_link_libraries(${PROJECT_NAME} IOLib)
-target_link_libraries(${PROJECT_NAME} SimulationLib)
+foreach(Dependency ${Dependencies})
+	target_link_libraries(${PROJECT_NAME} ${Dependency})
+endforeach()
 
 #DEFINE OUTPUT LOCATION
 install(

@@ -1,7 +1,3 @@
-#Felipe Giacomelli - UFSC, SINMEC - October, 2016 - felipe.g@sinmec.ufsc.br
-#
-#
-
 project(InteractionLib)
 
 set(Dependencies UtilsLib EntityLib PropertyLib)
