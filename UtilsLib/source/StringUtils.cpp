@@ -6,15 +6,16 @@
 namespace psin {
 
 // Compare strings case sensitive or not
-int stringCompare( std::string left, std::string right, const bool caseSensitive )
+int stringCompare( const std::string & left, const std::string & right, const bool caseSensitive )
 {
 	if(!caseSensitive)
 	{
-		for(auto& c : left) c = ::tolower(c);
-		for(auto& c : right) c = ::tolower(c);
+		return asLower(left).compare( asLower(right) );
 	}
-
-	return left.compare(right);
+	else
+	{
+		return left.compare(right);
+	}
 }
 
 void toUpper(string & s)
@@ -25,6 +26,18 @@ void toUpper(string & s)
 void toLower(string & s)
 {
 	for(auto& c : s) c = ::tolower(c);
+}
+
+string asUpper(string s)
+{
+	psin::toUpper(s);
+	return s;
+}
+
+string asLower(string s)
+{
+	psin::toLower(s);
+	return s;
 }
 
 } // psin
