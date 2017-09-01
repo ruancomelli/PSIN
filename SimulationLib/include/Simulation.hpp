@@ -8,6 +8,7 @@
 #include <SphericalParticlePtrArrayKit.hpp>
 
 // SimulationLib
+#include <LooperDefinitions.hpp>
 #include <SeekerDefinitions.hpp>
 #include <SimulationFileTree.hpp>
 
@@ -18,7 +19,8 @@
 // Standard
 #include <string>
 
-namespace psin {
+namespace psin
+{
 
 template<typename ... ParticleTypes> using ParticleList = mp::type_list<ParticleTypes...>;
 template<typename ... InteractionTypes> using InteractionList = mp::type_list<InteractionTypes...>;
@@ -36,12 +38,11 @@ class Simulation;
 template<
 	typename ... ParticleTypes,
 	typename ... InteractionTypes,
-	typename ... LooperTypes
 >
 class Simulation<
 	ParticleList<ParticleTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<LooperTypes...>,
+	LooperList<GearLooper>
 	SeekerList<CollisionSeeker>
 > : public Named
 {

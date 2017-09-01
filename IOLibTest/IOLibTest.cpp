@@ -6,12 +6,13 @@
 #include <string>
 
 // UtilsLib
+#include <Any.hpp>
+#include <FileSystem.hpp>
+#include <Foreach.hpp>
 #include <Mathematics.hpp>
+#include <Test.hpp>
 #include <Vector3D.hpp>
 #include <Vector.hpp>
-#include <Test.hpp>
-#include <Foreach.hpp>
-#include <Any.hpp>
 
 // EntityLib
 // #include <Entity.hpp>
@@ -20,6 +21,7 @@
 #include <SphericalParticle.hpp>
 
 // IOLib
+#include <property_tree.hpp>
 #include <vectorIO.hpp>
 #include <FileReader.hpp>
 
@@ -187,6 +189,45 @@ TestCase( VectorVector3DTest )
 		file.close();
 }
 
+namespace property_tree_Test_namespace
+{
+	
+}
+
+TestCase(property_tree_Test)
+{
+	using namespace property_tree_Test_namespace;
+
+	string dir = "Test";
+	string filename = "Test/tree_testfile.json";
+	psin::createDirectory(dir);
+
+	double mass = 15.6;
+	string color = "Red";
+	vector<Vector3D> position{ 
+		Vector3D(1.4, 8.8, 4.5), 
+		Vector3D(9.8, 4.7, 1.1),
+		Vector3D(-0.5, 0.0, 8.8) 
+	};
+
+	ptree wTree;
+	ptree rTree;
+	ptree child;
+
+	// child.put();
+	child.put("Bye", 0);
+
+	wTree.put("particle.Mass", 15.6);
+	wTree.put("particle.Radius", 14);
+	wTree.put_child("particle.message", child);
+
+	write_json(filename, wTree);
+
+	read_json(filename, rTree);
+
+	double particleMass = rTree.get<double>("particle.Mass");
+	checkEqual(particleMass, 15.6);
+}
 
 TestCase( FileReaderTest )
 {
