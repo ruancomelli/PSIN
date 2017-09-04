@@ -3,7 +3,11 @@
 
 #include <InteractionDefinitions.hpp>
 
+namespace psin {
+	
 struct CollisionSeeker
 {};
+
+} // psin
 
 #endif // COLLISION_SEEKER_HPP
