@@ -72,7 +72,11 @@ namespace to_and_from_json_Test_namespace {
 	};
 
     void to_json(json& j, const A& a) {
-        j = json{{"name", a.name}, {"x", a.get()}, {"z", a.z}};
+        j = json{
+        	{"name", a.name}, 
+        	{"x", a.get()}, 
+        	{"z", a.z}
+        };
     }
 
     void from_json(const json& j, A& a) {

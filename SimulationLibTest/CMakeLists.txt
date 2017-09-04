@@ -1,6 +1,6 @@
 project(SimulationLibTest)
 
-set(Dependencies UtilsLib PropertyLib EntityLib InteractionLib IOLib SimulationLib)
+set(Dependencies JSONLib UtilsLib PropertyLib EntityLib InteractionLib IOLib SimulationLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})
