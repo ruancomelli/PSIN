@@ -170,26 +170,30 @@ TestCase(SimulationFileTreeTest)
 	check(fileTree.setTimeVectorForPlotOutputFileName(timeVectorForPlotOutputFileName));
 }
 
-TestCase(GetSimulationNameAndRootPathTest)
+TestCase(CommandLineParser_Test)
 {
 	char * argv1[] = { (char*) "myProgramName", (char*) "--simulation=Sauron" }; // ./myProgramName --simulation=Sauron
 	char * argv2[] = { (char*) "myProgramName", (char*) "--root=Mordor" }; // ./myProgramName --root=Mordor
 	char * argv3[] = { (char*) "myProgramName", (char*) "--simulation=The Lord of the Rings", (char*) "--root=Mines of Moria" };
 		// ./myProgramName --simulation="The Lord of the Rings" --root="Mines of Moria"
+	char * argv4[] = { (char*) "myProgramName", (char*) "--path=they/are.here" }; // ./myProgramName --path="they/are.here"
 
 	int argc1 = 2;
 	int argc2 = 2;
 	int argc3 = 3;
+	int argc4 = 2;
 
 	pair<string, string> config1 = CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc1, argv1);
 	pair<string, string> config2 = CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc2, argv2);
 	pair<string, string> config3 = CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc3, argv3);
+	string config4 = CommandLineParser::parseArgvIntoSimulationPath(argc4, argv4);
 
 	checkEqual(config1.first, "Sauron" );
 	checkEqual(config2.first, "Simulation1");
 	checkEqual(config2.second, "Mordor");
 	checkEqual(config3.first, "The Lord of the Rings");
 	checkEqual(config3.second, "Mines of Moria");
+	checkEqual(config4, "they/are.here");
 
 	checkEqual(config1.first, CommandLineParser::parseArgvIntoSimulationName(argc1, argv1));
 	checkEqual(config2.first, CommandLineParser::parseArgvIntoSimulationName(argc2, argv2));
