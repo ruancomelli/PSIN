@@ -12,8 +12,6 @@ namespace psin {
 
 using std::vector;
 
-
-
 template <class type> 
 std::ostream & operator<<( std::ostream & outputFile , const vector<type> & v);
 
@@ -35,7 +33,6 @@ std::ofstream & operator << (std::ofstream & stream, const Vector3D & v);
 std::ifstream & operator >> (std::ifstream & stream, Vector3D & v);
 
 } // psin
-
 
 
 #include <vectorIO.tpp>

@@ -21,9 +21,9 @@
 #include <SphericalParticle.hpp>
 
 // IOLib
-#include <property_tree.hpp>
-#include <vectorIO.hpp>
 #include <FileReader.hpp>
+#include <read_ptree.hpp>
+#include <vectorIO.hpp>
 
 // PropertyLib
 #include <PropertyDefinitions.hpp>
@@ -187,46 +187,6 @@ TestCase( VectorVector3DTest )
 		checkClose(tester[3].z(), tested[3].z(), 1e-2);
 
 		file.close();
-}
-
-namespace property_tree_Test_namespace
-{
-	
-}
-
-TestCase(property_tree_Test)
-{
-	using namespace property_tree_Test_namespace;
-
-	string dir = "Test";
-	string filename = "Test/tree_testfile.json";
-	psin::createDirectory(dir);
-
-	double mass = 15.6;
-	string color = "Red";
-	vector<Vector3D> position{ 
-		Vector3D(1.4, 8.8, 4.5), 
-		Vector3D(9.8, 4.7, 1.1),
-		Vector3D(-0.5, 0.0, 8.8) 
-	};
-
-	ptree wTree;
-	ptree rTree;
-	ptree child;
-
-	// child.put();
-	child.put("Bye", 0);
-
-	wTree.put("particle.Mass", 15.6);
-	wTree.put("particle.Radius", 14);
-	wTree.put_child("particle.message", child);
-
-	write_json(filename, wTree);
-
-	read_json(filename, rTree);
-
-	double particleMass = rTree.get<double>("particle.Mass");
-	checkEqual(particleMass, 15.6);
 }
 
 TestCase( FileReaderTest )
@@ -480,6 +440,11 @@ TestCase( IntVectorInput ){
 	check(tester == tested);
 
 	inFile.close();
+}
+
+TestCase(read_ptree_Test)
+{
+	check( read_ptree<Vector3D>(ptree()) == Vector3D() );
 }
 
 // TestCase( Vector3DIO ){
