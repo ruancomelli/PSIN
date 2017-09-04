@@ -57,6 +57,32 @@ std::pair<std::string, std::string> CommandLineParser::parseArgvIntoSimulationNa
 	return std::pair<std::string, std::string>( simulationName, rootPath );
 }
 
+std::string CommandLineParser::parseArgvIntoSimulationPath(int argc, char * argv[])
+{
+	std::string simulationPath = parentDirectory( parentDirectory( currentDirectory() ) );
+
+	ProgramOptions::OptionsDescription desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("path", ProgramOptions::value<std::string>(), "Configuration filepath")
+	;
+
+	ProgramOptions::VariablesMap vm = psin::parseCommandLine(argc, argv, desc);
+
+	if(vm.count("help"))
+	{
+		std::cout << desc << "\n";
+		exit(0);
+	}
+
+	if(vm.count("path"))
+	{
+		simulationPath = vm["path"].as<std::string>();
+	}
+
+	return simulationPath;
+}
+
 } // psin
 
 #endif // COMMAND_LINE_PARSER_CPP

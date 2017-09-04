@@ -7,9 +7,12 @@ namespace psin {
 
 struct CommandLineParser
 {
-	static std::pair<std::string, std::string> parseArgvIntoSimulationNameAndRootPath(int argc, char * argv[]);
-	static std::string parseArgvIntoSimulationName(int argc, char * argv[]);
-	static std::string parseArgvIntoSimulationRootPath(int argc, char * argv[]);
+	using string = std::string;
+
+	static std::pair<string, string> parseArgvIntoSimulationNameAndRootPath(int argc, char * argv[]);
+	static string parseArgvIntoSimulationName(int argc, char * argv[]);
+	static string parseArgvIntoSimulationRootPath(int argc, char * argv[]);
+	static string parseArgvIntoSimulationPath(int argc, char * argv[]);
 };
 
 } // psin
