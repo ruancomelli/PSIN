@@ -37,16 +37,23 @@ class Simulation;
 
 template<
 	typename ... ParticleTypes,
-	typename ... InteractionTypes,
+	typename ... InteractionTypes
 >
 class Simulation<
 	ParticleList<ParticleTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>
+	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
 > : public Named
 {
 public:
+	// using ParticleList = psin::ParticleList<ParticleTypes...>;
+	// using InteractionList = psin::InteractionList<InteractionTypes...>;
+	// using LooperList = psin::LooperList<GearLooper>;
+	// using SeekerList = psin::SeekerList<CollisionSeeker>;
+
+	void setup(int argc, char * argv[]);
+
 	// Default Simulation
 	// This function sets paths, inputs and simulates
 	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
