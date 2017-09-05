@@ -22,7 +22,6 @@
 
 // IOLib
 #include <FileReader.hpp>
-#include <read_ptree.hpp>
 #include <vectorIO.hpp>
 
 // PropertyLib
@@ -440,11 +439,6 @@ TestCase( IntVectorInput ){
 	check(tester == tested);
 
 	inFile.close();
-}
-
-TestCase(read_ptree_Test)
-{
-	check( read_ptree<Vector3D>(ptree()) == Vector3D() );
 }
 
 // TestCase( Vector3DIO ){

@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"a",
+				"a"
+			],
+			[
+				"vis",
+				"visit_Test_namespace"
+			],
+			[
+				"nam",
+				"namespace"
+			],
+			[
+				"Te",
+				"Test"
+			],
+			[
+				"st",
+				"structtemp\ttemplated struct"
+			],
+			[
+				"tem",
+				"tempfunc\ttemplated function"
+			],
+			[
 				"Vector",
 				"Vector3D"
 			],
@@ -204,21 +228,47 @@
 	"buffers":
 	[
 		{
-			"file": "IOLib/include/property_tree.hpp",
+			"file": "IOLibTest/IOLibTest.cpp",
 			"settings":
 			{
-				"buffer_size": 238,
+				"buffer_size": 15212,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "UtilsLib/include/mp/visit.hpp",
+			"settings":
+			{
+				"buffer_size": 575,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "IOLibTest/IOLibTest.cpp",
+			"file": "UtilsLibTest/testUtilsLib.cpp",
 			"settings":
 			{
-				"buffer_size": 15980,
+				"buffer_size": 23274,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "UtilsLib/include/metaprogramming.hpp",
+			"settings":
+			{
+				"buffer_size": 449,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "UtilsLib/include/mp/get.hpp",
+			"settings":
+			{
+				"buffer_size": 866,
+				"line_ending": "Unix"
 			}
 		},
 		{
@@ -228,14 +278,6 @@
 				"buffer_size": 1695,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "_build/apps/Release/Test/tree_testfile.json",
-			"settings":
-			{
-				"buffer_size": 153,
-				"line_ending": "Unix"
 			}
 		},
 		{
@@ -308,17 +350,17 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLibTest",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/source",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLibTest/source",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include"
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest"
 	],
 	"file_history":
 	[
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/Test/tree_testfile.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/property_tree.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector3D.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/tree_testfile.json",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/Test/tree_testfile.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/fileVector.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLibTest/IOLibTest.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.hpp",
@@ -442,8 +484,7 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/HandledEntity.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/SocialEntity.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/FixedInfinitePlane.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/Boundary.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/FixedBoundary.hpp"
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/Boundary.hpp"
 	],
 	"find":
 	{
@@ -463,6 +504,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"VISIT_TYPE_LIST",
 			"}",
 			"{",
 			"tree",
@@ -589,8 +631,7 @@
 			"elasticModulus",
 			"1",
 			"elasticModulus",
-			"min",
-			"get"
+			"min"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -616,24 +657,110 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "IOLib/include/property_tree.hpp",
+					"file": "IOLibTest/IOLibTest.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 238,
+						"buffer_size": 15212,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								197,
-								197
+								606,
+								606
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "UtilsLib/include/mp/visit.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 575,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								102,
+								102
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "UtilsLibTest/testUtilsLib.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 23274,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23180,
+								23182
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 18811.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "UtilsLib/include/metaprogramming.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 449,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								441,
+								441
 							]
 						],
 						"settings":
@@ -648,20 +775,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "IOLibTest/IOLibTest.cpp",
+					"buffer": 4,
+					"file": "UtilsLib/include/mp/get.hpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15980,
+						"buffer_size": 866,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5400,
-								5400
+								0,
+								0
 							]
 						],
 						"settings":
@@ -670,14 +797,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2984.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 5,
 					"file": "UtilsLib/include/Vector3D.hpp",
 					"semi_transient": false,
 					"settings":
@@ -702,39 +829,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "_build/apps/Release/Test/tree_testfile.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 153,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "UtilsLib/include/FileSystem.hpp",
 					"semi_transient": false,
 					"settings":
@@ -758,7 +857,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				}
 			]

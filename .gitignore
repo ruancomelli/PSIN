@@ -14,12 +14,13 @@ _premake_files/premake4
 **.asv
 **.pyc
 **.log
+**.sublime-workspace
 
 *.pyc
 *.exe
 *.asv
 *.log
-
 *.sublime-workspace
+
 
 .vscode*

@@ -1124,3 +1124,72 @@ TestCase(purge_Test)
 		>::value
 	));
 }
+
+namespace visit_Test_namespace {
+	struct A
+	{
+		static int x;
+	};
+	int A::x = 0;
+
+	struct B
+	{
+		static double a;
+		static double b;
+		static double c;	
+	};
+	double B::a = 1;
+	double B::b = 2;
+	double B::c = 0;
+
+	template<typename T>
+	struct visitor;
+
+	template<>
+	struct visitor<A>
+	{
+		static void call()
+		{
+			A::x = 1;
+		}
+	};
+
+	template<>
+	struct visitor<B>
+	{
+		static void call()
+		{
+			B::c = B::a + B::b;
+		}
+	};
+} // visit_Test_namespace
+
+TestCase(visit_Test)
+{
+	using namespace visit_Test_namespace;
+
+	checkEqual(A::x, 0);
+	checkEqual(B::a, 1);
+	checkEqual(B::b, 2);
+	checkEqual(B::c, 0);
+
+	mp::visit<
+		type_list<A, B>,
+		visitor
+	>::call();
+
+	checkEqual(A::x, 1);
+	checkEqual(B::a, 1);
+	checkEqual(B::b, 2);
+	checkEqual(B::c, 3);
+}
+
+TestCase(revert_Test)
+{
+	check((
+		std::is_same<
+			mp::revert< type_list<int, double, char, char, bool> >::type,
+			type_list<bool, char, char, double, int>
+		>::value
+	));
+}
