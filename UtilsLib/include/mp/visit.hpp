@@ -7,6 +7,7 @@
 
 // Standard
 #include <cstddef>
+#include <tuple>
 
 namespace psin {
 namespace mp {
@@ -18,6 +19,14 @@ template<
 >
 struct visit
 {
+	template<typename...Tuples>
+	static void call( std::tuple<Tuples...> & arg )
+	{
+		Visitor< typename mp::get<Pos, TypeList>::type >::call( std::get<Pos>(arg) );
+		visit< TypeList, Visitor, Pos-1 >::call( arg );
+	}
+
+
 	static void call()
 	{
 		Visitor< typename mp::get<Pos, TypeList>::type >::call();
@@ -31,6 +40,12 @@ template<
 >
 struct visit<TypeList, Visitor, 0>
 {
+	template<typename...Tuples>
+	static void call(std::tuple<Tuples...> & arg)
+	{
+		Visitor< typename mp::get<0, TypeList>::type >::call( std::get<0>(arg) );
+	}
+
 	static void call()
 	{
 		Visitor< typename mp::get<0, TypeList>::type >::call();

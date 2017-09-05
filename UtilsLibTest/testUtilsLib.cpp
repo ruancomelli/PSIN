@@ -2,6 +2,7 @@
 
 // Standard
 #include <string>
+#include <tuple>
 #include <type_traits>
 
 // UtilsLib
@@ -1152,6 +1153,12 @@ namespace visit_Test_namespace {
 		{
 			A::x = 1;
 		}
+
+		template<typename T>
+		static void call(T arg)
+		{
+			A::x = 1;
+		}
 	};
 
 	template<>
@@ -1160,6 +1167,13 @@ namespace visit_Test_namespace {
 		static void call()
 		{
 			B::c = B::a + B::b;
+		}
+
+		static void call( const std::tuple<double, double, double> & arg )
+		{
+			B::a = std::get<0>(arg);
+			B::b = std::get<1>(arg);
+			B::c = std::get<2>(arg);
 		}
 	};
 } // visit_Test_namespace
@@ -1182,6 +1196,23 @@ TestCase(visit_Test)
 	checkEqual(B::a, 1);
 	checkEqual(B::b, 2);
 	checkEqual(B::c, 3);
+
+	auto arg = std::make_tuple(
+			std::make_tuple(),
+			std::make_tuple(
+				-1.0, 3.14, 0.0
+			)
+		);
+
+	mp::visit<
+		type_list<A, B>,
+		visitor
+	>::call( arg );
+
+	checkEqual(A::x, 1);
+	checkEqual(B::a, -1.0);
+	checkEqual(B::b, 3.14);
+	checkEqual(B::c, 0.0);
 }
 
 TestCase(revert_Test)
