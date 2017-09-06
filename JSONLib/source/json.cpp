@@ -3,6 +3,8 @@
 // Standard
 #include <fstream>
 
+namespace psin {
+	
 json read_json(const std::string & filename)
 {
 	json j;
@@ -11,3 +13,5 @@ json read_json(const std::string & filename)
 
 	return j;
 }
+
+} // psin
