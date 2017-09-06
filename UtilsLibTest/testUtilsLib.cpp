@@ -1190,7 +1190,7 @@ TestCase(visit_Test)
 	mp::visit<
 		type_list<A, B>,
 		visitor
-	>::call();
+	>::call_same();
 
 	checkEqual(A::x, 1);
 	checkEqual(B::a, 1);

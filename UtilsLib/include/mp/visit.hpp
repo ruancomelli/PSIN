@@ -9,6 +9,10 @@
 #include <cstddef>
 #include <tuple>
 
+// There are three types of visit: call_same and call.
+// call_same calls the Visitor's call function with the same argument. This can be void
+// call calls the Visitor's call function using the i-th entry of the argument tuple.
+
 namespace psin {
 namespace mp {
 
@@ -26,11 +30,11 @@ struct visit
 		visit< TypeList, Visitor, Pos-1 >::call( arg );
 	}
 
-
-	static void call()
+	template<typename...Args>
+	static void call_same(Args &...args)
 	{
-		Visitor< typename mp::get<Pos, TypeList>::type >::call();
-		visit< TypeList, Visitor, Pos-1 >::call();
+		Visitor< typename mp::get<Pos, TypeList>::type >::call(args...);
+		visit< TypeList, Visitor, Pos-1 >::call_same(args...);
 	}
 };
 
@@ -46,9 +50,10 @@ struct visit<TypeList, Visitor, 0>
 		Visitor< typename mp::get<0, TypeList>::type >::call( std::get<0>(arg) );
 	}
 
-	static void call()
+	template<typename...Args>
+	static void call_same(Args &...args)
 	{
-		Visitor< typename mp::get<0, TypeList>::type >::call();
+		Visitor< typename mp::get<0, TypeList>::type >::call(args...);
 	}
 };
 
