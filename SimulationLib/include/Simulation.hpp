@@ -47,10 +47,10 @@ class Simulation<
 > : public Named
 {
 public:
-	// using ParticleList = psin::ParticleList<ParticleTypes...>;
-	// using InteractionList = psin::InteractionList<InteractionTypes...>;
-	// using LooperList = psin::LooperList<GearLooper>;
-	// using SeekerList = psin::SeekerList<CollisionSeeker>;
+	using ParticleList = psin::ParticleList<ParticleTypes...>;
+	using InteractionList = psin::InteractionList<InteractionTypes...>;
+	using LooperList = psin::LooperList<GearLooper>;
+	using SeekerList = psin::SeekerList<CollisionSeeker>;
 
 	void setup(int argc, char * argv[]);
 
@@ -83,6 +83,10 @@ private:
 	int timeStepsForOutput;
 
 	std::tuple< std::vector<ParticleTypes>... > particles;
+	std::set< std::string > interactionsToUse;
+
+	template<typename I>
+	bool useInteraction() noexcept;
 };
 
 	// public:
