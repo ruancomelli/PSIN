@@ -31,12 +31,12 @@ struct TangentialForceCundallStrack
 		template<typename P1, typename P2>
 		struct check : mp::bool_constant<
 			P1::template has_property<TangentialKappa>::value
-			&& P1::template has_property<FrictionParameter>::value
-			&& is_spherical<P1>::value
+			and P1::template has_property<FrictionParameter>::value
+			and is_spherical<P1>::value
 
-			&& P2::template has_property<TangentialKappa>::value
-			&& P2::template has_property<FrictionParameter>::value
-			&& is_spherical<P2>::value
+			and P2::template has_property<TangentialKappa>::value
+			and P2::template has_property<FrictionParameter>::value
+			and is_spherical<P2>::value
 			>
 		{};
 

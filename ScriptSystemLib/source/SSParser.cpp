@@ -21,7 +21,7 @@ Parser::Parser( const string& scriptFilename )
 
 	string type;
 	scriptFile >> type;
-	while( type == "//" || (type[ 0 ] == '/' && type[ 1 ] == '/') ){
+	while( type == "//" or (type[ 0 ] == '/' and type[ 1 ] == '/') ){
 		getline( scriptFile, type );
 		scriptFile >> type;
 	}
@@ -51,7 +51,7 @@ ParserNodePtr Parser::readParserNode( InputFile& scriptFile, string& type ){
 	//toUpper( name );
 	ParserNodePtr parserNode( new ParserNode( type, name, value ) );
 	scriptFile >> type;
-	if( isBracketOpen || type == "{" ){
+	if( isBracketOpen or type == "{" ){
 		if( !isBracketOpen ){
 			scriptFile >> type;
 		}
@@ -60,7 +60,7 @@ ParserNodePtr Parser::readParserNode( InputFile& scriptFile, string& type ){
 		}
 		scriptFile >> type;
 	}
-	while( type == "//" || (type[ 0 ] == '/' && type[ 1 ] == '/') ){
+	while( type == "//" or (type[ 0 ] == '/' and type[ 1 ] == '/') ){
 		getline( scriptFile, type );
 		scriptFile >> type;
 	}

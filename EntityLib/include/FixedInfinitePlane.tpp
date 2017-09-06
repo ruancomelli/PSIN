@@ -93,7 +93,7 @@ bool operator==(const FixedInfinitePlane<PropertyTypes...> & left, const FixedIn
 	bool parallel = parallelPlanes(left, right);
 	bool containSamePoint = left.containsPoint( right.getOrigin() );
 
-	return parallel && containSamePoint;
+	return parallel and containSamePoint;
 }
 
 template<typename Plane1, typename Plane2>
@@ -102,7 +102,7 @@ bool parallelPlanes(const Plane1 & left, const Plane2 & right)
 	Vector3D leftVersor = left.getNormalVersor();
 	Vector3D rightVersor = right.getNormalVersor();
 
-    return ( leftVersor == rightVersor ) || ( leftVersor == - rightVersor );
+    return ( leftVersor == rightVersor ) or ( leftVersor == - rightVersor );
 }
 
 } // psin

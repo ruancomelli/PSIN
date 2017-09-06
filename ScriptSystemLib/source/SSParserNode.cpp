@@ -31,9 +31,9 @@ double& ParserNode::getValue(){
 }
 
 bool ParserNode::getBool(){
-	if( this->name == "true" || this->name == "TRUE" ){
+	if( this->name == "true" or this->name == "TRUE" ){
 		return true;
-	}else if( this->name == "false" || this->name == "FALSE" ){
+	}else if( this->name == "false" or this->name == "FALSE" ){
 		return false;
 	}
 	throw std::runtime_error( "ParserNode " + this->type + " doesn't have a bool parameter!" );

@@ -26,16 +26,16 @@ struct NormalForceViscoelasticSpheres
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
 		P1::template has_property<Radius>::value
-		&& P1::template has_property<ElasticModulus>::value
-		&& P1::template has_property<DissipativeConstant>::value
-		&& P1::template has_property<PoissonRatio>::value
-		&& is_spherical<P1>::value
+		and P1::template has_property<ElasticModulus>::value
+		and P1::template has_property<DissipativeConstant>::value
+		and P1::template has_property<PoissonRatio>::value
+		and is_spherical<P1>::value
 
-		&& P2::template has_property<Radius>::value
-		&& P2::template has_property<ElasticModulus>::value
-		&& P2::template has_property<DissipativeConstant>::value
-		&& P2::template has_property<PoissonRatio>::value
-		&& is_spherical<P2>::value
+		and P2::template has_property<Radius>::value
+		and P2::template has_property<ElasticModulus>::value
+		and P2::template has_property<DissipativeConstant>::value
+		and P2::template has_property<PoissonRatio>::value
+		and is_spherical<P2>::value
 		>
 	{};
 

@@ -174,7 +174,7 @@ Vector3D operator - (const Vector3D & v){
 }
 
 bool operator == ( const Vector3D & v1 , const Vector3D & v2 ){
-	if( (v1.length() == 0) && (v2.length() == 0) ) return true;
+	if( (v1.length() == 0) and (v2.length() == 0) ) return true;
 	
 	const double diffNormalized = (v1 - v2).length() / (v1.length() + v2.length());
 

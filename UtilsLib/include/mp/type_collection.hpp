@@ -30,7 +30,7 @@ struct type_collection
 	constexpr static bool is_subset_of = detail::is_subset_of<identity, U>::value;
 
 	template<typename U>
-	constexpr static bool is_equal_to = is_superset_of<U> && is_subset_of<U>;
+	constexpr static bool is_equal_to = is_superset_of<U> and is_subset_of<U>;
 
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = typename equivalent_type_list::template specialize<ClassToSpecialize>;

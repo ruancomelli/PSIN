@@ -79,7 +79,7 @@ void FileReader::openFile(const string & fileName)
 // 		this->file.clear();
 // 		this->file.seekg( 0, std::ios::beg );	// Go to the beginning of the file
 
-// 		while( psin::stringCompare( buffer, tag ) && !this->file.eof() )	// Search for "tag" inside file
+// 		while( psin::stringCompare( buffer, tag ) and !this->file.eof() )	// Search for "tag" inside file
 // 		{
 // 			this->file >> buffer;
 // 		}

@@ -24,7 +24,7 @@ namespace detail
 
 	template<typename TypeList, typename U, typename...Us>
 	struct contains<TypeList, U, Us...>
-		: mp::bool_constant< contains<TypeList, U>::value && contains<TypeList, Us...>::value >
+		: mp::bool_constant< contains<TypeList, U>::value and contains<TypeList, Us...>::value >
 	{};
 
 	template<typename U>
@@ -32,7 +32,7 @@ namespace detail
 
 	template<typename T, typename...Ts, typename U>
 	struct contains< mp::type_list<T, Ts...>, U>
-		: mp::bool_constant< std::is_same<T, U>::value || contains< mp::type_list<Ts...>, U>::value >
+		: mp::bool_constant< std::is_same<T, U>::value or contains< mp::type_list<Ts...>, U>::value >
 	{};
 
 
@@ -93,7 +93,7 @@ namespace detail
 
 	template<typename T, typename ... Ts>
 	struct has_repeated_types< mp::type_list<T, Ts...> >
-		: mp::bool_constant< has_repeated_types< mp::type_list<Ts...> >::value || contains<mp::type_list<Ts...>, T>::value >
+		: mp::bool_constant< has_repeated_types< mp::type_list<Ts...> >::value or contains<mp::type_list<Ts...>, T>::value >
 	{};
 
 	template<>
@@ -104,7 +104,7 @@ namespace detail
 	// template<typename T, typename U>
 	// struct is_permutation
 	// 	: std::conditional<
-	// 		is_superlist_of<T,U>::value && is_superlist_of<U,T>::value,
+	// 		is_superlist_of<T,U>::value and is_superlist_of<U,T>::value,
 	// 		std::true_type,
 	// 		std::false_type
 	// 	>::type

@@ -217,7 +217,7 @@ void SpatialEntity::setSpatial(std::vector<Vector3D> & spatialToSet, const std::
 
 void SpatialEntity::setTaylorOrder(const size_t taylorOrder)
 {
-	if(taylorOrder < 3 || taylorOrder > 5)
+	if(taylorOrder < 3 or taylorOrder > 5)
 	{
 		throw std::runtime_error("Invalid taylorOrder inserted. taylorOrder must be either 3, 4 or 5.");
 	}

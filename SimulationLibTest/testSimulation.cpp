@@ -28,14 +28,14 @@ namespace InteractionSubjectLister_Test_namespace {
 	struct I
 	{
 		template<typename T, typename U>
-		struct check : mp::bool_constant< (is_same<T, A>::value || is_same<T, B>::value) && (is_same<U, A>::value || is_same<U, B>::value) >
+		struct check : mp::bool_constant< (is_same<T, A>::value or is_same<T, B>::value) and (is_same<U, A>::value or is_same<U, B>::value) >
 		{};
 	};
 
 	struct J
 	{
 		template<typename T, typename U>
-		struct check : mp::bool_constant< is_same<T, C>::value && is_same<U, B>::value >
+		struct check : mp::bool_constant< is_same<T, C>::value and is_same<U, B>::value >
 		{};
 	};
 } // InteractionSubjectLister_Test_namespace

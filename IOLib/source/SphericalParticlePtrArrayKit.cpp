@@ -50,7 +50,7 @@
 // 	for(int i=0 ; i<nParticles ; ++i)
 // 	{
 // 		string particleInputPath = inputPath + "particle" + to_string(i) + ".txt";
-// 		boolFlag = boolFlag && this->inputParticle(particleInputPath);
+// 		boolFlag = boolFlag and this->inputParticle(particleInputPath);
 // 	}
 
 // 	return boolFlag;
@@ -62,7 +62,7 @@
 
 // 	for( unsigned i=0; i<inputPath.size(); ++i)
 // 	{
-// 		boolFlag = boolFlag && this->inputParticle(inputPath[i]);
+// 		boolFlag = boolFlag and this->inputParticle(inputPath[i]);
 // 	}
 
 // 	return boolFlag;
@@ -222,7 +222,7 @@
 
 // 	// ----- Read Handle -----
 // 	int handle;
-// 	boolFlag = boolFlag && fileReader.readValue("<Handle>", handle);
+// 	boolFlag = boolFlag and fileReader.readValue("<Handle>", handle);
 
 // 	newEntity = EntityPtr( new Entity(handle) );
 
@@ -236,16 +236,16 @@
 
 // 	// ----- Read Entity -----
 // 	EntityPtr entity( new Entity() );
-// 	boolFlag = boolFlag && readEntity(fileName, entity);
+// 	boolFlag = boolFlag and readEntity(fileName, entity);
 	
 
 // 	// ----- Read taylorOrder -----
 // 	int taylorOrder;
-// 	boolFlag = boolFlag && fileReader.readValue("<TaylorOrder>", taylorOrder);
+// 	boolFlag = boolFlag and fileReader.readValue("<TaylorOrder>", taylorOrder);
 
 // 	// ----- Read dimension -----
 // 	int dimension;
-// 	boolFlag = boolFlag && fileReader.readValue("<Dimension>", dimension);
+// 	boolFlag = boolFlag and fileReader.readValue("<Dimension>", dimension);
 
 // 	// ----- Create object -----
 // 	PhysicalEntity physicalEntity( taylorOrder, dimension, *entity );
@@ -290,7 +290,7 @@
 // 	bool boolFlag = true;
 
 // 	PhysicalEntityPtr physicalEntity( new PhysicalEntity() );
-// 	boolFlag = boolFlag && readPhysicalEntity(fileName, physicalEntity);
+// 	boolFlag = boolFlag and readPhysicalEntity(fileName, physicalEntity);
 
 // 	particle = ParticlePtr( new Particle(*physicalEntity) );
 
@@ -305,13 +305,13 @@
 
 // 	// ----- Read Particle -----
 // 	ParticlePtr particle( new Particle() );
-// 	boolFlag = boolFlag && readParticle(fileName, particle);
+// 	boolFlag = boolFlag and readParticle(fileName, particle);
 	
 // 	// ----- Read SphericalParticle -----
 // 	sphericalParticle = SphericalParticlePtr( new SphericalParticle(*particle) );
 
 // 	DoubleVector geometricParameter(N_GEOMETRIC_PARAMETER);
-// 	boolFlag = boolFlag && fileReader.readValue("<Radius>", geometricParameter[RADIUS]);
+// 	boolFlag = boolFlag and fileReader.readValue("<Radius>", geometricParameter[RADIUS]);
 
 // 	sphericalParticle->setGeometricParameter(geometricParameter);
 

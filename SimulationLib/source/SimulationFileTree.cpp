@@ -12,17 +12,17 @@ bool SimulationFileTree::setTree(const std::string & simulationName, const std::
 
 	this->simulationName = simulationName;
 
-	boolFlag = boolFlag && this->setProjectRootFolder(projectRootFolder);
-	boolFlag = boolFlag && this->setInputFolder(projectRootFolder + "_input/");
+	boolFlag = boolFlag and this->setProjectRootFolder(projectRootFolder);
+	boolFlag = boolFlag and this->setInputFolder(projectRootFolder + "_input/");
 
-	boolFlag = boolFlag && this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/mainInfoInput.txt");
-	boolFlag = boolFlag && this->setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
+	boolFlag = boolFlag and this->setInputMainDataFilePath(projectRootFolder + "_input/" + simulationName + "/mainInfoInput.txt");
+	boolFlag = boolFlag and this->setParticleInputFolder(projectRootFolder + "_input/" + simulationName + "/");
 
-	boolFlag = boolFlag && this->setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
-	boolFlag = boolFlag && this->setNumericalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Numerical/");
-	boolFlag = boolFlag && this->setGraphicalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Graphical/");
-	boolFlag = boolFlag && this->setTimeVectorOutputFileName("timeVector.txt");
-	boolFlag = boolFlag && this->setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
+	boolFlag = boolFlag and this->setOutputFolder(projectRootFolder + "_output/" + simulationName + "/");
+	boolFlag = boolFlag and this->setNumericalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Numerical/");
+	boolFlag = boolFlag and this->setGraphicalOutputFolder(projectRootFolder + "_output/" + simulationName + "/Graphical/");
+	boolFlag = boolFlag and this->setTimeVectorOutputFileName("timeVector.txt");
+	boolFlag = boolFlag and this->setTimeVectorForPlotOutputFileName("timeVectorForPlot.txt");
 
 	return boolFlag;
 }
@@ -100,7 +100,7 @@ bool SimulationFileTree::setGraphicalOutputFolder(const std::string & graphicalO
 
 	this->graphicalOutputFolder = graphicalOutputFolder;
 
-	return psin::checkPathExists(graphicalOutputFolder) && psin::checkPathExists(graphicalOutputFolder + "Plots/") && psin::checkPathExists(graphicalOutputFolder + "Animations/");
+	return psin::checkPathExists(graphicalOutputFolder) and psin::checkPathExists(graphicalOutputFolder + "Plots/") and psin::checkPathExists(graphicalOutputFolder + "Animations/");
 }
 
 bool SimulationFileTree::setTimeVectorOutputFileName(const std::string & timeVectorOutputFileName)

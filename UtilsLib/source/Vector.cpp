@@ -83,7 +83,7 @@ void normalize( DoubleVector& vec ){
 // DoubleVector2D operations
 void operator +=( DoubleVector2D& mat1, const DoubleVector2D& mat2 )
 {
-	if( (mat1.size() != mat2.size()) || ( mat1[0].size() != mat2[0].size() ) ) 
+	if( (mat1.size() != mat2.size()) or ( mat1[0].size() != mat2[0].size() ) ) 
 	{
 		throw runtime_error( "DoubleVector2D += operator: matrices dimensions don't agree." );
 	}
