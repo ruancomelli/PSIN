@@ -13,6 +13,9 @@ namespace psin {
 
 template<> const std::string NamedType<TangentialForceCundallStrack>::name = "TangentialForceCundallStrack";
 
+void Builder<TangentialForceCundallStrack>::setup(json&)
+{}
+
 // ------------------ FORCE CALCULATION ------------------
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle

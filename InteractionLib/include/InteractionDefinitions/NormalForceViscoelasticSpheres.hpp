@@ -8,6 +8,9 @@
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
+// JSONLib
+#include <json.hpp>
+
 namespace psin {
 
 // ------------------ FORCE CALCULATION ------------------
@@ -41,6 +44,12 @@ struct NormalForceViscoelasticSpheres
 
 	template<typename...Ts, typename...Us>
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);
+};
+
+template<>
+struct Builder<NormalForceViscoelasticSpheres>
+{
+	static void setup(json& j);
 };
 
 } // psin

@@ -5,8 +5,12 @@
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
+#include <Builder.hpp>
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
+
+// JSONLib
+#include <json.hpp>
 
 namespace psin {
 
@@ -30,6 +34,12 @@ struct ElectrostaticForce
 
 	template<typename P1, typename P2>
 	static void calculate(P1 & particle, P2 & neighbor);
+};
+
+template<>
+struct Builder<ElectrostaticForce>
+{
+	static void setup(json& j);
 };
 
 } // psin

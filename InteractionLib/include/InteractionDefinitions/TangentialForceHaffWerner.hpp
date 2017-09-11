@@ -8,6 +8,9 @@
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
+// JSONLib
+#include <json.hpp>
+
 namespace psin {
 
 // ------------------ FORCE CALCULATION ------------------
@@ -35,6 +38,12 @@ struct TangentialForceHaffWerner
 		
 	template<typename...Ts, typename...Us>
 	static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
+};
+
+template<>
+struct Builder<TangentialForceHaffWerner>
+{
+	static void setup(json& j);
 };
 
 } // psin

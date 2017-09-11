@@ -10,6 +10,9 @@
 #include <Vector3D.hpp>
 #include <mp/bool_constant.hpp>
 
+// JSONLib
+#include <json.hpp>
+
 // Standard
 #include <map>
 #include <utility>
@@ -53,6 +56,12 @@ struct TangentialForceCundallStrack
 		static void startCollision(const HandledEntity & particle, const HandledEntity & neighbor);
 		static bool checkCollision(const HandledEntity & particle, const HandledEntity & neighbor);
 		static void endCollision(const HandledEntity & particle, const HandledEntity & neighbor);
+};
+
+template<>
+struct Builder<TangentialForceCundallStrack>
+{
+	static void setup(json& j);
 };
 
 } // psin
