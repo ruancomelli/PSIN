@@ -1,4 +1,4 @@
-#include <StringUtils.hpp>
+#include <string.hpp>
 
 // Standard
 #include <algorithm>
