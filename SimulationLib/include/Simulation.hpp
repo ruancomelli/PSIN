@@ -58,15 +58,9 @@ public:
 	// This function sets paths, inputs and simulates
 	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
 
-	// Input
-	void inputMainData(void);
-
 	// Output
 	void outputMainData(void) const;
 	void printSuccessMessage(void) const;
-
-	// Particles
-	void initializeParticleArray(void);
 
 	// Simulate
 	void simulate(void);
@@ -86,7 +80,7 @@ private:
 	std::set< std::string > interactionsToUse;
 
 	template<typename I>
-	bool useInteraction() noexcept;
+	bool useInteraction();
 };
 
 	// public:
