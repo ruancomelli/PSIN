@@ -6,41 +6,21 @@
 	"timeStepsForOutput": 1000,
 
 	"Interactions":
-	[
-		{
-			"name": "NormalForceLinearDashpotForce",
-			"path": null,
-			"use": true
-		},
-		{
-			"name": "NormalForceViscoelasticSpheres",
-			"path": null,
-			"use": false
-		},
-		{
-			"name": "TangentialForceHaffWerner",
-			"path": null,
-			"use": false
-		},
-		{
-			"name": "TangentialForceCundallStrack",
-			"path": null,
-			"use": true
-		},
-		{
-			"name": "ElectrostaticForce",
-			"path": null,
-			"use": false
-		}
-	],
+	{
+		"NormalForceLinearDashpotForce": null,
+		"NormalForceViscoelasticSpheres": null,
+		"TangentialForceHaffWerner": null,
+		"TangentialForceCundallStrack": null,
+		"ElectrostaticForce": null
+	},
 
 	"Particles":
 	{
-		"RedSphere":
+		"SphericalParticle":
 		{
 			"path": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/RedSphere.json"
 		},
-		"BlueSphere":
+		"SphericalParticle":
 		{
 			"path": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/BlueSphere.json"
 		}
