@@ -1,5 +1,4 @@
 // Standard
-#include <string>
 #include <vector>
 
 // InteractionLib
@@ -7,6 +6,9 @@
 
 // PropertyLib
 #include <PropertyDefinitions.hpp>
+
+// UtilsLib
+#include <string.hpp>
 
 // SimulationLib
 #include <Simulation.hpp>

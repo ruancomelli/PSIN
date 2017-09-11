@@ -15,9 +15,7 @@
 // UtilsLib
 #include <Named.hpp>
 #include <Vector3D.hpp>
-
-// Standard
-#include <string>
+#include <string.hpp>
 
 namespace psin
 {

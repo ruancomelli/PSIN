@@ -3,8 +3,8 @@
 
 #include <SphericalParticle.hpp>
 
-// Standard
-#include <string>
+// UtilsLib
+#include <string.hpp>
 
 namespace psin {
 	

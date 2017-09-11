@@ -2,9 +2,6 @@
 //#define PROJECT_PATH "D:\\Git-Projects\\ParticleSimulator\\"
 //#define PROJECT_PATH "D:/Git-Projects/ParticleSimulator/"
 
-// Standard
-#include <string>
-
 // UtilsLib
 #include <Any.hpp>
 #include <FileSystem.hpp>
@@ -13,6 +10,7 @@
 #include <Test.hpp>
 #include <Vector3D.hpp>
 #include <Vector.hpp>
+#include <string.hpp>
 
 // EntityLib
 // #include <Entity.hpp>

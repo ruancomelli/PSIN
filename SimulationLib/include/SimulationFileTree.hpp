@@ -1,9 +1,11 @@
 #ifndef SIMULATION_FILE_TREE_HPP
 #define SIMULATION_FILE_TREE_HPP
 
+// UtilsLib
+#include <string.hpp>
+
 // Standard
 #include <fstream>
-#include <string>
 
 namespace psin {
 

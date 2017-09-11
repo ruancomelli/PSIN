@@ -1,7 +1,8 @@
 #ifndef NAMED_TYPE_HPP
 #define NAMED_TYPE_HPP
 
-#include <string>
+// UtilsLib
+#include <string.hpp>
 
 namespace psin {
 

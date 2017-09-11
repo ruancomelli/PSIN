@@ -3,7 +3,8 @@
 
 #include <InteractionDefinitions/NormalForceLinearDashpotForce.hpp>
 
-#include <string>
+// UtilsLib
+#include <string.hpp>
 
 namespace psin {
 

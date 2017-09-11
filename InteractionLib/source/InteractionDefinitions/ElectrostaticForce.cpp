@@ -3,7 +3,8 @@
 
 #include <InteractionDefinitions/ElectrostaticForce.hpp>
 
-#include <string>
+// UtilsLib
+#include <string.hpp>
 
 namespace psin {
 	

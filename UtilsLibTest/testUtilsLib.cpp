@@ -1,7 +1,6 @@
 #define BOOST_TEST_MODULE TestModule
 
 // Standard
-#include <string>
 #include <tuple>
 #include <type_traits>
 
@@ -15,7 +14,7 @@
 #include <NamedGroup.hpp>
 #include <ProgramOptions.hpp>
 #include <SharedPointer.hpp>
-#include <StringUtils.hpp>
+#include <string.hpp>
 #include <Test.hpp>
 #include <UniquePointer.hpp>
 #include <Variant.hpp>
@@ -109,7 +108,7 @@ TestCase(unique_ptr_Test)
 	checkEqual((*v0).z(), v1->z());
 }
 
-// StringUtils
+// string
 TestCase(StringCompareTest) {
 	string left("<LaTeX>");
 	string right("<latex>");

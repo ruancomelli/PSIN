@@ -1,7 +1,7 @@
 #include <SSParserNode.hpp>
 
 // UtilsLib
-#include <StringUtils.hpp>
+#include <string.hpp>
 
 // Standard
 #include <stdexcept>

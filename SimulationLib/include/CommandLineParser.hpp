@@ -1,7 +1,8 @@
 #ifndef COMMAND_LINE_PARSER_HPP
 #define COMMAND_LINE_PARSER_HPP
 
-#include <string>
+// UtilsLib
+#include <string.hpp>
 
 namespace psin {
 

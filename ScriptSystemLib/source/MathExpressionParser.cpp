@@ -2,7 +2,7 @@
 
 // UtilsLib
 #include <Mathematics.hpp>
-#include <StringUtils.hpp>
+#include <string.hpp>
 
 namespace psin
 {

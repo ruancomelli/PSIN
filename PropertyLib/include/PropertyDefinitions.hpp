@@ -2,7 +2,7 @@
 #define PROPERTY_DEFINITIONS_HPP
 
 // Standard
-#include <string>
+#include <string.hpp>
 
 // PropertyLib
 #include <PositiveProperty.hpp>

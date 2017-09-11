@@ -4,7 +4,6 @@
 // Standard
 #include <ostream>
 #include <vector>
-#include <string>
 
 // EntityLib
 #include <Particle.hpp>
@@ -15,6 +14,7 @@
 // UtilsLib
 #include <NamedGroup.hpp>
 #include <Vector.hpp>
+#include <string.hpp>
 
 namespace psin {
 

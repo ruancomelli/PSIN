@@ -3,11 +3,13 @@
 // EntityLib
 #include <HandledEntity.hpp>
 
+// UtilsLib
+#include <string.hpp>
+
 // Standard
 #include <algorithm>
 #include <map>
 #include <utility>
-#include <string>
 
 namespace psin {
 
