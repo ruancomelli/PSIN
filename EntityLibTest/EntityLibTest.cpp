@@ -492,7 +492,7 @@ TestCase(Builder_PhysicalEntity_Test)
 
 	check(p.assigned<Mass>());
 	check(p.assigned<Volume>());
-	check(p.assigned<MomentOfInertia>());
+	check(!p.assigned<MomentOfInertia>());
 	checkEqual(p.get<Mass>(), massValue);
 	checkEqual(p.get<Volume>(), volumeValue);
 }

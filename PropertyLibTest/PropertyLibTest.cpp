@@ -101,3 +101,14 @@ TestCase(PropertyDefinitionsTest)
 	check(!mass.assigned());
 	checkClose(mass.get(), positiveValue, tolerance);
 }
+
+TestCase(Builder_Property_Test)
+{
+	double massValue = 1.85;
+	json j{
+		{"Mass", massValue}
+	};
+	Mass mass = Builder<Mass>::build(j);
+	
+	checkEqual(mass.get(), massValue);
+}
