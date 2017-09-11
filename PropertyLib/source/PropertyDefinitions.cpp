@@ -1,44 +1,120 @@
 #include <PropertyDefinitions.hpp>
 
+// UtilsLib
+#include <NamedType.hpp>
+#include <string.hpp>
+
 // Standard
 #include <iostream>
 
 namespace psin {
 	
 // ========================================== MASS ==========================================
-const std::string Mass::name = "Mass";
+template<> const string NamedType<Mass>::name = "Mass";
+Mass Builder<Mass>::build(json& j)
+{
+	Mass x;
+	x.set( j[NamedType<Mass>::name] );
+	return x;
+}
 
 // ========================================== VOLUME ==========================================
-const std::string Volume::name = "Volume";
+template<> const string NamedType<Volume>::name = "Volume";
+Volume Builder<Volume>::build(json& j)
+{
+	Volume x;
+	x.set( j[NamedType<Volume>::name] );
+	return x;
+}
 
 // ========================================== MOMENT OF INERTIA ==========================================
-const std::string MomentOfInertia::name = "MomentOfInertia";
+template<> const string NamedType<MomentOfInertia>::name = "MomentOfInertia";
+MomentOfInertia Builder<MomentOfInertia>::build(json& j)
+{
+	MomentOfInertia x;
+	x.set( j[NamedType<MomentOfInertia>::name] );
+	return x;
+}
 
 // ========================================== MOMENT OF INERTIA ==========================================
-const std::string Radius::name = "Radius";
+template<> const string NamedType<Radius>::name = "Radius";
+Radius Builder<Radius>::build(json& j)
+{
+	Radius x;
+	x.set( j[NamedType<Radius>::name] );
+	return x;
+}
 
 // ========================================== ELASTIC MODULUS ==========================================
-const std::string ElasticModulus::name = "ElasticModulus";
+template<> const string NamedType<ElasticModulus>::name = "ElasticModulus";
+ElasticModulus Builder<ElasticModulus>::build(json& j)
+{
+	ElasticModulus x;
+	x.set( j[NamedType<ElasticModulus>::name] );
+	return x;
+}
 
 // ========================================== DISSIPATIVE CONSTANT ==========================================
-const std::string DissipativeConstant::name = "DissipativeConstant";
+template<> const string NamedType<DissipativeConstant>::name = "DissipativeConstant";
+DissipativeConstant Builder<DissipativeConstant>::build(json& j)
+{
+	DissipativeConstant x;
+	x.set( j[NamedType<DissipativeConstant>::name] );
+	return x;
+}
 
 // ========================================== POISSON RATIO ==========================================
-const std::string PoissonRatio::name = "PoissonRatio";
+template<> const string NamedType<PoissonRatio>::name = "PoissonRatio";
+PoissonRatio Builder<PoissonRatio>::build(json& j)
+{
+	PoissonRatio x;
+	x.set( j[NamedType<PoissonRatio>::name] );
+	return x;
+}
 
 // ========================================== NORMAL DISSIPATIVE CONSTANT ==========================================
-const std::string NormalDissipativeConstant::name = "NormalDissipativeConstant";
+template<> const string NamedType<NormalDissipativeConstant>::name = "NormalDissipativeConstant";
+NormalDissipativeConstant Builder<NormalDissipativeConstant>::build(json& j)
+{
+	NormalDissipativeConstant x;
+	x.set( j[NamedType<NormalDissipativeConstant>::name] );
+	return x;
+}
 
 // ========================================== TANGENTIAL DAMPING ==========================================
-const std::string TangentialDamping::name = "TangentialDamping";
+template<> const string NamedType<TangentialDamping>::name = "TangentialDamping";
+TangentialDamping Builder<TangentialDamping>::build(json& j)
+{
+	TangentialDamping x;
+	x.set( j[NamedType<TangentialDamping>::name] );
+	return x;
+}
 
 // ========================================== FRICTION PARAMETER ==========================================
-const std::string FrictionParameter::name = "FrictionParameter";
+template<> const string NamedType<FrictionParameter>::name = "FrictionParameter";
+FrictionParameter Builder<FrictionParameter>::build(json& j)
+{
+	FrictionParameter x;
+	x.set( j[NamedType<FrictionParameter>::name] );
+	return x;
+}
 
 // ========================================== TANGENTIAL KAPPA ==========================================
-const std::string TangentialKappa::name = "TangentialKappa";
+template<> const string NamedType<TangentialKappa>::name = "TangentialKappa";
+TangentialKappa Builder<TangentialKappa>::build(json& j)
+{
+	TangentialKappa x;
+	x.set( j[NamedType<TangentialKappa>::name] );
+	return x;
+}
 
 // ========================================== ELECTRIC CHARGE ==========================================
-const std::string ElectricCharge::name = "ElectricCharge";
+template<> const string NamedType<ElectricCharge>::name = "ElectricCharge";
+ElectricCharge Builder<ElectricCharge>::build(json& j)
+{
+	ElectricCharge x;
+	x.set( j[NamedType<ElectricCharge>::name] );
+	return x;
+}
 
 } // psin

@@ -89,7 +89,7 @@ TestCase(PropertyDefinitionsTest)
 	double negativeValue = -8.5;
 	double tolerance = 1e-12;
 
-	checkEqual(Mass::name, massName);
+	checkEqual(NamedType<Mass>::name, massName);
 
 	Mass mass;
 

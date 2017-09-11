@@ -1,9 +1,10 @@
 #define BOOST_TEST_MODULE EntityLibTest
 
 // UtilsLib
+#include <Builder.hpp>
+#include <Test.hpp>
 #include <Vector3D.hpp>
 #include <Vector.hpp>
-#include <Test.hpp>
 
 // EntityLib
 #include <Boundary.hpp>
@@ -476,6 +477,24 @@ TestCase(MassInPhysicalEntityTest)
 	check(( physicalEntity.assigned<Mass>() ));
 
 	checkEqual(physicalEntity.get<Mass>(), massValue);
+}
+
+TestCase(Builder_PhysicalEntity_Test)
+{
+	double massValue = 15.4;
+	double volumeValue = 89.5;
+
+	json j;
+	j["Mass"] = massValue;
+	j["Volume"] = volumeValue;
+
+	auto p = Builder< PhysicalEntity<Mass, Volume, MomentOfInertia> >::build(j);
+
+	check(p.assigned<Mass>());
+	check(p.assigned<Volume>());
+	check(p.assigned<MomentOfInertia>());
+	checkEqual(p.get<Mass>(), massValue);
+	checkEqual(p.get<Volume>(), volumeValue);
 }
 
 TestCase(ParticleConstructorTest)

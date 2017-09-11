@@ -1,74 +1,110 @@
 #ifndef PROPERTY_DEFINITIONS_HPP
 #define PROPERTY_DEFINITIONS_HPP
 
-// Standard
-#include <string.hpp>
-
 // PropertyLib
 #include <PositiveProperty.hpp>
 #include <Property.hpp>
 
+// UtilsLib
+#include <Builder.hpp>
+
+// JSONLib
+#include <json.hpp>
+
 namespace psin {
 
 struct Mass : public PositiveProperty<double>
+{};
+template<> struct Builder<Mass>
 {
-	static const std::string name;
+	static Mass build(json& j);
 };
-
 
 struct Volume : public PositiveProperty<double>
+{};
+template<> struct Builder<Volume>
 {
-	static const std::string name;
+	static Volume build(json& j);
 };
+
 
 struct MomentOfInertia : public PositiveProperty<double>
+{};
+template<> struct Builder<MomentOfInertia>
 {
-	static const std::string name;
+	static MomentOfInertia build(json& j);
 };
+
 
 struct Radius : public PositiveProperty<double>
+{};
+template<> struct Builder<Radius>
 {
-	static const std::string name;
+	static Radius build(json& j);
 };
+
 
 struct ElasticModulus : public PositiveProperty<double>
+{};
+template<> struct Builder<ElasticModulus>
 {
-	static const std::string name;
+	static ElasticModulus build(json& j);
 };
+
 
 struct DissipativeConstant : public Property<double>
+{};
+template<> struct Builder<DissipativeConstant>
 {
-	static const std::string name;
+	static DissipativeConstant build(json& j);
 };
+
 
 struct PoissonRatio : public Property<double>
+{};
+template<> struct Builder<PoissonRatio>
 {
-	static const std::string name;
+	static PoissonRatio build(json& j);
 };
+
 
 struct NormalDissipativeConstant : public PositiveProperty<double>
+{};
+template<> struct Builder<NormalDissipativeConstant>
 {
-	static const std::string name;
+	static NormalDissipativeConstant build(json& j);
 };
+
 
 struct TangentialDamping : public PositiveProperty<double>
+{};
+template<> struct Builder<TangentialDamping>
 {
-	static const std::string name;
+	static TangentialDamping build(json& j);
 };
+
 
 struct FrictionParameter : public PositiveProperty<double>
+{};
+template<> struct Builder<FrictionParameter>
 {
-	static const std::string name;
+	static FrictionParameter build(json& j);
 };
+
 
 struct TangentialKappa : public PositiveProperty<double>
+{};
+template<> struct Builder<TangentialKappa>
 {
-	static const std::string name;
+	static TangentialKappa build(json& j);
 };
 
+
 struct ElectricCharge : public Property<double>
+{};
+template<> struct Builder<ElectricCharge>
 {
-	static const std::string name;
+	static ElectricCharge build(json& j);
 };
 	
 } // psin

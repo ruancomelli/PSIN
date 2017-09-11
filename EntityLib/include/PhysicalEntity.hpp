@@ -2,8 +2,12 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
+#include <Builder.hpp>
 #include <mp/bool_constant.hpp>
 #include <mp/type_collection.hpp>
+
+// JSONLib
+#include <json.hpp>
 
 // Standard
 #include <tuple>
@@ -56,6 +60,12 @@ class PhysicalEntity
 
 	protected:
 		typename mp::type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
+};
+
+template<typename ... PropertyTypes>
+struct Builder< PhysicalEntity<PropertyTypes...> >
+{
+	static PhysicalEntity<PropertyTypes...> build(json& j);
 };
 
 } // psin

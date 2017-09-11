@@ -2,9 +2,42 @@
 #define PHYSICAL_ENTITY_TPP
 
 // UtilsLib
+#include <Builder.hpp>
+#include <NamedType.hpp>
 #include <mp/type_list.hpp>
+#include <mp/visit.hpp>
+
+// JSONLib
+#include <json.hpp>
 
 namespace psin {
+
+// ----- Builder ------
+namespace detail {
+
+template<typename P>
+struct set_property
+{
+	template<typename ... Ts>
+	static void call(PhysicalEntity<Ts...>& p, json& j)
+	{
+		if(j.count(NamedType<P>::name) > 0)
+		{
+			p.template set<P>( Builder<P>::build( j[NamedType<P>::name] ).get() );
+		}
+	}
+};
+
+} // detail
+
+template<typename ... PropertyTypes>
+PhysicalEntity<PropertyTypes...> Builder< PhysicalEntity<PropertyTypes...> >::build(json& j)
+{
+	PhysicalEntity<PropertyTypes...> physicalEntity;
+	mp::visit< mp::type_list<PropertyTypes...>, detail::set_property >::call_same(physicalEntity, j);
+	
+	return physicalEntity;
+}
 
 // ----- Constructors -----
 template<typename ... PropertyTypes>
