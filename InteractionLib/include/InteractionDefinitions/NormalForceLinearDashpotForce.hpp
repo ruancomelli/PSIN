@@ -18,8 +18,8 @@ namespace psin {
 //		Calculates normal forces between two spherical particles according to equation (2.8) (see reference)
 struct NormalForceLinearDashpotForce
 {
-	using ElasticModulus = PropertyDefinitions::ElasticModulus;
-	using NormalDissipativeConstant = PropertyDefinitions::NormalDissipativeConstant;
+	
+	
 
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<

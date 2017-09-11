@@ -21,8 +21,8 @@ namespace psin {
 template<typename...Ts, typename...Us>
 void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep)
 {
-	using TangentialDamping = PropertyDefinitions::TangentialDamping;
-	using FrictionParameter = PropertyDefinitions::FrictionParameter;
+	
+	
 
 	if( touch(particle, neighbor) )
 	{

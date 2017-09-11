@@ -18,10 +18,10 @@ namespace psin {
 //		Calculates normal forces between two spherical particles according to equation (2.14) (see reference)
 struct NormalForceViscoelasticSpheres
 {
-	using Radius = PropertyDefinitions::Radius;
-	using ElasticModulus = PropertyDefinitions::ElasticModulus;
-	using DissipativeConstant = PropertyDefinitions::DissipativeConstant;
-	using PoissonRatio = PropertyDefinitions::PoissonRatio;
+	
+	
+	
+	
 
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<

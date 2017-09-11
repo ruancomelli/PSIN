@@ -12,7 +12,7 @@
 #include <Simulation.hpp>
 
 using namespace std;
-using namespace PropertyDefinitions;
+
 
 const string project_root_path = PROJECT_PATH;
 

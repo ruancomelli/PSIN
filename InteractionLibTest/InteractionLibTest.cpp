@@ -24,7 +24,7 @@
 
 using namespace psin;
 using namespace std;
-using namespace PropertyDefinitions;
+
 
 TestCase( TaylorPredictor_Test )
 {

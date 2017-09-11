@@ -79,7 +79,7 @@ Vector3D Particle<PropertyTypes...>::getResultingTorque() const
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::getLinearMomentum() const
 {
-	using Mass = PropertyDefinitions::Mass;
+	
 
 	double mass = this->template get<Mass>();
 
@@ -88,8 +88,8 @@ Vector3D Particle<PropertyTypes...>::getLinearMomentum() const
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::getAngularMomentum() const
 {
-	using Mass = PropertyDefinitions::Mass;
-	using MomentOfInertia = PropertyDefinitions::MomentOfInertia;
+	
+	
 
 	double mass = this->template get<Mass>();
 	double momentOfInertia = this->template get<MomentOfInertia>();
@@ -101,7 +101,7 @@ Vector3D Particle<PropertyTypes...>::getAngularMomentum() const
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getTranslationalEnergy() const
 {
-	using Mass = PropertyDefinitions::Mass;
+	
 	
 	double mass = this->template get<Mass>();
 
@@ -110,7 +110,7 @@ double Particle<PropertyTypes...>::getTranslationalEnergy() const
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getRotationalEnergy() const
 {
-	using MomentOfInertia = PropertyDefinitions::MomentOfInertia;
+	
 	
 	double momentOfInertia = this->template get<MomentOfInertia>();
 
@@ -124,7 +124,7 @@ double Particle<PropertyTypes...>::getKineticEnergy() const
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getPotentialEnergy() const
 {
-	using Mass = PropertyDefinitions::Mass;
+	
 	
 	double mass = this->template get<Mass>();
 

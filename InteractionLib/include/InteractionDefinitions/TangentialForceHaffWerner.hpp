@@ -18,8 +18,8 @@ namespace psin {
 //		Calculates tangential forces between two spherical particles according to equation (2.18) (see reference)
 struct TangentialForceHaffWerner
 {
-	using TangentialDamping = PropertyDefinitions::TangentialDamping;
-	using FrictionParameter = PropertyDefinitions::FrictionParameter;
+	
+	
 
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<

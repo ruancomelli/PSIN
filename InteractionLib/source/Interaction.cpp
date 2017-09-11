@@ -16,8 +16,8 @@
 
 namespace psin {
 
-// using PropertyDefinitions::mass;
-// using PropertyDefinitions::moment_of_inertia;
+// using mass;
+// using moment_of_inertia;
 
 // using std::min;
 // using std::max;

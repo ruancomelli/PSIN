@@ -13,11 +13,11 @@ namespace psin {
 
 template<typename ... PropertyTypes>
 class Particle :
-	public PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>,
+	public PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>,
 	public SocialEntity,
 	public SpatialEntity
 {
-	using BasePhysicalEntity = PhysicalEntity<PropertyDefinitions::Mass, PropertyDefinitions::MomentOfInertia, PropertyTypes...>;
+	using BasePhysicalEntity = PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>;
 
 	public:	
 		// ---- Constructors ----

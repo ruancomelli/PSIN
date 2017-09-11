@@ -13,7 +13,7 @@
 #include <Test.hpp>
 
 using namespace psin;
-using namespace PropertyDefinitions;
+
 using namespace std;
 
 namespace PropertyConstructorsTest_namespace
@@ -76,7 +76,7 @@ TestCase(Property_ValueType_Test)
 {
 	check((
 		std::is_same<
-			PropertyDefinitions::Mass::ValueType,
+			Mass::ValueType,
 			double
 		>::value
 	));

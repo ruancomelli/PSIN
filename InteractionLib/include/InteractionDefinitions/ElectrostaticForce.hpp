@@ -16,7 +16,7 @@ namespace psin {
 //		tangentialForce is the tangential force applied BY neighbor TO particle
 struct ElectrostaticForce
 {
-	using ElectricCharge = PropertyDefinitions::ElectricCharge;
+	
 
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<

@@ -30,7 +30,7 @@
 #include <type_traits>
 
 using namespace psin;
-using namespace PropertyDefinitions;
+
 using namespace std;
 
 namespace psin {

@@ -29,7 +29,7 @@
 
 using namespace std;
 using namespace psin;
-using namespace PropertyDefinitions;
+
 
 const string project_root_path = PROJECT_PATH;
 
@@ -257,7 +257,7 @@ TestCase( FileReaderTest )
 //TestCase(ReadPhysicalEntity)
 //{
 //	PropertyContainer raw;
-//	raw.insertProperty(PropertyDefinitions::mass);
+//	raw.insertProperty(mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -308,7 +308,7 @@ TestCase( FileReaderTest )
 //TestCase(ReadParticle)
 //{
 //	PropertyContainer raw;
-//	raw.insertProperty(PropertyDefinitions::mass);
+//	raw.insertProperty(mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -359,7 +359,7 @@ TestCase( FileReaderTest )
 //TestCase(ReadSphericalParticle)
 //{
 //	PropertyContainer raw;
-//	raw.insertProperty(PropertyDefinitions::mass);
+//	raw.insertProperty(mass);
 //
 //	int dimension = 3;
 //	int taylorOrder = 4;
@@ -470,7 +470,7 @@ TestCase( IntVectorInput ){
 // 		Property<string> color("Color");
 
 // 		PropertyContainer raw;
-// 		raw.insertProperty(PropertyDefinitions::mass);
+// 		raw.insertProperty(mass);
 // 		raw.insertProperty(color);
 	
 // 		int dimension = 3;

@@ -51,7 +51,7 @@
 
 // 		// Body forces
 // 		for( SphericalParticlePtr particle : particleArray ){
-// 			particle->addBodyForce(particle->get( PropertyDefinitions::mass ) * gravity);
+// 			particle->addBodyForce(particle->get( mass ) * gravity);
 // 		}
 
 // 		// Predict position and orientation
@@ -139,10 +139,10 @@
 // 	this->particleArray.inputParticles(this->numberOfParticles, this->fileTree.getParticleInputFolder());
 
 // 	for(auto& particlePtr : particleArray){
-// 		double m = particlePtr->get( PropertyDefinitions::mass );
+// 		double m = particlePtr->get( mass );
 // 		double r = particlePtr->getGeometricParameter( RADIUS );
 
-// 		particlePtr->set( PropertyDefinitions::moment_of_inertia, 2 * m * r * r / 5 );
+// 		particlePtr->set( moment_of_inertia, 2 * m * r * r / 5 );
 // 	}
 
 // 	particleArray[0]->setGravity(this->gravity);

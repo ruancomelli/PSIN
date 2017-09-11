@@ -25,8 +25,8 @@ namespace psin {
 struct TangentialForceCundallStrack
 {
 	public:
-		using TangentialKappa = PropertyDefinitions::TangentialKappa;
-		using FrictionParameter = PropertyDefinitions::FrictionParameter;
+		
+		
 
 		template<typename P1, typename P2>
 		struct check : mp::bool_constant<

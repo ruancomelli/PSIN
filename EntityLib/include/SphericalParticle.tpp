@@ -6,7 +6,7 @@ namespace psin {
 template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
-	using Radius = PropertyDefinitions::Radius;
+	
 
 	double radius1 = left.template get<Radius>();
 	double radius2 = right.template get<Radius>();
@@ -17,7 +17,7 @@ bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...>
 template<typename...Ts, typename...Us>
 double overlap(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
-	using Radius = PropertyDefinitions::Radius;
+	
 
 	double radius1 = left.template get<Radius>();
 	double radius2 = right.template get<Radius>();
@@ -51,7 +51,7 @@ double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalP
 template<typename...Ts, typename...Us>
 Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
-	using Radius = PropertyDefinitions::Radius;
+	
 
 	if( touch(left, right ) )
 	{

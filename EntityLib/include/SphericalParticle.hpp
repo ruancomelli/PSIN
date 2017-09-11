@@ -19,9 +19,9 @@
 namespace psin {
 
 template<typename ... PropertyTypes>
-class SphericalParticle : public Particle<PropertyDefinitions::Radius, PropertyTypes...>
+class SphericalParticle : public Particle<Radius, PropertyTypes...>
 {
-	using BaseParticle = Particle<PropertyDefinitions::Radius, PropertyTypes...>;
+	using BaseParticle = Particle<Radius, PropertyTypes...>;
 
 	public:
 		SphericalParticle();
