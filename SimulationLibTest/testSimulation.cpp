@@ -4,6 +4,12 @@
 #include <FileSystem.hpp>
 #include <Test.hpp>
 
+// PropertyLib
+#include <PropertyDefinitions.hpp>
+
+// InteractionLib
+#include <InteractionDefinitions.hpp>
+
 // SimulationLib
 #include <CommandLineParser.hpp>
 #include <InteractionSubjectLister.hpp>
@@ -99,6 +105,29 @@ TestCase(InteractionSubjectLister_Test)
 			>
 		>::value
 	));
+}
+
+TestCase(Simulation_Test)
+{
+	Simulation<
+		ParticleList<
+			SphericalParticle<
+				Mass,
+				Volume,
+				MomentOfInertia,
+				PoissonRatio
+				>
+			>,
+		InteractionList<
+			ElectrostaticForce,
+			NormalForceLinearDashpotForce,
+			NormalForceViscoelasticSpheres,
+			TangentialForceCundallStrack,
+			TangentialForceHaffWerner
+			>,
+		LooperList<GearLooper>,
+		SeekerList<CollisionSeeker>
+	> simulation;
 }
 
 // For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public

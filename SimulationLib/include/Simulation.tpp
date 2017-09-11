@@ -7,6 +7,9 @@
 // SimulationLib
 #include <CommandLineParser.hpp>
 
+// UtilsLib
+#include <mp/visit.hpp>
+
 // Standard
 #include <fstream>
 
@@ -34,14 +37,16 @@ struct conditionally_build_interaction
 template<typename PVector>
 struct conditionally_build_particle
 {
-	static void call(const std::string & particleName, const std::string & path)
+	using P = typename PVector::value_type;
+
+	template<typename ParticleTuple>
+	static void call(const std::string & particleName, const std::string & path, ParticleTuple & particles)
 	{
 		json j = read_json(path);
 
-		if( j["type"] == NamedType< typename PVector::value_type >::name )
+		if( j["type"] == NamedType< P >::name )
 		{
-			std::get<PVector>() Builder<P>::build(j);
-			??
+			std::get<PVector>(particles).insert( Builder<P>::build(j) );
 		}
 	}
 };
@@ -61,7 +66,7 @@ void Simulation<
 {
 	auto simulationPath = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
 
-	json j = read_json(path);
+	json j = read_json(simulationPath);
 
 	this->initialTime = j["initialTime"];
 	this->timeStep = j["timeStep"];
@@ -80,8 +85,22 @@ void Simulation<
 	json particles = j["particles"];
 	for(json::iterator it = particles.begin(); it != particles.end(); ++it) 
 	{
-		mp::visit<>(it.key(), it.value(), particles);
+		mp::visit<ParticleList, detail::conditionally_build_particle>::call_same(it.key(), it.value(), particles);
 	}
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::simulate()
+{
+	
 }
 
 template<
