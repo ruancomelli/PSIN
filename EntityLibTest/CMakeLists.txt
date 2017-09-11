@@ -1,6 +1,6 @@
 project(EntityLibTest)
 
-set(Dependencies UtilsLib EntityLib PropertyLib)
+set(Dependencies JSONLib UtilsLib EntityLib PropertyLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})

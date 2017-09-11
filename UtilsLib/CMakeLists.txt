@@ -1,6 +1,6 @@
 project(UtilsLib)
 
-set(Dependencies)
+set(Dependencies JSONLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})

@@ -1,6 +1,6 @@
 project(InteractionLib)
 
-set(Dependencies UtilsLib PropertyLib EntityLib)
+set(Dependencies JSONLib UtilsLib PropertyLib EntityLib)
 
 #INCLUDE DIRECTORIES
 foreach(Dependency ${Dependencies})
