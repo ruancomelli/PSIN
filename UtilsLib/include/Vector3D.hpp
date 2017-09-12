@@ -3,6 +3,9 @@
 
 #define VECTOR_3D_EQUAL_TOLERANCE 1e-12
 
+// JSONLib
+#include <json.hpp>
+
 #include <array>
 
 namespace psin {
@@ -37,6 +40,12 @@ public:
 protected:
 	std::array<double, 3> components;
 };
+
+template<typename Out>
+Out& operator<<(Out& out, const Vector3D & v) noexcept 
+{
+	return out << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")";
+}
 
 Vector3D cross( const Vector3D& v0, const Vector3D& v1 );
 double dot( const Vector3D& v0, const Vector3D& v1 );

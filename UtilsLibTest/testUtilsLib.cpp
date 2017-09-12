@@ -400,6 +400,20 @@ TestCase( Vector3DIsEqualOperator ){
 	check( nullVector3D()==nullVector3D() );
 }
 
+TestCase(Vector3D_json_Test)
+{
+	json j{3.14, 15.9, 11.5};
+	Vector3D v = j;
+
+	checkEqual(v, Vector3D(3.14, 15.9, 11.5));
+
+	json j2 = v;
+	checkEqual(j, j2);
+}
+
+
+// ---- FileSystem ----
+
 TestCase(FileSystemTest)
 {
 	string directoryName = "Mordor";
