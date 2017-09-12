@@ -336,6 +336,51 @@ TestCase(SpatialEntityNormalDirectionTest)
 	checkEqual(spatial0.normalVersor(spatial1), normalVersor);
 }
 
+TestCase(Builder_SpatialEntity_Test)
+{
+	size_t taylorOrder = 3;
+	json j{
+		{"Position", [
+			[1.0, 2.0, 3.0],
+			[4.0, 5.0, 6.0],
+			[7.0, 8.0, 9.0],
+			[10.0, 11.0, 12.0]
+		]},
+		{"Orientation", [
+			[-10.0, -11.0, -12.0],
+			[7.0, 8.0, 9.0],
+			[-4.0, -5.0, -6.0],
+			[1.0, 2.0, 3.0],
+		]}
+	};
+
+	SpatialEntity spatial = Builder<SpatialEntity>::build(j);
+
+	std::vector<Vector3D> position{
+		{1.0, 2.0, 3.0},
+		{4.0, 5.0, 6.0}, 
+		{7.0, 8.0, 9.0},
+		{10.0, 11.0, 12.0}
+	};
+
+	std::vector<Vector3D> orientation{
+		{-10.0, -11.0, -12.0},
+		{7.0, 8.0, 9.0},
+		{-4.0, -5.0, -6.0}, 
+		{1.0, 2.0, 3.0}
+	};
+
+	checkEqual(
+		spatial.getPositionMatrix(),
+		position
+	);
+
+	checkEqual(
+		spatial.getOrientationMatrix(),
+		orientation
+	);
+}
+
 TestCase(PhysicalEntityInstantiationTest)
 {
 	PhysicalEntity<int, double, char> physicalEntitySuccess1;

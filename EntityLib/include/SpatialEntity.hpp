@@ -87,6 +87,11 @@ class SpatialEntity
 };
 
 
+template<>
+struct Builder<SpatialEntity>
+{
+	static SpatialEntity build(json& j);
+};
 
 double distance(const SpatialEntity & left, const SpatialEntity & right);	// distance function. Must be specialized for every pair of types
 

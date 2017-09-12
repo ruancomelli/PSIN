@@ -5,6 +5,13 @@
 
 namespace psin {
 
+SpatialEntity Builder<SpatialEntity>::build(json& j)
+{
+	SpatialEntity spatial( j.size() - 1 );
+	spatial.setPositionMatrix(j.["Position"]);
+	spatial.setOrientationMatrix(j.["Orientation"]);
+}
+
 SpatialEntity::SpatialEntity()
 {
 	this->setTaylorOrder(DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
