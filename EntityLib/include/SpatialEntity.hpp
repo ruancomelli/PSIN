@@ -2,6 +2,7 @@
 #define SPATIAL_ENTITY_HPP
 
 // UtilsLib
+#include <Builder.hpp>
 #include <Vector3D.hpp>
 
 // Standard

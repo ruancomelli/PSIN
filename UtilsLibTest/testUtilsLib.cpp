@@ -402,13 +402,72 @@ TestCase( Vector3DIsEqualOperator ){
 
 TestCase(Vector3D_json_Test)
 {
-	json j{3.14, 15.9, 11.5};
-	Vector3D v = j;
-
-	checkEqual(v, Vector3D(3.14, 15.9, 11.5));
-
-	json j2 = v;
-	checkEqual(j, j2);
+	{
+		json j{3.14, 15.9, 11.5};
+		Vector3D v = j;
+		json j2 = v;
+		checkEqual(v, Vector3D(3.14, 15.9, 11.5));
+		checkEqual(j, j2);
+	}
+	{
+		json j{
+			{1.0, 2.0, 3.0},
+			{4.0, 5.0, 6.0}
+		};
+		vector<Vector3D> v = j;
+		vector<Vector3D> v2{
+			{1.0, 2.0, 3.0},
+			{4.0, 5.0, 6.0}
+		};
+		json j2 = v;
+		check(v == v2);
+		checkEqual(j, j2);
+	}
+	{
+		json j{
+			{"Position", 
+				{{1.0, 2.0, 3.0},
+				{4.0, 5.0, 6.0}}
+			}
+		};
+		vector<Vector3D> v = j["Position"];
+		vector<Vector3D> v2{
+			{1.0, 2.0, 3.0},
+			{4.0, 5.0, 6.0}
+		};
+		json j2;
+		j2["Position"] = v;
+		check(v == v2);
+		checkEqual(j, j2);
+	}
+	{
+		json j{
+			{"Position", 
+				{{1.0, 2.0, 3.0},
+				{4.0, 5.0, 6.0}}
+			},
+			{"Orientation", 
+				{{7.0, 8.0, 9.0},
+				{10.0, 11.0, 12.0}}
+			}
+		};
+		vector<Vector3D> v = j["Position"];
+		vector<Vector3D> v2 = j["Orientation"];
+		vector<Vector3D> v3{
+			{1.0, 2.0, 3.0},
+			{4.0, 5.0, 6.0}
+		};
+		vector<Vector3D> v4{
+			{7.0, 8.0, 9.0},
+			{10.0, 11.0, 12.0}
+		};
+		json j2;
+		j2["Position"] = v;
+		j2["Orientation"] = v2;
+		check(v == v3);
+		check(v2 == v4);
+		checkEqual(j, j2);
+	}
 }
 
 
