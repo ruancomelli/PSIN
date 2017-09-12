@@ -107,3 +107,22 @@ TestCase(to_and_from_json_Test)
 	checkEqual(a2.z, 3.14);
 	checkEqual(a2.get(), 10);
 }
+
+TestCase(json_array_Test)
+{
+	json j{
+		{"Position", {1.0, 2.1, 3.2}}
+	};
+
+	json child{1.0, 2.1, 3.2};
+
+	checkEqual(j["Position"], child);
+	checkEqual(child.size(), 3);
+	checkEqual(child[0], 1.0);
+	checkEqual(child[1], 2.1);
+	checkEqual(child[2], 3.2);
+
+	std::vector<double> v = j["Position"];
+	std::vector<double> v2{1.0, 2.1, 3.2};
+	check(v == v2);
+}
