@@ -36,12 +36,6 @@ using namespace std;
 
 namespace psin {
 	template<typename Out>
-	Out& operator<<(Out& out, const Vector3D & v)
-	{
-		return out << "(" << v.x() << ", " << v.y() << ", " << v.z() << ")";
-	}
-
-	template<typename Out>
 	Out& operator<<(Out& out, const std::vector<Vector3D> & v)
 	{
 		for( auto&& entry : v )
@@ -338,20 +332,19 @@ TestCase(SpatialEntityNormalDirectionTest)
 
 TestCase(Builder_SpatialEntity_Test)
 {
-	size_t taylorOrder = 3;
 	json j{
-		{"Position", [
-			[1.0, 2.0, 3.0],
-			[4.0, 5.0, 6.0],
-			[7.0, 8.0, 9.0],
-			[10.0, 11.0, 12.0]
-		]},
-		{"Orientation", [
-			[-10.0, -11.0, -12.0],
-			[7.0, 8.0, 9.0],
-			[-4.0, -5.0, -6.0],
-			[1.0, 2.0, 3.0],
-		]}
+		{"Position", 
+			{{1.0, 2.0, 3.0},
+			{4.0, 5.0, 6.0},
+			{7.0, 8.0, 9.0},
+			{10.0, 11.0, 12.0}}
+		},
+		{"Orientation", 
+			{{-10.0, -11.0, -12.0},
+			{7.0, 8.0, 9.0},
+			{-4.0, -5.0, -6.0},
+			{1.0, 2.0, 3.0}}
+		}
 	};
 
 	SpatialEntity spatial = Builder<SpatialEntity>::build(j);
@@ -529,9 +522,10 @@ TestCase(Builder_PhysicalEntity_Test)
 	double massValue = 15.4;
 	double volumeValue = 89.5;
 
-	json j;
-	j["Mass"] = massValue;
-	j["Volume"] = volumeValue;
+	json j{
+		{"Mass", massValue},
+		{"Volume", volumeValue}
+	};
 
 	auto p = Builder< PhysicalEntity<Mass, Volume, MomentOfInertia> >::build(j);
 
