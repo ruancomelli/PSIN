@@ -12,6 +12,13 @@ Vector3D::Vector3D( void ){
 	this->components[2] = 0.0;
 }
 
+Vector3D::Vector3D( const double& x )
+{
+	this->components[0] = x;
+	this->components[1] = 0;
+	this->components[2] = 0;
+}
+
 Vector3D::Vector3D( const double& x, const double& y, const double& z ){
 	this->components[0] = x;
 	this->components[1] = y;
@@ -189,6 +196,30 @@ bool operator != ( const Vector3D & v1 , const Vector3D & v2 ){
 double distance(const Vector3D & left, const Vector3D & right)
 {
 	return left.dist(right);
+}
+
+void to_json(json& j, const Vector3D& v)
+{
+	j = json{
+		v.x(),
+		v.y(),
+		v.z()
+	};
+}
+
+void from_json(const json& j, Vector3D& v)
+{
+	switch(j.size())
+	{
+		case 1:
+			v = Vector3D(j[0], 0, 0);
+			break;
+		case 2:
+			v = Vector3D(j[0], j[1], 0);
+			break;
+		default:
+			v = Vector3D(j[0], j[1], j[2]);
+	}
 }
 
 } // psin

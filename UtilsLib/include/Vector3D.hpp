@@ -10,7 +10,8 @@ namespace psin {
 class Vector3D{
 public:
 	Vector3D( void );
-	explicit Vector3D( const double& x, const double& y=0.0, const double& z=0.0 );
+	explicit Vector3D( const double& x );
+	Vector3D( const double& x, const double& y, const double& z=0.0 );
 
 	double x() const;
 	double y() const;
@@ -51,6 +52,9 @@ bool operator != ( const Vector3D & v1 , const Vector3D & v2 );
 double distance(const Vector3D & left, const Vector3D & right);
 
 inline Vector3D nullVector3D(void){ return Vector3D(); }
+
+void to_json(json& j, const Vector3D& v);
+void from_json(const json& j, Vector3D& v);
 
 } // psin
 
