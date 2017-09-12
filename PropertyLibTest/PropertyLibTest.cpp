@@ -10,6 +10,7 @@
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
+#include <NamedType.hpp>
 #include <Test.hpp>
 
 using namespace psin;

@@ -400,8 +400,19 @@ TestCase( Vector3DIsEqualOperator ){
 	check( nullVector3D()==nullVector3D() );
 }
 
+namespace Vector3D_json_Test_namespace {
+	template<> const string NamedType<Vector3D>::name = "Vector3D";
+} // Vector3D_json_Test_namespace
+
 TestCase(Vector3D_json_Test)
 {
+	using namespace Vector3D_json_Test_namespace;
+
+	{
+		json j;
+		j[NamedType<Vector3D>::name] = 0;
+		checkEqual(j[NamedType<Vector3D>::name], 0);
+	}
 	{
 		json j{3.14, 15.9, 11.5};
 		Vector3D v = j;
