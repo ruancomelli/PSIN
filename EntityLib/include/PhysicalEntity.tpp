@@ -23,7 +23,7 @@ struct set_property
 	{
 		if(j.count(NamedType<P>::name) > 0)
 		{
-			p.template set<P>( Builder<P>::build( j[NamedType<P>::name] ).get() );
+			p.template property<P>() = Builder<P>::build( j.at(NamedType<P>::name) );
 		}
 	}
 };

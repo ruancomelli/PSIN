@@ -212,13 +212,13 @@ void from_json(const json& j, Vector3D& v)
 	switch(j.size())
 	{
 		case 1:
-			v = Vector3D(j[0], 0, 0);
+			v = Vector3D(j.at(0), 0, 0);
 			break;
 		case 2:
-			v = Vector3D(j[0], j[1], 0);
+			v = Vector3D(j.at(0), j.at(1), 0);
 			break;
 		default:
-			v = Vector3D(j[0], j[1], j[2]);
+			v = Vector3D(j.at(0), j.at(1), j.at(2));
 	}
 }
 
