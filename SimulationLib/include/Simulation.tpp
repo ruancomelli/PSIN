@@ -8,6 +8,7 @@
 #include <CommandLineParser.hpp>
 
 // UtilsLib
+#include <NamedType.hpp>
 #include <mp/visit.hpp>
 
 // Standard
@@ -29,7 +30,7 @@ struct conditionally_build_interaction
 		{
 			json j = read_json(path);
 
-			Builder<I>::build(j);
+			Builder<I>::build(j.at(NamedType<I>::name));
 		}
 	}
 };
@@ -46,7 +47,7 @@ struct conditionally_build_particle
 
 		if( j["type"] == NamedType< P >::name )
 		{
-			std::get<PVector>(particles).insert( Builder<P>::build(j) );
+			std::get<PVector>(particles).insert( Builder<P>::build(j.at(NamedType< P >::name)) );
 		}
 	}
 };

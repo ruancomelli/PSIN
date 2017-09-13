@@ -107,7 +107,30 @@ TestCase(InteractionSubjectLister_Test)
 	));
 }
 
-TestCase(Simulation_Test)
+TestCase(Simulation_Instantiation_Test)
+{
+	Simulation<
+		ParticleList<
+			SphericalParticle<
+				Mass,
+				Volume,
+				MomentOfInertia,
+				PoissonRatio
+				>
+			>,
+		InteractionList<
+			ElectrostaticForce,
+			NormalForceLinearDashpotForce,
+			NormalForceViscoelasticSpheres,
+			TangentialForceCundallStrack,
+			TangentialForceHaffWerner
+			>,
+		LooperList<GearLooper>,
+		SeekerList<CollisionSeeker>
+	> simulation;
+}
+
+TestCase(Simulation_setup_Test)
 {
 	Simulation<
 		ParticleList<
