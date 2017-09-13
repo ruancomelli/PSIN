@@ -14,7 +14,7 @@ template<> const string NamedType<Mass>::name = "Mass";
 Mass Builder<Mass>::build(const json& j)
 {
 	Mass x;
-	x.set( j.at(NamedType<Mass>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -23,7 +23,7 @@ template<> const string NamedType<Volume>::name = "Volume";
 Volume Builder<Volume>::build(const json& j)
 {
 	Volume x;
-	x.set( j.at(NamedType<Volume>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -32,7 +32,7 @@ template<> const string NamedType<MomentOfInertia>::name = "MomentOfInertia";
 MomentOfInertia Builder<MomentOfInertia>::build(const json& j)
 {
 	MomentOfInertia x;
-	x.set( j.at(NamedType<MomentOfInertia>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -41,7 +41,7 @@ template<> const string NamedType<Radius>::name = "Radius";
 Radius Builder<Radius>::build(const json& j)
 {
 	Radius x;
-	x.set( j.at(NamedType<Radius>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -50,7 +50,7 @@ template<> const string NamedType<ElasticModulus>::name = "ElasticModulus";
 ElasticModulus Builder<ElasticModulus>::build(const json& j)
 {
 	ElasticModulus x;
-	x.set( j.at(NamedType<ElasticModulus>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -59,7 +59,7 @@ template<> const string NamedType<DissipativeConstant>::name = "DissipativeConst
 DissipativeConstant Builder<DissipativeConstant>::build(const json& j)
 {
 	DissipativeConstant x;
-	x.set( j.at(NamedType<DissipativeConstant>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -68,7 +68,7 @@ template<> const string NamedType<PoissonRatio>::name = "PoissonRatio";
 PoissonRatio Builder<PoissonRatio>::build(const json& j)
 {
 	PoissonRatio x;
-	x.set( j.at(NamedType<PoissonRatio>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -77,7 +77,7 @@ template<> const string NamedType<NormalDissipativeConstant>::name = "NormalDiss
 NormalDissipativeConstant Builder<NormalDissipativeConstant>::build(const json& j)
 {
 	NormalDissipativeConstant x;
-	x.set( j.at(NamedType<NormalDissipativeConstant>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -86,7 +86,7 @@ template<> const string NamedType<TangentialDamping>::name = "TangentialDamping"
 TangentialDamping Builder<TangentialDamping>::build(const json& j)
 {
 	TangentialDamping x;
-	x.set( j.at(NamedType<TangentialDamping>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -95,7 +95,7 @@ template<> const string NamedType<FrictionParameter>::name = "FrictionParameter"
 FrictionParameter Builder<FrictionParameter>::build(const json& j)
 {
 	FrictionParameter x;
-	x.set( j.at(NamedType<FrictionParameter>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -104,7 +104,7 @@ template<> const string NamedType<TangentialKappa>::name = "TangentialKappa";
 TangentialKappa Builder<TangentialKappa>::build(const json& j)
 {
 	TangentialKappa x;
-	x.set( j.at(NamedType<TangentialKappa>::name) );
+	x.set( j );
 	return x;
 }
 
@@ -113,7 +113,7 @@ template<> const string NamedType<ElectricCharge>::name = "ElectricCharge";
 ElectricCharge Builder<ElectricCharge>::build(const json& j)
 {
 	ElectricCharge x;
-	x.set( j.at(NamedType<ElectricCharge>::name) );
+	x.set( j );
 	return x;
 }
 
