@@ -33,7 +33,6 @@ struct get_property
 	static void call(const PhysicalEntity<Prs...>& p, json& j)
 	{
 		if(p.template assigned<P>()) j[NamedType<P>::name] = p.template get<P>();
-		else j[NamedType<P>::name] = nullptr;
 	}
 };
 

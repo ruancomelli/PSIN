@@ -534,8 +534,7 @@ TestCase(json_PhysicalEntity_Test)
 	check(!p.assigned<MomentOfInertia>());
 	checkEqual(p.get<Mass>(), massValue);
 	checkEqual(p.get<Volume>(), volumeValue);
-	checkEqual(j2["Mass"], j["Mass"]);
-	checkEqual(j2["Volume"], j["Volume"]);
+	checkEqual(j2, j);
 }
 
 TestCase(ParticleConstructorTest)
