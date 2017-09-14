@@ -6,6 +6,9 @@
 
 namespace psin {
 
+namespace filesystem = boost::filesystem;
+using filesystem::path;
+
 bool checkPathExists( const std::string & pathName );
 
 bool createDirectory( const std::string & pathName );

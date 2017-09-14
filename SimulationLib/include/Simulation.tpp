@@ -24,11 +24,11 @@ namespace detail {
 template<typename I>
 struct conditionally_build_interaction
 {
-	static void call(const std::string & interactionName, const std::string & path)
+	static void call(const std::string & interactionName, const std::string & filepath)
 	{
 		if( NamedType<I>::name == interactionName )
 		{
-			json j = read_json(path);
+			json j = read_json(filepath);
 
 			Builder<I>::build(j.at(NamedType<I>::name));
 		}
@@ -41,13 +41,15 @@ struct conditionally_build_particle
 	using P = typename PVector::value_type;
 
 	template<typename ParticleTuple>
-	static void call(const std::string & particleName, const std::string & path, ParticleTuple & particles)
+	static void call(const std::string & particleType, const std::string & filepath, ParticleTuple & particles)
 	{
-		json j = read_json(path);
-
-		if( j["type"] == NamedType< P >::name )
+		if( NamedType<P>::name == particleType)
 		{
-			std::get<PVector>(particles).insert( Builder<P>::build(j.at(NamedType< P >::name)) );
+			json j = read_json(filepath);
+
+			P particle = j;
+
+			std::get<PVector>(particles).insert( particle );
 		}
 	}
 };
