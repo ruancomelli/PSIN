@@ -5,6 +5,7 @@
 #include <SphericalParticle.hpp>
 
 // UtilsLib
+#include <Builder.hpp>
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
@@ -21,9 +22,6 @@ namespace psin {
 //		Calculates normal forces between two spherical particles according to equation (2.8) (see reference)
 struct NormalForceLinearDashpotForce
 {
-	
-	
-
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
 		P1::template has_property<ElasticModulus>::value

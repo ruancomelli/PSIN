@@ -5,6 +5,7 @@
 #include <SphericalParticle.hpp>
 
 // UtilsLib
+#include <Builder.hpp>
 #include <NamedType.hpp>
 #include <mp/bool_constant.hpp>
 
@@ -21,9 +22,6 @@ namespace psin {
 //		Calculates tangential forces between two spherical particles according to equation (2.18) (see reference)
 struct TangentialForceHaffWerner
 {
-	
-	
-
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
 		P1::template has_property<TangentialDamping>::value

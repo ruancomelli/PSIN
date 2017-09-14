@@ -6,6 +6,7 @@
 #include <SphericalParticle.hpp>
 
 // UtilsLib
+#include <Builder.hpp>
 #include <NamedType.hpp>
 #include <Vector3D.hpp>
 #include <mp/bool_constant.hpp>
@@ -28,9 +29,6 @@ namespace psin {
 struct TangentialForceCundallStrack
 {
 	public:
-		
-		
-
 		template<typename P1, typename P2>
 		struct check : mp::bool_constant<
 			P1::template has_property<TangentialKappa>::value
