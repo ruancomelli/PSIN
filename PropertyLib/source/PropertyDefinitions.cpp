@@ -11,110 +11,134 @@ namespace psin {
 	
 // ========================================== MASS ==========================================
 template<> const string NamedType<Mass>::name = "Mass";
-Mass Builder<Mass>::build(const json& j)
+void from_json(const json& j, Mass x &)
 {
-	Mass x;
-	x.set( j );
-	return x;
+	x = Mass(j);
+}
+void to_json(json& j, const Mass x &)
+{
+	j = x.get();
 }
 
 // ========================================== VOLUME ==========================================
 template<> const string NamedType<Volume>::name = "Volume";
-Volume Builder<Volume>::build(const json& j)
+void from_json(const json& j, Volume x &)
 {
-	Volume x;
-	x.set( j );
-	return x;
+	x = Volume(j);
+}
+void to_json(json& j, const Volume x &)
+{
+	j = x.get();
 }
 
 // ========================================== MOMENT OF INERTIA ==========================================
 template<> const string NamedType<MomentOfInertia>::name = "MomentOfInertia";
-MomentOfInertia Builder<MomentOfInertia>::build(const json& j)
+void from_json(const json& j, MomentOfInertia x &)
 {
-	MomentOfInertia x;
-	x.set( j );
-	return x;
+	x = MomentOfInertia(j);
+}
+void to_json(json& j, const MomentOfInertia x &)
+{
+	j = x.get();
 }
 
 // ========================================== MOMENT OF INERTIA ==========================================
 template<> const string NamedType<Radius>::name = "Radius";
-Radius Builder<Radius>::build(const json& j)
+void from_json(const json& j, Radius x &)
 {
-	Radius x;
-	x.set( j );
-	return x;
+	x = Radius(j);
+}
+void to_json(json& j, const Radius x &)
+{
+	j = x.get();
 }
 
 // ========================================== ELASTIC MODULUS ==========================================
 template<> const string NamedType<ElasticModulus>::name = "ElasticModulus";
-ElasticModulus Builder<ElasticModulus>::build(const json& j)
+void from_json(const json& j, ElasticModulus x &)
 {
-	ElasticModulus x;
-	x.set( j );
-	return x;
+	x = ElasticModulus(j);
+}
+void to_json(json& j, const ElasticModulus x &)
+{
+	j = x.get();
 }
 
 // ========================================== DISSIPATIVE CONSTANT ==========================================
 template<> const string NamedType<DissipativeConstant>::name = "DissipativeConstant";
-DissipativeConstant Builder<DissipativeConstant>::build(const json& j)
+void from_json(const json& j, DissipativeConstant x &)
 {
-	DissipativeConstant x;
-	x.set( j );
-	return x;
+	x = DissipativeConstant(j);
+}
+void to_json(json& j, const DissipativeConstant x &)
+{
+	j = x.get();
 }
 
 // ========================================== POISSON RATIO ==========================================
 template<> const string NamedType<PoissonRatio>::name = "PoissonRatio";
-PoissonRatio Builder<PoissonRatio>::build(const json& j)
+void from_json(const json& j, PoissonRatio x &)
 {
-	PoissonRatio x;
-	x.set( j );
-	return x;
+	x = PoissonRatio(j);
+}
+void to_json(json& j, const PoissonRatio x &)
+{
+	j = x.get();
 }
 
 // ========================================== NORMAL DISSIPATIVE CONSTANT ==========================================
 template<> const string NamedType<NormalDissipativeConstant>::name = "NormalDissipativeConstant";
-NormalDissipativeConstant Builder<NormalDissipativeConstant>::build(const json& j)
+void from_json(const json& j, NormalDissipativeConstant x &)
 {
-	NormalDissipativeConstant x;
-	x.set( j );
-	return x;
+	x = NormalDissipativeConstant(j);
+}
+void to_json(json& j, const NormalDissipativeConstant x &)
+{
+	j = x.get();
 }
 
 // ========================================== TANGENTIAL DAMPING ==========================================
 template<> const string NamedType<TangentialDamping>::name = "TangentialDamping";
-TangentialDamping Builder<TangentialDamping>::build(const json& j)
+void from_json(const json& j, TangentialDamping x &)
 {
-	TangentialDamping x;
-	x.set( j );
-	return x;
+	x = TangentialDamping(j);
+}
+void to_json(json& j, const TangentialDamping x &)
+{
+	j = x.get();
 }
 
 // ========================================== FRICTION PARAMETER ==========================================
 template<> const string NamedType<FrictionParameter>::name = "FrictionParameter";
-FrictionParameter Builder<FrictionParameter>::build(const json& j)
+void from_json(const json& j, FrictionParameter x &)
 {
-	FrictionParameter x;
-	x.set( j );
-	return x;
+	x = FrictionParameter(j);
+}
+void to_json(json& j, const FrictionParameter x &)
+{
+	j = x.get();
 }
 
 // ========================================== TANGENTIAL KAPPA ==========================================
 template<> const string NamedType<TangentialKappa>::name = "TangentialKappa";
-TangentialKappa Builder<TangentialKappa>::build(const json& j)
+void from_json(const json& j, TangentialKappa x &)
 {
-	TangentialKappa x;
-	x.set( j );
-	return x;
+	x = TangentialKappa(j);
+}
+void to_json(json& j, const TangentialKappa x &)
+{
+	j = x.get();
 }
 
 // ========================================== ELECTRIC CHARGE ==========================================
 template<> const string NamedType<ElectricCharge>::name = "ElectricCharge";
-ElectricCharge Builder<ElectricCharge>::build(const json& j)
+void from_json(const json& j, ElectricCharge x &)
 {
-	ElectricCharge x;
-	x.set( j );
-	return x;
+	x = ElectricCharge(j);
+}
+void to_json(json& j, const ElectricCharge x &)
+{
+	j = x.get();
 }
 
 } // psin

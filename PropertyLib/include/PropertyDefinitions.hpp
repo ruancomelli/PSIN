@@ -5,9 +5,6 @@
 #include <PositiveProperty.hpp>
 #include <Property.hpp>
 
-// UtilsLib
-#include <Builder.hpp>
-
 // JSONLib
 #include <json.hpp>
 
@@ -15,97 +12,73 @@ namespace psin {
 
 struct Mass : public PositiveProperty<double>
 {};
-template<> struct Builder<Mass>
-{
-	static Mass build(const json& j);
-};
+void from_json(const json& j, Mass &);
+void to_json(json& j, const Mass &);
 
 struct Volume : public PositiveProperty<double>
 {};
-template<> struct Builder<Volume>
-{
-	static Volume build(const json& j);
-};
+void from_json(const json& j, Volume &);
+void to_json(json& j, const Volume &);
 
 
 struct MomentOfInertia : public PositiveProperty<double>
 {};
-template<> struct Builder<MomentOfInertia>
-{
-	static MomentOfInertia build(const json& j);
-};
+void from_json(const json& j, MomentOfInertia &);
+void to_json(json& j, const MomentOfInertia &);
 
 
 struct Radius : public PositiveProperty<double>
 {};
-template<> struct Builder<Radius>
-{
-	static Radius build(const json& j);
-};
+void from_json(const json& j, Radius &);
+void to_json(json& j, const Radius &);
 
 
 struct ElasticModulus : public PositiveProperty<double>
 {};
-template<> struct Builder<ElasticModulus>
-{
-	static ElasticModulus build(const json& j);
-};
+void from_json(const json& j, ElasticModulus &);
+void to_json(json& j, const ElasticModulus &);
 
 
 struct DissipativeConstant : public Property<double>
 {};
-template<> struct Builder<DissipativeConstant>
-{
-	static DissipativeConstant build(const json& j);
-};
+void from_json(const json& j, DissipativeConstant &);
+void to_json(json& j, const DissipativeConstant &);
 
 
 struct PoissonRatio : public Property<double>
 {};
-template<> struct Builder<PoissonRatio>
-{
-	static PoissonRatio build(const json& j);
-};
+void from_json(const json& j, PoissonRatio &);
+void to_json(json& j, const PoissonRatio &);
 
 
 struct NormalDissipativeConstant : public PositiveProperty<double>
 {};
-template<> struct Builder<NormalDissipativeConstant>
-{
-	static NormalDissipativeConstant build(const json& j);
-};
+void from_json(const json& j, NormalDissipativeConstant &);
+void to_json(json& j, const NormalDissipativeConstant &);
 
 
 struct TangentialDamping : public PositiveProperty<double>
 {};
-template<> struct Builder<TangentialDamping>
-{
-	static TangentialDamping build(const json& j);
-};
+void from_json(const json& j, TangentialDamping &);
+void to_json(json& j, const TangentialDamping &);
 
 
 struct FrictionParameter : public PositiveProperty<double>
 {};
-template<> struct Builder<FrictionParameter>
-{
-	static FrictionParameter build(const json& j);
-};
+void from_json(const json& j, FrictionParameter &);
+void to_json(json& j, const FrictionParameter &);
 
 
 struct TangentialKappa : public PositiveProperty<double>
 {};
-template<> struct Builder<TangentialKappa>
-{
-	static TangentialKappa build(const json& j);
-};
+void from_json(const json& j, TangentialKappa &);
+void to_json(json& j, const TangentialKappa &);
 
 
 struct ElectricCharge : public Property<double>
 {};
-template<> struct Builder<ElectricCharge>
-{
-	static ElectricCharge build(const json& j);
-};
+void from_json(const json& j, ElectricCharge &);
+void to_json(json& j, const ElectricCharge &);
 	
 } // psin
 
