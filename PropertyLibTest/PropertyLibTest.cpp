@@ -111,13 +111,13 @@ TestCase(json_Property_Test)
 	};
 	Mass mass = j["Mass"];
 	
-	// checkEqual(mass.get(), massValue);
+	checkEqual(mass.get(), massValue);
 
 	json j2;
-	// j2["Mass"] = mass;
-	// checkEqual(j2, j);
+	j2["Mass"] = mass;
+	checkEqual(j2, j);
 
 	Volume v;
-	// json j3 = v;
-	// check(j3.is_null());
+	json j3 = v;
+	check(j3.is_null());
 }
