@@ -17,7 +17,8 @@ void from_json(const json& j, Mass x &)
 }
 void to_json(json& j, const Mass x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== VOLUME ==========================================
@@ -28,7 +29,8 @@ void from_json(const json& j, Volume x &)
 }
 void to_json(json& j, const Volume x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== MOMENT OF INERTIA ==========================================
@@ -39,7 +41,8 @@ void from_json(const json& j, MomentOfInertia x &)
 }
 void to_json(json& j, const MomentOfInertia x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== MOMENT OF INERTIA ==========================================
@@ -50,7 +53,8 @@ void from_json(const json& j, Radius x &)
 }
 void to_json(json& j, const Radius x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== ELASTIC MODULUS ==========================================
@@ -61,7 +65,8 @@ void from_json(const json& j, ElasticModulus x &)
 }
 void to_json(json& j, const ElasticModulus x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== DISSIPATIVE CONSTANT ==========================================
@@ -72,7 +77,8 @@ void from_json(const json& j, DissipativeConstant x &)
 }
 void to_json(json& j, const DissipativeConstant x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== POISSON RATIO ==========================================
@@ -83,7 +89,8 @@ void from_json(const json& j, PoissonRatio x &)
 }
 void to_json(json& j, const PoissonRatio x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== NORMAL DISSIPATIVE CONSTANT ==========================================
@@ -94,7 +101,8 @@ void from_json(const json& j, NormalDissipativeConstant x &)
 }
 void to_json(json& j, const NormalDissipativeConstant x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== TANGENTIAL DAMPING ==========================================
@@ -105,7 +113,8 @@ void from_json(const json& j, TangentialDamping x &)
 }
 void to_json(json& j, const TangentialDamping x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== FRICTION PARAMETER ==========================================
@@ -116,7 +125,8 @@ void from_json(const json& j, FrictionParameter x &)
 }
 void to_json(json& j, const FrictionParameter x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== TANGENTIAL KAPPA ==========================================
@@ -127,7 +137,8 @@ void from_json(const json& j, TangentialKappa x &)
 }
 void to_json(json& j, const TangentialKappa x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 // ========================================== ELECTRIC CHARGE ==========================================
@@ -138,7 +149,8 @@ void from_json(const json& j, ElectricCharge x &)
 }
 void to_json(json& j, const ElectricCharge x &)
 {
-	j = x.get();
+	if(x.assigned()) j = x.get();
+	else j = null;
 }
 
 } // psin

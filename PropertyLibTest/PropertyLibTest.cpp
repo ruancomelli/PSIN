@@ -115,6 +115,9 @@ TestCase(json_Property_Test)
 
 	json j2;
 	j2["Mass"] = mass;
-
 	checkEqual(j2, j);
+
+	Volume v;
+	json j3 = v;
+	checkEqual(j3, null);
 }
