@@ -2,8 +2,10 @@
 #define SPATIAL_ENTITY_HPP
 
 // UtilsLib
-#include <Builder.hpp>
 #include <Vector3D.hpp>
+
+// JSONLib
+#include <json.hpp>
 
 // Standard
 #include <vector>
@@ -87,12 +89,8 @@ class SpatialEntity
 		size_t taylorOrder;
 };
 
-
-template<>
-struct Builder<SpatialEntity>
-{
-	static SpatialEntity build(json& j);
-};
+void from_json(const json& j, SpatialEntity &);
+void to_json(json& j, const SpatialEntity &);
 
 double distance(const SpatialEntity & left, const SpatialEntity & right);	// distance function. Must be specialized for every pair of types
 

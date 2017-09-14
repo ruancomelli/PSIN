@@ -2,7 +2,6 @@
 #define PHYSICAL_ENTITY_TPP
 
 // UtilsLib
-#include <Builder.hpp>
 #include <NamedType.hpp>
 #include <mp/type_list.hpp>
 #include <mp/visit.hpp>
@@ -12,31 +11,44 @@
 
 namespace psin {
 
-// ----- Builder ------
 namespace detail {
 
 template<typename P>
 struct set_property
 {
-	template<typename ... Ts>
-	static void call(PhysicalEntity<Ts...>& p, json& j)
+	template<typename ... Prs>
+	static void call(PhysicalEntity<Prs...>& p, const json& j)
 	{
 		if(j.count(NamedType<P>::name) > 0)
 		{
-			p.template property<P>() = Builder<P>::build( j.at(NamedType<P>::name) );
+			p.template property<P>() = j.at(NamedType<P>::name);
 		}
+	}
+};
+
+template<typename P>
+struct get_property
+{
+	template<typename ... Prs>
+	static void call(const PhysicalEntity<Prs...>& p, json& j)
+	{
+		if(p.assigned<P>()) j[NamedType<P>::name] = p.get<P>();
+		else j[NamedType<P>::name] = null;
 	}
 };
 
 } // detail
 
-template<typename ... PropertyTypes>
-PhysicalEntity<PropertyTypes...> Builder< PhysicalEntity<PropertyTypes...> >::build(json& j)
+template<typename...Prs>
+void from_json(const json& j, PhysicalEntity<Prs...> & p)
 {
-	PhysicalEntity<PropertyTypes...> physicalEntity;
-	mp::visit< mp::type_list<PropertyTypes...>, detail::set_property >::call_same(physicalEntity, j);
-	
-	return physicalEntity;
+	mp::visit< mp::type_list<PropertyTypes...>, detail::set_property >::call_same(p, j);
+}
+
+template<typename...Prs>
+void to_json(json& j, const PhysicalEntity<Prs...> & p)
+{
+	mp::visit< mp::type_list<PropertyTypes...>, detail::get_property >::call_same(p, j);
 }
 
 // ----- Constructors -----

@@ -5,18 +5,22 @@
 
 namespace psin {
 
-SpatialEntity Builder<SpatialEntity>::build(json& j)
+void from_json(const json& j, SpatialEntity & spatial)
 {
 	if(j.at("Position").size() != j.at("Orientation").size())
 	{
 		throw std::runtime_error("Position and Orientation must have the same size");
 	}
 
-	SpatialEntity spatial( j.at("Position").size() - 1 );
+	spatial.setTaylorOrder( j.at("Position").size() - 1 );
 	spatial.setPositionMatrix(j.at("Position"));
 	spatial.setOrientationMatrix(j.at("Orientation"));
+}
 
-	return spatial;
+void to_json(json& j, const SpatialEntity & s)
+{
+	j["Position"] =  spatial.getPositionMatrix();
+	j["Orientation"] =  spatial.getOrientationMatrix();
 }
 
 SpatialEntity::SpatialEntity()

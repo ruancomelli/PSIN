@@ -1,7 +1,6 @@
 #define BOOST_TEST_MODULE EntityLibTest
 
 // UtilsLib
-#include <Builder.hpp>
 #include <Test.hpp>
 #include <Vector3D.hpp>
 #include <Vector.hpp>
@@ -17,9 +16,6 @@
 #include <SpatialEntity.hpp>
 #include <SocialEntity.hpp>
 #include <SphericalParticle.hpp>
-
-// IOLib
-// #include <vectorIO.hpp>
 
 // PropertyLib
 #include <Property.hpp>
@@ -330,7 +326,7 @@ TestCase(SpatialEntityNormalDirectionTest)
 	checkEqual(spatial0.normalVersor(spatial1), normalVersor);
 }
 
-TestCase(Builder_SpatialEntity_Test)
+TestCase(json_SpatialEntity_Test)
 {
 	json j{
 		{"Position", 
@@ -347,7 +343,7 @@ TestCase(Builder_SpatialEntity_Test)
 		}
 	};
 
-	SpatialEntity spatial = Builder<SpatialEntity>::build(j);
+	SpatialEntity spatial = j;
 
 	std::vector<Vector3D> position{
 		{1.0, 2.0, 3.0},
@@ -372,6 +368,9 @@ TestCase(Builder_SpatialEntity_Test)
 		spatial.getOrientationMatrix(),
 		orientation
 	);
+
+	json j2 = spatial;
+	checkEqual(j2, j);
 }
 
 TestCase(PhysicalEntityInstantiationTest)
@@ -517,7 +516,7 @@ TestCase(MassInPhysicalEntityTest)
 	checkEqual(physicalEntity.get<Mass>(), massValue);
 }
 
-TestCase(Builder_PhysicalEntity_Test)
+TestCase(json_PhysicalEntity_Test)
 {
 	double massValue = 15.4;
 	double volumeValue = 89.5;
@@ -527,13 +526,15 @@ TestCase(Builder_PhysicalEntity_Test)
 		{"Volume", volumeValue}
 	};
 
-	auto p = Builder< PhysicalEntity<Mass, Volume, MomentOfInertia> >::build(j);
+	PhysicalEntity<Mass, Volume, MomentOfInertia> p = j;
+	json j2 = p;
 
 	check(p.assigned<Mass>());
 	check(p.assigned<Volume>());
 	check(!p.assigned<MomentOfInertia>());
 	checkEqual(p.get<Mass>(), massValue);
 	checkEqual(p.get<Volume>(), volumeValue);
+	checkEqual(j2, j);
 }
 
 TestCase(ParticleConstructorTest)

@@ -2,7 +2,6 @@
 #define PHYSICAL_ENTITY_HPP
 
 // UtilsLib
-#include <Builder.hpp>
 #include <mp/bool_constant.hpp>
 #include <mp/type_collection.hpp>
 
@@ -62,11 +61,10 @@ class PhysicalEntity
 		typename mp::type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
 };
 
-template<typename ... PropertyTypes>
-struct Builder< PhysicalEntity<PropertyTypes...> >
-{
-	static PhysicalEntity<PropertyTypes...> build(json& j);
-};
+template<typename...Prs>
+void from_json(const json& j, PhysicalEntity<Prs...> & p);
+template<typename...Prs>
+void to_json(json& j, const PhysicalEntity<Prs...> & p);
 
 } // psin
 
