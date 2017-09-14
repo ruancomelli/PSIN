@@ -11,6 +11,7 @@ namespace psin {
 using json = nlohmann::json;
 
 json read_json(const std::string & filename);
+json merge(const json & lhs, const json & rhs);
 
 } // psin
 

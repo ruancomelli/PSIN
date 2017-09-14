@@ -126,3 +126,43 @@ TestCase(json_array_Test)
 	std::vector<double> v2{1.0, 2.1, 3.2};
 	check(v == v2);
 }
+
+TestCase(json_merge_Test)
+{
+	json j1{
+		{"Mass", 81.3},
+		{"Color",
+			{
+				{"R", 5}
+				{"G", 55}
+				{"B", 200}
+			}
+		}
+	};
+
+	json j2{
+		{"Position",
+			{
+				1.0, 2.3, 4.5
+			}
+		}
+	};
+
+	json j3{
+		{"Mass", 81.3},
+		{"Color",
+			{
+				{"R", 5}
+				{"G", 55}
+				{"B", 200}
+			}
+		},
+		{"Position",
+			{
+				1.0, 2.3, 4.5
+			}
+		}
+	};
+
+	checkEqual(merge(j1, j2), j3);
+}
