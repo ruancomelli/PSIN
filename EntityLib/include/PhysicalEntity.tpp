@@ -32,8 +32,8 @@ struct get_property
 	template<typename ... Prs>
 	static void call(const PhysicalEntity<Prs...>& p, json& j)
 	{
-		if(p.assigned<P>()) j[NamedType<P>::name] = p.get<P>();
-		else j[NamedType<P>::name] = null;
+		if(p.template assigned<P>()) j[NamedType<P>::name] = p.template get<P>();
+		else j[NamedType<P>::name] = nullptr;
 	}
 };
 
@@ -42,13 +42,13 @@ struct get_property
 template<typename...Prs>
 void from_json(const json& j, PhysicalEntity<Prs...> & p)
 {
-	mp::visit< mp::type_list<PropertyTypes...>, detail::set_property >::call_same(p, j);
+	mp::visit< mp::type_list<Prs...>, detail::set_property >::call_same(p, j);
 }
 
 template<typename...Prs>
 void to_json(json& j, const PhysicalEntity<Prs...> & p)
 {
-	mp::visit< mp::type_list<PropertyTypes...>, detail::get_property >::call_same(p, j);
+	mp::visit< mp::type_list<Prs...>, detail::get_property >::call_same(p, j);
 }
 
 // ----- Constructors -----

@@ -17,7 +17,7 @@ void from_json(const json& j, SpatialEntity & spatial)
 	spatial.setOrientationMatrix(j.at("Orientation"));
 }
 
-void to_json(json& j, const SpatialEntity & s)
+void to_json(json& j, const SpatialEntity & spatial)
 {
 	j["Position"] =  spatial.getPositionMatrix();
 	j["Orientation"] =  spatial.getOrientationMatrix();
