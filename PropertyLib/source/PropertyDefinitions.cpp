@@ -9,148 +9,244 @@
 
 namespace psin {
 	
-// ========================================== MASS ==========================================
+// ========================================== Mass ==========================================
+Mass::Mass()
+	: PositiveProperty<double>()
+{}
+
+Mass::Mass(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<Mass>::name = "Mass";
-void from_json(const json& j, Mass x &)
+void from_json(const json& j, Mass & x)
 {
-	x = Mass(j);
+	x = Mass(j.get<double>());
 }
-void to_json(json& j, const Mass x &)
+void to_json(json& j, const Mass & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== VOLUME ==========================================
+// ========================================== Volume ==========================================
+Volume::Volume()
+	: PositiveProperty<double>()
+{}
+
+Volume::Volume(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<Volume>::name = "Volume";
-void from_json(const json& j, Volume x &)
+void from_json(const json& j, Volume & x)
 {
-	x = Volume(j);
+	x = Volume(j.get<double>());
 }
-void to_json(json& j, const Volume x &)
+void to_json(json& j, const Volume & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== MOMENT OF INERTIA ==========================================
+// ========================================== MomentOfInertia ==========================================
+MomentOfInertia::MomentOfInertia()
+	: PositiveProperty<double>()
+{}
+
+MomentOfInertia::MomentOfInertia(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<MomentOfInertia>::name = "MomentOfInertia";
-void from_json(const json& j, MomentOfInertia x &)
+void from_json(const json& j, MomentOfInertia & x)
 {
-	x = MomentOfInertia(j);
+	x = MomentOfInertia(j.get<double>());
 }
-void to_json(json& j, const MomentOfInertia x &)
+void to_json(json& j, const MomentOfInertia & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== MOMENT OF INERTIA ==========================================
+// ========================================== Radius ==========================================
+Radius::Radius()
+	: PositiveProperty<double>()
+{}
+
+Radius::Radius(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<Radius>::name = "Radius";
-void from_json(const json& j, Radius x &)
+void from_json(const json& j, Radius & x)
 {
-	x = Radius(j);
+	x = Radius(j.get<double>());
 }
-void to_json(json& j, const Radius x &)
+void to_json(json& j, const Radius & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== ELASTIC MODULUS ==========================================
+// ========================================== ElasticModulus ==========================================
+ElasticModulus::ElasticModulus()
+	: PositiveProperty<double>()
+{}
+
+ElasticModulus::ElasticModulus(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<ElasticModulus>::name = "ElasticModulus";
-void from_json(const json& j, ElasticModulus x &)
+void from_json(const json& j, ElasticModulus & x)
 {
-	x = ElasticModulus(j);
+	x = ElasticModulus(j.get<double>());
 }
-void to_json(json& j, const ElasticModulus x &)
+void to_json(json& j, const ElasticModulus & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== DISSIPATIVE CONSTANT ==========================================
+// ========================================== DissipativeConstant ==========================================
+DissipativeConstant::DissipativeConstant()
+	: Property<double>()
+{}
+
+DissipativeConstant::DissipativeConstant(const double & value)
+	: Property<double>(value)
+{}
+
 template<> const string NamedType<DissipativeConstant>::name = "DissipativeConstant";
-void from_json(const json& j, DissipativeConstant x &)
+void from_json(const json& j, DissipativeConstant & x)
 {
-	x = DissipativeConstant(j);
+	x = DissipativeConstant(j.get<double>());
 }
-void to_json(json& j, const DissipativeConstant x &)
+void to_json(json& j, const DissipativeConstant & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== POISSON RATIO ==========================================
+// ========================================== PoissonRatio ==========================================
+PoissonRatio::PoissonRatio()
+	: Property<double>()
+{}
+
+PoissonRatio::PoissonRatio(const double & value)
+	: Property<double>(value)
+{}
+
 template<> const string NamedType<PoissonRatio>::name = "PoissonRatio";
-void from_json(const json& j, PoissonRatio x &)
+void from_json(const json& j, PoissonRatio & x)
 {
-	x = PoissonRatio(j);
+	x = PoissonRatio(j.get<double>());
 }
-void to_json(json& j, const PoissonRatio x &)
+void to_json(json& j, const PoissonRatio & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== NORMAL DISSIPATIVE CONSTANT ==========================================
+// ========================================== NormalDissipativeConstant ==========================================
+NormalDissipativeConstant::NormalDissipativeConstant()
+	: PositiveProperty<double>()
+{}
+
+NormalDissipativeConstant::NormalDissipativeConstant(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<NormalDissipativeConstant>::name = "NormalDissipativeConstant";
-void from_json(const json& j, NormalDissipativeConstant x &)
+void from_json(const json& j, NormalDissipativeConstant & x)
 {
-	x = NormalDissipativeConstant(j);
+	x = NormalDissipativeConstant(j.get<double>());
 }
-void to_json(json& j, const NormalDissipativeConstant x &)
+void to_json(json& j, const NormalDissipativeConstant & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== TANGENTIAL DAMPING ==========================================
+// ========================================== TangentialDamping ==========================================
+TangentialDamping::TangentialDamping()
+	: PositiveProperty<double>()
+{}
+
+TangentialDamping::TangentialDamping(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<TangentialDamping>::name = "TangentialDamping";
-void from_json(const json& j, TangentialDamping x &)
+void from_json(const json& j, TangentialDamping & x)
 {
-	x = TangentialDamping(j);
+	x = TangentialDamping(j.get<double>());
 }
-void to_json(json& j, const TangentialDamping x &)
+void to_json(json& j, const TangentialDamping & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== FRICTION PARAMETER ==========================================
+// ========================================== FrictionParameter ==========================================
+FrictionParameter::FrictionParameter()
+	: PositiveProperty<double>()
+{}
+
+FrictionParameter::FrictionParameter(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<FrictionParameter>::name = "FrictionParameter";
-void from_json(const json& j, FrictionParameter x &)
+void from_json(const json& j, FrictionParameter & x)
 {
-	x = FrictionParameter(j);
+	x = FrictionParameter(j.get<double>());
 }
-void to_json(json& j, const FrictionParameter x &)
+void to_json(json& j, const FrictionParameter & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== TANGENTIAL KAPPA ==========================================
+// ========================================== TangentialKappa ==========================================
+TangentialKappa::TangentialKappa()
+	: PositiveProperty<double>()
+{}
+
+TangentialKappa::TangentialKappa(const double & value)
+	: PositiveProperty<double>(value)
+{}
+
 template<> const string NamedType<TangentialKappa>::name = "TangentialKappa";
-void from_json(const json& j, TangentialKappa x &)
+void from_json(const json& j, TangentialKappa & x)
 {
-	x = TangentialKappa(j);
+	x = TangentialKappa(j.get<double>());
 }
-void to_json(json& j, const TangentialKappa x &)
+void to_json(json& j, const TangentialKappa & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
-// ========================================== ELECTRIC CHARGE ==========================================
+// ========================================== ElectricCharge ==========================================
+ElectricCharge::ElectricCharge()
+	: Property<double>()
+{}
+
+ElectricCharge::ElectricCharge(const double & value)
+	: Property<double>(value)
+{}
+
 template<> const string NamedType<ElectricCharge>::name = "ElectricCharge";
-void from_json(const json& j, ElectricCharge x &)
+void from_json(const json& j, ElectricCharge & x)
 {
-	x = ElectricCharge(j);
+	x = ElectricCharge(j.get<double>());
 }
-void to_json(json& j, const ElectricCharge x &)
+void to_json(json& j, const ElectricCharge & x)
 {
 	if(x.assigned()) j = x.get();
-	else j = null;
+	else j = nullptr;
 }
 
 } // psin
