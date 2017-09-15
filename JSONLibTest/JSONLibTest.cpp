@@ -56,6 +56,10 @@ TestCase(basic_json_Test)
 
 	checkEqual(obj["currency"], "USD");
 	checkEqual(obj["value"], 42.99);	
+
+	json j3;
+	j3["one"]["two"] = 3;
+	checkEqual(j3["one"]["two"], 3);
 }
 
 namespace to_and_from_json_Test_namespace {
@@ -133,8 +137,8 @@ TestCase(json_merge_Test)
 		{"Mass", 81.3},
 		{"Color",
 			{
-				{"R", 5}
-				{"G", 55}
+				{"R", 5},
+				{"G", 55},
 				{"B", 200}
 			}
 		}
@@ -152,8 +156,8 @@ TestCase(json_merge_Test)
 		{"Mass", 81.3},
 		{"Color",
 			{
-				{"R", 5}
-				{"G", 55}
+				{"R", 5},
+				{"G", 55},
 				{"B", 200}
 			}
 		},

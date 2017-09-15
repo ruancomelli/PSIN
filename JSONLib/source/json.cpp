@@ -16,12 +16,18 @@ json read_json(const std::string & filename)
 
 json merge(const json & lhs, const json & rhs)
 {
-    json j;
+	if(lhs.is_object() and rhs.is_object())
+	{
+		json j = lhs;
+		j.insert(rhs.begin(), rhs.end());
 
-	j.insert(lhs.begin(), lhs.end());
-	j.insert(rhs.begin(), rhs.end());
+		return j;
+	}
+	else
+	{
+		return json();
+	}
 
-	return j;
 }
 
 } // psin
