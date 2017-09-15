@@ -1,6 +1,9 @@
 #ifndef FILE_SYSTEM_HPP
 #define FILE_SYSTEM_HPP
 
+// boost
+#include <boost/filesystem.hpp>
+
 // UtilsLib
 #include <string.hpp>
 
