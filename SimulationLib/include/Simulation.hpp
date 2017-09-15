@@ -63,8 +63,8 @@ public:
 	// Simulate
 	void simulate(void);
 
-private:	
-	SimulationFileTree fileTree;
+private:
+	json fileTree;
 
 	double initialTime;
 	double timeStep;

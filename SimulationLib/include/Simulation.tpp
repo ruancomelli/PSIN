@@ -67,7 +67,7 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::setup(int argc, char * argv[])
 {
-	auto simulationPath = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
+	fileTree["Input"]["Main"] = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
 
 	json j = read_json(simulationPath);
 
