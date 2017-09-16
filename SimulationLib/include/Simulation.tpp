@@ -24,11 +24,11 @@ namespace detail {
 template<typename I>
 struct conditionally_build_interaction
 {
-	static void call(const std::string & interactionName, const std::string & filepath)
+	static void call(const string & interactionName, const path & filepath)
 	{
 		if( NamedType<I>::name == interactionName )
 		{
-			json j = read_json(filepath);
+			json j = read_json(filepath.string());
 
 			Builder<I>::build(j.at(NamedType<I>::name));
 		}
@@ -41,14 +41,15 @@ struct conditionally_build_particle
 	using P = typename PVector::value_type;
 
 	template<typename ParticleTuple>
-	static void call(const std::string & particleType, const std::string & filepath, ParticleTuple & particles)
+	static void call(const string & particleType, const path & filepath, ParticleTuple & particles, string & particleName)
 	{
 		if( NamedType<P>::name == particleType)
 		{
-			json j = read_json(filepath);
+			json j = read_json(filepath.string());
 
 			P particle = j;
 
+			particleName = particle.getName();
 			std::get<PVector>(particles).insert( particle );
 		}
 	}
@@ -67,7 +68,7 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::setup(int argc, char * argv[])
 {
-	fileTree["Input"]["Main"] = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
+	fileTree["input"]["main"] = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
 
 	json j = read_json(simulationPath);
 
@@ -81,14 +82,23 @@ void Simulation<
 	json interactions = j["interactions"];
 	for(json::iterator it = interactions.begin(); it != interactions.end(); ++it) 
 	{
-		interactionsToUse.insert( it.key() );
-		mp::visit<InteractionList, detail::conditionally_build_interaction>::call_same(it.key(), it.value());
+		string interactionName(it.key());
+		path interactionInputFilePath(it.value());
+
+		interactionsToUse.insert( interactionName );
+		mp::visit<InteractionList, detail::conditionally_build_interaction>::call_same(interactionName, interactionInputFilePath);
+		fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
 	}
 
 	json particles = j["particles"];
 	for(json::iterator it = particles.begin(); it != particles.end(); ++it) 
 	{
-		mp::visit<ParticleList, detail::conditionally_build_particle>::call_same(it.key(), it.value(), particles);
+		string particleType(it.key());
+		string particleName;
+		path particleInputFilePath(it.value());
+
+		mp::visit<ParticleList, detail::conditionally_build_particle>::call_same(particleType, particleInputFilePath, particles, particleName);
+		fileTree["input"]["entity"][particleName] = particleInputFilePath;
 	}
 }
 
