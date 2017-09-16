@@ -70,6 +70,10 @@ public:
 
 private:
 	json fileTree;
+	
+	std::map<string, unique_ptr<std::ofstream>> mainFileMap;
+	std::map<string, unique_ptr<std::ofstream>> particleFileMap;
+	std::map<string, unique_ptr<std::ofstream>> boundaryFileMap;
 
 	double initialTime;
 	double timeStep;
@@ -81,6 +85,7 @@ private:
 
 	std::tuple< std::vector<ParticleTypes>... > particles;
 	std::tuple< std::vector<BoundaryTypes>... > boundaries;
+
 	std::set< std::string > interactionsToUse;
 
 	template<typename I>

@@ -143,6 +143,9 @@ void Simulation<
 >::outputMainData()
 {
 	filesystem::create_directories( fileTree["output"]["main"] );
+	filesystem::create_directories( fileTree["output"]["main"] / path("particle"));
+	filesystem::create_directories( fileTree["output"]["main"] / path("boundary"));
+	filesystem::create_directories( fileTree["output"]["main"] / path("interaction"));
 	filesystem::create_directories( fileTree["output"]["particle"] );
 	filesystem::create_directories( fileTree["output"]["boundary"] );
 
@@ -165,13 +168,24 @@ void Simulation<
 	std::ofstream mainOutputFile( mainOutputFilePath.string() );
 	mainOutputFile << mainOutput;
 
+	for(json::iterator it = fileTree["input"]["interaction"].begin(); it != fileTree["input"]["interaction"].end(); ++it)
+	{
+		string interactionName = it.key();
+		path interactionInputFilePath = it.value();
+
+		json interactionInput = read_json(interactionInputFilePath.string());
+		path interactionOutputFilePath = fileTree["output"]["main"] / path("interaction") / path(interactionName + ".json");
+		std::ofstream interactionOutputFile(interactionOutputFilePath);
+		interactionOutputFile << interactionInput;
+	}
+
 	for(json::iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
 	{
 		string particleName = it.key();
 		path particleInputFilePath = it.value();
 
 		json particleInput = read_json(particleInputFilePath.string());
-		path particleOutputFilePath = fileTree["output"]["particle"] / path(particleName);
+		path particleOutputFilePath = fileTree["output"]["main"] / path("particle") / path(particleName + ".json");
 		std::ofstream particleOutputFile(particleOutputFilePath);
 		particleOutputFile << particleInput;
 	}
@@ -182,12 +196,49 @@ void Simulation<
 		path boundaryInputFilePath = it.value();
 
 		json boundaryInput = read_json(boundaryInputFilePath.string());
-		path boundaryOutputFilePath = fileTree["output"]["boundary"] / path(boundaryName);
+		path boundaryOutputFilePath = fileTree["output"]["main"] / path("boundary") / path(boundaryName + ".json");
 		std::ofstream boundaryOutputFile(boundaryOutputFilePath);
 		boundaryOutputFile << boundaryInput;
 	}
 }
 
+namespace detail {
+
+template<typename E>
+struct open_entity_file
+{
+	template<T>
+	void call(const T & entityVectorTuple, const path & entityFolder, std::map<string, unique_ptr<std::ofstream>> & entityFileMap)
+	{
+		for(auto entity : std::get< vector<E> >(entityVectorTuple))
+		{
+			path entityOutputPath = entityNode / path(entity.getName() + ".json");
+			entityFileMap[entity.getName()] = make_unique<std::ofstream>(entityOutputPath.string());
+		}
+	}
+};
+
+} // detail
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::openFiles()
+{
+	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
+	mainFileMap["timeVector"] = make_unique<std::ofstream>( timeVectorOutputFilePath.string() );
+
+	mp::visit<ParticleList, detail::open_entity_file>::call_same(particles, fileTree["output"]["particle"], particleFileMap);
+	mp::visit<BoundaryList, detail::open_entity_file>::call_same(boundaries, fileTree["output"]["boundary"], boundaryFileMap);
+}
 
 template<
 	typename ... ParticleTypes,
@@ -202,7 +253,11 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::simulate()
 {
-	
+
+	for(double t = initialTime; t < finalTime; t += timeStep)
+	{
+
+	}
 }
 
 
