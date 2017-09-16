@@ -82,13 +82,8 @@ void Simulation<
 	this->timeStepsForOutput = j.at("timeStepsForOutput");
 
 	fileTree["output"]["main"] = path(j.at("mainOutputFolder"));
-	filesystem::create_directories( fileTree["output"]["main"] );
-
 	fileTree["output"]["particle"] = path(j.at("particleOutputFolder"));
-	filesystem::create_directories( fileTree["output"]["particle"] );
-
 	fileTree["output"]["boundary"] = path(j.at("boundaryOutputFolder"));
-	filesystem::create_directories( fileTree["output"]["boundary"] );
 
 	if(j.count("interactions") > 0)
 	{
@@ -145,9 +140,52 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
->::outputMaindData()
+>::outputMainData()
 {
-	 
+	filesystem::create_directories( fileTree["output"]["main"] );
+	filesystem::create_directories( fileTree["output"]["particle"] );
+	filesystem::create_directories( fileTree["output"]["boundary"] );
+
+	json mainOutput{
+		{"initialTime", this->initialTime},
+		{"timeStep", this->timeStep},
+		{"finalTime", this->finalTime},
+		{"taylorOrder", this->taylorOrder},
+		{"dimension", this->dimension},
+		{"timeStepsForOutput", this->timeStepsForOutput},
+		{"mainOutputFolder", fileTree["output"]["main"]},
+		{"particleOutputFolder", fileTree["output"]["particle"]},
+		{"boundaryOutputFolder", fileTree["output"]["boundary"]},
+		{"interactions", fileTree["input"]["interaction"]},
+		{"particles", fileTree["input"]["particle"]},
+		{"boundaries", fileTree["input"]["boundary"]}
+	}
+
+	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
+	std::ofstream mainOutputFile( mainOutputFilePath.string() );
+	mainOutputFile << mainOutput;
+
+	for(json::iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
+	{
+		string particleName = it.key();
+		path particleInputFilePath = it.value();
+
+		json particleInput = read_json(particleInputFilePath.string());
+		path particleOutputFilePath = fileTree["output"]["particle"] / path(particleName);
+		std::ofstream particleOutputFile(particleOutputFilePath);
+		particleOutputFile << particleInput;
+	}
+
+	for(json::iterator it = fileTree["input"]["boundary"].begin(); it != fileTree["input"]["boundary"].end(); ++it)
+	{
+		string boundaryName = it.key();
+		path boundaryInputFilePath = it.value();
+
+		json boundaryInput = read_json(boundaryInputFilePath.string());
+		path boundaryOutputFilePath = fileTree["output"]["boundary"] / path(boundaryName);
+		std::ofstream boundaryOutputFile(boundaryOutputFilePath);
+		boundaryOutputFile << boundaryInput;
+	}
 }
 
 
