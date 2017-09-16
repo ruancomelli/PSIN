@@ -21,12 +21,14 @@ namespace psin
 {
 
 template<typename ... ParticleTypes> using ParticleList = mp::type_list<ParticleTypes...>;
+template<typename ... BoundaryTypes> using BoundaryList = mp::type_list<BoundaryTypes...>;
 template<typename ... InteractionTypes> using InteractionList = mp::type_list<InteractionTypes...>;
 template<typename ... LooperTypes> using LooperList = mp::type_list<LooperTypes...>;
 template<typename ... SeekerTypes> using SeekerList = mp::type_list<SeekerTypes...>;
 
 template<
 	typename Particles,
+	typename Boundaries,
 	typename Interactions,
 	typename Loopers,
 	typename Seekers
@@ -35,10 +37,12 @@ class Simulation;
 
 template<
 	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
 class Simulation<
 	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
@@ -46,6 +50,7 @@ class Simulation<
 {
 public:
 	using ParticleList = psin::ParticleList<ParticleTypes...>;
+	using BoundaryList = psin::BoundaryList<BoundaryTypes...>;
 	using InteractionList = psin::InteractionList<InteractionTypes...>;
 	using LooperList = psin::LooperList<GearLooper>;
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
@@ -75,6 +80,7 @@ private:
 	int timeStepsForOutput;
 
 	std::tuple< std::vector<ParticleTypes>... > particles;
+	std::tuple< std::vector<BoundaryTypes>... > boundaries;
 	std::set< std::string > interactionsToUse;
 
 	template<typename I>

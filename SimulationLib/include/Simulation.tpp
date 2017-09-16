@@ -35,22 +35,22 @@ struct conditionally_build_interaction
 	}
 };
 
-template<typename PVector>
-struct conditionally_build_particle
+template<typename EntityVector>
+struct conditionally_build_entity
 {
-	using P = typename PVector::value_type;
+	using Entity = typename EntityVector::value_type;
 
 	template<typename ParticleTuple>
-	static void call(const string & particleType, const path & filepath, ParticleTuple & particles, string & particleName)
+	static void call(const string & entityType, const path & filepath, ParticleTuple & entities, string & entityName)
 	{
-		if( NamedType<P>::name == particleType)
+		if( NamedType<Entity>::name == entityType)
 		{
 			json j = read_json(filepath.string());
 
-			P particle = j;
+			Entity entity = j;
 
-			particleName = particle.getName();
-			std::get<PVector>(particles).insert( particle );
+			entityName = entity.getName();
+			std::get<EntityVector>(entities).insert( entity );
 		}
 	}
 };
@@ -59,10 +59,12 @@ struct conditionally_build_particle
 
 template<
 	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
 void Simulation<
 	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
@@ -116,13 +118,16 @@ void Simulation<
 	
 }
 
+
 template<
 	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
 template<typename I>
 bool Simulation<
 	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
