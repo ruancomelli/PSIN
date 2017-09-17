@@ -80,6 +80,7 @@ void Simulation<
 	this->taylorOrder = j.at("taylorOrder");
 	this->dimension = j.at("dimension");
 	this->timeStepsForOutput = j.at("timeStepsForOutput");
+	this->outputsForExporting = j.at("outputsForExporting");
 
 	fileTree["output"]["main"] = path(j.at("mainOutputFolder"));
 	fileTree["output"]["particle"] = path(j.at("particleOutputFolder"));
@@ -156,6 +157,7 @@ void Simulation<
 		{"taylorOrder", this->taylorOrder},
 		{"dimension", this->dimension},
 		{"timeStepsForOutput", this->timeStepsForOutput},
+		{"outputsForExporting", this->outputsForExporting},
 		{"mainOutputFolder", fileTree["output"]["main"]},
 		{"particleOutputFolder", fileTree["output"]["particle"]},
 		{"boundaryOutputFolder", fileTree["output"]["boundary"]},
@@ -240,6 +242,22 @@ void Simulation<
 	mp::visit<BoundaryList, detail::open_entity_file>::call_same(boundaries, fileTree["output"]["boundary"], boundaryFileMap);
 }
 
+namespace detail {
+
+template<typename E>
+struct write_entities_to_json
+{
+	
+}
+
+template<typename E>
+struct write_json_into_file
+{
+
+}
+
+} // detail
+
 template<
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes,
@@ -253,10 +271,19 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::simulate()
 {
+	GearLooper::Time<unsigned long, double> time{initialTime, timeStep, finalTime};
 
-	for(double t = initialTime; t < finalTime; t += timeStep)
+	unsigned long timeStepsForOutputCounter = 0;
+	unsigned long outputsForExportingCounter = 0;
+
+	for(time.start(); !time.end(); time.update())
 	{
-
+		// Output
+		if(timeStepsForOutputCounter == 0)
+		{
+			mp::visit<ParticleList, write_entity_into_file>::call_same(particles);
+		}
+		timeStepsForOutputCounter = (timeStepsForOutputCounter + 1) % timeStepsForOutput;
 	}
 }
 

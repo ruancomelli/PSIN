@@ -80,8 +80,8 @@ private:
 	double finalTime;
 	int taylorOrder;
 	int dimension;
-	int numberOfParticles;
-	int timeStepsForOutput;
+	unsigned long timeStepsForOutput;
+	unsigned long outputsForExporting;
 
 	std::tuple< std::vector<ParticleTypes>... > particles;
 	std::tuple< std::vector<BoundaryTypes>... > boundaries;

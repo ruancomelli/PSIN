@@ -25,7 +25,7 @@ template<typename Index, typename Value>
 void GearLooper::Time<Index, Value>::update()
 {
 	this->time += this->timeStep;
-	this->timeIndex += Index(1);
+	++this->timeIndex;
 }
 
 template<typename Index, typename Value>
