@@ -6,6 +6,7 @@
 namespace psin {
 
 using std::string;
+using std::to_string;
 
 int stringCompare(const string & left, const string & right, const bool caseSensitive=false);
 
