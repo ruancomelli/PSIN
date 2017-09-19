@@ -13,6 +13,11 @@ using json = nlohmann::json;
 json read_json(const std::string & filename);
 json merge(const json & lhs, const json & rhs);
 
+template<typename JsonContainer>
+json merge(const JsonContainer & container);
+
 } // psin
+
+#include <json.tpp>
 
 #endif // PSIN_JSON_HPP

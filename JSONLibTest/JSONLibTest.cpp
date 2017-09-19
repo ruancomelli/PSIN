@@ -169,4 +169,7 @@ TestCase(json_merge_Test)
 	};
 
 	checkEqual(merge(j1, j2), j3);
+
+	std::vector<json> v{j1, j2};
+	checkEqual(merge(v), j3);
 }
