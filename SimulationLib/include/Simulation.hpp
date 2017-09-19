@@ -75,6 +75,9 @@ private:
 	std::map<string, unique_ptr<std::ofstream>> particleFileMap;
 	std::map<string, unique_ptr<std::ofstream>> boundaryFileMap;
 
+	std::map<string, vector<json>> particleJsonMap;
+	std::map<string, vector<json>> boundaryJsonMap;
+
 	double initialTime;
 	double timeStep;
 	double finalTime;

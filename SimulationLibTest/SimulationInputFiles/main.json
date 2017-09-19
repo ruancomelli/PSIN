@@ -4,6 +4,7 @@
 	"finalTime": 5e-2,
 	"taylorOrder": 4,
 	"timeStepsForOutput": 1000,
+	"outputsForExporting": 1,
 
 	"Interactions":
 	{

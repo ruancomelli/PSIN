@@ -127,7 +127,6 @@ void Simulation<
 			fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
 		}
 	}
-	
 }
 
 template<
@@ -247,13 +246,27 @@ namespace detail {
 template<typename E>
 struct write_entities_to_json
 {
-	
+	template<typename T>
+	void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& particleJsonMap)
+	{
+		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
+		{
+			particleJsonMap[entity.getName()].push_back(entity);
+		}
+	}
 }
 
 template<typename E>
 struct write_json_into_file
 {
-
+	template<typename T>
+	void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>> particleJsonMap)
+	{
+		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
+		{
+			
+		}
+	}
 }
 
 } // detail
@@ -281,9 +294,16 @@ void Simulation<
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
-			mp::visit<ParticleList, write_entity_into_file>::call_same(particles);
+			mp::visit<ParticleList, write_entities_to_json>::call_same(particles);
+			outputsForExportingCounter = (outputsForExportingCounter + 1) % outputsForExporting;
 		}
 		timeStepsForOutputCounter = (timeStepsForOutputCounter + 1) % timeStepsForOutput;
+		if(outputsForExportingCounter == 0)
+		{
+			mp::visit<ParticleList, write_json_into_file>::call_same(particles);
+		}
+
+
 	}
 }
 

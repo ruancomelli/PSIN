@@ -7,6 +7,9 @@
 // UtilsLib
 #include <string.hpp>
 
+// JSONLib
+#include <json.hpp>
+
 namespace psin {
 
 namespace filesystem = boost::filesystem;
