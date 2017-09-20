@@ -30,18 +30,16 @@ struct conditionally_build_interaction
 		{
 			json j = read_json(filepath.string());
 
-			Builder<I>::build(j.at(NamedType<I>::name));
+			Builder<I>::setup(j.at(NamedType<I>::name));
 		}
 	}
 };
 
-template<typename EntityVector>
+template<typename Entity>
 struct conditionally_build_entity
 {
-	using Entity = typename EntityVector::value_type;
-
-	template<typename ParticleTuple>
-	static void call(const string & entityType, const path & filepath, ParticleTuple & entities, string & entityName)
+	template<typename EntityTuple>
+	static void call(const string & entityType, const path & filepath, EntityTuple & entities, string & entityName)
 	{
 		if( NamedType<Entity>::name == entityType)
 		{
@@ -50,7 +48,7 @@ struct conditionally_build_entity
 			Entity entity = j;
 
 			entityName = entity.getName();
-			std::get<EntityVector>(entities).insert( entity );
+			std::get< vector<Entity> >(entities).insert( entity );
 		}
 	}
 };
@@ -72,7 +70,7 @@ void Simulation<
 {
 	fileTree["input"]["main"] = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
 
-	json j = read_json(simulationPath);
+	json j = read_json(fileTree["input"]["main"]);
 
 	this->initialTime = j.at("initialTime");
 	this->timeStep = j.at("timeStep");
@@ -82,9 +80,9 @@ void Simulation<
 	this->timeStepsForOutput = j.at("timeStepsForOutput");
 	this->outputsForExporting = j.at("outputsForExporting");
 
-	fileTree["output"]["main"] = path(j.at("mainOutputFolder"));
-	fileTree["output"]["particle"] = path(j.at("particleOutputFolder"));
-	fileTree["output"]["boundary"] = path(j.at("boundaryOutputFolder"));
+	fileTree["output"]["main"] = j.at("mainOutputFolder").get<path>();
+	fileTree["output"]["particle"] = j.at("particleOutputFolder").get<path>();
+	fileTree["output"]["boundary"] = j.at("boundaryOutputFolder").get<path>();
 
 	if(j.count("interactions") > 0)
 	{
@@ -92,7 +90,7 @@ void Simulation<
 		for(json::iterator it = interactions.begin(); it != interactions.end(); ++it) 
 		{
 			string interactionName(it.key());
-			path interactionInputFilePath(it.value());
+			path interactionInputFilePath = it.value();
 
 			interactionsToUse.insert( interactionName );
 			mp::visit<InteractionList, detail::conditionally_build_interaction>::call_same(interactionName, interactionInputFilePath);
@@ -107,7 +105,7 @@ void Simulation<
 		{
 			string particleType(it.key());
 			string particleName;
-			path particleInputFilePath(it.value());
+			path particleInputFilePath = it.value();
 
 			mp::visit<ParticleList, detail::conditionally_build_entity>::call_same(particleType, particleInputFilePath, particles, particleName);
 			fileTree["input"]["particle"][particleName] = particleInputFilePath;
@@ -121,7 +119,7 @@ void Simulation<
 		{
 			string boundaryType(it.key());
 			string boundaryName;
-			path boundaryInputFilePath(it.value());
+			path boundaryInputFilePath = it.value();
 
 			mp::visit<BoundaryList, detail::conditionally_build_entity>::call_same(boundaryType, boundaryInputFilePath, boundaries, boundaryName);
 			fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
