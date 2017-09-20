@@ -56,6 +56,7 @@ public:
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
 
 	void setup(int argc, char * argv[]);
+	void openFiles();
 
 	// Default Simulation
 	// This function sets paths, inputs and simulates
