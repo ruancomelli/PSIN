@@ -18,6 +18,9 @@
 #include <Vector3D.hpp>
 #include <string.hpp>
 
+// Standard
+#include <tuple>
+
 namespace psin
 {
 

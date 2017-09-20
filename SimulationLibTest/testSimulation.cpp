@@ -2,6 +2,7 @@
 
 // UtilsLib
 #include <FileSystem.hpp>
+#include <string.hpp>
 #include <Test.hpp>
 
 // PropertyLib
@@ -20,6 +21,8 @@
 
 using namespace std;
 using namespace psin;
+
+const psin::string project_root_path = PROJECT_PATH;
 
 namespace InteractionSubjectLister_Test_namespace {
 	struct A
@@ -118,6 +121,7 @@ TestCase(Simulation_Instantiation_Test)
 				PoissonRatio
 				>
 			>,
+		BoundaryList<>,
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
@@ -141,6 +145,7 @@ TestCase(Simulation_setup_Test)
 				PoissonRatio
 				>
 			>,
+		BoundaryList<>,
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
@@ -151,6 +156,11 @@ TestCase(Simulation_setup_Test)
 		LooperList<GearLooper>,
 		SeekerList<CollisionSeeker>
 	> simulation;
+
+	path projectRootPath = path(project_root_path);
+	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
+	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+	simulation.setup( mainInputFilePath );
 }
 
 // For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public

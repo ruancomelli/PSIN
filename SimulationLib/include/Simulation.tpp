@@ -14,6 +14,7 @@
 
 // Standard
 #include <fstream>
+#include <tuple>
 
 namespace psin {
 
@@ -49,7 +50,7 @@ struct conditionally_build_entity
 			Entity entity = j;
 
 			entityName = entity.getName();
-			std::get< vector<Entity> >(entities).insert( entity );
+			std::get< vector<Entity> >(entities).push_back( entity );
 		}
 	}
 };
@@ -101,8 +102,8 @@ void Simulation<
 
 	if(j.count("particles") > 0)
 	{
-		json particles = j["particles"];
-		for(json::iterator it = particles.begin(); it != particles.end(); ++it) 
+		json particlesJson = j["particles"];
+		for(json::iterator it = particlesJson.begin(); it != particlesJson.end(); ++it) 
 		{
 			string particleType(it.key());
 			string particleName;
@@ -115,8 +116,8 @@ void Simulation<
 	
 	if(j.count("boundaries") > 0)
 	{
-		json boundaries = j["boundaries"];
-		for(json::iterator it = boundaries.begin(); it != boundaries.end(); ++it) 
+		json boundariesJson = j["boundaries"];
+		for(json::iterator it = boundariesJson.begin(); it != boundariesJson.end(); ++it) 
 		{
 			string boundaryType(it.key());
 			string boundaryName;
@@ -207,12 +208,12 @@ namespace detail {
 template<typename E>
 struct open_entity_file
 {
-	template<T>
+	template<typename T>
 	void call(const T & entityVectorTuple, const path & entityFolder, std::map<string, unique_ptr<std::ofstream>> & entityFileMap)
 	{
 		for(auto entity : std::get< vector<E> >(entityVectorTuple))
 		{
-			path entityOutputPath = entityNode / path(entity.getName() + ".json");
+			path entityOutputPath = entityFolder / path(entity.getName() + ".json");
 			entityFileMap[entity.getName()] = make_unique<std::ofstream>(entityOutputPath.string());
 		}
 	}
@@ -245,7 +246,7 @@ namespace detail {
 template<typename E>
 struct write_entities_to_json
 {
-	template<typename T>
+	template<typename EntityTuple>
 	void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& particleJsonMap)
 	{
 		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
@@ -253,20 +254,7 @@ struct write_entities_to_json
 			particleJsonMap[entity.getName()].push_back(entity);
 		}
 	}
-}
-
-template<typename E>
-struct write_json_into_file
-{
-	template<typename T>
-	void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>> particleJsonMap)
-	{
-		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
-		{
-			
-		}
-	}
-}
+};
 
 } // detail
 
@@ -293,13 +281,26 @@ void Simulation<
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
-			mp::visit<ParticleList, write_entities_to_json>::call_same(particles);
+			mp::visit<ParticleList, detail::write_entities_to_json>::call_same(particles);
 			outputsForExportingCounter = (outputsForExportingCounter + 1) % outputsForExporting;
 		}
 		timeStepsForOutputCounter = (timeStepsForOutputCounter + 1) % timeStepsForOutput;
 		if(outputsForExportingCounter == 0)
 		{
-			mp::visit<ParticleList, write_json_into_file>::call_same(particles);
+			for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
+			{
+				json tmp;
+				*particleFileMap[it->first] >> tmp;
+				*particleFileMap[it->first] << merge(tmp, merge(it->second));
+				it->second.clear();
+			}
+			for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
+			{
+				json tmp;
+				*boundaryFileMap[it->first] >> tmp;
+				*boundaryFileMap[it->first] << merge(tmp, merge(it->second));
+				it->second.clear();
+			}
 		}
 
 
