@@ -8,6 +8,7 @@
 #include <CommandLineParser.hpp>
 
 // UtilsLib
+#include <FileSystem.hpp>
 #include <NamedType.hpp>
 #include <mp/visit.hpp>
 
@@ -66,9 +67,9 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
->::setup(int argc, char * argv[])
+>::setup(const path & mainInputFilePath)
 {
-	fileTree["input"]["main"] = CommandLineParser::parseArgvIntoSimulationPath(argc, argv);
+	fileTree["input"]["main"] = mainInputFilePath;
 
 	json j = read_json(fileTree["input"]["main"]);
 

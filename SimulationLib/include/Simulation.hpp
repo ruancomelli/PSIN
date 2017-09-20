@@ -13,6 +13,7 @@
 #include <SimulationFileTree.hpp>
 
 // UtilsLib
+#include <FileSystem.hpp>
 #include <Named.hpp>
 #include <Vector3D.hpp>
 #include <string.hpp>
@@ -55,7 +56,7 @@ public:
 	using LooperList = psin::LooperList<GearLooper>;
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
 
-	void setup(int argc, char * argv[]);
+	void setup(const path & mainInputFilePath);
 	void openFiles();
 
 	// Default Simulation
