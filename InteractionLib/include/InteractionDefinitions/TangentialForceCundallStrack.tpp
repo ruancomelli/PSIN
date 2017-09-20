@@ -49,9 +49,9 @@ void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle
 		const Vector3D tangentialVersor = particle.tangentialVersor( neighbor );
 		addZeta( particle, neighbor, relativeTangentialVelocity * timeStep );
 		
-		const int index1 = std::min( particle.getHandle(), neighbor.getHandle() );
-		const int index2 = std::max( particle.getHandle(), neighbor.getHandle() ) - index1 - 1;
-		const Vector3D tangentialForce = std::min( effectiveTangentialKappa * cummulativeZeta[ std::pair<unsigned, unsigned>(index1, index2) ].length() , 
+		const string name1 = std::min( particle.getName(), neighbor.getName() );
+		const string name2 = std::max( particle.getName(), neighbor.getName() );
+		const Vector3D tangentialForce = std::min( effectiveTangentialKappa * cummulativeZeta[ std::make_pair(name1, name2) ].length() , 
 			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
 		
 		particle.addContactForce( tangentialForce );

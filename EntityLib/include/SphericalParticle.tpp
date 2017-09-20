@@ -79,13 +79,13 @@ SphericalParticle<PropertyTypes...>::SphericalParticle()
 {}
 
 template<typename ... PropertyTypes>
-SphericalParticle<PropertyTypes...>::SphericalParticle(const int taylorOrder, const int handle)
-	: BaseParticle(taylorOrder, handle)
+SphericalParticle<PropertyTypes...>::SphericalParticle(const BaseParticle & base)
+	: BaseParticle(base)
 {}
 
 template<typename ... PropertyTypes>
-SphericalParticle<PropertyTypes...>::SphericalParticle(const BaseParticle & base)
-	: BaseParticle(base)
+SphericalParticle<PropertyTypes...>::SphericalParticle(const string & name, const int taylorOrder)
+	: BaseParticle(name, taylorOrder)
 {}
 
 // // ------------------------------- Collision detector -------------------------------

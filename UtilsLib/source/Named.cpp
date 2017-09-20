@@ -6,7 +6,7 @@ const std::string Named::defaultName = "Nameless";
 
 // Constructors
 Named::Named(void)
-	: name("Nameless")
+	: name(defaultName)
 {
 }
 
@@ -19,7 +19,7 @@ Named::Named(const string & name)
 void Named::setName(const string & name)
 {
 	if(!name.empty()) this->name = name;
-	else this->name = "Nameless";
+	else this->name = defaultName;
 }
 
 std::string Named::getName(void) const

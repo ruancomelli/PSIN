@@ -539,21 +539,20 @@ TestCase(json_PhysicalEntity_Test)
 
 TestCase(ParticleConstructorTest)
 {
-	int defaultHandle = DEFAULT_HANDLED_ENTITY_HANDLE;
 	int defaultTaylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER;
 
-	int handle = 5;
+	string name = "Tarintor";
 	int taylorOrder = 4;
 
 	double massValue = 3.1415;
 	double volumeValue = 1.618;
 
 	Particle<Volume> particle1;
-	checkEqual(particle1.getHandle(), defaultHandle);
+	checkEqual(particle1.getName(), Named::defaultName);
 	checkEqual(particle1.getTaylorOrder(), defaultTaylorOrder);
 
-	Particle<Volume> particle2(handle, taylorOrder);
-	checkEqual(particle2.getHandle(), handle);
+	Particle<Volume> particle2(name, taylorOrder);
+	checkEqual(particle2.getName(), name);
 	checkEqual(particle2.getTaylorOrder(), taylorOrder);
 
 	PhysicalEntity<Mass, MomentOfInertia, Volume> physicalEntity;
@@ -667,34 +666,34 @@ TestCase(SphericalParticleConstructorsTest)
 	{
 		SphericalParticle<> sph;
 
-		checkEqual(sph.getHandle(), DEFAULT_HANDLED_ENTITY_HANDLE);
+		checkEqual(sph.getName(), Named::defaultName);
 		checkEqual(sph.getTaylorOrder(), DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 	}
 
 	// Constructor with parameters
 	{	
-		int handle = 8;
+		string name = "Tarintor";
 		int taylorOrder = 4;
 
-		SphericalParticle<> sph(handle, taylorOrder);
+		SphericalParticle<> sph(name, taylorOrder);
 
-		checkEqual(sph.getHandle(), handle);
+		checkEqual(sph.getName(), name);
 		checkEqual(sph.getTaylorOrder(), taylorOrder);
 	}
 	
 	// Constructor with base particle
 	{
-		int handle = 8;
+		string name = "Tarintor";
 		int taylorOrder = 4;
 		
-		Particle<Radius> particle(handle, taylorOrder);
+		Particle<Radius> particle(name, taylorOrder);
 		Vector3D position(1.1, 2.5, 9.7);
 
 		particle.setPosition(position);
 
 		SphericalParticle<> sph(particle);
 
-		checkEqual(sph.getHandle(), handle);
+		checkEqual(sph.getName(), name);
 		checkEqual(sph.getTaylorOrder(), taylorOrder);
 		checkEqual(sph.getPosition(), position);
 	}

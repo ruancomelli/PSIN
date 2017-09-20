@@ -8,6 +8,7 @@
 // UtilsLib
 #include <Builder.hpp>
 #include <NamedType.hpp>
+#include <string.hpp>
 #include <Vector3D.hpp>
 #include <mp/bool_constant.hpp>
 
@@ -45,15 +46,15 @@ struct TangentialForceCundallStrack
 		static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
 
 	private:
-		static std::map< std::pair<unsigned, unsigned>, Vector3D> cummulativeZeta;
-		static std::map< std::pair<unsigned, unsigned>, bool> collisionFlag;
+		static std::map< std::pair<string, string>, Vector3D> cummulativeZeta;
+		static std::map< std::pair<string, string>, bool> collisionFlag;
 		
-		static void addZeta( const HandledEntity & particle, const HandledEntity & neighbor, const Vector3D & zeta );
-		static void setZeta( const HandledEntity & particle, const HandledEntity & neighbor, const Vector3D & zeta );
+		static void addZeta( const Named & particle, const Named & neighbor, const Vector3D & zeta );
+		static void setZeta( const Named & particle, const Named & neighbor, const Vector3D & zeta );
 
-		static void startCollision(const HandledEntity & particle, const HandledEntity & neighbor);
-		static bool checkCollision(const HandledEntity & particle, const HandledEntity & neighbor);
-		static void endCollision(const HandledEntity & particle, const HandledEntity & neighbor);
+		static void startCollision(const Named & particle, const Named & neighbor);
+		static bool checkCollision(const Named & particle, const Named & neighbor);
+		static void endCollision(const Named & particle, const Named & neighbor);
 };
 
 template<>

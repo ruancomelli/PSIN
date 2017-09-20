@@ -1,9 +1,7 @@
 #include <InteractionDefinitions/TangentialForceCundallStrack.hpp>
 
-// EntityLib
-#include <HandledEntity.hpp>
-
 // UtilsLib
+#include <Named.hpp>
 #include <string.hpp>
 
 // Standard
@@ -18,36 +16,30 @@ template<> const std::string NamedType<TangentialForceCundallStrack>::name = "Ta
 void Builder<TangentialForceCundallStrack>::setup(json&)
 {}
 
-// ------------------ FORCE CALCULATION ------------------
-//		particle is the reference
-//		normalForce is the normal force applied BY neighbor TO particle
-//		tangentialForce is the tangential force applied BY neighbor TO particle
+std::map< std::pair<string, string>, Vector3D> TangentialForceCundallStrack::cummulativeZeta;
+std::map< std::pair<string, string>, bool> TangentialForceCundallStrack::collisionFlag;
 
-//		Calculates tangential forces between two spherical particles according to equation (2.21) (see reference)
-std::map< std::pair<unsigned, unsigned>, Vector3D> TangentialForceCundallStrack::cummulativeZeta;
-std::map< std::pair<unsigned, unsigned>, bool> TangentialForceCundallStrack::collisionFlag;
-
-void TangentialForceCundallStrack::addZeta( const HandledEntity & particle, const HandledEntity & neighbor, const Vector3D & zeta )
+void TangentialForceCundallStrack::addZeta( const Named & particle, const Named & neighbor, const Vector3D & zeta )
 {
-	const unsigned index1 = std::min( particle.getHandle(), neighbor.getHandle() );
-	const unsigned index2 = std::max( particle.getHandle(), neighbor.getHandle() ) - index1 - 1;
-	cummulativeZeta[ std::pair<unsigned, unsigned>(index1, index2) ] += zeta;
+	const string name1 = std::min( particle.getName(), neighbor.getName() );
+	const string name2 = std::max( particle.getName(), neighbor.getName() );
+	cummulativeZeta[ std::make_pair(name1, name2) ] += zeta;
 }
-void TangentialForceCundallStrack::setZeta( const HandledEntity & particle, const HandledEntity & neighbor, const Vector3D & zeta )
+void TangentialForceCundallStrack::setZeta( const Named & particle, const Named & neighbor, const Vector3D & zeta )
 {
-	const unsigned index1 = std::min( particle.getHandle(), neighbor.getHandle() );
-	const unsigned index2 = std::max( particle.getHandle(), neighbor.getHandle() ) - index1 - 1;
-	cummulativeZeta[ std::pair<unsigned, unsigned>(index1, index2) ] = zeta;
+	const string name1 = std::min( particle.getName(), neighbor.getName() );
+	const string name2 = std::max( particle.getName(), neighbor.getName() );
+	cummulativeZeta[ std::make_pair(name1, name2) ] = zeta;
 }
 
-bool TangentialForceCundallStrack::checkCollision(const HandledEntity & particle, const HandledEntity & neighbor)
+bool TangentialForceCundallStrack::checkCollision(const Named & particle, const Named & neighbor)
 {
-	unsigned handle1 = particle.getHandle();
-	unsigned handle2 = neighbor.getHandle();
+	string name1 = particle.getName();
+	string name2 = neighbor.getName();
 
-	if(collisionFlag.count( std::pair<unsigned, unsigned>(handle1, handle2) ) > 0)
+	if(collisionFlag.count( std::pair<string, string>(name1, name2) ) > 0)
 	{
-		return collisionFlag[ std::pair<unsigned, unsigned>(handle1, handle2) ];
+		return collisionFlag[ std::make_pair(name1, name2) ];
 	}
 	else
 	{
@@ -55,20 +47,20 @@ bool TangentialForceCundallStrack::checkCollision(const HandledEntity & particle
 	}
 }
 
-void TangentialForceCundallStrack::startCollision(const HandledEntity & particle, const HandledEntity & neighbor)
+void TangentialForceCundallStrack::startCollision(const Named & particle, const Named & neighbor)
 {
-	unsigned handle1 = particle.getHandle();
-	unsigned handle2 = neighbor.getHandle();
+	string name1 = particle.getName();
+	string name2 = neighbor.getName();
 
-	collisionFlag[ std::pair<unsigned, unsigned>(handle1, handle2) ] = true;
+	collisionFlag[ std::make_pair(name1, name2) ] = true;
 }
 
-void TangentialForceCundallStrack::endCollision(const HandledEntity & particle, const HandledEntity & neighbor)
+void TangentialForceCundallStrack::endCollision(const Named & particle, const Named & neighbor)
 {
-	unsigned handle1 = particle.getHandle();
-	unsigned handle2 = neighbor.getHandle();
+	string name1 = particle.getName();
+	string name2 = neighbor.getName();
 
-	collisionFlag[ std::pair<unsigned, unsigned>(handle1, handle2) ] = false;
+	collisionFlag[ std::make_pair(name1, name2) ] = false;
 }
 
 } // psin

@@ -1,6 +1,10 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
+// UtilsLib
+#include <Named.hpp>
+#include <string.hpp>
+
 // EntityLib
 #include <PhysicalEntity.hpp>
 #include <SocialEntity.hpp>
@@ -13,16 +17,16 @@ namespace psin {
 
 template<typename ... PropertyTypes>
 class Particle :
+	public Named,
 	public PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>,
-	public SocialEntity,
 	public SpatialEntity
 {
 	using BasePhysicalEntity = PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>;
 
 	public:	
 		// ---- Constructors ----
-		explicit Particle(const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
-		explicit Particle(const BasePhysicalEntity & base, const int handle = DEFAULT_HANDLED_ENTITY_HANDLE, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+		explicit Particle(const string & name = Named::defaultName, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+		explicit Particle(const BasePhysicalEntity & base, const string & name = Named::defaultName, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
 		// ---- Dynamics ----
 		void addBodyForce(const Vector3D & force);

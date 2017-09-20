@@ -8,16 +8,16 @@ Vector3D Particle<PropertyTypes...>::gravity = nullVector3D();
 
 // ------------------------------- Constructors -------------------------------
 template<typename ... PropertyTypes>
-Particle<PropertyTypes...>::Particle(const int handle, const int taylorOrder)
-	: SocialEntity(handle),
+Particle<PropertyTypes...>::Particle(const string & name, const int taylorOrder)
+	: Named(name),
 	SpatialEntity(taylorOrder)
 {
 }
 
 template<typename ... PropertyTypes>
-Particle<PropertyTypes...>::Particle(const BasePhysicalEntity & base, const int handle, const int taylorOrder)
+Particle<PropertyTypes...>::Particle(const BasePhysicalEntity & base, const string & name, const int taylorOrder)
 	: BasePhysicalEntity(base),
-	SocialEntity(handle),
+	Named(name),
 	SpatialEntity(taylorOrder)
 {
 }

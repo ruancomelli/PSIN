@@ -26,7 +26,7 @@ class SphericalParticle : public Particle<Radius, PropertyTypes...>
 	public:
 		SphericalParticle();
 		explicit SphericalParticle(const BaseParticle & base);
-		explicit SphericalParticle(const int handle, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+		explicit SphericalParticle(const string & name, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
 		// ---- Collision ----
 		template<typename...Us>
