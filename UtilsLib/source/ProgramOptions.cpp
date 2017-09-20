@@ -2,15 +2,15 @@
 
 namespace psin {
 	
-ProgramOptions::VariablesMap parseCommandLine(int argc, char * argv[], ProgramOptions::OptionsDescription & options)
+program_options::variables_map parseCommandLine(int argc, char * argv[], program_options::options_description & options)
 {
-	ProgramOptions::VariablesMap vm;
+	program_options::variables_map vm;
 
-	ProgramOptions::store( 
-		ProgramOptions::parse_command_line(argc, argv, options), 
+	program_options::store( 
+		program_options::parse_command_line(argc, argv, options), 
 		vm );
 
-	ProgramOptions::notify(vm);
+	program_options::notify(vm);
 
 	return vm;
 }

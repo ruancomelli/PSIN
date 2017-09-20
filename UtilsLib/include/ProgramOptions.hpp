@@ -5,14 +5,9 @@
 
 namespace psin {
 
-namespace ProgramOptions
-{
-	using namespace boost::program_options;
-	using OptionsDescription = options_description;
-	using VariablesMap = variables_map;
-}
+namespace program_options = boost::program_options;
 
-ProgramOptions::VariablesMap parseCommandLine(int argc, char * argv[], ProgramOptions::OptionsDescription & options);
+program_options::variables_map parseCommandLine(int argc, char * argv[], program_options::options_description & options);
 
 } // psin
 

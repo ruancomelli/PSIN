@@ -495,19 +495,19 @@ TestCase(FileSystemTest)
 	check(!checkPathExists(directoryName));
 }
 
-TestCase(ProgramOptionsTest)
+TestCase(program_options_Test)
 {
-	ProgramOptions::OptionsDescription desc("Allowed options");
+	program_options::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
-		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
-		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
+		("simulation", program_options::value<std::string>(), "simulation's name")
+		("root", program_options::value<std::string>(), "simulation's root folder")
 	;
 
 	int argc = 3;
 	char * argv[] = { (char*) "myProgramName", (char*) "--simulation=The Lord of the Rings", (char*) "--root=Mordor" };
 
-	ProgramOptions::VariablesMap vm = parseCommandLine(argc, argv, desc);
+	program_options::variables_map vm = parseCommandLine(argc, argv, desc);
 
 	checkEqual(vm.count("simulation"), 1);
 	checkEqual(vm.count("root"), 1);

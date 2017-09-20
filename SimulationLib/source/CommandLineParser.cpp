@@ -14,29 +14,29 @@
 namespace psin {
 
 // Parse command line
-std::string CommandLineParser::parseArgvIntoSimulationName(int argc, char * argv[])
+string CommandLineParser::parseArgvIntoSimulationName(int argc, char * argv[])
 {
 	return CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc, argv).first;
 }
 
-std::string CommandLineParser::parseArgvIntoSimulationRootPath(int argc, char * argv[])
+string CommandLineParser::parseArgvIntoSimulationRootPath(int argc, char * argv[])
 {
 	return CommandLineParser::parseArgvIntoSimulationNameAndRootPath(argc, argv).second;
 }
 
-std::pair<std::string, std::string> CommandLineParser::parseArgvIntoSimulationNameAndRootPath(int argc, char * argv[])
+std::pair<string, string> CommandLineParser::parseArgvIntoSimulationNameAndRootPath(int argc, char * argv[])
 {
-	std::string simulationName = "Simulation1";
-	std::string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
+	string simulationName = "Simulation1";
+	string rootPath = parentDirectory( parentDirectory( currentDirectory() ) );
 
-	ProgramOptions::OptionsDescription desc("Allowed options");
+	program_options::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
-		("simulation", ProgramOptions::value<std::string>(), "simulation's name")
-		("root", ProgramOptions::value<std::string>(), "simulation's root folder")
+		("simulation", program_options::value<string>(), "simulation's name")
+		("root", program_options::value<string>(), "simulation's root folder")
 	;
 
-	ProgramOptions::VariablesMap vm = psin::parseCommandLine(argc, argv, desc);
+	program_options::variables_map vm = psin::parseCommandLine(argc, argv, desc);
 
 	if(vm.count("help"))
 	{
@@ -46,28 +46,28 @@ std::pair<std::string, std::string> CommandLineParser::parseArgvIntoSimulationNa
 
 	if(vm.count("simulation"))
 	{
-		simulationName = vm["simulation"].as<std::string>();
+		simulationName = vm["simulation"].as<string>();
 	}
 
 	if(vm.count("root"))
 	{
-		rootPath = vm["root"].as<std::string>();
+		rootPath = vm["root"].as<string>();
 	}
 
-	return std::pair<std::string, std::string>( simulationName, rootPath );
+	return std::pair<string, string>( simulationName, rootPath );
 }
 
-std::string CommandLineParser::parseArgvIntoSimulationPath(int argc, char * argv[])
+string CommandLineParser::parseArgvIntoSimulationPath(int argc, char * argv[])
 {
-	std::string simulationPath = parentDirectory( parentDirectory( currentDirectory() ) );
+	string simulationPath = parentDirectory( parentDirectory( currentDirectory() ) );
 
-	ProgramOptions::OptionsDescription desc("Allowed options");
+	program_options::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
-		("path", ProgramOptions::value<std::string>(), "Configuration filepath")
+		("path", program_options::value<string>(), "Configuration filepath")
 	;
 
-	ProgramOptions::VariablesMap vm = psin::parseCommandLine(argc, argv, desc);
+	program_options::variables_map vm = psin::parseCommandLine(argc, argv, desc);
 
 	if(vm.count("help"))
 	{
@@ -77,7 +77,7 @@ std::string CommandLineParser::parseArgvIntoSimulationPath(int argc, char * argv
 
 	if(vm.count("path"))
 	{
-		simulationPath = vm["path"].as<std::string>();
+		simulationPath = vm["path"].as<string>();
 	}
 
 	return simulationPath;
