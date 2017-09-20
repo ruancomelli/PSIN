@@ -139,7 +139,7 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
->::outputMainData()
+>::outputMainData() const
 {
 	filesystem::create_directories( fileTree["output"]["main"] );
 	filesystem::create_directories( fileTree["output"]["main"] / path("particle"));
@@ -162,13 +162,13 @@ void Simulation<
 		{"interactions", fileTree["input"]["interaction"]},
 		{"particles", fileTree["input"]["particle"]},
 		{"boundaries", fileTree["input"]["boundary"]}
-	}
+	};
 
 	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
 	std::ofstream mainOutputFile( mainOutputFilePath.string() );
 	mainOutputFile << mainOutput;
 
-	for(json::iterator it = fileTree["input"]["interaction"].begin(); it != fileTree["input"]["interaction"].end(); ++it)
+	for(json::const_iterator it = fileTree["input"]["interaction"].begin(); it != fileTree["input"]["interaction"].end(); ++it)
 	{
 		string interactionName = it.key();
 		path interactionInputFilePath = it.value();
@@ -179,7 +179,7 @@ void Simulation<
 		interactionOutputFile << interactionInput;
 	}
 
-	for(json::iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
+	for(json::const_iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
 	{
 		string particleName = it.key();
 		path particleInputFilePath = it.value();
@@ -190,7 +190,7 @@ void Simulation<
 		particleOutputFile << particleInput;
 	}
 
-	for(json::iterator it = fileTree["input"]["boundary"].begin(); it != fileTree["input"]["boundary"].end(); ++it)
+	for(json::const_iterator it = fileTree["input"]["boundary"].begin(); it != fileTree["input"]["boundary"].end(); ++it)
 	{
 		string boundaryName = it.key();
 		path boundaryInputFilePath = it.value();

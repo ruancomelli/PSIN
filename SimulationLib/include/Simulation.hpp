@@ -64,18 +64,18 @@ public:
 	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
 
 	// Output
-	void outputMainData(void) const;
-	void printSuccessMessage(void) const;
+	void outputMainData() const;
+	void printSuccessMessage() const;
 
 	// Simulate
-	void simulate(void);
+	void simulate();
 
 private:
 	json fileTree;
 	
-	std::map<string, unique_ptr<std::ofstream>> mainFileMap;
-	std::map<string, unique_ptr<std::ofstream>> particleFileMap;
-	std::map<string, unique_ptr<std::ofstream>> boundaryFileMap;
+	std::map<string, unique_ptr<std::fstream>> mainFileMap;
+	std::map<string, unique_ptr<std::fstream>> particleFileMap;
+	std::map<string, unique_ptr<std::fstream>> boundaryFileMap;
 
 	std::map<string, vector<json>> particleJsonMap;
 	std::map<string, vector<json>> boundaryJsonMap;
