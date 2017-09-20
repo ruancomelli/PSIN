@@ -34,11 +34,11 @@ struct GearLooper
 		value_type initialTime;
 		value_type timeStep;
 		value_type finalTime;
-	}
+	};
 };
 
 } // psin
 
-#include <GearLooper.tpp>
+#include <LooperDefinitions/GearLooper.tpp>
 
 #endif // GEAR_LOOPER_HPP
