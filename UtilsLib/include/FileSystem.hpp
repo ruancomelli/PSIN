@@ -29,4 +29,15 @@ void to_json(json & j, const path & p);
 
 } // psin
 
+namespace nlohmann {
+
+template<>
+struct adl_serializer<psin::path>
+{
+	static void from_json(const json & j, psin::path & p);
+	static void to_json(json & j, const psin::path & p);
+};
+
+} // nlohmann
+
 #endif

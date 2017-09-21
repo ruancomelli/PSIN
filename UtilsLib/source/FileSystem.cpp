@@ -45,3 +45,17 @@ void to_json(json & j, const path & p)
 }
 
 } // psin
+
+namespace nlohmann {
+
+void adl_serializer<psin::path>::from_json(const json & j, psin::path & p)
+{
+	p = psin::path(j.get<psin::string>());
+}
+
+void adl_serializer<psin::path>::to_json(json & j, const psin::path & p)
+{
+	j = json(p.string());
+}
+
+} // nlohmann
