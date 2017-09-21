@@ -24,6 +24,8 @@ struct GearLooper
 		void update();
 		bool end() const;
 
+		index_type getIndex() const;
+
 		std::pair<index_type, value_type> as_pair() const;
 		json as_json() const;
 

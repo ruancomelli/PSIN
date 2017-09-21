@@ -60,11 +60,12 @@ public:
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
 
 	void setup(const path & mainInputFilePath);
-	void openFiles();
 
-	// Default Simulation
-	// This function sets paths, inputs and simulates
-	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
+	void setupInteractions(const json & interactionsJSON);
+	void buildParticles(const json & particlesJSON);
+	void buildBoundaries(const json & boundariesJSON);
+
+	void openFiles();
 
 	// Output
 	void outputMainData() const;
