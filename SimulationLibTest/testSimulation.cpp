@@ -163,6 +163,36 @@ TestCase(Simulation_setup_Test)
 	simulation.setup( mainInputFilePath );
 }
 
+TestCase(Simulation_setup_and_outputMainData_Test)
+{
+	Simulation<
+		ParticleList<
+			SphericalParticle<
+				Mass,
+				Volume,
+				MomentOfInertia,
+				PoissonRatio
+				>
+			>,
+		BoundaryList<>,
+		InteractionList<
+			ElectrostaticForce,
+			NormalForceLinearDashpotForce,
+			NormalForceViscoelasticSpheres,
+			TangentialForceCundallStrack,
+			TangentialForceHaffWerner
+			>,
+		LooperList<GearLooper>,
+		SeekerList<CollisionSeeker>
+	> simulation;
+
+	path projectRootPath = path(project_root_path);
+	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
+	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+	simulation.setup( mainInputFilePath );
+	simulation.outputMainData();
+}
+
 // For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public
 
 //TestCase(CheckPathExistanceTest)

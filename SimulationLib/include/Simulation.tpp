@@ -88,14 +88,17 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::setupInteractions(const json & interactionsJSON)
 {
-	for(json::iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
+	for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
 	{
-		string interactionName(it.key());
-		path interactionInputFilePath = it.value();
+		if(!it->is_null())
+		{
+			string interactionName(it.key());
+			path interactionInputFilePath = it.value();
 
-		interactionsToUse.insert( interactionName );
-		mp::visit<InteractionList, detail::conditionally_setup_interaction>::call_same(interactionName, interactionInputFilePath);
-		fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
+			interactionsToUse.insert( interactionName );
+			mp::visit<InteractionList, detail::conditionally_setup_interaction>::call_same(interactionName, interactionInputFilePath);
+			fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
+		}
 	}
 }
 
@@ -134,14 +137,29 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::buildParticles(const json & particlesJSON)
 {
-	for(json::iterator it = particlesJSON.begin(); it != particlesJSON.end(); ++it) 
+	for(json::const_iterator it = particlesJSON.begin(); it != particlesJSON.end(); ++it) 
 	{
-		string particleType(it.key());
-		string particleName;
-		path particleInputFilePath = it.value();
+		if(it.value().is_array())
+		{
+			for(const path particleInputFilePath : *it)
+			{
+				string particleType(it.key());
+				string particleName;
 
-		mp::visit<ParticleList, detail::conditionally_build_entity>::call_same(particleType, particleInputFilePath, particles, particleName);
-		fileTree["input"]["particle"][particleName] = particleInputFilePath;
+				mp::visit<ParticleList, detail::conditionally_build_entity>::call_same(particleType, particleInputFilePath, particles, particleName);
+
+				fileTree["input"]["particle"][particleName] = particleInputFilePath;
+			}
+		}
+		else if(it.value().is_string())
+		{
+			string particleType(it.key());
+			string particleName;
+			path particleInputFilePath = it.value();
+
+			mp::visit<ParticleList, detail::conditionally_build_entity>::call_same(particleType, particleInputFilePath, particles, particleName);
+			fileTree["input"]["particle"][particleName] = particleInputFilePath;
+		}
 	}
 }
 
@@ -158,14 +176,28 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::buildBoundaries(const json & boundariesJSON)
 {
-	for(json::iterator it = boundariesJSON.begin(); it != boundariesJSON.end(); ++it) 
+	for(json::const_iterator it = boundariesJSON.begin(); it != boundariesJSON.end(); ++it) 
 	{
-		string boundaryType(it.key());
-		string boundaryName;
-		path boundaryInputFilePath = it.value();
+		if(it.value().is_array())
+		{
+			for(const path boundaryInputFilePath : *it)
+			{
+				string boundaryType(it.key());
+				string boundaryName;
 
-		mp::visit<BoundaryList, detail::conditionally_build_entity>::call_same(boundaryType, boundaryInputFilePath, boundaries, boundaryName);
-		fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
+				mp::visit<BoundaryList, detail::conditionally_build_entity>::call_same(boundaryType, boundaryInputFilePath, boundaries, boundaryName);
+				fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
+			}
+		}
+		else if(it.value().is_string())
+		{
+			string boundaryType(it.key());
+			string boundaryName;
+			path boundaryInputFilePath = it.value();
+
+			mp::visit<BoundaryList, detail::conditionally_build_entity>::call_same(boundaryType, boundaryInputFilePath, boundaries, boundaryName);
+			fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
+		}
 	}
 }
 
@@ -183,9 +215,9 @@ void Simulation<
 >::outputMainData() const
 {
 	filesystem::create_directories( fileTree["output"]["main"] );
-	filesystem::create_directories( fileTree["output"]["main"] / path("particle"));
-	filesystem::create_directories( fileTree["output"]["main"] / path("boundary"));
-	filesystem::create_directories( fileTree["output"]["main"] / path("interaction"));
+	filesystem::create_directories( fileTree["output"]["main"] / path("input") / path("particle"));
+	filesystem::create_directories( fileTree["output"]["main"] / path("input") / path("boundary"));
+	filesystem::create_directories( fileTree["output"]["main"] / path("input") / path("interaction"));
 	filesystem::create_directories( fileTree["output"]["particle"] );
 	filesystem::create_directories( fileTree["output"]["boundary"] );
 
@@ -207,39 +239,48 @@ void Simulation<
 
 	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
 	std::ofstream mainOutputFile( mainOutputFilePath.string() );
-	mainOutputFile << mainOutput;
+	mainOutputFile << mainOutput.dump(4);
 
-	for(json::const_iterator it = fileTree["input"]["interaction"].begin(); it != fileTree["input"]["interaction"].end(); ++it)
-	{
-		string interactionName = it.key();
-		path interactionInputFilePath = it.value();
+	if(fileTree["input"]["interaction"].is_object())
+	{	
+		for(json::const_iterator it = fileTree["input"]["interaction"].begin(); it != fileTree["input"]["interaction"].end(); ++it)
+		{
+			string interactionName = it.key();
+			path interactionInputFilePath = it.value();
 
-		json interactionInput = read_json(interactionInputFilePath.string());
-		path interactionOutputFilePath = fileTree["output"]["main"] / path("interaction") / path(interactionName + ".json");
-		std::ofstream interactionOutputFile(interactionOutputFilePath);
-		interactionOutputFile << interactionInput;
+			json interactionInput = read_json(interactionInputFilePath.string());
+			path interactionOutputFilePath = fileTree["output"]["main"] / path("input") / path("interaction") / path(interactionName + ".json");
+			std::ofstream interactionOutputFile(interactionOutputFilePath.string());
+			interactionOutputFile << interactionInput.dump(4);
+		}
 	}
 
-	for(json::const_iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
-	{
-		string particleName = it.key();
-		path particleInputFilePath = it.value();
+	if(fileTree["input"]["particle"].is_object())
+	{	
+		for(json::const_iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
+		{
+			string particleName = it.key();
+			path particleInputFilePath = it.value();
 
-		json particleInput = read_json(particleInputFilePath.string());
-		path particleOutputFilePath = fileTree["output"]["main"] / path("particle") / path(particleName + ".json");
-		std::ofstream particleOutputFile(particleOutputFilePath);
-		particleOutputFile << particleInput;
+			json particleInput = read_json(particleInputFilePath.string());
+			path particleOutputFilePath = fileTree["output"]["main"] / path("input") / path("particle") / path(particleName + ".json");
+			std::ofstream particleOutputFile(particleOutputFilePath.string());
+			particleOutputFile << particleInput.dump(4);
+		}
 	}
 
-	for(json::const_iterator it = fileTree["input"]["boundary"].begin(); it != fileTree["input"]["boundary"].end(); ++it)
-	{
-		string boundaryName = it.key();
-		path boundaryInputFilePath = it.value();
+	if(fileTree["input"]["boundary"].is_object())
+	{	
+		for(json::const_iterator it = fileTree["input"]["boundary"].begin(); it != fileTree["input"]["boundary"].end(); ++it)
+		{
+			string boundaryName = it.key();
+			path boundaryInputFilePath = it.value();
 
-		json boundaryInput = read_json(boundaryInputFilePath.string());
-		path boundaryOutputFilePath = fileTree["output"]["main"] / path("boundary") / path(boundaryName + ".json");
-		std::ofstream boundaryOutputFile(boundaryOutputFilePath);
-		boundaryOutputFile << boundaryInput;
+			json boundaryInput = read_json(boundaryInputFilePath.string());
+			path boundaryOutputFilePath = fileTree["output"]["main"] / path("input") / path("boundary") / path(boundaryName + ".json");
+			std::ofstream boundaryOutputFile(boundaryOutputFilePath.string());
+			boundaryOutputFile << boundaryInput.dump(4);
+		}
 	}
 }
 
@@ -312,7 +353,7 @@ struct predict_entity
 			entity.setPositionMatrix(predictedPosition);
 		}
 	}
-}
+};
 
 } // detail
 
@@ -355,7 +396,7 @@ void Simulation<
 				};
 
 				*particleFileMap[it->first] >> fileContent;
-				*particleFileMap[it->first] << merge(fileContent, informationToExport);
+				*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 				it->second.clear();
 			}
 			for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
@@ -366,7 +407,7 @@ void Simulation<
 				};
 
 				*boundaryFileMap[it->first] >> fileContent;
-				*boundaryFileMap[it->first] << merge(fileContent, informationToExport);
+				*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 				it->second.clear();
 			}
 		}
