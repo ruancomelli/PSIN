@@ -13,6 +13,7 @@
 
 // UtilsLib
 #include <NamedGroup.hpp>
+#include <NamedType.hpp>
 #include <Vector.hpp>
 #include <string.hpp>
 

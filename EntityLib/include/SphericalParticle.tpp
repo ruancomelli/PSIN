@@ -3,6 +3,15 @@
 
 namespace psin {
 
+template<typename...Ts>
+struct NamedType<SphericalParticle<Ts...>>
+{
+	const static std::string name;
+}; //struct NamedType
+
+template<typename...Ts>
+const string NamedType<SphericalParticle<Ts...>>::name = "SphericalParticle";
+
 template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
