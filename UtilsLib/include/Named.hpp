@@ -2,6 +2,7 @@
 #define NAMED_HPP
 
 // UtilsLib
+#include <json.hpp>
 #include <string.hpp>
 
 namespace psin {
@@ -30,6 +31,9 @@ private:
 }; //class Named
 
 bool operator<(const Named & left, const Named & right);
+
+void from_json(const json & j, Named & named);
+void to_json(json & j, const Named & named);
 
 } // psin
 

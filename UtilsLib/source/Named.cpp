@@ -34,4 +34,16 @@ bool operator<(const Named & left, const Named & right)
 	return namedCompareObject(left, right);
 }
 
+void from_json(const json & j, Named & named)
+{
+	named = Named(j.at("Name").get<string>());
+}
+
+void to_json(json & j, const Named & named)
+{
+	j = json{
+		{"Name", named.getName()}
+	};
+}
+
 } // psin
