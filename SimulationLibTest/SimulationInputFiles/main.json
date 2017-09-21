@@ -5,8 +5,12 @@
 	"taylorOrder": 4,
 	"timeStepsForOutput": 1000,
 	"outputsForExporting": 1,
+	"dimension": 3,
+	"mainOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles",
+	"particleOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles",
+	"boundaryOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Boundaries",
 
-	"Interactions":
+	"interactions":
 	{
 		"NormalForceLinearDashpotForce": null,
 		"NormalForceViscoelasticSpheres": null,
@@ -15,15 +19,12 @@
 		"ElectrostaticForce": null
 	},
 
-	"Particles":
+	"particles":
 	{
-		"SphericalParticle":
-		{
-			"path": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/RedSphere.json"
-		},
-		"SphericalParticle":
-		{
-			"path": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/BlueSphere.json"
-		}
+		"SphericalParticle": 
+		[
+			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json",
+			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json"
+		]
 	}
 }
