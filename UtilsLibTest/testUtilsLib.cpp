@@ -1296,6 +1296,11 @@ TestCase(visit_Test)
 	checkEqual(B::a, -1.0);
 	checkEqual(B::b, 3.14);
 	checkEqual(B::c, 0.0);
+
+	mp::visit<
+		type_list<>,
+		visitor
+	>::call_same();
 }
 
 TestCase(revert_Test)
