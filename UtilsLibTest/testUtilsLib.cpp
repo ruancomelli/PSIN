@@ -537,6 +537,21 @@ TestCase(NamedTest)
 	check(namedCompareObject(defaultName, name));
 }
 
+TestCase(json_Named_Test)
+{
+	json j{
+		{"Name", "Alduin"}
+	};
+
+	Named named = j;
+
+	checkEqual(named.getName(), "Alduin");
+
+	json j2 = named;
+
+	checkEqual(j2, j);
+}
+
 namespace NamedType_Test_namespace {
 	struct A 
 	{};
