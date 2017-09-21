@@ -48,7 +48,14 @@ void Property<T>::set(const U & value)
 template<typename T>
 T Property<T>::get() const
 {
-	return *this->value;
+	if(assigned())
+	{
+		return *this->value;
+	}
+	else
+	{
+		throw std::runtime_error("Error: Trying to get non-assigned property");
+	}
 }
 
 // ----- Input and output value -----
