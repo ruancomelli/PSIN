@@ -173,3 +173,58 @@ TestCase(json_merge_Test)
 	std::vector<json> v{j1, j2};
 	checkEqual(merge(v), j3);
 }
+
+TestCase(json_type_checkers_Test)
+{
+	{
+		json j{
+			{"Dark Lord", "Sauron"}
+		};
+		check(j.is_object());
+	}
+	{
+		json j{"Gandalf"};
+		check(j.is_array());
+	}
+	{
+		json j = "Tom Bombadil";
+		check(j.is_string());
+	}
+	{
+		json j{
+			"Frodo", 
+			"Sam",
+			"Pippin", 
+			"Merry"
+		};
+		check(j.is_array());
+	}
+}
+
+TestCase(iterate_over_json_Test)
+{
+	{
+		json shire{
+			"Frodo", 
+			"Sam", 
+			"Pippin", 
+			"Merry"
+		};
+
+		std::vector<std::string> fellowshipHobbits;
+		std::vector<std::string> halflings{
+			"Frodo", 
+			"Sam", 
+			"Pippin", 
+			"Merry"
+		};
+
+		for(auto& hobbit : shire)
+		{
+			fellowshipHobbits.push_back(hobbit);
+		}
+
+
+		check( fellowshipHobbits == halflings );
+	}
+}
