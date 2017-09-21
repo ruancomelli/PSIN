@@ -21,12 +21,12 @@ class Particle :
 	public PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>,
 	public SpatialEntity
 {
-	using BasePhysicalEntity = PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>;
-
 	public:	
+		using BasePhysicalEntity = PhysicalEntity<Mass, MomentOfInertia, PropertyTypes...>;
+		
 		// ---- Constructors ----
 		explicit Particle(const string & name = Named::defaultName, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
-		explicit Particle(const BasePhysicalEntity & base, const string & name = Named::defaultName, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
+		explicit Particle(const BasePhysicalEntity & physical, const SpatialEntity & spatial = SpatialEntity(), const string & name = Named::defaultName);
 		
 		// ---- Dynamics ----
 		void addBodyForce(const Vector3D & force);
@@ -55,6 +55,11 @@ class Particle :
 
 		Vector3D resultingTorque;
 };
+
+template<typename...Prs>
+void from_json(const json& j, Particle<Prs...> & p);
+template<typename...Prs>
+void to_json(json& j, const Particle<Prs...> & p);
 
 } // psin
 

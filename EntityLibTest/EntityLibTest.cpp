@@ -652,6 +652,60 @@ TestCase(ParticleMomentumAndEnergyTest)
 	checkClose(particle.getRotationalEnergy(), rotationalEnergy, tolerance);
 }
 
+TestCase(json_Particle_Test)
+{
+	json j{
+		{"Name", "Tarintor"},
+		{"Mass", 3791},
+		{"Position", 
+			{{1.0, 2.0, 3.0},
+			{4.0, 5.0, 6.0},
+			{7.0, 8.0, 9.0},
+			{10.0, 11.0, 12.0}}
+		},
+		{"Orientation", 
+			{{-10.0, -11.0, -12.0},
+			{7.0, 8.0, 9.0},
+			{-4.0, -5.0, -6.0},
+			{1.0, 2.0, 3.0}}
+		}
+	};
+
+	std::vector<Vector3D> position{
+		{1.0, 2.0, 3.0},
+		{4.0, 5.0, 6.0}, 
+		{7.0, 8.0, 9.0},
+		{10.0, 11.0, 12.0}
+	};
+
+	std::vector<Vector3D> orientation{
+		{-10.0, -11.0, -12.0},
+		{7.0, 8.0, 9.0},
+		{-4.0, -5.0, -6.0}, 
+		{1.0, 2.0, 3.0}
+	};
+
+	Particle<> p = j;
+
+	checkEqual(p.getPositionMatrix(), position);
+	checkEqual(p.getOrientationMatrix(), orientation);
+	checkEqual(p.getName(), "Tarintor");
+	checkEqual(p.get<Mass>(), 3791);
+
+	json j2 = p;
+
+	json j3 = merge(
+			j,
+			json{
+				{"bodyForce", {0, 0, 0}},
+				{"contactForce", {0, 0, 0}},
+				{"resultingTorque", {0, 0, 0}}
+			}
+		);
+
+	checkEqual(j2, j3);
+}
+
 TestCase(SphericalParticleConstructorsTest)
 {
 	// Default constructor

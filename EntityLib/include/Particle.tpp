@@ -3,6 +3,36 @@
 
 namespace psin {
 
+template<typename...Prs>
+void from_json(const json& j, Particle<Prs...> & p)
+{
+	Named named = j;
+	typename Particle<Prs...>::BasePhysicalEntity physical = j;
+	SpatialEntity spatial = j;
+
+	p = Particle<Prs...>(physical, spatial, named.getName());
+
+	if(j.count("bodyForce") > 0) p.setBodyForce(j.at("bodyForce"));
+	if(j.count("contactForce") > 0) p.setContactForce(j.at("contactForce"));
+	if(j.count("resultingTorque") > 0) p.setResultingTorque(j.at("resultingTorque"));
+}
+
+template<typename...Prs>
+void to_json(json& j, const Particle<Prs...> & p)
+{
+	Named named = p;
+	typename Particle<Prs...>::BasePhysicalEntity physical = p;
+	SpatialEntity spatial = p;
+
+	json jn = named;
+	json jph = physical;
+	json js = spatial;
+
+	j = merge(merge(jn, jph), js);
+	j["bodyForce"] = p.getBodyForce();
+	j["contactForce"] = p.getContactForce();
+	j["resultingTorque"] = p.getResultingTorque();
+}
 
 // ------------------------------- Constructors -------------------------------
 template<typename ... PropertyTypes>
@@ -13,10 +43,10 @@ Particle<PropertyTypes...>::Particle(const string & name, const int taylorOrder)
 }
 
 template<typename ... PropertyTypes>
-Particle<PropertyTypes...>::Particle(const BasePhysicalEntity & base, const string & name, const int taylorOrder)
-	: BasePhysicalEntity(base),
-	Named(name),
-	SpatialEntity(taylorOrder)
+Particle<PropertyTypes...>::Particle(const BasePhysicalEntity & physical, const SpatialEntity & spatial, const string & name)
+	: BasePhysicalEntity(physical),
+	SpatialEntity(spatial),
+	Named(name)
 {
 }
 
@@ -103,7 +133,7 @@ double Particle<PropertyTypes...>::getTranslationalEnergy() const
 
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getRotationalEnergy() const
-{
+{	
 	double momentOfInertia = this->template get<MomentOfInertia>();
 
 	return 0.5 * momentOfInertia * this->getAngularVelocity().squaredLength();
