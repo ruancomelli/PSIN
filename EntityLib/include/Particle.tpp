@@ -3,8 +3,6 @@
 
 namespace psin {
 
-template<typename ... PropertyTypes>
-Vector3D Particle<PropertyTypes...>::gravity = nullVector3D();
 
 // ------------------------------- Constructors -------------------------------
 template<typename ... PropertyTypes>
@@ -88,9 +86,6 @@ Vector3D Particle<PropertyTypes...>::getLinearMomentum() const
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::getAngularMomentum() const
 {
-	
-	
-
 	double mass = this->template get<Mass>();
 	double momentOfInertia = this->template get<MomentOfInertia>();
 
@@ -101,51 +96,24 @@ Vector3D Particle<PropertyTypes...>::getAngularMomentum() const
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getTranslationalEnergy() const
 {
-	
-	
 	double mass = this->template get<Mass>();
 
 	return 0.5 * mass * this->getVelocity().squaredLength();
 }
+
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getRotationalEnergy() const
 {
-	
-	
 	double momentOfInertia = this->template get<MomentOfInertia>();
 
 	return 0.5 * momentOfInertia * this->getAngularVelocity().squaredLength();
 }
+
 template<typename ... PropertyTypes>
 double Particle<PropertyTypes...>::getKineticEnergy() const
 {
 	return this->getTranslationalEnergy() + this->getRotationalEnergy();
 }
-template<typename ... PropertyTypes>
-double Particle<PropertyTypes...>::getPotentialEnergy() const
-{
-	
-	
-	double mass = this->template get<Mass>();
-
-	return - mass * dot( this->getGravity(), this->getPosition() );
-}
-template<typename ... PropertyTypes>
-double Particle<PropertyTypes...>::getMechanicalEnergy() const
-{
-	return this->getKineticEnergy() + this->getPotentialEnergy();
-}
-
-template<typename ... PropertyTypes>
-void Particle<PropertyTypes...>::setGravity(const Vector3D & gravity)
-{
-	this->gravity = gravity;
-}
-template<typename ... PropertyTypes>
-Vector3D Particle<PropertyTypes...>::getGravity() const 
-{
-	return this->gravity;
-}	
 
 } // psin
 

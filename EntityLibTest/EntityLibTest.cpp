@@ -625,8 +625,6 @@ TestCase(ParticleMomentumAndEnergyTest)
 	double mass = 55;
 	double momentOfInertia = 78.56;
 
-	Vector3D gravity(0, -9.81, 0);
-
 	Vector3D position(8.8, -5.7, 0.23);
 	Vector3D velocity(1.5, -4.8, 9.9);
 	Vector3D angularVelocity(8.9, 7.7, -11.1);
@@ -637,12 +635,8 @@ TestCase(ParticleMomentumAndEnergyTest)
 	double translationalEnergy = 0.5 * mass * velocity.squaredLength();
 	double rotationalEnergy = 0.5 * momentOfInertia * angularVelocity.squaredLength();
 	double kineticEnergy = translationalEnergy + rotationalEnergy;
-	double potentialEnergy = - mass * dot(gravity, position);
-	double mechanicalEnergy = potentialEnergy + kineticEnergy;
 
 	Particle<> particle;
-
-	particle.setGravity(gravity);
 
 	particle.set<Mass>(mass);
 	particle.set<MomentOfInertia>(momentOfInertia);
@@ -656,8 +650,6 @@ TestCase(ParticleMomentumAndEnergyTest)
 	checkClose(particle.getKineticEnergy(), kineticEnergy, tolerance);
 	checkClose(particle.getTranslationalEnergy(), translationalEnergy, tolerance);
 	checkClose(particle.getRotationalEnergy(), rotationalEnergy, tolerance);
-	checkClose(particle.getPotentialEnergy(), potentialEnergy, tolerance);
-	checkClose(particle.getMechanicalEnergy(), mechanicalEnergy, tolerance);
 }
 
 TestCase(SphericalParticleConstructorsTest)

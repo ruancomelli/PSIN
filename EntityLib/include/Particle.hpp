@@ -48,19 +48,12 @@ class Particle :
 		double getKineticEnergy(void) const;
 		double getTranslationalEnergy(void) const;
 		double getRotationalEnergy(void) const;
-		double getPotentialEnergy(void) const;
-		double getMechanicalEnergy(void) const;
-
-		void setGravity(const Vector3D & gravity);
-		Vector3D getGravity(void) const;	
 		
 	private:
 		Vector3D bodyForce;
 		Vector3D contactForce;
 
 		Vector3D resultingTorque;
-
-		static Vector3D gravity;
 };
 
 } // psin
