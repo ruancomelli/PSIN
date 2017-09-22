@@ -3,6 +3,7 @@ _tests/*
 _lib/*
 _apps/*
 _output/*
+build_sublime/
 
 _premake_files/premake4.exe
 _premake_files/premake4
