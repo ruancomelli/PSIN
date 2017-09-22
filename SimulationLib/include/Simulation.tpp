@@ -338,19 +338,68 @@ struct write_entities_to_json
 };
 
 template<typename E>
-struct predict_entity
+struct predict_particle
 {
 	template<typename EntityTuple>
-	void call(EntityTuple & entityVectorTuple, const double & timeStep)
+	void call(ParticleTuple & particleVectorTuple, const double & timeStep)
 	{
-		for(auto& entity : std::get<vector<E>>(entityVectorTuple))
+		for(auto& particle : std::get<vector<E>>(particleVectorTuple))
 		{
 			vector<Vector3D> predictedPosition = Interaction<>::taylorPredictor(
-					entity.getPositionMatrix(),
-					entity.getTaylorOrder(),
+					particle.getPositionMatrix(),
+					particle.getTaylorOrder(),
 					timeStep
 				);
-			entity.setPositionMatrix(predictedPosition);
+			particle.setPositionMatrix(predictedPosition);
+
+			vector<Vector3D> predictedOrientation = Interaction<>::taylorPredictor(
+					particle.getOrientationMatrix(),
+					particle.getTaylorOrder(),
+					timeStep
+				);
+			particle.setOrientationMatrix(predictedOrientation);
+		}
+	}
+};
+
+template<typename E>
+struct correct_particle
+{
+	template<typename ParticleTuple>
+	void call(ParticleTuple & particleVectorTuple, const double & timeStep)
+	{
+		for(auto& particle : std::get<vector<E>>(particleVectorTuple))
+		{
+			vector<Vector3D> correctedPosition = Interaction<>::gearCorrector(
+					particle.getPositionMatrix(),
+					particle.getAcceleration(),
+					particle.getTaylorOrder(),
+					timeStep
+				);
+			particle.setPositionMatrix(correctedPosition);
+
+			vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
+					particle.getOrientationMatrix(),
+					particle.getAngularAcceleration(),
+					particle.getTaylorOrder(),
+					timeStep
+				);
+			particle.setOrientationMatrix(correctedOrientation);
+		}
+	}
+};
+
+template<typename P>
+struct initialize_particles
+{
+	template<typename ParticleTuple>
+	void call(ParticleTuple & particleVectorTuple)
+	{
+		for(auto& particle : std::get<vector<E>>(particleVectorTuple))
+		{
+			particle.setBodyForce( nullVector3D() );
+			particle.setContactForce( nullVector3D() );
+			particle.setResultingTorque( nullVector3D() );
 		}
 	}
 };
@@ -412,7 +461,7 @@ void Simulation<
 			}
 		}
 
-
+		mp::visit<ParticleList, initialize_particles>::call_same(particles);
 	}
 }
 
