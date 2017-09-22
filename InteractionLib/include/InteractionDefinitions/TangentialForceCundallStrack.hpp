@@ -60,7 +60,7 @@ struct TangentialForceCundallStrack
 template<>
 struct Builder<TangentialForceCundallStrack>
 {
-	static void setup(json& j);
+	static void setup(const json & j);
 };
 
 } // psin

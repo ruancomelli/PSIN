@@ -43,7 +43,7 @@ struct NormalForceLinearDashpotForce
 template<>
 struct Builder<NormalForceLinearDashpotForce>
 {
-	static void setup(json& j);
+	static void setup(const json & j);
 };
 
 } // psin

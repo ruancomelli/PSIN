@@ -39,7 +39,7 @@ struct ElectrostaticForce
 template<>
 struct Builder<ElectrostaticForce>
 {
-	static void setup(json& j);
+	static void setup(const json & j);
 };
 
 } // psin

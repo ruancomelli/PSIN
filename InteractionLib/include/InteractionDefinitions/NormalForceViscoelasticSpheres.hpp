@@ -45,7 +45,7 @@ struct NormalForceViscoelasticSpheres
 template<>
 struct Builder<NormalForceViscoelasticSpheres>
 {
-	static void setup(json& j);
+	static void setup(const json & j);
 };
 
 } // psin

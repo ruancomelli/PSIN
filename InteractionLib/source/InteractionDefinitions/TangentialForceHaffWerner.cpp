@@ -10,7 +10,7 @@ namespace psin {
 
 template<> const std::string NamedType<TangentialForceHaffWerner>::name = "TangentialForceHaffWerner";
 
-void Builder<TangentialForceHaffWerner>::setup(json&)
+void Builder<TangentialForceHaffWerner>::setup(const json & j)
 {}
 
 } // psin

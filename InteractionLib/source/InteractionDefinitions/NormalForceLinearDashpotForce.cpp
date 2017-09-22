@@ -10,7 +10,7 @@ namespace psin {
 
 template<> const std::string NamedType<NormalForceLinearDashpotForce>::name = "NormalForceLinearDashpotForce";
 
-void Builder<NormalForceLinearDashpotForce>::setup(json&)
+void Builder<NormalForceLinearDashpotForce>::setup(const json & j)
 {}
 
 } // psin

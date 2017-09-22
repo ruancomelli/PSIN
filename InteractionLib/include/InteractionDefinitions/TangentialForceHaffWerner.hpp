@@ -41,7 +41,7 @@ struct TangentialForceHaffWerner
 template<>
 struct Builder<TangentialForceHaffWerner>
 {
-	static void setup(json& j);
+	static void setup(const json & j);
 };
 
 } // psin

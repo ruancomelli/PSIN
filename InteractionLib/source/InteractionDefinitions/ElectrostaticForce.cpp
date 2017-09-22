@@ -10,7 +10,7 @@ namespace psin {
 	
 template<> const std::string NamedType<ElectrostaticForce>::name = "ElectrostaticForce";
 
-void Builder<ElectrostaticForce>::setup(json&)
+void Builder<ElectrostaticForce>::setup(const json & j)
 {}
 
 } // psin
