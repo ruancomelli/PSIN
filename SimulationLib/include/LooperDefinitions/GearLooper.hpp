@@ -17,14 +17,16 @@ struct GearLooper
 	public:
 		using index_type = Index;
 		using value_type = Value;
+		using time_pair = std::pair<index_type, value_type>;
 
-		Time(const Value & initialTime, const Value & timeStep, const Value & finalTime);
+		Time(const value_type & initialTime, const value_type & timeStep, const value_type & finalTime);
 
 		void start();
 		void update();
 		bool end() const;
 
 		index_type getIndex() const;
+		value_type getTimeStep() const;
 
 		std::pair<index_type, value_type> as_pair() const;
 		json as_json() const;

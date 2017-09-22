@@ -35,7 +35,22 @@ bool GearLooper::Time<Index, Value>::end() const
 }
 
 template<typename Index, typename Value>
-std::pair<Index, Value> GearLooper::Time<Index, Value>::as_pair() const
+auto GearLooper::Time<Index, Value>::getIndex() const
+	-> index_type
+{
+	return this->timeIndex;
+}
+
+template<typename Index, typename Value>
+auto GearLooper::Time<Index, Value>::getTimeStep() const
+	-> value_type
+{
+	return this->timeStep;
+}
+
+template<typename Index, typename Value>
+auto GearLooper::Time<Index, Value>::as_pair() const
+	-> time_pair
 {
 	return std::make_pair(this->timeIndex, this->time);
 }
