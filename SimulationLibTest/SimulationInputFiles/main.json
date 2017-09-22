@@ -1,6 +1,6 @@
 {
 	"initialTime": 0.0,
-	"timeStep": 1e-7,
+	"timeStep": 1e-2,
 	"finalTime": 5e-2,
 	"taylorOrder": 4,
 	"timeStepsForOutput": 1000,
