@@ -1013,6 +1013,50 @@ TestCase(SphericalParticleContactPointTest)
 	// contactPoint(sph0, sph2);
 }
 
+TestCase(json_SphericalParticle_Test)
+{
+	json j{
+		{"Mass", 3524},
+		{"Radius", 7108},
+		{"Position",
+			{
+				{0, 1, 2},
+				{3, 4, 5},
+				{6, 7, 8},
+				{9, 10, 11}
+			}
+		},
+		{"Orientation",
+			{
+				{12, 13, 14},
+				{15, 16, 17},
+				{-1, -2, -3},
+				{-4, -5, -6}
+			}
+		}
+	};
+
+	SphericalParticle<> sph = j;
+
+	checkEqual(sph.get<Mass>(), 3524);
+	checkEqual(sph.get<Radius>(), 7108);
+	checkEqual(sph.getPosition(), Vector3D(0, 1, 2));
+	checkEqual(sph.getOrientation(), Vector3D(12, 13, 14));
+
+	json j2 = sph;
+
+	json j3 = merge(
+			j,
+			json{
+				{"bodyForce", {0, 0, 0}},
+				{"contactForce", {0, 0, 0}},
+				{"resultingTorque", {0, 0, 0}}
+			}
+		);
+
+	checkEqual(j2, j3);
+}
+
 namespace Boundary_Test_namespace
 {
 	vector<Vector3D> pos(double t)

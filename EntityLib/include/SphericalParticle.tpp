@@ -3,6 +3,19 @@
 
 namespace psin {
 
+template<typename...Prs>
+void from_json(const json& j, SphericalParticle<Prs...> & p)
+{
+	p = SphericalParticle<Prs...>( j.get<typename SphericalParticle<Prs...>::BaseParticle>() );
+}
+
+template<typename...Prs>
+void to_json(json& j, const SphericalParticle<Prs...> & p)
+{
+	typename SphericalParticle<Prs...>::BaseParticle base = p;
+	j = base;
+}
+
 template<typename...Ts>
 struct NamedType<SphericalParticle<Ts...>>
 {

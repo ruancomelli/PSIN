@@ -55,6 +55,11 @@ struct is_spherical : std::false_type {};
 template<typename...Ts>
 struct is_spherical< SphericalParticle<Ts...> > : std::true_type {};
 
+template<typename...Prs>
+void from_json(const json& j, SphericalParticle<Prs...> & p);
+template<typename...Prs>
+void to_json(json& j, const SphericalParticle<Prs...> & p);
+
 } // psin
 
 #include <SphericalParticle.tpp>
