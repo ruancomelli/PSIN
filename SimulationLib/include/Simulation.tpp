@@ -90,7 +90,7 @@ void Simulation<
 {
 	for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
 	{
-		if(!it->is_null())
+		if(it->is_string())
 		{
 			string interactionName(it.key());
 			path interactionInputFilePath = it.value();
@@ -139,7 +139,7 @@ void Simulation<
 {
 	for(json::const_iterator it = particlesJSON.begin(); it != particlesJSON.end(); ++it) 
 	{
-		if(it.value().is_array())
+		if(it->is_array())
 		{
 			for(const path particleInputFilePath : *it)
 			{
@@ -151,7 +151,7 @@ void Simulation<
 				fileTree["input"]["particle"][particleName] = particleInputFilePath;
 			}
 		}
-		else if(it.value().is_string())
+		else if(it->is_string())
 		{
 			string particleType(it.key());
 			string particleName;
@@ -178,7 +178,7 @@ void Simulation<
 {
 	for(json::const_iterator it = boundariesJSON.begin(); it != boundariesJSON.end(); ++it) 
 	{
-		if(it.value().is_array())
+		if(it->is_array())
 		{
 			for(const path boundaryInputFilePath : *it)
 			{
@@ -189,7 +189,7 @@ void Simulation<
 				fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
 			}
 		}
-		else if(it.value().is_string())
+		else if(it->is_string())
 		{
 			string boundaryType(it.key());
 			string boundaryName;
