@@ -1016,6 +1016,7 @@ TestCase(SphericalParticleContactPointTest)
 TestCase(json_SphericalParticle_Test)
 {
 	json j{
+		{"Name", "Saruman"},
 		{"Mass", 3524},
 		{"Radius", 7108},
 		{"Position",
@@ -1038,6 +1039,7 @@ TestCase(json_SphericalParticle_Test)
 
 	SphericalParticle<> sph = j;
 
+	checkEqual(sph.getName(), "Saruman");
 	checkEqual(sph.get<Mass>(), 3524);
 	checkEqual(sph.get<Radius>(), 7108);
 	checkEqual(sph.getPosition(), Vector3D(0, 1, 2));

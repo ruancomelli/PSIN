@@ -22,9 +22,9 @@ namespace psin {
 template<typename ... PropertyTypes>
 class SphericalParticle : public Particle<Radius, PropertyTypes...>
 {
-	using BaseParticle = Particle<Radius, PropertyTypes...>;
-
 	public:
+		using BaseParticle = Particle<Radius, PropertyTypes...>;
+
 		SphericalParticle();
 		explicit SphericalParticle(const BaseParticle & base);
 		explicit SphericalParticle(const string & name, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
