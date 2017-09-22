@@ -316,7 +316,7 @@ void Simulation<
 >::openFiles()
 {
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
-	mainFileMap["timeVector"] = make_unique<std::ofstream>( timeVectorOutputFilePath.string() );
+	mainFileMap["timeVector"] = make_unique<std::fstream>( timeVectorOutputFilePath.string() );
 
 	mp::visit<ParticleList, detail::open_entity_file>::call_same(particles, fileTree["output"]["particle"], particleFileMap);
 	mp::visit<BoundaryList, detail::open_entity_file>::call_same(boundaries, fileTree["output"]["boundary"], boundaryFileMap);
@@ -328,7 +328,7 @@ template<typename E>
 struct write_entities_to_json
 {
 	template<typename EntityTuple>
-	void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& entityJsonMap)
+	static void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& entityJsonMap)
 	{
 		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
 		{
@@ -337,13 +337,13 @@ struct write_entities_to_json
 	}
 };
 
-template<typename E>
+template<typename P>
 struct predict_particle
 {
-	template<typename EntityTuple>
-	void call(ParticleTuple & particleVectorTuple, const double & timeStep)
+	template<typename ParticleTuple>
+	static void call(ParticleTuple & particleVectorTuple, const double & timeStep)
 	{
-		for(auto& particle : std::get<vector<E>>(particleVectorTuple))
+		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
 			vector<Vector3D> predictedPosition = Interaction<>::taylorPredictor(
 					particle.getPositionMatrix(),
@@ -362,13 +362,13 @@ struct predict_particle
 	}
 };
 
-template<typename E>
+template<typename P>
 struct correct_particle
 {
 	template<typename ParticleTuple>
-	void call(ParticleTuple & particleVectorTuple, const double & timeStep)
+	static void call(ParticleTuple & particleVectorTuple, const double & timeStep)
 	{
-		for(auto& particle : std::get<vector<E>>(particleVectorTuple))
+		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
 			vector<Vector3D> correctedPosition = Interaction<>::gearCorrector(
 					particle.getPositionMatrix(),
@@ -390,12 +390,12 @@ struct correct_particle
 };
 
 template<typename P>
-struct initialize_particles
+struct initialize_particle
 {
 	template<typename ParticleTuple>
-	void call(ParticleTuple & particleVectorTuple)
+	static void call(ParticleTuple & particleVectorTuple)
 	{
-		for(auto& particle : std::get<vector<E>>(particleVectorTuple))
+		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
 			particle.setBodyForce( nullVector3D() );
 			particle.setContactForce( nullVector3D() );
@@ -461,7 +461,14 @@ void Simulation<
 			}
 		}
 
-		mp::visit<ParticleList, initialize_particles>::call_same(particles);
+		double timeStep = time.getTimeStep();
+
+		mp::visit<ParticleList, detail::initialize_particle>::call_same(particles);
+		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, timeStep);
+
+
+
+		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, timeStep);
 	}
 }
 
