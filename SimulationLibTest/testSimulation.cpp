@@ -14,6 +14,7 @@
 // SimulationLib
 #include <CommandLineParser.hpp>
 #include <InteractionSubjectLister.hpp>
+#include <ProgramOptions.hpp>
 #include <Simulation.hpp>
 
 // Standard
@@ -21,8 +22,6 @@
 
 using namespace std;
 using namespace psin;
-
-const psin::string project_root_path = PROJECT_PATH;
 
 namespace InteractionSubjectLister_Test_namespace {
 	struct A
@@ -136,6 +135,26 @@ TestCase(Simulation_Instantiation_Test)
 
 TestCase(Simulation_setup_Test)
 {
+	path projectRootPath = filesystem::current_path().parent_path().parent_path().parent_path();	
+	program_options::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("path", program_options::value<string>(), "Project's root folder")
+	;
+	program_options::variables_map vm = psin::parseCommandLine(
+			boost::unit_test::framework::master_test_suite().argc, 
+			boost::unit_test::framework::master_test_suite().argv, 
+			desc
+		);
+	if(vm.count("help"))
+	{
+		std::cout << desc << std::endl;
+	}
+	if(vm.count("path"))
+	{
+		projectRootPath = path(vm["path"].as<string>());
+	}
+
 	Simulation<
 		ParticleList<
 			SphericalParticle<
@@ -157,7 +176,6 @@ TestCase(Simulation_setup_Test)
 		SeekerList<CollisionSeeker>
 	> simulation;
 
-	path projectRootPath = path(project_root_path);
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
 	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
 	simulation.setup( mainInputFilePath );
@@ -165,6 +183,26 @@ TestCase(Simulation_setup_Test)
 
 TestCase(Simulation_setup_and_outputMainData_Test)
 {
+	path projectRootPath = filesystem::current_path().parent_path().parent_path().parent_path();	
+	program_options::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("path", program_options::value<string>(), "Project's root folder")
+	;
+	program_options::variables_map vm = psin::parseCommandLine(
+			boost::unit_test::framework::master_test_suite().argc, 
+			boost::unit_test::framework::master_test_suite().argv, 
+			desc
+		);
+	if(vm.count("help"))
+	{
+		std::cout << desc << std::endl;
+	}
+	if(vm.count("path"))
+	{
+		projectRootPath = path(vm["path"].as<string>());
+	}
+
 	Simulation<
 		ParticleList<
 			SphericalParticle<
@@ -186,11 +224,42 @@ TestCase(Simulation_setup_and_outputMainData_Test)
 		SeekerList<CollisionSeeker>
 	> simulation;
 
-	path projectRootPath = path(project_root_path);
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
 	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+
 	simulation.setup( mainInputFilePath );
 	simulation.outputMainData();
+}
+
+TestCase(Simulation_simulate_Test)
+{
+	// Simulation<
+	// 	ParticleList<
+	// 		SphericalParticle<
+	// 			Mass,
+	// 			Volume,
+	// 			MomentOfInertia,
+	// 			PoissonRatio
+	// 			>
+	// 		>,
+	// 	BoundaryList<>,
+	// 	InteractionList<
+	// 		ElectrostaticForce,
+	// 		NormalForceLinearDashpotForce,
+	// 		NormalForceViscoelasticSpheres,
+	// 		TangentialForceCundallStrack,
+	// 		TangentialForceHaffWerner
+	// 		>,
+	// 	LooperList<GearLooper>,
+	// 	SeekerList<CollisionSeeker>
+	// > simulation;
+
+	// path projectRootPath = path(project_root_path);
+	// path simulationLibTestPath = projectRootPath / "SimulationLibTest";
+	// path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+	// simulation.setup( mainInputFilePath );
+	// simulation.outputMainData();
+	// simulation.simulate();
 }
 
 // For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public
