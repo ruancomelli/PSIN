@@ -20,10 +20,12 @@ namespace mp {
 template<
 	typename TypeList,
 	template<typename> class Visitor,
-	std::size_t Pos = mp::length<TypeList>::value - 1
+	std::size_t RevertedPosition = mp::length<TypeList>::value - 1
 >
 struct visit
 {
+	constexpr static std::size_t Pos = mp::length<TypeList>::value - 1 - RevertedPosition;
+
 	template<typename Tuple, std::size_t TypeListLength = length<TypeList>::value>
 	static typename std::enable_if<(TypeListLength > 0)>::type call(Tuple & arg )
 	{
@@ -54,16 +56,18 @@ template<
 >
 struct visit<TypeList, Visitor, 0>
 {
+	constexpr static std::size_t Pos = mp::length<TypeList>::value - 1;
+
 	template<typename Tuple, std::size_t TypeListLength = length<TypeList>::value>
 	static typename std::enable_if<(TypeListLength > 0)>::type call(Tuple & arg)
 	{
-		Visitor< typename mp::get<0, TypeList>::type >::call( std::get<0>(arg) );
+		Visitor< typename mp::get<Pos, TypeList>::type >::call( std::get<Pos>(arg) );
 	}
 
 	template<typename...Args, std::size_t TypeListLength = length<TypeList>::value>
 	static typename std::enable_if<(TypeListLength > 0)>::type call_same(Args &...args)
 	{
-		Visitor< typename mp::get<0, TypeList>::type >::call(args...);
+		Visitor< typename mp::get<Pos, TypeList>::type >::call(args...);
 	}
 
 

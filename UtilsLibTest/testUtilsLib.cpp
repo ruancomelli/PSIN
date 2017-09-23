@@ -1274,6 +1274,29 @@ namespace visit_Test_namespace {
 			B::c = std::get<2>(arg);
 		}
 	};
+
+	template<typename T>
+	struct indexer_visitor;
+
+	template<>
+	struct indexer_visitor<int>
+	{
+		static void call(vector<string> v)
+		{
+			v.push_back("int");
+		}
+	};
+
+	template<>
+	struct indexer_visitor<double>
+	{
+		static void call(vector<string> v)
+		{
+			v.push_back("double");
+		}
+	};
+
+
 } // visit_Test_namespace
 
 TestCase(visit_Test)
@@ -1316,6 +1339,16 @@ TestCase(visit_Test)
 		type_list<>,
 		visitor
 	>::call_same();
+
+	vector<string> names;
+
+	mp::visit<
+		type_list<int, double>,
+		indexer_visitor
+	>::call_same(names);
+
+	checkEqual(names == vector<string>{"int", "double"});
+	checkEqual(names != vector<string>{"double", "int"});
 }
 
 TestCase(revert_Test)
