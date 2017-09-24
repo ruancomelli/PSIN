@@ -1417,6 +1417,49 @@ namespace visit_Test_namespace {
 
 } // visit_Test_namespace
 
+TestCase(relative_complement_Test)
+{
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<>,
+					type_list<int, double>
+				>::type,
+				type_list<>
+			>::value
+		));
+
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<int>,
+					type_list<int, double>
+				>::type,
+				type_list<>
+			>::value
+		));
+
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<int, double, char, double>,
+					type_list<int, double>
+				>::type,
+				type_list<char>
+			>::value
+		));
+
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<int, double, char, double>,
+					type_list<>
+				>::type,
+				type_list<int, double, char, double>
+			>::value
+		));
+}
+
 TestCase(visit_Test)
 {
 	using namespace visit_Test_namespace;
