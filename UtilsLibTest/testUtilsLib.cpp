@@ -708,29 +708,69 @@ TestCase(contains_Test)
 {
 	// Empty type list
 	check((
-			contains<type_list<>>::value
+			mp::contains<type_list<>>::value
 		));
 	check((
-			!contains<type_list<>, int, double>::value
+			!mp::contains<type_list<>, int, double>::value
 		));
 
 	// Empty list
 	check((
-			contains<type_list<int, double>>::value
+			mp::contains<type_list<int, double>>::value
 		));
 
 	// Common cases
 	check((
-			contains<type_list<int, double>, int>::value
+			mp::contains<type_list<int, double>, int>::value
 		));
 	check((
-			contains<type_list<int, double>, int, double>::value
+			mp::contains<type_list<int, double>, int, double>::value
 		));
 	check((
-			!contains<type_list<int, double>, int, double, char>::value
+			!mp::contains<type_list<int, double>, int, double, char>::value
 		));
 	check((
-			!contains<type_list<int, double>, char>::value
+			!mp::contains<type_list<int, double>, char>::value
+		));
+}
+
+TestCase(is_permutation_Test)
+{
+	check((
+			mp::is_permutation<
+				type_list<>,
+				type_list<>
+			>::value
+		));
+	check((
+			!mp::is_permutation<
+				type_list<int>,
+				type_list<>
+			>::value
+		));
+	check((
+			mp::is_permutation<
+				type_list<int>,
+				type_list<int>
+			>::value
+		));
+	check((
+			mp::is_permutation<
+				type_list<int, double>,
+				type_list<int, double>
+			>::value
+		));
+	check((
+			mp::is_permutation<
+				type_list<double, int>,
+				type_list<int, double>
+			>::value
+		));
+	check((
+			!mp::is_permutation<
+				type_list<double, int>,
+				type_list<int, char>
+			>::value
 		));
 }
 
