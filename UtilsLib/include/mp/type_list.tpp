@@ -66,7 +66,7 @@ namespace detail
 			>::type
 		>::type;
 	};
-
+ 
 	template<typename U>
 	struct has_repeated_types;
 
