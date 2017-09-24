@@ -12,7 +12,7 @@ namespace mp {
 template<typename Pack1, typename Pack2>
 struct relative_complement;
 
-template<template<typename...> class Pack1, typename Pack2, typename...Ts>
+template<template<typename...> class Pack1, typename Pack2>
 struct relative_complement<Pack1<>, Pack2>
 	: mp::metafunction< Pack1<> >
 {};
