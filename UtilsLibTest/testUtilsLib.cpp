@@ -646,6 +646,53 @@ TestCase(bool_constant_Test)
 		));
 }
 
+TestCase(logical_Test)
+{
+	check((
+			mp::conjunction<
+				std::true_type,
+				std::true_type,
+				std::true_type
+			>::value
+		));
+
+	check((
+			!mp::conjunction<
+				std::true_type,
+				std::false_type,
+				std::true_type
+			>::value
+		));
+
+	check((
+			mp::disjunction<
+				std::true_type,
+				std::false_type,
+				std::true_type
+			>::value
+		));
+
+	check((
+			!mp::disjunction<
+				std::false_type,
+				std::false_type,
+				std::false_type
+			>::value
+		));
+
+	check((
+			mp::negation<
+				std::false_type
+			>::value
+		));
+
+	check((
+			!mp::negation<
+				std::true_type
+			>::value
+		));
+}
+
 TestCase(metafunction_Test)
 {
 	check((

@@ -1,6 +1,10 @@
 #ifndef LOGICAL_HPP
 #define LOGICAL_HPP
 
+// Utils
+#include <bool_constant.hpp>
+
+// Standard
 #include <type_traits>
 
 namespace psin {
@@ -28,7 +32,7 @@ struct disjunction<B1, Bn...>
     : std::conditional_t<bool(B1::value), B1, disjunction<Bn...>>  { };
 
 template<class B>
-struct negation : std::bool_constant<!bool(B::value)> { };
+struct negation : mp::bool_constant<!bool(B::value)> { };
 
 #endif
 
