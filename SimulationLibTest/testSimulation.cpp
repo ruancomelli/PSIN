@@ -101,7 +101,6 @@ TestCase(InteractionSubjectLister_Test)
 				mp::type_list<I, A, A>,
 				mp::type_list<I, B, A>,
 
-				mp::type_list<I, A, B>,
 				mp::type_list<I, B, B>,
 				mp::type_list<J, C, B>
 			>
