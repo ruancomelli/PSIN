@@ -8,6 +8,7 @@
 #include <SphericalParticlePtrArrayKit.hpp>
 
 // SimulationLib
+#include <InteractionSubjectLister.hpp>
 #include <LooperDefinitions.hpp>
 #include <SeekerDefinitions.hpp>
 #include <SimulationFileTree.hpp>
@@ -58,6 +59,7 @@ public:
 	using InteractionList = psin::InteractionList<InteractionTypes...>;
 	using LooperList = psin::LooperList<GearLooper>;
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
+	using InteractionTriplets = InteractionSubjectLister::generate_combinations::type;
 
 	void setup(const path & mainInputFilePath);
 

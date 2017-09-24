@@ -404,6 +404,29 @@ struct initialize_particle
 	}
 };
 
+template<typename InteractionTriplet>
+struct interact
+{
+	template<typename EntityVectorTuple, typename Time>
+	static void call(EntityVectorTuple & entityVectorTuple, const Time & time)
+	{
+		using InteractionType = mp::get<0, InteractionTriplet>::type;
+		using EntityType = mp::get<1, EntityTriplet>::type;
+		using NeighborType = mp::get<2, NeighborTriplet>::type;
+
+		for(auto& entity : std::get<EntityType>(entityVectorTuple))
+		{
+			for(auto& neighbor : std::get<NeighborType>(entityVectorTuple))
+			{
+				if(useInteraction<InteractionType>())
+				{
+					InteractionType::calculate(entity, neighbor, time);
+				}
+			}
+		}
+	}
+};
+
 } // detail
 
 template<
@@ -465,8 +488,11 @@ void Simulation<
 
 		mp::visit<ParticleList, detail::initialize_particle>::call_same(particles);
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, timeStep);
+		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
-
+		mp::visit<InteractionTriplets, detail::interact>::call_same(
+				std::tuple_cat(particles, boundaries), time
+			);
 
 		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, timeStep);
 	}

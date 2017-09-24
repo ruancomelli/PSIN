@@ -280,28 +280,6 @@ TestCase(Simulation_simulate_Test)
 	simulation.simulate();
 }
 
-// For the next test to work, SimulationFileTree::setPathIfPathExists must be declared as public
-
-//TestCase(CheckPathExistanceTest)
-//{
-//	string current = currentDirectory();
-//
-//	string value = current + "Steve/";
-//	string destination = "empty";
-//	string name = "Folder";
-//	string functionName = "Test Function";
-//
-//	deletePath(current + "Steve/");
-//
-//	check( !SimulationFileTree::setPathIfPathExists(value, destination, name, functionName) );
-//	
-//	createDirectory(value);
-//
-//	check(SimulationFileTree::setPathIfPathExists(value, destination, name, functionName));
-//
-//	checkEqual(value, destination);
-//}
-
 TestCase(SimulationFileTreeTest)
 {
 	SimulationFileTree fileTree;
