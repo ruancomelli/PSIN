@@ -7,6 +7,7 @@
 #include <mp/contains.hpp>
 #include <mp/get.hpp>
 #include <mp/integer_sequence.hpp>
+#include <mp/is_permutation.hpp>
 #include <mp/length.hpp>
 #include <mp/make_unique_type_list.hpp>
 #include <mp/metafunction.hpp>
