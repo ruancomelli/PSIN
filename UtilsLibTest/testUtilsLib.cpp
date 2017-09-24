@@ -12,6 +12,7 @@
 #include <Named.hpp>
 #include <NamedType.hpp>
 #include <NamedGroup.hpp>
+#include <PrintType.hpp>
 #include <ProgramOptions.hpp>
 #include <SharedPointer.hpp>
 #include <string.hpp>
@@ -1347,8 +1348,8 @@ TestCase(visit_Test)
 		indexer_visitor
 	>::call_same(names);
 
-	checkEqual(names == vector<string>{"int", "double"});
-	checkEqual(names != vector<string>{"double", "int"});
+	check(names == vector<string>{"int", "double"});
+	check(names != vector<string>{"double", "int"});
 }
 
 TestCase(revert_Test)
@@ -1359,4 +1360,53 @@ TestCase(revert_Test)
 			type_list<bool, char, char, double, int>
 		>::value
 	));
+}
+
+namespace PrintType_Test_namespace {
+
+	struct A;
+	struct B;
+
+	template<typename T>
+	struct C;
+
+	template<>
+	const string NamedType<A>::name = "A";
+
+	template<>
+	const string NamedType<B>::name = "B";
+
+	template<>
+	const string NamedGroup<C>::name = "C";
+
+} // PrintType_Test_namespace
+
+TestCase(PrintType_Test)
+{
+	using namespace PrintType_Test_namespace;
+
+	checkEqual(
+			(PrintType<A>::value),
+			"A"
+		);
+	checkEqual(
+			(PrintType<B>::value),
+			"B"
+		);
+	checkEqual(
+			(PrintType< C<> >::value),
+			"C<>"
+		);
+	checkEqual(
+			(PrintType< C<A> >::value),
+			"C<A>"
+		);
+	checkEqual(
+			(PrintType< C<B> >::value),
+			"C<B>"
+		);
+	checkEqual(
+			(PrintType< C<A,B> >::value),
+			"C<A,B>"
+		);
 }
