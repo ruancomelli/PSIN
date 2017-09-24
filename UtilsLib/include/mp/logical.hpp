@@ -4,13 +4,14 @@
 #include <type_traits>
 
 namespace psin {
+namespace mp {
 
 #ifdef __cpp_lib_logical_traits
 
 using std::conjunction;
 using std::disjunction;
 using std::negation;
-	
+
 #else
 
 template<class...> struct conjunction : std::true_type { };
@@ -31,6 +32,7 @@ struct negation : std::bool_constant<!bool(B::value)> { };
 
 #endif
 
+} // mp
 } // psin
 
 #endif // LOGICAL_HPP
