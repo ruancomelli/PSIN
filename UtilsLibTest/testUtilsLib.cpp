@@ -704,6 +704,36 @@ TestCase(concatenate_Test)
 	));
 }
 
+TestCase(contains_Test)
+{
+	// Empty type list
+	check((
+			contains<type_list<>>::value
+		));
+	check((
+			!contains<type_list<>, int, double>::value
+		));
+
+	// Empty list
+	check((
+			contains<type_list<int, double>>::value
+		));
+
+	// Common cases
+	check((
+			contains<type_list<int, double>, int>::value
+		));
+	check((
+			contains<type_list<int, double>, int, double>::value
+		));
+	check((
+			!contains<type_list<int, double>, int, double, char>::value
+		));
+	check((
+			!contains<type_list<int, double>, char>::value
+		));
+}
+
 TestCase(type_list_identity_Test)
 {
 	check((

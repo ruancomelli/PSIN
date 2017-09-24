@@ -4,6 +4,7 @@
 #include <mp/bool_constant.hpp>
 #include <mp/combinatory.hpp>
 #include <mp/concatenate.hpp>
+#include <mp/contains.hpp>
 #include <mp/get.hpp>
 #include <mp/integer_sequence.hpp>
 #include <mp/length.hpp>

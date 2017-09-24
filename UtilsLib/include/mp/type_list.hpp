@@ -3,6 +3,7 @@
 
 // UtilsLib
 #include <mp/concatenate.hpp>
+#include <mp/contains.hpp>
 #include <mp/get.hpp>
 #include <mp/type_list.tpp>
 
@@ -26,8 +27,8 @@ struct type_list
 	template<typename ... Us>
 	using prepend = type_list<Us..., Ts...>;
 
-	template<typename U, typename ... Us>
-	constexpr static bool contains = detail::contains<identity, U, Us...>::value;
+	template<typename ... Us>
+	constexpr static bool contains = mp::contains<identity, Us...>::value;
 
 	constexpr static bool is_empty = detail::is_empty<Ts...>::value;
 

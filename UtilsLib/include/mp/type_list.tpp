@@ -16,27 +16,6 @@ namespace mp {
 
 namespace detail
 {
-	template<typename TypeList, typename...ContainedTypes>
-	struct contains;
-
-	template<typename TypeList>
-	struct contains<TypeList> : std::true_type {};
-
-	template<typename TypeList, typename U, typename...Us>
-	struct contains<TypeList, U, Us...>
-		: mp::bool_constant< contains<TypeList, U>::value and contains<TypeList, Us...>::value >
-	{};
-
-	template<typename U>
-	struct contains< mp::type_list<>, U> : std::false_type {};
-
-	template<typename T, typename...Ts, typename U>
-	struct contains< mp::type_list<T, Ts...>, U>
-		: mp::bool_constant< std::is_same<T, U>::value or contains< mp::type_list<Ts...>, U>::value >
-	{};
-
-
-
 	template<typename ... Ts>
 	struct is_empty : std::false_type {};
 
@@ -76,7 +55,7 @@ namespace detail
 	struct append_if_new_types<TypeList, U, Us...>
 	{
 		using type = typename std::conditional<
-			!(contains<TypeList, U>::value),
+			!(mp::contains<TypeList, U>::value),
 			typename append_if_new_types<
 				typename append<TypeList, U>::type, 
 				Us... 
@@ -93,7 +72,7 @@ namespace detail
 
 	template<typename T, typename ... Ts>
 	struct has_repeated_types< mp::type_list<T, Ts...> >
-		: mp::bool_constant< has_repeated_types< mp::type_list<Ts...> >::value or contains<mp::type_list<Ts...>, T>::value >
+		: mp::bool_constant< has_repeated_types< mp::type_list<Ts...> >::value or mp::contains<mp::type_list<Ts...>, T>::value >
 	{};
 
 	template<>
