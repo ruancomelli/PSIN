@@ -33,9 +33,40 @@ struct get_valid_triplets
 	>
 {};
 
+template<typename T>
+struct purger_is_permutation
+{
+	template<typename U>
+	struct apply
+		: mp::bool_constant< mp::is_permutation<T, U>::value >
+	{};
+}
+
+template<typename CombinationList, typename=void>
+struct remove_permutations;
+
+template<typename CombinationList>
+struct remove_permutations<CombinationList, typename std::enable_if<(length<CombinationList>::value > 0), void>::type>
+	: mp::metafunction<
+		typename mp::purge<
+			typename remove_permutations<
+				CombinationList
+			>::type,
+			purger_is_permutation<
+				typename mp::get<0, CombinationList>::type
+			>::apply
+		>::type
+	>
+{};
+
+template<typename CombinationList>
+struct remove_permutations<CombinationList, typename std::enable_if<(length<CombinationList>::value == 0), void>::type>
+	: mp::metafunction<CombinationList>
+{};
+
 template<typename Interactions, typename Subjects>
 struct generate_combinations
-	: mp::metafunction<
+	: remove_permutations<
 		typename get_valid_triplets<
 			typename generate_triplets<Interactions, Subjects>::type
 		>::type
