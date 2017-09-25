@@ -841,28 +841,28 @@ TestCase(range_Test)
 {
 	check((
 			std::is_same<
-				mp::range<5>,
+				mp::range<5>::type,
 				mp::index_sequence<0, 1, 2, 3, 4>
 			>::value
 		));
 
 	check((
 			std::is_same<
-				mp::range<2, 5>,
+				mp::range<2, 5>::type,
 				mp::index_sequence<2, 3, 4>
 			>::value
 		));
 
 	check((
 			std::is_same<
-				mp::range<2, 3, 10>,
+				mp::range<2, 3, 10>::type,
 				mp::index_sequence<2, 5, 8>
 			>::value
 		));
 
 	check((
 			std::is_same<
-				mp::range<11, 10>,
+				mp::range<11, 10>::type,
 				mp::index_sequence<>
 			>::value
 		));

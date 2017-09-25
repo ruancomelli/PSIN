@@ -11,39 +11,46 @@
 
 namespace psin {
 namespace mp {
+namespace detail {
 
-template<typename T, T...ts, typename=void>
-struct integer_range;
+template<typename T, T Begin, T Step, T End, typename Enable = void>
+struct integer_range_impl;
 
 template<typename T, T Begin, T Step, T End>
-struct integer_range<T, Begin, Step, End, typename std::enable_if<(Begin < End), void>::type>
+struct integer_range_impl<T, Begin, Step, End, typename std::enable_if<(Begin < End)>::type>
 	: mp::metafunction<
 		typename mp::concatenate<
 			mp::integer_sequence<T, Begin>,
-			typename integer_range<T, Begin+Step, End>::type
+			typename integer_range_impl<T, Begin+Step, Step, End>::type
 		>::type
 	>
 {};
 
 template<typename T, T Begin, T Step, T End>
-struct integer_range<T, Begin, Step, End, typename std::enable_if<not(Begin < End), void>::type>
+struct integer_range_impl<T, Begin, Step, End, typename std::enable_if<not(Begin < End)>::type>
 	: mp::metafunction<
 		mp::integer_sequence<T>
 	>
 {};
 
+} // detail
+
+template<typename T, T...ts>
+struct integer_range;
+
+template<typename T, T Begin, T Step, T End>
+struct integer_range<T, Begin, Step, End>
+	: detail::integer_range_impl<T, Begin, Step, End>
+{};
+
 template<typename T, T Begin, T End>
 struct integer_range<T, Begin, End>
-	: mp::metafunction<
-		integer_range<T, Begin, T(1), End>::type
-	>
+	: detail::integer_range_impl<T, Begin, T(1), End>
 {};
 
 template<typename T, T End>
 struct integer_range<T, End>
-	: mp::metafunction<
-		integer_range<T, T(0), End>::type
-	>
+	: detail::integer_range_impl<T, T(0), T(1), End>
 {};
 
 template<std::size_t ... ts>
