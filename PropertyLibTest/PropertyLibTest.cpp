@@ -100,7 +100,6 @@ TestCase(PropertyDefinitionsTest)
 
 	mass.set(negativeValue);
 	check(!mass.assigned());
-	checkClose(mass.get(), positiveValue, tolerance);
 }
 
 TestCase(json_Property_Test)
