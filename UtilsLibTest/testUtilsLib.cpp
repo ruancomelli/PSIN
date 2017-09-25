@@ -1048,13 +1048,13 @@ TestCase(type_collection_is_empty_Test)
 
 TestCase(type_collection_size_Test)
 {
-	size_t size1 = type_collection<int, double, double, int, char, bool>::size;
+	size_t size1 = type_collection<int, double, double, int, char, bool>::length;
 	checkEqual(
 		size1,
 		4
 	);
 
-	size_t size2 = type_collection<>::size;
+	size_t size2 = type_collection<>::length;
 	checkEqual(
 		size2,
 		0

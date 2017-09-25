@@ -21,7 +21,7 @@ struct type_collection
 
 	constexpr static bool is_empty = equivalent_type_list::is_empty;
 
-	constexpr static unsigned size = equivalent_type_list::size;
+	constexpr static unsigned length = equivalent_type_list::length;
 
 	template<typename U>
 	constexpr static bool is_superset_of = detail::is_superset_of<identity, U>::value;
