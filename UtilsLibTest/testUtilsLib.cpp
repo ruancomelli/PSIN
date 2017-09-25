@@ -12,7 +12,6 @@
 #include <Named.hpp>
 #include <NamedType.hpp>
 #include <NamedGroup.hpp>
-#include <PrintType.hpp>
 #include <ProgramOptions.hpp>
 #include <SharedPointer.hpp>
 #include <string.hpp>
