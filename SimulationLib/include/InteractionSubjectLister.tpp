@@ -34,34 +34,35 @@ struct get_valid_triplets
 {};
 
 template<typename T>
-struct purger_is_permutation
+struct permutation_purger
 {
 	template<typename U>
 	struct apply
-		: mp::bool_constant< mp::is_permutation<T, U>::value >
+		: mp::bool_constant< !mp::is_permutation<T, U>::value >
 	{};
-}
-
-template<typename CombinationList, typename=void>
-struct remove_permutations;
+};
 
 template<typename CombinationList>
-struct remove_permutations<CombinationList, typename std::enable_if<(length<CombinationList>::value > 0), void>::type>
+struct remove_permutations;
+
+template<template<typename...> class CombinationList, typename T, typename...Ts>
+struct remove_permutations<CombinationList<T,Ts...>>
 	: mp::metafunction<
-		typename mp::purge<
+		typename mp::concatenate<
+			CombinationList<T>,
 			typename remove_permutations<
-				CombinationList
-			>::type,
-			purger_is_permutation<
-				typename mp::get<0, CombinationList>::type
-			>::apply
+				typename mp::purge<
+					CombinationList<Ts...>,
+					permutation_purger<T>::template apply
+				>::type
+			>::type
 		>::type
 	>
 {};
 
-template<typename CombinationList>
-struct remove_permutations<CombinationList, typename std::enable_if<(length<CombinationList>::value == 0), void>::type>
-	: mp::metafunction<CombinationList>
+template<template<typename...> class CombinationList>
+struct remove_permutations<CombinationList<>>
+	: mp::metafunction<CombinationList<>>
 {};
 
 template<typename Interactions, typename Subjects>
