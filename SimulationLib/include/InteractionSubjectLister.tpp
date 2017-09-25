@@ -26,7 +26,7 @@ struct is_valid_triplet
 template<typename CombinationList>
 struct get_valid_triplets
 	: mp::metafunction<
-		typename mp::purge::apply<
+		typename mp::purge<
 			CombinationList,
 			is_valid_triplet
 		>::type
