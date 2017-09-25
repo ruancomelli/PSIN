@@ -340,22 +340,22 @@ struct write_entities_to_json
 template<typename P>
 struct predict_particle
 {
-	template<typename ParticleTuple>
-	static void call(ParticleTuple & particleVectorTuple, const double & timeStep)
+	template<typename ParticleTuple, typename Time>
+	static void call(ParticleTuple & particleVectorTuple, const Time & time)
 	{
 		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
 			vector<Vector3D> predictedPosition = Interaction<>::taylorPredictor(
 					particle.getPositionMatrix(),
 					particle.getTaylorOrder(),
-					timeStep
+					time.getTimeStep()
 				);
 			particle.setPositionMatrix(predictedPosition);
 
 			vector<Vector3D> predictedOrientation = Interaction<>::taylorPredictor(
 					particle.getOrientationMatrix(),
 					particle.getTaylorOrder(),
-					timeStep
+					time.getTimeStep()
 				);
 			particle.setOrientationMatrix(predictedOrientation);
 		}
@@ -379,8 +379,8 @@ struct update_boundary
 template<typename P>
 struct correct_particle
 {
-	template<typename ParticleTuple>
-	static void call(ParticleTuple & particleVectorTuple, const double & timeStep)
+	template<typename ParticleTuple, typename Time>
+	static void call(ParticleTuple & particleVectorTuple, const Time & time)
 	{
 		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
@@ -388,7 +388,7 @@ struct correct_particle
 					particle.getPositionMatrix(),
 					particle.getAcceleration(),
 					particle.getTaylorOrder(),
-					timeStep
+					time.getTimeStep()
 				);
 			particle.setPositionMatrix(correctedPosition);
 
@@ -396,7 +396,7 @@ struct correct_particle
 					particle.getOrientationMatrix(),
 					particle.getAngularAcceleration(),
 					particle.getTaylorOrder(),
-					timeStep
+					time.getTimeStep()
 				);
 			particle.setOrientationMatrix(correctedOrientation);
 		}
@@ -461,54 +461,61 @@ void Simulation<
 	unsigned long timeStepsForOutputCounter = 0;
 	unsigned long outputsForExportingCounter = 0;
 
+	std::cout << "Entering time loop" << std::endl; // DEBUG
+
 	for(time.start(); !time.end(); time.update())
 	{
+		std::cout << "Time: " << time.as_json() << std::endl; // DEBUG
+
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
+			std::cout << "-- Outputing" << std::endl; // DEBUG
+
 			mp::visit<ParticleList, detail::write_entities_to_json>::call_same(particles, particleJsonMap);
 			mp::visit<BoundaryList, detail::write_entities_to_json>::call_same(boundaries, boundaryJsonMap);
+			
+			if(outputsForExportingCounter == 0)
+			{
+				std::cout << "-- Exporting" << std::endl; // DEBUG
+
+				string timeIndex = to_string(time.getIndex());
+				for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
+				{
+					json fileContent;
+					json informationToExport{
+						{timeIndex, merge(it->second)}
+					};
+
+					// *particleFileMap[it->first] >> fileContent;
+					// *particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+					it->second.clear();
+				}
+				for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
+				{
+					json fileContent;
+					json informationToExport{
+						{timeIndex, merge(it->second)}
+					};
+
+					// *boundaryFileMap[it->first] >> fileContent;
+					// *boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+					it->second.clear();
+				}
+			}
 			outputsForExportingCounter = (outputsForExportingCounter + 1) % outputsForExporting;
 		}
 		timeStepsForOutputCounter = (timeStepsForOutputCounter + 1) % timeStepsForOutput;
-		if(outputsForExportingCounter == 0)
-		{
-			string timeIndex = to_string(time.getIndex());
-			for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
-			{
-				json fileContent;
-				json informationToExport{
-					{timeIndex, merge(it->second)}
-				};
-
-				// *particleFileMap[it->first] >> fileContent;
-				// *particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
-				it->second.clear();
-			}
-			for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
-			{
-				json fileContent;
-				json informationToExport{
-					{timeIndex, merge(it->second)}
-				};
-
-				// *boundaryFileMap[it->first] >> fileContent;
-				// *boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
-				it->second.clear();
-			}
-		}
-
-		// double timeStep = time.getTimeStep();
 
 		mp::visit<ParticleList, detail::initialize_particle>::call_same(particles);
-		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, timeStep);
+		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, time);
 		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
 		// mp::visit<InteractionTriplets, detail::interact>::call_same(
 		// 		std::tuple_cat(particles, boundaries), time, interactionsToUse
 		// 	);
 
-		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, timeStep);
+		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, time);
 	}
 }
 
