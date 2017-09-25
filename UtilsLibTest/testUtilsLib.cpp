@@ -1127,28 +1127,28 @@ TestCase(make_constant_index_sequence_Test)
 {
 	check((
 		std::is_same<
-			detail::make_constant_index_sequence<>::type,
+			mp::detail::make_constant_index_sequence<>::type,
 			std::index_sequence<>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			detail::make_constant_index_sequence<0>::type,
+			mp::detail::make_constant_index_sequence<0>::type,
 			std::index_sequence<>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			detail::make_constant_index_sequence<2>::type,
+			mp::detail::make_constant_index_sequence<2>::type,
 			std::index_sequence<0, 0>
 		>::value
 	));
 
 	check((
 		std::is_same<
-			detail::make_constant_index_sequence<3, 5>::type,
+			mp::detail::make_constant_index_sequence<3, 5>::type,
 			std::index_sequence<5, 5, 5>
 		>::value
 	));
@@ -1158,14 +1158,14 @@ TestCase(format_indexes_based_on_limits_Test)
 {
 	check((
 		std::is_same<
-			detail::format_indexes_based_on_limits<
+			mp::detail::format_indexes_based_on_limits<
 				std::index_sequence<>,
 				std::index_sequence<>
 			>::type,
 			std::index_sequence<>
 		>::value
 	));
-	size_t remainder1 = detail::format_indexes_based_on_limits<
+	size_t remainder1 = mp::detail::format_indexes_based_on_limits<
 			std::index_sequence<>,
 			std::index_sequence<>
 		>::remainder;
@@ -1173,14 +1173,14 @@ TestCase(format_indexes_based_on_limits_Test)
 
 	check((
 		std::is_same<
-			detail::format_indexes_based_on_limits<
+			mp::detail::format_indexes_based_on_limits<
 				std::index_sequence<7, 4, 1>,
 				std::index_sequence<5, 5, 3>
 			>::type,
 			std::index_sequence<2, 0, 2>
 		>::value
 	));
-	size_t remainder2 = detail::format_indexes_based_on_limits<
+	size_t remainder2 = mp::detail::format_indexes_based_on_limits<
 			std::index_sequence<7, 4, 1>,
 			std::index_sequence<5, 5, 3>
 		>::remainder;
@@ -1188,14 +1188,14 @@ TestCase(format_indexes_based_on_limits_Test)
 
 	check((
 		std::is_same<
-			detail::format_indexes_based_on_limits<
+			mp::detail::format_indexes_based_on_limits<
 				std::index_sequence<5, 4, 2>,
 				std::index_sequence<5, 5, 3>
 			>::type,
 			std::index_sequence<0, 0, 0>
 		>::value
 	));
-	size_t remainder3 = detail::format_indexes_based_on_limits<
+	size_t remainder3 = mp::detail::format_indexes_based_on_limits<
 			std::index_sequence<5, 5, 3>,
 			std::index_sequence<5, 5, 3>
 		>::remainder;
@@ -1206,7 +1206,7 @@ TestCase(last_combination_indexes_Test)
 {
 	check((
 		std::is_same<
-			detail::last_combination_indexes<
+			mp::detail::last_combination_indexes<
 				type_list<int, double, double, char>,
 				std::tuple<std::string>,
 				std::tuple<int, char>,
@@ -1221,7 +1221,7 @@ TestCase(next_combination_indexes_Test)
 {
 	check((
 		std::is_same<
-			detail::next_combination_indexes<
+			mp::detail::next_combination_indexes<
 				std::index_sequence<1, 3, 2>,
 				std::index_sequence<3, 4, 5>
 			>::type,
@@ -1231,7 +1231,7 @@ TestCase(next_combination_indexes_Test)
 
 	check((
 		std::is_same<
-			detail::next_combination_indexes<
+			mp::detail::next_combination_indexes<
 				std::index_sequence<2, 3, 2>,
 				std::index_sequence<3, 4, 5>
 			>::type,
@@ -1265,7 +1265,7 @@ TestCase(iterate_generate_list_Test)
 {
 	check((
 		std::is_same<
-			detail::iterate_generate_list<
+			mp::detail::iterate_generate_list<
 				std::index_sequence<0, 0, 0>,
 				type_list<int, double, char>,
 				type_list<size_t, double, std::string>,
@@ -1297,7 +1297,7 @@ TestCase(iterate_generate_list_Test)
 
 	check((
 		std::is_same<
-			detail::iterate_generate_list<
+			mp::detail::iterate_generate_list<
 				std::index_sequence<2, 0, 1>,
 				type_list<int, double, char>,
 				type_list<size_t, double, std::string>,
@@ -1320,7 +1320,7 @@ TestCase(combinatory_generate_combination_list_Test)
 {
 	check((
 		std::is_same<
-			combinatory::generate_combination_list<
+			mp::combinatory::generate_combination_list<
 				type_list<int, double, char>,
 				type_list<size_t, double, std::string>,
 				type_list<bool, char>
@@ -1370,7 +1370,7 @@ TestCase(purge_Test)
 
 	check((
 		std::is_same<
-			typename mp::purge::apply<
+			typename mp::purge<
 				type_list<>,
 				test
 			>::type,
@@ -1380,7 +1380,7 @@ TestCase(purge_Test)
 
 	check((
 		std::is_same<
-			typename mp::purge::apply<
+			typename mp::purge<
 				type_list<int, char, int, double, bool, bool, int, char>,
 				test
 			>::type,

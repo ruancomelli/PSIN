@@ -13,6 +13,7 @@
 #include <type_traits>
 
 namespace psin {
+namespace mp {
 namespace detail {
 	
 	template<size_t S = 0, size_t Value = 0>
@@ -188,6 +189,7 @@ namespace detail {
 	{};
 
 } // detail
+} // mp
 } // psin
 
 #endif // COMBINATORY_TPP
