@@ -7,6 +7,7 @@
 #include <FileSystem.hpp>
 #include <Foreach.hpp>
 #include <Mathematics.hpp>
+#include <ProgramOptions.hpp>
 #include <Test.hpp>
 #include <Vector3D.hpp>
 #include <Vector.hpp>
@@ -28,207 +29,244 @@
 using namespace std;
 using namespace psin;
 
-
-const string project_root_path = PROJECT_PATH;
-
 TestCase( VectorVector3DTest )
 {
-		vector<Vector3D> tester(4);
-		tester[0] = Vector3D(1.0, 1.0, 1.0);
-		tester[1] = Vector3D(2.0, 4.0, 8.0);
-		tester[2] = Vector3D(3.0, 9.0, 27.0);
-		tester[3] = Vector3D(4.0, 16.0, 64.0);
+	path projectRootPath = filesystem::current_path().parent_path().parent_path().parent_path();	
+	program_options::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("path", program_options::value<string>(), "Project's root folder")
+	;
+	program_options::variables_map vm = psin::parseCommandLine(
+			boost::unit_test::framework::master_test_suite().argc, 
+			boost::unit_test::framework::master_test_suite().argv, 
+			desc
+		);
+	if(vm.count("help"))
+	{
+		std::cout << desc << std::endl;
+	}
+	if(vm.count("path"))
+	{
+		projectRootPath = path(vm["path"].as<string>());
+	}
 
-		string fileName(project_root_path + "IOLibTest/VectorVector3DTestInput.txt");
+	vector<Vector3D> tester(4);
+	tester[0] = Vector3D(1.0, 1.0, 1.0);
+	tester[1] = Vector3D(2.0, 4.0, 8.0);
+	tester[2] = Vector3D(3.0, 9.0, 27.0);
+	tester[3] = Vector3D(4.0, 16.0, 64.0);
 
-		ifstream file(fileName);
+	string fileName((projectRootPath / path("IOLibTest/VectorVector3DTestInput.txt")).string());
 
-		if(!file){
-			cerr << "Error opening file " << fileName << endl << endl;
-			system("pause");
-			exit(EXIT_FAILURE);
-		}
+	ifstream file(fileName);
 
-		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
-		file.seekg(ios_base::beg);
+	if(!file){
+		cerr << "Error opening file " << fileName << endl << endl;
+		system("pause");
+		exit(EXIT_FAILURE);
+	}
 
-		Vector3D line1;
-		Vector3D line2;
-		Vector3D line3;
-		Vector3D line4;
+	file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
+	file.seekg(ios_base::beg);
 
-		file >> line1;
-		file >> line2;
-		file >> line3;
-		file >> line4;
+	Vector3D line1;
+	Vector3D line2;
+	Vector3D line3;
+	Vector3D line4;
 
-		checkClose(tester[0].x(), line1.x(), 1e-2);
-		checkClose(tester[0].y(), line1.y(), 1e-2);
-		checkClose(tester[0].z(), line1.z(), 1e-2);
-		
-		checkClose(tester[1].x(), line2.x(), 1e-2);
-		checkClose(tester[1].y(), line2.y(), 1e-2);
-		checkClose(tester[1].z(), line2.z(), 1e-2);
-		
-		checkClose(tester[2].x(), line3.x(), 1e-2);
-		checkClose(tester[2].y(), line3.y(), 1e-2);
-		checkClose(tester[2].z(), line3.z(), 1e-2);
-		
-		checkClose(tester[3].x(), line4.x(), 1e-2);
-		checkClose(tester[3].y(), line4.y(), 1e-2);
-		checkClose(tester[3].z(), line4.z(), 1e-2);
+	file >> line1;
+	file >> line2;
+	file >> line3;
+	file >> line4;
 
-		// First method
-		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
-		file.seekg(ios_base::beg);
+	checkClose(tester[0].x(), line1.x(), 1e-2);
+	checkClose(tester[0].y(), line1.y(), 1e-2);
+	checkClose(tester[0].z(), line1.z(), 1e-2);
 
-		vector<Vector3D> tested(4);
-		file >> tested;
+	checkClose(tester[1].x(), line2.x(), 1e-2);
+	checkClose(tester[1].y(), line2.y(), 1e-2);
+	checkClose(tester[1].z(), line2.z(), 1e-2);
 
-		checkClose(tester[0].x(), tested[0].x(), 1e-2);
-		checkClose(tester[0].y(), tested[0].y(), 1e-2);
-		checkClose(tester[0].z(), tested[0].z(), 1e-2);
-									   
-		checkClose(tester[1].x(), tested[1].x(), 1e-2);
-		checkClose(tester[1].y(), tested[1].y(), 1e-2);
-		checkClose(tester[1].z(), tested[1].z(), 1e-2);
-									   
-		checkClose(tester[2].x(), tested[2].x(), 1e-2);
-		checkClose(tester[2].y(), tested[2].y(), 1e-2);
-		checkClose(tester[2].z(), tested[2].z(), 1e-2);
-									   
-		checkClose(tester[3].x(), tested[3].x(), 1e-2);
-		checkClose(tester[3].y(), tested[3].y(), 1e-2);
-		checkClose(tester[3].z(), tested[3].z(), 1e-2);
-		
-		// Second method
-		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
-		file.seekg(ios_base::beg);
+	checkClose(tester[2].x(), line3.x(), 1e-2);
+	checkClose(tester[2].y(), line3.y(), 1e-2);
+	checkClose(tester[2].z(), line3.z(), 1e-2);
 
-		for(unsigned i = 0; i < tested.size(); ++i){
-			file >> tested[i];
-		}
+	checkClose(tester[3].x(), line4.x(), 1e-2);
+	checkClose(tester[3].y(), line4.y(), 1e-2);
+	checkClose(tester[3].z(), line4.z(), 1e-2);
 
-		checkClose(tester[0].x(), tested[0].x(), 1e-2);
-		checkClose(tester[0].y(), tested[0].y(), 1e-2);
-		checkClose(tester[0].z(), tested[0].z(), 1e-2);
-									   
-		checkClose(tester[1].x(), tested[1].x(), 1e-2);
-		checkClose(tester[1].y(), tested[1].y(), 1e-2);
-		checkClose(tester[1].z(), tested[1].z(), 1e-2);
-									   
-		checkClose(tester[2].x(), tested[2].x(), 1e-2);
-		checkClose(tester[2].y(), tested[2].y(), 1e-2);
-		checkClose(tester[2].z(), tested[2].z(), 1e-2);
-									   
-		checkClose(tester[3].x(), tested[3].x(), 1e-2);
-		checkClose(tester[3].y(), tested[3].y(), 1e-2);
-		checkClose(tester[3].z(), tested[3].z(), 1e-2);
+	// First method
+	file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
+	file.seekg(ios_base::beg);
 
-		
-		// Third method
-		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
-		file.seekg(ios_base::beg);
+	vector<Vector3D> tested(4);
+	file >> tested;
 
-		file >> tested[0];
-		file >> tested[1];
-		file >> tested[2];
-		file >> tested[3];
+	checkClose(tester[0].x(), tested[0].x(), 1e-2);
+	checkClose(tester[0].y(), tested[0].y(), 1e-2);
+	checkClose(tester[0].z(), tested[0].z(), 1e-2);
+								   
+	checkClose(tester[1].x(), tested[1].x(), 1e-2);
+	checkClose(tester[1].y(), tested[1].y(), 1e-2);
+	checkClose(tester[1].z(), tested[1].z(), 1e-2);
+								   
+	checkClose(tester[2].x(), tested[2].x(), 1e-2);
+	checkClose(tester[2].y(), tested[2].y(), 1e-2);
+	checkClose(tester[2].z(), tested[2].z(), 1e-2);
+								   
+	checkClose(tester[3].x(), tested[3].x(), 1e-2);
+	checkClose(tester[3].y(), tested[3].y(), 1e-2);
+	checkClose(tester[3].z(), tested[3].z(), 1e-2);
 
-		checkClose(tester[0].x(), tested[0].x(), 1e-2);
-		checkClose(tester[0].y(), tested[0].y(), 1e-2);
-		checkClose(tester[0].z(), tested[0].z(), 1e-2);
-									   
-		checkClose(tester[1].x(), tested[1].x(), 1e-2);
-		checkClose(tester[1].y(), tested[1].y(), 1e-2);
-		checkClose(tester[1].z(), tested[1].z(), 1e-2);
-									   
-		checkClose(tester[2].x(), tested[2].x(), 1e-2);
-		checkClose(tester[2].y(), tested[2].y(), 1e-2);
-		checkClose(tester[2].z(), tested[2].z(), 1e-2);
-									   
-		checkClose(tester[3].x(), tested[3].x(), 1e-2);
-		checkClose(tester[3].y(), tested[3].y(), 1e-2);
-		checkClose(tester[3].z(), tested[3].z(), 1e-2);
-		
-		// Fourth method
-		file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
-		file.seekg(ios_base::beg);
+	// Second method
+	file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
+	file.seekg(ios_base::beg);
 
-		file >> line1;
-		tested[0] = line1;
-		
-		file >> line2;
-		tested[1] = line2;
+	for(unsigned i = 0; i < tested.size(); ++i){
+		file >> tested[i];
+	}
 
-		file >> line3;
-		tested[2] = line3;
-		
-		file >> line4;
-		tested[3] = line4;
+	checkClose(tester[0].x(), tested[0].x(), 1e-2);
+	checkClose(tester[0].y(), tested[0].y(), 1e-2);
+	checkClose(tester[0].z(), tested[0].z(), 1e-2);
+								   
+	checkClose(tester[1].x(), tested[1].x(), 1e-2);
+	checkClose(tester[1].y(), tested[1].y(), 1e-2);
+	checkClose(tester[1].z(), tested[1].z(), 1e-2);
+								   
+	checkClose(tester[2].x(), tested[2].x(), 1e-2);
+	checkClose(tester[2].y(), tested[2].y(), 1e-2);
+	checkClose(tester[2].z(), tested[2].z(), 1e-2);
+								   
+	checkClose(tester[3].x(), tested[3].x(), 1e-2);
+	checkClose(tester[3].y(), tested[3].y(), 1e-2);
+	checkClose(tester[3].z(), tested[3].z(), 1e-2);
 
-		checkClose(tester[0].x(), tested[0].x(), 1e-2);
-		checkClose(tester[0].y(), tested[0].y(), 1e-2);
-		checkClose(tester[0].z(), tested[0].z(), 1e-2);
-									   
-		checkClose(tester[1].x(), tested[1].x(), 1e-2);
-		checkClose(tester[1].y(), tested[1].y(), 1e-2);
-		checkClose(tester[1].z(), tested[1].z(), 1e-2);
-									   
-		checkClose(tester[2].x(), tested[2].x(), 1e-2);
-		checkClose(tester[2].y(), tested[2].y(), 1e-2);
-		checkClose(tester[2].z(), tested[2].z(), 1e-2);
-									   
-		checkClose(tester[3].x(), tested[3].x(), 1e-2);
-		checkClose(tester[3].y(), tested[3].y(), 1e-2);
-		checkClose(tester[3].z(), tested[3].z(), 1e-2);
 
-		file.close();
+	// Third method
+	file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
+	file.seekg(ios_base::beg);
+
+	file >> tested[0];
+	file >> tested[1];
+	file >> tested[2];
+	file >> tested[3];
+
+	checkClose(tester[0].x(), tested[0].x(), 1e-2);
+	checkClose(tester[0].y(), tested[0].y(), 1e-2);
+	checkClose(tester[0].z(), tested[0].z(), 1e-2);
+								   
+	checkClose(tester[1].x(), tested[1].x(), 1e-2);
+	checkClose(tester[1].y(), tested[1].y(), 1e-2);
+	checkClose(tester[1].z(), tested[1].z(), 1e-2);
+								   
+	checkClose(tester[2].x(), tested[2].x(), 1e-2);
+	checkClose(tester[2].y(), tested[2].y(), 1e-2);
+	checkClose(tester[2].z(), tested[2].z(), 1e-2);
+								   
+	checkClose(tester[3].x(), tested[3].x(), 1e-2);
+	checkClose(tester[3].y(), tested[3].y(), 1e-2);
+	checkClose(tester[3].z(), tested[3].z(), 1e-2);
+
+	// Fourth method
+	file.clear(); // THIS IS ABSOLUTELY NECESSARY!!!
+	file.seekg(ios_base::beg);
+
+	file >> line1;
+	tested[0] = line1;
+
+	file >> line2;
+	tested[1] = line2;
+
+	file >> line3;
+	tested[2] = line3;
+
+	file >> line4;
+	tested[3] = line4;
+
+	checkClose(tester[0].x(), tested[0].x(), 1e-2);
+	checkClose(tester[0].y(), tested[0].y(), 1e-2);
+	checkClose(tester[0].z(), tested[0].z(), 1e-2);
+								   
+	checkClose(tester[1].x(), tested[1].x(), 1e-2);
+	checkClose(tester[1].y(), tested[1].y(), 1e-2);
+	checkClose(tester[1].z(), tested[1].z(), 1e-2);
+								   
+	checkClose(tester[2].x(), tested[2].x(), 1e-2);
+	checkClose(tester[2].y(), tested[2].y(), 1e-2);
+	checkClose(tester[2].z(), tested[2].z(), 1e-2);
+								   
+	checkClose(tester[3].x(), tested[3].x(), 1e-2);
+	checkClose(tester[3].y(), tested[3].y(), 1e-2);
+	checkClose(tester[3].z(), tested[3].z(), 1e-2);
+
+	file.close();
 }
 
 TestCase( FileReaderTest )
 {
-		string fileName(project_root_path + "IOLibTest/input.txt");
-		int intValue = 5;
-		double doubleValue = 3.1415;
-		string stringValue = "Rohan";
-		Vector3D vector3DValue(5.0, 1.0, 15.0);
-		vector<Vector3D> vectorVector3DValue(4);
-		// Any anyValue;
+	path projectRootPath = filesystem::current_path().parent_path().parent_path().parent_path();	
+	program_options::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("path", program_options::value<string>(), "Project's root folder")
+	;
+	program_options::variables_map vm = psin::parseCommandLine(
+			boost::unit_test::framework::master_test_suite().argc, 
+			boost::unit_test::framework::master_test_suite().argv, 
+			desc
+		);
+	if(vm.count("help"))
+	{
+		std::cout << desc << std::endl;
+	}
+	if(vm.count("path"))
+	{
+		projectRootPath = path(vm["path"].as<string>());
+	}
 
-		vectorVector3DValue[0] = Vector3D(1, 1, 1);
-		vectorVector3DValue[1] = Vector3D(2, 4, 8);
-		vectorVector3DValue[2] = Vector3D(3, 9, 27);
-		vectorVector3DValue[3] = Vector3D(4, 16, 64);
+	string fileName((projectRootPath / path("IOLibTest/input.txt")).string());
+	int intValue = 5;
+	double doubleValue = 3.1415;
+	string stringValue = "Rohan";
+	Vector3D vector3DValue(5.0, 1.0, 15.0);
+	vector<Vector3D> vectorVector3DValue(4);
+	// Any anyValue;
 
-		FileReader fileReader(fileName);
+	vectorVector3DValue[0] = Vector3D(1, 1, 1);
+	vectorVector3DValue[1] = Vector3D(2, 4, 8);
+	vectorVector3DValue[2] = Vector3D(3, 9, 27);
+	vectorVector3DValue[3] = Vector3D(4, 16, 64);
 
-		int readInteger;
-		double readDouble;
-		string readString;
-		Vector3D readVector3d;
-		vector<Vector3D> readVectorVector3D(4);
-		
-		fileReader.readValue("<Integer>", readInteger);
-		fileReader.readValue("<Double>", readDouble);
-		fileReader.readValue("<String>", readString);
-		fileReader.readValue("<Vector3D>", readVector3d);
-		fileReader.readValue("<VectorVector3D>", readVectorVector3D);
-		
-		checkEqual( readInteger, intValue );
-		checkEqual( readDouble, doubleValue );
-		checkEqual( readString, stringValue );
-		checkEqual( readVector3d, vector3DValue );
-		checkEqual( readVectorVector3D, vectorVector3DValue);
+	FileReader fileReader(fileName);
 
-		// fileReader.readAnyValue("<Integer>", anyValue, defaultInputMethod<int>);
-		// checkEqual(anyCast<int>(anyValue), intValue);
-		// fileReader.readAnyValue("<Double>", anyValue, defaultInputMethod<double>);
-		// checkEqual(anyCast<double>(anyValue), doubleValue);
-		// fileReader.readAnyValue("<String>", anyValue, defaultInputMethod<string>);
-		// checkEqual(anyCast<string>(anyValue), stringValue);
-		// fileReader.readAnyValue("<Vector3D>", anyValue, defaultInputMethod<Vector3D>);
-		// checkEqual(anyCast<Vector3D>(anyValue), vector3DValue);
+	int readInteger;
+	double readDouble;
+	string readString;
+	Vector3D readVector3d;
+	vector<Vector3D> readVectorVector3D(4);
+	
+	fileReader.readValue("<Integer>", readInteger);
+	fileReader.readValue("<Double>", readDouble);
+	fileReader.readValue("<String>", readString);
+	fileReader.readValue("<Vector3D>", readVector3d);
+	fileReader.readValue("<VectorVector3D>", readVectorVector3D);
+	
+	checkEqual( readInteger, intValue );
+	checkEqual( readDouble, doubleValue );
+	checkEqual( readString, stringValue );
+	checkEqual( readVector3d, vector3DValue );
+	checkEqual( readVectorVector3D, vectorVector3DValue);
+
+	// fileReader.readAnyValue("<Integer>", anyValue, defaultInputMethod<int>);
+	// checkEqual(anyCast<int>(anyValue), intValue);
+	// fileReader.readAnyValue("<Double>", anyValue, defaultInputMethod<double>);
+	// checkEqual(anyCast<double>(anyValue), doubleValue);
+	// fileReader.readAnyValue("<String>", anyValue, defaultInputMethod<string>);
+	// checkEqual(anyCast<string>(anyValue), stringValue);
+	// fileReader.readAnyValue("<Vector3D>", anyValue, defaultInputMethod<Vector3D>);
+	// checkEqual(anyCast<Vector3D>(anyValue), vector3DValue);
 }
 
 // For the next tests to work (ReadEntity, ReadPhysicalEntity, ReadParticle, ReadSphericalParticle),
