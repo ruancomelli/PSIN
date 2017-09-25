@@ -5,6 +5,7 @@
 #include <mp/concatenate.hpp>
 #include <mp/contains.hpp>
 #include <mp/get.hpp>
+#include <mp/length.hpp>
 #include <mp/type_list.tpp>
 
 // Standard
@@ -34,7 +35,7 @@ struct type_list
 
 	constexpr static bool has_repeated_types = detail::has_repeated_types< type_list<Ts...> >::value;
 
-	constexpr static size_t size = detail::size< identity >::value;
+	constexpr static size_t length = mp::length< identity >::value;
 
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = ClassToSpecialize<Ts...>;

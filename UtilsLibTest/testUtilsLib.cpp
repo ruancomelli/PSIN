@@ -896,10 +896,10 @@ TestCase(type_list_contains_and_has_repeated_types_and_is_empty_Test)
 
 TestCase(type_list_size_Test)
 {
-	size_t size1 = type_list<int, double, double, int, char, bool>::size;
+	size_t size1 = type_list<int, double, double, int, char, bool>::length;
 	checkEqual(size1, 6);
 
-	size_t size2 = type_list<>::size;
+	size_t size2 = type_list<>::length;
 	checkEqual(size2, 0);
 }
 
