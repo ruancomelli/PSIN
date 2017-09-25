@@ -22,10 +22,10 @@ struct relative_complement<Pack1<T, Ts...>, Pack2>
 	: mp::metafunction<
 		typename std::conditional<
 			mp::contains<Pack2, T>::value,
-			relative_complement<Pack1<Ts...>::type, Pack2>::type,
-			mp::concatenate<
+			typename relative_complement<Pack1<Ts...>, Pack2>::type,
+			typename mp::concatenate<
 				Pack1<T>,
-				relative_complement<Pack1<Ts...>, Pack2>::type
+				typename relative_complement<Pack1<Ts...>, Pack2>::type
 			>::type
 		>::type
 	>

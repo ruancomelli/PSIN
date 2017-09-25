@@ -1464,49 +1464,6 @@ namespace visit_Test_namespace {
 
 } // visit_Test_namespace
 
-TestCase(relative_complement_Test)
-{
-	check((
-			std::is_same<
-				mp::relative_complement<
-					type_list<>,
-					type_list<int, double>
-				>::type,
-				type_list<>
-			>::value
-		));
-
-	check((
-			std::is_same<
-				mp::relative_complement<
-					type_list<int>,
-					type_list<int, double>
-				>::type,
-				type_list<>
-			>::value
-		));
-
-	check((
-			std::is_same<
-				mp::relative_complement<
-					type_list<int, double, char, double>,
-					type_list<int, double>
-				>::type,
-				type_list<char>
-			>::value
-		));
-
-	check((
-			std::is_same<
-				mp::relative_complement<
-					type_list<int, double, char, double>,
-					type_list<>
-				>::type,
-				type_list<int, double, char, double>
-			>::value
-		));
-}
-
 TestCase(visit_Test)
 {
 	using namespace visit_Test_namespace;
@@ -1559,6 +1516,49 @@ TestCase(visit_Test)
 	check(names != (vector<string>{"double", "int"}));
 }
 
+TestCase(relative_complement_Test)
+{
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<>,
+					type_list<int, double>
+				>::type,
+				type_list<>
+			>::value
+		));
+
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<int>,
+					type_list<int, double>
+				>::type,
+				type_list<>
+			>::value
+		));
+
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<int, double, char, double>,
+					type_list<int, double>
+				>::type,
+				type_list<char>
+			>::value
+		));
+
+	check((
+			std::is_same<
+				mp::relative_complement<
+					type_list<int, double, char, double>,
+					type_list<>
+				>::type,
+				type_list<int, double, char, double>
+			>::value
+		));
+}
+
 TestCase(revert_Test)
 {
 	check((
@@ -1567,53 +1567,4 @@ TestCase(revert_Test)
 			type_list<bool, char, char, double, int>
 		>::value
 	));
-}
-
-namespace PrintType_Test_namespace {
-
-	struct A;
-	struct B;
-
-	template<typename T>
-	struct C;
-
-	template<>
-	const string NamedType<A>::name = "A";
-
-	template<>
-	const string NamedType<B>::name = "B";
-
-	template<>
-	const string NamedGroup<C>::name = "C";
-
-} // PrintType_Test_namespace
-
-TestCase(PrintType_Test)
-{
-	using namespace PrintType_Test_namespace;
-
-	checkEqual(
-			(PrintType<A>::value),
-			"A"
-		);
-	checkEqual(
-			(PrintType<B>::value),
-			"B"
-		);
-	checkEqual(
-			(PrintType< C<> >::value),
-			"C<>"
-		);
-	checkEqual(
-			(PrintType< C<A> >::value),
-			"C<A>"
-		);
-	checkEqual(
-			(PrintType< C<B> >::value),
-			"C<B>"
-		);
-	checkEqual(
-			(PrintType< C<A,B> >::value),
-			"C<A,B>"
-		);
 }
