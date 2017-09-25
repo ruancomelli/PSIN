@@ -1441,21 +1441,21 @@ namespace visit_Test_namespace {
 	};
 
 	template<typename T>
-	struct indexer_visitor;
+	struct namer_visitor;
 
 	template<>
-	struct indexer_visitor<int>
+	struct namer_visitor<int>
 	{
-		static void call(vector<string> v)
+		static void call(vector<string> & v)
 		{
 			v.push_back("int");
 		}
 	};
 
 	template<>
-	struct indexer_visitor<double>
+	struct namer_visitor<double>
 	{
-		static void call(vector<string> v)
+		static void call(vector<string> & v)
 		{
 			v.push_back("double");
 		}
@@ -1552,11 +1552,11 @@ TestCase(visit_Test)
 
 	mp::visit<
 		type_list<int, double>,
-		indexer_visitor
+		namer_visitor
 	>::call_same(names);
 
-	check(names == vector<string>{"int", "double"});
-	check(names != vector<string>{"double", "int"});
+	check(names == (vector<string>{"int", "double"}));
+	check(names != (vector<string>{"double", "int"}));
 }
 
 TestCase(revert_Test)
