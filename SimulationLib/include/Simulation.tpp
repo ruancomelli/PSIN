@@ -362,6 +362,20 @@ struct predict_particle
 	}
 };
 
+template<typename B>
+struct update_boundary
+{
+	template<typename BoundaryVectorTuple, typename Time>
+	static void call(BoundaryVectorTuple & boundaryVectorTuple, const Time & time)
+	{
+		for(auto& boundary : std::get<B>(boundaryVectorTuple))
+		{
+			boundary.updatePosition(time);
+			boundary.updateOrientation(time);
+		}
+	}
+};
+
 template<typename P>
 struct correct_particle
 {
@@ -408,17 +422,17 @@ template<typename InteractionTriplet>
 struct interact
 {
 	template<typename EntityVectorTuple, typename Time>
-	static void call(EntityVectorTuple & entityVectorTuple, const Time & time)
+	static void call(EntityVectorTuple & entityVectorTuple, const Time & time, const std::set< std::string > & interactionsToUse)
 	{
-		using InteractionType = mp::get<0, InteractionTriplet>::type;
-		using EntityType = mp::get<1, EntityTriplet>::type;
-		using NeighborType = mp::get<2, NeighborTriplet>::type;
+		using InteractionType = typename mp::get<0, InteractionTriplet>::type;
+		using EntityType = typename mp::get<1, InteractionTriplet>::type;
+		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
 
 		for(auto& entity : std::get<EntityType>(entityVectorTuple))
 		{
 			for(auto& neighbor : std::get<NeighborType>(entityVectorTuple))
 			{
-				if(useInteraction<InteractionType>())
+				if(interactionsToUse.count(NamedType<InteractionTriplet>::name) > 0)
 				{
 					InteractionType::calculate(entity, neighbor, time);
 				}
@@ -467,8 +481,8 @@ void Simulation<
 					{timeIndex, merge(it->second)}
 				};
 
-				*particleFileMap[it->first] >> fileContent;
-				*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+				// *particleFileMap[it->first] >> fileContent;
+				// *particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 				it->second.clear();
 			}
 			for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
@@ -478,42 +492,24 @@ void Simulation<
 					{timeIndex, merge(it->second)}
 				};
 
-				*boundaryFileMap[it->first] >> fileContent;
-				*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+				// *boundaryFileMap[it->first] >> fileContent;
+				// *boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 				it->second.clear();
 			}
 		}
 
-		double timeStep = time.getTimeStep();
+		// double timeStep = time.getTimeStep();
 
 		mp::visit<ParticleList, detail::initialize_particle>::call_same(particles);
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, timeStep);
 		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
-		mp::visit<InteractionTriplets, detail::interact>::call_same(
-				std::tuple_cat(particles, boundaries), time
-			);
+		// mp::visit<InteractionTriplets, detail::interact>::call_same(
+		// 		std::tuple_cat(particles, boundaries), time, interactionsToUse
+		// 	);
 
 		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, timeStep);
 	}
-}
-
-
-template<
-	typename ... ParticleTypes,
-	typename ... BoundaryTypes,
-	typename ... InteractionTypes
->
-template<typename I>
-bool Simulation<
-	ParticleList<ParticleTypes...>,
-	BoundaryList<BoundaryTypes...>,
-	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
->::useInteraction()
-{
-	return interactionsToUse.count(NamedType<I>::name) > 0;
 }
 
 } // psin

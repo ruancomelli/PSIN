@@ -59,7 +59,8 @@ public:
 	using InteractionList = psin::InteractionList<InteractionTypes...>;
 	using LooperList = psin::LooperList<GearLooper>;
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
-	using InteractionTriplets = InteractionSubjectLister::generate_combinations::type;
+	using SubjectList = typename mp::concatenate<ParticleList, BoundaryList>::type;
+	using InteractionTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, SubjectList>::type;
 
 	void setup(const path & mainInputFilePath);
 
@@ -98,9 +99,6 @@ private:
 	std::tuple< std::vector<BoundaryTypes>... > boundaries;
 
 	std::set< std::string > interactionsToUse;
-
-	template<typename I>
-	bool useInteraction();
 };
 
 	// public:
