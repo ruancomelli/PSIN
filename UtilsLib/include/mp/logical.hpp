@@ -2,7 +2,7 @@
 #define LOGICAL_HPP
 
 // Utils
-#include <bool_constant.hpp>
+#include <mp/bool_constant.hpp>
 
 // Standard
 #include <type_traits>
