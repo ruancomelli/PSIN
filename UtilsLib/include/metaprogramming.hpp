@@ -6,6 +6,7 @@
 #include <mp/concatenate.hpp>
 #include <mp/contains.hpp>
 #include <mp/get.hpp>
+#include <mp/get_sequence.hpp>
 #include <mp/integer_sequence.hpp>
 #include <mp/is_permutation.hpp>
 #include <mp/length.hpp>

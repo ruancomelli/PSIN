@@ -719,6 +719,23 @@ TestCase(get_Test)
 	));
 }
 
+TestCase(get_sequence_Test)
+{
+	check((
+		std::is_same<
+			mp::get_sequence<index_sequence<>, type_list<int, double, double> >::type,
+			type_list<>
+		>::value
+	));
+
+	check((
+		std::is_same<
+			mp::get_sequence<index_sequence<2, 0>, std::tuple<int, double, char> >::type,
+			type_list<char, int>
+		>::value
+	));
+}
+
 TestCase(concatenate_Test)
 {
 	check((
