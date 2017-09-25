@@ -2,41 +2,35 @@
 #define TYPE_COLLECTION_TPP
 
 // UtilsLib
-#include <mp/type_list.hpp>
+#include <mp/bool_constant.hpp>
+#include <mp/contains.hpp>
 
 // Standard
 #include <type_traits>
 
 namespace psin {
-	
 namespace mp {
-	template<typename...Ts>
-	struct type_collection;
-} // mp
-
 namespace detail
 {
-	template<typename T, typename U>
-	struct is_superset_of;
 
-	template<typename...Ts>
-	struct is_superset_of< mp::type_collection<Ts...>,  mp::type_collection<> >
-		: std::true_type
-	{};
+template<typename Pack1, typename Pack2>
+struct is_superset_of;
 
-	template<typename...Ts, typename U, typename...Us>
-	struct is_superset_of< mp::type_collection<Ts...>,  mp::type_collection<U, Us...> >
-		: std::conditional<
-			mp::type_list<Ts...>::template contains<U, Us...>,
-			std::true_type,
-			std::false_type
-		>::type
-	{};
+template<typename Pack1, template<typename...> class Pack2, typename...Us>
+struct is_superset_of< Pack1,  Pack2<Us...> >
+	: mp::bool_constant<
+		mp::contains<
+			Pack1,
+			Us...
+		>::value
+	>
+{};
 
-	template<typename T, typename U>
-	using is_subset_of = is_superset_of<U, T>;
+template<typename T, typename U>
+using is_subset_of = is_superset_of<U, T>;
+
 } // detail
-
+} // mp
 } // psin
 
 #endif

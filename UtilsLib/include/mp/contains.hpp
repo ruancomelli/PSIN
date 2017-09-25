@@ -1,7 +1,7 @@
 #ifndef CONTAINS_HPP
 #define CONTAINS_HPP
 
-#include <bool_constant.hpp>
+#include <mp/bool_constant.hpp>
 
 namespace psin {
 namespace mp {
@@ -17,12 +17,12 @@ struct contains<TypeList, U, Us...>
 	: mp::bool_constant< contains<TypeList, U>::value and contains<TypeList, Us...>::value >
 {};
 
-template<typename U>
-struct contains< mp::type_list<>, U> : std::false_type {};
+template<template<typename...> class TypeContainer, typename U>
+struct contains< TypeContainer<>, U > : std::false_type {};
 
-template<typename T, typename...Ts, typename U>
-struct contains< mp::type_list<T, Ts...>, U>
-	: mp::bool_constant< std::is_same<T, U>::value or contains< mp::type_list<Ts...>, U>::value >
+template<template<typename...> class TypeContainer, typename T, typename...Ts, typename U>
+struct contains< TypeContainer<T, Ts...>, U >
+	: mp::bool_constant< std::is_same<T, U>::value or contains< TypeContainer<Ts...>, U>::value >
 {};
 
 } // mp
