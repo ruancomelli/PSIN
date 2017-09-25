@@ -237,6 +237,7 @@ void Simulation<
 		{"boundaries", fileTree["input"]["boundary"]}
 	};
 
+
 	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
 	std::ofstream mainOutputFile( mainOutputFilePath.string() );
 	mainOutputFile << mainOutput.dump(4);
@@ -290,12 +291,14 @@ template<typename E>
 struct open_entity_file
 {
 	template<typename T>
-	void call(const T & entityVectorTuple, const path & entityFolder, std::map<string, unique_ptr<std::ofstream>> & entityFileMap)
+	static void call(const T & entityVectorTuple, const path & entityFolder, std::map<string, unique_ptr<std::fstream>> & entityFileMap)
 	{
-		for(auto entity : std::get< vector<E> >(entityVectorTuple))
+		for(const auto& entity : std::get< vector<E> >(entityVectorTuple))
 		{
 			path entityOutputPath = entityFolder / path(entity.getName() + ".json");
-			entityFileMap[entity.getName()] = make_unique<std::ofstream>(entityOutputPath.string());
+
+			entityFileMap[entity.getName()] = make_unique<std::fstream>(entityOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+			*entityFileMap[entity.getName()] << json().dump();
 		}
 	}
 };
@@ -318,8 +321,11 @@ void Simulation<
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
 	mainFileMap["timeVector"] = make_unique<std::fstream>( timeVectorOutputFilePath.string() );
 
-	mp::visit<ParticleList, detail::open_entity_file>::call_same(particles, fileTree["output"]["particle"], particleFileMap);
-	mp::visit<BoundaryList, detail::open_entity_file>::call_same(boundaries, fileTree["output"]["boundary"], boundaryFileMap);
+	path particleFolder = fileTree["output"]["particle"].get<path>();
+	path boundaryFolder = fileTree["output"]["boundary"].get<path>();
+
+	mp::visit<ParticleList, detail::open_entity_file>::call_same(particles, particleFolder, particleFileMap);
+	mp::visit<BoundaryList, detail::open_entity_file>::call_same(boundaries, boundaryFolder, boundaryFileMap);
 }
 
 namespace detail {
@@ -456,29 +462,23 @@ void Simulation<
 	SeekerList<CollisionSeeker>
 >::simulate()
 {
+	openFiles();
+
 	GearLooper::Time<unsigned long, double> time{initialTime, timeStep, finalTime};
 
 	unsigned long timeStepsForOutputCounter = 0;
 	unsigned long outputsForExportingCounter = 0;
 
-	std::cout << "Entering time loop" << std::endl; // DEBUG
-
 	for(time.start(); !time.end(); time.update())
 	{
-		std::cout << "Time: " << time.as_json() << std::endl; // DEBUG
-
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
-			std::cout << "-- Outputing" << std::endl; // DEBUG
-
 			mp::visit<ParticleList, detail::write_entities_to_json>::call_same(particles, particleJsonMap);
 			mp::visit<BoundaryList, detail::write_entities_to_json>::call_same(boundaries, boundaryJsonMap);
-			
+
 			if(outputsForExportingCounter == 0)
 			{
-				std::cout << "-- Exporting" << std::endl; // DEBUG
-
 				string timeIndex = to_string(time.getIndex());
 				for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
 				{
@@ -487,8 +487,10 @@ void Simulation<
 						{timeIndex, merge(it->second)}
 					};
 
-					// *particleFileMap[it->first] >> fileContent;
-					// *particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+					particleFileMap[it->first]->seekg(0); // rewinds the file
+					*particleFileMap[it->first] >> fileContent;
+
+					*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 					it->second.clear();
 				}
 				for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
@@ -498,8 +500,9 @@ void Simulation<
 						{timeIndex, merge(it->second)}
 					};
 
-					// *boundaryFileMap[it->first] >> fileContent;
-					// *boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+					particleFileMap[it->first]->seekg(0); // rewinds the file
+					*boundaryFileMap[it->first] >> fileContent;
+					*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 					it->second.clear();
 				}
 			}
