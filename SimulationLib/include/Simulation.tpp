@@ -557,12 +557,15 @@ void Simulation<
 		*particleFileMap[it->first] >> fileContent;
 		particleFileMap[it->first]->close();
 
-		std::cout << "File content: " << fileContent.dump() << std::endl; // DEBUG
-
+		if(timeIndex != "0")
+		{
+		if(it->first == "RedSphere") std::cout << "-------------------------------------------" << timeIndex << "-------------------------------------------" << std::endl; // DEBUG
+		if(it->first == "RedSphere") std::cout << "File content: " << fileContent.dump(2) << std::endl; // DEBUG
+		if(it->first == "RedSphere") std::cout << "informationToExport: " << informationToExport.dump(2) << std::endl; // DEBUG
+		if(it->first == "RedSphere") std::cout << "Merged content: " << merge(fileContent, informationToExport).dump(2) << std::endl; // DEBUG
+}
 		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
 		*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
-
-		std::cout << "Merged content: " << merge(fileContent, informationToExport).dump() << std::endl; // DEBUG
 
 		it->second.clear();
 	}

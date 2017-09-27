@@ -228,6 +228,9 @@ TestCase(Simulation_setup_and_outputMainData_Test)
 
 	simulation.setup( mainInputFilePath );
 	simulation.outputMainData();
+	simulation.backupInteractions();
+	simulation.backupParticles();
+	simulation.backupBoundaries();
 }
 
 TestCase(Simulation_simulate_Test)
@@ -277,6 +280,9 @@ TestCase(Simulation_simulate_Test)
 	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
 	simulation.setup( mainInputFilePath );
 	simulation.outputMainData();
+	simulation.backupInteractions();
+	simulation.backupParticles();
+	simulation.backupBoundaries();
 	simulation.simulate();
 }
 

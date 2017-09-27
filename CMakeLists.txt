@@ -16,9 +16,9 @@ if (UNIX)
 	set (CMAKE_CXX_COMPILER "mpicxx")
 
 	if (BUILD_SHARED_LIBS)
-		set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-m64 -std=c++14 -fPIC" CACHE STRING "Setting default compiler flags.")
+		set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-m64 -std=c++1z -fPIC" CACHE STRING "Setting default compiler flags.")
     else ()
-		set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-m64 -std=c++14" CACHE STRING "Setting default compiler flags.")
+		set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-m64 -std=c++1z" CACHE STRING "Setting default compiler flags.")
     endif ()
 
 	set (CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG} "-g" CACHE STRING "Setting default compiler flags.")
