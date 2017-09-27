@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"file",
+				"FileSystem"
+			],
+			[
 				"str",
 				"structtemp\ttemplated struct"
 			],
@@ -309,25 +313,58 @@
 	"expanded_folders":
 	[
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/include",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/source",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLibTest",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest"
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source"
 	],
 	"file_history":
 	[
+		"/home/ruancomelli/.bash_aliases",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/.gitignore",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source/CommandLineParser.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/CommandLineParser.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/ProgramOptions.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/ProgramOptions.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/FileSystem.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/testSimulation.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/FileSystem.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/.vscode/settings.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CMakeLists.txt1",
+		"/home/ruancomelli/Build/boost-1.63.0/Release/boost-1.63.0_Release.log",
+		"/home/ruancomelli/SINMEC/Scripts/install/settings.sh",
+		"/home/ruancomelli/.bashrc",
+		"/home/ruancomelli/Downloads/felipe/EFVLib/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CMake_modules/FindBoost.cmake",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/ElectrostaticForce.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/NormalForceLinearDashpotForce.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/NormalForceViscoelasticSpheres.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/TangentialForceCundallStrack.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/TangentialForceHaffWerner.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceLinearDashpotForce.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceViscoelasticSpheres.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceCundallStrack.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceHaffWerner.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceLinearDashpotForce.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/input/particle/BlueSphere.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/input/particle/RedSphere.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/main.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector3D.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/get.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/metaprogramming.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest/testUtilsLib.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.tpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLibTest/JSONLibTest.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/visit.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLibTest/IOLibTest.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/include/json.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/source/json.cpp",
@@ -336,16 +373,10 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/property_tree.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/tree_testfile.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/fileVector.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceHaffWerner.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceViscoelasticSpheres.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/Simulation1/mainInfoInput.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/.gitignore",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/Simulation1/particle0.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/Simulation1/particle1.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/main.json",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceCundallStrack.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceLinearDashpotForce.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/source/SSParser.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLibTest/source/TestScriptSystem.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLibTest/CMakeLists.txt",
@@ -365,8 +396,6 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ParticleSimulator.sublime-project",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/source/SSParserNode.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CMakeLists.txt",
-		"/home/ruancomelli/.bash_aliases",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/SSParser.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/SSParserNode.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/SharedPointer.hpp",
@@ -401,24 +430,12 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/source/SSParser.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/source/SSParserNode.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemTest/source/TestScriptSystem.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/testSimulation.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/SeekerDefinitions/CollisionSeeker.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source/Simulation.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/CommandLineParser.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/ProgramOptions.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/ProgramOptions.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source/CommandLineParser.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector.tpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/NormalForceLinearDashpotForce.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/NormalForceViscoelasticSpheres.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/TangentialForceCundallStrack.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/TangentialForceHaffWerner.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/FileSystem.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.tpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/InteractionSubjectLister.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/InteractionSubjectLister.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/ElectrostaticForce.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/source/SphericalParticle.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/purge.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_collection.hpp",
@@ -433,28 +450,15 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/metafunction.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/get.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/length.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_list.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_collection.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/sfinae_true.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/bool_type.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/PhysicalEntity.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceHaffWerner.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceCundallStrack.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceViscoelasticSpheres.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceLinearDashpotForce.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/Interaction.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/make_unique_type_list.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Metaprogramming/bool_type.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/SphericalParticle.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Metaprogramming/type_list.tpp"
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_list.tpp"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
-		"height": 93.0,
+		"height": 102.0,
 		"where_history":
 		[
 			"<open folders>,-_build/,-build/",
@@ -466,6 +470,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"project_root_path",
+			"root_path",
+			"simulation",
+			"project_r",
+			"PROJECT_PATH",
+			"project_root_path",
+			"setup\\(json&\\)",
+			"setup\\(json& j\\)",
 			"conditionally_build",
 			"interactions",
 			"j",
@@ -585,15 +597,7 @@
 			"normal",
 			"Normal",
 			"normal",
-			"ormal",
-			"ElasticModulus",
-			"Position",
-			"position",
-			"Position",
-			"ElasticModulus",
-			"elasticModulus",
-			"ElasticModulus",
-			"normalDissipativeConstant"
+			"ormal"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -601,6 +605,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"setup\\(const json & j\\)",
 			"\"$1\":",
 			"",
 			"\\b",
@@ -630,7 +635,7 @@
 	},
 	"input":
 	{
-		"height": 33.0
+		"height": 38.0
 	},
 	"layout":
 	{

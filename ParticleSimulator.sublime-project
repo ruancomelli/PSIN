@@ -1,0 +1,250 @@
+{
+	"folders":
+	[
+		{
+			"path": "./"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "ParticleSimulator - all",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "all"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - clean",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "clean"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - install/strip",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "install/strip"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - install",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "install"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - install/local",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "install/local"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - list_install_components",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "list_install_components"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - edit_cache",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "edit_cache"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "ParticleSimulator - rebuild_cache",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "rebuild_cache"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "JSONLib - JSONLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "JSONLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "JSONLib - JSONLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "JSONLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "JSONLibTest - JSONLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "JSONLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "JSONLibTest - JSONLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "JSONLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "UtilsLib - UtilsLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "UtilsLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "UtilsLib - UtilsLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "UtilsLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "UtilsLibTest - UtilsLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "UtilsLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "UtilsLibTest - UtilsLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "UtilsLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "EntityLib - EntityLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "EntityLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "EntityLib - EntityLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "EntityLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "EntityLibTest - EntityLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "EntityLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "EntityLibTest - EntityLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "EntityLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "InteractionLib - InteractionLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "InteractionLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "InteractionLib - InteractionLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "InteractionLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "InteractionLibTest - InteractionLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "InteractionLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "InteractionLibTest - InteractionLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "InteractionLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "IOLib - IOLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "IOLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "IOLib - IOLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "IOLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "IOLibTest - IOLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "IOLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "IOLibTest - IOLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "IOLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "PropertyLib - PropertyLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "PropertyLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "PropertyLib - PropertyLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "PropertyLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "PropertyLibTest - PropertyLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "PropertyLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "PropertyLibTest - PropertyLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "PropertyLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "CollidingSpheres - CollidingSpheres",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "CollidingSpheres"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "CollidingSpheres - CollidingSpheres/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "CollidingSpheres/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "SimulationLib - SimulationLib",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "SimulationLib"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "SimulationLib - SimulationLib/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "SimulationLib/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "SimulationLibTest - SimulationLibTest",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "SimulationLibTest"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		},
+		{
+			"name": "SimulationLibTest - SimulationLibTest/fast",
+			"cmd": ["/usr/bin/make", "-f", "Makefile", "SimulationLibTest/fast"],
+			"working_dir": "${project_path}",
+			"file_regex": "^(..[^:]*)(?::|\\()([0-9]+)(?::|\\))(?:([0-9]+):)?\\s*(.*)"
+		}
+	],
+	"settings":
+	{
+	    "sublimegdb_executables":
+	    {
+	        "SimulationLibTest":
+	        {
+	            "workingdir": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/build_sublime/bin/Debug/",
+	            "commandline": "gdb --interpreter=mi ./SimulationLibTest"
+	        }
+	    }
+	}
+}
