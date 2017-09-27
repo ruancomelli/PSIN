@@ -47,8 +47,8 @@ void Simulation<
 	this->outputsForExporting = j.at("outputsForExporting");
 
 	fileTree["output"]["main"] = j.at("mainOutputFolder").get<path>();
-	fileTree["output"]["particle"] = j.at("particleOutputFolder").get<path>();
-	fileTree["output"]["boundary"] = j.at("boundaryOutputFolder").get<path>();
+	fileTree["output"]["particleDir"] = j.at("particleOutputFolder").get<path>();
+	fileTree["output"]["boundaryDir"] = j.at("boundaryOutputFolder").get<path>();
 
 	if(j.count("interactions") > 0) setupInteractions(j.at("interactions"));
 
@@ -212,14 +212,30 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<CollisionSeeker>
->::outputMainData() const
+>::createDirectories() const
 {
 	filesystem::create_directories( fileTree["output"]["main"] );
 	filesystem::create_directories( fileTree["output"]["main"] / path("input") / path("particle"));
 	filesystem::create_directories( fileTree["output"]["main"] / path("input") / path("boundary"));
 	filesystem::create_directories( fileTree["output"]["main"] / path("input") / path("interaction"));
-	filesystem::create_directories( fileTree["output"]["particle"] );
-	filesystem::create_directories( fileTree["output"]["boundary"] );
+	filesystem::create_directories( fileTree["output"]["particleDir"] );
+	filesystem::create_directories( fileTree["output"]["boundaryDir"] );
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::outputMainData() const
+{
+	this->createDirectories();
 
 	json mainOutput{
 		{"initialTime", this->initialTime},
@@ -230,8 +246,8 @@ void Simulation<
 		{"timeStepsForOutput", this->timeStepsForOutput},
 		{"outputsForExporting", this->outputsForExporting},
 		{"mainOutputFolder", fileTree["output"]["main"]},
-		{"particleOutputFolder", fileTree["output"]["particle"]},
-		{"boundaryOutputFolder", fileTree["output"]["boundary"]},
+		{"particleOutputFolder", fileTree["output"]["particleDir"]},
+		{"boundaryOutputFolder", fileTree["output"]["boundaryDir"]},
 		{"interactions", fileTree["input"]["interaction"]},
 		{"particles", fileTree["input"]["particle"]},
 		{"boundaries", fileTree["input"]["boundary"]}
@@ -241,7 +257,21 @@ void Simulation<
 	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
 	std::ofstream mainOutputFile( mainOutputFilePath.string() );
 	mainOutputFile << mainOutput.dump(4);
+}
 
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::backupInteractions() const
+{
 	if(fileTree["input"]["interaction"].is_object())
 	{	
 		for(json::const_iterator it = fileTree["input"]["interaction"].begin(); it != fileTree["input"]["interaction"].end(); ++it)
@@ -255,7 +285,21 @@ void Simulation<
 			interactionOutputFile << interactionInput.dump(4);
 		}
 	}
+}
 
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::backupParticles() const
+{
 	if(fileTree["input"]["particle"].is_object())
 	{	
 		for(json::const_iterator it = fileTree["input"]["particle"].begin(); it != fileTree["input"]["particle"].end(); ++it)
@@ -269,7 +313,21 @@ void Simulation<
 			particleOutputFile << particleInput.dump(4);
 		}
 	}
+}
 
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::backupBoundaries() const
+{
 	if(fileTree["input"]["boundary"].is_object())
 	{	
 		for(json::const_iterator it = fileTree["input"]["boundary"].begin(); it != fileTree["input"]["boundary"].end(); ++it)
@@ -287,18 +345,38 @@ void Simulation<
 
 namespace detail {
 
-template<typename E>
-struct open_entity_file
+template<typename P>
+struct open_particle_file
 {
 	template<typename T>
-	static void call(const T & entityVectorTuple, const path & entityFolder, std::map<string, unique_ptr<std::fstream>> & entityFileMap)
+	static void call(const T & particleVectorTuple, json & fileTree, std::map<string, unique_ptr<std::fstream>> & particleFileMap)
 	{
-		for(const auto& entity : std::get< vector<E> >(entityVectorTuple))
+		path particleFolder = fileTree["output"]["particleDir"].get<path>();
+		for(const auto& particle : std::get< vector<P> >(particleVectorTuple))
 		{
-			path entityOutputPath = entityFolder / path(entity.getName() + ".json");
+			path particleOutputPath = particleFolder / path(particle.getName() + ".json");
 
-			entityFileMap[entity.getName()] = make_unique<std::fstream>(entityOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-			*entityFileMap[entity.getName()] << json().dump();
+			fileTree["output"]["particle"][particle.getName()] = particleOutputPath;
+			particleFileMap[particle.getName()] = make_unique<std::fstream>(particleOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+			*particleFileMap[particle.getName()] << json().dump();
+		}
+	}
+};
+
+template<typename B>
+struct open_boundary_file
+{
+	template<typename T>
+	static void call(const T & boundaryVectorTuple, json & fileTree, std::map<string, unique_ptr<std::fstream>> & boundaryFileMap)
+	{
+		path boundaryFolder = fileTree["output"]["boundaryDir"].get<path>();
+		for(const auto& boundary : std::get< vector<B> >(boundaryVectorTuple))
+		{
+			path boundaryOutputPath = boundaryFolder / path(boundary.getName() + ".json");
+
+			fileTree["output"]["boundary"][boundary.getName()] = boundaryOutputPath;
+			boundaryFileMap[boundary.getName()] = make_unique<std::fstream>(boundaryOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+			*boundaryFileMap[boundary.getName()] << json().dump();
 		}
 	}
 };
@@ -321,11 +399,8 @@ void Simulation<
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
 	mainFileMap["timeVector"] = make_unique<std::fstream>( timeVectorOutputFilePath.string() );
 
-	path particleFolder = fileTree["output"]["particle"].get<path>();
-	path boundaryFolder = fileTree["output"]["boundary"].get<path>();
-
-	mp::visit<ParticleList, detail::open_entity_file>::call_same(particles, particleFolder, particleFileMap);
-	mp::visit<BoundaryList, detail::open_entity_file>::call_same(boundaries, boundaryFolder, boundaryFileMap);
+	mp::visit<ParticleList, detail::open_particle_file>::call_same(particles, fileTree, particleFileMap);
+	mp::visit<BoundaryList, detail::open_boundary_file>::call_same(boundaries, fileTree, boundaryFileMap);
 }
 
 namespace detail {
@@ -427,16 +502,22 @@ struct initialize_particle
 template<typename InteractionTriplet>
 struct interact
 {
-	template<typename EntityVectorTuple, typename Time>
-	static void call(EntityVectorTuple & entityVectorTuple, const Time & time, const std::set< std::string > & interactionsToUse)
+	template<typename ParticleVectorTuple, typename BoundaryVectorTuple, typename Time>
+	static void call(ParticleVectorTuple & particleVectorTuple, BoundaryVectorTuple & boundaryVectorTuple, const Time & time, const std::set< std::string > & interactionsToUse)
 	{
 		using InteractionType = typename mp::get<0, InteractionTriplet>::type;
 		using EntityType = typename mp::get<1, InteractionTriplet>::type;
 		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
 
-		for(auto& entity : std::get<EntityType>(entityVectorTuple))
+		for(auto& entity : 
+			mp::contains<ParticleVectorTuple, EntityType>::value
+			? std::get<vector<EntityType>>(particleVectorTuple)
+			: std::get<vector<EntityType>>(boundaryVectorTuple))
 		{
-			for(auto& neighbor : std::get<NeighborType>(entityVectorTuple))
+			for(auto& neighbor : 
+				mp::contains<ParticleVectorTuple, NeighborType>::value
+				? std::get<vector<NeighborType>>(particleVectorTuple)
+				: std::get<vector<NeighborType>>(boundaryVectorTuple))
 			{
 				if(interactionsToUse.count(NamedType<InteractionTriplet>::name) > 0)
 				{
@@ -448,6 +529,78 @@ struct interact
 };
 
 } // detail
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+template<typename Time>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::exportParticles(const Time & time)
+{
+	string timeIndex = to_string(time.getIndex());
+	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
+	{
+		json fileContent;
+		json informationToExport{
+			{timeIndex, merge(it->second)}
+		};
+
+		path filepath = fileTree["output"]["particle"][it->first].get<path>();
+		particleFileMap[it->first]->seekg(0); // rewinds the file
+		*particleFileMap[it->first] >> fileContent;
+		particleFileMap[it->first]->close();
+
+		std::cout << "File content: " << fileContent.dump() << std::endl; // DEBUG
+
+		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+
+		std::cout << "Merged content: " << merge(fileContent, informationToExport).dump() << std::endl; // DEBUG
+
+		it->second.clear();
+	}
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+template<typename Time>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<CollisionSeeker>
+>::exportBoundaries(const Time & time)
+{
+	string timeIndex = to_string(time.getIndex());
+	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
+	{
+		json fileContent;
+		json informationToExport{
+			{timeIndex, merge(it->second)}
+		};
+
+		path filepath = fileTree["output"]["boundary"][it->first].get<path>();
+
+		boundaryFileMap[it->first]->seekg(0); // rewinds the file
+		*boundaryFileMap[it->first] >> fileContent;
+		boundaryFileMap[it->first]->close();
+
+		boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+		it->second.clear();
+	}
+}
 
 template<
 	typename ... ParticleTypes,
@@ -479,32 +632,8 @@ void Simulation<
 
 			if(outputsForExportingCounter == 0)
 			{
-				string timeIndex = to_string(time.getIndex());
-				for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
-				{
-					json fileContent;
-					json informationToExport{
-						{timeIndex, merge(it->second)}
-					};
-
-					particleFileMap[it->first]->seekg(0); // rewinds the file
-					*particleFileMap[it->first] >> fileContent;
-
-					*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
-					it->second.clear();
-				}
-				for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
-				{
-					json fileContent;
-					json informationToExport{
-						{timeIndex, merge(it->second)}
-					};
-
-					particleFileMap[it->first]->seekg(0); // rewinds the file
-					*boundaryFileMap[it->first] >> fileContent;
-					*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
-					it->second.clear();
-				}
+				exportParticles(time);
+				exportBoundaries(time);
 			}
 			outputsForExportingCounter = (outputsForExportingCounter + 1) % outputsForExporting;
 		}
@@ -514,9 +643,9 @@ void Simulation<
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, time);
 		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
-		// mp::visit<InteractionTriplets, detail::interact>::call_same(
-		// 		std::tuple_cat(particles, boundaries), time, interactionsToUse
-		// 	);
+		mp::visit<InteractionTriplets, detail::interact>::call_same(
+				particles, boundaries, time, interactionsToUse
+			);
 
 		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, time);
 	}

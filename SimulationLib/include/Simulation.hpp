@@ -72,6 +72,14 @@ public:
 
 	// Output
 	void outputMainData() const;
+	void createDirectories() const;
+	void backupInteractions() const;
+	void backupParticles() const;
+	void backupBoundaries() const;
+
+	template<typename Time> void exportParticles(const Time & time);
+	template<typename Time> void exportBoundaries(const Time & time);
+
 	void printSuccessMessage() const;
 
 	// Simulate
