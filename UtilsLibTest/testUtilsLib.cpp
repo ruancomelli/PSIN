@@ -1261,6 +1261,95 @@ TestCase(length_Test)
 	);
 }
 
+TestCase(is_empty_Test)
+{
+	check((
+			mp::is_empty<
+				type_list<>
+			>::value
+		));
+
+	check( not(
+			mp::is_empty<
+				type_list<int, double, char, double>
+			>::value
+		));
+}
+
+TestCase(all_of_Test)
+{
+	check((
+			mp::all_of<
+				mp::type_list<
+					std::tuple<>,
+					mp::type_list<>,
+					mp::type_collection<>,
+					mp::type_list<>
+				>,
+				mp::is_empty
+			>::value
+		));
+	check((
+			not mp::all_of<
+				mp::type_list<
+					std::tuple<int, double>,
+					mp::type_list<>,
+					mp::type_list<char, char, int>,
+					mp::type_collection<>
+				>,
+				mp::is_empty
+			>::value
+		));
+	check((
+			not mp::all_of<
+				mp::type_list<
+					bool,
+					int,
+					mp::type_list<>,
+					int
+				>,
+				std::is_fundamental
+			>::value
+		));
+}
+
+TestCase(any_of_Test)
+{
+	check((
+			mp::any_of<
+				mp::type_list<
+					std::tuple<>,
+					mp::type_list<>,
+					mp::type_collection<>,
+					mp::type_list<>
+				>,
+				mp::is_empty
+			>::value
+		));
+	check((
+			mp::any_of<
+				mp::type_list<
+					std::tuple<int, double>,
+					mp::type_list<>,
+					mp::type_list<char, char, int>,
+					mp::type_collection<>
+				>,
+				mp::is_empty
+			>::value
+		));
+	check( not(
+			mp::any_of<
+				mp::type_list<
+					std::tuple<int, double>,
+					mp::type_list<bool, bool>,
+					mp::type_list<char, char, int>,
+					mp::type_collection<char>
+				>,
+				mp::is_empty
+			>::value
+		));
+}
+
 TestCase(iterate_generate_list_Test)
 {
 	check((
