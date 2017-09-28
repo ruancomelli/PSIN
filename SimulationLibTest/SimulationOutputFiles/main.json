@@ -1,0 +1,18 @@
+{
+    "boundaries": null,
+    "boundaryOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Boundaries",
+    "dimension": 3,
+    "finalTime": 0.1,
+    "initialTime": 0.0,
+    "interactions": null,
+    "mainOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles",
+    "outputsForExporting": 1,
+    "particleOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles",
+    "particles": {
+        "BlueSphere": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json",
+        "RedSphere": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json"
+    },
+    "taylorOrder": 4,
+    "timeStep": 0.01,
+    "timeStepsForOutput": 2
+}
