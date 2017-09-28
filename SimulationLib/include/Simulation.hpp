@@ -59,8 +59,8 @@ public:
 	using InteractionList = psin::InteractionList<InteractionTypes...>;
 	using LooperList = psin::LooperList<GearLooper>;
 	using SeekerList = psin::SeekerList<CollisionSeeker>;
-	using SubjectList = typename mp::concatenate<ParticleList, BoundaryList>::type;
-	using InteractionTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, SubjectList>::type;
+	using InteractionParticleParticleTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, ParticleList, ParticleList>::type;
+	using InteractionParticleBoundaryTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, ParticleList, BoundaryList>::type;
 
 	void setup(const path & mainInputFilePath);
 

@@ -33,6 +33,9 @@ namespace InteractionSubjectLister_Test_namespace {
 	struct C
 	{};
 
+	struct D
+	{};
+
 	struct I
 	{
 		template<typename T, typename U>
@@ -54,7 +57,7 @@ TestCase(InteractionSubjectLister_Test)
 
 	check((
 		std::is_same<
-			detail::generate_triplets< mp::type_list<I, J>, mp::type_list<A, B, C> >::type,
+			detail::generate_triplets< mp::type_list<I, J>, mp::type_list<A, B, C>, mp::type_list<A, B, D> >::type,
 			mp::type_list<
 				mp::type_list<I, A, A>,
 				mp::type_list<J, A, A>,
@@ -265,6 +268,63 @@ TestCase(Simulation_simulate_Test)
 				>
 			>,
 		BoundaryList<>,
+		InteractionList<
+			ElectrostaticForce,
+			NormalForceLinearDashpotForce,
+			NormalForceViscoelasticSpheres,
+			TangentialForceCundallStrack,
+			TangentialForceHaffWerner
+			>,
+		LooperList<GearLooper>,
+		SeekerList<CollisionSeeker>
+	> simulation;
+
+	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
+	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+	simulation.setup( mainInputFilePath );
+	simulation.outputMainData();
+	simulation.backupInteractions();
+	simulation.backupParticles();
+	simulation.backupBoundaries();
+	simulation.simulate();
+}
+
+TestCase(Simulation_simulate_with_boundary_Test)
+{
+	path projectRootPath = filesystem::current_path().parent_path().parent_path().parent_path();	
+	program_options::options_description desc("Allowed options");
+	desc.add_options()
+		("help", "produce help message")
+		("path", program_options::value<string>(), "Project's root folder")
+	;
+	program_options::variables_map vm = psin::parseCommandLine(
+			boost::unit_test::framework::master_test_suite().argc, 
+			boost::unit_test::framework::master_test_suite().argv, 
+			desc
+		);
+	if(vm.count("help"))
+	{
+		std::cout << desc << std::endl;
+	}
+	if(vm.count("path"))
+	{
+		projectRootPath = path(vm["path"].as<string>());
+	}
+	
+	Simulation<
+		ParticleList<
+			SphericalParticle<
+				Mass,
+				Volume,
+				MomentOfInertia,
+				PoissonRatio
+				>
+			>,
+		BoundaryList<
+			FixedInfinitePlane<
+				
+				>
+			>,
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,

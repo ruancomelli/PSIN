@@ -15,18 +15,6 @@ void Boundary<PropertyTypes...>::setOrientationFunction( const std::function< Sp
 	this->orientationFunction = f;
 }
 
-template<typename ... PropertyTypes>
-void Boundary<PropertyTypes...>::updatePosition(const double & t)
-{
-	this->setPositionMatrix( this->positionFunction(t) );
-}
-
-template<typename ... PropertyTypes>
-void Boundary<PropertyTypes...>::updateOrientation(const double & t)
-{
-	this->setOrientationMatrix( this->orientationFunction(t) );
-}
-
 } // psin
 
 #endif

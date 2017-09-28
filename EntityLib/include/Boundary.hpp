@@ -23,8 +23,11 @@ class Boundary :
 		virtual void setPositionFunction( const std::function< Spatial(double)> & f );
 		virtual void setOrientationFunction( const std::function< Spatial(double)> & f );
 
-		virtual void updatePosition(const double & t);
-		virtual void updateOrientation(const double & t);
+		template<typename Time>
+		void updatePosition(const Time & t);
+
+		template<typename Time>
+		void updateOrientation(const Time & t);
 		
 	private:
 		std::function< Spatial(double)> positionFunction;

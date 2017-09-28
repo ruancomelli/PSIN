@@ -500,7 +500,30 @@ struct initialize_particle
 };
 
 template<typename InteractionTriplet>
-struct interact
+struct interact_particle_particle
+{
+	template<typename ParticleVectorTuple, typename BoundaryVectorTuple, typename Time>
+	static void call(ParticleVectorTuple & particleVectorTuple, const Time & time, const std::set< std::string > & interactionsToUse)
+	{
+		using InteractionType = typename mp::get<0, InteractionTriplet>::type;
+		using EntityType = typename mp::get<1, InteractionTriplet>::type;
+		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
+
+		for(auto& entity : std::get<vector<EntityType>>(particleVectorTuple))
+		{
+			for(auto& neighbor : std::get<vector<NeighborType>>(particleVectorTuple))
+			{
+				if(interactionsToUse.count(NamedType<InteractionType>::name) > 0)
+				{
+					InteractionType::calculate(entity, neighbor, time);
+				}
+			}
+		}
+	}
+};
+
+template<typename InteractionTriplet>
+struct interact_particle_boundary
 {
 	template<typename ParticleVectorTuple, typename BoundaryVectorTuple, typename Time>
 	static void call(ParticleVectorTuple & particleVectorTuple, BoundaryVectorTuple & boundaryVectorTuple, const Time & time, const std::set< std::string > & interactionsToUse)
@@ -509,17 +532,11 @@ struct interact
 		using EntityType = typename mp::get<1, InteractionTriplet>::type;
 		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
 
-		for(auto& entity : 
-			mp::contains<ParticleVectorTuple, EntityType>::value
-			? std::get<vector<EntityType>>(particleVectorTuple)
-			: std::get<vector<EntityType>>(boundaryVectorTuple))
+		for(auto& entity : std::get<vector<EntityType>>(particleVectorTuple))
 		{
-			for(auto& neighbor : 
-				mp::contains<ParticleVectorTuple, NeighborType>::value
-				? std::get<vector<NeighborType>>(particleVectorTuple)
-				: std::get<vector<NeighborType>>(boundaryVectorTuple))
+			for(auto& neighbor : std::get<vector<NeighborType>>(boundaryVectorTuple))
 			{
-				if(interactionsToUse.count(NamedType<InteractionTriplet>::name) > 0)
+				if(interactionsToUse.count(NamedType<InteractionType>::name) > 0)
 				{
 					InteractionType::calculate(entity, neighbor, time);
 				}
@@ -620,7 +637,7 @@ void Simulation<
 {
 	openFiles();
 
-	GearLooper::Time<unsigned long, double> time{initialTime, timeStep, finalTime};
+	GearLooper::Time<std::size_t, double> time{initialTime, timeStep, finalTime};
 
 	unsigned long timeStepsForOutputCounter = 0;
 	unsigned long outputsForExportingCounter = 0;
@@ -646,7 +663,10 @@ void Simulation<
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, time);
 		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
-		mp::visit<InteractionTriplets, detail::interact>::call_same(
+		mp::visit<InteractionTriplets, detail::interact_particle_particle>::call_same(
+				particles, time, interactionsToUse
+			);
+		mp::visit<InteractionTriplets, detail::interact_particle_boundary>::call_same(
 				particles, boundaries, time, interactionsToUse
 			);
 

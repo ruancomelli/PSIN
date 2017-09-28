@@ -11,11 +11,13 @@ FixedBoundary<PropertyTypes...>::FixedBoundary(const Vector3D & position, const 
 }
 
 template<typename ... PropertyTypes>
-void FixedBoundary<PropertyTypes...>::updatePosition(const double & t)
+template<typename Time>
+void FixedBoundary<PropertyTypes...>::updatePosition(const Time & time) const
 {}
 
 template<typename ... PropertyTypes>
-void FixedBoundary<PropertyTypes...>::updateOrientation(const double & t)
+template<typename Time>
+void FixedBoundary<PropertyTypes...>::updateOrientation(const Time & time) const
 {}
 
 } // psin

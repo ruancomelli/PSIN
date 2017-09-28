@@ -16,8 +16,11 @@ class FixedBoundary :
 	public:
 		explicit FixedBoundary(const Vector3D & position = Vector3D(), const Vector3D & orientation = Vector3D());
 
-		virtual void updatePosition(const double & t);
-		virtual void updateOrientation(const double & t);
+		template<typename Time>
+		void updatePosition(const Time & t) const;
+
+		template<typename Time>
+		void updateOrientation(const Time & t) const;
 
 	private:
 		using BaseBoundary::setPositionFunction;
