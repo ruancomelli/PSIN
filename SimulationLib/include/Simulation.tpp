@@ -453,7 +453,7 @@ struct update_boundary
 	template<typename BoundaryVectorTuple, typename Time>
 	static void call(BoundaryVectorTuple & boundaryVectorTuple, const Time & time)
 	{
-		for(auto& boundary : std::get<B>(boundaryVectorTuple))
+		for(auto& boundary : std::get<vector<B>>(boundaryVectorTuple))
 		{
 			boundary.updatePosition(time);
 			boundary.updateOrientation(time);
@@ -575,7 +575,7 @@ void Simulation<
 		particleFileMap[it->first]->seekg(0); // rewinds the file
 		*particleFileMap[it->first] >> fileContent;
 		particleFileMap[it->first]->close();
-		
+
 		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
 		*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 
