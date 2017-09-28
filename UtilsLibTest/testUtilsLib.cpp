@@ -1437,6 +1437,17 @@ TestCase(combinatory_generate_combination_list_Test)
 			>
 		>::value
 	));
+
+	check((
+		std::is_same<
+			mp::combinatory::generate_combination_list<
+				type_list<int, double, char>,
+				type_list<>,
+				type_list<bool, char>
+			>::type,
+			type_list<>
+		>::value
+	));
 }
 
 namespace purge_Test_namespace {

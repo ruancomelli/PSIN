@@ -12,7 +12,7 @@ struct combinatory
 	using get_combination = detail::get_combination<IndexSequence, TypeLists...>;
 
 	template<typename...TypeLists>
-	using generate_combination_list = detail::generate_list<TypeLists...>;
+	using generate_combination_list = detail::generate_list<detail::non_empty_types<TypeLists...>::value, TypeLists...>;
 };
 
 } // mp
