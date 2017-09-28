@@ -57,7 +57,7 @@ TestCase(InteractionSubjectLister_Test)
 
 	check((
 		std::is_same<
-			detail::generate_triplets< mp::type_list<I, J>, mp::type_list<A, B, C>, mp::type_list<A, B, D> >::type,
+			detail::generate_triplets< mp::type_list<I, J>, mp::type_list<A, B, C>, mp::type_list<A, B, C> >::type,
 			mp::type_list<
 				mp::type_list<I, A, A>,
 				mp::type_list<J, A, A>,
@@ -99,7 +99,7 @@ TestCase(InteractionSubjectLister_Test)
 
 	check((
 		std::is_same<
-			InteractionSubjectLister::generate_combinations< mp::type_list<I, J>, mp::type_list<A, B, C> >::type,
+			InteractionSubjectLister::generate_combinations< mp::type_list<I, J>, mp::type_list<A, B, C, D> >::type,
 			mp::type_list<
 				mp::type_list<I, A, A>,
 				mp::type_list<I, B, A>,
