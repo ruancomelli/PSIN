@@ -35,7 +35,7 @@ struct type_list
 
 	constexpr static bool has_repeated_types = detail::has_repeated_types< type_list<Ts...> >::value;
 
-	constexpr static size_t length = mp::length< identity >::value;
+	constexpr static std::size_t length = mp::length< identity >::value;
 
 	template<template<typename...> class ClassToSpecialize>
 	using specialize = ClassToSpecialize<Ts...>;
@@ -43,7 +43,7 @@ struct type_list
 	template<typename TypeList>
 	using concatenate = typename mp::concatenate<identity, TypeList>::type;
 
-	template<size_t position>
+	template<std::size_t position>
 	using get = typename mp::get<position, identity>::type;
 
 	// template<typename TypeList>

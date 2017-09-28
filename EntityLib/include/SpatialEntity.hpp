@@ -18,7 +18,7 @@ class SpatialEntity
 {
 	public:
 		SpatialEntity();
-		explicit SpatialEntity(const size_t taylorOrder);
+		explicit SpatialEntity(const std::size_t taylorOrder);
 
 		// ----- Position -----
 		void setPosition(const double x, const double y, const double z = 0);
@@ -32,15 +32,15 @@ class SpatialEntity
 
 		void setPositionMatrix(const std::vector<Vector3D> & positionMatrix); // throws
 
-		void setPositionDerivative(const size_t derivative, const double x, const double y, const double z = 0); // throws
-		void setPositionDerivative(const size_t derivative, const Vector3D & vec); // throws
+		void setPositionDerivative(const std::size_t derivative, const double x, const double y, const double z = 0); // throws
+		void setPositionDerivative(const std::size_t derivative, const Vector3D & vec); // throws
 
 		Vector3D getPosition() const;
 		Vector3D getVelocity() const;
 		Vector3D getAcceleration() const;
 
 		std::vector<Vector3D> getPositionMatrix(void) const;
-		Vector3D getPositionDerivative(const size_t derivative) const; // throws
+		Vector3D getPositionDerivative(const std::size_t derivative) const; // throws
 
 
 		// ----- Orientation -----
@@ -55,23 +55,23 @@ class SpatialEntity
 
 		void setOrientationMatrix(const std::vector<Vector3D> & orientationMatrix); // throws
 
-		void setOrientationDerivative(const size_t derivative, const double x, const double y, const double z = 0); // throws
-		void setOrientationDerivative(const size_t derivative, const Vector3D & vec); // throws
+		void setOrientationDerivative(const std::size_t derivative, const double x, const double y, const double z = 0); // throws
+		void setOrientationDerivative(const std::size_t derivative, const Vector3D & vec); // throws
 
 		Vector3D getOrientation() const;
 		Vector3D getAngularVelocity() const;
 		Vector3D getAngularAcceleration() const;
 
 		std::vector<Vector3D> getOrientationMatrix(void) const;
-		Vector3D getOrientationDerivative(const size_t derivative) const; // throws
+		Vector3D getOrientationDerivative(const std::size_t derivative) const; // throws
 		
 
 		// ----- Normal Versor -----
 		Vector3D normalVersor( const SpatialEntity & neighbor ) const;
 
 		// ----- Taylor Order -----
-		void setTaylorOrder(const size_t taylorOrder); // throws
-		size_t getTaylorOrder() const;
+		void setTaylorOrder(const std::size_t taylorOrder); // throws
+		std::size_t getTaylorOrder() const;
 
 
 	private:
@@ -79,14 +79,14 @@ class SpatialEntity
 		void resizePositionOrientation(void);
 
 		// set spatial position
-		void setSpatial(std::vector<Vector3D> & spatial, const size_t derivative, const double x, const double y, const double z = 0);
-		void setSpatial(std::vector<Vector3D> & spatial, const size_t derivative, const Vector3D & vec);
+		void setSpatial(std::vector<Vector3D> & spatial, const std::size_t derivative, const double x, const double y, const double z = 0);
+		void setSpatial(std::vector<Vector3D> & spatial, const std::size_t derivative, const Vector3D & vec);
 		void setSpatial(std::vector<Vector3D> & spatialToSet, const std::vector<Vector3D> & spatial);
 
 		std::vector<Vector3D>	positionMatrix;
 		std::vector<Vector3D>	orientationMatrix;
 
-		size_t taylorOrder;
+		std::size_t taylorOrder;
 };
 
 void from_json(const json& j, SpatialEntity &);

@@ -18,7 +18,7 @@ namespace psin {
 namespace mp {
 namespace detail {
 	
-template<size_t S = 0, size_t Value = 0>
+template<std::size_t S = 0, std::size_t Value = 0>
 struct make_constant_index_sequence
 	: mp::metafunction< 
 		typename mp::concatenate< 
@@ -28,7 +28,7 @@ struct make_constant_index_sequence
 	>
 {};
 
-template<size_t Value>
+template<std::size_t Value>
 struct make_constant_index_sequence<0, Value>
 	: mp::metafunction< std::index_sequence<> >
 {};
@@ -37,13 +37,13 @@ struct make_constant_index_sequence<0, Value>
 template<typename Indexes, typename Limits>
 struct format_indexes_based_on_limits;
 
-template<template<size_t...> class List>
+template<template<std::size_t...> class List>
 struct format_indexes_based_on_limits<
 	List<>,
 	List<>
 > : mp::metafunction< List<> >
 {
-	constexpr static size_t remainder = 0;
+	constexpr static std::size_t remainder = 0;
 };
 
 template<typename T, template<typename, T...> class List>
@@ -55,15 +55,15 @@ struct format_indexes_based_on_limits<
 	constexpr static T remainder = 0;
 };
 
-template<template<size_t...> class List, 
-	size_t I, 
-	size_t L>
+template<template<std::size_t...> class List, 
+	std::size_t I, 
+	std::size_t L>
 struct format_indexes_based_on_limits<
 	List<I>,
 	List<L>
 > : mp::metafunction< List<I%L> >
 {
-	constexpr static size_t remainder = I/L;
+	constexpr static std::size_t remainder = I/L;
 };
 
 template<typename T, template<typename, T...> class List, T I, T L>
@@ -75,9 +75,9 @@ struct format_indexes_based_on_limits<
 	constexpr static T remainder = I/L;
 };
 
-template<template<size_t...> class List, 
-	size_t I1, size_t I2, size_t...Is, 
-	size_t L1, size_t L2, size_t...Ls>
+template<template<std::size_t...> class List, 
+	std::size_t I1, std::size_t I2, std::size_t...Is, 
+	std::size_t L1, std::size_t L2, std::size_t...Ls>
 struct format_indexes_based_on_limits<
 	List<I1, I2, Is...>,
 	List<L1, L2, Ls...>
@@ -91,7 +91,7 @@ struct format_indexes_based_on_limits<
 		>::type 
 	>
 {
-	constexpr static size_t remainder = format_indexes_based_on_limits<
+	constexpr static std::size_t remainder = format_indexes_based_on_limits<
 			List<I2 + I1/L1, Is...>,
 			List<L2, Ls...>
 		>::remainder; 
@@ -133,7 +133,7 @@ struct last_combination_indexes
 template<typename Indexes, typename Limits>
 struct next_combination_indexes;
 
-template<size_t I, size_t...Is, typename Limits>
+template<std::size_t I, std::size_t...Is, typename Limits>
 struct next_combination_indexes< std::index_sequence<I, Is...>, Limits >
 	: format_indexes_based_on_limits< 
 		std::index_sequence<I+1, Is...>,
@@ -145,7 +145,7 @@ struct next_combination_indexes< std::index_sequence<I, Is...>, Limits >
 template<typename Indexes, typename...TypeLists>
 struct get_combination;
 
-template<size_t...Is, typename...TLs>
+template<std::size_t...Is, typename...TLs>
 struct get_combination< std::index_sequence<Is...>, TLs... >
 	: mp::metafunction< mp::type_list< typename mp::get<Is, TLs>::type ... > >
 {};
