@@ -105,6 +105,48 @@ bool parallelPlanes(const Plane1 & left, const Plane2 & right)
     return ( leftVersor == rightVersor ) or ( leftVersor == - rightVersor );
 }
 
+template<typename ... PropertyTypes>
+void from_json(const json & j, FixedInfinitePlane<PropertyTypes...> & fplane)
+{
+	if(j.count("origin") > 0
+		and j.count("normalVector") > 0)
+	{
+		fplane = FixedInfinitePlane<PropertyTypes...>(
+				j.at("origin").get<Vector3D>(),
+				j.at("normalVector").get<Vector3D>()
+			);
+	}
+	else if(j.count("origin") > 0
+		and j.count("vector1") > 0
+		and j.count("vector2") > 0)
+	{
+		fplane = FixedInfinitePlane<PropertyTypes...>::buildFromOriginAndTwoVectors(
+				j.at("origin").get<Vector3D>(),
+				j.at("vector1").get<Vector3D>(),
+				j.at("vector2").get<Vector3D>()
+			);
+	}
+	else if(j.count("point1") > 0
+		and j.count("point2") > 0
+		and j.count("point3") > 0)
+	{
+		fplane = FixedInfinitePlane<PropertyTypes...>::buildFromThreePoints(
+				j.at("point1").get<Vector3D>(),
+				j.at("point2").get<Vector3D>(),
+				j.at("point3").get<Vector3D>()
+			);
+	}
+}
+
+template<typename ... PropertyTypes>
+void to_json(json & j, const FixedInfinitePlane<PropertyTypes...> & fplane)
+{
+	j = json{
+		{"origin", fplane.getOrigin()},
+		{"normalVector", fplane.getNormalVersor()}
+	};
+}
+
 } // psin
 
 #endif

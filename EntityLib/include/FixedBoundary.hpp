@@ -21,10 +21,6 @@ class FixedBoundary :
 
 		template<typename Time>
 		void updateOrientation(const Time & t) const;
-
-	private:
-		using BaseBoundary::setPositionFunction;
-		using BaseBoundary::setOrientationFunction;
 };
 
 } // psin

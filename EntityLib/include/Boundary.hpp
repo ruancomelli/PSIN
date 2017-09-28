@@ -9,29 +9,28 @@
 #include <SocialEntity.hpp>
 #include <SpatialEntity.hpp>
 
+// UtilsLib
+#include <Named.hpp>
+#include <Vector.hpp>
+
 namespace psin {
 	
 template<typename ... PropertyTypes>
 class Boundary : 
+    public Named,
     public PhysicalEntity<PropertyTypes...>,
-    public SocialEntity,
     public SpatialEntity
 {
 	using Spatial = vector<Vector3D>;
 
 	public:
-		virtual void setPositionFunction( const std::function< Spatial(double)> & f );
-		virtual void setOrientationFunction( const std::function< Spatial(double)> & f );
+		using BasePhysicalEntity = PhysicalEntity<PropertyTypes...>;
 
 		template<typename Time>
 		void updatePosition(const Time & t);
 
 		template<typename Time>
 		void updateOrientation(const Time & t);
-		
-	private:
-		std::function< Spatial(double)> positionFunction;
-		std::function< Spatial(double)> orientationFunction;
 };
 
 } // psin

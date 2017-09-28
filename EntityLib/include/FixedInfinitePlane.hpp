@@ -24,8 +24,8 @@ class FixedInfinitePlane : public FixedBoundary<PropertyTypes...>
 		Vector3D getNormalVersor() const;
 		Vector3D getOrigin() const;
 
-		bool containsPoint(const Vector3D & point) const; // Yields true iff point is contained in this plane [ Is (point - origin) perpendicular to normalVersor? ]
-		bool containsVector(const Vector3D & v) const; // Yields true iff point is contained in this plane [ Is v perpendicular to normalVersor? ]
+		bool containsPoint(const Vector3D & point) const; // Yields true iff point is contained in this plane [ is (point - origin) perpendicular to normalVersor? ]
+		bool containsVector(const Vector3D & v) const; // Yields true iff point is contained in this plane [ is v perpendicular to normalVersor? ]
 
 	private:
 		Vector3D origin;
@@ -37,6 +37,12 @@ bool operator==(const FixedInfinitePlane<PropertyTypes...> & left, const FixedIn
 
 template<typename Plane1, typename Plane2>
 bool parallelPlanes(const Plane1 & left, const Plane2 & right);
+
+template<typename ... PropertyTypes>
+void from_json(const json & j, FixedInfinitePlane<PropertyTypes...> & fplane);
+
+template<typename ... PropertyTypes>
+void to_json(json & j, const FixedInfinitePlane<PropertyTypes...> & fplane);
 
 } // psin
 
