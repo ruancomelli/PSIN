@@ -7,18 +7,13 @@ template<typename JsonContainer>
 json merge(const JsonContainer & container)
 {
 	json result;
-	json tmp;
 
-	for(const json& j : container)
+	for(const json & j : container)
 	{
-		tmp = j.flatten();
-		for(auto it = tmp.begin(); it != tmp.end(); ++it)
-		{
-			result[it.key()] = it.value();
-		}
+		result = merge(result, j);
 	}
 
-	return result.unflatten();
+	return result;
 }
 
 } // psin

@@ -133,49 +133,79 @@ TestCase(json_array_Test)
 
 TestCase(json_merge_Test)
 {
-	json j1{
-		{"0", 81.3},
-		{"Color",
-			{
-				{"R", 5},
-				{"G", 55},
-				{"B", 200}
+	{
+		json j1{
+			{"Mass", 81.3},
+			{"Color",
+				{
+					{"R", 5},
+					{"G", 55},
+					{"B", 200}
+				}
 			}
-		}
-	};
-
-	json j2{
-		{"Position",
-			{
-				1.0, 2.3, 4.5
+		};
+	
+		json j2{
+			{"Position",
+				{
+					1.0, 2.3, 4.5
+				}
 			}
-		}
-	};
-
-	json j3{
-		{"0", 81.3},
-		{"Color",
-			{
-				{"R", 5},
-				{"G", 55},
-				{"B", 200}
+		};
+	
+		json j3{
+			{"Mass", 81.3},
+			{"Color",
+				{
+					{"R", 5},
+					{"G", 55},
+					{"B", 200}
+				}
+			},
+			{"Position",
+				{
+					1.0, 2.3, 4.5
+				}
 			}
-		},
-		{"Position",
-			{
-				1.0, 2.3, 4.5
+		};
+	
+		checkEqual(merge(j1, j2), j3);
+	
+		std::vector<json> v{j1, j2};
+		checkEqual(merge(v), j3);
+	}
+
+	{
+		json j1{1, 2};
+		json j2{2, 3, 0, 1};
+		json j3{1, 2, 2, 3, 0, 1};
+	
+		checkEqual(merge(j1, j2), j3);
+	
+		std::vector<json> v{j1, j2};
+		checkEqual(merge(v), j3);
+	}
+
+	{
+		json j = {
+			{"The Dark Lord", "Sauron"},
+			{"Elven Rings", 3},
+			{"Hobbits in the Fellowship",
+				{
+					"Frodo",
+					"Sam",
+					"Pippin",
+					"Merry"
+				}
 			}
-		}
-	};
-
-	checkEqual(merge(j1, j2), j3);
-
-	std::cout << "j1: " << j1.dump(2) << std::endl; // DEBUG
-	std::cout << "j2: " << j2.dump(2) << std::endl; // DEBUG
-	std::cout << "merge: " << merge(j1, j2).dump(2) << std::endl; // DEBUG
-
-	std::vector<json> v{j1, j2};
-	checkEqual(merge(v), j3);
+		};
+	
+		checkEqual(merge(j, json()), j);
+		checkEqual(merge(json(), j), j);
+	
+		std::vector<json> v{j, json()};
+		checkEqual(merge(v), j);
+	}
 }
 
 TestCase(json_type_checkers_Test)
