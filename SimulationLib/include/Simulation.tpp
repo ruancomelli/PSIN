@@ -408,12 +408,16 @@ namespace detail {
 template<typename E>
 struct write_entities_to_json
 {
-	template<typename EntityTuple>
-	static void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& entityJsonMap)
+	template<typename EntityTuple, typename Time>
+	static void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& entityJsonMap, const Time & time)
 	{
 		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
 		{
-			entityJsonMap[entity.getName()].push_back(entity);
+			json j{
+				{"TimeIndex", time.getIndex()},
+				{NamedType<E>::name, entity}
+			};
+			entityJsonMap[entity.getName()].push_back(j);
 		}
 	}
 };
@@ -565,22 +569,13 @@ void Simulation<
 	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
 	{
 		json fileContent;
-		json informationToExport{
-			{timeIndex, merge(it->second)}
-		};
+		json informationToExport = it->second;
 
 		path filepath = fileTree["output"]["particle"][it->first].get<path>();
 		particleFileMap[it->first]->seekg(0); // rewinds the file
 		*particleFileMap[it->first] >> fileContent;
 		particleFileMap[it->first]->close();
-
-		if(timeIndex != "0")
-		{
-		if(it->first == "RedSphere") std::cout << "-------------------------------------------" << timeIndex << "-------------------------------------------" << std::endl; // DEBUG
-		if(it->first == "RedSphere") std::cout << "File content: " << fileContent.dump(2) << std::endl; // DEBUG
-		if(it->first == "RedSphere") std::cout << "informationToExport: " << informationToExport.dump(2) << std::endl; // DEBUG
-		if(it->first == "RedSphere") std::cout << "Merged content: " << merge(fileContent, informationToExport).dump(2) << std::endl; // DEBUG
-}
+		
 		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
 		*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
 
@@ -647,8 +642,8 @@ void Simulation<
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
-			mp::visit<ParticleList, detail::write_entities_to_json>::call_same(particles, particleJsonMap);
-			mp::visit<BoundaryList, detail::write_entities_to_json>::call_same(boundaries, boundaryJsonMap);
+			mp::visit<ParticleList, detail::write_entities_to_json>::call_same(particles, particleJsonMap, time);
+			mp::visit<BoundaryList, detail::write_entities_to_json>::call_same(boundaries, boundaryJsonMap, time);
 
 			if(outputsForExportingCounter == 0)
 			{
