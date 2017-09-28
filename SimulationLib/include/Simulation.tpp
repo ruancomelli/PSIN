@@ -663,10 +663,10 @@ void Simulation<
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, time);
 		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
-		mp::visit<InteractionTriplets, detail::interact_particle_particle>::call_same(
+		mp::visit<InteractionParticleParticleTriplets, detail::interact_particle_particle>::call_same(
 				particles, time, interactionsToUse
 			);
-		mp::visit<InteractionTriplets, detail::interact_particle_boundary>::call_same(
+		mp::visit<InteractionParticleBoundaryTriplets, detail::interact_particle_boundary>::call_same(
 				particles, boundaries, time, interactionsToUse
 			);
 
