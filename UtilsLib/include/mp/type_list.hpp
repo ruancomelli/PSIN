@@ -31,7 +31,7 @@ struct type_list
 	template<typename ... Us>
 	constexpr static bool contains = mp::contains<identity, Us...>::value;
 
-	constexpr static bool is_empty = detail::is_empty<Ts...>::value;
+	constexpr static bool is_empty = sizeof...(Ts) == 0;
 
 	constexpr static bool has_repeated_types = detail::has_repeated_types< type_list<Ts...> >::value;
 

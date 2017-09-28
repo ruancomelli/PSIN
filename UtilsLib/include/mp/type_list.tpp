@@ -16,13 +16,6 @@ struct type_list;
 namespace detail
 {
 
-template<typename ... Ts>
-struct is_empty : std::false_type {};
-
-template<>
-struct is_empty<> : std::true_type {};
-
-
 template<typename T, typename...Us>
 struct append;
 
