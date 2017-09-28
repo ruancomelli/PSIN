@@ -2,12 +2,11 @@
 #define COMBINATORY_TPP
 
 // UtilsLib
-#include <mp/any_of.hpp>
+#include <mp/none_of.hpp>
 #include <mp/concatenate.hpp>
 #include <mp/get.hpp>
 #include <mp/is_empty.hpp>
 #include <mp/length.hpp>
-#include <mp/logical.hpp>
 #include <mp/metafunction.hpp>
 #include <mp/type_list.hpp>
 
@@ -183,11 +182,9 @@ struct iterate_generate_list<
 
 template<typename...TLs>
 struct non_empty_types
-	: mp::negation<
-		mp::any_of<
-			type_list<TLs...>,
-			is_empty
-		>
+	: mp::none_of<
+		type_list<TLs...>,
+		is_empty
 	>
 {};
 

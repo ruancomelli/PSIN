@@ -1350,6 +1350,32 @@ TestCase(any_of_Test)
 		));
 }
 
+TestCase(none_of_Test)
+{
+	check( not(
+			mp::none_of<
+				mp::type_list<
+					std::tuple<int, double>,
+					mp::type_list<>,
+					mp::type_list<char, char, int>,
+					mp::type_collection<>
+				>,
+				mp::is_empty
+			>::value
+		));
+	check((
+			mp::none_of<
+				mp::type_list<
+					std::tuple<int, double>,
+					mp::type_list<bool, bool>,
+					mp::type_list<char, char, int>,
+					mp::type_collection<char>
+				>,
+				mp::is_empty
+			>::value
+		));
+}
+
 TestCase(iterate_generate_list_Test)
 {
 	check((

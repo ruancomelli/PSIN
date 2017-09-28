@@ -16,6 +16,7 @@
 #include <mp/logical.hpp>
 #include <mp/make_unique_type_list.hpp>
 #include <mp/metafunction.hpp>
+#include <mp/none_of.hpp>
 #include <mp/purge.hpp>
 #include <mp/range.hpp>
 #include <mp/relative_complement.hpp>
