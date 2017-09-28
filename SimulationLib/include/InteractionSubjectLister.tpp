@@ -7,9 +7,9 @@
 namespace psin {
 namespace detail {
 	
-template<typename Interactions, typename Subjects>
+template<typename Interactions, typename Subjects1, typename Subjects2=Subjects1>
 struct generate_triplets
-	: mp::combinatory::generate_combination_list<Interactions, Subjects, Subjects>
+	: mp::combinatory::generate_combination_list<Interactions, Subjects1, Subjects2>
 {};
 
 
@@ -65,11 +65,11 @@ struct remove_permutations<CombinationList<>>
 	: mp::metafunction<CombinationList<>>
 {};
 
-template<typename Interactions, typename Subjects>
+template<typename Interactions, typename Subjects1, typename Subjects2=Subjects1>
 struct generate_combinations
 	: remove_permutations<
 		typename get_valid_triplets<
-			typename generate_triplets<Interactions, Subjects>::type
+			typename generate_triplets<Interactions, Subjects1, Subjects2>::type
 		>::type
 	>
 {};

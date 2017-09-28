@@ -8,8 +8,8 @@ namespace psin {
 class InteractionSubjectLister
 {
 public:
-	template<typename Interactions, typename Subjects>
-	struct generate_combinations : detail::generate_combinations<Interactions, Subjects>
+	template<typename Interactions, typename Subjects1, typename Subjects2>
+	struct generate_combinations : detail::generate_combinations<Interactions, Subjects1, Subjects2>
 	{};
 };
 
