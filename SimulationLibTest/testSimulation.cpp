@@ -10,6 +10,8 @@
 
 // EntityLib
 #include <FixedInfinitePlane.hpp>
+#include <GravityField.hpp>
+#include <SphericalParticle.hpp>
 
 // InteractionLib
 #include <InteractionDefinitions.hpp>
@@ -326,7 +328,8 @@ TestCase(Simulation_simulate_with_boundary_Test)
 		BoundaryList<
 			FixedInfinitePlane<
 				
-				>
+				>,
+			GravityField
 			>,
 		InteractionList<
 			ElectrostaticForce,
