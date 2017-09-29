@@ -1694,3 +1694,45 @@ TestCase(revert_Test)
 		>::value
 	));
 }
+
+#include <boost/mpl/range_c.hpp>
+
+namespace boost__mpl__for_each_Test_namespace {
+
+template<typename T>
+struct get_apply
+{
+	template<std::size_t I>
+	struct apply
+		: mp::get<I, T>
+	{};
+};
+
+} // boost__mpl__for_each_Test_namespace
+
+TestCase(boost__mpl__for_each_Test)
+{
+	std::vector<int> v;
+
+	boost::mpl::for_each< boost::mpl::range_c<int, 0, 3> >( 
+		[&](auto i){v.push_back(i);} 
+	);
+
+	std::vector<int> v2{0, 1, 2};
+
+	check(v == v2);
+
+	std::tuple<int, char, bool> y = std::make_tuple(2, 'c', true);
+	std::tuple<int, char, bool> z;
+
+	boost::mpl::for_each< boost::mpl::range_c<int, 0, 3> >( 
+		[&](auto i){
+			using T = typename mp::get<i, type_list<int, char, bool>>::type;
+			std::get<T>(z) = std::get<T>(y);
+		} 
+	);
+
+	checkEqual( std::get<int>(z), 2 );
+	checkEqual( std::get<char>(z), 'c' );
+	checkEqual( std::get<bool>(z), true );
+}
