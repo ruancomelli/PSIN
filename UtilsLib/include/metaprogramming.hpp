@@ -7,6 +7,7 @@
 #include <mp/combinatory.hpp>
 #include <mp/concatenate.hpp>
 #include <mp/contains.hpp>
+#include <mp/for_each.hpp>
 #include <mp/get.hpp>
 #include <mp/get_sequence.hpp>
 #include <mp/integer_sequence.hpp>
