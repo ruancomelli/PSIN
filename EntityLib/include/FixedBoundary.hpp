@@ -10,18 +10,21 @@ template<typename ... PropertyTypes>
 class FixedBoundary : 
     public Boundary<PropertyTypes...>
 {
-	using BaseBoundary = Boundary<PropertyTypes...>;
-	using Spatial = vector<Vector3D>;
-
 	public:
-		explicit FixedBoundary(const Vector3D & position = Vector3D(), const Vector3D & orientation = Vector3D());
+		using BaseBoundary = Boundary<PropertyTypes...>;
+		
+		FixedBoundary() = default;
+		FixedBoundary(const BaseBoundary & boundary);
+		FixedBoundary(BaseBoundary && boundary);
 
 		template<typename Time>
-		void updatePosition(const Time & t) const;
-
-		template<typename Time>
-		void updateOrientation(const Time & t) const;
+		void update(const Time & t) const;
 };
+
+template<typename ... PropertyTypes>
+void from_json(const json& j, FixedBoundary<PropertyTypes...> & fixed);
+template<typename ... PropertyTypes>
+void to_json(json& j, const FixedBoundary<PropertyTypes...> & fixed);
 
 } // psin
 

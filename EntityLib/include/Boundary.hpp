@@ -1,37 +1,34 @@
 #ifndef BOUNDARY_HPP
 #define BOUNDARY_HPP
 
-// Standard
-#include <functional>
-
 // EntityLib
 #include <PhysicalEntity.hpp>
-#include <SocialEntity.hpp>
-#include <SpatialEntity.hpp>
 
 // UtilsLib
 #include <Named.hpp>
-#include <Vector.hpp>
 
 namespace psin {
 	
 template<typename ... PropertyTypes>
 class Boundary : 
     public Named,
-    public PhysicalEntity<PropertyTypes...>,
-    public SpatialEntity
+    public PhysicalEntity<PropertyTypes...>
 {
-	using Spatial = vector<Vector3D>;
-
 	public:
 		using BasePhysicalEntity = PhysicalEntity<PropertyTypes...>;
 
-		template<typename Time>
-		void updatePosition(const Time & t);
+		Boundary() = default;
+		Boundary(const Named & named, const BasePhysicalEntity & physical);
+		Boundary(Named&& named, BasePhysicalEntity&& physical);
 
 		template<typename Time>
-		void updateOrientation(const Time & t);
+		void update(const Time & t);
 };
+
+template<typename ... PropertyTypes>
+void from_json(const json& j, Boundary<PropertyTypes...> & b);
+template<typename ... PropertyTypes>
+void to_json(json& j, const Boundary<PropertyTypes...> & b);
 
 } // psin
 

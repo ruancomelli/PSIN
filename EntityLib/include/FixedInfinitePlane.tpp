@@ -1,15 +1,83 @@
 #ifndef FIXED_INFINITE_PLANE_TPP
 #define FIXED_INFINITE_PLANE_TPP
 
+// UtilsLib
+#include <NamedType.hpp>
+
 // Standard
 #include <stdexcept>
 
+namespace nlohmann {
+
+template<typename ... PropertyTypes>
+struct adl_serializer< psin::FixedInfinitePlane<PropertyTypes...> > {
+
+	static psin::FixedInfinitePlane<PropertyTypes...> from_json(const json& j) {
+		typename psin::FixedInfinitePlane<PropertyTypes...>::BaseFixedBoundary base = j;
+
+		if(j.count("origin") > 0
+			and j.count("normalVector") > 0)
+		{
+			return psin::FixedInfinitePlane<PropertyTypes...>(
+					j.at("origin").get<psin::Vector3D>(),
+					j.at("normalVector").get<psin::Vector3D>(),
+					base
+				);
+		}
+		else if(j.count("origin") > 0
+			and j.count("vector1") > 0
+			and j.count("vector2") > 0)
+		{
+			return psin::FixedInfinitePlane<PropertyTypes...>::buildFromOriginAndTwoVectors(
+					j.at("origin").get<psin::Vector3D>(),
+					j.at("vector1").get<psin::Vector3D>(),
+					j.at("vector2").get<psin::Vector3D>(),
+					base
+				);
+		}
+		else if(j.count("point1") > 0
+			and j.count("point2") > 0
+			and j.count("point3") > 0)
+		{
+			return psin::FixedInfinitePlane<PropertyTypes...>::buildFromThreePoints(
+					j.at("point1").get<psin::Vector3D>(),
+					j.at("point2").get<psin::Vector3D>(),
+					j.at("point3").get<psin::Vector3D>(),
+					base
+				);
+		}
+	}
+
+	static void to_json(json& j, const psin::FixedInfinitePlane<PropertyTypes...> & fplane) {
+		json jp = json{
+			{"origin", fplane.getOrigin()},
+			{"normalVector", fplane.getNormalVersor()}
+		};
+		typename psin::FixedInfinitePlane<PropertyTypes...>::BaseFixedBoundary base = fplane;
+		json jb = base;
+		j = psin::merge(jp, jb);
+	}
+
+};
+
+} // nlohmann
+
 namespace psin {
+
+template<typename...Ts>
+struct NamedType<FixedInfinitePlane<Ts...>>
+{
+	const static std::string name;
+}; //struct NamedType
+
+template<typename...Ts>
+const string NamedType<FixedInfinitePlane<Ts...>>::name = "FixedInfinitePlane";
 
 // ---- Constructors ----
 template<typename ... PropertyTypes>
-FixedInfinitePlane<PropertyTypes...>::FixedInfinitePlane(const Vector3D & origin, const Vector3D & normalVector)
-	: origin(origin)
+FixedInfinitePlane<PropertyTypes...>::FixedInfinitePlane(const Vector3D & origin, const Vector3D & normalVector, const BaseFixedBoundary & base)
+	: origin(origin),
+	BaseFixedBoundary(base)
 {
 	if(normalVector == nullVector3D())
 	{
@@ -22,7 +90,7 @@ FixedInfinitePlane<PropertyTypes...>::FixedInfinitePlane(const Vector3D & origin
 }
 
 template<typename ... PropertyTypes>
-FixedInfinitePlane<PropertyTypes...> FixedInfinitePlane<PropertyTypes...>::buildFromOriginAndTwoVectors(const Vector3D & origin, const Vector3D & vector1, const Vector3D & vector2)
+FixedInfinitePlane<PropertyTypes...> FixedInfinitePlane<PropertyTypes...>::buildFromOriginAndTwoVectors(const Vector3D & origin, const Vector3D & vector1, const Vector3D & vector2, const BaseFixedBoundary & base)
 {
 	const Vector3D normalVector = cross(vector1, vector2);
 
@@ -31,11 +99,11 @@ FixedInfinitePlane<PropertyTypes...> FixedInfinitePlane<PropertyTypes...>::build
 		throw std::runtime_error("\nA FixedInfinitePlane cannot be initialized using parallel or null vectors\n");
 	}
 	
-	return FixedInfinitePlane(origin, normalVector);
+	return FixedInfinitePlane(origin, normalVector, base);
 }
 
 template<typename ... PropertyTypes>
-FixedInfinitePlane<PropertyTypes...> FixedInfinitePlane<PropertyTypes...>::buildFromThreePoints(const Vector3D & point1, const Vector3D & point2, const Vector3D & point3)
+FixedInfinitePlane<PropertyTypes...> FixedInfinitePlane<PropertyTypes...>::buildFromThreePoints(const Vector3D & point1, const Vector3D & point2, const Vector3D & point3, const BaseFixedBoundary & base)
 {
 	const Vector3D vector1 = point2 - point1;
 	const Vector3D vector2 = point3 - point1;
@@ -47,7 +115,7 @@ FixedInfinitePlane<PropertyTypes...> FixedInfinitePlane<PropertyTypes...>::build
 		throw std::runtime_error("\nA FixedInfinitePlane cannot be initialized using colinear or coincident points\n");
 	}
 	
-	return FixedInfinitePlane(point1, normalVector);
+	return FixedInfinitePlane(point1, normalVector, base);
 }
 
 // ---- Spatial ----
@@ -102,49 +170,7 @@ bool parallelPlanes(const Plane1 & left, const Plane2 & right)
 	Vector3D leftVersor = left.getNormalVersor();
 	Vector3D rightVersor = right.getNormalVersor();
 
-    return ( leftVersor == rightVersor ) or ( leftVersor == - rightVersor );
-}
-
-template<typename ... PropertyTypes>
-void from_json(const json & j, FixedInfinitePlane<PropertyTypes...> & fplane)
-{
-	if(j.count("origin") > 0
-		and j.count("normalVector") > 0)
-	{
-		fplane = FixedInfinitePlane<PropertyTypes...>(
-				j.at("origin").get<Vector3D>(),
-				j.at("normalVector").get<Vector3D>()
-			);
-	}
-	else if(j.count("origin") > 0
-		and j.count("vector1") > 0
-		and j.count("vector2") > 0)
-	{
-		fplane = FixedInfinitePlane<PropertyTypes...>::buildFromOriginAndTwoVectors(
-				j.at("origin").get<Vector3D>(),
-				j.at("vector1").get<Vector3D>(),
-				j.at("vector2").get<Vector3D>()
-			);
-	}
-	else if(j.count("point1") > 0
-		and j.count("point2") > 0
-		and j.count("point3") > 0)
-	{
-		fplane = FixedInfinitePlane<PropertyTypes...>::buildFromThreePoints(
-				j.at("point1").get<Vector3D>(),
-				j.at("point2").get<Vector3D>(),
-				j.at("point3").get<Vector3D>()
-			);
-	}
-}
-
-template<typename ... PropertyTypes>
-void to_json(json & j, const FixedInfinitePlane<PropertyTypes...> & fplane)
-{
-	j = json{
-		{"origin", fplane.getOrigin()},
-		{"normalVector", fplane.getNormalVersor()}
-	};
+	return ( leftVersor == rightVersor ) or ( leftVersor == - rightVersor );
 }
 
 } // psin

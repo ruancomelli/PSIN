@@ -10,15 +10,28 @@
 namespace psin {
 
 template<typename ... PropertyTypes>
-class FixedInfinitePlane : public FixedBoundary<PropertyTypes...>
+class FixedInfinitePlane
+	: public FixedBoundary<PropertyTypes...>
 {
 	public:
-		// ---- Constructors ----
-		FixedInfinitePlane(const Vector3D & origin, const Vector3D & normalVector);
+		using BaseFixedBoundary = FixedBoundary<PropertyTypes...>;
+		
+		// ---- ctors ----
+		FixedInfinitePlane(const FixedInfinitePlane<PropertyTypes...> &) = default;
+		FixedInfinitePlane(FixedInfinitePlane<PropertyTypes...> &&) = default;
+
+		FixedInfinitePlane(const Vector3D & origin, const Vector3D & normalVector, const BaseFixedBoundary & base);
 
 		// Named Constructors
-		static FixedInfinitePlane<PropertyTypes...> buildFromOriginAndTwoVectors(const Vector3D & origin, const Vector3D & vector1, const Vector3D & vector2);
-		static FixedInfinitePlane<PropertyTypes...> buildFromThreePoints(const Vector3D & point1, const Vector3D & point2, const Vector3D & point3);
+		static FixedInfinitePlane<PropertyTypes...> buildFromOriginAndTwoVectors(
+			const Vector3D & origin, const Vector3D & vector1, const Vector3D & vector2, 
+			const BaseFixedBoundary & base = BaseFixedBoundary()
+			);
+
+		static FixedInfinitePlane<PropertyTypes...> buildFromThreePoints(
+			const Vector3D & point1, const Vector3D & point2, const Vector3D & point3, 
+			const BaseFixedBoundary & base = BaseFixedBoundary()
+			);
 
 		// ---- Spatial ----
 		Vector3D getNormalVersor() const;
@@ -37,12 +50,6 @@ bool operator==(const FixedInfinitePlane<PropertyTypes...> & left, const FixedIn
 
 template<typename Plane1, typename Plane2>
 bool parallelPlanes(const Plane1 & left, const Plane2 & right);
-
-template<typename ... PropertyTypes>
-void from_json(const json & j, FixedInfinitePlane<PropertyTypes...> & fplane);
-
-template<typename ... PropertyTypes>
-void to_json(json & j, const FixedInfinitePlane<PropertyTypes...> & fplane);
 
 } // psin
 
