@@ -1,6 +1,8 @@
 #ifndef PROPERTY_DEFINITIONS_HPP
 #define PROPERTY_DEFINITIONS_HPP
 
+#include <PropertyDefinitions/Gravity.hpp>
+
 // PropertyLib
 #include <PositiveProperty.hpp>
 #include <Property.hpp>
