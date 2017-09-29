@@ -1,0 +1,36 @@
+{
+	"Name": "RedSphere",
+
+	"Color":
+	{
+		"name": "Red"
+	},
+	
+	"TaylorOrder": 4,
+	"Dimension": 3,
+
+	"Mass": 1,
+	"Radius": 1e-1,
+	"DissipativeConstant": 0.0,
+	"PoissonRatio": 0.3,
+	"ElasticModulus": 1e7,
+	"TangentialDamping": 1000,
+	"FrictionParameter": 0.6,
+	"ElectricCharge": 2e-6,
+
+	"Position":
+	[
+		[0.0, 1.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0]
+	],
+
+	"Orientation":
+	[
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0]
+	]
+}

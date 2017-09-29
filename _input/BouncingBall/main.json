@@ -1,0 +1,37 @@
+{
+	"initialTime": 0.0,
+	"timeStep": 1e-1,
+	"finalTime": 10,
+	"taylorOrder": 4,
+	"timeStepsForOutput": 2,
+	"outputsForExporting": 1,
+	"dimension": 3,
+	"mainOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_output/BouncingBall",
+	"particleOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_output/BouncingBall/Particles",
+	"boundaryOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_output/BouncingBall/Boundaries",
+
+	"interactions":
+	{
+		"NormalForceLinearDashpotForce": null
+	},
+
+	"particles":
+	{
+		"SphericalParticle": 
+		[
+			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/particles/RedSphere.json"
+		]
+	},
+
+	"boundaries":
+	{
+		"FixedInfinitePlane": 
+		[
+			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/boundaries/Floor.json"
+		],
+		"GravityField": 
+		[
+			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/boundaries/Gravity.json"
+		]
+	}
+}
