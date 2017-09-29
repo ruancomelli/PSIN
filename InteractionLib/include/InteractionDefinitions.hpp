@@ -2,6 +2,7 @@
 #define INTERACTION_DEFINITIONS_HPP
 
 #include <InteractionDefinitions/ElectrostaticForce.hpp>
+#include <InteractionDefinitions/GravityForce.hpp>
 #include <InteractionDefinitions/NormalForceLinearDashpotForce.hpp>
 #include <InteractionDefinitions/NormalForceViscoelasticSpheres.hpp>
 #include <InteractionDefinitions/TangentialForceCundallStrack.hpp>
