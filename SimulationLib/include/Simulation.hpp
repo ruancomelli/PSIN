@@ -107,49 +107,9 @@ private:
 	std::tuple< std::vector<BoundaryTypes>... > boundaries;
 
 	std::set< std::string > interactionsToUse;
+	string looperToUse;
+	string seekerToUse;
 };
-
-	// public:
-	// 	// Default Simulation
-	// 	// This function sets paths, inputs and simulates
-	// 	void defaultSimulate(const std::string simulationName, const std::string projectRootFolder);
-
-	// 	// Input
-	// 	void inputMainData(void);
-
-	// 	// Output
-	// 	void outputMainData(void) const;
-	// 	void printSuccessMessage(void) const;
-
-	// 	// Interaction
-	// 	void setInteraction(const std::string & InteractionName);
-	// 	void appendInteraction(const Interaction<SphericalParticle, SphericalParticle> & fm);
-
-	// 	// Particles
-	// 	void initializeParticleArray(void);
-
-	// 	// Simulate
-	// 	void simulate(void);
-
-	// private:
-	// 	// Files
-	// 	SimulationFileTree fileTree;
-
-	// 	// Simulation data
-	// 	double initialTime;
-	// 	double timeStep;
-	// 	double finalTime;
-	// 	int taylorOrder;
-	// 	int dimension;
-	// 	int numberOfParticles;
-	// 	int timeStepsForOutput;
-	// 	Vector3D gravity = Vector3D();
-
-	// 	// Simulation objects
-	// 	SphericalParticlePtrArrayKit particleArray;
-	// 	Interaction<SphericalParticle, SphericalParticle> Interaction;
-	// 	std::set<Interaction<SphericalParticle, SphericalParticle>, Named::NamedCompare> InteractionSet;
-
 
 } // psin
 

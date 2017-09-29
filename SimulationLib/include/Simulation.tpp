@@ -45,6 +45,8 @@ void Simulation<
 	this->dimension = j.at("dimension");
 	this->timeStepsForOutput = j.at("timeStepsForOutput");
 	this->outputsForExporting = j.at("outputsForExporting");
+	this->looperToUse = j.at("looper");
+	this->seekerToUse = j.at("seeker");
 
 	fileTree["output"]["main"] = j.at("mainOutputFolder").get<path>();
 	fileTree["output"]["particleDir"] = j.at("particleOutputFolder").get<path>();
@@ -57,23 +59,6 @@ void Simulation<
 	if(j.count("boundaries") > 0) buildBoundaries(j.at("boundaries"));
 }
 
-namespace detail {
-
-template<typename I>
-struct conditionally_setup_interaction
-{
-	static void call(const string & interactionName, const path & filepath)
-	{
-		if( NamedType<I>::name == interactionName )
-		{
-			json j = read_json(filepath.string());
-
-			Builder<I>::setup(j.at(NamedType<I>::name));
-		}
-	}
-};
-
-} // detail
 
 template<
 	typename ... ParticleTypes,
@@ -96,7 +81,19 @@ void Simulation<
 			path interactionInputFilePath = it.value();
 
 			interactionsToUse.insert( interactionName );
-			mp::visit<InteractionList, detail::conditionally_setup_interaction>::call_same(interactionName, interactionInputFilePath);
+
+			mp::for_each< mp::provide_indices<InteractionList> >(
+			[&, this](auto Index)
+			{
+				using I = typename mp::get<Index, InteractionList>::type;
+				if( NamedType<I>::name == interactionName )
+				{
+					json j = read_json(interactionInputFilePath.string());
+
+					Builder<I>::setup(j.at(NamedType<I>::name));
+				}
+			});
+			
 			fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
 		}
 	}
@@ -110,15 +107,6 @@ struct conditionally_build_entity
 	template<typename EntityTuple>
 	static void call(const string & entityType, const path & filepath, EntityTuple & entities, string & entityName)
 	{
-		if( NamedType<Entity>::name == entityType)
-		{
-			json j = read_json(filepath.string());
-
-			Entity entity = j;
-
-			entityName = entity.getName();
-			std::get< vector<Entity> >(entities).push_back( entity );
-		}
 	}
 };
 
@@ -146,7 +134,20 @@ void Simulation<
 				string particleType(it.key());
 				string particleName;
 
-				mp::visit<ParticleList, detail::conditionally_build_entity>::call_same(particleType, particleInputFilePath, particles, particleName);
+				mp::for_each< mp::provide_indices<ParticleList> >(
+				[&, this](auto Index)
+				{
+					using Particle = typename mp::get<Index, ParticleList>::type;
+					if( NamedType<Particle>::name == particleType)
+					{
+						json j = read_json(particleInputFilePath.string());
+
+						Particle particle = j;
+
+						particleName = particle.getName();
+						std::get< vector<Particle> >(particles).push_back( particle );
+					}
+				});
 
 				fileTree["input"]["particle"][particleName] = particleInputFilePath;
 			}
@@ -157,7 +158,21 @@ void Simulation<
 			string particleName;
 			path particleInputFilePath = it.value();
 
-			mp::visit<ParticleList, detail::conditionally_build_entity>::call_same(particleType, particleInputFilePath, particles, particleName);
+			mp::for_each< mp::provide_indices<ParticleList> >(
+			[&, this](auto Index)
+			{
+				using Particle = typename mp::get<Index, ParticleList>::type;
+				if( NamedType<Particle>::name == particleType)
+				{
+					json j = read_json(particleInputFilePath.string());
+
+					Particle particle = j;
+
+					particleName = particle.getName();
+					std::get< vector<Particle> >(particles).push_back( particle );
+				}
+			});
+
 			fileTree["input"]["particle"][particleName] = particleInputFilePath;
 		}
 	}
@@ -185,7 +200,21 @@ void Simulation<
 				string boundaryType(it.key());
 				string boundaryName;
 
-				mp::visit<BoundaryList, detail::conditionally_build_entity>::call_same(boundaryType, boundaryInputFilePath, boundaries, boundaryName);
+				mp::for_each< mp::provide_indices<BoundaryList> >(
+				[&, this](auto Index)
+				{
+					using Particle = typename mp::get<Index, BoundaryList>::type;
+					if( NamedType<Particle>::name == boundaryType)
+					{
+						json j = read_json(boundaryInputFilePath.string());
+
+						Particle particle = j;
+
+						boundaryName = particle.getName();
+						std::get< vector<Particle> >(boundaries).push_back( particle );
+					}
+				});
+
 				fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
 			}
 		}
@@ -195,7 +224,21 @@ void Simulation<
 			string boundaryName;
 			path boundaryInputFilePath = it.value();
 
-			mp::visit<BoundaryList, detail::conditionally_build_entity>::call_same(boundaryType, boundaryInputFilePath, boundaries, boundaryName);
+			mp::for_each< mp::provide_indices<BoundaryList> >(
+			[&, this](auto Index)
+			{
+				using Particle = typename mp::get<Index, BoundaryList>::type;
+				if( NamedType<Particle>::name == boundaryType)
+				{
+					json j = read_json(boundaryInputFilePath.string());
+
+					Particle particle = j;
+
+					boundaryName = particle.getName();
+					std::get< vector<Particle> >(boundaries).push_back( particle );
+				}
+			});
+
 			fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
 		}
 	}
@@ -245,6 +288,8 @@ void Simulation<
 		{"dimension", this->dimension},
 		{"timeStepsForOutput", this->timeStepsForOutput},
 		{"outputsForExporting", this->outputsForExporting},
+		{"looper", this->looperToUse},
+		{"seeker", this->seekerToUse},
 		{"mainOutputFolder", fileTree["output"]["main"]},
 		{"particleOutputFolder", fileTree["output"]["particleDir"]},
 		{"boundaryOutputFolder", fileTree["output"]["boundaryDir"]},
@@ -455,8 +500,7 @@ struct update_boundary
 	{
 		for(auto& boundary : std::get<vector<B>>(boundaryVectorTuple))
 		{
-			boundary.updatePosition(time);
-			boundary.updateOrientation(time);
+			boundary.update(time);
 		}
 	}
 };
