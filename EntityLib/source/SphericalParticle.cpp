@@ -4,6 +4,7 @@
 #include <SphericalParticle.hpp>
 
 // UtilsLib
+#include <NamedGroup.hpp>
 #include <string.hpp>
 
 namespace psin {
