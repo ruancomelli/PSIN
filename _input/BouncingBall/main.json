@@ -12,7 +12,8 @@
 
 	"interactions":
 	{
-		"NormalForceLinearDashpotForce": null
+		"NormalForceLinearDashpotForce": null,
+		"GravityForce": null
 	},
 
 	"particles":
@@ -31,7 +32,7 @@
 		],
 		"GravityField": 
 		[
-			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/boundaries/Gravity.json"
+			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/boundaries/GravityField.json"
 		]
 	}
 }
