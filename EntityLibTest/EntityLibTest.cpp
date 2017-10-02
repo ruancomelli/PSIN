@@ -1151,3 +1151,9 @@ TestCase(FixedInfinitePlaneTest)
 	FixedInfinitePlane<> plane3 = FixedInfinitePlane<>::buildFromThreePoints(origin2, vector1 + origin2, vector2 + origin2);
 	check( plane2 == plane3 );
 }
+
+TestCase(is_plane_Test)
+{
+	check(is_plane<FixedInfinitePlane<>>::value);
+	check(not is_plane<SphericalParticle<>>::value);
+}
