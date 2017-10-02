@@ -20,7 +20,7 @@ class FixedInfinitePlane
 		FixedInfinitePlane(const FixedInfinitePlane<PropertyTypes...> &) = default;
 		FixedInfinitePlane(FixedInfinitePlane<PropertyTypes...> &&) = default;
 
-		FixedInfinitePlane(const Vector3D & origin, const Vector3D & normalVector, const BaseFixedBoundary & base);
+		FixedInfinitePlane(const Vector3D & origin, const Vector3D & normalVector, const BaseFixedBoundary & base = BaseFixedBoundary());
 
 		// Named Constructors
 		static FixedInfinitePlane<PropertyTypes...> buildFromOriginAndTwoVectors(

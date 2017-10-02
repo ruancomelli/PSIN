@@ -18,7 +18,7 @@ class Boundary :
 		using BasePhysicalEntity = PhysicalEntity<PropertyTypes...>;
 
 		Boundary() = default;
-		Boundary(const Named & named, const BasePhysicalEntity & physical);
+		explicit Boundary(const Named & named, const BasePhysicalEntity & physical = BasePhysicalEntity());
 		Boundary(Named&& named, BasePhysicalEntity&& physical);
 
 		template<typename Time>

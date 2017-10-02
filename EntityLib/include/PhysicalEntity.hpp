@@ -3,6 +3,7 @@
 
 // UtilsLib
 #include <mp/bool_constant.hpp>
+#include <mp/logical.hpp>
 #include <mp/type_collection.hpp>
 
 // JSONLib
@@ -62,11 +63,16 @@ class PhysicalEntity
 };
 
 template<typename Entity, typename PropertyType>
-struct has_property;
+struct has_property
+	: mp::contains<typename Entity::PropertyList, PropertyType>
+{};
 
-template<typename Entity, typename PropertyList>
+template<typename Entity, typename...Ps>
 struct has_properties
-	: mp::for_all<  >
+	: mp::conjunction<
+		has_property<Entity, Ps>...
+	>
+{};
 
 template<typename...Prs>
 void from_json(const json& j, PhysicalEntity<Prs...> & p);

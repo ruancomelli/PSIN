@@ -414,6 +414,41 @@ TestCase(PhysicalEntityPropertyTest)
 	checkEqual(physicalEntity2.property<int>(), intValue);
 }
 
+TestCase(PhysicalEntity_has_property_Test)
+{
+	check((
+			has_property< 
+				PhysicalEntity<Mass, Volume>,
+				Mass
+			>::value
+		));
+	check( not(
+			has_property< 
+				PhysicalEntity<Mass, Volume>,
+				PoissonRatio
+			>::value
+		));
+	check((
+			has_properties< 
+				PhysicalEntity<Mass, Volume>
+			>::value
+		));
+	check((
+			has_properties< 
+				PhysicalEntity<Mass, Volume>,
+				Mass,
+				Volume
+			>::value
+		));
+	check( not(
+			has_properties< 
+				PhysicalEntity<Mass, Volume>,
+				Mass,
+				PoissonRatio
+			>::value
+		));
+}
+
 namespace PhysicalEntityCallPropertyMemberFunction_Test_namespace
 {
 	struct A
@@ -1059,78 +1094,28 @@ TestCase(json_SphericalParticle_Test)
 	checkEqual(j2, j3);
 }
 
-namespace Boundary_Test_namespace
-{
-	vector<Vector3D> pos(double t)
-	{
-		vector<Vector3D> v;
-		v.push_back( Vector3D(t, t+1, t+2) );
-		v.push_back(Vector3D(t*t, 1, t/2));
-		v.push_back(Vector3D(t*t*t, -1, t / 4));
-		v.push_back(Vector3D(0, -t, -t*t));
-
-		return v;
-	}
-	vector<Vector3D> ori(double t)
-	{
-		vector<Vector3D> v;
-		v.push_back(Vector3D(0, 1, 2));
-		v.push_back(Vector3D(t*t, t*t*t, t-1));
-		v.push_back(Vector3D(t*t - 6, t*t*(t-1), t + 1));
-		v.push_back(Vector3D(1, 2*t, 3*t));
-
-		return v;
-	}
-}
-
 TestCase(Boundary_Test)
 {
-	using namespace Boundary_Test_namespace;
-
-	double t = 1.0;
-	vector<Vector3D> positionMatrix = pos(t);
-	vector<Vector3D> orientationMatrix = ori(t);
-
-	Boundary<> boundary;
-	boundary.setTaylorOrder(3);
-
-	boundary.setPositionFunction(pos);
-	boundary.setOrientationFunction(ori);
-
-	boundary.updatePosition(t);
-	boundary.updateOrientation(t);
-
-	checkEqual(boundary.getPositionMatrix(), positionMatrix);
-	checkEqual(boundary.getOrientationMatrix(), orientationMatrix);
+	PhysicalEntity<Mass, Volume> physical;
+	physical.set<Mass>(18.5);
+	physical.set<Volume>(5.2);
+	Boundary<Mass, Volume> boundary(Named("Boundary"), physical);
+	checkEqual(boundary.getName(), "Boundary");
+	checkEqual(boundary.get<Mass>(), 18.5);
+	checkEqual(boundary.get<Volume>(), 5.2);
 }
 
 TestCase(FixedBoundary_Test)
 {
-	Vector3D position(5.4, 7.8, 9.9);
-	Vector3D orientation(7.8, -99.5, 11.3);
-
-	double time = 3.14159;
-
-	FixedBoundary<> fixed( position, orientation );
-
-	checkEqual(fixed.getPosition(), position);
-	checkEqual(fixed.getVelocity(), nullVector3D());
-	checkEqual(fixed.getAcceleration(), nullVector3D());
-
-	checkEqual(fixed.getOrientation(), orientation);
-	checkEqual(fixed.getAngularVelocity(), nullVector3D());
-	checkEqual(fixed.getAngularAcceleration(), nullVector3D());
-
-	fixed.updatePosition(time);
-	fixed.updateOrientation(time);
-
-	checkEqual(fixed.getPosition(), position);
-	checkEqual(fixed.getVelocity(), nullVector3D());
-	checkEqual(fixed.getAcceleration(), nullVector3D());
-
-	checkEqual(fixed.getOrientation(), orientation);
-	checkEqual(fixed.getAngularVelocity(), nullVector3D());
-	checkEqual(fixed.getAngularAcceleration(), nullVector3D());
+	PhysicalEntity<Mass, Volume> physical;
+	physical.set<Mass>(18.5);
+	physical.set<Volume>(5.2);
+	Boundary<Mass, Volume> boundary(Named("Fixed"), physical);
+	FixedBoundary<Mass, Volume> fixed(boundary);
+	fixed.update(3.141592);
+	checkEqual(fixed.getName(), "Fixed");
+	checkEqual(fixed.get<Mass>(), 18.5);
+	checkEqual(fixed.get<Volume>(), 5.2);
 }
 
 TestCase(FixedInfinitePlaneTest)
