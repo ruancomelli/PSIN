@@ -20,7 +20,7 @@ struct GravityForce
 {
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
-		P1::template has_property<Mass>::value
+		has_property<P1, Mass>::value
 		and std::is_same<P2, GravityField>::value
 		>
 	{};
