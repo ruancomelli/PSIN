@@ -12,7 +12,7 @@ namespace psin {
 
 class Vector3D{
 public:
-	Vector3D( void );
+	Vector3D();
 	explicit Vector3D( const double& x );
 	Vector3D( const double& x, const double& y, const double& z=0.0 );
 
@@ -34,8 +34,9 @@ public:
 	Vector3D operator *=( const double scalar );
 	Vector3D operator /=( const double scalar );
 	void print() const;
+	Vector3D projectOn(const Vector3D & v) const;
 
-	virtual ~Vector3D(){}
+	virtual ~Vector3D() = default;
 
 protected:
 	std::array<double, 3> components;

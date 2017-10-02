@@ -400,6 +400,12 @@ TestCase( Vector3DIsEqualOperator ){
 	check( nullVector3D()==nullVector3D() );
 }
 
+TestCase(Vector3D_projectOn_Test){
+	Vector3D projected(1, 2, 3);
+	Vector3D direction(0, 10, 0);
+	checkEqual(projected.projectOn(direction), Vector3D(0, 2, 0));
+}
+
 namespace Vector3D_json_Test_namespace {
 	template<> const string NamedType<Vector3D>::name = "Vector3D";
 } // Vector3D_json_Test_namespace

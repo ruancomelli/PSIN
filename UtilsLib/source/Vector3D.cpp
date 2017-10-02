@@ -91,6 +91,11 @@ void Vector3D::print() const
 	std::cout << this->components[0] << ", " << this->components[1] << ", " << this->components[2] << ";" << std::endl; 
 }
 
+Vector3D Vector3D::projectOn(const Vector3D & v) const
+{
+	return dot(*this, v.normalized()) * v.normalized();
+}
+
 double Vector3D::operator[](const std::size_t & pos) const
 {
 	return this->components[pos];
