@@ -120,3 +120,42 @@ TestCase(json_Property_Test)
 	json j3 = v;
 	check(j3.is_null());
 }
+
+TestCase(Gravity_Test)
+{
+	{
+		Gravity g;
+
+		check(not g.assigned());
+	}
+	{
+		Gravity g( Vector3D(0, -9.81, 0) );
+
+		check(g.assigned());
+		checkEqual(g.get(), Vector3D(0, -9.81, 0));
+	}
+	{
+		Gravity g;
+		g.set( Vector3D(0, -9.81, 0) );
+
+		check(g.assigned());
+		checkEqual(g.get(), Vector3D(0, -9.81, 0));
+	}
+	{
+		json j{
+			{"Gravity", {0, -9.81, 0}}
+		};
+
+		Gravity g = j["Gravity"];
+
+		check(g.assigned());
+		checkEqual(g.get(), Vector3D(0, -9.81, 0));
+	}
+	{
+		Gravity g( Vector3D(0, -9.81, 0) );
+		json j = g;
+		json ans{0, -9.81, 0};
+
+		checkEqual(j, ans);
+	}
+}
