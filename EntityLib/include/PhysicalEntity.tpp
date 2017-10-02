@@ -3,51 +3,40 @@
 
 // UtilsLib
 #include <NamedType.hpp>
-#include <mp/type_list.hpp>
-#include <mp/visit.hpp>
+#include <metaprogramming.hpp>
 
 // JSONLib
 #include <json.hpp>
 
 namespace psin {
 
-namespace detail {
-
-template<typename P>
-struct set_property
+template<typename...Prs>
+void from_json(const json& j, PhysicalEntity<Prs...> & p)
 {
-	template<typename ... Prs>
-	static void call(PhysicalEntity<Prs...>& p, const json& j)
+	using TypeList = typename PhysicalEntity<Prs...>::PropertyList;
+
+	mp::for_each<mp::provide_indices<TypeList>>(
+	[&](auto&& i)
 	{
+		using P = typename mp::get<i, TypeList>::type;
 		if(j.count(NamedType<P>::name) > 0)
 		{
 			p.template property<P>() = j.at(NamedType<P>::name);
 		}
-	}
-};
-
-template<typename P>
-struct get_property
-{
-	template<typename ... Prs>
-	static void call(const PhysicalEntity<Prs...>& p, json& j)
-	{
-		if(p.template assigned<P>()) j[NamedType<P>::name] = p.template get<P>();
-	}
-};
-
-} // detail
-
-template<typename...Prs>
-void from_json(const json& j, PhysicalEntity<Prs...> & p)
-{
-	mp::visit< mp::type_list<Prs...>, detail::set_property >::call_same(p, j);
+	});
 }
 
 template<typename...Prs>
 void to_json(json& j, const PhysicalEntity<Prs...> & p)
 {
-	mp::visit< mp::type_list<Prs...>, detail::get_property >::call_same(p, j);
+	using TypeList = typename PhysicalEntity<Prs...>::PropertyList;
+
+	mp::for_each<mp::provide_indices<TypeList>>(
+	[&](auto&& i)
+	{
+		using P = typename mp::get<i, TypeList>::type;
+		if(p.template assigned<P>()) j[NamedType<P>::name] = p.template get<P>();
+	});
 }
 
 // ----- Constructors -----
@@ -128,9 +117,9 @@ template<typename ... PropertyTypes>
 template<typename PropertyType>
 bool PhysicalEntity<PropertyTypes...>::assigned() const
 {
-	static_assert(mp::type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'assigned' must be in template parameter list in the specialization of 'PhysicalEntity'");
+	static_assert(mp::contains<mp::type_list<PropertyTypes...>, PropertyType>::value, "Template parameter for function 'assigned' must be in template parameter list in the specialization of 'PhysicalEntity'");
 
-	return std::get<PropertyType>(this->propertyTuple).assigned();
+	return this->template property<PropertyType>().assigned();
 }
 
 } // psin

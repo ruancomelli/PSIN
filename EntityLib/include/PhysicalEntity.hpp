@@ -61,6 +61,13 @@ class PhysicalEntity
 		typename mp::type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
 };
 
+template<typename Entity, typename PropertyType>
+struct has_property;
+
+template<typename Entity, typename PropertyList>
+struct has_properties
+	: mp::for_all<  >
+
 template<typename...Prs>
 void from_json(const json& j, PhysicalEntity<Prs...> & p);
 template<typename...Prs>
