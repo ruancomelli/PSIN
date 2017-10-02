@@ -12,9 +12,10 @@
 #include <PropertyDefinitions.hpp>
 
 // UtilsLib
+#include <metaprogramming.hpp>
 #include <NamedType.hpp>
-#include <Vector.hpp>
 #include <string.hpp>
+#include <Vector.hpp>
 
 namespace psin {
 
@@ -23,6 +24,8 @@ class SphericalParticle : public Particle<Radius, PropertyTypes...>
 {
 	public:
 		using BaseParticle = Particle<Radius, PropertyTypes...>;
+
+		constexpr static bool is_spherical = true;
 
 		SphericalParticle();
 		explicit SphericalParticle(const BaseParticle & base);
@@ -36,6 +39,17 @@ class SphericalParticle : public Particle<Radius, PropertyTypes...>
 		Vector3D tangentialVersor(const SphericalParticle<Us...> & neighbor) const;
 };
 
+template<typename T, typename SFINAE = void>
+struct is_spherical : std::false_type {};
+
+template<typename T>
+struct is_spherical<
+		T,
+		std::enable_if_t<T::is_spherical or not T::is_spherical>
+	>
+	: mp::bool_constant<T::is_spherical>
+{};
+
 template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
 
@@ -47,12 +61,6 @@ double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalP
 
 template<typename...Ts, typename...Us>
 Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
-
-template<typename T>
-struct is_spherical : std::false_type {};
-
-template<typename...Ts>
-struct is_spherical< SphericalParticle<Ts...> > : std::true_type {};
 
 template<typename...Prs>
 void from_json(const json& j, SphericalParticle<Prs...> & p);

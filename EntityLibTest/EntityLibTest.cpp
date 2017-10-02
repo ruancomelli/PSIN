@@ -935,6 +935,16 @@ TestCase(SphericalParticle_tangentialVersor_Test)
 	}
 }
 
+TestCase(is_spherical_Test)
+{
+	check((
+			is_spherical< SphericalParticle<> >::value
+		));
+	check( not(
+			is_spherical< Particle<Radius> >::value
+		));
+}
+
 TestCase(SphericalParticleTouchTest)
 {
 	SphericalParticle<> sph0;

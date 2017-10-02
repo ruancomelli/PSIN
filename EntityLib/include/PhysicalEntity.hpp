@@ -62,9 +62,23 @@ class PhysicalEntity
 		typename mp::type_collection<PropertyTypes...>::template specialize<std::tuple> propertyTuple;
 };
 
-template<typename Entity, typename PropertyType>
+// General case
+template<typename Entity, typename PropertyType, typename SFINAE = void>
 struct has_property
 	: mp::contains<typename Entity::PropertyList, PropertyType>
+{};
+
+// In case Entity has a member metafunction has_property, use it to evaluate psin::has_property
+// In this case, has_property<Entity, PropertyType>::value iff Entity::has_property<PropertyType>::value
+template<typename Entity, typename PropertyType>
+struct has_property<
+		Entity, 
+		PropertyType,
+		typename std::enable_if<
+			Entity::template has_property<PropertyType>::value
+		>::type
+	>
+	: std::true_type
 {};
 
 template<typename Entity, typename...Ps>
