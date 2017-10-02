@@ -14,7 +14,7 @@ namespace psin {
 	
 struct Gravity : public Property<Vector3D>
 {
-	Gravity();
+	Gravity() = default;
 	Gravity(const Vector3D & value);
 };
 void from_json(const json& j, Gravity &);

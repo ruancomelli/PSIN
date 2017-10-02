@@ -16,10 +16,6 @@
 
 namespace psin {
 
-Gravity::Gravity()
-	: Property<Vector3D>()
-{}
-
 Gravity::Gravity(const Vector3D & value)
 	: Property<Vector3D>(value)
 {}
