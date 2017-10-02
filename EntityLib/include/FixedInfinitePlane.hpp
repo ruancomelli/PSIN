@@ -15,6 +15,8 @@ class FixedInfinitePlane
 {
 	public:
 		using BaseFixedBoundary = FixedBoundary<PropertyTypes...>;
+
+		constexpr static bool is_plane = true;
 		
 		// ---- ctors ----
 		FixedInfinitePlane(const FixedInfinitePlane<PropertyTypes...> &) = default;
@@ -44,6 +46,17 @@ class FixedInfinitePlane
 		Vector3D origin;
         Vector3D normalVersor;
 };
+
+template<typename T, typename SFINAE = void>
+struct is_plane : std::false_type {};
+
+template<typename T>
+struct is_plane<
+		T,
+		std::enable_if_t<T::is_plane or not T::is_plane>
+	>
+	: mp::bool_constant<T::is_plane>
+{};
 
 template<typename ... PropertyTypes>
 bool operator==(const FixedInfinitePlane<PropertyTypes...> & left, const FixedInfinitePlane<PropertyTypes...> & right);
