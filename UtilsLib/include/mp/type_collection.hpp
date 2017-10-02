@@ -16,8 +16,8 @@ struct type_collection
 
 	using equivalent_type_list = make_unique_type_list<Ts...>;
 
-	template<typename U, typename ... Us>
-	constexpr static bool contains = equivalent_type_list::template contains<U, Us...>;
+	template<typename ... Us>
+	constexpr static bool contains = equivalent_type_list::template contains<Us...>;
 
 	constexpr static bool is_empty = equivalent_type_list::is_empty;
 
