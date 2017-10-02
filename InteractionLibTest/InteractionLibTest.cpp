@@ -346,6 +346,25 @@ TestCase(TangentialForceHaffWerner_Test)
 	//TODO check values
 }
 
+TestCase(GravityForce_Test)
+{
+	Vector3D gravity(0, -9.81, 0);
+	double mass = 54;
+
+	check((
+			GravityForce::check< Particle<Mass>, GravityField >::value
+		));
+
+	Particle<Mass> particle;
+	GravityField gravityField;
+
+	gravityField.set<Gravity>(gravity);
+	particle.set<Mass>(mass);
+
+	GravityForce::calculate(particle, gravityField);
+	checkEqual(particle.getResultingForce(), mass*gravity);
+}
+
 // TestCase(ConstructorsTest)
 // {
 // 	SphericalParticlePtr sph0( new SphericalParticle() );
