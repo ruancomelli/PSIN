@@ -9,6 +9,7 @@
 
 // UtilsLib
 #include <Builder.hpp>
+#include <metaprogramming.hpp>
 
 // Standard
 #include <type_traits>

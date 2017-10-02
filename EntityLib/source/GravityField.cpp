@@ -13,24 +13,17 @@ const string NamedType<GravityField>::name = "GravityField";
 
 void from_json(const json& j, GravityField & g)
 {
-	Named named = j;
-	GravityField::BaseFixedBoundary fixed = j;
-
-	g = GravityField(named, fixed);
+	g = GravityField(j.get<GravityField::BaseFixedBoundary>());
 }
 
 void to_json(json& j, const GravityField & g)
 {
-	Named named = g;
 	GravityField::BaseFixedBoundary fixed = g;
 
-	json jn = named;
-	json jph = fixed;
-
-	j = merge(jn, jph);
+	j = fixed;
 }
 
-GravityField::GravityField(const Named & named, const BaseFixedBoundary & fixed)
+GravityField::GravityField(const BaseFixedBoundary & fixed)
 	: BaseFixedBoundary(fixed)
 {}
 
