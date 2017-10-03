@@ -50,7 +50,7 @@ class Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 > : public Named
 {
 public:
@@ -58,7 +58,7 @@ public:
 	using BoundaryList = psin::BoundaryList<BoundaryTypes...>;
 	using InteractionList = psin::InteractionList<InteractionTypes...>;
 	using LooperList = psin::LooperList<GearLooper>;
-	using SeekerList = psin::SeekerList<CollisionSeeker>;
+	using SeekerList = psin::SeekerList<BlindSeeker>;
 	using InteractionParticleParticleTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, ParticleList, ParticleList>::type;
 	using InteractionParticleBoundaryTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, ParticleList, BoundaryList>::type;
 

@@ -31,7 +31,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::setup(const path & mainInputFilePath)
 {
 	fileTree["input"]["main"] = mainInputFilePath;
@@ -70,7 +70,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::setupInteractions(const json & interactionsJSON)
 {
 	for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
@@ -122,7 +122,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::buildParticles(const json & particlesJSON)
 {
 	for(json::const_iterator it = particlesJSON.begin(); it != particlesJSON.end(); ++it) 
@@ -188,7 +188,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::buildBoundaries(const json & boundariesJSON)
 {
 	for(json::const_iterator it = boundariesJSON.begin(); it != boundariesJSON.end(); ++it) 
@@ -254,7 +254,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::createDirectories() const
 {
 	filesystem::create_directories( fileTree["output"]["main"] );
@@ -275,7 +275,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::outputMainData() const
 {
 	this->createDirectories();
@@ -314,7 +314,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::backupInteractions() const
 {
 	if(fileTree["input"]["interaction"].is_object())
@@ -342,7 +342,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::backupParticles() const
 {
 	if(fileTree["input"]["particle"].is_object())
@@ -370,7 +370,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::backupBoundaries() const
 {
 	if(fileTree["input"]["boundary"].is_object())
@@ -438,7 +438,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::openFiles()
 {
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
@@ -606,7 +606,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::exportParticles(const Time & time)
 {
 	string timeIndex = to_string(time.getIndex());
@@ -638,7 +638,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::exportBoundaries(const Time & time)
 {
 	string timeIndex = to_string(time.getIndex());
@@ -671,7 +671,7 @@ void Simulation<
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
-	SeekerList<CollisionSeeker>
+	SeekerList<BlindSeeker>
 >::simulate()
 {
 	openFiles();
