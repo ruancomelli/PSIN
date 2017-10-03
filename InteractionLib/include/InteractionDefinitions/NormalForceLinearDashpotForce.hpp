@@ -24,11 +24,11 @@ struct NormalForceLinearDashpotForce
 {
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
-		P1::template has_property<ElasticModulus>::value
-		and P1::template has_property<NormalDissipativeConstant>::value
+		has_property<P1, ElasticModulus>::value
+		and has_property<P1, NormalDissipativeConstant>::value
 		and is_spherical<P1>::value
-		and P2::template has_property<ElasticModulus>::value
-		and P2::template has_property<NormalDissipativeConstant>::value
+		and has_property<P2, ElasticModulus>::value
+		and has_property<P2, NormalDissipativeConstant>::value
 		and is_spherical<P2>::value
 		>
 	{};

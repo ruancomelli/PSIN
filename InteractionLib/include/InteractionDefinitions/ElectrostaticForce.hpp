@@ -22,8 +22,8 @@ struct ElectrostaticForce
 {
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
-		P1::template has_property<ElectricCharge>::value
-		and P2::template has_property<ElectricCharge>::value
+		has_property<P1, ElectricCharge>::value
+		and has_property<P2, ElectricCharge>::value
 		>
 	{};
 
