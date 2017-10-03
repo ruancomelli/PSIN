@@ -26,10 +26,18 @@ template<typename...Ts>
 const string NamedType<SphericalParticle<Ts...>>::name = "SphericalParticle";
 
 template<typename...Ts, typename...Us>
+double distance(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	const auto position = lhs.getPosition();
+	const auto origin = rhs.getOrigin();
+	const auto normalVersor = rhs.getNormalVersor();
+
+	return (position-origin).projectOn(normalVersor).length();
+}
+
+template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
-	
-
 	double radius1 = left.template get<Radius>();
 	double radius2 = right.template get<Radius>();
 
@@ -37,10 +45,16 @@ bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...>
 }
 
 template<typename...Ts, typename...Us>
+bool touch(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	const auto radius = lhs.template get<Radius>();
+
+	return radius >= distance(lhs, rhs);
+}
+
+template<typename...Ts, typename...Us>
 double overlap(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
-	
-
 	double radius1 = left.template get<Radius>();
 	double radius2 = right.template get<Radius>();
 	double dist = distance(left, right);
@@ -55,6 +69,19 @@ double overlap(const SphericalParticle<Ts...> & left, const SphericalParticle<Us
 }
 
 template<typename...Ts, typename...Us>
+double overlap(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	if(touch(lhs, rhs))
+	{
+		return lhs.template get<Radius>() - distance(lhs, rhs);
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+template<typename...Ts, typename...Us>
 double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
 	if(touch(left, right))
@@ -63,6 +90,31 @@ double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalP
 		const Vector3D velocityDifference = right.getVelocity() - left.getVelocity();
 		const double overlapDerivative = - dot(positionDifference, velocityDifference) / positionDifference.length();
 		return overlapDerivative;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+template<typename...Ts, typename...Us>
+double overlapDerivative(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	if(touch(lhs, rhs))
+	{
+		const auto position = lhs.getPosition();
+		const auto velocity = lhs.getVelocity();
+		const auto origin = rhs.getOrigin();
+		const auto normalVersor = rhs.getNormalVersor();
+		
+		if( dot(position-origin, normalVersor) >= 0 )
+		{
+			return - dot(velocity, normalVersor);
+		}
+		else
+		{
+			return dot(velocity, normalVersor);
+		}
 	}
 	else
 	{
@@ -95,11 +147,6 @@ Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalPart
 
 
 // // ------------------------------- Constructor -------------------------------
-template<typename ... PropertyTypes>
-SphericalParticle<PropertyTypes...>::SphericalParticle()
-	: BaseParticle()
-{}
-
 template<typename ... PropertyTypes>
 SphericalParticle<PropertyTypes...>::SphericalParticle(const BaseParticle & base)
 	: BaseParticle(base)

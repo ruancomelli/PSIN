@@ -7,6 +7,7 @@
 
 // EntityLib
 #include <Particle.hpp>
+#include <FixedInfinitePlane.hpp>
 
 // PropertyLib
 #include <PropertyDefinitions.hpp>
@@ -27,7 +28,7 @@ class SphericalParticle : public Particle<Radius, PropertyTypes...>
 
 		constexpr static bool is_spherical = true;
 
-		SphericalParticle();
+		SphericalParticle() = default;
 		explicit SphericalParticle(const BaseParticle & base);
 		explicit SphericalParticle(const string & name, const int taylorOrder = DEFAULT_SPATIAL_ENTITY_TAYLOR_ORDER);
 		
@@ -51,16 +52,28 @@ struct is_spherical<
 {};
 
 template<typename...Ts, typename...Us>
-bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
+double distance(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs);
 
 template<typename...Ts, typename...Us>
-double overlap(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
+bool touch(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
 
 template<typename...Ts, typename...Us>
-double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
+bool touch(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs);
 
 template<typename...Ts, typename...Us>
-Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right);
+double overlap(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+double overlap(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+double overlapDerivative(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+double overlapDerivative(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+Vector3D contactPoint(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
 
 template<typename...Prs>
 void from_json(const json& j, SphericalParticle<Prs...> & p);

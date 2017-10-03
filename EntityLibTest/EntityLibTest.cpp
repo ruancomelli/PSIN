@@ -1157,3 +1157,35 @@ TestCase(is_plane_Test)
 	check(is_plane<FixedInfinitePlane<>>::value);
 	check(not is_plane<SphericalParticle<>>::value);
 }
+
+TestCase(SphericalParticle_and_FixedInfinitePlane_Test)
+{
+	{
+		Vector3D origin(0, 0, 0);
+		Vector3D normalVersor(0, 1, 0);
+		FixedInfinitePlane<> plane(origin, normalVersor);
+
+		SphericalParticle<> sphere;
+		sphere.set<Radius>(1);
+		sphere.setPosition( Vector3D(0, 0.6, 0));
+		sphere.setVelocity( Vector3D(0, -10, 0));
+
+		check(touch(sphere, plane));
+		checkEqual(overlap(sphere, plane), 0.4);
+		checkEqual(overlapDerivative(sphere, plane), 10);
+	}
+	{
+		Vector3D origin(0, 0, 0);
+		Vector3D normalVersor(0, 1, 0);
+		FixedInfinitePlane<> plane(origin, normalVersor);
+
+		SphericalParticle<> sphere;
+		sphere.set<Radius>(1);
+		sphere.setPosition( Vector3D(0, 1.6, 0));
+		sphere.setVelocity( Vector3D(0, -10, 0));
+
+		check(not touch(sphere, plane));
+		checkEqual(overlap(sphere, plane), 0);
+		checkEqual(overlapDerivative(sphere, plane), 0);
+	}
+}
