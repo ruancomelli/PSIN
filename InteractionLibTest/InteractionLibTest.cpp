@@ -170,7 +170,7 @@ TestCase(NormalForceLinearDashpotForce_Test)
 	//TODO check values
 }
 
-TestCase(NormalForceViscoelasticSpheres_Test)
+TestCase(NormalForceHertz_Test)
 {
 	double elasticModulus1 = 1e9;
 	double elasticModulus2 = 1e8;
@@ -212,17 +212,17 @@ TestCase(NormalForceViscoelasticSpheres_Test)
 	p2.setVelocity(velocity2);
 
 	check((
-		NormalForceViscoelasticSpheres::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
+		NormalForceHertz::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
 			SphericalParticle<ElasticModulus, DissipativeConstant, Volume, PoissonRatio> 
 			>::value
 	));
 	check(!(
-		NormalForceViscoelasticSpheres::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
+		NormalForceHertz::check< SphericalParticle<ElasticModulus, DissipativeConstant, PoissonRatio>, 
 			Particle<ElasticModulus, Volume> 
 			>::value
 	));
 
-	NormalForceViscoelasticSpheres::calculate(p1, p2);
+	NormalForceHertz::calculate(p1, p2);
 
 	//TODO check values
 }

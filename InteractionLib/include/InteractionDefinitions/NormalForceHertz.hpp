@@ -1,5 +1,5 @@
-#ifndef NORMAL_FORCE_VISCOELASTIC_SPHERES_HPP
-#define NORMAL_FORCE_VISCOELASTIC_SPHERES_HPP
+#ifndef NORMAL_FORCE_HERTZ_HPP
+#define NORMAL_FORCE_HERTZ_HPP
 
 // EntityLib
 #include <SphericalParticle.hpp>
@@ -20,20 +20,20 @@ namespace psin {
 //		tangentialForce is the tangential force applied BY neighbor TO particle
 
 //		Calculates normal forces between two spherical particles according to equation (2.14) (see reference)
-struct NormalForceViscoelasticSpheres
+struct NormalForceHertz
 {
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
-		P1::template has_property<Radius>::value
-		and P1::template has_property<ElasticModulus>::value
-		and P1::template has_property<DissipativeConstant>::value
-		and P1::template has_property<PoissonRatio>::value
+		has_property<P1, Radius>::value
+		and has_property<P1, ElasticModulus>::value
+		and has_property<P1, DissipativeConstant>::value
+		and has_property<P1, PoissonRatio>::value
 		and is_spherical<P1>::value
 
-		and P2::template has_property<Radius>::value
-		and P2::template has_property<ElasticModulus>::value
-		and P2::template has_property<DissipativeConstant>::value
-		and P2::template has_property<PoissonRatio>::value
+		and has_property<P2, Radius>::value
+		and has_property<P2, ElasticModulus>::value
+		and has_property<P2, DissipativeConstant>::value
+		and has_property<P2, PoissonRatio>::value
 		and is_spherical<P2>::value
 		>
 	{};
@@ -43,13 +43,13 @@ struct NormalForceViscoelasticSpheres
 };
 
 template<>
-struct Builder<NormalForceViscoelasticSpheres>
+struct Builder<NormalForceHertz>
 {
 	static void setup(const json & j);
 };
 
 } // psin
 
-#include <InteractionDefinitions/NormalForceViscoelasticSpheres.tpp>
+#include <InteractionDefinitions/NormalForceHertz.tpp>
 
 #endif

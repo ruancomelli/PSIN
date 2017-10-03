@@ -1,5 +1,5 @@
-#ifndef NORMAL_FORCE_VISCOELASTIC_SPHERES_TPP
-#define NORMAL_FORCE_VISCOELASTIC_SPHERES_TPP
+#ifndef NORMAL_FORCE_HERTZ_TPP
+#define NORMAL_FORCE_HERTZ_TPP
 
 // EntityLib
 #include <SphericalParticle.hpp>
@@ -20,7 +20,7 @@ namespace psin {
 
 //		Calculates normal forces between two spherical particles according to equation (2.14) (see reference)
 template<typename...Ts, typename...Us>
-Vector3D NormalForceViscoelasticSpheres::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
+Vector3D NormalForceHertz::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
 {
 	// Calculations
 	const double overlap = psin::overlap(particle, neighbor);

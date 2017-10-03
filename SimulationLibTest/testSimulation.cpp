@@ -131,7 +131,7 @@ TestCase(Simulation_Instantiation_Test)
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
-			NormalForceViscoelasticSpheres,
+			NormalForceHertz,
 			TangentialForceCundallStrack,
 			TangentialForceHaffWerner
 			>,
@@ -175,7 +175,7 @@ TestCase(Simulation_setup_Test)
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
-			NormalForceViscoelasticSpheres,
+			NormalForceHertz,
 			TangentialForceCundallStrack,
 			TangentialForceHaffWerner
 			>,
@@ -223,7 +223,7 @@ TestCase(Simulation_setup_and_outputMainData_Test)
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
-			NormalForceViscoelasticSpheres,
+			NormalForceHertz,
 			TangentialForceCundallStrack,
 			TangentialForceHaffWerner
 			>,
@@ -276,7 +276,7 @@ TestCase(Simulation_simulate_Test)
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
-			NormalForceViscoelasticSpheres,
+			NormalForceHertz,
 			TangentialForceCundallStrack,
 			TangentialForceHaffWerner
 			>,
@@ -334,7 +334,7 @@ TestCase(Simulation_simulate_with_boundary_Test)
 		InteractionList<
 			ElectrostaticForce,
 			NormalForceLinearDashpotForce,
-			NormalForceViscoelasticSpheres,
+			NormalForceHertz,
 			TangentialForceCundallStrack,
 			TangentialForceHaffWerner
 			>,
