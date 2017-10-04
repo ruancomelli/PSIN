@@ -99,19 +99,6 @@ void Simulation<
 	}
 }
 
-namespace detail {
-
-template<typename Entity>
-struct conditionally_build_entity
-{
-	template<typename EntityTuple>
-	static void call(const string & entityType, const path & filepath, EntityTuple & entities, string & entityName)
-	{
-	}
-};
-
-} // detail
-
 template<
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes,
@@ -557,13 +544,30 @@ struct interact_particle_particle
 		using EntityType = typename mp::get<1, InteractionTriplet>::type;
 		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
 
-		for(auto& entity : std::get<vector<EntityType>>(particleVectorTuple))
+		if(interactionsToUse.count(NamedType<InteractionType>::name) > 0) // check at runtime that this interaction should be used
 		{
-			for(auto& neighbor : std::get<vector<NeighborType>>(particleVectorTuple))
+			if(std::is_same<EntityType, NeighborType>::value)
 			{
-				if(interactionsToUse.count(NamedType<InteractionType>::name) > 0)
+				for(auto&& entity_it = std::get<vector<EntityType>>(particleVectorTuple).begin();
+					entity_it != std::get<vector<EntityType>>(particleVectorTuple).end();
+					++entity_it)
 				{
-					InteractionType::calculate(entity, neighbor, time);
+					for(auto&& neighbor_it = std::next(entity_it);
+						neighbor_it != std::get<vector<EntityType>>(particleVectorTuple).end();
+						++neighbor_it)
+					{
+						InteractionType::calculate(*entity_it, *neighbor_it, time);
+					}
+				}
+			}
+			else
+			{
+				for(auto& entity : std::get<vector<EntityType>>(particleVectorTuple))
+				{
+					for(auto& neighbor : std::get<vector<NeighborType>>(particleVectorTuple))
+					{
+						InteractionType::calculate(entity, neighbor, time);
+					}
 				}
 			}
 		}
