@@ -136,7 +136,7 @@ TestCase(Simulation_Instantiation_Test)
 			TangentialForceHaffWerner
 			>,
 		LooperList<GearLooper>,
-		SeekerList<CollisionSeeker>
+		SeekerList<BlindSeeker>
 	> simulation;
 }
 
@@ -180,7 +180,7 @@ TestCase(Simulation_setup_Test)
 			TangentialForceHaffWerner
 			>,
 		LooperList<GearLooper>,
-		SeekerList<CollisionSeeker>
+		SeekerList<BlindSeeker>
 	> simulation;
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
@@ -228,7 +228,7 @@ TestCase(Simulation_setup_and_outputMainData_Test)
 			TangentialForceHaffWerner
 			>,
 		LooperList<GearLooper>,
-		SeekerList<CollisionSeeker>
+		SeekerList<BlindSeeker>
 	> simulation;
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
@@ -281,7 +281,7 @@ TestCase(Simulation_simulate_Test)
 			TangentialForceHaffWerner
 			>,
 		LooperList<GearLooper>,
-		SeekerList<CollisionSeeker>
+		SeekerList<BlindSeeker>
 	> simulation;
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
@@ -339,7 +339,7 @@ TestCase(Simulation_simulate_with_boundary_Test)
 			TangentialForceHaffWerner
 			>,
 		LooperList<GearLooper>,
-		SeekerList<CollisionSeeker>
+		SeekerList<BlindSeeker>
 	> simulation;
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
