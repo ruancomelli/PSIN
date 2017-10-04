@@ -1,6 +1,9 @@
 #ifndef GRAVITY_FORCE_HPP
 #define GRAVITY_FORCE_HPP
 
+// EntityLib
+#include <PhysicalEntity.hpp>
+
 // JSONLib
 #include <json.hpp>
 

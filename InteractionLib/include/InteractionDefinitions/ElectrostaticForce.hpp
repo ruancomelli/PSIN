@@ -1,6 +1,9 @@
 #ifndef ELECTROSTATIC_FORCE_HPP
 #define ELECTROSTATIC_FORCE_HPP
 
+// EntityLib
+#include <PhysicalEntity.hpp>
+
 // PropertyLib
 #include <PropertyDefinitions.hpp>
 
