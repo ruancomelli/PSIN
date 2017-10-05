@@ -263,7 +263,7 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::outputMainData() const
+>::outputMainData()
 {
 	this->createDirectories();
 
@@ -287,8 +287,8 @@ void Simulation<
 
 
 	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
-	std::ofstream mainOutputFile( mainOutputFilePath.string() );
-	mainOutputFile << mainOutput.dump(4);
+	mainFileMap["main"] = make_unique<std::fstream>(mainOutputFilePath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+	*mainFileMap["main"] << mainOutput.dump(4);
 }
 
 template<

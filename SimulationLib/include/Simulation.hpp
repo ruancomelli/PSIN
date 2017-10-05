@@ -71,7 +71,7 @@ public:
 	void openFiles();
 
 	// Output
-	void outputMainData() const;
+	void outputMainData();
 	void createDirectories() const;
 	void backupInteractions() const;
 	void backupParticles() const;
