@@ -5,6 +5,7 @@
     "finalTime": 0.1,
     "initialTime": 0.0,
     "interactions": null,
+    "looper": "GearLooper",
     "mainOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles",
     "outputsForExporting": 1,
     "particleOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles",
@@ -12,6 +13,7 @@
         "BlueSphere": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json",
         "RedSphere": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json"
     },
+    "seeker": "BlindSeeker",
     "taylorOrder": 4,
     "timeStep": 0.01,
     "timeStepsForOutput": 2
