@@ -53,20 +53,6 @@ class Paths:
 		os.makedirs(self.simulationPlotFolder, exist_ok = True)
 		os.makedirs(self.simulationAnimationFolder, exist_ok = True)
 
-		# self.particleHistoryArray = {}
-		# for particleFilePath in particleFilePaths:
-		# 	filename = os.path.basename(particleFilePath)
-		# 	particleName = os.path.splitext(filename)[0]
-		# 	with open(particleFilePath) as particleFile:    
-		# 		self.particleHistoryArray[particleName] = json.load(particleFile)
-
-		# self.boundaryHistoryArray = []
-		# for boundaryFilePath in boundaryFilePaths:
-		# 	filename = os.path.basename(boundaryFilePath)
-		# 	boundaryName = os.path.splitext(filename)[0]
-		# 	with open(boundaryFilePath) as boundaryFile:    
-		# 		self.boundaryHistoryArray[particleName] = json.load(particleFile)
-
 
 	def getSimulationProgramPath( self ):
 		self.generate()
