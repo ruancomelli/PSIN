@@ -77,6 +77,7 @@ public:
 	void backupParticles() const;
 	void backupBoundaries() const;
 
+	template<typename Time> void exportTime(const Time & time);
 	template<typename Time> void exportParticles(const Time & time);
 	template<typename Time> void exportBoundaries(const Time & time);
 

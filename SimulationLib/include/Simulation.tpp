@@ -429,7 +429,7 @@ void Simulation<
 >::openFiles()
 {
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
-	mainFileMap["timeVector"] = make_unique<std::fstream>( timeVectorOutputFilePath.string() );
+	mainFileMap["timeVector"] = make_unique<std::fstream>(timeVectorOutputFilePath.string(), std::ios::in | std::ios::out | std::ios::trunc);
 
 	mp::visit<ParticleList, detail::open_particle_file>::call_same(particles, fileTree, particleFileMap);
 	mp::visit<BoundaryList, detail::open_boundary_file>::call_same(boundaries, fileTree, boundaryFileMap);
@@ -611,9 +611,34 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
+>::exportTime(const Time & time)
+{
+	json fileContent;
+	json informationToExport = time.as_json();
+
+	path filepath = fileTree["output"]["main"] / path("timeVector.json");
+	mainFileMap["timeVector"]->seekg(0); // rewinds the file
+	*mainFileMap["timeVector"] >> fileContent;
+	mainFileMap["timeVector"]->close();
+
+	mainFileMap["timeVector"]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+	*mainFileMap["timeVector"] << merge(fileContent, informationToExport).dump(4);
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+template<typename Time>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<BlindSeeker>
 >::exportParticles(const Time & time)
 {
-	string timeIndex = to_string(time.getIndex());
 	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
 	{
 		json fileContent;
@@ -645,22 +670,19 @@ void Simulation<
 	SeekerList<BlindSeeker>
 >::exportBoundaries(const Time & time)
 {
-	string timeIndex = to_string(time.getIndex());
 	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
 	{
 		json fileContent;
-		json informationToExport{
-			{timeIndex, merge(it->second)}
-		};
+		json informationToExport = it->second;
 
 		path filepath = fileTree["output"]["boundary"][it->first].get<path>();
-
 		boundaryFileMap[it->first]->seekg(0); // rewinds the file
 		*boundaryFileMap[it->first] >> fileContent;
 		boundaryFileMap[it->first]->close();
 
 		boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
 		*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+
 		it->second.clear();
 	}
 }
