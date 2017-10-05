@@ -59,7 +59,8 @@ template<typename Index, typename Value>
 json GearLooper::Time<Index, Value>::as_json() const
 {
 	return json{
-		{to_string(timeIndex), time}
+		{"timeInstant", time},
+		{"timeIndex", timeIndex}
 	};
 }
 
