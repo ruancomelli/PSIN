@@ -18,7 +18,7 @@ template<typename Index, typename Value>
 void GearLooper::Time<Index, Value>::start()
 {
 	this->time = this->initialTime;
-	this->timeIndex = Index(0);
+	this->timeIndex = index_type(0);
 }
 
 template<typename Index, typename Value>
@@ -59,8 +59,8 @@ template<typename Index, typename Value>
 json GearLooper::Time<Index, Value>::as_json() const
 {
 	return json{
-		{"timeInstant", time},
-		{"timeIndex", timeIndex}
+		{"timeInstant", this->time},
+		{"timeIndex", this->timeIndex}
 	};
 }
 
