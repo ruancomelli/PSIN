@@ -430,6 +430,7 @@ void Simulation<
 {
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
 	mainFileMap["timeVector"] = make_unique<std::fstream>(timeVectorOutputFilePath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+	*mainFileMap["timeVector"] << json().dump();
 
 	mp::visit<ParticleList, detail::open_particle_file>::call_same(particles, fileTree, particleFileMap);
 	mp::visit<BoundaryList, detail::open_boundary_file>::call_same(boundaries, fileTree, boundaryFileMap);
@@ -717,6 +718,7 @@ void Simulation<
 
 			if(outputsForExportingCounter == 0)
 			{
+				exportTime(time);
 				exportParticles(time);
 				exportBoundaries(time);
 			}
