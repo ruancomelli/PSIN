@@ -10,7 +10,6 @@ from Paths import Paths
 from Simulate import Simulate
 from GeneratePlots import GeneratePlots
 from GenerateAnimations import GenerateAnimations
-from Console import Console
 
 
 #
