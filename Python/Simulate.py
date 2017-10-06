@@ -9,18 +9,19 @@ class Simulate():
 	def execute( self ):
 		# After: add pos processing, get the progrma return code
 
-		[ simulationName , programPath , rootFolder ] = self.userInput.get()
+		programPath = self.paths.getSimulationProgramPath()
+		mainInputFilePath = self.paths.getSimulationMainInputFilePath()
 
 		self.display.message("Simulating")
 
-		self.simulationNameToProgram = " --simulation=" + simulationName + " "
-		self.rootFolderToProgram = " --root=" + rootFolder + " "
+		programArg = "-- path=\"" + mainInputFilePath + "\" "
 
-		# Handle with errors
+		# Handle errors
 		# Possible errors:
 		#	executable not found
 		try:
-			subprocess.run( programPath + self.rootFolderToProgram + self.simulationNameToProgram )
+			# subprocess.run( programPath + programArg )
+			subprocess.call( [programPath, programArg] )
 		except FileNotFoundError:
 			self.display.message("Simulation program not found")
 			return
