@@ -13,9 +13,11 @@ class Paths:
 		# reference and returns the paths used by
 		# the interface
 
-		[ self.programPath , self.mainInputFilePath ] = self.userInput.get()
+		[ programPath , mainInputFilePath ] = self.userInput.get()
+		self.programPath = programPath.get()
+		self.mainInputFilePath = mainInputFilePath.get()
 
-		with open(self.mainInputFilePath.get()) as mainInputFile:    
+		with open(self.mainInputFilePath) as mainInputFile:    
 			mainInput = json.load(mainInputFile)
 
 		# Important data:
@@ -47,6 +49,8 @@ class Paths:
 
 		self.simulationPlotFolder = os.path.join(mainInput["mainOutputFolder"], "Plots")
 		self.simulationAnimationFolder = os.path.join(mainInput["mainOutputFolder"], "Animations")
+		self.timeVectorPath = os.path.join(mainInput["mainOutputFolder"], "timeVector.json")
+		self.mainOutputFilePath = os.path.join(mainInput["mainOutputFolder"], "main.json")
 
 		# Create directories
 
@@ -59,10 +63,20 @@ class Paths:
 
 		return self.programPath
 
+	def getSimulationTimeVectorPath( self ):
+		self.generate()
+
+		return self.timeVectorPath
+
 	def getSimulationMainInputFilePath( self ):
 		self.generate()
 
 		return self.mainInputFilePath
+
+	def getSimulationMainOutputFilePath( self ):
+		self.generate()
+
+		return self.mainOutputFilePath
 
 	def getSimulationParticleFilePaths( self ):
 		self.generate()
