@@ -1,6 +1,6 @@
 [
     {
-        "SphericalParticle": {
+        "particle": {
             "Mass": 0.001,
             "Name": "RedSphere",
             "Orientation": [
@@ -65,10 +65,11 @@
                 0.0
             ]
         },
-        "TimeIndex": 0
+        "particleType": "SphericalParticle",
+        "timeIndex": 0
     },
     {
-        "SphericalParticle": {
+        "particle": {
             "Mass": 0.001,
             "Name": "RedSphere",
             "Orientation": [
@@ -133,6 +134,283 @@
                 0.0
             ]
         },
-        "TimeIndex": 2
+        "particleType": "SphericalParticle",
+        "timeIndex": 2
+    },
+    {
+        "particle": {
+            "Mass": 0.001,
+            "Name": "RedSphere",
+            "Orientation": [
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "PoissonRatio": 0.3,
+            "Position": [
+                [
+                    0.4,
+                    0.0,
+                    0.0
+                ],
+                [
+                    10.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "Radius": 0.01,
+            "bodyForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "contactForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "resultingTorque": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        "particleType": "SphericalParticle",
+        "timeIndex": 4
+    },
+    {
+        "particle": {
+            "Mass": 0.001,
+            "Name": "RedSphere",
+            "Orientation": [
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "PoissonRatio": 0.3,
+            "Position": [
+                [
+                    0.6,
+                    0.0,
+                    0.0
+                ],
+                [
+                    10.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "Radius": 0.01,
+            "bodyForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "contactForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "resultingTorque": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        "particleType": "SphericalParticle",
+        "timeIndex": 6
+    },
+    {
+        "particle": {
+            "Mass": 0.001,
+            "Name": "RedSphere",
+            "Orientation": [
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "PoissonRatio": 0.3,
+            "Position": [
+                [
+                    0.8,
+                    0.0,
+                    0.0
+                ],
+                [
+                    10.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "Radius": 0.01,
+            "bodyForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "contactForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "resultingTorque": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        "particleType": "SphericalParticle",
+        "timeIndex": 8
+    },
+    {
+        "particle": {
+            "Mass": 0.001,
+            "Name": "RedSphere",
+            "Orientation": [
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "PoissonRatio": 0.3,
+            "Position": [
+                [
+                    1.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    10.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                [
+                    0.0,
+                    0.0,
+                    0.0
+                ]
+            ],
+            "Radius": 0.01,
+            "bodyForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "contactForce": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "resultingTorque": [
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        "particleType": "SphericalParticle",
+        "timeIndex": 10
     }
 ]

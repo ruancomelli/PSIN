@@ -1,4 +1,32 @@
-{
-    "timeIndex": ,
-    "timeInstant": 0
-}
+[
+    "Time",
+    {
+        "timeIndex": 0,
+        "timeInstant": 0.0
+    },
+    "Time",
+    {
+        "timeIndex": 2,
+        "timeInstant": 0.02
+    },
+    "Time",
+    {
+        "timeIndex": 4,
+        "timeInstant": 0.04
+    },
+    "Time",
+    {
+        "timeIndex": 6,
+        "timeInstant": 0.06
+    },
+    "Time",
+    {
+        "timeIndex": 8,
+        "timeInstant": 0.08
+    },
+    "Time",
+    {
+        "timeIndex": 10,
+        "timeInstant": 0.1
+    }
+]

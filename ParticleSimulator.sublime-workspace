@@ -4,6 +4,82 @@
 		"selected_items":
 		[
 			[
+				"Gra",
+				"Gravity"
+			],
+			[
+				"gra",
+				"gravity"
+			],
+			[
+				"che",
+				"check"
+			],
+			[
+				"Pro",
+				"PropertyType"
+			],
+			[
+				"Fix",
+				"FixedBoundary"
+			],
+			[
+				"has",
+				"has_property"
+			],
+			[
+				"Pr",
+				"PropertyType"
+			],
+			[
+				"boo",
+				"bool_constant"
+			],
+			[
+				"G",
+				"Gravity"
+			],
+			[
+				"con",
+				"const"
+			],
+			[
+				"Gr",
+				"GravityField"
+			],
+			[
+				"Grav",
+				"GravityField"
+			],
+			[
+				"check",
+				"checkEqual"
+			],
+			[
+				"get_",
+				"get_apply"
+			],
+			[
+				"type",
+				"typename"
+			],
+			[
+				"is_",
+				"is_empty"
+			],
+			[
+				"Te",
+				"TestCase"
+			],
+			[
+				"nam",
+				"name\tNamespace"
+			],
+			[
+				"Sub",
+				"Subjects1"
+			],
+			[
 				"file",
 				"FileSystem"
 			],
@@ -40,14 +116,6 @@
 				"visit_Test_namespace"
 			],
 			[
-				"nam",
-				"namespace"
-			],
-			[
-				"Te",
-				"Test"
-			],
-			[
 				"st",
 				"structtemp\ttemplated struct"
 			],
@@ -58,10 +126,6 @@
 			[
 				"Vector",
 				"Vector3D"
-			],
-			[
-				"check",
-				"checkEqual"
 			],
 			[
 				"Po",
@@ -92,10 +156,6 @@
 				"Interactions"
 			],
 			[
-				"type",
-				"type_list"
-			],
-			[
 				"In",
 				"Interactions"
 			],
@@ -122,10 +182,6 @@
 			[
 				"Ele",
 				"ElectricCharge"
-			],
-			[
-				"Pro",
-				"PropertyTypes"
 			],
 			[
 				"P",
@@ -174,10 +230,6 @@
 			[
 				"chec",
 				"check"
-			],
-			[
-				"con",
-				"conditional"
 			],
 			[
 				"size",
@@ -240,10 +292,6 @@
 				"xComponent"
 			],
 			[
-				"is_",
-				"is_subset_of"
-			],
-			[
 				"Test",
 				"TestCase"
 			],
@@ -263,10 +311,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 96.0,
-		"last_filter": "install",
+		"height": 392.0,
+		"last_filter": "ssc",
 		"selected_items":
 		[
+			[
+				"ssc",
+				"Set Syntax: C++"
+			],
 			[
 				"install",
 				"Package Control: Install Package"
@@ -292,7 +344,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 497.0
 	},
 	"console":
 	{
@@ -313,26 +365,99 @@
 	"expanded_folders":
 	[
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source"
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLibTest",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLibTest",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/include",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/include/PropertyDefinitions",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/source",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/source/PropertyDefinitions",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLibTest",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib"
 	],
 	"file_history":
 	[
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/PhysicalEntity.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/Boundary.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/Boundary.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/FixedBoundary.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/FixedInfinitePlane.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLibTest/EntityLibTest.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/GravityForce.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/GravityForce.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLibTest/PropertyLibTest.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/PhysicalEntity.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/SphericalParticle.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLibTest/InteractionLibTest.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/include/PropertyDefinitions/Gravity.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLibTest/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/source/Gravity.cpp",
 		"/home/ruancomelli/.bash_aliases",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/source/PropertyDefinitions/Gravity.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/include/PropertyDefinitions.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/bool_constant.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/FixedBoundary.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/SocialEntity.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/SphericalParticle.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/source/SphericalParticle.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/Particle.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/testSimulation.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/source/GravityField.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/GravityField.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/source/SpatialEntity.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/source/HandledEntity.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/FixedInfinitePlane.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/metaprogramming.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/boundaries/Gravity.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLibTest/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CollidingSpheres/CMakeLists.txt",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Named.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/Named.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/source/PropertyDefinitions.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/ElectrostaticForce.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/boundaries/Floor.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Builder.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/GravityForce.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/include/json_nlohmann.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/main.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest/testUtilsLib.cpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/for_each.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/BouncingBall/main.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/external_contents/boost_1_64_0/boost/mpl/or.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles/RedSphere.json",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/external_contents/boost_1_64_0/boost/mpl/not.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/external_contents/boost_1_64_0/boost/mpi.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/InteractionSubjectLister.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/get_sequence.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/all_of.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/type_list.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/type_list.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/is_empty.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/logical.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/any_of.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/combinatory.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/combinatory.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/type_collection.tpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/length.hpp",
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/metafunction.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/.gitignore",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source/CommandLineParser.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/CommandLineParser.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/ProgramOptions.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/ProgramOptions.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/FileSystem.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/testSimulation.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/Simulation.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/FileSystem.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/.vscode/settings.json",
@@ -342,17 +467,14 @@
 		"/home/ruancomelli/.bashrc",
 		"/home/ruancomelli/Downloads/felipe/EFVLib/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CMake_modules/FindBoost.cmake",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/ElectrostaticForce.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/NormalForceLinearDashpotForce.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/NormalForceViscoelasticSpheres.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/TangentialForceCundallStrack.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/source/InteractionDefinitions/TangentialForceHaffWerner.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceLinearDashpotForce.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceViscoelasticSpheres.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceCundallStrack.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/TangentialForceHaffWerner.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/ElectrostaticForce.tpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/include/InteractionDefinitions/NormalForceLinearDashpotForce.tpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json",
@@ -361,14 +483,11 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/main.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector3D.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/get.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/metaprogramming.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest/testUtilsLib.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLibTest/JSONLibTest.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/mp/visit.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLibTest/IOLibTest.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/include/json.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/source/json.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/JSONLib/include/json_nlohmann.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/Test/tree_testfile.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/property_tree.hpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_build/apps/Release/tree_testfile.json",
@@ -376,18 +495,12 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/Simulation1/mainInfoInput.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/Simulation1/particle0.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/_input/Simulation1/particle1.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/main.json",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/source/SSParser.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLibTest/source/TestScriptSystem.cpp",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLibTest/CMakeLists.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLibTest/CMakeLists.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/CollidingSpheres/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLibTest/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/CMakeLists.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLibTest/CMakeLists.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLib/CMakeLists.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLib/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLibTest/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/CMakeLists.txt",
@@ -396,61 +509,7 @@
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLibTest/CMakeLists.txt",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ParticleSimulator.sublime-project",
 		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/source/SSParserNode.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/SSParser.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/SSParserNode.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/SharedPointer.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/GeometryLib/include/Sphere.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/source/StringUtils.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/StringUtils.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/SphericalParticlePtrArrayKit.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/source/SphericalParticlePtrArrayKit.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/InteractionLibTest/InteractionLibTest.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/doubts/newProperties_pseudo-test.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/PropertyLibTest/PropertyLibTest.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLibTest/EntityLibTest.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemTest/retrieving.string",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemTest/test.example",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/SSParser.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemTest/source/TestScriptSystem.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemTest/CMakeLists.txt",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/MathExpressionParser.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/source/MathExpressionParser.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/FileReader.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemTest/test.example",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/AppGeomechanics_2D/source/main.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/vectorIO.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/vectorIO.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/include/FileReader.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/IOLib/source/FileReader.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/MuParserLib/include/muParser.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/MuParserLib/include/muParserBase.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/include/SSParser.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/include/MathExpressionParser.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/include/SSParserNode.h",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/source/SSParser.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemLib/source/SSParserNode.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/EFVLib_dev/EFVLib/ScriptSystemTest/source/TestScriptSystem.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/SeekerDefinitions/CollisionSeeker.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/source/Simulation.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/Vector.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/InteractionSubjectLister.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/InteractionSubjectLister.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/source/SphericalParticle.cpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/purge.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_collection.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/EntityLib/include/PhysicalEntity.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_list.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/purge.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/combinatory.tpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/combinatory.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ParticleSimulator.sublime-workspace",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLib/include/MP/InteractionSubjectLister.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/concatenate.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/metafunction.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/get.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/length.hpp",
-		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/UtilsLib/include/MP/type_list.tpp"
+		"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/ScriptSystemLib/include/SSParser.hpp"
 	],
 	"find":
 	{
@@ -470,6 +529,44 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Grav",
+			"Spherical",
+			"true_type",
+			"boundary",
+			"physical",
+			"BasePhysicalEntity",
+			"PhysicalEntity",
+			"p",
+			"SphericalParticle<Prs...>",
+			"double",
+			"PositiveProperty",
+			"Mass",
+			"double",
+			"ElectricCharge",
+			"Gravity",
+			"GRAVITY_CPP",
+			"GRAVITY_TPP",
+			"Gravity",
+			"GRAVITY_HPP",
+			"neighbor",
+			"ElectrostaticForce",
+			"visit",
+			"ParticleList",
+			"entity",
+			"Entity",
+			"entity",
+			"Entity",
+			"visit",
+			"name",
+			"SphericalParticle",
+			"Vector3D",
+			"FixedInfinitePlane",
+			"    ",
+			"outputsForExporting",
+			"timeStepsForOutput",
+			"looper",
+			"is_empty",
+			"all_of",
 			"project_root_path",
 			"root_path",
 			"simulation",
@@ -559,45 +656,7 @@
 			"typename",
 			"length",
 			"I",
-			"typename",
-			"type_list",
-			"get_type",
-			"get",
-			"using",
-			"T",
-			"ndices",
-			"get_list",
-			"COMBINE_HPP",
-			"Metaprogramming",
-			"TangentialForceCundallStrack",
-			"NormalForceViscoelasticSpheres",
-			"NormalForceLinearDashpotForce",
-			"Particle",
-			"ElectrostaticForce",
-			"FrictionParameter",
-			"TangentialKappa",
-			"P1",
-			"P",
-			"bool_type",
-			"PhysicalEntityModel",
-			"Property",
-			"unsigned",
-			"std::size_t",
-			"unsigned",
-			"Particles",
-			"INTERACTION_SUBJECT_LISTER_HPP",
-			"CXX_ST",
-			"static",
-			"HPP",
-			"particle",
-			"overlap",
-			"dissipativeConstant",
-			"DissipativeConstant",
-			"Normal",
-			"normal",
-			"Normal",
-			"normal",
-			"ormal"
+			"typename"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -605,6 +664,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"\\t",
 			"setup\\(const json & j\\)",
 			"\"$1\":",
 			"",
@@ -631,11 +691,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 25.0
+		"height": 26.0
 	},
 	"input":
 	{
-		"height": 38.0
+		"height": 39.0
 	},
 	"layout":
 	{
@@ -660,15 +720,19 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 121.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "ParticleSimulator - all",
 	"project": "ParticleSimulator.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 71.0
 	},
 	"save_all_on_build": true,
 	"select_file":

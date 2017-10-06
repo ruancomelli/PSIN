@@ -185,6 +185,7 @@ TestCase(Simulation_setup_Test)
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
 	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+
 	simulation.setup( mainInputFilePath );
 }
 
