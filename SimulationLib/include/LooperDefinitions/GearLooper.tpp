@@ -49,6 +49,18 @@ auto GearLooper::Time<Index, Value>::getTimeStep() const
 }
 
 template<typename Index, typename Value>
+string GearLooper::Time<Index, Value>::getIndexTag() const
+{
+	return "timeIndex";
+}
+
+template<typename Index, typename Value>
+string GearLooper::Time<Index, Value>::getTimeTag() const
+{
+	return "timeInstant";
+}
+
+template<typename Index, typename Value>
 auto GearLooper::Time<Index, Value>::as_pair() const
 	-> time_pair
 {
@@ -59,8 +71,8 @@ template<typename Index, typename Value>
 json GearLooper::Time<Index, Value>::as_json() const
 {
 	return json{
-		{"timeInstant", this->time},
-		{"timeIndex", this->timeIndex}
+		{this->getTimeTag(), this->time},
+		{this->getIndexTag(), this->timeIndex}
 	};
 }
 

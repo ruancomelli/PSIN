@@ -438,19 +438,38 @@ void Simulation<
 
 namespace detail {
 
-template<typename E>
-struct write_entities_to_json
+template<typename P>
+struct write_particles_to_json
 {
-	template<typename EntityTuple, typename Time>
-	static void call(const EntityTuple & entityVectorTuple, std::map<string, vector<json>>& entityJsonMap, const Time & time)
+	template<typename ParticleTuple, typename Time>
+	static void call(const ParticleTuple & particleVectorTuple, std::map<string, vector<json>>& particleJsonMap, const Time & time)
 	{
-		for(auto&& entity : std::get< vector<E> >(entityVectorTuple))
+		for(auto&& particle : std::get< vector<P> >(particleVectorTuple))
 		{
 			json j{
-				{"TimeIndex", time.getIndex()},
-				{NamedType<E>::name, entity}
+				{time.getIndexTag(), time.getIndex()},
+				{"particleType", NamedType<P>::name},
+				{"particle", particle}
 			};
-			entityJsonMap[entity.getName()].push_back(j);
+			particleJsonMap[particle.getName()].push_back(j);
+		}
+	}
+};
+
+template<typename B>
+struct write_boundaries_to_json
+{
+	template<typename BoundaryTuple, typename Time>
+	static void call(const BoundaryTuple & boundaryVectorTuple, std::map<string, vector<json>>& boundaryJsonMap, const Time & time)
+	{
+		for(auto&& boundary : std::get< vector<B> >(boundaryVectorTuple))
+		{
+			json j{
+				{time.getIndexTag(), time.getIndex()},
+				{"boundaryType", NamedType<B>::name},
+				{"boundary", boundary}
+			};
+			boundaryJsonMap[boundary.getName()].push_back(j);
 		}
 	}
 };
@@ -615,7 +634,9 @@ void Simulation<
 >::exportTime(const Time & time)
 {
 	json fileContent;
-	json informationToExport = time.as_json();
+	json informationToExport{
+		"Time", time.as_json()
+	};
 
 	path filepath = fileTree["output"]["main"] / path("timeVector.json");
 	mainFileMap["timeVector"]->seekg(0); // rewinds the file
@@ -713,8 +734,8 @@ void Simulation<
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
-			mp::visit<ParticleList, detail::write_entities_to_json>::call_same(particles, particleJsonMap, time);
-			mp::visit<BoundaryList, detail::write_entities_to_json>::call_same(boundaries, boundaryJsonMap, time);
+			mp::visit<ParticleList, detail::write_particles_to_json>::call_same(particles, particleJsonMap, time);
+			mp::visit<BoundaryList, detail::write_boundaries_to_json>::call_same(boundaries, boundaryJsonMap, time);
 
 			if(outputsForExportingCounter == 0)
 			{

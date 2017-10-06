@@ -4,6 +4,9 @@
 // JSONLib
 #include <json.hpp>
 
+// UtilsLib
+#include <string.hpp>
+
 // Standard
 #include <utility>
 
@@ -27,6 +30,9 @@ struct GearLooper
 
 		index_type getIndex() const;
 		value_type getTimeStep() const;
+
+		string getIndexTag() const;
+		string getTimeTag() const;
 
 		std::pair<index_type, value_type> as_pair() const;
 		json as_json() const;
