@@ -635,7 +635,7 @@ void Simulation<
 {
 	json fileContent;
 	json informationToExport{
-		"Time", time.as_json()
+		time.as_json()
 	};
 
 	path filepath = fileTree["output"]["main"] / path("timeVector.json");
