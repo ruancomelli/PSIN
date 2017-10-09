@@ -157,22 +157,41 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 			correctorConstants[3] = 1./3.;
 			break;
 		case 4:
-			correctorConstants[0] = 19./90.;
+			correctorConstants[0] = 19./120.;
 			correctorConstants[1] = 3./4.;
 			correctorConstants[2] = 1.;
 			correctorConstants[3] = 1./2.;
 			correctorConstants[4] = 1./12.;
 			break;
 		case 5:
-			correctorConstants[0] = 3./16.;
+			correctorConstants[0] = 3./20.;
 			correctorConstants[1] = 251./360.;
 			correctorConstants[2] = 1.;
 			correctorConstants[3] = 11./18.;
 			correctorConstants[4] = 1./6.;
 			correctorConstants[5] = 1./60.;
 			break;
+		case 6:
+			correctorConstants[0] = 863./6048.;
+			correctorConstants[1] = 665./1008.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 25./36.;
+			correctorConstants[4] = 35./144.;
+			correctorConstants[5] = 1./24.;
+			correctorConstants[6] = 1./360.;
+			break;
+		case 7:
+			correctorConstants[0] = 1925./14112.;
+			correctorConstants[1] = 19087./30240.;
+			correctorConstants[2] = 1.;
+			correctorConstants[3] = 137./180.;
+			correctorConstants[4] = 5./16.;
+			correctorConstants[5] = 17./240.;
+			correctorConstants[6] = 1./120.;
+			correctorConstants[7] = 1./2520.;
+			break;
 		default:
-			throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4 or 5.");
+			throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4, 5, 6 or 7.");
 			return predictedVector;
 	}
 
