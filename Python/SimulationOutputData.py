@@ -2,6 +2,8 @@ import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 import matplotlib.cm as cmx
 import json
+import os
+from collections import defaultdict
 
 class SimulationOutputData:
 
@@ -15,20 +17,21 @@ class SimulationOutputData:
 		try:
 			# Read particle and boundary histories
 			self.particleHistoryArray = {}
-			for particleFilePath in paths.getSimulationParticleFilePaths():
+			for particleFilePath in self.paths.getSimulationParticleFilePaths():
 				filename = os.path.basename(particleFilePath)
 				particleName = os.path.splitext(filename)[0]
 				with open(particleFilePath) as particleFile:    
 					self.particleHistoryArray[particleName] = json.load(particleFile)
 
-			self.boundaryHistoryArray = []
-			for boundaryFilePath in paths.getSimulationBoundaryFilePaths():
+			self.boundaryHistoryArray = {}
+			for boundaryFilePath in self.paths.getSimulationBoundaryFilePaths():
 				filename = os.path.basename(boundaryFilePath)
 				boundaryName = os.path.splitext(filename)[0]
 				with open(boundaryFilePath) as boundaryFile:    
 					self.boundaryHistoryArray[boundaryName] = json.load(boundaryFile)
 
-			self.simulationSettings = json.load(boundaryFile)
+			with open(self.paths.getSimulationMainOutputFilePath()) as mainOutputFile:
+				self.simulationSettings = json.load(mainOutputFile)
 			
 			self.particleData = {}
 			self.boundaryData = {}
@@ -43,12 +46,12 @@ class SimulationOutputData:
 			# (time[i]["timeIndex"], time[i]["timeInstant"]) is the i-th timepair
 			
 			# Read simulation settings
-			simulationSettingsFilePath = paths.getSimulationMainOutputFilePath()
+			simulationSettingsFilePath = self.paths.getSimulationMainOutputFilePath()
 			with open(simulationSettingsFilePath) as simulationSettingsFile:
 				self.simulationSettings = json.load(simulationSettingsFile)
 
 			# Read particles
-			for particleHistory in self.particleHistoryArray:
+			for particleHistoryKey, particleHistory in self.particleHistoryArray.items():
 				for particleHistoryElement in particleHistory:
 					timeIndex = particleHistoryElement["timeIndex"]
 					particleType = particleHistoryElement["particleType"]
@@ -56,10 +59,19 @@ class SimulationOutputData:
 					particleName = particle["Name"]
 
 					for key in particle.keys():
+						if particleType not in self.particleData:
+							self.particleData[particleType] = {}
+
+						if particleName not in self.particleData[particleType]:
+							self.particleData[particleType][particleName] = {}
+
+						if key not in self.particleData[particleType][particleName]:
+							self.particleData[particleType][particleName][key] = {}
+
 						self.particleData[particleType][particleName][key][timeIndex] = particle[key]
 				
 			# Read boundaries
-			for boundaryHistory in self.boundaryHistoryArray:
+			for boundaryHistoryKey, boundaryHistory in self.boundaryHistoryArray.items():
 				for boundaryHistoryElement in boundaryHistory:
 					timeIndex = boundaryHistoryElement["timeIndex"]
 					boundaryType = boundaryHistoryElement["boundaryType"]
@@ -67,10 +79,19 @@ class SimulationOutputData:
 					boundaryName = boundary["Name"]
 
 					for key in boundary.keys():
+						if boundaryType not in self.boundaryData:
+							self.boundaryData[boundaryType] = {}
+
+						if boundaryName not in self.boundaryData[boundaryType]:
+							self.boundaryData[boundaryType][boundaryName] = {}
+
+						if key not in self.boundaryData[boundaryType][boundaryName]:
+							self.boundaryData[boundaryType][boundaryName][key] = {}
+
 						self.boundaryData[boundaryType][boundaryName][key][timeIndex] = boundary[key]
 
 			# Read time
-			with open(paths.getSimulationTimeVectorPath()) as timeVectorFile:    
+			with open(self.paths.getSimulationTimeVectorPath()) as timeVectorFile:
 				timeHistory = json.load(timeVectorFile)
 
 				for timeHistoryElement in timeHistory:
@@ -87,7 +108,7 @@ class SimulationOutputData:
 		cmap = plt.get_cmap('gist_rainbow')
 		scalarMap = cmx.ScalarMappable( 
 			cmap = cmap,
-			norm = colors.Normalize( vmin=0 , vmax=len(particleHistoryArray) + len(boundaryHistoryArray) ) )
+			norm = colors.Normalize( vmin=0 , vmax=len(self.particleHistoryArray) + len(self.boundaryHistoryArray) ) )
 
 		# Return requested data
 		return [self.simulationSettings, self.particleData, self.boundaryData, self.time, scalarMap]

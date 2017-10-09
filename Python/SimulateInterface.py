@@ -110,7 +110,9 @@ class SimulateInterface( Frame ):
 
 
 def main():
-	SimulateInterface().mainloop() # starts event loop
+	interface = SimulateInterface()
+	interface.mainloop() # starts event loop
+	return interface
 
 if __name__ == "__main__":
 	main()
