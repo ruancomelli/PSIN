@@ -6,9 +6,9 @@
 	"timeStepsForOutput": 2,
 	"outputsForExporting": 1,
 	"dimension": 3,
-	"mainOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles",
-	"particleOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles",
-	"boundaryOutputFolder": "/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Boundaries",
+	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles",
+	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles",
+	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Boundaries",
 	"looper": "GearLooper",
 	"seeker": "BlindSeeker",
 
@@ -25,8 +25,8 @@
 	{
 		"SphericalParticle": 
 		[
-			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json",
-			"/run/media/ruancomelli/D0108C41108C3110/ruancomelli/Git-Projects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json"
+			"/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/RedSphere.json",
+			"/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationInputFiles/ParticleInputFiles/BlueSphere.json"
 		]
 	}
 }
