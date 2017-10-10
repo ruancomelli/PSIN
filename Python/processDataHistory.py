@@ -10,8 +10,8 @@ from matplotlib import font_manager
 
 
 # FUNCTION
-def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder, fileName,
-    extension, xAxisLabel, yAxisLabel, scalarMap, nParticles, component = 0 ):
+def plotParticleDataHistory( timeVector, particleData, propertyName, title, outputFolder, fileName,
+    extension, xAxisLabel, yAxisLabel, scalarMap, component = 0 ):
 
 	if component == 'X':
 		component = 0
@@ -27,8 +27,8 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 
 	ax = fig.add_subplot(111)
 	
-	yMinimum = min(particleData[0][key][:, component])
-	yMaximum = max(particleData[0][key][:, component])
+	yMinimum = min(particleData[0][propertyName][:, component])
+	yMaximum = max(particleData[0][propertyName][:, component])
 
 	xMinimum = min(timeVector)
 	xMaximum = max(timeVector)
@@ -36,10 +36,10 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	total = numpy.zeros( len(timeVector) )
 
 	for counter in range(nParticles):
-		total += particleData[counter][key][:, component]
+		total += particleData[counter][propertyName][:, component]
 
-		yMinimum = min( min(particleData[counter][key][:, component]), yMinimum )
-		yMaximum = max( max(particleData[counter][key][:, component]), yMaximum )
+		yMinimum = min( min(particleData[counter][propertyName][:, component]), yMinimum )
+		yMaximum = max( max(particleData[counter][propertyName][:, component]), yMaximum )
 		
 	yMinimum = min( min(total), yMinimum )
 	yMaximum = max( max(total), yMaximum )
@@ -87,17 +87,17 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	    label.set_fontproperties( font_manager.FontProperties(family='sans-serif', style='normal',
     size=15, weight='normal') )
 					
-	# Plot each particle key-property
+	# Plot each particle's property
 	for counter in range(nParticles):
 		ax.plot(
 			timeVector, 
-			particleData[counter][key][:, component],
+			particleData[counter][propertyName][:, component],
 			color = scalarMap.to_rgba(counter),
 			label = "Particle " + str(counter)
 			)
 
 					
-	# Plot total key-property
+	# Plot total propertyName-property
 	ax.plot( 
 		timeVector, 
 		total,
@@ -123,13 +123,13 @@ def plotParticleDataHistory( timeVector, particleData, key, title, outputFolder,
 	
 	
 	
-def plotParticleDataHistory3D( timeVector, particleData, key, title, outputFolder, fileName,
+def plotParticleDataHistory3D( timeVector, particleData, propertyName, title, outputFolder, fileName,
 	extension, xAxisLabel, yAxisLabel, scalarMap, nParticles ):
 
 	plotParticleDataHistory( 
 		timeVector = timeVector, 
 		particleData = particleData, 
-		key = key, 
+		propertyName = propertyName, 
 		title = title + " - X Direction\n", 
 		outputFolder = outputFolder, 
 		fileName = fileName + "_X",
@@ -143,7 +143,7 @@ def plotParticleDataHistory3D( timeVector, particleData, key, title, outputFolde
 	plotParticleDataHistory( 
 		timeVector = timeVector, 
 		particleData = particleData, 
-		key = key, 
+		propertyName = propertyName, 
 		title = title + " - Y Direction\n", 
 		outputFolder = outputFolder, 
 		fileName = fileName + "_Y",
@@ -157,7 +157,7 @@ def plotParticleDataHistory3D( timeVector, particleData, key, title, outputFolde
 	plotParticleDataHistory( 
 		timeVector = timeVector, 
 		particleData = particleData, 
-		key = key, 
+		propertyName = propertyName, 
 		title = title + " - Z Direction\n", 
 		outputFolder = outputFolder, 
 		fileName = fileName + "_Z",
