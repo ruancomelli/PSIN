@@ -12,7 +12,7 @@ class BuildAnimation ( AnimationLimits ):
 	def build( simulationOutputData , paths , animationBools , animationTime , animationTypes ):
 
 		### get simulation output data ###
-		[simulationSettings , particleData , timeVectorForPlot , scalarMap ] = simulationOutputData.get()
+		[self.simulationSettings, self.particleData, self.boundaryData, self.time, scalarMap] = simulationOutputData.get()
 
 		### get folder where the animation will be saved ###
 		simulationAnimationsOutputFolder = paths.getSimulationAnimationsOutputFolder()
