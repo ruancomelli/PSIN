@@ -20,8 +20,7 @@ class Simulate():
 		# Possible errors:
 		#	executable not found
 		try:
-			# subprocess.run( programPath + programArg )
-			subprocess.call( [programPath, programArg] )
+			subprocess.run( [programPath, programArg] )
 		except FileNotFoundError:
 			self.display.message("Simulation program not found")
 			return
