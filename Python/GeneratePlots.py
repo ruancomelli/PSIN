@@ -9,7 +9,8 @@ class GeneratePlots:
 		# get plotBools
 		self.plotBools = self.toBool(self.plotsBooleanVars)
 
-		if( True in self.plotBools.values() ):
+		# if( True in self.plotBools.values() ):
+		if True:
 			# Verify if the user selected some plot
 			# if it selected some, generate plots
 			# else, warn the user.
@@ -27,19 +28,18 @@ class GeneratePlots:
 			for particleType in particleData.values():	# For every type: SphericalParticle, SquareParticle...
 				for particle in particleType.values():	# For every particle of this type: BlueSphere, RedSphere
 					for propertyName in particle.keys():
-						plotParticleDataHistory(
-							timeVector=time,
-							particleData=particleData,
-							propertyName=propertyName,
-							title="\n"+ propertyName +"\n",
-							outputFolder=self.paths.getSimulationPlotsOutputFolder(),
-							fileName=propertyName + "_plot",
-							extension=".png",
-							xAxisLabel="\nTime [s]\n",
-							yAxisLabel="\n" + propertyName + "\n", # Units?
-							scalarMap=scalarMap
+						plotParticleDataHistory( 
+							timeVector, 
+							particleData, 
+							propertyName, 
+							title, 
+							outputFolder, 
+							fileName, 
+							extension, 
+							xAxisLabel, 
+							yAxisLabel, 
+							scalarMap
 							)
-
 
 			# finish
 			self.display.message("Plots done")

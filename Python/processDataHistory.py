@@ -26,20 +26,24 @@ def plotParticleDataHistory( timeVector, particleData, propertyName, title, outp
 		edgecolor='k' )
 
 	ax = fig.add_subplot(111)
-	
-	yMinimum = min(particleData[0][propertyName][:, component])
-	yMaximum = max(particleData[0][propertyName][:, component])
 
-	xMinimum = min(timeVector)
-	xMaximum = max(timeVector)
+	yMinimum = min( [propertyValue
+		for particleType in particleData.values()
+		for particle in particleType.values()
+		for propertyValue in particle[particleName].values()
+		])
 
-	total = numpy.zeros( len(timeVector) )
+	yMaximum = max( [propertyValue
+		for particleType in particleData.values()
+		for particle in particleType.values()
+		for propertyValue in particle[particleName].values()
+		])
 
-	for counter in range(nParticles):
-		total += particleData[counter][propertyName][:, component]
-
-		yMinimum = min( min(particleData[counter][propertyName][:, component]), yMinimum )
-		yMaximum = max( max(particleData[counter][propertyName][:, component]), yMaximum )
+	total = [sum(instantPropertyValue)
+		for particleType in particleData.values()
+		for particle in particleType.values()
+		for propertyValue in particle[particleName].values()
+		]
 		
 	yMinimum = min( min(total), yMinimum )
 	yMaximum = max( max(total), yMaximum )
@@ -124,7 +128,7 @@ def plotParticleDataHistory( timeVector, particleData, propertyName, title, outp
 	
 	
 def plotParticleDataHistory3D( timeVector, particleData, propertyName, title, outputFolder, fileName,
-	extension, xAxisLabel, yAxisLabel, scalarMap, nParticles ):
+	extension, xAxisLabel, yAxisLabel, scalarMap ):
 
 	plotParticleDataHistory( 
 		timeVector = timeVector, 
@@ -132,7 +136,7 @@ def plotParticleDataHistory3D( timeVector, particleData, propertyName, title, ou
 		propertyName = propertyName, 
 		title = title + " - X Direction\n", 
 		outputFolder = outputFolder, 
-		fileName = fileName + "_X",
+		fileName = fileName + "_X_plot",
 		extension = extension, 
 		xAxisLabel = xAxisLabel, 
 		yAxisLabel = yAxisLabel + " - X Direction", 
@@ -146,7 +150,7 @@ def plotParticleDataHistory3D( timeVector, particleData, propertyName, title, ou
 		propertyName = propertyName, 
 		title = title + " - Y Direction\n", 
 		outputFolder = outputFolder, 
-		fileName = fileName + "_Y",
+		fileName = fileName + "_Y_plot",
 		extension = extension, 
 		xAxisLabel = xAxisLabel, 
 		yAxisLabel = yAxisLabel + " - Y Direction", 
@@ -160,7 +164,7 @@ def plotParticleDataHistory3D( timeVector, particleData, propertyName, title, ou
 		propertyName = propertyName, 
 		title = title + " - Z Direction\n", 
 		outputFolder = outputFolder, 
-		fileName = fileName + "_Z",
+		fileName = fileName + "_Z_plot",
 		extension = extension, 
 		xAxisLabel = xAxisLabel, 
 		yAxisLabel = yAxisLabel + " - Z Direction", 
