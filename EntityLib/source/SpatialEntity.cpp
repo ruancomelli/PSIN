@@ -7,20 +7,30 @@ namespace psin {
 
 void from_json(const json& j, SpatialEntity & spatial)
 {
-	if(j.at("Position").size() != j.at("Orientation").size())
+	if(j.at("PositionMatrix").size() != j.at("OrientationMatrix").size())
 	{
-		throw std::runtime_error("Position and Orientation must have the same size");
+		throw std::runtime_error("PositionMatrix and OrientationMatrix must have the same size");
 	}
 
-	spatial.setTaylorOrder( j.at("Position").size() - 1 );
-	spatial.setPositionMatrix(j.at("Position"));
-	spatial.setOrientationMatrix(j.at("Orientation"));
+	spatial.setTaylorOrder( j.at("PositionMatrix").size() - 1 );
+	spatial.setPositionMatrix(j.at("PositionMatrix"));
+	spatial.setOrientationMatrix(j.at("OrientationMatrix"));
 }
 
 void to_json(json& j, const SpatialEntity & spatial)
 {
-	j["Position"] =  spatial.getPositionMatrix();
-	j["Orientation"] =  spatial.getOrientationMatrix();
+	j["PositionMatrix"] =  spatial.getPositionMatrix();
+	j["OrientationMatrix"] =  spatial.getOrientationMatrix();
+
+	j["Position"] =  spatial.getPosition();
+	j["Velocity"] =  spatial.getVelocity();
+	j["Acceleration"] =  spatial.getAcceleration();
+
+	j["Orientation"] =  spatial.getOrientation();
+	j["AngularVelocity"] =  spatial.getAngularVelocity();
+	j["AngularAcceleration"] =  spatial.getAngularAcceleration();
+
+	j["TaylorOrder"] = spatial.getTaylorOrder();
 }
 
 SpatialEntity::SpatialEntity()
