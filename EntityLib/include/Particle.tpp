@@ -31,7 +31,13 @@ void to_json(json& j, const Particle<Prs...> & p)
 	j = merge(merge(jn, jph), js);
 	j["bodyForce"] = p.getBodyForce();
 	j["contactForce"] = p.getContactForce();
+	j["resultingForce"] = p.getResultingForce();
 	j["resultingTorque"] = p.getResultingTorque();
+	j["linearMomentum"] = p.getLinearMomentum();
+	j["angularMomentum"] = p.getAngularMomentum();
+	j["kineticEnergy"] = p.getKineticEnergy();
+	j["translationalEnergy"] = p.getTranslationalEnergy();
+	j["rotationalEnergy"] = p.getRotationalEnergy();
 }
 
 // ------------------------------- Constructors -------------------------------
