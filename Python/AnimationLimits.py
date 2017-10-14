@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 class AnimationLimits:
 
 	def setSquare(xmin , xmax , ymin , ymax):
@@ -20,59 +18,64 @@ class AnimationLimits:
 		return [ xmin , xmax , ymin , ymax ]
 		
 
-	def getMinAndMax(particleData , nParticles , t , coor):
+	def getMinAndMax(particleData, t, coor):
 		# t : time step
-		# coor : coordinete ; X=0 , Y=1 and Z=2
+		# coor : coordinate ; X=0 , Y=1 and Z=2
 
-		coorMin = particleData[0]['position'][t,coor] - float( particleData[0]['main']['Radius'] )
-		for p in range(nParticles):
-			coorMin = min( coorMin , particleData[p]['position'][t,coor] - float(particleData[p]['main']['Radius']) )
+		coorMin = min([
+			particle["Position"][t][coor] - particle["Radius"][t] 
+			for particle in particleData["SphericalParticle"].values()
+			])
 
-		# max
-		coorMax = particleData[0]['position'][t,coor] + float( particleData[0]['main']['Radius'] )
-		for p in range(nParticles):
-			coorMax = max( coorMax , particleData[p]['position'][t,coor] + float(particleData[p]['main']['Radius']) )
+		coorMin = max([
+			particle["Position"][t][coor] + particle["Radius"][t] 
+			for particle in particleData["SphericalParticle"].values()
+			])
 
 		return [coorMin , coorMax]
 
-	def getLimits_byTimeStep(particleData , nParticles , t):
+	def getLimits_byTimeStep(particleData, t):
 		# Define a limit for each time instant
 		X = 0
 		Y = 1
 		Z = 2
 
 		# X
-		[xmin , xmax] = AnimationLimits.getMinAndMax(particleData , nParticles , t , X)
+		[xmin , xmax] = AnimationLimits.getMinAndMax(particleData, t, X)
 
 		# Y
-		[ymin , ymax] = AnimationLimits.getMinAndMax(particleData , nParticles , t , Y)
+		[ymin , ymax] = AnimationLimits.getMinAndMax(particleData, t, Y)
 		
 		[ xmin , xmax , ymin , ymax ] = AnimationLimits.setSquare(xmin , xmax , ymin , ymax)
 
 		return [ xmin , xmax , ymin , ymax ]
 
-	def getLimits_global( particleData , nParticles ):
+	def getLimits_global( particleData ):
 		#Set limits
-		p = 0
-		xmin = min(particleData[p]['position'][:,0] - float(particleData[p]['main']['Radius']))
-		xmax = max(particleData[p]['position'][:,0] + float(particleData[p]['main']['Radius']))
-		ymin = min(particleData[p]['position'][:,1] - float(particleData[p]['main']['Radius']))
-		ymax = max(particleData[p]['position'][:,1] + float(particleData[p]['main']['Radius']))
-		for p in range(nParticles): # for each particle
-			# X
-			xLocalMin = min(particleData[p]['position'][:,0] - float(particleData[p]['main']['Radius']))
-			xLocalMax = max(particleData[p]['position'][:,0] + float(particleData[p]['main']['Radius']))
-			if(xLocalMin < xmin):
-				xmin = xLocalMin
-			if(xLocalMax > xmax):
-				xmax = xLocalMax
-			# Y
-			yLocalMin = min(particleData[p]['position'][:,1] - float(particleData[p]['main']['Radius']))
-			yLocalMax = max(particleData[p]['position'][:,1] + float(particleData[p]['main']['Radius']))
-			if(yLocalMin < ymin):
-				ymin = yLocalMin
-			if(yLocalMax > ymax):
-				ymax = yLocalMax
+
+		X = 0
+		Y = 1
+		Z = 2
+
+		xmin = min([
+				min(particle["Position"][:][X] - particle["Radius"])
+				for particle in particleData["SphericalParticle"].values()
+			])
+
+		xmax = max([
+				max(particle["Position"][:][X] + particle["Radius"])
+				for particle in particleData["SphericalParticle"].values()
+			])
+
+		ymin = min([
+				min(particle["Position"][:][Y] - particle["Radius"])
+				for particle in particleData["SphericalParticle"].values()
+			])
+
+		ymax = max([
+				max(particle["Position"][:][Y] + particle["Radius"])
+				for particle in particleData["SphericalParticle"].values()
+			])
 		
 		[ xmin , xmax , ymin , ymax ] = AnimationLimits.setSquare(xmin , xmax , ymin , ymax)
 
