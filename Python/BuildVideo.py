@@ -17,9 +17,6 @@ class BuildAnimation ( AnimationLimits ):
 		### get folder where the animation will be saved ###
 		simulationAnimationsOutputFolder = paths.getSimulationAnimationsOutputFolder()
 
-		# extracting information from 'simulationSettings'
-		nParticles = int(simulationSettings["nParticles"])
-
 		### Configure figure ###
 		fig_x_size = 8
 		fig_y_size = 8
@@ -33,77 +30,95 @@ class BuildAnimation ( AnimationLimits ):
 		# Set axes limits
 		ax.autoscale(enable=True , axis='both')
 
+		# Time indices
+		timeIndices = [timeIndex for timeIndex in time.keys()]
+			# Suppose that time = {5: 1.5, 8: 3.7}
+			# 1.5 is the time instant indexed by number 5.
+			# 5 is the first time index
+			# So timeIndices[0] == 5 and time[5] == 1.5
+
+		# Beginning of the simulation
+		beginning = timeIndices[0]
+
 		# Create several circles, one for each particle
-		circles = []
-		for p in range(nParticles):
-			radius = float( particleData[p]['main']['Radius'] )
-			timeStep = 0
+		circles = {}
+
+		for particleName, particle in particleData["SphericalParticle"].items():
+			t = beginning
 			X = 0
 			Y = 1
-			xCenter = particleData[p]['position'][timeStep,X]
-			yCenter = particleData[p]['position'][timeStep,Y]
-			circles.append( plt.Circle( (xCenter , yCenter), radius , fill=True , fc=scalarMap.to_rgba(p) ) )
+			xCenter = float(particle["Position"][t][X])
+			yCenter = float(particle["Position"][t][Y])
+			radius = float(particle["Radius"][t])
+			color = particle["Color"][t]
+			# circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, fc=color )
+			circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True)
 
 		### Initial function to animation ###
 		def init():
-			ax.set_title(str(timeVectorForPlot[0]) + " s")
-			for p in range(nParticles):
-				radius = float( particleData[p]['main']['Radius'] )
-				timeStep = 0
+			ax.set_title(str(time[0]) + " s")
+			for name, particle in particleData["SphericalParticle"].items():
+				t = beginning
 				X = 0
 				Y = 1
-				xCenter = particleData[p]['position'][timeStep,X]
-				yCenter = particleData[p]['position'][timeStep,Y]
-				circles[p].center = (xCenter , yCenter)
-				ax.add_patch(circles[p])
+				xCenter = float(particle["Position"][t][X])
+				yCenter = float(particle["Position"][t][Y])
+				radius = float(particle["Radius"][t])
+				color = particle["Color"][t]
 
-			return circles
+				# circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
+				circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True)
+				ax.add_patch(circles[name])
+
+			return circles.values()
+
+		def setAxisLimits(limits):
+			[ xmin , xmax , ymin , ymax ] = limits
+			ax.set_xlim( (xmin , xmax) )
+			ax.set_ylim( (ymin , ymax) )
+
+		def updateCircles(i):
+			print("i: ", i, "\nlen: ", len(timeIndices), "\nt: ", timeIndices[i], "\n\n")
+			for name, particle in particleData["SphericalParticle"].items():
+				t = timeIndices[i]
+				X = 0
+				Y = 1
+				xCenter = float(particle["Position"][t][X])
+				yCenter = float(particle["Position"][t][Y])
+				radius = float(particle["Radius"][t])
+				circles[name].center = (xCenter , yCenter)
+				circles[name].radius = radius
+
+			return circles.values()
 
 		### Animate function ###
-		def animate_byTimeStep(t):
-			for p in range(nParticles):
-				xCenter, yCente = circles[p].center
-				X = 0
-				Y = 1
-				xCenter = particleData[p]['position'][t,X]
-				yCenter = particleData[p]['position'][t,Y]
-				circles[p].center = (xCenter , yCenter)
+		def animate_byTimeStep(i):
+			t = timeIndices[i]
 			# set graph limits
-			[ xmin , xmax , ymin , ymax ] = AnimationLimits.getLimits_byTimeStep( particleData , nParticles , t )
-			ax.set_xlim( (xmin , xmax) )
-			ax.set_ylim( (ymin , ymax) )
-			ax.set_title(str(timeVectorForPlot[t]) + " s")
+			limits = AnimationLimits.getLimits_byTimeStep( particleData, t )
+			setAxisLimits(limits)
+			ax.set_title(str(time[t]) + " s")
+			circles = updateCircles(t)
 			return circles
 
-		def animate_global(t):
-			for p in range(nParticles):
-				xCenter, yCente = circles[p].center
-				X = 0
-				Y = 1
-				xCenter = particleData[p]['position'][t,X]
-				yCenter = particleData[p]['position'][t,Y]
-				circles[p].center = (xCenter , yCenter)
-			# set graph limits
-			[ xmin , xmax , ymin , ymax ] = AnimationLimits.getLimits_global( particleData , nParticles )
-			ax.set_xlim( (xmin , xmax) )
-			ax.set_ylim( (ymin , ymax) )
-			ax.set_title(str(timeVectorForPlot[t]) + " s")
-			return circles
+		def animate_global(i):
+			t = timeIndices[i]
 
-		def animate_autoscale(t):
-			for p in range(nParticles):
-				xCenter, yCente = circles[p].center
-				X = 0
-				Y = 1
-				xCenter = particleData[p]['position'][t,X]
-				yCenter = particleData[p]['position'][t,Y]
-				circles[p].center = (xCenter , yCenter)
 			# set graph limits
-			[ xmin , xmax , ymin , ymax ] = AnimationLimits.getLimits_autoscale( ax )
-			ax.set_xlim( (xmin , xmax) )
-			ax.set_ylim( (ymin , ymax) )
-			ax.set_title(str(timeVectorForPlot[t]) + " s")
-			return circles
+			limits = AnimationLimits.getLimits_global( particleData )
+			setAxisLimits(limits)
+			ax.set_title(str(time[t]) + " s")
+			circles = updateCircles(t)
+			return circles.values()
+
+		def animate_autoscale(i):
+			t = timeIndices[i]
+			# set graph limits
+			limits = AnimationLimits.getLimits_autoscale( ax )
+			setAxisLimits(limits)
+			ax.set_title(str(time[t]) + " s")
+			circles = updateCircles(t)
+			return circles.values()
 
 		# define animate functions
 		animateFunction = {}
@@ -112,7 +127,7 @@ class BuildAnimation ( AnimationLimits ):
 		animateFunction["autoscale"] = animate_autoscale
 
 		### video settings ###
-		frames = len(timeVectorForPlot)
+		frames = len(time)
 		fps = frames/animationTime
 
 		### build and save video ###

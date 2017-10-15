@@ -61,7 +61,7 @@ class GenerateAnimations:
 		self.animationTime = StringVar()
 		self.animationTime.set("1")
 
-		### Choose animation types to be build - checkbuttons ###
+		### Choose animation types to be built - checkbuttons ###
 		row = 0
 		self.animationCheckbutton = []
 		for i in range( len(self.animationTypes) ):
