@@ -27,7 +27,7 @@ class AnimationLimits:
 			for particle in particleData["SphericalParticle"].values()
 			])
 
-		coorMin = max([
+		coorMax = max([
 			particle["Position"][t][coor] + particle["Radius"][t] 
 			for particle in particleData["SphericalParticle"].values()
 			])
@@ -58,22 +58,38 @@ class AnimationLimits:
 		Z = 2
 
 		xmin = min([
-				min(particle["Position"][:][X] - particle["Radius"])
+				min([
+					position[X] - radius
+					for position in particle["Position"].values()
+					for radius in particle["Radius"].values()
+					])
 				for particle in particleData["SphericalParticle"].values()
 			])
 
 		xmax = max([
-				max(particle["Position"][:][X] + particle["Radius"])
+				max([
+					position[X] + radius
+					for position in particle["Position"].values()
+					for radius in particle["Radius"].values()
+					])
 				for particle in particleData["SphericalParticle"].values()
 			])
 
 		ymin = min([
-				min(particle["Position"][:][Y] - particle["Radius"])
+				min([
+					position[Y] - radius
+					for position in particle["Position"].values()
+					for radius in particle["Radius"].values()
+					])
 				for particle in particleData["SphericalParticle"].values()
 			])
 
 		ymax = max([
-				max(particle["Position"][:][Y] + particle["Radius"])
+				max([
+					position[Y] + radius
+					for position in particle["Position"].values()
+					for radius in particle["Radius"].values()
+					])
 				for particle in particleData["SphericalParticle"].values()
 			])
 		
