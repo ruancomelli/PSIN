@@ -103,12 +103,6 @@ class SimulationOutputData:
 			self.display.message("An output file wasn't found. Please, rerun simulation." )
 
 			return
-			
-		# Set colormap
-		cmap = plt.get_cmap('gist_rainbow')
-		scalarMap = cmx.ScalarMappable( 
-			cmap = cmap,
-			norm = colors.Normalize( vmin=0 , vmax=len(self.particleHistoryArray) + len(self.boundaryHistoryArray) ) )
 
 		# Return requested data
-		return [self.simulationSettings, self.particleData, self.boundaryData, self.time, scalarMap]
+		return [self.simulationSettings, self.particleData, self.boundaryData, self.time]
