@@ -1,7 +1,15 @@
 import matplotlib.pyplot as plt
+import os
 from matplotlib import animation
 
 from AnimationLimits import AnimationLimits
+
+### Auxilliary function to get color ###
+def getColor(color):
+	if color[1] == "":
+		return (color[0][0], color[0][1], color[0][2])
+	else:
+		return color[1]
 
 class BuildAnimation ( AnimationLimits ):
 	# This class inherits from a AnimationLimits
@@ -50,9 +58,8 @@ class BuildAnimation ( AnimationLimits ):
 			xCenter = float(particle["Position"][t][X])
 			yCenter = float(particle["Position"][t][Y])
 			radius = float(particle["Radius"][t])
-			color = particle["Color"][t]
-			# circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, fc=color )
-			circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True)
+			color = getColor(particle["Color"][t])
+			circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, fc=color )
 
 		### Initial function to animation ###
 		def init():
@@ -64,10 +71,12 @@ class BuildAnimation ( AnimationLimits ):
 				xCenter = float(particle["Position"][t][X])
 				yCenter = float(particle["Position"][t][Y])
 				radius = float(particle["Radius"][t])
-				color = particle["Color"][t]
+				color = getColor(particle["Color"][t])
 
-				# circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
-				circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True)
+				print("Particle color: ", particle["Color"][t])
+				print("Color: ", color)
+
+				circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
 				ax.add_patch(circles[name])
 
 			return circles.values()
@@ -77,10 +86,8 @@ class BuildAnimation ( AnimationLimits ):
 			ax.set_xlim( (xmin , xmax) )
 			ax.set_ylim( (ymin , ymax) )
 
-		def updateCircles(i):
-			print("i: ", i, "\nlen: ", len(timeIndices), "\nt: ", timeIndices[i], "\n\n")
+		def updateCircles(t):
 			for name, particle in particleData["SphericalParticle"].items():
-				t = timeIndices[i]
 				X = 0
 				Y = 1
 				xCenter = float(particle["Position"][t][X])
@@ -89,21 +96,20 @@ class BuildAnimation ( AnimationLimits ):
 				circles[name].center = (xCenter , yCenter)
 				circles[name].radius = radius
 
-			return circles.values()
+			return circles
 
 		### Animate function ###
-		def animate_byTimeStep(i):
-			t = timeIndices[i]
+		def animate_byTimeStep(t):
+			t = timeIndices[t]
 			# set graph limits
 			limits = AnimationLimits.getLimits_byTimeStep( particleData, t )
 			setAxisLimits(limits)
 			ax.set_title(str(time[t]) + " s")
 			circles = updateCircles(t)
-			return circles
+			return circles.values()
 
-		def animate_global(i):
-			t = timeIndices[i]
-
+		def animate_global(t):
+			t = timeIndices[t]
 			# set graph limits
 			limits = AnimationLimits.getLimits_global( particleData )
 			setAxisLimits(limits)
@@ -111,8 +117,8 @@ class BuildAnimation ( AnimationLimits ):
 			circles = updateCircles(t)
 			return circles.values()
 
-		def animate_autoscale(i):
-			t = timeIndices[i]
+		def animate_autoscale(t):
+			t = timeIndices[t]
 			# set graph limits
 			limits = AnimationLimits.getLimits_autoscale( ax )
 			setAxisLimits(limits)
@@ -135,4 +141,6 @@ class BuildAnimation ( AnimationLimits ):
 			if( animationBools[at] ):
 				anim = animation.FuncAnimation(fig, animateFunction[at], init_func=init, frames=frames , blit=True)
 				extension = "_" + at + ".mp4"
-				anim.save(simulationAnimationsOutputFolder + "Animation" + extension, fps=fps)
+				filename = "Animation" + extension
+				filepath = os.path.join(simulationAnimationsOutputFolder, filename)
+				anim.save(filepath, fps=fps)
