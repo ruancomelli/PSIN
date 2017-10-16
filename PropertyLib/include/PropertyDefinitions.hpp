@@ -1,6 +1,7 @@
 #ifndef PROPERTY_DEFINITIONS_HPP
 #define PROPERTY_DEFINITIONS_HPP
 
+#include <PropertyDefinitions/Color.hpp>
 #include <PropertyDefinitions/Gravity.hpp>
 
 // PropertyLib
