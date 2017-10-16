@@ -1,10 +1,7 @@
 {
 	"Name": "RedSphere",
 
-	"Color":
-	{
-		"name": "Red"
-	},
+	"Color": "red",
 	
 	"TaylorOrder": 4,
 	"Dimension": 3,

@@ -1,10 +1,7 @@
 {
 	"Name": "BlueSphere",
 
-	"Color":
-	{
-		"name": "Blue"
-	},
+	"Color": "blue",
 	
 	"TaylorOrder": 4,
 	"Dimension": 3,
