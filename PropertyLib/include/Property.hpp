@@ -15,7 +15,7 @@ class Property
 		using ValueType = T;
 
 		// Constructors
-		Property();
+		Property() = default;
 		Property(const T & value);
 		Property(const Property<T> & other);
 
@@ -24,14 +24,10 @@ class Property
 
 		virtual T get() const;
 
-		template<typename istream_type>
-		bool input(istream_type & in);
-
-		template<typename ostream_type>
-		bool output(ostream_type & out) const;
-
 		// Assigned
 		bool assigned() const;
+
+		virtual ~Property() = default;
 
 	protected:
 		unique_ptr<T> value;

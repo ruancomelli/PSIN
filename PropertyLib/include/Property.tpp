@@ -17,10 +17,6 @@ Property<T>& Property<T>::operator=(const Property<T> & other)
 
 // ----- Constructors -----
 template<typename T>
-Property<T>::Property()
-{}
-
-template<typename T>
 Property<T>::Property(const T & value)
 {
 	this->set(value);
@@ -56,29 +52,6 @@ T Property<T>::get() const
 	{
 		throw std::runtime_error("Error: Trying to get non-assigned property");
 	}
-}
-
-// ----- Input and output value -----
-template<typename T>
-template<typename istream_type>
-bool Property<T>::input(istream_type & in)
-{
-	T value;
-
-	in >> value;
-
-	this->assign(value);
-
-	return true;
-}
-
-template<typename T>
-template<typename ostream_type>
-bool Property<T>::output(ostream_type & out) const
-{
-	out << *this->value;
-
-	return true;
 }
 
 template<typename T>
