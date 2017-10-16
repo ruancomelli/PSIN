@@ -8,8 +8,9 @@
     "ElectricCharge": 2e-06,
     "FrictionParameter": 0.6,
     "Mass": 0.001,
+    "MomentOfInertia": 4e-08,
     "Name": "RedSphere",
-    "Orientation": [
+    "OrientationMatrix": [
         [
             0.0,
             0.0,
@@ -32,7 +33,7 @@
         ]
     ],
     "PoissonRatio": 0.3,
-    "Position": [
+    "PositionMatrix": [
         [
             0.0,
             0.0,

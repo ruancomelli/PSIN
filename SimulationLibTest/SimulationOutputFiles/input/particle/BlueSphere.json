@@ -8,8 +8,9 @@
     "ElectricCharge": -1e-06,
     "FrictionParameter": 0.8,
     "Mass": 0.001,
+    "MomentOfInertia": 4e-08,
     "Name": "BlueSphere",
-    "Orientation": [
+    "OrientationMatrix": [
         [
             0.0,
             0.0,
@@ -32,7 +33,7 @@
         ]
     ],
     "PoissonRatio": 0.3,
-    "Position": [
+    "PositionMatrix": [
         [
             0.1,
             0.0,

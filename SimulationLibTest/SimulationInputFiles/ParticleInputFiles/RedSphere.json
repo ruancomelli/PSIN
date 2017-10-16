@@ -11,6 +11,7 @@
 
 	"Mass": 1e-3,
 	"Radius": 1e-2,
+	"MomentOfInertia": 4e-8,
 	"DissipativeConstant": 0.0,
 	"PoissonRatio": 0.3,
 	"ElasticModulus": 1e7,
@@ -18,7 +19,7 @@
 	"FrictionParameter": 0.6,
 	"ElectricCharge": 2e-6,
 
-	"Position":
+	"PositionMatrix":
 	[
 		[0.0, 0.0, 0.0],
 		[10.0, 0.0, 0.0],
@@ -26,7 +27,7 @@
 		[0.0, 0.0, 0.0]
 	],
 
-	"Orientation":
+	"OrientationMatrix":
 	[
 		[0.0, 0.0, 0.0],
 		[0.0, 0.0, 0.0],
