@@ -75,12 +75,12 @@ void Simulation<
 {
 	for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
 	{
+		string interactionName(it.key());
+		interactionsToUse.insert( interactionName );
+
 		if(it->is_string())
 		{
-			string interactionName(it.key());
 			path interactionInputFilePath = it.value();
-
-			interactionsToUse.insert( interactionName );
 
 			mp::for_each< mp::provide_indices<InteractionList> >(
 			[&, this](auto Index)
