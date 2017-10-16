@@ -22,6 +22,7 @@ _premake_files/premake4
 *.asv
 *.log
 *.sublime-workspace
+*.mp4
 
 
 .vscode*
