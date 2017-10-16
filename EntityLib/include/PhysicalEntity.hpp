@@ -40,13 +40,6 @@ class PhysicalEntity
 		template<typename PropertyType>
 		PropertyType property() const;
 
-		// ----- Input and output property -----
-		template<typename PropertyType, typename istream_type>
-		bool input(istream_type & in);
-
-		template<typename PropertyType, typename ostream_type>
-		bool output(ostream_type & out) const;
-
 		// ----- Set and get property -----
 		template<typename PropertyType, typename ValueType>
 		void set(const ValueType & value);

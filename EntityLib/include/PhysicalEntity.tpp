@@ -72,25 +72,6 @@ PropertyType PhysicalEntity<PropertyTypes...>::property() const
 	return std::get<PropertyType>(this->propertyTuple);
 }
 
-// ----- Input and output property -----
-template<typename ... PropertyTypes>
-template<typename PropertyType, typename istream_type>
-bool PhysicalEntity<PropertyTypes...>::input(istream_type & in)
-{
-	static_assert(mp::type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntity<PropertyTypes...>::input' must be in template parameter list in the specialization of 'PhysicalEntity'");
-
-	return std::get<PropertyType>(this->propertyTuple).input(in);
-}
-
-template<typename ... PropertyTypes>
-template<typename PropertyType, typename ostream_type>
-bool PhysicalEntity<PropertyTypes...>::output(ostream_type & out) const
-{
-	static_assert(mp::type_list<PropertyTypes...>::template contains<PropertyType>, "Template parameter for function 'PhysicalEntity<PropertyTypes...>::output' must be in template parameter list in the specialization of 'PhysicalEntity'");
-
-	return std::get<PropertyType>(this->propertyTuple).output(out);
-}
-
 // ----- Set and get property -----
 template<typename ... PropertyTypes>
 template<typename PropertyType, typename ValueType>
