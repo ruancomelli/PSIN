@@ -16,6 +16,8 @@
 #include <fstream>
 #include <tuple>
 
+#include <boost/type_index.hpp> // DEBUG
+
 namespace psin {
 
 template<typename>
@@ -97,6 +99,9 @@ void Simulation<
 			fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
 		}
 	}
+
+	for(auto&& entry : interactionsToUse)
+		std::cout << "Using interaction " << entry << std::endl; // DEBUG
 }
 
 template<
@@ -520,9 +525,12 @@ struct correct_particle
 	{
 		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
+			auto acceleration = particle.getResultingForce() / particle.template get<Mass>();
+			auto angularAcceleration = particle.getResultingTorque() / particle.template get<MomentOfInertia>();
+
 			vector<Vector3D> correctedPosition = Interaction<>::gearCorrector(
 					particle.getPositionMatrix(),
-					particle.getAcceleration(),
+					acceleration,
 					particle.getTaylorOrder(),
 					time.getTimeStep()
 				);
@@ -530,7 +538,7 @@ struct correct_particle
 
 			vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
 					particle.getOrientationMatrix(),
-					particle.getAngularAcceleration(),
+					angularAcceleration,
 					particle.getTaylorOrder(),
 					time.getTimeStep()
 				);
@@ -557,7 +565,7 @@ struct initialize_particle
 template<typename InteractionTriplet>
 struct interact_particle_particle
 {
-	template<typename ParticleVectorTuple, typename BoundaryVectorTuple, typename Time>
+	template<typename ParticleVectorTuple, typename Time>
 	static void call(ParticleVectorTuple & particleVectorTuple, const Time & time, const std::set< std::string > & interactionsToUse)
 	{
 		using InteractionType = typename mp::get<0, InteractionTriplet>::type;
@@ -709,6 +717,36 @@ void Simulation<
 	}
 }
 
+template<typename InteractionTriplet>
+struct print_check
+{
+	static void call()
+	{
+		using InteractionType = typename mp::get<0, InteractionTriplet>::type;
+		using EntityType = typename mp::get<1, InteractionTriplet>::type;
+		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
+
+		std::cout << "Interaction: " 
+			<< boost::typeindex::type_id_with_cvr<InteractionType>().pretty_name() 
+			<< std::endl; // DEBUG
+
+		std::cout << "EntityType: " 
+			<< boost::typeindex::type_id_with_cvr<EntityType>().pretty_name() 
+			<< std::endl; // DEBUG
+
+		std::cout << "NeighborType: " 
+			<< boost::typeindex::type_id_with_cvr<NeighborType>().pretty_name() 
+			<< std::endl; // DEBUG
+
+		std::cout << "Check: "
+			<< std::boolalpha
+			<< InteractionType::template check<EntityType, NeighborType>::value 
+			<< std::endl;
+
+		std::cout << std::endl;
+	}
+};	// DEBUG
+
 template<
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes,
@@ -729,8 +767,33 @@ void Simulation<
 	unsigned long timeStepsForOutputCounter = 0;
 	unsigned long outputsForExportingCounter = 0;
 
+	// ---- DEBUG ----
+	mp::visit< typename mp::combinatory::generate_combination_list<
+		InteractionList,
+		ParticleList,
+		ParticleList
+	>::type , print_check>::call_same();
+	// ---- ----- ----
+
+	std::cout << "ParticleList:\n" 
+		<< boost::typeindex::type_id_with_cvr<ParticleList>().pretty_name() 
+		<< std::endl; // DEBUG
+
+	std::cout << "BoundaryList:\n" 
+		<< boost::typeindex::type_id_with_cvr<BoundaryList>().pretty_name() 
+		<< std::endl; // DEBUG
+
+	std::cout << "InteractionList:\n" 
+		<< boost::typeindex::type_id_with_cvr<InteractionList>().pretty_name() 
+		<< std::endl; // DEBUG
+
+	std::cout << "InteractionParticleParticleTriplets:\n" 
+		<< boost::typeindex::type_id_with_cvr<InteractionParticleParticleTriplets>().pretty_name() 
+		<< std::endl; // DEBUG
+
 	for(time.start(); !time.end(); time.update())
 	{
+		std::cout << time.as_json() << std::endl; // DEBUG
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
