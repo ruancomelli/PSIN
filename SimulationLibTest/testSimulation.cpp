@@ -168,7 +168,8 @@ TestCase(Simulation_setup_Test)
 				Mass,
 				Volume,
 				MomentOfInertia,
-				PoissonRatio
+				PoissonRatio,
+				Color
 				>
 			>,
 		BoundaryList<>,
@@ -217,7 +218,8 @@ TestCase(Simulation_setup_and_outputMainData_Test)
 				Mass,
 				Volume,
 				MomentOfInertia,
-				PoissonRatio
+				PoissonRatio,
+				Color
 				>
 			>,
 		BoundaryList<>,
@@ -270,7 +272,8 @@ TestCase(Simulation_simulate_Test)
 				Mass,
 				Volume,
 				MomentOfInertia,
-				PoissonRatio
+				PoissonRatio,
+				Color
 				>
 			>,
 		BoundaryList<>,
@@ -287,6 +290,7 @@ TestCase(Simulation_simulate_Test)
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
 	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+
 	simulation.setup( mainInputFilePath );
 	simulation.outputMainData();
 	simulation.backupInteractions();
@@ -316,35 +320,46 @@ TestCase(Simulation_simulate_with_boundary_Test)
 	{
 		projectRootPath = path(vm["path"].as<string>());
 	}
+
+	using ParticleList = psin::ParticleList<
+		SphericalParticle<
+			Mass,
+			Volume,
+			MomentOfInertia,
+			PoissonRatio,
+			ElectricCharge,
+			Color
+			>
+		>;
+
+	using BoundaryList = psin::BoundaryList<
+		FixedInfinitePlane<
+			
+			>,
+		GravityField
+		>;
+		
+	using InteractionList = psin::InteractionList<
+		ElectrostaticForce,
+		NormalForceLinearDashpotForce,
+		NormalForceHertz,
+		TangentialForceCundallStrack,
+		TangentialForceHaffWerner
+		>;
 	
 	Simulation<
-		ParticleList<
-			SphericalParticle<
-				Mass,
-				Volume,
-				MomentOfInertia,
-				PoissonRatio
-				>
-			>,
-		BoundaryList<
-			FixedInfinitePlane<
-				
-				>,
-			GravityField
-			>,
-		InteractionList<
-			ElectrostaticForce,
-			NormalForceLinearDashpotForce,
-			NormalForceHertz,
-			TangentialForceCundallStrack,
-			TangentialForceHaffWerner
-			>,
+		ParticleList,
+		BoundaryList,
+		InteractionList,
 		LooperList<GearLooper>,
 		SeekerList<BlindSeeker>
 	> simulation;
 
 	path simulationLibTestPath = projectRootPath / "SimulationLibTest";
 	path mainInputFilePath = simulationLibTestPath / "SimulationInputFiles" / "main.json";
+
+	std::cout << "\nmainInputFilePath: " << mainInputFilePath.string() << std::endl; // DEBUG
+
 	simulation.setup( mainInputFilePath );
 	simulation.outputMainData();
 	simulation.backupInteractions();
