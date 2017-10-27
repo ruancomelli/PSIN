@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import os
 from matplotlib import animation
+from math import floor
+from numpy import log10
 
 from AnimationLimits import AnimationLimits
 
@@ -61,6 +63,8 @@ class BuildAnimation ( AnimationLimits ):
 			color = getColor(particle["Color"][t])
 			circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, fc=color )
 
+		round_to_n = lambda x, n: round(x, -int(floor(log10(x))) + (n - 1)) if x != 0 else 0
+
 		### Initial function to animation ###
 		def init():
 			ax.set_title(str(time[0]) + " s")
@@ -72,9 +76,6 @@ class BuildAnimation ( AnimationLimits ):
 				yCenter = float(particle["Position"][t][Y])
 				radius = float(particle["Radius"][t])
 				color = getColor(particle["Color"][t])
-
-				print("Particle color: ", particle["Color"][t])
-				print("Color: ", color)
 
 				circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
 				ax.add_patch(circles[name])
@@ -104,7 +105,7 @@ class BuildAnimation ( AnimationLimits ):
 			# set graph limits
 			limits = AnimationLimits.getLimits_byTimeStep( particleData, t )
 			setAxisLimits(limits)
-			ax.set_title(str(time[t]) + " s")
+			ax.set_title(str(round_to_n(time[t], 2)) + " s")
 			circles = updateCircles(t)
 			return circles.values()
 
@@ -113,7 +114,7 @@ class BuildAnimation ( AnimationLimits ):
 			# set graph limits
 			limits = AnimationLimits.getLimits_global( particleData )
 			setAxisLimits(limits)
-			ax.set_title(str(time[t]) + " s")
+			ax.set_title(str(round_to_n(time[t], 2)) + " s")
 			circles = updateCircles(t)
 			return circles.values()
 
@@ -122,7 +123,7 @@ class BuildAnimation ( AnimationLimits ):
 			# set graph limits
 			limits = AnimationLimits.getLimits_autoscale( ax )
 			setAxisLimits(limits)
-			ax.set_title(str(time[t]) + " s")
+			ax.set_title(str(round_to_n(time[t], 2)) + " s")
 			circles = updateCircles(t)
 			return circles.values()
 
