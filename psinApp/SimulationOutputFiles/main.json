@@ -1,0 +1,20 @@
+{
+    "boundaries": null,
+    "boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/psinApp/SimulationOutputFiles/Boundaries",
+    "dimension": 3,
+    "finalTime": 0.01,
+    "initialTime": 0.0,
+    "interactions": null,
+    "looper": "GearLooper",
+    "mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/psinApp/SimulationOutputFiles",
+    "outputsForExporting": 1,
+    "particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/psinApp/SimulationOutputFiles/Particles",
+    "particles": {
+        "BlueSphere": "/home/ruancomelli/GitProjects/ParticleSimulator/psinApp/SimulationInputFiles/ParticleInputFiles/BlueSphere.json",
+        "RedSphere": "/home/ruancomelli/GitProjects/ParticleSimulator/psinApp/SimulationInputFiles/ParticleInputFiles/RedSphere.json"
+    },
+    "seeker": "BlindSeeker",
+    "taylorOrder": 4,
+    "timeStep": 1e-05,
+    "timeStepsForOutput": 2
+}

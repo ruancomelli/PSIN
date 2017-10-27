@@ -1,0 +1,34 @@
+{
+	"Name": "BlueSphere",
+
+	"Color": "blue",
+	
+	"TaylorOrder": 4,
+	"Dimension": 3,
+
+	"Mass": 1e-3,
+	"Radius": 5e-2,
+	"MomentOfInertia": 4e-8,
+	"DissipativeConstant": 0.0,
+	"PoissonRatio": 0.3,
+	"ElasticModulus": 1e7,
+	"TangentialDamping": 1000,
+	"FrictionParameter": 0.8,
+	"ElectricCharge": -1e-6,
+
+	"PositionMatrix":
+	[
+		[0.1, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0]
+	],
+
+	"OrientationMatrix":
+	[
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0],
+		[0.0, 0.0, 0.0]
+	]
+}
