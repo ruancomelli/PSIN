@@ -18,8 +18,8 @@ namespace psin {
 //		tangentialForce is the tangential force applied BY neighbor TO particle
 
 //		Calculates normal forces between two spherical particles according to equation (2.8) (see reference)
-template<typename...Ts, typename...Us>
-Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor)
+template<typename...Ts, typename...Us, typename Time>
+Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, const Time &)
 {
 	const double overlap = psin::overlap(particle, neighbor);
 	

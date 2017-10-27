@@ -38,8 +38,8 @@ struct NormalForceHertz
 		>
 	{};
 
-	template<typename...Ts, typename...Us>
-	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor);
+	template<typename...Ts, typename...Us, typename Time>
+	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, const Time &);
 };
 
 template<>

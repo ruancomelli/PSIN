@@ -13,8 +13,8 @@ namespace psin {
 //		particle is the reference
 //		normalForce is the normal force applied BY neighbor TO particle
 //		tangentialForce is the tangential force applied BY neighbor TO particle
-template<typename P1, typename P2>
-void ElectrostaticForce::calculate(P1 & particle, P2 & neighbor)
+template<typename P1, typename P2, typename T>
+void ElectrostaticForce::calculate(P1 & particle, P2 & neighbor, const T &)
 {
 	double k = 9e+9;
 

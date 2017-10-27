@@ -33,8 +33,8 @@ struct ElectrostaticForce
 	template<typename P1, typename P2>
 	constexpr static bool check_v = check<P1, P2>::value;
 
-	template<typename P1, typename P2>
-	static void calculate(P1 & particle, P2 & neighbor);
+	template<typename P1, typename P2, typename T>
+	static void calculate(P1 & particle, P2 & neighbor, const T &);
 };
 
 template<>
