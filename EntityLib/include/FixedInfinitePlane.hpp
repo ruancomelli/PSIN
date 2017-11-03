@@ -3,6 +3,7 @@
 
 // EntityLib
 #include <FixedBoundary.hpp>
+#include <SpatialEntity.hpp>
 
 // UtilsLib
 #include <Vector3D.hpp>
@@ -63,6 +64,9 @@ bool operator==(const FixedInfinitePlane<PropertyTypes...> & left, const FixedIn
 
 template<typename Plane1, typename Plane2>
 bool parallelPlanes(const Plane1 & left, const Plane2 & right);
+
+template<typename...Us>
+inline Vector3D normalVersor(const SpatialEntity & s, const FixedInfinitePlane<Us...> & plane);
 
 } // psin
 

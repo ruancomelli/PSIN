@@ -173,6 +173,14 @@ bool parallelPlanes(const Plane1 & left, const Plane2 & right)
 	return ( leftVersor == rightVersor ) or ( leftVersor == - rightVersor );
 }
 
+template<typename...Us>
+Vector3D normalVersor(const SpatialEntity & s, const FixedInfinitePlane<Us...> & plane)
+{
+	return dot(plane.getOrigin() - s.getPosition(), plane.getNormalVersor()) > 0
+		? plane.getNormalVersor()
+		: -plane.getNormalVersor();
+}
+
 } // psin
 
 #endif
