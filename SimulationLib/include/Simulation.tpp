@@ -75,6 +75,8 @@ void Simulation<
 	SeekerList<BlindSeeker>
 >::setupInteractions(const json & interactionsJSON)
 {
+	std::cout << "Interactions setup" << std::endl; // DEBUG
+
 	for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
 	{
 		string interactionName(it.key());
@@ -117,6 +119,8 @@ void Simulation<
 	SeekerList<BlindSeeker>
 >::buildParticles(const json & particlesJSON)
 {
+	std::cout << "Building particles" << std::endl; // DEBUG
+
 	for(json::const_iterator it = particlesJSON.begin(); it != particlesJSON.end(); ++it) 
 	{
 		if(it->is_array())
@@ -183,6 +187,8 @@ void Simulation<
 	SeekerList<BlindSeeker>
 >::buildBoundaries(const json & boundariesJSON)
 {
+	std::cout << "Building boundaries" << std::endl; // DEBUG
+	
 	for(json::const_iterator it = boundariesJSON.begin(); it != boundariesJSON.end(); ++it) 
 	{
 		if(it->is_array())
@@ -772,6 +778,11 @@ void Simulation<
 		InteractionList,
 		ParticleList,
 		ParticleList
+	>::type , print_check>::call_same();
+	mp::visit< typename mp::combinatory::generate_combination_list<
+		InteractionList,
+		ParticleList,
+		BoundaryList
 	>::type , print_check>::call_same();
 	// ---- ----- ----
 
