@@ -3,6 +3,7 @@ import os
 from matplotlib import animation
 from math import floor
 from numpy import log10
+from Geometry import getIntersectPoints
 
 from AnimationLimits import AnimationLimits
 
@@ -62,6 +63,15 @@ class BuildAnimation ( AnimationLimits ):
 			radius = float(particle["Radius"][t])
 			color = getColor(particle["Color"][t])
 			circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, fc=color )
+
+		limits = AnimationLimits.getLimits_global( particleData )
+		lines = {}
+		for boundaryName, boundary in boundaryData["FixedInfinitePlane"].items():
+			t = beginning
+			X = 0
+			Y = 0
+			normalVersor = float(boundary[""])
+			(boolReturn, begin, end) = getIntersectPoints(boundary[""])
 
 		round_to_n = lambda x, n: round(x, -int(floor(log10(x))) + (n - 1)) if x != 0 else 0
 
