@@ -49,7 +49,7 @@ Vector3D NormalForceHertz::calculate(SphericalParticle<Ts...> & particle, Spheri
 		
 		const double normalForceModulus = std::max( term1 * term2 / term3 , 0.0 );
 		
-		const Vector3D normalForce = - normalForceModulus * particle.normalVersor(neighbor);
+		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
 		
 		particle.addContactForce( normalForce );
 		neighbor.addContactForce( - normalForce );

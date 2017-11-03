@@ -24,7 +24,7 @@ void ElectrostaticForce::calculate(P1 & particle, P2 & neighbor, const T &)
 
 	double force = - k * charge1 * charge2 / ( r * r );
 
-	Vector3D electricForce = force * particle.normalVersor(neighbor);
+	Vector3D electricForce = force * normalVersor(particle, neighbor);
 
 	particle.addBodyForce( electricForce );
 	neighbor.addBodyForce( - electricForce );

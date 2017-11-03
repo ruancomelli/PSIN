@@ -64,10 +64,6 @@ class SpatialEntity
 
 		std::vector<Vector3D> getOrientationMatrix(void) const;
 		Vector3D getOrientationDerivative(const std::size_t derivative) const; // throws
-		
-
-		// ----- Normal Versor -----
-		Vector3D normalVersor( const SpatialEntity & neighbor ) const;
 
 		// ----- Taylor Order -----
 		void setTaylorOrder(const std::size_t taylorOrder); // throws
@@ -94,6 +90,7 @@ void to_json(json& j, const SpatialEntity &);
 
 double distance(const SpatialEntity & left, const SpatialEntity & right);	// distance function. Must be specialized for every pair of types
 
+Vector3D normalVersor(const SpatialEntity & lhs, const SpatialEntity & rhs);
 
 } // psin
 

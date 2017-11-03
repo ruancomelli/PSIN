@@ -38,7 +38,7 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 		const double normalForceModulus = std::max( (elasticModulus1 + elasticModulus2) * overlap + 
 										(normalDissipativeConstant1 + normalDissipativeConstant2) * overlapDerivative , 0.0 );
 		
-		const Vector3D normalForce = - normalForceModulus * particle.normalVersor( neighbor );
+		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
 		
 		particle.addContactForce( normalForce );
 		neighbor.addContactForce( - normalForce );
