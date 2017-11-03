@@ -28,8 +28,8 @@ struct GravityForce
 		>
 	{};
 
-	template<typename P1>
-	static void calculate(P1 & particle, const GravityField & field);
+	template<typename P1, typename Time>
+	static void calculate(P1 & particle, const GravityField & field, Time&&);
 };
 
 template<>

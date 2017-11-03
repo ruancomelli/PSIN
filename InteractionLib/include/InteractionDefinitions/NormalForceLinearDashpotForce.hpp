@@ -37,7 +37,7 @@ struct NormalForceLinearDashpotForce
 	constexpr static bool check_v = check<P1, P2>::value;
 
 	template<typename...Ts, typename...Us, typename Time>
-	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, const Time &);
+	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time &&);
 };
 
 template<>

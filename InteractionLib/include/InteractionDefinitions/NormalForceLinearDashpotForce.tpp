@@ -19,7 +19,7 @@ namespace psin {
 
 //		Calculates normal forces between two spherical particles according to equation (2.8) (see reference)
 template<typename...Ts, typename...Us, typename Time>
-Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, const Time &)
+Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&)
 {
 	const double overlap = psin::overlap(particle, neighbor);
 	
