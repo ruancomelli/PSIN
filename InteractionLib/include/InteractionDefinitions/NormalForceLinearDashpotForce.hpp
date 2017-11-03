@@ -7,7 +7,7 @@
 // UtilsLib
 #include <Builder.hpp>
 #include <NamedType.hpp>
-#include <mp/bool_constant.hpp>
+#include <mp/logical.hpp>
 
 // JSONLib
 #include <json.hpp>
@@ -23,13 +23,23 @@ namespace psin {
 struct NormalForceLinearDashpotForce
 {
 	template<typename P1, typename P2>
-	struct check : mp::bool_constant<
-		has_property<P1, ElasticModulus>::value
-		and has_property<P1, NormalDissipativeConstant>::value
-		and is_spherical<P1>::value
-		and has_property<P2, ElasticModulus>::value
-		and has_property<P2, NormalDissipativeConstant>::value
-		and is_spherical<P2>::value
+	struct check : mp::disjunction<
+		mp::conjunction<
+			has_property<P1, ElasticModulus>,
+			has_property<P1, NormalDissipativeConstant>,
+			is_spherical<P1>,
+			has_property<P2, ElasticModulus>,
+			has_property<P2, NormalDissipativeConstant>,
+			is_spherical<P2>
+			>,
+		mp::conjunction<
+			has_property<P1, ElasticModulus>,
+			has_property<P1, NormalDissipativeConstant>,
+			is_spherical<P1>,
+			has_property<P2, ElasticModulus>,
+			has_property<P2, NormalDissipativeConstant>,
+			is_plane<P2>
+			>
 		>
 	{};
 
@@ -38,6 +48,9 @@ struct NormalForceLinearDashpotForce
 
 	template<typename...Ts, typename...Us, typename Time>
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time &&);
+
+	template<typename...Ts, typename...Us, typename Time>
+	static Vector3D calculate(SphericalParticle<Ts...> & particle, const FixedInfinitePlane<Us...> & neighbor, Time &&);
 };
 
 template<>
