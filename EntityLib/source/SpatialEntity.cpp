@@ -23,12 +23,30 @@ void to_json(json& j, const SpatialEntity & spatial)
 	j["OrientationMatrix"] =  spatial.getOrientationMatrix();
 
 	j["Position"] =  spatial.getPosition();
+	j["Position - X"] = spatial.getPosition().x();
+	j["Position - Y"] = spatial.getPosition().y();
+	j["Position - Z"] = spatial.getPosition().z();
 	j["Velocity"] =  spatial.getVelocity();
+	j["Velocity - X"] = spatial.getVelocity().x();
+	j["Velocity - Y"] = spatial.getVelocity().y();
+	j["Velocity - Z"] = spatial.getVelocity().z();
 	j["Acceleration"] =  spatial.getAcceleration();
+	j["Acceleration - X"] = spatial.getAcceleration().x();
+	j["Acceleration - Y"] = spatial.getAcceleration().y();
+	j["Acceleration - Z"] = spatial.getAcceleration().z();
 
 	j["Orientation"] =  spatial.getOrientation();
+	j["Orientation - X"] = spatial.getOrientation().x();
+	j["Orientation - Y"] = spatial.getOrientation().y();
+	j["Orientation - Z"] = spatial.getOrientation().z();
 	j["AngularVelocity"] =  spatial.getAngularVelocity();
+	j["AngularVelocity - X"] = spatial.getAngularVelocity().x();
+	j["AngularVelocity - Y"] = spatial.getAngularVelocity().y();
+	j["AngularVelocity - Z"] = spatial.getAngularVelocity().z();
 	j["AngularAcceleration"] =  spatial.getAngularAcceleration();
+	j["AngularAcceleration - X"] = spatial.getAngularAcceleration().x();
+	j["AngularAcceleration - Y"] = spatial.getAngularAcceleration().y();
+	j["AngularAcceleration - Z"] = spatial.getAngularAcceleration().z();
 
 	j["TaylorOrder"] = spatial.getTaylorOrder();
 }
