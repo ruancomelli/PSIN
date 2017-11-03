@@ -1,7 +1,5 @@
 {
-    "Color": {
-        "name": "Red"
-    },
+    "Color": "red",
     "Dimension": 3,
     "DissipativeConstant": 0.0,
     "ElasticModulus": 10000000.0,
@@ -41,7 +39,7 @@
         ],
         [
             10.0,
-            0.0,
+            10.0,
             0.0
         ],
         [

@@ -2,7 +2,7 @@
     "boundaries": null,
     "boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Boundaries",
     "dimension": 3,
-    "finalTime": 0.1,
+    "finalTime": 0.01,
     "initialTime": 0.0,
     "interactions": null,
     "looper": "GearLooper",
@@ -15,6 +15,6 @@
     },
     "seeker": "BlindSeeker",
     "taylorOrder": 4,
-    "timeStep": 0.01,
+    "timeStep": 1e-05,
     "timeStepsForOutput": 2
 }

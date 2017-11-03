@@ -16,6 +16,8 @@ _premake_files/premake4
 **.pyc
 **.log
 **.sublime-workspace
+**.mp4
+**.png
 
 *.pyc
 *.exe
@@ -23,6 +25,7 @@ _premake_files/premake4
 *.log
 *.sublime-workspace
 *.mp4
+*.png
 
 
 .vscode*

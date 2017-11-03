@@ -1,7 +1,7 @@
 {
 	"initialTime": 0.0,
-	"timeStep": 1e-2,
-	"finalTime": 10e-2,
+	"timeStep": 1e-5,
+	"finalTime": 1e-2,
 	"taylorOrder": 4,
 	"timeStepsForOutput": 2,
 	"outputsForExporting": 1,

@@ -1,13 +1,11 @@
 {
-    "Color": "blue",
+    "Color": "Red",
     "Dimension": 3,
-    "DissipativeConstant": 0.0,
-    "ElasticModulus": 10000000.0,
-    "ElectricCharge": -1e-06,
-    "FrictionParameter": 0.8,
-    "Mass": 0.001,
-    "MomentOfInertia": 4e-08,
-    "Name": "BlueSphere",
+    "ElasticModulus": 1000000.0,
+    "Mass": 1,
+    "MomentOfInertia": 1,
+    "Name": "Particle",
+    "NormalDissipativeConstant": 5,
     "OrientationMatrix": [
         [
             0.0,
@@ -30,15 +28,14 @@
             0.0
         ]
     ],
-    "PoissonRatio": 0.3,
     "PositionMatrix": [
         [
-            0.1,
+            10.0,
             0.0,
             0.0
         ],
         [
-            0.0,
+            -10.0,
             0.0,
             0.0
         ],
@@ -53,7 +50,6 @@
             0.0
         ]
     ],
-    "Radius": 0.01,
-    "TangentialDamping": 1000,
-    "TaylorOrder": 4
+    "Radius": 0.1,
+    "TaylorOrder": 6
 }
