@@ -22,6 +22,8 @@
 #include <Vector3D.hpp>
 #include <metaprogramming.hpp>
 
+#include <Eigen/Geometry>
+
 // using namespace std;
 using namespace psin;
 using namespace mp;
@@ -1741,4 +1743,20 @@ TestCase(boost__mpl__for_each_Test)
 	checkEqual( std::get<int>(z), 2 );
 	checkEqual( std::get<char>(z), 'c' );
 	checkEqual( std::get<bool>(z), true );
+}
+
+TestCase(Quaternion_Test)
+{
+	double q0 = 3.14;
+	double q1 = 1.618;
+	double q2 = 10.98;
+	double q3 = -982.5;
+
+	double p0 = -0.182;
+	double p1 = 1502.003;
+	double p2 = -7;
+	double p3 = 0;
+
+	Eigen::Quaternion<double> q(q0, q1, q2, q3);
+	Eigen::Quaternion<double> p(p0, p1, p2, p3);
 }
