@@ -151,6 +151,15 @@ class GeneratePlots:
 		    label.set_fontproperties( font_manager.FontProperties(family='sans-serif', style='normal',
 	    size=15, weight='normal') )
 						
+		# Plot total propertyName-property
+		ax.plot( 
+			timeVector, 
+			total,
+			'k-',
+			linewidth = 2.0,
+			label = "Total"
+			)
+						
 		# Plot each particle's property
 		for particleTypename, particleType in particleData.items():
 			for particleName, particle in particleType.items():
@@ -161,15 +170,6 @@ class GeneratePlots:
 					label = particleName,
 					marker = '.'
 					)
-						
-		# Plot total propertyName-property
-		ax.plot( 
-			timeVector, 
-			total,
-			'k-',
-			linewidth = 2.0,
-			label = "Total"
-			)
 		
 		
 		handles, labels = ax.get_legend_handles_labels()
@@ -182,6 +182,7 @@ class GeneratePlots:
 		lgd = ax.legend(handle_list, label_list, loc='right', prop={'size': 15, 'family': 'sans-serif', 'weight': 'normal'})
 		lgd.set_title("Legenda", prop={'size': 18, 'family': 'sans-serif', 'weight': 'normal'})
 		plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+		plt.close(fig)
 	
 	def plotParticleDataHistory3D( self, propertyName, title, outputFolder, filename,
 		extension, xAxisLabel, yAxisLabel ):
