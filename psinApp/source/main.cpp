@@ -27,6 +27,10 @@ using namespace psin;
 int main(int argc, char* argv[])
 {
 	path projectRootPath = filesystem::current_path().parent_path().parent_path().parent_path();	
+
+	path simulatorRootPath = projectRootPath / "psinApp";
+	path mainInputFilePath = simulatorRootPath / "SimulationInputFiles" / "main.json";
+
 	program_options::options_description desc("Allowed options");
 	desc.add_options()
 		("help", "produce help message")
@@ -43,7 +47,7 @@ int main(int argc, char* argv[])
 	}
 	if(vm.count("path"))
 	{
-		projectRootPath = path(vm["path"].as<string>());
+		mainInputFilePath = path(vm["path"].as<string>());
 	}
 
 	using ParticleList = psin::ParticleList<
@@ -57,13 +61,15 @@ int main(int argc, char* argv[])
 			TangentialDamping,
 			FrictionParameter,
 			ElectricCharge,
+			NormalDissipativeConstant,
 			Color
 			>
 		>;
 
 	using BoundaryList = psin::BoundaryList<
 		FixedInfinitePlane<
-			
+			ElasticModulus,
+			NormalDissipativeConstant
 			>,
 		GravityField
 		>;
@@ -71,9 +77,8 @@ int main(int argc, char* argv[])
 	using InteractionList = psin::InteractionList<
 		ElectrostaticForce,
 		NormalForceLinearDashpotForce,
-		NormalForceHertz
-		// TangentialForceCundallStrack,
-		// TangentialForceHaffWerner
+		NormalForceHertz,
+		GravityForce
 		>;
 		
 	using LooperList = psin::LooperList<GearLooper>;
@@ -88,10 +93,7 @@ int main(int argc, char* argv[])
 		SeekerList
 	> simulation;
 
-	path simulatorRootPath = projectRootPath / "psinApp";
-	path mainInputFilePath = simulatorRootPath / "SimulationInputFiles" / "main.json";
-
-	// std::cout << "\nmainInputFilePath: " << mainInputFilePath.string() << std::endl; // DEBUG
+	std::cout << "\nmainInputFilePath: " << mainInputFilePath.string() << std::endl; // DEBUG
 
 	simulation.setup( mainInputFilePath );
 	simulation.outputMainData();
