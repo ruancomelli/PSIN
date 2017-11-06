@@ -5,6 +5,7 @@
 #include <PropertyDefinitions/Gravity.hpp>
 
 // PropertyLib
+#include <NonNegativeProperty.hpp>
 #include <PositiveProperty.hpp>
 #include <Property.hpp>
 
@@ -57,7 +58,7 @@ void from_json(const json& j, ElasticModulus &);
 void to_json(json& j, const ElasticModulus &);
 
 
-struct DissipativeConstant : public Property<double>
+struct DissipativeConstant : public NonNegativeProperty<double>
 {
 	DissipativeConstant();
 	DissipativeConstant(const double & value);
@@ -75,7 +76,7 @@ void from_json(const json& j, PoissonRatio &);
 void to_json(json& j, const PoissonRatio &);
 
 
-struct NormalDissipativeConstant : public PositiveProperty<double>
+struct NormalDissipativeConstant : public NonNegativeProperty<double>
 {
 	NormalDissipativeConstant();
 	NormalDissipativeConstant(const double & value);

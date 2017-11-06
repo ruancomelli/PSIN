@@ -111,11 +111,11 @@ void to_json(json& j, const ElasticModulus & x)
 
 // ========================================== DissipativeConstant ==========================================
 DissipativeConstant::DissipativeConstant()
-	: Property<double>()
+	: NonNegativeProperty<double>()
 {}
 
 DissipativeConstant::DissipativeConstant(const double & value)
-	: Property<double>(value)
+	: NonNegativeProperty<double>(value)
 {}
 
 template<> const string NamedType<DissipativeConstant>::name = "DissipativeConstant";
@@ -151,11 +151,11 @@ void to_json(json& j, const PoissonRatio & x)
 
 // ========================================== NormalDissipativeConstant ==========================================
 NormalDissipativeConstant::NormalDissipativeConstant()
-	: PositiveProperty<double>()
+	: NonNegativeProperty<double>()
 {}
 
 NormalDissipativeConstant::NormalDissipativeConstant(const double & value)
-	: PositiveProperty<double>(value)
+	: NonNegativeProperty<double>(value)
 {}
 
 template<> const string NamedType<NormalDissipativeConstant>::name = "NormalDissipativeConstant";
