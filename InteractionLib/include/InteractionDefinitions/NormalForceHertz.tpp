@@ -54,6 +54,9 @@ Vector3D NormalForceHertz::calculate(SphericalParticle<Ts...> & particle, Spheri
 		particle.addContactForce( normalForce );
 		neighbor.addContactForce( - normalForce );
 
+		particle.setNormalForce(neighbor, normalForce);
+		neighbor.setNormalForce(particle, - normalForce);
+
 		return normalForce;
 	}
 	// else, no forces are added.

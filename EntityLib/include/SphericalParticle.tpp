@@ -125,8 +125,6 @@ double overlapDerivative(const SphericalParticle<Ts...> & lhs, const FixedInfini
 template<typename...Ts, typename...Us>
 Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
 {
-	
-
 	if( touch(left, right ) )
 	{
 		const double radius1 = left.template get<Radius>();
@@ -190,6 +188,13 @@ Vector3D SphericalParticle<PropertyTypes...>::tangentialVersor(const SphericalPa
 	{
 		return nullVector3D();
 	}
+}
+
+template<typename ... PropertyTypes>
+template<typename ... Us>
+Vector3D SphericalParticle<PropertyTypes...>::normalVersor(const SphericalParticle<Us...> & neighbor) const
+{
+	return psin::normalVersor(*this, neighbor);
 }
 
 } // psin

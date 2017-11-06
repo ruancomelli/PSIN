@@ -42,8 +42,8 @@ struct TangentialForceCundallStrack
 			>
 		{};
 
-		template<typename...Ts, typename...Us>
-		static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
+		template<typename...Ts, typename...Us, typename Time>
+		static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&& time);
 
 	private:
 		static std::map< std::pair<string, string>, Vector3D> cummulativeZeta;

@@ -38,6 +38,9 @@ class SphericalParticle : public Particle<Radius, PropertyTypes...>
 		
 		template<typename...Us>
 		Vector3D tangentialVersor(const SphericalParticle<Us...> & neighbor) const;
+
+		template<typename...Us>
+		Vector3D normalVersor(const SphericalParticle<Us...> & neighbor) const;
 };
 
 template<typename T, typename SFINAE = void>

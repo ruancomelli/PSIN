@@ -20,11 +20,15 @@ namespace psin {
 //		tangentialForce is the tangential force applied BY neighbor TO particle
 
 //		Calculates tangential forces between two spherical particles according to equation (2.21) (see reference)
-template<typename...Ts, typename...Us>
-void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep)
+template<typename...Ts, typename...Us, typename Time>
+void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&& time)
 {
+
 	if( touch(particle, neighbor) )
 	{
+		const auto normalForce = particle.getNormalForce(neighbor);
+		const auto timeStep = time.getTimeStep();
+
 		if( !checkCollision(particle, neighbor) )
 		{
 			startCollision( particle, neighbor );

@@ -21,10 +21,14 @@ namespace psin {
 template<typename...Ts, typename...Us, typename Time>
 Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&)
 {
+	std::cout << "Calculating NormalForceLinearDashpotForce" << std::endl; // DEBUG
+
 	const double overlap = psin::overlap(particle, neighbor);
 	
 	if(overlap > 0)
 	{
+		std::cout << "Positive overlap" << std::endl; // DEBUG
+
 		// ---- Get physical properties and calculate effective parameters ----
 		const double elasticModulus1 = particle.template get<ElasticModulus>();
 		const double elasticModulus2 = neighbor.template get<ElasticModulus>();
@@ -40,8 +44,16 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 		
 		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
 		
+
 		particle.addContactForce( normalForce );
 		neighbor.addContactForce( - normalForce );
+
+		std::cout << "Setting normal force" << std::endl; // DEBUG
+		particle.setNormalForce(neighbor, normalForce);
+		std::cout << "Normal force between " << particle.getName() << " and " << neighbor.getName() << ": " << particle.getNormalForce(neighbor) << std::endl; // DEBUG
+
+		neighbor.setNormalForce(particle, - normalForce);
+
 		return normalForce;
 	}
 	// else, no forces are added.
@@ -71,6 +83,9 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
 		
 		particle.addContactForce( normalForce );
+
+		particle.setNormalForce(neighbor, normalForce);
+		
 		return normalForce;
 	}
 	// else, no forces are added.

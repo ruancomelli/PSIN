@@ -18,11 +18,16 @@ namespace psin {
 //		tangentialForce is the tangential force applied BY neighbor TO particle
 
 //		Calculates tangential forces between two spherical particles according to equation (2.18) (see reference)
-template<typename...Ts, typename...Us>
-void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep)
+template<typename...Ts, typename...Us, typename Time>
+void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&)
 {
+	std::cout << "Calculating TangentialForceHaffWerner" << std::endl; // DEBUG
+
+
 	if( touch(particle, neighbor) )
 	{
+		auto normalForce = particle.getNormalForce(neighbor);
+		
 		// ---- Getting particles properties and parameters ----
 		const Vector3D position1 = particle.getPosition();
 		const Vector3D position2 = neighbor.getPosition();

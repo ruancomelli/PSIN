@@ -34,8 +34,8 @@ struct TangentialForceHaffWerner
 		>
 	{};
 		
-	template<typename...Ts, typename...Us>
-	static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Vector3D normalForce, double timeStep);
+	template<typename...Ts, typename...Us, typename Time>
+	static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&);
 };
 
 template<>
