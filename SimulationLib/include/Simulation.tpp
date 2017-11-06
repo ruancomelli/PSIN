@@ -201,15 +201,15 @@ void Simulation<
 				mp::for_each< mp::provide_indices<BoundaryList> >(
 				[&, this](auto Index)
 				{
-					using Particle = typename mp::get<Index, BoundaryList>::type;
-					if( NamedType<Particle>::name == boundaryType)
+					using Boundary = typename mp::get<Index, BoundaryList>::type;
+					if( NamedType<Boundary>::name == boundaryType)
 					{
 						json j = read_json(boundaryInputFilePath.string());
 
-						Particle particle = j;
+						Boundary particle = j;
 
 						boundaryName = particle.getName();
-						std::get< vector<Particle> >(boundaries).push_back( particle );
+						std::get< vector<Boundary> >(boundaries).push_back( particle );
 					}
 				});
 
@@ -225,15 +225,15 @@ void Simulation<
 			mp::for_each< mp::provide_indices<BoundaryList> >(
 			[&, this](auto Index)
 			{
-				using Particle = typename mp::get<Index, BoundaryList>::type;
-				if( NamedType<Particle>::name == boundaryType)
+				using Boundary = typename mp::get<Index, BoundaryList>::type;
+				if( NamedType<Boundary>::name == boundaryType)
 				{
 					json j = read_json(boundaryInputFilePath.string());
 
-					Particle particle = j;
+					Boundary particle = j;
 
 					boundaryName = particle.getName();
-					std::get< vector<Particle> >(boundaries).push_back( particle );
+					std::get< vector<Boundary> >(boundaries).push_back( particle );
 				}
 			});
 
