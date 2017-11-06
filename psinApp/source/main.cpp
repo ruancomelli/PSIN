@@ -78,7 +78,9 @@ int main(int argc, char* argv[])
 		ElectrostaticForce,
 		NormalForceLinearDashpotForce,
 		NormalForceHertz,
-		GravityForce
+		GravityForce,
+		TangentialForceCundallStrack,
+		TangentialForceHaffWerner
 		>;
 		
 	using LooperList = psin::LooperList<GearLooper>;
