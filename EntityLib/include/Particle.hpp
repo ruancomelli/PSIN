@@ -34,6 +34,12 @@ class Particle :
 		void setBodyForce(const Vector3D & force);
 		void setContactForce(const Vector3D & force);
 
+		template<typename NeighborType>
+		void setNormalForce(NeighborType&& neighbor, const Vector3D & force);
+
+		template<typename NeighborType>
+		Vector3D getNormalForce(NeighborType&& neighbor) const;
+
 		Vector3D getBodyForce(void) const;
 		Vector3D getContactForce(void) const;
 		Vector3D getResultingForce(void) const;
@@ -54,6 +60,8 @@ class Particle :
 		Vector3D contactForce;
 
 		Vector3D resultingTorque;
+
+		std::map<string, Vector3D> normalForceMap;
 };
 
 template<typename...Prs>

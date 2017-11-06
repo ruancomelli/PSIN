@@ -97,6 +97,18 @@ void Particle<PropertyTypes...>::setContactForce(const Vector3D & force)
 { 
 	this->contactForce = force; 
 }
+template<typename ... PropertyTypes>
+template<typename NeighborType>
+void Particle<PropertyTypes...>::setNormalForce(NeighborType&& neighbor, const Vector3D & force)
+{ 
+	this->normalForceMap[neighbor.getName()] = force;
+}
+template<typename ... PropertyTypes>
+template<typename NeighborType>
+Vector3D Particle<PropertyTypes...>::getNormalForce(NeighborType&& neighbor) const
+{ 
+	return this->normalForceMap.at(neighbor.getName());
+}
 
 template<typename ... PropertyTypes>
 Vector3D Particle<PropertyTypes...>::getBodyForce(void) const 
