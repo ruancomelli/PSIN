@@ -298,7 +298,7 @@ TestCase(SpatialEntityDistanceTest)
 {
 	Vector3D leftPosition = Vector3D(-3.1415, 1.618, -2.718);
 	Vector3D rightPosition = Vector3D(11.12, -58.13, 21.34);
-	double distanceValue = (leftPosition - rightPosition).length();
+	double distanceValue = (leftPosition - rightPosition).norm();
 
 	SpatialEntity left;
 	SpatialEntity right;
@@ -667,8 +667,8 @@ TestCase(ParticleMomentumAndEnergyTest)
 	Vector3D linearMomentum = mass * velocity;
 	Vector3D angularMomentum = mass * cross( position, velocity ) + momentOfInertia * angularVelocity;
 
-	double translationalEnergy = 0.5 * mass * velocity.squaredLength();
-	double rotationalEnergy = 0.5 * momentOfInertia * angularVelocity.squaredLength();
+	double translationalEnergy = 0.5 * mass * velocity.squaredNorm();
+	double rotationalEnergy = 0.5 * momentOfInertia * angularVelocity.squaredNorm();
 	double kineticEnergy = translationalEnergy + rotationalEnergy;
 
 	Particle<> particle;
@@ -1023,7 +1023,7 @@ TestCase(SphericalParticleOverlapDerivativeTest)
 
 	Vector3D positionDifference = position1 - position0;
 	Vector3D velocityDifference = velocity1 - velocity0;
-	double overlapDeriv = - dot(positionDifference, velocityDifference) / positionDifference.length();
+	double overlapDeriv = - dot(positionDifference, velocityDifference) / positionDifference.norm();
 
 	checkClose(overlapDerivative(sph0, sph1), overlapDeriv, tolerance);
 }

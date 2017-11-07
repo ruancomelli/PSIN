@@ -1,0 +1,174 @@
+[
+    {
+        "timeIndex": 0,
+        "timeInstant": 0.0
+    },
+    {
+        "timeIndex": 10,
+        "timeInstant": 0.001
+    },
+    {
+        "timeIndex": 20,
+        "timeInstant": 0.002
+    },
+    {
+        "timeIndex": 30,
+        "timeInstant": 0.003
+    },
+    {
+        "timeIndex": 40,
+        "timeInstant": 0.004
+    },
+    {
+        "timeIndex": 50,
+        "timeInstant": 0.005
+    },
+    {
+        "timeIndex": 60,
+        "timeInstant": 0.006
+    },
+    {
+        "timeIndex": 70,
+        "timeInstant": 0.00700000000000001
+    },
+    {
+        "timeIndex": 80,
+        "timeInstant": 0.00800000000000001
+    },
+    {
+        "timeIndex": 90,
+        "timeInstant": 0.009
+    },
+    {
+        "timeIndex": 100,
+        "timeInstant": 0.01
+    },
+    {
+        "timeIndex": 110,
+        "timeInstant": 0.011
+    },
+    {
+        "timeIndex": 120,
+        "timeInstant": 0.012
+    },
+    {
+        "timeIndex": 130,
+        "timeInstant": 0.013
+    },
+    {
+        "timeIndex": 140,
+        "timeInstant": 0.014
+    },
+    {
+        "timeIndex": 150,
+        "timeInstant": 0.015
+    },
+    {
+        "timeIndex": 160,
+        "timeInstant": 0.016
+    },
+    {
+        "timeIndex": 170,
+        "timeInstant": 0.017
+    },
+    {
+        "timeIndex": 180,
+        "timeInstant": 0.0179999999999999
+    },
+    {
+        "timeIndex": 190,
+        "timeInstant": 0.0189999999999999
+    },
+    {
+        "timeIndex": 200,
+        "timeInstant": 0.0199999999999999
+    },
+    {
+        "timeIndex": 210,
+        "timeInstant": 0.0209999999999999
+    },
+    {
+        "timeIndex": 220,
+        "timeInstant": 0.0219999999999999
+    },
+    {
+        "timeIndex": 230,
+        "timeInstant": 0.0229999999999999
+    },
+    {
+        "timeIndex": 240,
+        "timeInstant": 0.0239999999999999
+    },
+    {
+        "timeIndex": 250,
+        "timeInstant": 0.0249999999999999
+    },
+    {
+        "timeIndex": 260,
+        "timeInstant": 0.0259999999999999
+    },
+    {
+        "timeIndex": 270,
+        "timeInstant": 0.0269999999999999
+    },
+    {
+        "timeIndex": 280,
+        "timeInstant": 0.0279999999999999
+    },
+    {
+        "timeIndex": 290,
+        "timeInstant": 0.0289999999999999
+    },
+    {
+        "timeIndex": 300,
+        "timeInstant": 0.0299999999999999
+    },
+    {
+        "timeIndex": 310,
+        "timeInstant": 0.0309999999999999
+    },
+    {
+        "timeIndex": 320,
+        "timeInstant": 0.0319999999999999
+    },
+    {
+        "timeIndex": 330,
+        "timeInstant": 0.0329999999999999
+    },
+    {
+        "timeIndex": 340,
+        "timeInstant": 0.0339999999999999
+    },
+    {
+        "timeIndex": 350,
+        "timeInstant": 0.035
+    },
+    {
+        "timeIndex": 360,
+        "timeInstant": 0.036
+    },
+    {
+        "timeIndex": 370,
+        "timeInstant": 0.037
+    },
+    {
+        "timeIndex": 380,
+        "timeInstant": 0.0380000000000001
+    },
+    {
+        "timeIndex": 390,
+        "timeInstant": 0.0390000000000001
+    },
+    {
+        "timeIndex": 400,
+        "timeInstant": 0.0400000000000001
+    },
+    {
+        "timeIndex": 410,
+        "timeInstant": 0.0410000000000001
+    },
+    {
+        "timeIndex": 420,
+        "timeInstant": 0.0420000000000002
+    }
+]

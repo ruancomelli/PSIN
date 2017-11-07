@@ -94,7 +94,7 @@ TestCase(ElectrostaticForce_Test)
 	Vector3D position1( 0.0, 0.0, 0.0 );
 	Vector3D position2( 1.0, 0.0, 0.0 );
 
-	Vector3D ResultingForceOnP1 = - k * charge1 * charge2 * Vector3D(1, 0, 0) / (position2 - position1).squaredLength();
+	Vector3D ResultingForceOnP1 = - k * charge1 * charge2 * Vector3D(1, 0, 0) / (position2 - position1).squaredNorm();
 	Vector3D ResultingForceOnP2 = - ResultingForceOnP1;
 
 	Particle<ElectricCharge> p1;

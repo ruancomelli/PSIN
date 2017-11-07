@@ -1,0 +1,35 @@
+{
+	"initialTime": 0.0,
+	"timeStep": 1e-2,
+	"finalTime": 2,
+	"taylorOrder": 6,
+	"timeStepsForOutput": 2,
+	"outputsForExporting": 1,
+	"dimension": 3,
+	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output",
+	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/particles",
+	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/boundaries",
+	"looper": "GearLooper",
+	"seeker": "BlindSeeker",
+
+	"interactions":
+	{
+		"NormalForceLinearDashpotForce": null
+	},
+
+	"particles":
+	{
+		"SphericalParticle": 
+		[
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/input/particle.json"
+		]
+	},
+
+	"boundaries":
+	{
+		"GravityField": 
+		[
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/input/wall.json"
+		]
+	}
+}

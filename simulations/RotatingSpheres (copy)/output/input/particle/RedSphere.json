@@ -1,0 +1,59 @@
+{
+    "Color": "Red",
+    "Dimension": 3,
+    "DissipativeConstant": 0.0,
+    "ElasticModulus": 10000000.0,
+    "FrictionParameter": 0.6,
+    "Mass": 1,
+    "MomentOfInertia": 1,
+    "Name": "RedSphere",
+    "NormalDissipativeConstant": 0.5,
+    "OrientationMatrix": [
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ]
+    ],
+    "PoissonRatio": 0.3,
+    "PositionMatrix": [
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            1.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ]
+    ],
+    "Radius": 0.1,
+    "TangentialDamping": 1000,
+    "TaylorOrder": 6
+}

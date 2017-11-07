@@ -21,7 +21,7 @@ namespace psin {
 template<typename...Ts, typename...Us, typename Time>
 void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&)
 {
-	std::cout << "Calculating TangentialForceHaffWerner" << std::endl; // DEBUG
+	// std::cout << "Calculating TangentialForceHaffWerner" << std::endl; // DEBUG
 
 
 	if( touch(particle, neighbor) )
@@ -44,8 +44,8 @@ void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, S
 		const Vector3D relativeTangentialVelocity = particle.relativeTangentialVelocity(neighbor) ;
 		
 		const Vector3D tangentialVersor = particle.tangentialVersor( neighbor );
-		const Vector3D tangentialForce = std::min( effectiveTangentialDamping * relativeTangentialVelocity.length() , 
-			effectiveFrictionParameter * normalForce.length() ) * tangentialVersor;
+		const Vector3D tangentialForce = std::min( effectiveTangentialDamping * relativeTangentialVelocity.norm() , 
+			effectiveFrictionParameter * normalForce.norm() ) * tangentialVersor;
 		
 		particle.addContactForce( tangentialForce );
 		neighbor.addContactForce( - tangentialForce );

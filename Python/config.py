@@ -3,7 +3,7 @@ simulationName  = "Simulation1"
 buildType    = "Release" 
 programName    ="CollidingSpheres.exe" 
 programPath = "/home/ruancomelli/GitProjects/ParticleSimulator/build_sublime/bin/Release/psinApp"
-mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/psinApp/SimulationInputFiles/main.json"
+mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/RotatingSpheres/input/main.json"
 
 # options
 buildTypes    = ["Release" , "Debug"] 

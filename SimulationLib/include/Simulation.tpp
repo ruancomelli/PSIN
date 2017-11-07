@@ -493,14 +493,14 @@ struct predict_particle
 	{
 		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
-			vector<Vector3D> predictedPosition = Interaction<>::taylorPredictor(
+			auto predictedPosition = Interaction<>::taylorPredictor(
 					particle.getPositionMatrix(),
 					particle.getTaylorOrder(),
 					time.getTimeStep()
 				);
 			particle.setPositionMatrix(predictedPosition);
 
-			vector<Vector3D> predictedOrientation = Interaction<>::taylorPredictor(
+			auto predictedOrientation = Interaction<>::taylorPredictor(
 					particle.getOrientationMatrix(),
 					particle.getTaylorOrder(),
 					time.getTimeStep()
@@ -531,23 +531,53 @@ struct correct_particle
 	{
 		for(auto& particle : std::get<vector<P>>(particleVectorTuple))
 		{
-			auto acceleration = particle.getResultingForce() / particle.template get<Mass>();
-			auto angularAcceleration = particle.getResultingTorque() / particle.template get<MomentOfInertia>();
+			// std::cout << "Correcting " << particle.getName() << std::endl; // DEBUG
+			// std::cout << "Calculating" << std::endl; // DEBUG
 
-			vector<Vector3D> correctedPosition = Interaction<>::gearCorrector(
+			std::cout << ">> Particle: " << particle.getName() << std::endl; // DEBUG
+			std::cout << ">> Force: " << particle.getResultingForce() << std::endl; // DEBUG
+			std::cout << ">> Predicted Acceleration: " << particle.getAcceleration() << std::endl; // DEBUG
+
+			auto acceleration = particle.getResultingForce() / particle.template get<Mass>();
+
+			std::cout << ">> Mass: " << particle.template get<Mass>() << std::endl; // DEBUG
+			std::cout << ">> Calculated Acceleration: " << acceleration << std::endl; // DEBUG
+
+			// std::cout << ">> Applying gearCorrector to position" << std::endl; // DEBUG
+			auto correctedPosition = Interaction<>::gearCorrector(
 					particle.getPositionMatrix(),
 					acceleration,
 					particle.getTaylorOrder(),
 					time.getTimeStep()
 				);
+			// std::cout << ">> Setting position matrix" << std::endl; // DEBUG
+			std::cout << ">> Corrected Acceleration: " << correctedPosition[2] << std::endl; // DEBUG
+
 			particle.setPositionMatrix(correctedPosition);
 
-			vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
+
+			auto momentOfInertia = particle.template get<MomentOfInertia>();
+
+			auto qOrientation = particle.getOrientationDerivative(0);
+			auto qAngularVelocity = particle.getOrientationDerivative(1);
+			auto qAngularAcceleration = particle.getOrientationDerivative(2);
+
+			Quaterniond angularAcceleration;
+			angularAcceleration = - particle.getOrientationDerivative(1).squaredNorm() * particle.getOrientationDerivative(0)
+			 + 0.5 * ( qOrientation * toQuaterniond(particle.getResultingTorque()) );
+
+			// std::cout << ">> Applying gearCorrector to orientation" << std::endl; // DEBUG
+			auto correctedOrientation = Interaction<>::gearCorrector(
 					particle.getOrientationMatrix(),
 					angularAcceleration,
 					particle.getTaylorOrder(),
 					time.getTimeStep()
 				);
+
+			correctedOrientation[1] -= qOrientation.dot(qAngularVelocity) * qOrientation;
+			correctedOrientation[0].normalize();
+
+			// std::cout << "Setting orientation matrix" << std::endl; // DEBUG
 			particle.setOrientationMatrix(correctedOrientation);
 		}
 	}
@@ -821,10 +851,16 @@ void Simulation<
 		}
 		timeStepsForOutputCounter = (timeStepsForOutputCounter + 1) % timeStepsForOutput;
 
+		// std::cout << "Initializing particles" << std::endl; // DEBUG
 		mp::visit<ParticleList, detail::initialize_particle>::call_same(particles);
+
+		// std::cout << "Predicting particles" << std::endl; // DEBUG
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, time);
+
+		// std::cout << "Updating boundaries" << std::endl; // DEBUG
 		mp::visit<BoundaryList, detail::update_boundary>::call_same(boundaries, time);
 
+		// std::cout << "Interacting" << std::endl; // DEBUG
 		mp::visit<InteractionParticleParticleTriplets, detail::interact_particle_particle>::call_same(
 				particles, time, interactionsToUse
 			);
@@ -832,7 +868,10 @@ void Simulation<
 				particles, boundaries, time, interactionsToUse
 			);
 
+		// std::cout << "Correcting particles" << std::endl; // DEBUG
 		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, time);
+
+		// std::cout << "Time instant finished" << std::endl; // DEBUG
 	}
 }
 

@@ -1,0 +1,31 @@
+{
+	"initialTime": 0.0,
+	"timeStep": 1e-4,
+	"finalTime": 0.4,
+	"taylorOrder": 6,
+	"timeStepsForOutput": 10,
+	"outputsForExporting": 1,
+	"dimension": 3,
+	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/RotatingSpheres/output",
+	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/RotatingSpheres/output/particles",
+	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/RotatingSpheres/output/boundaries",
+	"looper": "GearLooper",
+	"seeker": "BlindSeeker",
+
+	"interactions":
+	{
+		"NormalForceLinearDashpotForce": null,
+		"TangentialForceHaffWerner": null
+	},
+
+	"particles":
+	{
+		"SphericalParticle": 
+		[
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/RotatingSpheres/input/RedSphere.json",
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/RotatingSpheres/input/BlueSphere.json"
+		]
+	},
+
+	"boundaries": null
+}

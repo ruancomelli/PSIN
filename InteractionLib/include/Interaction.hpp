@@ -5,7 +5,9 @@
 #include <Named.hpp>
 // #include <SharedPointer.hpp>
 #include <mp/type_collection.hpp>
+#include <Vector.hpp>
 #include <Vector3D.hpp>
+#include <Mathematics.hpp>
 
 // // EntityLib
 // #include <SphericalParticle.hpp>
@@ -15,7 +17,6 @@
 
 // Standard
 #include <type_traits>
-#include <vector>
 
 // Vector3D defaultNormalForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor );
 // void defaultTangentialForceCalculationMethod( SphericalParticlePtr particle, SphericalParticlePtr neighbor, Vector3D normalForce, double timeStep );
@@ -100,8 +101,10 @@ class Interaction<>
 	template<typename...Ts>	using vector = std::vector<Ts...>;
 
 	public:
-		static vector<Vector3D> taylorPredictor( const vector<Vector3D> & currentVector, const int predictionOrder, const double dt );
-		static vector<Vector3D> gearCorrector(const vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt);
+		template<typename T>
+		static T taylorPredictor(T&& currentVector, const std::size_t predictionOrder, const double dt);
+		template<typename T, typename U>
+		static T gearCorrector(T&& predictedVector, U&& doubleDerivative, const std::size_t predictionOrder, const double dt);
 	private:
 
 };

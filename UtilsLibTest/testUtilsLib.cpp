@@ -328,7 +328,7 @@ TestCase( Vector3DFunctionsMembers ){
 	checkClose(len , 3.74165738677394 , 1.0e-8 );
 
 	//Vector3D::squareLength()
-	double sqrlen = v1.squaredLength();
+	double sqrlen = v1.squaredNorm();
 	checkClose(sqrlen , 14.0 , 1.0e-8 );
 
 	//Vector3D::normalize()
@@ -405,7 +405,7 @@ TestCase( Vector3DIsEqualOperator ){
 TestCase(Vector3D_projectOn_Test){
 	Vector3D projected(1, 2, 3);
 	Vector3D direction(0, 10, 0);
-	checkEqual(projected.projectOn(direction), Vector3D(0, 2, 0));
+	checkEqual(projectOn(projected, direction), Vector3D(0, 2, 0));
 }
 
 namespace Vector3D_json_Test_namespace {

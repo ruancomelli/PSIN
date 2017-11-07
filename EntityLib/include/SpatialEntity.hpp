@@ -2,6 +2,7 @@
 #define SPATIAL_ENTITY_HPP
 
 // UtilsLib
+#include <Quaternion.hpp>
 #include <Vector3D.hpp>
 
 // JSONLib
@@ -53,17 +54,18 @@ class SpatialEntity
 		void setAngularAcceleration(const double x, const double y, const double z = 0);
 		void setAngularAcceleration(const Vector3D & angularAcceleration);
 
-		void setOrientationMatrix(const std::vector<Vector3D> & orientationMatrix); // throws
+		void setOrientationMatrix(const std::vector<Quaterniond> & orientationMatrix); // throws
 
 		void setOrientationDerivative(const std::size_t derivative, const double x, const double y, const double z = 0); // throws
 		void setOrientationDerivative(const std::size_t derivative, const Vector3D & vec); // throws
+		void setOrientationDerivative(const std::size_t derivative, const Quaterniond & q); // throws
 
 		Vector3D getOrientation() const;
 		Vector3D getAngularVelocity() const;
-		Vector3D getAngularAcceleration() const;
+		// Vector3D getAngularAcceleration() const;
 
-		std::vector<Vector3D> getOrientationMatrix(void) const;
-		Vector3D getOrientationDerivative(const std::size_t derivative) const; // throws
+		std::vector<Quaterniond> getOrientationMatrix(void) const;
+		Quaterniond getOrientationDerivative(const std::size_t derivative) const; // throws
 
 		// ----- Taylor Order -----
 		void setTaylorOrder(const std::size_t taylorOrder); // throws
@@ -80,7 +82,7 @@ class SpatialEntity
 		void setSpatial(std::vector<Vector3D> & spatialToSet, const std::vector<Vector3D> & spatial);
 
 		std::vector<Vector3D>	positionMatrix;
-		std::vector<Vector3D>	orientationMatrix;
+		std::vector<Quaterniond>	orientationMatrix;
 
 		std::size_t taylorOrder;
 };

@@ -32,7 +32,7 @@ double distance(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<U
 	const auto origin = rhs.getOrigin();
 	const auto normalVersor = rhs.getNormalVersor();
 
-	return (position-origin).projectOn(normalVersor).length();
+	return projectOn(position-origin, normalVersor).norm();
 }
 
 template<typename...Ts, typename...Us>
@@ -88,7 +88,7 @@ double overlapDerivative(const SphericalParticle<Ts...> & left, const SphericalP
 	{
 		const Vector3D positionDifference = right.getPosition() - left.getPosition();
 		const Vector3D velocityDifference = right.getVelocity() - left.getVelocity();
-		const double overlapDerivative = - dot(positionDifference, velocityDifference) / positionDifference.length();
+		const double overlapDerivative = - dot(positionDifference, velocityDifference) / positionDifference.norm();
 		return overlapDerivative;
 	}
 	else
@@ -178,7 +178,7 @@ template<typename ... Us>
 Vector3D SphericalParticle<PropertyTypes...>::tangentialVersor(const SphericalParticle<Us...> & neighbor) const
 {
 	const Vector3D relativeTangentialVelocity = this->relativeTangentialVelocity( neighbor );
-	const double relativeTangentialVelocityLength = relativeTangentialVelocity.length();
+	const double relativeTangentialVelocityLength = relativeTangentialVelocity.norm();
 
 	if(relativeTangentialVelocityLength > 0)
 	{

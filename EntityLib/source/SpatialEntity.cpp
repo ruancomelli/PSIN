@@ -43,10 +43,10 @@ void to_json(json& j, const SpatialEntity & spatial)
 	j["AngularVelocity - X"] = spatial.getAngularVelocity().x();
 	j["AngularVelocity - Y"] = spatial.getAngularVelocity().y();
 	j["AngularVelocity - Z"] = spatial.getAngularVelocity().z();
-	j["AngularAcceleration"] = spatial.getAngularAcceleration();
-	j["AngularAcceleration - X"] = spatial.getAngularAcceleration().x();
-	j["AngularAcceleration - Y"] = spatial.getAngularAcceleration().y();
-	j["AngularAcceleration - Z"] = spatial.getAngularAcceleration().z();
+	// j["AngularAcceleration"] = spatial.getAngularAcceleration();
+	// j["AngularAcceleration - X"] = spatial.getAngularAcceleration().x();
+	// j["AngularAcceleration - Y"] = spatial.getAngularAcceleration().y();
+	// j["AngularAcceleration - Z"] = spatial.getAngularAcceleration().z();
 
 	j["TaylorOrder"] = spatial.getTaylorOrder();
 }
@@ -138,74 +138,56 @@ Vector3D SpatialEntity::getPositionDerivative(const std::size_t derivative) cons
 	}
 }
 
-
-
-void SpatialEntity::setOrientation(const double x, const double y, const double z)
+void SpatialEntity::setOrientation(const double alpha, const double beta, const double gamma)
 {
-	this->setSpatial(this->orientationMatrix, 0, x, y, z);
-}
-
-void SpatialEntity::setOrientation(const Vector3D & orientation)
-{
-	this->setSpatial(this->orientationMatrix, 0, orientation);
+	this->orientationMatrix[0] = Quaterniond(
+				AngleAxisd(alpha, Vector3d::UnitZ())
+				* AngleAxisd(beta, Vector3d::UnitY())
+				* AngleAxisd(gamma, Vector3d::UnitZ())
+			);
 }
 
 void SpatialEntity::setAngularVelocity(const double x, const double y, const double z)
 {
-	this->setSpatial(this->orientationMatrix, 1, x, y, z);
+	this->setAngularVelocity(Vector3D(x, y, z));
 }
 
 void SpatialEntity::setAngularVelocity(const Vector3D & angularVelocity)
 {
-	this->setSpatial(this->orientationMatrix, 1, angularVelocity);
+	this->orientationMatrix[1] = 0.5 * Quaterniond(0, angularVelocity.x(), angularVelocity.y(), angularVelocity.z()) * this->orientationMatrix[0];
 }
 
-void SpatialEntity::setAngularAcceleration(const double x, const double y, const double z)
+void SpatialEntity::setOrientationMatrix(const std::vector<Quaterniond> & orientationMatrix)
 {
-	this->setSpatial(this->orientationMatrix, 2, x, y, z);
+	this->orientationMatrix = orientationMatrix;
 }
 
-void SpatialEntity::setAngularAcceleration(const Vector3D & angularAcceleration)
+void SpatialEntity::setOrientationDerivative(const std::size_t derivative, const Quaterniond & q)
 {
-	this->setSpatial(this->orientationMatrix, 2, angularAcceleration);
-}
-
-void SpatialEntity::setOrientationMatrix(const std::vector<Vector3D> & orientationMatrix)
-{
-	this->setSpatial(this->orientationMatrix, orientationMatrix);
-}
-
-void SpatialEntity::setOrientationDerivative(const std::size_t derivative, const double x, const double y, const double z)
-{
-	this->setSpatial(this->orientationMatrix, derivative, x, y, z);
-}
-
-void SpatialEntity::setOrientationDerivative(const std::size_t derivative, const Vector3D & vec)
-{
-	this->setSpatial(this->orientationMatrix, derivative, vec);
+	this->orientationMatrix.at(derivative) = q;
 }
 
 Vector3D SpatialEntity::getOrientation() const
 {
-	return this->orientationMatrix[0];
+	return this->orientationMatrix[0].toRotationMatrix().eulerAngles(2, 0, 2);
 }
 
 Vector3D SpatialEntity::getAngularVelocity() const
 {
-	return this->orientationMatrix[1];
+	return (2 * this->orientationMatrix[1] * this->orientationMatrix[0].inverse()).vec();
 }
 
-Vector3D SpatialEntity::getAngularAcceleration() const
-{
-	return this->orientationMatrix[2];
-}
+// Vector3D SpatialEntity::getAngularAcceleration() const
+// {
+// 	return this->orientationMatrix[2];
+// }
 
-std::vector<Vector3D> SpatialEntity::getOrientationMatrix(void) const
+std::vector<Quaterniond> SpatialEntity::getOrientationMatrix(void) const
 {
 	return this->orientationMatrix;
 }
 
-Vector3D SpatialEntity::getOrientationDerivative(const std::size_t derivative) const
+Quaterniond SpatialEntity::getOrientationDerivative(const std::size_t derivative) const
 {
 	if(derivative > this->taylorOrder)
 	{
@@ -282,7 +264,7 @@ void SpatialEntity::resizePositionOrientation()
 
 double distance(const SpatialEntity & left, const SpatialEntity & right)
 {
-	return (left.getPosition() - right.getPosition()).length();
+	return (left.getPosition() - right.getPosition()).norm();
 }
 
 Vector3D normalVersor(const SpatialEntity & lhs, const SpatialEntity & rhs)

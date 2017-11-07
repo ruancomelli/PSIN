@@ -1,0 +1,16 @@
+{
+    "Color": "Black",
+    "ElasticModulus": 1000000.0,
+    "Name": "Wall",
+    "NormalDissipativeConstant": 20,
+    "normalVector": [
+        1,
+        0,
+        0
+    ],
+    "origin": [
+        0,
+        0,
+        0
+    ]
+}

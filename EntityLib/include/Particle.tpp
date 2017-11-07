@@ -166,7 +166,7 @@ double Particle<PropertyTypes...>::getTranslationalEnergy() const
 {
 	double mass = this->template get<Mass>();
 
-	return 0.5 * mass * this->getVelocity().squaredLength();
+	return 0.5 * mass * this->getVelocity().squaredNorm();
 }
 
 template<typename ... PropertyTypes>
@@ -174,7 +174,7 @@ double Particle<PropertyTypes...>::getRotationalEnergy() const
 {	
 	double momentOfInertia = this->template get<MomentOfInertia>();
 
-	return 0.5 * momentOfInertia * this->getAngularVelocity().squaredLength();
+	return 0.5 * momentOfInertia * this->getAngularVelocity().squaredNorm();
 }
 
 template<typename ... PropertyTypes>
