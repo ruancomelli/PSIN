@@ -142,61 +142,113 @@ std::vector<Vector3D> Interaction<>::taylorPredictor( const std::vector<Vector3D
 	return predictedVector;
 }
 
-std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int predictionOrder, const double dt)
+std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int equationOrder, const int predictionOrder, const double dt)
 {
 	using std::vector;
 
 	vector<Vector3D> correctedVector = predictedVector;
 	vector<double> correctorConstants(predictionOrder + 1);
 
-	switch(predictionOrder){
-		case 3:
-			correctorConstants[0] = 1./6.;
-			correctorConstants[1] = 5./6.;
-			correctorConstants[2] = 1.;
-			correctorConstants[3] = 1./3.;
-			break;
-		case 4:
-			correctorConstants[0] = 19./120.;
-			correctorConstants[1] = 3./4.;
-			correctorConstants[2] = 1.;
-			correctorConstants[3] = 1./2.;
-			correctorConstants[4] = 1./12.;
-			break;
-		case 5:
-			correctorConstants[0] = 3./20.;
-			correctorConstants[1] = 251./360.;
-			correctorConstants[2] = 1.;
-			correctorConstants[3] = 11./18.;
-			correctorConstants[4] = 1./6.;
-			correctorConstants[5] = 1./60.;
-			break;
-		case 6:
-			correctorConstants[0] = 863./6048.;
-			correctorConstants[1] = 665./1008.;
-			correctorConstants[2] = 1.;
-			correctorConstants[3] = 25./36.;
-			correctorConstants[4] = 35./144.;
-			correctorConstants[5] = 1./24.;
-			correctorConstants[6] = 1./360.;
-			break;
-		case 7:
-			correctorConstants[0] = 1925./14112.;
-			correctorConstants[1] = 19087./30240.;
-			correctorConstants[2] = 1.;
-			correctorConstants[3] = 137./180.;
-			correctorConstants[4] = 5./16.;
-			correctorConstants[5] = 17./240.;
-			correctorConstants[6] = 1./120.;
-			correctorConstants[7] = 1./2520.;
-			break;
+	switch(equationOrder)
+	{
+		case 1:
+			switch(predictionOrder){
+				case 2:
+					correctorConstants[0] = 5./12.;
+					correctorConstants[1] = 1;
+					correctorConstants[2] = 1./2.;
+				case 3:
+					correctorConstants[0] = 3./8.;
+					correctorConstants[1] = 1;
+					correctorConstants[2] = 3./4.;
+					correctorConstants[3] = 1./6.;
+				case 4:
+					correctorConstants[0] = 251./720.;
+					correctorConstants[1] = 1;
+					correctorConstants[2] = 11./12.;
+					correctorConstants[3] = 1./3.;
+					correctorConstants[4] = 1./24.;
+				case 5:
+					correctorConstants[0] = 95./288.;
+					correctorConstants[1] = 1;
+					correctorConstants[2] = 25./24.;
+					correctorConstants[3] = 35./72.;
+					correctorConstants[4] = 5./48.;
+					correctorConstants[5] = 1./120.;
+				case 6:
+					correctorConstants[0] = 19087./60480.;
+					correctorConstants[1] = 1;
+					correctorConstants[2] = 137./120.;
+					correctorConstants[3] = 5./8.;
+					correctorConstants[4] = 17./96.;
+					correctorConstants[5] = 1./40.;
+					correctorConstants[6] = 1./720.;
+				case 7:
+					correctorConstants[0] = 5257./17280.;
+					correctorConstants[1] = 1;
+					correctorConstants[2] = 49./40.;
+					correctorConstants[3] = 203./270.;
+					correctorConstants[4] = 49./192.;
+					correctorConstants[5] = 7./144.;
+					correctorConstants[6] = 7./1440.;
+					correctorConstants[7] = 1./5040.;
+				default:
+					throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4, 5, 6 or 7.");
+					return predictedVector;
+			}
+		case 2:
+			switch(predictionOrder){
+				case 3:
+					correctorConstants[0] = 1./6.;
+					correctorConstants[1] = 5./6.;
+					correctorConstants[2] = 1.;
+					correctorConstants[3] = 1./3.;
+					break;
+				case 4:
+					correctorConstants[0] = 19./120.;
+					correctorConstants[1] = 3./4.;
+					correctorConstants[2] = 1.;
+					correctorConstants[3] = 1./2.;
+					correctorConstants[4] = 1./12.;
+					break;
+				case 5:
+					correctorConstants[0] = 3./20.;
+					correctorConstants[1] = 251./360.;
+					correctorConstants[2] = 1.;
+					correctorConstants[3] = 11./18.;
+					correctorConstants[4] = 1./6.;
+					correctorConstants[5] = 1./60.;
+					break;
+				case 6:
+					correctorConstants[0] = 863./6048.;
+					correctorConstants[1] = 665./1008.;
+					correctorConstants[2] = 1.;
+					correctorConstants[3] = 25./36.;
+					correctorConstants[4] = 35./144.;
+					correctorConstants[5] = 1./24.;
+					correctorConstants[6] = 1./360.;
+					break;
+				case 7:
+					correctorConstants[0] = 1925./14112.;
+					correctorConstants[1] = 19087./30240.;
+					correctorConstants[2] = 1.;
+					correctorConstants[3] = 137./180.;
+					correctorConstants[4] = 5./16.;
+					correctorConstants[5] = 17./240.;
+					correctorConstants[6] = 1./120.;
+					correctorConstants[7] = 1./2520.;
+					break;
+				default:
+					throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4, 5, 6 or 7.");
+					return predictedVector;
+			}
 		default:
-			throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4, 5, 6 or 7.");
+			throw std::invalid_argument("There is no support for this equation order. equation order must be either 1 or 2.");
 			return predictedVector;
 	}
 
 	for(int i = 0 ; i <= predictionOrder ; ++i){
-		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, 2) / 2.0) ) * (doubleDerivative - predictedVector[2]);
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, equationOrder) / factorial(equationOrder)) ) * (doubleDerivative - predictedVector[2]);
 	}
 
 	return correctedVector;
