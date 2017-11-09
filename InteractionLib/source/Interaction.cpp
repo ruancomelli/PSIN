@@ -3,6 +3,8 @@
 
 #include <Interaction.hpp>
 
+#include <iostream>
+
 // Standard
 #include <stdexcept>
 
@@ -142,7 +144,7 @@ std::vector<Vector3D> Interaction<>::taylorPredictor( const std::vector<Vector3D
 	return predictedVector;
 }
 
-std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> & predictedVector, const Vector3D & doubleDerivative, const int equationOrder, const int predictionOrder, const double dt)
+std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> & predictedVector, const Vector3D & derivative, const int equationOrder, const int predictionOrder, const double dt)
 {
 	using std::vector;
 
@@ -157,17 +159,20 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 					correctorConstants[0] = 5./12.;
 					correctorConstants[1] = 1;
 					correctorConstants[2] = 1./2.;
+					break;
 				case 3:
 					correctorConstants[0] = 3./8.;
 					correctorConstants[1] = 1;
 					correctorConstants[2] = 3./4.;
 					correctorConstants[3] = 1./6.;
+					break;
 				case 4:
 					correctorConstants[0] = 251./720.;
 					correctorConstants[1] = 1;
 					correctorConstants[2] = 11./12.;
 					correctorConstants[3] = 1./3.;
 					correctorConstants[4] = 1./24.;
+					break;
 				case 5:
 					correctorConstants[0] = 95./288.;
 					correctorConstants[1] = 1;
@@ -175,6 +180,7 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 					correctorConstants[3] = 35./72.;
 					correctorConstants[4] = 5./48.;
 					correctorConstants[5] = 1./120.;
+					break;
 				case 6:
 					correctorConstants[0] = 19087./60480.;
 					correctorConstants[1] = 1;
@@ -183,6 +189,7 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 					correctorConstants[4] = 17./96.;
 					correctorConstants[5] = 1./40.;
 					correctorConstants[6] = 1./720.;
+					break;
 				case 7:
 					correctorConstants[0] = 5257./17280.;
 					correctorConstants[1] = 1;
@@ -192,10 +199,12 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 					correctorConstants[5] = 7./144.;
 					correctorConstants[6] = 7./1440.;
 					correctorConstants[7] = 1./5040.;
+					break;
 				default:
-					throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4, 5, 6 or 7.");
+					throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 2, 3, 4, 5, 6 or 7.");
 					return predictedVector;
 			}
+			break;
 		case 2:
 			switch(predictionOrder){
 				case 3:
@@ -242,13 +251,14 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 					throw std::invalid_argument("There is no support for this prediction order. Prediction order must be either 3, 4, 5, 6 or 7.");
 					return predictedVector;
 			}
+			break;
 		default:
-			throw std::invalid_argument("There is no support for this equation order. equation order must be either 1 or 2.");
+			throw std::invalid_argument("There is no support for this equation order. Equation order must be either 1 or 2.");
 			return predictedVector;
 	}
 
 	for(int i = 0 ; i <= predictionOrder ; ++i){
-		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, equationOrder) / factorial(equationOrder)) ) * (doubleDerivative - predictedVector[2]);
+		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, equationOrder) / factorial(equationOrder)) ) * (derivative - predictedVector[equationOrder]);
 	}
 
 	return correctedVector;
