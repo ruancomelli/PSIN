@@ -21,7 +21,7 @@ namespace psin {
 template<typename...Ts, typename...Us, typename Time>
 Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&)
 {
-	std::cout << "Calculating NormalForceLinearDashpotForce" << std::endl; // DEBUG
+	// std::cout << "Calculating NormalForceLinearDashpotForce" << std::endl; // DEBUG
 
 	const double overlap = psin::overlap(particle, neighbor);
 	

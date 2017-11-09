@@ -537,18 +537,39 @@ struct correct_particle
 			vector<Vector3D> correctedPosition = Interaction<>::gearCorrector(
 					particle.getPositionMatrix(),
 					acceleration,
+					2,
 					particle.getTaylorOrder(),
 					time.getTimeStep()
 				);
 			particle.setPositionMatrix(correctedPosition);
 
-			vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
-					particle.getOrientationMatrix(),
-					angularAcceleration,
-					particle.getTaylorOrder(),
-					time.getTimeStep()
-				);
-			particle.setOrientationMatrix(correctedOrientation);
+			if constexpr(is_spherical<P>::value)
+			{
+				auto orientation = particle.getOrientation();
+				auto orientationMatrix = particle.getOrientationMatrix();
+				orientationMatrix.erase(orientationMatrix.begin());
+
+				vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
+						orientationMatrix,
+						angularAcceleration,
+						1,
+						particle.getTaylorOrder()-1,
+						time.getTimeStep()
+					);
+				correctedOrientation.insert(correctedOrientation.begin(), orientation);
+				particle.setOrientationMatrix(correctedOrientation);
+			}
+			else
+			{
+				vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
+						particle.getOrientationMatrix(),
+						angularAcceleration,
+						2,
+						particle.getTaylorOrder(),
+						time.getTimeStep()
+					);
+				particle.setOrientationMatrix(correctedOrientation);
+			}
 		}
 	}
 };

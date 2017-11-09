@@ -21,7 +21,7 @@ namespace psin {
 template<typename...Ts, typename...Us, typename Time>
 void TangentialForceHaffWerner::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&)
 {
-	std::cout << "Calculating TangentialForceHaffWerner" << std::endl; // DEBUG
+	// std::cout << "Calculating TangentialForceHaffWerner" << std::endl; // DEBUG
 
 
 	if( touch(particle, neighbor) )
