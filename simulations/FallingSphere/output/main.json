@@ -15,7 +15,7 @@
         "Particle": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/particle.json"
     },
     "seeker": "BlindSeeker",
-    "taylorOrder": 6,
-    "timeStep": 0.01,
-    "timeStepsForOutput": 2
+    "taylorOrder": 7,
+    "timeStep": 0.0724077343935025,
+    "timeStepsForOutput": 10
 }
