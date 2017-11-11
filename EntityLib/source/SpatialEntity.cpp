@@ -7,14 +7,23 @@ namespace psin {
 
 void from_json(const json& j, SpatialEntity & spatial)
 {
-	if(j.at("PositionMatrix").size() != j.at("OrientationMatrix").size())
+	if(j.count("PositionMatrix") > 0)
 	{
-		throw std::runtime_error("PositionMatrix and OrientationMatrix must have the same size");
+		spatial.setPositionMatrix(j.at("PositionMatrix"));
 	}
+	if(j.count("OrientationMatrix") > 0)
+	{
+		spatial.setOrientationMatrix(j.at("OrientationMatrix"));
+	}
+	if(j.count("Position") > 0) spatial.setPosition(j.at("Position").get<Vector3D>());
+	if(j.count("Velocity") > 0) spatial.setVelocity(j.at("Velocity").get<Vector3D>());
+	if(j.count("Acceleration") > 0) spatial.setAcceleration(j.at("Acceleration").get<Vector3D>());
+	
+	if(j.count("Orientation") > 0) spatial.setOrientation(j.at("Orientation").get<Vector3D>());
+	if(j.count("AngularVelocity") > 0) spatial.setAngularVelocity(j.at("AngularVelocity").get<Vector3D>());
+	if(j.count("AngularAcceleration") > 0) spatial.setAngularAcceleration(j.at("AngularAcceleration").get<Vector3D>());
 
-	spatial.setTaylorOrder( j.at("PositionMatrix").size() - 1 );
-	spatial.setPositionMatrix(j.at("PositionMatrix"));
-	spatial.setOrientationMatrix(j.at("OrientationMatrix"));
+	spatial.setTaylorOrder( j.at("TaylorOrder") );
 }
 
 void to_json(json& j, const SpatialEntity & spatial)
@@ -245,27 +254,22 @@ void SpatialEntity::setSpatial(std::vector<Vector3D> & spatial, const std::size_
 
 void SpatialEntity::setSpatial(std::vector<Vector3D> & spatialToSet, const std::vector<Vector3D> & spatial)
 {
-	if( spatial.size() != (this->taylorOrder + 1) )
-	{
-		throw std::runtime_error("taylorOrder does not match spatial's size in function SpatialEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
-	}
-	else
-	{
-		spatialToSet = spatial;
-	}
+	spatialToSet = spatial;
+	spatialToSet.resize(this->taylorOrder+1);
+	// if( spatial.size() != (this->taylorOrder + 1) )
+	// {
+	// 	throw std::runtime_error("taylorOrder does not match spatial's size in function SpatialEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
+	// }
+	// else
+	// {
+	// 	spatialToSet = spatial;
+	// }
 }
 
 void SpatialEntity::setTaylorOrder(const std::size_t taylorOrder)
 {
-	if(taylorOrder < 3 or taylorOrder > 5)
-	{
-		throw std::runtime_error("Invalid taylorOrder inserted. taylorOrder must be either 3, 4 or 5.");
-	}
-	else
-	{
-		this->taylorOrder = taylorOrder;
-		resizePositionOrientation();
-	}
+	this->taylorOrder = taylorOrder;
+	resizePositionOrientation();
 }
 
 std::size_t SpatialEntity::getTaylorOrder() const
