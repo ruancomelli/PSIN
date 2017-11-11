@@ -14,7 +14,7 @@ class Simulate():
 
 		self.display.message("Simulating")
 
-		programArg = "--path=\"" + mainInputFilePath + "\" "
+		programArg = "--path=" + mainInputFilePath + ""
 
 		# Handle errors
 		# Possible errors:
