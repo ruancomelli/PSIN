@@ -1,31 +1,37 @@
+# Generally unused
 _build*
 _tests/*
 _lib/*
 _apps/*
 _output/*
-build_sublime/
-
 _premake_files/premake4.exe
 _premake_files/premake4
+.vscode*
+
+**.exe
+*.exe
+**.asv
+*.asv
 
 **.csv
+*.csv
 **.dat
+*.dat
 **.stackdump
-**.exe
-**.asv
-**.pyc
-**.log
-**.sublime-workspace
+*.stackdump
+
+# Used
+build_sublime/
 **.mp4
-**.png
-
-*.pyc
-*.exe
-*.asv
-*.log
-*.sublime-workspace
 *.mp4
+**.png
 *.png
+**.pyc
+*.pyc
+**.log
+*.log
+**.sublime-workspace
+*.sublime-workspace
 
 
-.vscode*
+
