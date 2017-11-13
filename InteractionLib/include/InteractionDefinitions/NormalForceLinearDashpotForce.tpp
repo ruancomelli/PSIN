@@ -35,12 +35,15 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 		
 		const double normalDissipativeConstant1 = particle.template get<NormalDissipativeConstant>();
 		const double normalDissipativeConstant2 = neighbor.template get<NormalDissipativeConstant>();
+
+		const auto effectiveElasticModulus = elasticModulus1 * elasticModulus2 / ( elasticModulus1 + elasticModulus2 );
+		const auto effectiveNormalDissipativeConstant = normalDissipativeConstant1 * normalDissipativeConstant2 / ( normalDissipativeConstant1 + normalDissipativeConstant2 );
 		
 		// ---- Calculate normal force ----
 		const double overlapDerivative = psin::overlapDerivative(particle, neighbor);
 		
-		const double normalForceModulus = std::max( (elasticModulus1 + elasticModulus2) * overlap + 
-										(normalDissipativeConstant1 + normalDissipativeConstant2) * overlapDerivative , 0.0 );
+		const double normalForceModulus = std::max( effectiveElasticModulus * overlap + 
+										effectiveNormalDissipativeConstant * overlapDerivative , 0.0 );
 		
 		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
 		
@@ -74,11 +77,14 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 		const double normalDissipativeConstant1 = particle.template get<NormalDissipativeConstant>();
 		const double normalDissipativeConstant2 = neighbor.template get<NormalDissipativeConstant>();
 		
+		const auto effectiveElasticModulus = elasticModulus1 * elasticModulus2 / ( elasticModulus1 + elasticModulus2 );
+		const auto effectiveNormalDissipativeConstant = normalDissipativeConstant1 * normalDissipativeConstant2 / ( normalDissipativeConstant1 + normalDissipativeConstant2 );
+
 		// ---- Calculate normal force ----
 		const double overlapDerivative = psin::overlapDerivative(particle, neighbor);
 		
-		const double normalForceModulus = std::max( (elasticModulus1 + elasticModulus2) * overlap + 
-										(normalDissipativeConstant1 + normalDissipativeConstant2) * overlapDerivative , 0.0 );
+		const double normalForceModulus = std::max( effectiveElasticModulus * overlap + 
+										effectiveNormalDissipativeConstant * overlapDerivative , 0.0 );
 		
 		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
 		
