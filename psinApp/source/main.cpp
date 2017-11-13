@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 	using InteractionList = psin::InteractionList<
 		ElectrostaticForce,
 		NormalForceLinearDashpotForce,
-		NormalForceHertz,
+		NormalForceViscoelasticSpheres,
 		GravityForce,
 		TangentialForceCundallStrack,
 		TangentialForceHaffWerner

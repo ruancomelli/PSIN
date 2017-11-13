@@ -1,16 +1,16 @@
 #ifndef NORMAL_FORCE_HERTZ_CPP
 #define NORMAL_FORCE_HERTZ_CPP
 
-#include <InteractionDefinitions/NormalForceHertz.hpp>
+#include <InteractionDefinitions/NormalForceViscoelasticSpheres.hpp>
 
 // UtilsLib
 #include <string.hpp>
 
 namespace psin {
 
-template<> const std::string NamedType<NormalForceHertz>::name = "NormalForceHertz";
+template<> const std::string NamedType<NormalForceViscoelasticSpheres>::name = "NormalForceViscoelasticSpheres";
 
-void Builder<NormalForceHertz>::setup(const json & j)
+void Builder<NormalForceViscoelasticSpheres>::setup(const json & j)
 {}
 
 } // psin

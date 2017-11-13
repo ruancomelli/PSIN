@@ -15,7 +15,7 @@
 	"interactions":
 	{
 		"NormalForceLinearDashpotForce": null,
-		"NormalForceHertz": null,
+		"NormalForceViscoelasticSpheres": null,
 		"TangentialForceHaffWerner": null,
 		"TangentialForceCundallStrack": null,
 		"ElectrostaticForce": null

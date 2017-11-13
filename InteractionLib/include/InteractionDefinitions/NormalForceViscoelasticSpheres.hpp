@@ -20,7 +20,7 @@ namespace psin {
 //		tangentialForce is the tangential force applied BY neighbor TO particle
 
 //		Calculates normal forces between two spherical particles according to equation (2.14) (see reference)
-struct NormalForceHertz
+struct NormalForceViscoelasticSpheres
 {
 	template<typename P1, typename P2>
 	struct check : mp::bool_constant<
@@ -43,13 +43,13 @@ struct NormalForceHertz
 };
 
 template<>
-struct Builder<NormalForceHertz>
+struct Builder<NormalForceViscoelasticSpheres>
 {
 	static void setup(const json & j);
 };
 
 } // psin
 
-#include <InteractionDefinitions/NormalForceHertz.tpp>
+#include <InteractionDefinitions/NormalForceViscoelasticSpheres.tpp>
 
 #endif
