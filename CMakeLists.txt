@@ -129,7 +129,6 @@ add_subdirectory(IOLibTest)
 add_subdirectory(PropertyLib)
 add_subdirectory(PropertyLibTest)
 add_subdirectory(psinApp)
-add_subdirectory(CollidingSpheres)
 add_subdirectory(SimulationLib)
 add_subdirectory(SimulationLibTest)
 ##################################################################
