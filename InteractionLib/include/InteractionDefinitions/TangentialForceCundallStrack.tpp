@@ -39,7 +39,10 @@ void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle
 		const Vector3D position2 = neighbor.getPosition();
 		const double tangentialKappa1 = particle.template get<TangentialKappa>();
 		const double tangentialKappa2 = neighbor.template get<TangentialKappa>();
-		const double effectiveTangentialKappa = std::min( tangentialKappa1 , tangentialKappa2 );
+		const double effectiveTangentialKappa = 
+			tangentialKappa1 + tangentialKappa2 > 0
+			? tangentialKappa1*tangentialKappa2/(tangentialKappa1+tangentialKappa2)
+			: 0;
 			
 		const double frictionParameter1 = particle.template get<FrictionParameter>();
 		const double frictionParameter2 = neighbor.template get<FrictionParameter>();
