@@ -47,9 +47,7 @@ bool touch(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...>
 template<typename...Ts, typename...Us>
 bool touch(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
 {
-	const auto radius = lhs.template get<Radius>();
-
-	return radius >= distance(lhs, rhs);
+	return lhs.template get<Radius>() >= distance(lhs, rhs);
 }
 
 template<typename...Ts, typename...Us>
