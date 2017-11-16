@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import os
 from matplotlib import animation
 from math import floor
@@ -71,28 +72,53 @@ class BuildAnimation ( AnimationLimits ):
 			for boundaryName, boundary in boundaryData["FixedInfinitePlane"].items():
 				t = beginning
 				X = 0
-				Y = 0
-				normalVersor = float(boundary[""])
-				(boolReturn, begin, end) = getIntersectPoints(boundary[""])
+				Y = 1
+				normalVersor = list(boundary["NormalVersor"][t])
+				origin = list(boundary["Origin"][t])
+				color = getColor(boundary["Color"][t])
+				(boolReturn, begin, end) = getIntersectPoints(normalVersor, origin, limits)
+				if boolReturn:
+					(xbeg, ybeg) = begin
+					(xend, yend) = end
+					lines[boundaryName] = Line2D([xbeg, xend], [ybeg, yend], color=color)
 
 		round_to_n = lambda x, n: round(x, -int(floor(log10(x))) + (n - 1)) if x != 0 else 0
 
 		### Initial function to animation ###
 		def init():
 			ax.set_title(str(time[0]) + " s")
-			for name, particle in particleData["SphericalParticle"].items():
-				t = beginning
-				X = 0
-				Y = 1
-				xCenter = float(particle["Position"][t][X])
-				yCenter = float(particle["Position"][t][Y])
-				radius = float(particle["Radius"][t])
-				color = getColor(particle["Color"][t])
+			# circles = {}
+			if "SphericalParticle" in particleData:
+				for name, particle in particleData["SphericalParticle"].items():
+					t = beginning
+					X = 0
+					Y = 1
+					xCenter = float(particle["Position"][t][X])
+					yCenter = float(particle["Position"][t][Y])
+					radius = float(particle["Radius"][t])
+					color = getColor(particle["Color"][t])
 
-				circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
-				ax.add_patch(circles[name])
+					circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
+					ax.add_patch(circles[name])
 
-			return circles.values()
+			lines = {}
+			if "FixedInfinitePlane" in boundaryData:
+				for boundaryName, boundary in boundaryData["FixedInfinitePlane"].items():
+					t = beginning
+					X = 0
+					Y = 1
+					normalVersor = list(boundary["NormalVersor"][t])
+					origin = list(boundary["Origin"][t])
+					color = getColor(boundary["Color"][t])
+					(boolReturn, begin, end) = getIntersectPoints(normalVersor, origin, limits)
+					if boolReturn:
+						(xbeg, ybeg) = begin
+						(xend, yend) = end
+						lines[boundaryName] = Line2D([xbeg, xend], [ybeg, yend], color=color)
+						ax.add_line(lines[boundaryName])
+
+			# return list(circles.values())
+			return list(circles.values()) + list(lines.values())
 
 		def setAxisLimits(limits):
 			[ xmin , xmax , ymin , ymax ] = limits
@@ -112,6 +138,23 @@ class BuildAnimation ( AnimationLimits ):
 
 			return circles
 
+		def updateLines(t):
+			if "FixedInfinitePlane" in boundaryData:
+				for boundaryName, boundary in boundaryData["FixedInfinitePlane"].items():
+					t = beginning
+					X = 0
+					Y = 1
+					normalVersor = list(boundary["NormalVersor"][t])
+					origin = list(boundary["Origin"][t])
+					color = getColor(boundary["Color"][t])
+					(boolReturn, begin, end) = getIntersectPoints(normalVersor, origin, limits)
+					if boolReturn:
+						(xbeg, ybeg) = begin
+						(xend, yend) = end
+						lines[boundaryName] = Line2D([xbeg, xend], [ybeg, yend], color=color)
+
+			return lines
+
 		### Animate function ###
 		def animate_byTimeStep(t):
 			t = timeIndices[t]
@@ -120,7 +163,9 @@ class BuildAnimation ( AnimationLimits ):
 			setAxisLimits(limits)
 			ax.set_title(str(round_to_n(time[t], 2)) + " s")
 			circles = updateCircles(t)
-			return circles.values()
+			lines = updateLines(t)
+
+			return list(circles.values()) + list(lines.values())
 
 		def animate_global(t):
 			t = timeIndices[t]
@@ -129,7 +174,9 @@ class BuildAnimation ( AnimationLimits ):
 			setAxisLimits(limits)
 			ax.set_title(str(round_to_n(time[t], 2)) + " s")
 			circles = updateCircles(t)
-			return circles.values()
+			lines = updateLines(t)
+
+			return list(circles.values()) + list(lines.values())
 
 		def animate_autoscale(t):
 			t = timeIndices[t]
@@ -138,7 +185,9 @@ class BuildAnimation ( AnimationLimits ):
 			setAxisLimits(limits)
 			ax.set_title(str(round_to_n(time[t], 2)) + " s")
 			circles = updateCircles(t)
-			return circles.values()
+			lines = updateLines(t)
+
+			return list(circles.values()) + list(lines.values())
 
 		# define animate functions
 		animateFunction = {}
