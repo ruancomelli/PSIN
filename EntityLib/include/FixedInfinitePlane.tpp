@@ -50,8 +50,8 @@ struct adl_serializer< psin::FixedInfinitePlane<PropertyTypes...> > {
 
 	static void to_json(json& j, const psin::FixedInfinitePlane<PropertyTypes...> & fplane) {
 		json jp = json{
-			{"origin", fplane.getOrigin()},
-			{"normalVector", fplane.getNormalVersor()}
+			{"Origin", fplane.getOrigin()},
+			{"NormalVersor", fplane.getNormalVersor()}
 		};
 		typename psin::FixedInfinitePlane<PropertyTypes...>::BaseFixedBoundary base = fplane;
 		json jb = base;
