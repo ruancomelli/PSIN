@@ -69,7 +69,8 @@ int main(int argc, char* argv[])
 	using BoundaryList = psin::BoundaryList<
 		FixedInfinitePlane<
 			ElasticModulus,
-			NormalDissipativeConstant
+			NormalDissipativeConstant,
+			Color
 			>,
 		GravityField
 		>;
