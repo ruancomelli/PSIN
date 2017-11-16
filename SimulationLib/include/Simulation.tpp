@@ -639,11 +639,11 @@ struct interact_particle_boundary
 		using EntityType = typename mp::get<1, InteractionTriplet>::type;
 		using NeighborType = typename mp::get<2, InteractionTriplet>::type;
 
-		for(auto& entity : std::get<vector<EntityType>>(particleVectorTuple))
+		if(interactionsToUse.count(NamedType<InteractionType>::name) > 0)
 		{
-			for(auto& neighbor : std::get<vector<NeighborType>>(boundaryVectorTuple))
+			for(auto& entity : std::get<vector<EntityType>>(particleVectorTuple))
 			{
-				if(interactionsToUse.count(NamedType<InteractionType>::name) > 0)
+				for(auto& neighbor : std::get<vector<NeighborType>>(boundaryVectorTuple))
 				{
 					InteractionType::calculate(entity, neighbor, time);
 				}
@@ -768,9 +768,9 @@ struct print_check
 		std::cout << "Check: "
 			<< std::boolalpha
 			<< InteractionType::template check<EntityType, NeighborType>::value 
-			<< std::endl;
+			<< std::endl; // DEBUG
 
-		std::cout << std::endl;
+		std::cout << std::endl; // DEBUG
 	}
 };	// DEBUG
 
@@ -823,6 +823,10 @@ void Simulation<
 		<< boost::typeindex::type_id_with_cvr<InteractionParticleParticleTriplets>().pretty_name() 
 		<< std::endl; // DEBUG
 
+	std::cout << "InteractionParticleBoundaryTriplets:\n" 
+		<< boost::typeindex::type_id_with_cvr<InteractionParticleBoundaryTriplets>().pretty_name() 
+		<< std::endl; // DEBUG
+
 	for(time.start(); !time.end(); time.update())
 	{
 		std::cout << time.as_json() << std::endl; // DEBUG
@@ -849,6 +853,7 @@ void Simulation<
 		mp::visit<InteractionParticleParticleTriplets, detail::interact_particle_particle>::call_same(
 				particles, time, interactionsToUse
 			);
+
 		mp::visit<InteractionParticleBoundaryTriplets, detail::interact_particle_boundary>::call_same(
 				particles, boundaries, time, interactionsToUse
 			);
