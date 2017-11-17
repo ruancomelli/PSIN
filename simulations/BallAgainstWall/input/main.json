@@ -1,7 +1,7 @@
 {
 	"initialTime": 0.0,
-	"timeStep": 1e-2,
-	"finalTime": 2,
+	"timeStep": 1e-3,
+	"finalTime": 0.3,
 	"taylorOrder": 6,
 	"timeStepsForOutput": 2,
 	"outputsForExporting": 1,
@@ -27,7 +27,7 @@
 
 	"boundaries":
 	{
-		"GravityField": 
+		"FixedInfinitePlane": 
 		[
 			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/input/wall.json"
 		]

@@ -7,11 +7,11 @@
 	"Dimension": 3,
 
 	"Mass": 1,
-	"Radius": 1e-1,
+	"Radius": 0.03,
 	"MomentOfInertia": 1,
 
 	"Position": [0.0, 0.0, 0.0],
-	"Velocity": [10.0, 0.0, 0.0],
+	"Velocity": [10.0, 5.0, 0.0],
 	"Acceleration": [0.0, 0.0, 0.0],
 
 	"OrientationMatrix":

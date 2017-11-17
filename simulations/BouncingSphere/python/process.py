@@ -10,10 +10,9 @@ from numpy import array
 from numpy.linalg import norm
 import matplotlib
 import matplotlib.pyplot as plt
-from math import ceil
 
 programPath = "/home/ruancomelli/GitProjects/ParticleSimulator/build_sublime/bin/Release/psinApp"
-mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/main.json"
+mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/input/main.json"
 
 userInput = PseudoUserInput(programPath, mainInputFilePath)
 paths = PseudoPaths(userInput)
@@ -24,6 +23,7 @@ simulate.execute()
 
 particleData = simulationOutputData.get()[1]
 particle = particleData["SphericalParticle"]["Particle"]
+wall = particleData["FixedInfinitePlane"]["Wall"]
 
 propertyValue = {}
 for propertyName, propertyHistory in particle.items():
@@ -49,13 +49,10 @@ solution_x = list(map(list, zip(*solution)))[0]
 solution_y = list(map(list, zip(*solution)))[1]
 solution_z = list(map(list, zip(*solution)))[2]
 
-normalsize = 1
-smallsize = 4/9 * normalsize
-family = 'serif'
-weight = 'light'
+size = 1
 
 fig = plt.figure(
-	figsize=(10*normalsize, 8*normalsize),
+	figsize=(10*size, 8*size),
 	facecolor='w',
 	edgecolor='k')
 
@@ -67,7 +64,7 @@ ax.plot(
 	color = 'black',
 	label = 'Solução Analítica',
 	# marker = '.',
-	linewidth = 1*normalsize
+	linewidth = 1*size
 	)
 
 ax.plot(
@@ -77,7 +74,7 @@ ax.plot(
 	label = 'Simulação',
 	marker = '.',
 	linestyle="None",
-	markersize = 3*normalsize
+	markersize = 3*size
 	)
 
 ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
@@ -90,8 +87,8 @@ ax.set_yscale('linear')
 
 plt.xlim( min(timeInstant), max(timeInstant) )
 
-ax.tick_params(axis='both', which='major', labelsize=12*normalsize)
-ax.tick_params(axis='both', which='minor', labelsize=10*normalsize)
+ax.tick_params(axis='both', which='major', labelsize=12*size)
+ax.tick_params(axis='both', which='minor', labelsize=10*size)
 
 handles, labels = ax.get_legend_handles_labels()
 handle_list, label_list = [], []
@@ -99,18 +96,17 @@ for handle, label in zip(handles, labels):
     if label not in label_list:
         handle_list.append(handle)
         label_list.append(label)
-lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': 14*normalsize, 'family': family, 'weight': weight})
-ax.set_xlabel('Tempo [s]', fontdict={'size': 16*normalsize, 'family': family, 'weight': weight})
-ax.set_ylabel('Altura [m]', fontdict={'size': 16*normalsize, 'family': family, 'weight': weight})
-# lgd.set_title("Legenda", prop={'size': 16*normalsize, 'family': family, 'weight': weight})
-lgd.set_title("Legenda", prop={'size': 16*normalsize, 'family': family, 'weight': weight})
+lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': 14*size, 'family': 'sans-serif', 'weight': 'normal'})
+ax.set_xlabel('Tempo [s]', fontsize=16*size)
+ax.set_ylabel('Altura [m]', fontsize=16*size)
+lgd.set_title("Legenda", prop={'size': 16*size, 'family': 'sans-serif', 'weight': 'normal'})
 plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
 plt.close(fig)
 
 
 
-mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
+mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/python/main.json"
 
 null = None
 
@@ -119,12 +115,12 @@ mainData = {
 	"timeStep": 1e-3,
 	"finalTime": 1,
 	"taylorOrder": 7,
-	"timeStepsForOutput": 100,
+	"timeStepsForOutput": 10,
 	"outputsForExporting": 1,
 	"dimension": 3,
-	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
-	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
-	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
+	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output",
+	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/particles",
+	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/boundaries",
 	"looper": "GearLooper",
 	"seeker": "BlindSeeker",
 
@@ -137,7 +133,7 @@ mainData = {
 	{
 		"SphericalParticle": 
 		[
-			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/particle.json"
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/input/particle.json"
 		]
 	},
 
@@ -145,19 +141,17 @@ mainData = {
 	{
 		"GravityField": 
 		[
-			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/gravity.json"
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/input/gravity.json"
 		]
 	}
 }
 
 # for Dt in [1e-3, 2e-3, 4e-3, 8e-3, 16e-3, 32e-3, 64e-3, 128e-3, 256e-3, 512e-3]:
 # maxError = []
-# Dt_vec = [2**(i/2)*1e-5 for i in range(20)]
-# outputs = 1000
+# Dt_vec = [2**(i/2)*1e-4 for i in range(20)]
 # for i in range(len(Dt_vec)):
 # 	Dt = Dt_vec[i]
 # 	mainData["timeStep"] = Dt
-# 	mainData["timeStepsForOutput"] = ceil((mainData["finalTime"] - mainData["initialTime"]) / (mainData["timeStep"] * outputs))
 # 	with open(mainInputFilePath, 'w') as mainFile:
 # 		json.dump(mainData, mainFile)
 # 	userInput = PseudoUserInput(programPath, mainInputFilePath)
@@ -187,9 +181,8 @@ mainData = {
 # 	error = array( list(map(listDifference, propertyValue["Position"], solution)) )
 # 	maxError.append(max([norm(x) for x in error]))
 
-
 # fig = plt.figure(
-# 	figsize=(10*normalsize, 8*normalsize),
+# 	figsize=(18, 14),
 # 	facecolor='w',
 # 	edgecolor='k')
 
@@ -205,12 +198,9 @@ mainData = {
 	
 # outputFolder = paths.getSimulationPlotsOutputFolder()
 # filename = "maximum_error"
-# extension = ".pdf"
+# extension = ".png"
 # ax.set_xscale('linear')
 # ax.set_yscale('linear')
-
-# ax.tick_params(axis='both', which='major', labelsize=12*normalsize)
-# ax.tick_params(axis='both', which='minor', labelsize=10*normalsize)
 
 # handles, labels = ax.get_legend_handles_labels()
 # handle_list, label_list = [], []
@@ -218,11 +208,8 @@ mainData = {
 #     if label not in label_list:
 #         handle_list.append(handle)
 #         label_list.append(label)
-# lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': 14*normalsize, 'family': family, 'weight': 'normal'})
-# ax.set_xlabel('Tempo [s]', fontdict={'size': 16*normalsize, 'family': family})
-# ax.set_ylabel('Altura [m]', fontdict={'size': 16*normalsize, 'family': family})
-# lgd.set_title("Legenda", prop={'size': 16*normalsize, 'family': family, 'weight': 'normal'})
-
+# lgd = ax.legend(handle_list, label_list, loc='right', prop={'size': 15, 'family': 'sans-serif', 'weight': 'normal'})
+# lgd.set_title("Legenda", prop={'size': 18, 'family': 'sans-serif', 'weight': 'normal'})
 # plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
 # ax.set_xscale('log')
@@ -250,8 +237,8 @@ mainData = {
 # ax = fig.add_subplot(111)
 
 # ax.plot(
-# 	[time[t] for t in time.keys()],
-# 	[particle[propertyName][t] for t in time.keys()],
+# 	[self.time[t] for t in self.time.keys()],
+# 	[particle[propertyName][t] for t in self.time.keys()],
 # 	color = getColor(particle["Color"][next(iter(particle["Color"]))]),
 # 	label = particleName,
 # 	marker = '.'

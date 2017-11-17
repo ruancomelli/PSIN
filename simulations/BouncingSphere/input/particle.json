@@ -10,12 +10,12 @@
 	"Radius": 0.1,
 	"MomentOfInertia": 1,
 	"ElasticModulus": 1e+6,
-	"NormalDissipativeConstant": 5,
+	"NormalDissipativeConstant": 100,
 
 	"PositionMatrix":
 	[
-		[0.3, 0.0, 0.0],
-		[-1.0, 0.0, 0.0],
+		[0.0, 1.0, 0.0],
+		[0.0, 0.0, 0.0],
 		[0.0, 0.0, 0.0],
 		[0.0, 0.0, 0.0]
 	],
