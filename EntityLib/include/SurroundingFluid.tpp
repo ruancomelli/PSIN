@@ -31,6 +31,8 @@ template<typename...Prs>
 SurroundingFluid<Prs...>::SurroundingFluid(const BaseFixedBoundary & boundary)
 	: BaseFixedBoundary(boundary)
 {}
+
+template<typename...Prs>
 SurroundingFluid<Prs...>::SurroundingFluid(BaseFixedBoundary && boundary)
 	: BaseFixedBoundary(std::move(boundary))
 {}
