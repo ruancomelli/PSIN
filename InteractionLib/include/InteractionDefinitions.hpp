@@ -8,4 +8,6 @@
 #include <InteractionDefinitions/TangentialForceCundallStrack.hpp>
 #include <InteractionDefinitions/TangentialForceHaffWerner.hpp>
 
+#include <InteractionDefinitions/DragForce.hpp>
+
 #endif

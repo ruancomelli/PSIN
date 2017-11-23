@@ -2,7 +2,8 @@
 #define DRAG_FORCE_HPP
 
 // EntityLib
-#include <PhysicalEntity.hpp>
+#include <SphericalParticle.hpp>
+#include <SurroundingFluid.hpp>
 
 // PropertyLib
 #include <PropertyDefinitions.hpp>
@@ -27,7 +28,7 @@ struct DragForce
 	struct check : mp::conjunction<
 			is_spherical<Particle>,
 			is_surrounding_fluid<Fluid>,
-			has_property<Fluid, Density>
+			has_property<Fluid, SpecificMass>
 		>
 	{};
 
@@ -38,7 +39,7 @@ struct DragForce
 	static void calculate(Particle & particle, const Fluid & neighbor, T&&);
 
 	template<typename Particle, typename Fluid>
-	static void dragCoefficient(Particle & particle, const Fluid & neighbor);
+	static double dragCoefficient(Particle & particle, const Fluid & neighbor);
 };
 
 template<>
