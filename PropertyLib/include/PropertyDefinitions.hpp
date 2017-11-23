@@ -3,6 +3,7 @@
 
 #include <PropertyDefinitions/Color.hpp>
 #include <PropertyDefinitions/Gravity.hpp>
+#include <PropertyDefinitions/SpecificMass.hpp>
 
 // PropertyLib
 #include <NonNegativeProperty.hpp>
