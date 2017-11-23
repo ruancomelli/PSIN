@@ -72,7 +72,8 @@ int main(int argc, char* argv[])
 			NormalDissipativeConstant,
 			Color
 			>,
-		GravityField
+		GravityField,
+		SurroundingFluid<SpecificMass>
 		>;
 		
 	using InteractionList = psin::InteractionList<
@@ -81,7 +82,8 @@ int main(int argc, char* argv[])
 		NormalForceViscoelasticSpheres,
 		GravityForce,
 		TangentialForceCundallStrack,
-		TangentialForceHaffWerner
+		TangentialForceHaffWerner,
+		DragForce
 		>;
 		
 	using LooperList = psin::LooperList<GearLooper>;
