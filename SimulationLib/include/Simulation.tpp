@@ -125,10 +125,11 @@ void Simulation<
 	{
 		if(it->is_array())
 		{
-			for(const path particleInputFilePath : *it)
+			for(json particleEntry : *it)
 			{
 				string particleType(it.key());
 				string particleName;
+				path particleInputFilePath = fileTree["input"]["main"];
 
 				mp::for_each< mp::provide_indices<ParticleList> >(
 				[&, this](auto Index)
@@ -136,9 +137,13 @@ void Simulation<
 					using Particle = typename mp::get<Index, ParticleList>::type;
 					if( NamedType<Particle>::name == particleType)
 					{
-						json j = read_json(particleInputFilePath.string());
+						if(particleEntry.is_string()) // Considered input file
+						{
+							particleInputFilePath = particleEntry.get<string>();
+							particleEntry = read_json(particleInputFilePath.string());
+						}
 
-						Particle particle = j;
+						Particle particle = particleEntry;
 
 						particleName = particle.getName();
 						std::get< vector<Particle> >(particles).push_back( particle );
@@ -171,6 +176,27 @@ void Simulation<
 
 			fileTree["input"]["particle"][particleName] = particleInputFilePath;
 		}
+		else if(it->is_object())
+		{
+			string particleType(it.key());
+			string particleName;
+			path particleInputFilePath = fileTree["input"]["main"].get<string>();
+
+			mp::for_each< mp::provide_indices<ParticleList> >(
+			[&, this](auto Index)
+			{
+				using Particle = typename mp::get<Index, ParticleList>::type;
+				if( NamedType<Particle>::name == particleType)
+				{
+					Particle particle = it.value();
+
+					particleName = particle.getName();
+					std::get< vector<Particle> >(particles).push_back( particle );
+				}
+			});
+
+			fileTree["input"]["particle"][particleName] = particleInputFilePath;
+		}
 	}
 }
 
@@ -188,15 +214,16 @@ void Simulation<
 >::buildBoundaries(const json & boundariesJSON)
 {
 	std::cout << "Building boundaries" << std::endl; // DEBUG
-	
+
 	for(json::const_iterator it = boundariesJSON.begin(); it != boundariesJSON.end(); ++it) 
 	{
 		if(it->is_array())
 		{
-			for(const path boundaryInputFilePath : *it)
+			for(json boundaryEntry : *it)
 			{
 				string boundaryType(it.key());
 				string boundaryName;
+				path boundaryInputFilePath = fileTree["input"]["main"];
 
 				mp::for_each< mp::provide_indices<BoundaryList> >(
 				[&, this](auto Index)
@@ -204,12 +231,16 @@ void Simulation<
 					using Boundary = typename mp::get<Index, BoundaryList>::type;
 					if( NamedType<Boundary>::name == boundaryType)
 					{
-						json j = read_json(boundaryInputFilePath.string());
+						if(boundaryEntry.is_string()) // Considered input file
+						{
+							boundaryInputFilePath = boundaryEntry.get<string>();
+							boundaryEntry = read_json(boundaryInputFilePath.string());
+						}
 
-						Boundary particle = j;
+						Boundary boundary = boundaryEntry;
 
-						boundaryName = particle.getName();
-						std::get< vector<Boundary> >(boundaries).push_back( particle );
+						boundaryName = boundary.getName();
+						std::get< vector<Boundary> >(boundaries).push_back( boundary );
 					}
 				});
 
@@ -230,10 +261,31 @@ void Simulation<
 				{
 					json j = read_json(boundaryInputFilePath.string());
 
-					Boundary particle = j;
+					Boundary boundary = j;
 
-					boundaryName = particle.getName();
-					std::get< vector<Boundary> >(boundaries).push_back( particle );
+					boundaryName = boundary.getName();
+					std::get< vector<Boundary> >(boundaries).push_back( boundary );
+				}
+			});
+
+			fileTree["input"]["boundary"][boundaryName] = boundaryInputFilePath;
+		}
+		else if(it->is_object())
+		{
+			string boundaryType(it.key());
+			string boundaryName;
+			path boundaryInputFilePath = fileTree["input"]["main"].get<string>();
+
+			mp::for_each< mp::provide_indices<BoundaryList> >(
+			[&, this](auto Index)
+			{
+				using Boundary = typename mp::get<Index, BoundaryList>::type;
+				if( NamedType<Boundary>::name == boundaryType)
+				{
+					Boundary boundary = it.value();
+
+					boundaryName = boundary.getName();
+					std::get< vector<Boundary> >(boundaries).push_back( boundary );
 				}
 			});
 
