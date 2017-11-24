@@ -11,8 +11,8 @@
 	"MomentOfInertia": 1,
 
 	"Position": [0.0, 0.0, 0.0],
-	"Velocity": [10.0, 5.0, 0.0],
-	"Acceleration": [0.0, 0.0, 0.0],
+	"Velocity": [20.0, 10.0, 0.0],
+	"Acceleration": [0.0, -9.81, 0.0],
 
 	"OrientationMatrix":
 	[
