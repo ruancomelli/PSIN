@@ -51,10 +51,10 @@ maxError = max([norm(x) for x in error])
 print("Maximum error: ", maxError)
 
 velocityError = array( list(map(listDifference, propertyValue["Velocity"], velocitySolution)) )
-print("Velocity error: ", velocityError)
-print("Instantaneous velocity solution: ", array(velocitySolution))
-print("Instantaneous simulated velocity: ", array(propertyValue["Velocity"]))
-print("Diff: ", array(velocitySolution) - array(propertyValue["Velocity"]))
+# print("Velocity error: ", velocityError)
+# print("Instantaneous velocity solution: ", array(velocitySolution))
+# print("Instantaneous simulated velocity: ", array(propertyValue["Velocity"]))
+# print("Diff: ", array(velocitySolution) - array(propertyValue["Velocity"]))
 maxVelocityError = max([norm(x) for x in velocityError])
 print("Maximum velocity error: ", maxVelocityError)
 
@@ -460,120 +460,172 @@ plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tig
 
 plt.close(fig)
 
+########################### NORM OF HIGHER ORDER DERIVATIVES
+
+# plt.rc('text', usetex=True)
+# plt.rc('text.latex', preamble=r'\usepackage{amsmath}\usepackage{bm}\usepackage{xfrac}')
+
+# for i in range(2, propertyValue["TaylorOrder"][0]):
+# 	fig = plt.figure(
+# 		figsize=(smallwidth, smallheight),
+# 		facecolor='w',
+# 		edgecolor='k')
+
+# 	ax = fig.add_subplot(111)
+
+# 	derivative = i + 1
+# 	derivativeValue = [posDeriv[derivative] for posDeriv in propertyValue["PositionMatrix"]]
+# 	derivativeNorm = [norm(x) for x in derivativeValue]
+
+# 	unit = r"\left[\sfrac{\text{m}}{\text{s}^" + str(derivative) + r"}\right]"
+
+# 	if derivative == 3:
+# 		symbol = r"$\lVert\dddot{\bm{r}}\rVert" + unit + r"$"
+# 	else:
+# 		# symbol = r"$\lVert\bm{r}^{(" + str(derivative) + r")}\rVert$"
+# 		symbol = r"$\lVert\bm{r}^{(" + str(derivative) + r")}\rVert" + unit + r"$"
+
+# 	ax.plot(
+# 		timeInstant,
+# 		derivativeNorm,
+# 		color = 'red',
+# 		marker = '.',
+# 		linestyle="None",
+# 		markersize = normalmarkersize
+# 		)
+
+# 	ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+# 	outputFolder = paths.getSimulationPlotsOutputFolder()
+# 	filename = "position_derivative_" + str(derivative) + "_norm"
+# 	extension = ".pdf"
+# 	ax.set_xscale('linear')
+# 	ax.set_yscale('linear')
+
+# 	plt.xlim( min(timeInstant), max(timeInstant) )
+
+# 	ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+# 	ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+
+# 	# handles, labels = ax.get_legend_handles_labels()
+# 	# handle_list, label_list = [], []
+# 	# for handle, label in zip(handles, labels):
+# 	#     if label not in label_list:
+# 	#         handle_list.append(handle)
+# 	#         label_list.append(label)
+# 	# lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+# 	ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+# 	ax.set_ylabel(symbol, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+# 	ax.yaxis.set_major_formatter(mtick.ScalarFormatter(useMathText=True))
+# 	# lgd.set_title("Legenda", prop={'size': normalfontsize, 'family': family, 'weight': weight})
+# 	# lgd.set_title("Legenda", prop={'size': normalfontsize, 'family': family, 'weight': weight})
+# 	plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+# 	plt.close(fig)
 
 
 ########################### MAXIMUM ERROR VERSUS TIMESTEP
 
-with open(mainInputFilePath) as mainInputFile:
-	mainData = json.load(mainInputFile)
+# with open(mainInputFilePath) as mainInputFile:
+# 	mainData = json.load(mainInputFile)
 
-mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
+# mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
 
-null = None
+# null = None
 
-maxError = []
-Dt_vec = [2**(i/2)*1e-5 for i in range(20)]
-outputs = 100
-for i in range(len(Dt_vec)):
-	Dt = Dt_vec[i]
-	mainData["timeStep"] = Dt
-	mainData["timeStepsForOutput"] = ceil((mainData["finalTime"] - mainData["initialTime"]) / (mainData["timeStep"] * outputs))
-	with open(mainInputFilePath, 'w') as mainFile:
-		json.dump(mainData, mainFile)
-	userInput = PseudoUserInput(programPath, mainInputFilePath)
-	paths = PseudoPaths(userInput)
-	simulate = PseudoSimulate(userInput, paths)
-	simulate.execute()
-	simulationOutputData = PseudoSimulationOutputData(paths)
-	particleData = simulationOutputData.get()[1]
-	particle = particleData["SphericalParticle"]["Particle"]
+# maxError = []
+# Dt_vec = [2**(i/2)*1e-5 for i in range(20)]
+# outputs = 10
+# for i in range(len(Dt_vec)):
+# 	Dt = Dt_vec[i]
+# 	mainData["timeStep"] = Dt
+# 	# mainData["timeStepsForOutput"] = ceil((mainData["finalTime"] - mainData["initialTime"]) / (mainData["timeStep"] * outputs))
+# 	print("Dt = ", Dt)
+# 	print("timeStepsForOutput = ", mainData["timeStepsForOutput"])
+# 	with open(mainInputFilePath, 'w') as mainFile:
+# 		json.dump(mainData, mainFile)
+# 	userInput = PseudoUserInput(programPath, mainInputFilePath)
+# 	paths = PseudoPaths(userInput)
+# 	simulate = PseudoSimulate(userInput, paths)
+# 	simulate.execute()
+# 	simulationOutputData = PseudoSimulationOutputData(paths)
+# 	particleData = simulationOutputData.get()[1]
+# 	particle = particleData["SphericalParticle"]["Particle"]
 
-	propertyValue = {}
-	for propertyName, propertyHistory in particle.items():
-		propertyValue[propertyName] = list(propertyHistory.values())
+# 	propertyValue = {}
+# 	for propertyName, propertyHistory in particle.items():
+# 		propertyValue[propertyName] = list(propertyHistory.values())
 
-	time = simulationOutputData.get()[3]
-	timeIndex = list(time.keys())
-	timeInstant = list(time.values())
+# 	time = simulationOutputData.get()[3]
+# 	timeIndex = list(time.keys())
+# 	timeInstant = list(time.values())
 
-	initialPosition = array(propertyValue["Position"][0])
-	initialVelocity = array(propertyValue["Velocity"][0])
-	gravity = array([0.0, -9.81, 0.0])
+# 	initialPosition = array(propertyValue["Position"][0])
+# 	initialVelocity = array(propertyValue["Velocity"][0])
+# 	gravity = array([0.0, -9.81, 0.0])
 
-	instantaneousSolution = lambda t: initialPosition + initialVelocity * t + gravity * t**2 / 2
-	solution = array([instantaneousSolution(t) for t in timeInstant])
+# 	instantaneousSolution = lambda t: initialPosition + initialVelocity * t + gravity * t**2 / 2
+# 	solution = array([instantaneousSolution(t) for t in timeInstant])
 
-	listDifference = lambda a, b: list(map(operator.sub, a, b))
-	error = array( list(map(listDifference, propertyValue["Position"], solution)) )
-	maxError.append(max([norm(x) for x in error]))
+# 	listDifference = lambda a, b: list(map(operator.sub, a, b))
+# 	error = array( list(map(listDifference, propertyValue["Position"], solution)) )
+# 	maxError.append(max([norm(x) for x in error]))
 
-fig = plt.figure(
-	figsize=(smallwidth, smallheight),
-	facecolor='w',
-	edgecolor='k')
+# fig = plt.figure(
+# 	figsize=(smallwidth, smallheight),
+# 	facecolor='w',
+# 	edgecolor='k')
 
-ax = fig.add_subplot(111)
+# ax = fig.add_subplot(111)
 
-ax.plot(
-	Dt_vec,
-	maxError,
-	color = 'red',
-	label = 'Erro Máximo',
-	marker = '.'
-	)
+# ax.plot(
+# 	Dt_vec,
+# 	maxError,
+# 	color = 'red',
+# 	label = 'Erro Máximo',
+# 	marker = '.',
+# 	linestyle="None",
+# 	markersize = normalmarkersize
+# 	)
 	
-outputFolder = paths.getSimulationPlotsOutputFolder()
-filename = "maximum_error"
-extension = ".pdf"
-ax.set_xscale('linear')
-ax.set_yscale('linear')
+# outputFolder = paths.getSimulationPlotsOutputFolder()
+# filename = "maximum_error"
+# extension = ".pdf"
 
-ax.tick_params(axis='both', which='major', labelsize=12*normalsize)
-ax.tick_params(axis='both', which='minor', labelsize=10*normalsize)
+# ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
 
-handles, labels = ax.get_legend_handles_labels()
-handle_list, label_list = [], []
-for handle, label in zip(handles, labels):
-    if label not in label_list:
-        handle_list.append(handle)
-        label_list.append(label)
-lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': 'normal'})
-ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family})
-ax.set_ylabel('Altura [m]', fontdict={'size': normalfontsize, 'family': family})
-lgd.set_title("Legenda", prop={'size': normalfontsize, 'family': family, 'weight': 'normal'})
+# ax.set_xscale('linear')
+# ax.set_yscale('linear')
 
-plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+# ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+# ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
 
-ax.set_xscale('log')
-ax.set_yscale('linear')
-filename = "maximum_error_logx"
-plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+# handles, labels = ax.get_legend_handles_labels()
+# handle_list, label_list = [], []
+# for handle, label in zip(handles, labels):
+#     if label not in label_list:
+#         handle_list.append(handle)
+#         label_list.append(label)
+# lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': 'normal'})
+# ax.set_xlabel('Passo de Tempo [s]', fontdict={'size': normalfontsize, 'family': family})
+# ax.set_ylabel('Erro da Posição [m]', fontdict={'size': normalfontsize, 'family': family})
+# lgd.set_title("Legenda", prop={'size': normalfontsize, 'family': family, 'weight': 'normal'})
 
-ax.set_xscale('linear')
-ax.set_yscale('log')
-filename = "maximum_error_logy"
-plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
-ax.set_xscale('log')
-ax.set_yscale('log')
-filename = "maximum_error_logx_logy"
-plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+# ax.set_xscale('log')
+# ax.set_yscale('linear')
+# filename = "maximum_error_logx"
+# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
-plt.close(fig)
+# ax.set_xscale('linear')
+# ax.set_yscale('log')
+# filename = "maximum_error_logy"
+# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
-fig = plt.figure(
-	figsize=(18, 14),
-	facecolor='w',
-	edgecolor='k')
+# ax.set_xscale('log')
+# ax.set_yscale('log')
+# filename = "maximum_error_logx_logy"
+# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
-ax = fig.add_subplot(111)
-
-ax.plot(
-	[time[t] for t in time.keys()],
-	[particle[propertyName][t] for t in time.keys()],
-	color = getColor(particle["Color"][next(iter(particle["Color"]))]),
-	label = particleName,
-	marker = '.'
-	)
-
-plt.close(fig)
+# plt.close(fig)
