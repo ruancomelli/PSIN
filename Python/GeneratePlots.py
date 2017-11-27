@@ -179,7 +179,7 @@ class GeneratePlots:
 		        handle_list.append(handle)
 		        label_list.append(label)
 		
-		lgd = ax.legend(handle_list, label_list, loc='right', prop={'size': 15, 'family': 'sans-serif', 'weight': 'normal'})
+		lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': 15, 'family': 'sans-serif', 'weight': 'normal'})
 		lgd.set_title("Legenda", prop={'size': 18, 'family': 'sans-serif', 'weight': 'normal'})
 		plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 		plt.close(fig)
