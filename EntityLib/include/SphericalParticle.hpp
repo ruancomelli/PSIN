@@ -78,6 +78,18 @@ double overlapDerivative(const SphericalParticle<Ts...> & lhs, const FixedInfini
 template<typename...Ts, typename...Us>
 Vector3D contactPoint(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
 
+template<typename...Ts, typename...Us>
+Vector3D normalVersor(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+Vector3D normalVersor(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+Vector3D relativeVelocityContactPoint(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs);
+
+template<typename...Ts, typename...Us>
+Vector3D relativeVelocityContactPoint(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs);
+
 template<typename...Prs>
 void from_json(const json& j, SphericalParticle<Prs...> & p);
 template<typename...Prs>

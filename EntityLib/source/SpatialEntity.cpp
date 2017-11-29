@@ -256,14 +256,6 @@ void SpatialEntity::setSpatial(std::vector<Vector3D> & spatialToSet, const std::
 {
 	spatialToSet = spatial;
 	spatialToSet.resize(this->taylorOrder+1);
-	// if( spatial.size() != (this->taylorOrder + 1) )
-	// {
-	// 	throw std::runtime_error("taylorOrder does not match spatial's size in function SpatialEntity::setSpatial(vector<Vector3D> & spatialToSet, const vector<Vector3D> & spatial)");
-	// }
-	// else
-	// {
-	// 	spatialToSet = spatial;
-	// }
 }
 
 void SpatialEntity::setTaylorOrder(const std::size_t taylorOrder)

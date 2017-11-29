@@ -1,6 +1,8 @@
 #ifndef SPHERICAL_PARTICLE_TPP
 #define SPHERICAL_PARTICLE_TPP
 
+#include <Mathematics.hpp>
+
 namespace psin {
 
 template<typename...Prs>
@@ -24,6 +26,20 @@ struct NamedType<SphericalParticle<Ts...>>
 
 template<typename...Ts>
 const string NamedType<SphericalParticle<Ts...>>::name = "SphericalParticle";
+
+template<typename...Ts, typename...Us>
+Vector3D normalVersor(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs)
+{
+	return (rhs.getPosition() - lhs.getPosition()).normalized();
+}
+
+template<typename...Ts, typename...Us>
+Vector3D normalVersor(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	auto planeNormalVersor = rhs.getNormalVersor();
+
+	return - signum(dot(lhs.getPosition()-rhs.getOrigin(), planeNormalVersor)) * planeNormalVersor;
+}
 
 template<typename...Ts, typename...Us>
 double distance(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
@@ -121,24 +137,75 @@ double overlapDerivative(const SphericalParticle<Ts...> & lhs, const FixedInfini
 }
 
 template<typename...Ts, typename...Us>
-Vector3D contactPoint(const SphericalParticle<Ts...> & left, const SphericalParticle<Us...> & right)
+Vector3D contactRadialVector(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs)
 {
-	if( touch(left, right ) )
+	if( touch(lhs, rhs) )
 	{
-		const double radius1 = left.template get<Radius>();
-		const double radius2 = right.template get<Radius>();
+		const double radius1 = lhs.template get<Radius>();
+		const double radius2 = rhs.template get<Radius>();
 
-		const double distance = psin::distance(left, right);
+		const double distance = psin::distance(lhs, rhs);
 
-		const double contactPointSize = ( (radius1*radius1) - (radius2*radius2) + (distance*distance) ) / ( 2 * distance );	// See law of cosines
-		const Vector3D contactPoint = contactPointSize * left.normalVersor( right ) + left.getPosition();
+		const double contactPointRadius = ( (radius1*radius1) - (radius2*radius2) + (distance*distance) ) / ( 2 * distance );
 
-		return contactPoint;
+		return contactPointRadius * psin::normalVersor(lhs, rhs);
+	}
+	else
+	{
+		throw std::runtime_error("Error in contactRadialVector(SphericalParticle, SphericalParticle): Particles that do not touch each other do not have a contactPoint.");
+	}
+}
+
+template<typename...Ts, typename...Us>
+Vector3D contactRadialVector(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	if( touch(lhs, rhs) )
+	{
+		return (rhs.getOrigin() - lhs.getPosition()).projectOn(psin::normalVersor(lhs, rhs));
+	}
+	else
+	{
+		throw std::runtime_error("Error in contactRadialVector(SphericalParticle, FixedInfinitePlane): Elements that do not touch each other do not have a contactPoint.");
+	}
+}
+
+template<typename...Ts, typename...Us>
+Vector3D contactPoint(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs)
+{
+	if( touch(lhs, rhs) )
+	{
+		return contactRadialVector(lhs, rhs) + lhs.getPosition();
 	}
 	else
 	{
 		throw std::runtime_error("Error in contactPoint(SphericalParticle, SphericalParticle): Particles that do not touch each other do not have a contactPoint.");
 	}
+}
+
+template<typename...Ts, typename...Us>
+Vector3D relativeVelocityContactPoint(const SphericalParticle<Ts...> & lhs, const SphericalParticle<Us...> & rhs)
+{
+	return rhs.getVelocity() - lhs.getVelocity() 
+		+ cross(rhs.getAngularVelocity(), contactRadialVector(rhs, lhs)) 
+		- cross(lhs.getAngularVelocity(), contactRadialVector(lhs, rhs));
+}
+
+template<typename...Ts, typename...Us>
+Vector3D relativeVelocityContactPoint(const SphericalParticle<Ts...> & lhs, const FixedInfinitePlane<Us...> & rhs)
+{
+	return - lhs.getVelocity() - cross(lhs.getAngularVelocity(), contactRadialVector(lhs, rhs));
+}
+
+template<typename T, typename U>
+Vector3D relativeNormalVelocityContactPoint(const T & lhs, const U & rhs)
+{
+	return relativeVelocityContactPoint(lhs, rhs).projectOn(normalVersor(lhs, rhs));
+}
+
+template<typename T, typename U>
+Vector3D relativeTangentialVelocityContactPoint(const T & lhs, const U & rhs)
+{
+	return relativeVelocityContactPoint(lhs, rhs) - relativeNormalVelocityContactPoint(lhs, rhs);
 }
 
 
@@ -158,17 +225,18 @@ template<typename ... PropertyTypes>
 template<typename ... Us>
 Vector3D SphericalParticle<PropertyTypes...>::relativeTangentialVelocity(const SphericalParticle<Us...> & neighbor) const
 {
-	const Vector3D normalVersor = this->normalVersor( neighbor );
-	const Vector3D velocityDifference = neighbor.getVelocity() - this->getVelocity();
-	const Vector3D contact = contactPoint(*this, neighbor);
+	// const Vector3D normalVersor = this->normalVersor( neighbor );
+	// const Vector3D velocityDifference = neighbor.getVelocity() - this->getVelocity();
+	// const Vector3D contact = contactPoint(*this, neighbor);
 
-	const Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
-	const Vector3D relativeTangentialRotationalVelocity =	cross(neighbor.getAngularVelocity(), contact - neighbor.getPosition()) -
-															cross(this->getAngularVelocity(), contact - this->getPosition());
+	// const Vector3D relativeTangentialCenterVelocity = velocityDifference - dot(velocityDifference, normalVersor) * normalVersor;
+	// const Vector3D relativeTangentialRotationalVelocity =	cross(neighbor.getAngularVelocity(), contact - neighbor.getPosition()) -
+	// 														cross(this->getAngularVelocity(), contact - this->getPosition());
 
-	const Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
+	// const Vector3D relativeTangentialVelocity = relativeTangentialCenterVelocity + relativeTangentialRotationalVelocity;
 
-	return relativeTangentialVelocity;
+	// return relativeTangentialVelocity;
+	return relativeTangentialVelocityContactPoint(*this, neighbor);
 }
 
 template<typename ... PropertyTypes>
