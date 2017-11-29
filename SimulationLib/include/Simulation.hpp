@@ -103,6 +103,7 @@ private:
 	int dimension;
 	unsigned long timeStepsForOutput;
 	unsigned long outputsForExporting;
+	bool printTime;
 
 	std::tuple< std::vector<ParticleTypes>... > particles;
 	std::tuple< std::vector<BoundaryTypes>... > boundaries;

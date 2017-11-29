@@ -49,6 +49,7 @@ void Simulation<
 	this->outputsForExporting = j.at("outputsForExporting");
 	this->looperToUse = j.at("looper");
 	this->seekerToUse = j.at("seeker");
+	if(j.count("printTime") > 0) this->printTime = j.at("printTime");
 
 	fileTree["output"]["main"] = j.at("mainOutputFolder").get<path>();
 	fileTree["output"]["particleDir"] = j.at("particleOutputFolder").get<path>();
@@ -340,6 +341,7 @@ void Simulation<
 		{"outputsForExporting", this->outputsForExporting},
 		{"looper", this->looperToUse},
 		{"seeker", this->seekerToUse},
+		{"printTime", this->printTime},
 		{"mainOutputFolder", fileTree["output"]["main"]},
 		{"particleOutputFolder", fileTree["output"]["particleDir"]},
 		{"boundaryOutputFolder", fileTree["output"]["boundaryDir"]},
@@ -881,7 +883,8 @@ void Simulation<
 
 	for(time.start(); !time.end(); time.update())
 	{
-		std::cout << time.as_json() << std::endl; // DEBUG
+		if(this->printTime) std::cout << time.as_json() << std::endl;
+
 		// Output
 		if(timeStepsForOutputCounter == 0)
 		{
