@@ -12,6 +12,8 @@ using json = nlohmann::json;
 
 json read_json(const std::string & filename);
 json merge(const json & lhs, const json & rhs);
+json merge(json && lhs, const json & rhs);
+void merge_into(json& lhs, const json & rhs);
 
 template<typename JsonContainer>
 json merge(const JsonContainer & container);

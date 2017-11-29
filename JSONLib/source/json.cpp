@@ -52,4 +52,68 @@ json merge(const json & lhs, const json & rhs)
 	}
 }
 
+json merge(json&& lhs, const json & rhs)
+{
+	if(lhs.is_object())
+	{
+		json result = lhs;
+
+		for ( auto it = rhs.begin(); it != rhs.end(); ++it )
+		{
+			if(lhs.count(it.key()) > 0)
+			{
+				result[it.key()] = merge(lhs[it.key()], it.value());
+			}
+			else
+			{
+				result[it.key()] = it.value();
+			}
+		}
+
+		return result;
+	}
+	else if(lhs.is_array() and rhs.is_array())
+	{
+		json result = lhs;
+
+		result.insert(result.end(), rhs.begin(), rhs.end());
+
+		return result;
+	}
+	else if(lhs.is_null())
+	{
+		return rhs;
+	}
+	else if(rhs.is_null())
+	{
+		return lhs;
+	}
+}
+
+void merge_into(json& lhs, const json & rhs)
+{
+	if(lhs.is_object())
+	{
+		for ( auto it = rhs.begin(); it != rhs.end(); ++it )
+		{
+			if(lhs.count(it.key()) > 0)
+			{
+				lhs[it.key()] = merge(lhs[it.key()], it.value());
+			}
+			else
+			{
+				lhs[it.key()] = it.value();
+			}
+		}
+	}
+	else if(lhs.is_array() and rhs.is_array())
+	{
+		lhs.insert(lhs.end(), rhs.begin(), rhs.end());
+	}
+	else if(lhs.is_null())
+	{
+		lhs = rhs;
+	}
+}
+
 } // psin
