@@ -101,6 +101,20 @@ void Simulation<
 			
 			fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
 		}
+		else if(it->is_object())
+		{
+			mp::for_each< mp::provide_indices<InteractionList> >(
+			[&, this](auto Index)
+			{
+				using I = typename mp::get<Index, InteractionList>::type;
+				if( NamedType<I>::name == interactionName )
+				{
+					Builder<I>::setup(it.value());
+				}
+			});
+			
+			fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
+		}
 	}
 
 	for(auto&& entry : interactionsToUse)
@@ -577,6 +591,17 @@ struct update_boundary
 	}
 };
 
+template<typename Ofstream>
+Ofstream& operator<<(Ofstream& out, const vector<Vector3D> & v)// DEBUG
+{
+	for(auto&& entry : v)
+	{
+		out << entry << std::endl;
+	}
+
+	return out;
+}
+
 template<typename P>
 struct correct_particle
 {
@@ -588,7 +613,7 @@ struct correct_particle
 			auto acceleration = particle.getResultingForce() / particle.template get<Mass>();
 			auto angularAcceleration = particle.getResultingTorque() / particle.template get<MomentOfInertia>();
 
-			vector<Vector3D> correctedPosition = Interaction<>::gearCorrector(
+			auto correctedPosition = Interaction<>::gearCorrector(
 					particle.getPositionMatrix(),
 					acceleration,
 					2,
@@ -601,16 +626,31 @@ struct correct_particle
 			{
 				auto orientation = particle.getOrientation();
 				auto orientationMatrix = particle.getOrientationMatrix();
+
+				// std::cout << "Particle name: " << particle.getName() << "-----------------" << std::endl; // DEBUG
+
+				// std::cout << "Orientation Matrix:\n" << orientationMatrix << std::endl; // DEBUG
+
 				orientationMatrix.erase(orientationMatrix.begin());
 
-				vector<Vector3D> correctedOrientation = Interaction<>::gearCorrector(
+				// std::cout << "Orientation Matrix after erasing orientation:\n" << orientationMatrix << std::endl; // DEBUG
+				// std::cout << "Angular acceleration: " << angularAcceleration << std::endl; // DEBUG
+
+
+				auto correctedOrientation = Interaction<>::gearCorrector(
 						orientationMatrix,
 						angularAcceleration,
 						1,
 						particle.getTaylorOrder()-1,
 						time.getTimeStep()
 					);
+
+				// std::cout << "Corrected Orientation Matrix:\n" << correctedOrientation << std::endl; // DEBUG
+
 				correctedOrientation.insert(correctedOrientation.begin(), orientation);
+
+				// std::cout << "Corrected Orientation Matrix after inserting orientation:\n" << correctedOrientation << std::endl; // DEBUG
+
 				particle.setOrientationMatrix(correctedOrientation);
 			}
 			else
@@ -733,7 +773,7 @@ void Simulation<
 	mainFileMap["timeVector"]->close();
 
 	mainFileMap["timeVector"]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-	*mainFileMap["timeVector"] << merge(fileContent, informationToExport).dump(4);
+	*mainFileMap["timeVector"] << merge(std::move(fileContent), informationToExport).dump(4);
 }
 
 template<
@@ -761,7 +801,7 @@ void Simulation<
 		particleFileMap[it->first]->close();
 
 		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*particleFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+		*particleFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
 
 		it->second.clear();
 	}
@@ -792,7 +832,7 @@ void Simulation<
 		boundaryFileMap[it->first]->close();
 
 		boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*boundaryFileMap[it->first] << merge(fileContent, informationToExport).dump(4);
+		*boundaryFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
 
 		it->second.clear();
 	}
