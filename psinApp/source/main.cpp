@@ -12,6 +12,7 @@
 
 // InteractionLib
 #include <InteractionDefinitions.hpp>
+#include <InteractionDefinitions/CoefficientOfRestitutionCalculator.hpp>
 
 // SimulationLib
 #include <CommandLineParser.hpp>
@@ -83,7 +84,8 @@ int main(int argc, char* argv[])
 		GravityForce,
 		TangentialForceCundallStrack,
 		TangentialForceHaffWerner,
-		DragForce
+		DragForce,
+		CoefficientOfRestitutionCalculator
 		>;
 		
 	using LooperList = psin::LooperList<GearLooper>;
