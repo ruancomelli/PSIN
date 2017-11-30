@@ -25,7 +25,6 @@ void CoefficientOfRestitutionCalculator::calculate(const Particle & particle, co
 		{
 			std::cout << "Ending Collision ===============================================================" << std::endl; // DEBUG
 			endCollision(particle, neighbor, t);
-			throw std::runtime_error("uhuu");
 		}
 		else
 		{
@@ -94,7 +93,6 @@ void CoefficientOfRestitutionCalculator::endCollision(const Particle & particle,
 		<< j.dump(4) << std::endl
 		<< "to file." << std::endl; // DEBUG
 	*file << j.dump(4);
-	file->close();
 }
 
 } // psin
