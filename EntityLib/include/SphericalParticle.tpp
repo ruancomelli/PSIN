@@ -197,9 +197,15 @@ Vector3D relativeVelocityContactPoint(const SphericalParticle<Ts...> & lhs, cons
 }
 
 template<typename T, typename U>
+double relativeNormalSpeedContactPoint(const T & lhs, const U & rhs)
+{
+	return dot(relativeVelocityContactPoint(lhs, rhs), normalVersor(lhs, rhs));
+}
+
+template<typename T, typename U>
 Vector3D relativeNormalVelocityContactPoint(const T & lhs, const U & rhs)
 {
-	return relativeVelocityContactPoint(lhs, rhs).projectOn(normalVersor(lhs, rhs));
+	return relativeNormalSpeedContactPoint(lhs, rhs) * normalVersor(lhs, rhs);
 }
 
 template<typename T, typename U>
