@@ -32,11 +32,17 @@ struct GravityForce
 	static void calculate(P1 & particle, const GravityField & field, Time&&);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<GravityForce>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<GravityForce>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<GravityForce>();
 
 } // psin
 

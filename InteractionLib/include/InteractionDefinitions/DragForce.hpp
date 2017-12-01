@@ -42,11 +42,17 @@ struct DragForce
 	static double dragCoefficient(Particle & particle, const Fluid & neighbor);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<DragForce>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<DragForce>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<DragForce>();
 
 } // psin
 

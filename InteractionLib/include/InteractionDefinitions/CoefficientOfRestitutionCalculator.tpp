@@ -85,10 +85,15 @@ void CoefficientOfRestitutionCalculator::endCollision(const Particle & particle,
 		{"coefficientOfRestitution", coefficientOfRestitution[namePair]}
 	};
 
-	std::cout << "Writing" << std::endl
-		<< j.dump(4) << std::endl
-		<< "to file." << std::endl; // DEBUG
-	*file << j.dump(4);
+	if(firstPrint)
+	{
+		*file << j.dump(4);
+		firstPrint = false;
+	}
+	else
+	{
+		*file << ",\n" << j.dump(4);
+	}
 }
 
 } // psin

@@ -52,6 +52,8 @@ public:
 
 	static void setFile(const path & filepath);
 
+	static void finish();
+
 private:
 	template<typename Particle, typename Neighbor, typename Time>
 	static void startCollision(const Particle & particle, const Neighbor & neighbor, const Time & t);
@@ -70,13 +72,21 @@ private:
 
 	template<typename Particle, typename Neighbor>
 	static std::pair<string, string> makeNamePair(const Particle & particle, const Neighbor & neighbor);
+
+	static bool firstPrint;
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<CoefficientOfRestitutionCalculator>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<CoefficientOfRestitutionCalculator>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<CoefficientOfRestitutionCalculator>();
 
 } // psin
 

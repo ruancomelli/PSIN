@@ -57,11 +57,17 @@ struct TangentialForceCundallStrack
 		static void endCollision(const Named & particle, const Named & neighbor);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<TangentialForceCundallStrack>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<TangentialForceCundallStrack>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<TangentialForceCundallStrack>();
 
 } // psin
 

@@ -37,11 +37,17 @@ struct ElectrostaticForce
 	static void calculate(P1 & particle, P2 & neighbor, const T &);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<ElectrostaticForce>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<ElectrostaticForce>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<ElectrostaticForce>();
 
 } // psin
 

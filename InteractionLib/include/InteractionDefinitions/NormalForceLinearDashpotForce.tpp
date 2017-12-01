@@ -67,9 +67,11 @@ template<typename...Ts, typename...Us, typename Time>
 Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & particle, const FixedInfinitePlane<Us...> & neighbor, Time&&)
 {
 	const double overlap = psin::overlap(particle, neighbor);
-	
+
 	if(overlap > 0)
 	{
+		std::cout << "Interacting. Overlap: " << overlap << std::endl; // DEBUG
+
 		// ---- Get physical properties and calculate effective parameters ----
 		const double elasticModulus1 = particle.template get<ElasticModulus>();
 		const double elasticModulus2 = neighbor.template get<ElasticModulus>();
@@ -87,6 +89,11 @@ Vector3D NormalForceLinearDashpotForce::calculate(SphericalParticle<Ts...> & par
 										effectiveNormalDissipativeConstant * overlapDerivative , 0.0 );
 		
 		const Vector3D normalForce = - normalForceModulus * normalVersor(particle, neighbor);
+
+		std::cout << "effectiveElasticModulus: " << effectiveElasticModulus << std::endl; // DEBUG
+		std::cout << "effectiveNormalDissipativeConstant: " << effectiveNormalDissipativeConstant << std::endl; // DEBUG
+		std::cout << "overlapDerivative: " << overlapDerivative << std::endl; // DEBUG
+		std::cout << "normalForceModulus: " << normalForceModulus << std::endl; // DEBUG
 		
 		particle.addContactForce( normalForce );
 

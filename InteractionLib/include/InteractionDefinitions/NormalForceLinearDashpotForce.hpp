@@ -53,11 +53,17 @@ struct NormalForceLinearDashpotForce
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, const FixedInfinitePlane<Us...> & neighbor, Time &&);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<NormalForceLinearDashpotForce>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<NormalForceLinearDashpotForce>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<NormalForceLinearDashpotForce>();
 
 } // psin
 

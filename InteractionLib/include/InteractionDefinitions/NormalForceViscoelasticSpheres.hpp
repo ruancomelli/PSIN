@@ -42,11 +42,17 @@ struct NormalForceViscoelasticSpheres
 	static Vector3D calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, const Time &);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<NormalForceViscoelasticSpheres>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<NormalForceViscoelasticSpheres>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<NormalForceViscoelasticSpheres>();
 
 } // psin
 

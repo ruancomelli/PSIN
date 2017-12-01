@@ -38,11 +38,17 @@ struct TangentialForceHaffWerner
 	static void calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&&);
 };
 
+template<typename I>
+void initializeInteraction(const json & j);
+
 template<>
-struct Builder<TangentialForceHaffWerner>
-{
-	static void setup(const json & j);
-};
+void initializeInteraction<TangentialForceHaffWerner>(const json & j);
+
+template<typename I>
+void finalizeInteraction();
+
+template<>
+void finalizeInteraction<TangentialForceHaffWerner>();
 
 } // psin
 
