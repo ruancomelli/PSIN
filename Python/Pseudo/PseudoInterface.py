@@ -183,6 +183,7 @@ class PseudoPaths:
 				self.boundaryFilePaths.append( boundaryFilePath )
 			break
 
+		self.mainOutputFolder = mainInput["mainOutputFolder"]
 		self.simulationPlotFolder = os.path.join(mainInput["mainOutputFolder"], "Plots")
 		self.simulationAnimationFolder = os.path.join(mainInput["mainOutputFolder"], "Animations")
 		self.timeVectorPath = os.path.join(mainInput["mainOutputFolder"], "timeVector.json")
@@ -208,6 +209,11 @@ class PseudoPaths:
 		self.generate()
 
 		return self.mainInputFilePath
+
+	def getSimulationMainOutputFolder( self ):
+		self.generate()
+
+		return self.mainOutputFolder
 
 	def getSimulationMainOutputFilePath( self ):
 		self.generate()
