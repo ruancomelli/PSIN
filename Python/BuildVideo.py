@@ -43,7 +43,7 @@ class BuildAnimation ( AnimationLimits ):
 		ax.autoscale(enable=True , axis='both')
 
 		# Time indices
-		timeIndices = [timeIndex for timeIndex in time.keys()]
+		timeIndices = list(time.keys())[::2]
 			# Suppose that time = {5: 1.5, 8: 3.7}
 			# 1.5 is the time instant indexed by number 5.
 			# 5 is the first time index
@@ -196,7 +196,7 @@ class BuildAnimation ( AnimationLimits ):
 		animateFunction["autoscale"] = animate_autoscale
 
 		### video settings ###
-		frames = len(time)
+		frames = len(timeIndices)
 		fps = frames/animationTime
 
 		### build and save video ###
