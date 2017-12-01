@@ -10,7 +10,12 @@ namespace psin {
 
 template<> const std::string NamedType<NormalForceViscoelasticSpheres>::name = "NormalForceViscoelasticSpheres";
 
-void Builder<NormalForceViscoelasticSpheres>::setup(const json & j)
+template<>
+void initializeInteraction<NormalForceViscoelasticSpheres>(const json & j)
+{}
+
+template<>
+void finalizeInteraction<NormalForceViscoelasticSpheres>()
 {}
 
 } // psin

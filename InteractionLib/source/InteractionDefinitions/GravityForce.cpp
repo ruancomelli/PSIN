@@ -13,7 +13,12 @@ namespace psin {
 	
 template<> const string NamedType<GravityForce>::name = "GravityForce";
 
-void Builder<GravityForce>::setup(const json & j)
+template<>
+void initializeInteraction<GravityForce>(const json & j)
+{}
+
+template<>
+void finalizeInteraction<GravityForce>()
 {}
 
 } // psin

@@ -13,7 +13,12 @@ namespace psin {
 
 template<> const std::string NamedType<TangentialForceCundallStrack>::name = "TangentialForceCundallStrack";
 
-void Builder<TangentialForceCundallStrack>::setup(const json & j)
+template<>
+void initializeInteraction<TangentialForceCundallStrack>(const json & j)
+{}
+
+template<>
+void finalizeInteraction<TangentialForceCundallStrack>()
 {}
 
 std::map< std::pair<string, string>, Vector3D> TangentialForceCundallStrack::cummulativeZeta;

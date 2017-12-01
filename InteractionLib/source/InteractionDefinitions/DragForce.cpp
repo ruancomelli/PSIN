@@ -13,7 +13,12 @@ namespace psin {
 	
 template<> const string NamedType<DragForce>::name = "DragForce";
 
-void Builder<DragForce>::setup(const json & j)
+template<>
+void initializeInteraction<DragForce>(const json & j)
+{}
+
+template<>
+void finalizeInteraction<DragForce>()
 {}
 
 } // psin
