@@ -13,45 +13,23 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from math import ceil
+from math import sqrt, log, exp, atan2, pi
 
-def checkContact(timeIndex, particleType, particle, neighborType, neighbor):
-	if particleType == "SphericalParticle" and neighborType == "SphericalParticle":
-		radius1 = particle["Radius"][timeIndex]
-		radius2 = neighbor["Radius"][timeIndex]
-		position1 = array(particle["Position"][timeIndex])
-		position2 = array(neighbor["Position"][timeIndex])
-		distance = norm(position1 - position2)
-		return radius1 + radius2 > distance
+normalwidth = 7
+normalheight = 5
+smallwidth = 7 * 4/9
+smallheight = 5 * 4/9
+# smallsize = 4/9 * normalsize
+normalfontsize = 11
+smallfontsize = 9
+majorTickLabelSize = 10
+minorTickLabelSize = 10
+normalmarkersize = 3
+normallinewidth = 1
+family = 'serif'
+weight = 'light'
 
-	elif particleType == "SphericalParticle" and neighborType == "FixedInfinitePlane":
-		# print("particleType: SphericalParticle")
-		# print("particleType: FixedInfinitePlane")
-
-		radius = particle["Radius"][timeIndex]
-		position = array(particle["Position"][timeIndex])
-		origin = array(neighbor["Origin"][timeIndex])
-		normalVersor = array(neighbor["NormalVersor"][timeIndex])
-		distance = abs( dot(position-origin, normalVersor) )
-		return radius > distance
-
-def contactHistory(timeIndexVector, particleType, particle, neighborType, neighbor):
-	beginning = timeIndexVector[0]
-	contactHist = []
-	collisionFlag = checkContact(beginning, particleType, particle, neighborType, neighbor)
-	collisionBeginning = beginning
-	for t in timeIndexVector:
-		print("t: ", t)
-		print("collisionFlag: ", collisionFlag)
-		print("collisionBeginning: ", collisionBeginning)
-		if checkContact(beginning, particleType, particle, neighborType, neighbor) != collisionFlag:
-			collisionFlag = checkContact(beginning, particleType, particle, neighborType, neighbor)
-			if collisionFlag == True:
-				collisionBeginning = t
-			else:
-				contactHist.append((collisionBeginning, t))
-
-	return contactHist
-
+resistanceRule = lambda a,b: a*b/(a+b)
 
 programPath = "/home/ruancomelli/GitProjects/ParticleSimulator/build_sublime/bin/Release/psinApp"
 mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/main.json"
@@ -67,16 +45,122 @@ particleData = simulationOutputData.get()[1]
 boundaryData = simulationOutputData.get()[2]
 time = simulationOutputData.get()[3]
 timeIndex = list(time.keys())
+timeInstant = list(time.values())
+# timestep = time[timeIndex[1]] - time[timeIndex[0]]
+timestep = 1e-5
 
 particle = particleData["SphericalParticle"]["Particle"]
 wall = boundaryData["FixedInfinitePlane"]["Wall"]
+gravity = array(boundaryData["GravityField"]["Gravity"]["Gravity"][0])
 
-contactHist = contactHistory(timeIndex, "SphericalParticle", particle, "FixedInfinitePlane", wall)
-print(contactHist)
+particlePropertyValue = {}
+for propertyName, propertyHistory in particle.items():
+	particlePropertyValue[propertyName] = list(propertyHistory.values())
 
-# propertyValue = {}
-# for propertyName, propertyHistory in particle.items():
-# 	propertyValue[propertyName] = list(propertyHistory.values())
+wallPropertyValue = {}
+for propertyName, propertyHistory in particle.items():
+	wallPropertyValue[propertyName] = list(propertyHistory.values())
+
+effectiveMass = particlePropertyValue["Mass"][0]
+effectiveElasticModulus = resistanceRule(particlePropertyValue["ElasticModulus"][0], wallPropertyValue["ElasticModulus"][0])
+effectiveNormalDissipativeConstant = resistanceRule(particlePropertyValue["NormalDissipativeConstant"][0], wallPropertyValue["NormalDissipativeConstant"][0])
+omegaStar = sqrt(effectiveElasticModulus / effectiveMass)
+beta = effectiveNormalDissipativeConstant / effectiveMass
+
+if beta < omegaStar / sqrt(2):
+	omega = sqrt(omegaStar**2 - beta**2)
+	analyticalCoefficientOfRestitution = exp(-beta/omega * (pi - atan2(2*beta*omega, omega**2 - beta**2)))
+elif omegaStar / sqrt(2) <= beta and beta <= omegaStar:
+	omega = sqrt(omegaStar**2 - beta**2)
+	analyticalCoefficientOfRestitution = exp(-beta/omega * atan2(2*beta*omega, omega**2 - beta**2))
+else:
+	Omega = sqrt(beta**2 - omegaStar**2)
+	analyticalCoefficientOfRestitution = exp(-beta/Omega * log((beta+Omega)/(beta-Omega)))
+
+analyticalCoefficientOfRestitutionVector = [analyticalCoefficientOfRestitution] * len(timeIndex)
+
+otherAnalyticalCoefficientOfRestitutionVector = [exp(-pi*effectiveNormalDissipativeConstant/(2*effectiveMass) / sqrt(effectiveElasticModulus/effectiveMass - (effectiveNormalDissipativeConstant/effectiveMass)**2))] * len(timeIndex)
+
+outputPath = paths.getSimulationMainOutputFolder()
+
+with open(os.path.join(outputPath, "coefficient_of_restitution.txt")) as coefficientOfRestitutionFile:
+	coefficientOfRestitutionHistory = json.load(coefficientOfRestitutionFile)
+
+coeffOfRestitutionTimeForPlot = []
+coeffOfRestitutionHistoryForPlot = []
+for j in coefficientOfRestitutionHistory:
+	initialVelocity = j["velocities"][0]
+	finalVelocity = j["velocities"][1]
+	timeIndicesVector = list(range(j["timeIndices"][0], j["timeIndices"][1] + 1))
+	coeffOfRestitutionTimeForPlot.append([x*timestep for x in timeIndicesVector])
+	coeffOfRestitutionHistoryForPlot.append([- (finalVelocity + norm(gravity)*timestep) / initialVelocity] * len(timeIndicesVector))
+
+# ########################### COEFFICIENT OF RESTITUTION
+
+fig = plt.figure(
+	figsize=(normalwidth, normalheight),
+	facecolor='w',
+	edgecolor='k')
+
+ax = fig.add_subplot(111)
+
+ax.plot(
+	timeInstant,
+	analyticalCoefficientOfRestitutionVector,
+	color = 'gray',
+	label = 'Solução Analítica',
+	# marker = '.',
+	linewidth = normallinewidth
+	)
+
+ax.plot(
+	timeInstant,
+	otherAnalyticalCoefficientOfRestitutionVector,
+	color = 'gray',
+	label = 'Solução Analítica 2',
+	# marker = '.',
+	linewidth = normallinewidth
+	)
+
+print("Timestep: ", timestep)
+
+for i in range(len(coeffOfRestitutionTimeForPlot)):
+	ax.plot(
+		coeffOfRestitutionTimeForPlot[i],
+		coeffOfRestitutionHistoryForPlot[i],
+		color = 'red',
+		label = 'Simulação',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
+
+ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+outputFolder = paths.getSimulationPlotsOutputFolder()
+filename = "coefficient_of_restitution"
+extension = ".pdf"
+ax.set_xscale('linear')
+ax.set_yscale('linear')
+
+plt.xlim( min(timeInstant), max(timeInstant) )
+
+ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+
+handles, labels = ax.get_legend_handles_labels()
+handle_list, label_list = [], []
+for handle, label in zip(handles, labels):
+    if label not in label_list:
+        handle_list.append(handle)
+        label_list.append(label)
+lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Coeficiente de Restituição', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+plt.close(fig)
 
 # time = simulationOutputData.get()[3]
 # timeIndex = list(time.keys())
