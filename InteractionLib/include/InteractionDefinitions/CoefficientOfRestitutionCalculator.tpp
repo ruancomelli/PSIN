@@ -15,15 +15,11 @@ namespace psin {
 template<typename Particle, typename Neighbor, typename Time>
 void CoefficientOfRestitutionCalculator::calculate(const Particle & particle, const Neighbor & neighbor, const Time & t)
 {
-	std::cout << "Entering CoefficientOfRestitutionCalculator --------------------------------------------------" << std::endl; // DEBUG
-	std::cout << "checkCollision: " << checkCollision(particle, neighbor) << std::endl; // DEBUG
-	std::cout << "checkCollision: " << checkCollision(particle, neighbor) << std::endl; // DEBUG
-
 	if(checkCollision(particle, neighbor))
 	{
 		if(not touch(particle, neighbor))
 		{
-			std::cout << "Ending Collision ===============================================================" << std::endl; // DEBUG
+			std::cout << "Ending collision between " << particle.getName() << " and " << neighbor.getName() << " at t=" << t.as_json().dump() << "s" << std::endl; // DEBUG
 			endCollision(particle, neighbor, t);
 		}
 		else
@@ -33,7 +29,7 @@ void CoefficientOfRestitutionCalculator::calculate(const Particle & particle, co
 	}
 	else if(touch(particle, neighbor))
 	{
-		std::cout << "Beginning Collision ===============================================================" << std::endl; // DEBUG
+		std::cout << "Beginning collision between " << particle.getName() << " and " << neighbor.getName() << " at t=" << t.as_json().dump() << "s" << std::endl; // DEBUG
 		startCollision(particle, neighbor, t);
 	}
 }
