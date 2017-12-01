@@ -11,11 +11,16 @@
 	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/boundaries",
 	"looper": "GearLooper",
 	"seeker": "BlindSeeker",
+	"printTime": true,
 
 	"interactions":
 	{
 		"NormalForceLinearDashpotForce": null,
-		"GravityForce": null
+		"GravityForce": null,
+		"CoefficientOfRestitutionCalculator":
+		{
+			"path": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/coefficient_of_restitution.txt"
+		}
 	},
 
 	"particles":

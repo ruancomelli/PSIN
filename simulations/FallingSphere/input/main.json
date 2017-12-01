@@ -2,8 +2,8 @@
 	"initialTime": 0.0,
 	"timeStep": 1e-3,
 	"finalTime": 3,
-	"taylorOrder": 7,
-	"timeStepsForOutput": 50,
+	"taylorOrder": 3,
+	"timeStepsForOutput": 10,
 	"outputsForExporting": 1,
 	"dimension": 3,
 	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
@@ -25,7 +25,7 @@
 
 			"Color": "Red",
 			
-			"TaylorOrder": 7,
+			"TaylorOrder": 3,
 			"Dimension": 3,
 
 			"Mass": 1,
@@ -34,7 +34,7 @@
 
 			"Position": [0.0, 0.0, 0.0],
 			"Velocity": [20.0, 10.0, 0.0],
-			"Acceleration": [0.0, -9.81, 0.0],
+			"Acceleration": [0.0, 0.0, 0.0],
 
 			"OrientationMatrix":
 			[

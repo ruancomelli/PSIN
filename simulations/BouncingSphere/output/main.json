@@ -1,0 +1,25 @@
+{
+    "boundaries": {
+        "Gravity": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/gravity.json",
+        "Wall": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/wall.json"
+    },
+    "boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/boundaries",
+    "dimension": 3,
+    "finalTime": 10.0,
+    "initialTime": 0.0,
+    "interactions": {
+        "CoefficientOfRestitutionCalculator": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/main.json"
+    },
+    "looper": "GearLooper",
+    "mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output",
+    "outputsForExporting": 10,
+    "particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/particles",
+    "particles": {
+        "Particle": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/particle.json"
+    },
+    "printTime": true,
+    "seeker": "BlindSeeker",
+    "taylorOrder": 7,
+    "timeStep": 1e-05,
+    "timeStepsForOutput": 1000
+}
