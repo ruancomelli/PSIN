@@ -78,8 +78,10 @@ public:
 	void backupBoundaries() const;
 
 	template<typename Time> void exportTime(const Time & time);
-	template<typename Time> void exportParticles(const Time & time);
-	template<typename Time> void exportBoundaries(const Time & time);
+	template<typename Time> void exportParticles(const Time & time, std::true_type);
+	template<typename Time> void exportParticles(const Time & time, std::false_type);
+	template<typename Time> void exportBoundaries(const Time & time, std::true_type);
+	template<typename Time> void exportBoundaries(const Time & time, std::false_type);
 
 	void printSuccessMessage() const;
 

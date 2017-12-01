@@ -469,7 +469,8 @@ struct open_particle_file
 
 			fileTree["output"]["particle"][particle.getName()] = particleOutputPath;
 			particleFileMap[particle.getName()] = make_unique<std::fstream>(particleOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-			*particleFileMap[particle.getName()] << json().dump();
+			// *particleFileMap[particle.getName()] << json().dump();
+			*particleFileMap[particle.getName()] << "[";
 		}
 	}
 };
@@ -487,7 +488,8 @@ struct open_boundary_file
 
 			fileTree["output"]["boundary"][boundary.getName()] = boundaryOutputPath;
 			boundaryFileMap[boundary.getName()] = make_unique<std::fstream>(boundaryOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-			*boundaryFileMap[boundary.getName()] << json().dump();
+			// *boundaryFileMap[boundary.getName()] << json().dump();
+			*boundaryFileMap[boundary.getName()] << "[";
 		}
 	}
 };
@@ -788,20 +790,24 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportParticles(const Time & time)
+>::exportParticles(const Time & time, std::true_type)
 {
 	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
 	{
-		json fileContent;
-		json informationToExport = it->second;
+		// json fileContent;
 
-		path filepath = fileTree["output"]["particle"][it->first].get<path>();
-		particleFileMap[it->first]->seekg(0); // rewinds the file
-		*particleFileMap[it->first] >> fileContent;
-		particleFileMap[it->first]->close();
+		// path filepath = fileTree["output"]["particle"][it->first].get<path>();
+		// particleFileMap[it->first]->seekg(0); // rewinds the file
+		// *particleFileMap[it->first] >> fileContent;
+		// particleFileMap[it->first]->close();
 
-		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*particleFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+		// particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		// *particleFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+
+		for(auto&& j : it->second)
+		{
+			*particleFileMap[it->first] << j.dump(4); // ERROR: we should iterate over it->second printing commas, and only skip it in the last iteration
+		}
 
 		it->second.clear();
 	}
@@ -819,20 +825,97 @@ void Simulation<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportBoundaries(const Time & time)
+>::exportParticles(const Time & time, std::false_type)
+{
+	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
+	{
+		// json fileContent;
+
+		// path filepath = fileTree["output"]["particle"][it->first].get<path>();
+		// particleFileMap[it->first]->seekg(0); // rewinds the file
+		// *particleFileMap[it->first] >> fileContent;
+		// particleFileMap[it->first]->close();
+
+		// particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		// *particleFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+
+		for(auto&& j : it->second)
+		{
+			std::cout << "I'm here!" << std::endl; // DEBUG
+			*particleFileMap[it->first] << j.dump(4) << ",\n";
+		}
+
+		it->second.clear();
+	}
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+template<typename Time>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<BlindSeeker>
+>::exportBoundaries(const Time & time, std::true_type)
 {
 	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
 	{
-		json fileContent;
-		json informationToExport = it->second;
+		// json fileContent;
+		// json informationToExport = it->second;
 
-		path filepath = fileTree["output"]["boundary"][it->first].get<path>();
-		boundaryFileMap[it->first]->seekg(0); // rewinds the file
-		*boundaryFileMap[it->first] >> fileContent;
-		boundaryFileMap[it->first]->close();
+		// path filepath = fileTree["output"]["boundary"][it->first].get<path>();
+		// boundaryFileMap[it->first]->seekg(0); // rewinds the file
+		// *boundaryFileMap[it->first] >> fileContent;
+		// boundaryFileMap[it->first]->close();
 
-		boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*boundaryFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+		// boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		// *boundaryFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+
+		for(auto&& j : it->second)
+		{
+			*boundaryFileMap[it->first] << j.dump(4);
+		}
+
+		it->second.clear();
+	}
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+template<typename Time>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<BlindSeeker>
+>::exportBoundaries(const Time & time, std::false_type)
+{
+	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
+	{
+		// json fileContent;
+		// json informationToExport = it->second;
+
+		// path filepath = fileTree["output"]["boundary"][it->first].get<path>();
+		// boundaryFileMap[it->first]->seekg(0); // rewinds the file
+		// *boundaryFileMap[it->first] >> fileContent;
+		// boundaryFileMap[it->first]->close();
+
+		// boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		// *boundaryFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+
+		for(auto&& j : it->second)
+		{
+			*boundaryFileMap[it->first] << j.dump(4) << ",\n";
+		}
 
 		it->second.clear();
 	}
@@ -934,8 +1017,8 @@ void Simulation<
 			if(outputsForExportingCounter == 0)
 			{
 				exportTime(time);
-				exportParticles(time);
-				exportBoundaries(time);
+				exportParticles(time, std::false_type());
+				exportBoundaries(time, std::false_type());
 			}
 			outputsForExportingCounter = (outputsForExportingCounter + 1) % outputsForExporting;
 		}
@@ -988,6 +1071,30 @@ void Simulation<
 	SeekerList<BlindSeeker>
 >::endSimulation(const Time & time)
 {
+	exportTime(time);
+	exportParticles(time, std::true_type());
+	exportBoundaries(time, std::true_type());
+
+	mp::for_each< mp::provide_indices<ParticleList> >(
+	[&, this](auto Index)
+	{
+		using P = typename mp::get<Index, ParticleList>::type;
+		for(const auto& particle : std::get< vector<P> >(particles))
+		{
+			*particleFileMap[particle.getName()] << "]";
+		}
+	});
+
+	mp::for_each< mp::provide_indices<ParticleList> >(
+	[&, this](auto Index)
+	{
+		using B = typename mp::get<Index, BoundaryList>::type;
+		for(const auto& boundary : std::get< vector<B> >(boundaries))
+		{
+			*boundaryFileMap[boundary.getName()] << "]";
+		}
+	});
+
 	this->printSuccessMessage();
 }
 
