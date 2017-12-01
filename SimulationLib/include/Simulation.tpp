@@ -20,9 +20,6 @@
 
 namespace psin {
 
-template<typename>
-struct Builder;
-
 template<
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes,
@@ -95,7 +92,7 @@ void Simulation<
 				{
 					json j = read_json(interactionInputFilePath.string());
 
-					Builder<I>::setup(j.at(NamedType<I>::name));
+					initializeInteraction<I>(j.at(NamedType<I>::name));
 				}
 			});
 			
@@ -109,7 +106,7 @@ void Simulation<
 				using I = typename mp::get<Index, InteractionList>::type;
 				if( NamedType<I>::name == interactionName )
 				{
-					Builder<I>::setup(it.value());
+					initializeInteraction<I>(it.value());
 				}
 			});
 			
@@ -930,10 +927,11 @@ void Simulation<
 		{
 			mp::visit<ParticleList, detail::write_particles_to_json>::call_same(particles, particleJsonMap, time);
 			mp::visit<BoundaryList, detail::write_boundaries_to_json>::call_same(boundaries, boundaryJsonMap, time);
+			
+			exportTime(time);
 
 			if(outputsForExportingCounter == 0)
 			{
-				exportTime(time);
 				exportParticles(time);
 				exportBoundaries(time);
 			}
@@ -974,6 +972,9 @@ void Simulation<
 	std::cout << "Finished." << std::endl; // DEBUG
 }
 
+template<typename I>
+void finalizeInteraction();
+
 template<
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes,
@@ -988,6 +989,13 @@ void Simulation<
 	SeekerList<BlindSeeker>
 >::endSimulation(const Time & time)
 {
+	mp::for_each< mp::provide_indices<InteractionList> >(
+	[&, this](auto Index)
+	{
+		using I = typename mp::get<Index, InteractionList>::type;
+		psin::finalizeInteraction<I>();
+	});
+
 	this->printSuccessMessage();
 }
 
