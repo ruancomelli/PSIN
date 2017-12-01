@@ -85,6 +85,7 @@ public:
 
 	// Simulate
 	void simulate();
+	template<typename Time> void endSimulation(const Time & time);
 
 private:
 	json fileTree;

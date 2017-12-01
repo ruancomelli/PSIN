@@ -955,6 +955,40 @@ void Simulation<
 
 		mp::visit<ParticleList, detail::correct_particle>::call_same(particles, time);
 	}
+
+	this->endSimulation(time);
+}
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<BlindSeeker>
+>::printSuccessMessage() const
+{
+	std::cout << "Finished." << std::endl; // DEBUG
+}
+
+template<
+	typename ... ParticleTypes,
+	typename ... BoundaryTypes,
+	typename ... InteractionTypes
+>
+template<typename Time>
+void Simulation<
+	ParticleList<ParticleTypes...>,
+	BoundaryList<BoundaryTypes...>,
+	InteractionList<InteractionTypes...>,
+	LooperList<GearLooper>,
+	SeekerList<BlindSeeker>
+>::endSimulation(const Time & time)
+{
+	this->printSuccessMessage();
 }
 
 } // psin
