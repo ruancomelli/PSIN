@@ -21,36 +21,36 @@ class Paths:
 			mainInput = json.load(mainInputFile)
 
 		# Important data:
-		# mainInput["mainOutputFolder"]: the path of mainOutputFolder. 
+		# mainInput["MainOutputFolder"]: the path of mainOutputFolder. 
 		# 	This folder contains a file named 'main.json' and a folder named 'input'
 		# 	input/ contains the input files used to run the simulation
 		# 	main.json is the main simulation file.
-		# mainInput["particleOutputFolder"]: the path of particleOutputFolder. 
+		# mainInput["ParticleOutputFolder"]: the path of particleOutputFolder. 
 		# 	For each particle in the simulation, there is exactly one file in this folder,
 		# 	named after the particle's name, of this particle's history.
-		# mainInput["boundaryOutputFolder"]: the path of boundaryOutputFolder. 
+		# mainInput["BoundaryOutputFolder"]: the path of boundaryOutputFolder. 
 		# 	For each boundary in the simulation, there is exactly one file in this folder,
 		# 	named after the boundary's name, of this boundary's history.
 
 		self.particleFilePaths = []
-		for (_, _, filenames) in os.walk(mainInput["particleOutputFolder"]):
+		for (_, _, filenames) in os.walk(mainInput["ParticleOutputFolder"]):
 			for filename in filenames:
-				particleFilePath = os.path.join(mainInput["particleOutputFolder"], filename)
+				particleFilePath = os.path.join(mainInput["ParticleOutputFolder"], filename)
 				self.particleFilePaths.append( particleFilePath )
 			break
 
 
 		self.boundaryFilePaths = []
-		for (_, _, filenames) in os.walk(mainInput["boundaryOutputFolder"]):
+		for (_, _, filenames) in os.walk(mainInput["BoundaryOutputFolder"]):
 			for filename in filenames:
-				boundaryFilePath = os.path.join(mainInput["boundaryOutputFolder"], filename)
+				boundaryFilePath = os.path.join(mainInput["BoundaryOutputFolder"], filename)
 				self.boundaryFilePaths.append( boundaryFilePath )
 			break
 
-		self.simulationPlotFolder = os.path.join(mainInput["mainOutputFolder"], "Plots")
-		self.simulationAnimationFolder = os.path.join(mainInput["mainOutputFolder"], "Animations")
-		self.timeVectorPath = os.path.join(mainInput["mainOutputFolder"], "timeVector.json")
-		self.mainOutputFilePath = os.path.join(mainInput["mainOutputFolder"], "main.json")
+		self.simulationPlotFolder = os.path.join(mainInput["MainOutputFolder"], "Plots")
+		self.simulationAnimationFolder = os.path.join(mainInput["MainOutputFolder"], "Animations")
+		self.timeVectorPath = os.path.join(mainInput["MainOutputFolder"], "timeVector.json")
+		self.mainOutputFilePath = os.path.join(mainInput["MainOutputFolder"], "main.json")
 
 		# Create directories
 

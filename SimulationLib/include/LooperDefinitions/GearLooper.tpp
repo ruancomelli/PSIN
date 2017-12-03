@@ -6,18 +6,18 @@
 namespace psin {
 
 template<typename Index, typename Value>
-GearLooper::Time<Index, Value>::Time(const Value & initialTime, const Value & timeStep, const Value & finalTime)
+GearLooper::Time<Index, Value>::Time(const Value & initialInstant, const Value & timeStep, const Value & finalInstant)
 	: timeIndex(0),
-	time(initialTime),
-	initialTime(initialTime),
+	time(initialInstant),
+	initialInstant(initialInstant),
 	timeStep(timeStep),
-	finalTime(finalTime)
+	finalInstant(finalInstant)
 {}
 
 template<typename Index, typename Value>
 void GearLooper::Time<Index, Value>::start()
 {
-	this->time = this->initialTime;
+	this->time = this->initialInstant;
 	this->timeIndex = index_type(0);
 }
 
@@ -31,7 +31,7 @@ void GearLooper::Time<Index, Value>::update()
 template<typename Index, typename Value>
 bool GearLooper::Time<Index, Value>::end() const
 {
-	return this->time >= this->finalTime;
+	return this->time >= this->finalInstant;
 }
 
 template<typename Index, typename Value>

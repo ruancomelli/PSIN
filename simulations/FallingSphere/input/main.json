@@ -1,18 +1,18 @@
 {
-	"initialTime": 0.0,
-	"timeStep": 1e-3,
-	"finalTime": 3,
-	"timeStepsForOutput": 10,
-	"outputsForExporting": 1,
-	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
-	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
-	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
-	"looper": "GearLooper",
-	"seeker": "BlindSeeker",
+	"InitialInstant": 0.0,
+	"TimeStep": 1e-3,
+	"FinalInstant": 3,
+	"StepsForStoring": 10,
+	"StoragesForWriting": 1,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
+	"Looper": "GearLooper",
+	"Seeker": "BlindSeeker",
 
-	"interactions": "GravityForce",
+	"Interactions": "GravityForce",
 
-	"particles":
+	"Particles":
 	{
 		"SphericalParticle": 
 		{
@@ -31,7 +31,7 @@
 		}
 	},
 
-	"boundaries":
+	"Boundaries":
 	{
 		"GravityField": 
 		{

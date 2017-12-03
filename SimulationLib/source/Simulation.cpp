@@ -36,9 +36,9 @@
 
 // 	// ===== Simulation =====
 
-// 	int timeStepsForOutputCounter = 0;
+// 	int stepsForStoringCounter = 0;
 
-// 	for(double t = initialTime; t <= finalTime ; t += timeStep){
+// 	for(double t = initialInstant; t <= finalInstant ; t += timeStep){
 
 // 		this->fileTree.timeVectorFile << t << "\n";
 
@@ -80,8 +80,8 @@
 // 		// ----- Saving to file -----
 
 // 		// Prints every derivative of particles' position
-// 		if( (++timeStepsForOutputCounter) == timeStepsForOutput){
-// 			timeStepsForOutputCounter = 0;
+// 		if( (++stepsForStoringCounter) == stepsForStoring){
+// 			stepsForStoringCounter = 0;
 
 // 			particleArray.exportTemporalDataCSV();
 
@@ -96,14 +96,14 @@
 // 	FileReader inputData(this->fileTree.getInputMainDataFilePath());
 
 // 	// Read simulation data
-// 	inputData.readValue("<initialTime>", this->initialTime);
+// 	inputData.readValue("<initialInstant>", this->initialInstant);
 // 	inputData.readValue("<timeStep>", this->timeStep);
-// 	inputData.readValue("<finalTime>", this->finalTime);
+// 	inputData.readValue("<finalInstant>", this->finalInstant);
 // 	inputData.readValue("<taylorOrder>", this->taylorOrder);
 // 	inputData.readValue("<dimension>", this->dimension);
 // 	inputData.readValue("<numberOfParticles>", this->numberOfParticles);
 // 	inputData.readValue("<gravity>", this->gravity);
-// 	inputData.readValue("<timeStepsForOutput>", this->timeStepsForOutput);
+// 	inputData.readValue("<stepsForStoring>", this->stepsForStoring);
 
 // 	// Read Interaction
 // 	std::string InteractionName;
@@ -121,11 +121,11 @@
 // 	std::ofstream mainOutFile(this->fileTree.getNumericalOutputFolder() + "mainInfoOutput.txt");
 
 // 	mainOutFile << "<nParticles> "		<< numberOfParticles	<< verticalSeparator;
-// 	mainOutFile << "<initialTime> "		<< initialTime			<< verticalSeparator;
+// 	mainOutFile << "<initialInstant> "		<< initialInstant			<< verticalSeparator;
 // 	mainOutFile << "<timeStep> "		<< timeStep				<< verticalSeparator;
-// 	mainOutFile << "<finalTime> "		<< finalTime			<< verticalSeparator;
+// 	mainOutFile << "<finalInstant> "		<< finalInstant			<< verticalSeparator;
 // 	mainOutFile << "<taylorOrder> "		<< taylorOrder			<< verticalSeparator;
-// 	mainOutFile << "<timeStepsForOutput> "	<< timeStepsForOutput		<< verticalSeparator;
+// 	mainOutFile << "<stepsForStoring> "	<< stepsForStoring		<< verticalSeparator;
 // 	mainOutFile << "<InteractionName> " << Interaction.getName() << verticalSeparator;
 // }
 

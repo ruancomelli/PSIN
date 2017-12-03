@@ -111,23 +111,23 @@ mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations
 null = None
 
 mainData = {
-	"initialTime": 0.0,
-	"timeStep": 1e-3,
-	"finalTime": 1,
-	"timeStepsForOutput": 10,
-	"outputsForExporting": 1,
-	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output",
-	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/particles",
-	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/boundaries",
-	"looper": "GearLooper",
-	"seeker": "BlindSeeker",
+	"InitialInstant": 0.0,
+	"TimeStep": 1e-3,
+	"FinalInstant": 1,
+	"StepsForStoring": 10,
+	"StoragesForWriting": 1,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/boundaries",
+	"Looper": "GearLooper",
+	"Seeker": "BlindSeeker",
 
-	"interactions":
+	"Interactions":
 	{
 		"GravityForce": null
 	},
 
-	"particles":
+	"Particles":
 	{
 		"SphericalParticle": 
 		[
@@ -135,7 +135,7 @@ mainData = {
 		]
 	},
 
-	"boundaries":
+	"Boundaries":
 	{
 		"GravityField": 
 		[
@@ -149,7 +149,7 @@ mainData = {
 # Dt_vec = [2**(i/2)*1e-4 for i in range(20)]
 # for i in range(len(Dt_vec)):
 # 	Dt = Dt_vec[i]
-# 	mainData["timeStep"] = Dt
+# 	mainData["TimeStep"] = Dt
 # 	with open(mainInputFilePath, 'w') as mainFile:
 # 		json.dump(mainData, mainFile)
 # 	userInput = PseudoUserInput(programPath, mainInputFilePath)

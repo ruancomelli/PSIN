@@ -22,7 +22,7 @@ struct GearLooper
 		using value_type = Value;
 		using time_pair = std::pair<index_type, value_type>;
 
-		Time(const value_type & initialTime, const value_type & timeStep, const value_type & finalTime);
+		Time(const value_type & initialInstant, const value_type & timeStep, const value_type & finalInstant);
 
 		void start();
 		void update();
@@ -41,9 +41,9 @@ struct GearLooper
 		index_type timeIndex;
 		value_type time;
 
-		value_type initialTime;
+		value_type initialInstant;
 		value_type timeStep;
-		value_type finalTime;
+		value_type finalInstant;
 	};
 };
 

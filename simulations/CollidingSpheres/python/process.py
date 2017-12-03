@@ -115,23 +115,23 @@ mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations
 null = None
 
 mainData = {
-	"initialTime": 0.0,
-	"timeStep": 1e-3,
-	"finalTime": 1,
-	"timeStepsForOutput": 100,
-	"outputsForExporting": 1,
-	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
-	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
-	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
-	"looper": "GearLooper",
-	"seeker": "BlindSeeker",
+	"InitialInstant": 0.0,
+	"TimeStep": 1e-3,
+	"FinalInstant": 1,
+	"StepsForStoring": 100,
+	"StoragesForWriting": 1,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
+	"Looper": "GearLooper",
+	"Seeker": "BlindSeeker",
 
-	"interactions":
+	"Interactions":
 	{
 		"GravityForce": null
 	},
 
-	"particles":
+	"Particles":
 	{
 		"SphericalParticle": 
 		[
@@ -139,7 +139,7 @@ mainData = {
 		]
 	},
 
-	"boundaries":
+	"Boundaries":
 	{
 		"GravityField": 
 		[
@@ -154,8 +154,8 @@ mainData = {
 # outputs = 1000
 # for i in range(len(Dt_vec)):
 # 	Dt = Dt_vec[i]
-# 	mainData["timeStep"] = Dt
-# 	mainData["timeStepsForOutput"] = ceil((mainData["finalTime"] - mainData["initialTime"]) / (mainData["timeStep"] * outputs))
+# 	mainData["TimeStep"] = Dt
+# 	mainData["StepsForStoring"] = ceil((mainData["FinalInstant"] - mainData["InitialInstant"]) / (mainData["TimeStep"] * outputs))
 # 	with open(mainInputFilePath, 'w') as mainFile:
 # 		json.dump(mainData, mainFile)
 # 	userInput = PseudoUserInput(programPath, mainInputFilePath)

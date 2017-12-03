@@ -1,22 +1,22 @@
 {
-	"initialTime": 0.0,
-	"timeStep": 1e-1,
-	"finalTime": 75,
-	"timeStepsForOutput": 10,
-	"outputsForExporting": 1,
-	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",
-	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/particles",
-	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/boundaries",
-	"looper": "GearLooper",
-	"seeker": "BlindSeeker",
+	"InitialInstant": 0.0,
+	"TimeStep": 1e-1,
+	"FinalInstant": 75,
+	"StepsForStoring": 10,
+	"StoragesForWriting": 1,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/boundaries",
+	"Looper": "GearLooper",
+	"Seeker": "BlindSeeker",
 
-	"interactions":
+	"Interactions":
 	[
 		"GravityForce",
 		"DragForce"
 	],
 
-	"particles":
+	"Particles":
 	{
 		"SphericalParticle": 
 		[
@@ -24,7 +24,7 @@
 		]
 	},
 
-	"boundaries":
+	"Boundaries":
 	{
 		"GravityField": 
 		[

@@ -49,24 +49,24 @@ nParticlesIdx = find( strcmpi(tags, '<nParticles>') );
 nParticles = values(nParticlesIdx);
 
 % Initial Instant
-initialTimeStepIdx = find( strcmpi(tags, '<initialTime>') );
-initialTime = values(initialTimeStepIdx);
+initialInstantStepIdx = find( strcmpi(tags, '<initialInstant>') );
+initialInstant = values(initialInstantStepIdx);
 
 % Time Step
 timeStepIdx = find( strcmpi(tags, '<timeStep>') );
 timeStep = values(timeStepIdx);
 
 % Final Instant
-finalTimeIdx = find( strcmpi(tags, '<finalTime>') );
-finalTime = values(finalTimeIdx);
+finalInstantIdx = find( strcmpi(tags, '<finalInstant>') );
+finalInstant = values(finalInstantIdx);
 
 % Taylor Order
 taylorOrderIdx = find( strcmpi(tags, '<taylorOrder>') );
 taylorOrder = values(taylorOrderIdx);
 
 % Time steps for output
-timeStepsForOutputIdx = find( strcmpi(tags, '<timeStepsForOutput>') );
-timeStepsForOutput = values(timeStepsForOutputIdx);
+stepsForStoringIdx = find( strcmpi(tags, '<stepsForStoring>') );
+stepsForStoring = values(stepsForStoringIdx);
 
 disp('< Done')
 
@@ -121,9 +121,9 @@ for counter = 1 : nParticles
     radius(counter) = particleFileCell{counter}{2}(radiusIdx);
 end
 
-timeVector = initialTime:(timeStepsForOutput*timeStep):(finalTime+timeStep);
+timeVector = initialInstant:(stepsForStoring*timeStep):(finalInstant+timeStep);
 timeVector = timeVector(1:length(particleData{1,energyIdx}(:,1)));
-nTimeSteps = timeStepsForOutput * length(timeVector);
+nTimeSteps = stepsForStoring * length(timeVector);
 
 cmap = colormap( jet(nParticles) );
 temp = cmap(2,:);
@@ -227,7 +227,7 @@ if boolGenerateMovie
 
     Frame(timeVectorLength) = struct('cdata',[],'colormap',[]);
     for j = 1 : (timeSkip+1) : timeVectorLength
-        title([num2str(initialTime + (j-1)*timeStep*timeStepsForOutput), 's']);
+        title([num2str(initialInstant + (j-1)*timeStep*stepsForStoring), 's']);
 
         % Get center coordinates
         X = xPos(:, j);

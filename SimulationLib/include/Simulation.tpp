@@ -37,24 +37,24 @@ void Simulation<
 
 	json j = read_json(fileTree["input"]["main"]);
 
-	this->initialTime = j.at("initialTime");
-	this->timeStep = j.at("timeStep");
-	this->finalTime = j.at("finalTime");
-	this->timeStepsForOutput = j.at("timeStepsForOutput");
-	this->outputsForExporting = j.at("outputsForExporting");
-	this->looperToUse = j.at("looper");
-	this->seekerToUse = j.at("seeker");
-	if(j.count("printTime") > 0) this->printTime = j.at("printTime");
+	this->initialInstant = j.at("InitialInstant");
+	this->timeStep = j.at("TimeStep");
+	this->finalInstant = j.at("FinalInstant");
+	this->stepsForStoring = j.at("StepsForStoring");
+	this->storagesForWriting = j.at("StoragesForWriting");
+	this->looperToUse = j.at("Looper");
+	this->seekerToUse = j.at("Seeker");
+	if(j.count("PrintTime") > 0) this->printTime = j.at("PrintTime");
 
-	fileTree["output"]["main"] = j.at("mainOutputFolder").get<path>();
-	fileTree["output"]["particleDir"] = j.at("particleOutputFolder").get<path>();
-	fileTree["output"]["boundaryDir"] = j.at("boundaryOutputFolder").get<path>();
+	fileTree["output"]["main"] = j.at("MainOutputFolder").get<path>();
+	fileTree["output"]["particleDir"] = j.at("ParticleOutputFolder").get<path>();
+	fileTree["output"]["boundaryDir"] = j.at("BoundaryOutputFolder").get<path>();
 
-	if(j.count("interactions") > 0) setupInteractions(j.at("interactions"));
+	if(j.count("Interactions") > 0) setupInteractions(j.at("Interactions"));
 
-	if(j.count("particles") > 0) buildParticles(j.at("particles"));
+	if(j.count("Particles") > 0) buildParticles(j.at("Particles"));
 
-	if(j.count("boundaries") > 0) buildBoundaries(j.at("boundaries"));
+	if(j.count("Boundaries") > 0) buildBoundaries(j.at("Boundaries"));
 }
 
 
@@ -362,20 +362,20 @@ void Simulation<
 	this->createDirectories();
 
 	json mainOutput{
-		{"initialTime", this->initialTime},
-		{"timeStep", this->timeStep},
-		{"finalTime", this->finalTime},
-		{"timeStepsForOutput", this->timeStepsForOutput},
-		{"outputsForExporting", this->outputsForExporting},
-		{"looper", this->looperToUse},
-		{"seeker", this->seekerToUse},
-		{"printTime", this->printTime},
-		{"mainOutputFolder", fileTree["output"]["main"]},
-		{"particleOutputFolder", fileTree["output"]["particleDir"]},
-		{"boundaryOutputFolder", fileTree["output"]["boundaryDir"]},
-		{"interactions", fileTree["input"]["interaction"]},
-		{"particles", fileTree["input"]["particle"]},
-		{"boundaries", fileTree["input"]["boundary"]}
+		{"InitialInstant", this->initialInstant},
+		{"TimeStep", this->timeStep},
+		{"FinalInstant", this->finalInstant},
+		{"StepsForStoring", this->stepsForStoring},
+		{"StoragesForWriting", this->storagesForWriting},
+		{"Looper", this->looperToUse},
+		{"Seeker", this->seekerToUse},
+		{"PrintTime", this->printTime},
+		{"MainOutputFolder", fileTree["output"]["main"]},
+		{"ParticleOutputFolder", fileTree["output"]["particleDir"]},
+		{"BoundaryOutputFolder", fileTree["output"]["boundaryDir"]},
+		{"Interactions", fileTree["input"]["interaction"]},
+		{"Particles", fileTree["input"]["particle"]},
+		{"Boundaries", fileTree["input"]["boundary"]}
 	};
 
 
@@ -897,10 +897,10 @@ void Simulation<
 {
 	openFiles();
 
-	GearLooper::Time<std::size_t, double> time{initialTime, timeStep, finalTime};
+	GearLooper::Time<std::size_t, double> time{initialInstant, timeStep, finalInstant};
 
-	unsigned long timeStepsForOutputCounter = 0;
-	unsigned long outputsForExportingCounter = 0;
+	unsigned long stepsForStoringCounter = 0;
+	unsigned long storagesForWritingCounter = 0;
 
 	// ---- DEBUG ----
 	mp::visit< typename mp::combinatory::generate_combination_list<
@@ -940,21 +940,21 @@ void Simulation<
 		if(this->printTime) std::cout << time.as_json() << std::endl;
 
 		// Output
-		if(timeStepsForOutputCounter == 0)
+		if(stepsForStoringCounter == 0)
 		{
 			mp::visit<ParticleList, detail::write_particles_to_json>::call_same(particles, particleJsonMap, time);
 			mp::visit<BoundaryList, detail::write_boundaries_to_json>::call_same(boundaries, boundaryJsonMap, time);
 			
 			exportTime(time);
 
-			if(outputsForExportingCounter == 0)
+			if(storagesForWritingCounter == 0)
 			{
 				exportParticles(time);
 				exportBoundaries(time);
 			}
-			outputsForExportingCounter = (outputsForExportingCounter + 1) % outputsForExporting;
+			storagesForWritingCounter = (storagesForWritingCounter + 1) % storagesForWriting;
 		}
-		timeStepsForOutputCounter = (timeStepsForOutputCounter + 1) % timeStepsForOutput;
+		stepsForStoringCounter = (stepsForStoringCounter + 1) % stepsForStoring;
 
 		mp::visit<ParticleList, detail::initialize_particle>::call_same(particles);
 		mp::visit<ParticleList, detail::predict_particle>::call_same(particles, time);

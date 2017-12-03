@@ -1,17 +1,17 @@
 {
-	"initialTime": 0.0,
-	"timeStep": 1e-5,
-	"finalTime": 10,
-	"timeStepsForOutput": 1000,
-	"outputsForExporting": 10,
-	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output",
-	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/particles",
-	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/boundaries",
-	"looper": "GearLooper",
-	"seeker": "BlindSeeker",
-	"printTime": true,
+	"InitialInstant": 0.0,
+	"TimeStep": 1e-5,
+	"FinalInstant": 10,
+	"StepsForStoring": 1000,
+	"StoragesForWriting": 10,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/boundaries",
+	"Looper": "GearLooper",
+	"Seeker": "BlindSeeker",
+	"PrintTime": true,
 
-	"interactions":
+	"Interactions":
 	{
 		"NormalForceLinearDashpotForce": null,
 		"GravityForce": null,
@@ -21,7 +21,7 @@
 		}
 	},
 
-	"particles":
+	"Particles":
 	{
 		"SphericalParticle": 
 		[
@@ -29,7 +29,7 @@
 		]
 	},
 
-	"boundaries":
+	"Boundaries":
 	{
 		"FixedInfinitePlane": 
 		[

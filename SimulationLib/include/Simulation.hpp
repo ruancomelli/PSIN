@@ -97,11 +97,11 @@ private:
 	std::map<string, vector<json>> particleJsonMap;
 	std::map<string, vector<json>> boundaryJsonMap;
 
-	double initialTime;
+	double initialInstant;
 	double timeStep;
-	double finalTime;
-	unsigned long timeStepsForOutput;
-	unsigned long outputsForExporting;
+	double finalInstant;
+	unsigned long stepsForStoring;
+	unsigned long storagesForWriting;
 	bool printTime;
 
 	std::tuple< std::vector<ParticleTypes>... > particles;

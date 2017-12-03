@@ -538,10 +538,10 @@ plt.close(fig)
 # outputs = 10
 # for i in range(len(Dt_vec)):
 # 	Dt = Dt_vec[i]
-# 	mainData["timeStep"] = Dt
-# 	# mainData["timeStepsForOutput"] = ceil((mainData["finalTime"] - mainData["initialTime"]) / (mainData["timeStep"] * outputs))
+# 	mainData["TimeStep"] = Dt
+# 	# mainData["StepsForStoring"] = ceil((mainData["FinalInstant"] - mainData["InitialInstant"]) / (mainData["TimeStep"] * outputs))
 # 	print("Dt = ", Dt)
-# 	print("timeStepsForOutput = ", mainData["timeStepsForOutput"])
+# 	print("stepsForStoring = ", mainData["StepsForStoring"])
 # 	with open(mainInputFilePath, 'w') as mainFile:
 # 		json.dump(mainData, mainFile)
 # 	userInput = PseudoUserInput(programPath, mainInputFilePath)
