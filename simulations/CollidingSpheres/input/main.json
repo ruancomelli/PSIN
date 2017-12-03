@@ -11,10 +11,10 @@
 	"seeker": "BlindSeeker",
 
 	"interactions":
-	{
-		"GravityForce": null,
-		"DragForce": null
-	},
+	[
+		"GravityForce",
+		"DragForce"
+	],
 
 	"particles":
 	{
@@ -23,9 +23,5 @@
 			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/input/Blue.json",
 			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/input/Red.json"
 		]
-	},
-
-	"boundaries":
-	{
 	}
 }

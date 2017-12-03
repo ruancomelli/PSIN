@@ -11,10 +11,10 @@
 	"seeker": "BlindSeeker",
 
 	"interactions":
-	{
-		"GravityForce": null,
-		"DragForce": null
-	},
+	[
+		"GravityForce",
+		"DragForce"
+	],
 
 	"particles":
 	{

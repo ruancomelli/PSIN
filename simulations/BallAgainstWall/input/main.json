@@ -12,10 +12,7 @@
 	"looper": "GearLooper",
 	"seeker": "BlindSeeker",
 
-	"interactions":
-	{
-		"NormalForceLinearDashpotForce": null
-	},
+	"interactions": "NormalForceLinearDashpotForce",
 
 	"particles":
 	{

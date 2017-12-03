@@ -9,20 +9,5 @@
 	"MomentOfInertia": 3.6e-4,
 	"ElasticModulus": 1e+6,
 	"NormalDissipativeConstant": 100,
-
-	"PositionMatrix":
-	[
-		[0.0, 1.0, 0.0],
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0]
-	],
-
-	"OrientationMatrix":
-	[
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0]
-	]
+	"Position": [0.0, 1.0, 0.0]
 }
