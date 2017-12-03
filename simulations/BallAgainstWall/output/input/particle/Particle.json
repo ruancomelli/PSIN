@@ -3,7 +3,7 @@
     "Dimension": 3,
     "ElasticModulus": 1000000.0,
     "Mass": 1,
-    "MomentOfInertia": 1,
+    "MomentOfInertia": 3.6e-4,
     "Name": "Particle",
     "NormalDissipativeConstant": 5,
     "OrientationMatrix": [
