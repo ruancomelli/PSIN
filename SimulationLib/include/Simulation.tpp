@@ -73,42 +73,63 @@ void Simulation<
 {
 	std::cout << "Interactions setup" << std::endl; // DEBUG
 
-	for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
+	if(interactionsJSON.is_object())
 	{
-		string interactionName(it.key());
-		interactionsToUse.insert( interactionName );
-
-		if(it->is_string())
+		for(json::const_iterator it = interactionsJSON.begin(); it != interactionsJSON.end(); ++it) 
 		{
-			path interactionInputFilePath = it.value();
+			string interactionName(it.key());
+			interactionsToUse.insert( interactionName );
 
-			mp::for_each< mp::provide_indices<InteractionList> >(
-			[&, this](auto Index)
+			if(it->is_string())
 			{
-				using I = typename mp::get<Index, InteractionList>::type;
-				if( NamedType<I>::name == interactionName )
-				{
-					json j = read_json(interactionInputFilePath.string());
+				path interactionInputFilePath = it.value();
 
-					initializeInteraction<I>(j.at(NamedType<I>::name));
-				}
-			});
-			
-			fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
+				mp::for_each< mp::provide_indices<InteractionList> >(
+				[&, this](auto Index)
+				{
+					using I = typename mp::get<Index, InteractionList>::type;
+					if( NamedType<I>::name == interactionName )
+					{
+						json j = read_json(interactionInputFilePath.string());
+
+						initializeInteraction<I>(j.at(NamedType<I>::name));
+					}
+				});
+				
+				fileTree["input"]["interaction"][interactionName] = interactionInputFilePath;
+			}
+			else if(it->is_object())
+			{
+				mp::for_each< mp::provide_indices<InteractionList> >(
+				[&, this](auto Index)
+				{
+					using I = typename mp::get<Index, InteractionList>::type;
+					if( NamedType<I>::name == interactionName )
+					{
+						initializeInteraction<I>(it.value());
+					}
+				});
+				
+				fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
+			}
 		}
-		else if(it->is_object())
+	}
+	else if(interactionsJSON.is_string())
+	{
+		interactionName = interactionsJSON.get<string>();
+		interactionsToUse.insert( interactionName );		
+		fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
+	}
+	else if(interactionsJSON.is_array())
+	{
+		for(auto&& interactionJSON : interactionsJSON)
 		{
-			mp::for_each< mp::provide_indices<InteractionList> >(
-			[&, this](auto Index)
+			if(interactionJSON.is_string())
 			{
-				using I = typename mp::get<Index, InteractionList>::type;
-				if( NamedType<I>::name == interactionName )
-				{
-					initializeInteraction<I>(it.value());
-				}
-			});
-			
-			fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
+				interactionName = interactionJSON.get<string>();
+				interactionsToUse.insert( interactionName );		
+				fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
+			}
 		}
 	}
 
