@@ -1,10 +1,8 @@
 {
 	"Name": "Blue",
-
 	"Color": "Blue",
 	
 	"TaylorOrder": 7,
-	"Dimension": 3,
 
 	"Mass": 1,
 	"Radius": 0.03,

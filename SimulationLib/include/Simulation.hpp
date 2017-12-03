@@ -100,8 +100,6 @@ private:
 	double initialTime;
 	double timeStep;
 	double finalTime;
-	int taylorOrder;
-	int dimension;
 	unsigned long timeStepsForOutput;
 	unsigned long outputsForExporting;
 	bool printTime;

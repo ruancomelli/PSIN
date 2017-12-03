@@ -2,10 +2,8 @@
 	"initialTime": 0.0,
 	"timeStep": 1e-3,
 	"finalTime": 3,
-	"taylorOrder": 3,
 	"timeStepsForOutput": 10,
 	"outputsForExporting": 1,
-	"dimension": 3,
 	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
 	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
 	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
@@ -22,11 +20,9 @@
 		"SphericalParticle": 
 		{
 			"Name": "Particle",
-
 			"Color": "Red",
 			
 			"TaylorOrder": 3,
-			"Dimension": 3,
 
 			"Mass": 1,
 			"Radius": 0.03,

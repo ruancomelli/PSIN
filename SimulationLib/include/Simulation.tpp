@@ -40,8 +40,6 @@ void Simulation<
 	this->initialTime = j.at("initialTime");
 	this->timeStep = j.at("timeStep");
 	this->finalTime = j.at("finalTime");
-	this->taylorOrder = j.at("taylorOrder");
-	this->dimension = j.at("dimension");
 	this->timeStepsForOutput = j.at("timeStepsForOutput");
 	this->outputsForExporting = j.at("outputsForExporting");
 	this->looperToUse = j.at("looper");
@@ -346,8 +344,6 @@ void Simulation<
 		{"initialTime", this->initialTime},
 		{"timeStep", this->timeStep},
 		{"finalTime", this->finalTime},
-		{"taylorOrder", this->taylorOrder},
-		{"dimension", this->dimension},
 		{"timeStepsForOutput", this->timeStepsForOutput},
 		{"outputsForExporting", this->outputsForExporting},
 		{"looper", this->looperToUse},
