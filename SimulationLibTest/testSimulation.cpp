@@ -20,7 +20,7 @@
 #include <CommandLineParser.hpp>
 #include <InteractionSubjectLister.hpp>
 #include <ProgramOptions.hpp>
-#include <Simulation.hpp>
+#include <Simulator.hpp>
 
 // Standard
 #include <type_traits>
@@ -118,7 +118,7 @@ TestCase(InteractionSubjectLister_Test)
 
 TestCase(Simulation_Instantiation_Test)
 {
-	Simulation<
+	Simulator<
 		ParticleList<
 			SphericalParticle<
 				Mass,
@@ -162,7 +162,7 @@ TestCase(Simulation_setup_Test)
 		projectRootPath = path(vm["path"].as<string>());
 	}
 
-	Simulation<
+	Simulator<
 		ParticleList<
 			SphericalParticle<
 				Mass,
@@ -212,7 +212,7 @@ TestCase(Simulation_setup_and_outputMainData_Test)
 		projectRootPath = path(vm["path"].as<string>());
 	}
 
-	Simulation<
+	Simulator<
 		ParticleList<
 			SphericalParticle<
 				Mass,
@@ -266,7 +266,7 @@ TestCase(Simulation_simulate_Test)
 		projectRootPath = path(vm["path"].as<string>());
 	}
 	
-	Simulation<
+	Simulator<
 		ParticleList<
 			SphericalParticle<
 				Mass,
@@ -347,7 +347,7 @@ TestCase(Simulation_simulate_with_boundary_Test)
 		TangentialForceHaffWerner
 		>;
 	
-	Simulation<
+	Simulator<
 		ParticleList,
 		BoundaryList,
 		InteractionList,

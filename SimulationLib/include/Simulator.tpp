@@ -1,5 +1,5 @@
-#ifndef SIMULATION_TPP
-#define SIMULATION_TPP
+#ifndef SIMULATOR_TPP
+#define SIMULATOR_TPP
 
 // JSONLib
 #include <json.hpp>
@@ -25,7 +25,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -63,7 +63,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -142,7 +142,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -236,7 +236,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -330,7 +330,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -351,7 +351,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -389,7 +389,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -417,7 +417,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -445,7 +445,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -513,7 +513,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -768,7 +768,7 @@ template<
 	typename ... InteractionTypes
 >
 template<typename Time>
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -796,7 +796,7 @@ template<
 	typename ... InteractionTypes
 >
 template<typename Time>
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -827,7 +827,7 @@ template<
 	typename ... InteractionTypes
 >
 template<typename Time>
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -887,7 +887,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -978,7 +978,7 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -998,7 +998,7 @@ template<
 	typename ... InteractionTypes
 >
 template<typename Time>
-void Simulation<
+void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -1018,4 +1018,4 @@ void Simulation<
 
 } // psin
 
-#endif // SIMULATION_TPP
+#endif // SIMULATOR_TPP

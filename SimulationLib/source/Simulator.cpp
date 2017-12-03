@@ -1,4 +1,4 @@
-// #include <Simulation.hpp>
+// #include <Simulator.hpp>
 
 // // IOLib
 // #include <FileReader.hpp>
@@ -11,7 +11,7 @@
 // #include <ProgramOptions.hpp>
 
 // // ----- Default simulation -----
-// void Simulation::defaultSimulate(const string simulationName, const string projectRootFolder)
+// void Simulator::defaultSimulate(const string simulationName, const string projectRootFolder)
 // {
 // 	this->setName(simulationName);
 // 	this->fileTree.setTree(simulationName, projectRootFolder);
@@ -28,13 +28,13 @@
 // }
 
 // // Simulate
-// void Simulation::simulate(void)
+// void Simulator::simulate(void)
 // {
 // 	// Output
 // 	particleArray.exportAllDataCSV();
 // 	this->fileTree.timeVectorForPlotFile << 0 << "\n";
 
-// 	// ===== Simulation =====
+// 	// ===== Simulator =====
 
 // 	int stepsForStoringCounter = 0;
 
@@ -91,7 +91,7 @@
 // }
 
 // // ----- Input -----
-// void Simulation::inputMainData(void)
+// void Simulator::inputMainData(void)
 // {
 // 	FileReader inputData(this->fileTree.getInputMainDataFilePath());
 
@@ -113,7 +113,7 @@
 // }
 
 // // ----- Output -----
-// void Simulation::outputMainData(void) const
+// void Simulator::outputMainData(void) const
 // {
 // 	std::string verticalSeparator = "\n";
 // 	std::string horizontalSeparator = ",";
@@ -131,7 +131,7 @@
 
 
 // // Particles
-// void Simulation::initializeParticleArray(void)
+// void Simulator::initializeParticleArray(void)
 // {
 // 	// Input
 // 	this->particleArray.requirePropertyContainer(this->Interaction.getRequiredProperties());
@@ -160,7 +160,7 @@
 // }
 
 // // Interaction
-// void Simulation::setInteraction(const std::string & InteractionName)
+// void Simulator::setInteraction(const std::string & InteractionName)
 // {
 // 	for (auto& fm : this->InteractionSet)
 // 	{
@@ -172,12 +172,12 @@
 // 	}
 // }
 
-// void Simulation::appendInteraction( const Interaction<SphericalParticle, SphericalParticle> & fm ){
+// void Simulator::appendInteraction( const Interaction<SphericalParticle, SphericalParticle> & fm ){
 // 	this->InteractionSet.insert(fm);
 // }
 
 // // Ending simulation
-// void Simulation::printSuccessMessage(void) const
+// void Simulator::printSuccessMessage(void) const
 // {
 // 	std::cout << std::endl << "Success" << std::endl << std::endl;
 // }

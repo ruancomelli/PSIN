@@ -16,9 +16,8 @@
 
 // SimulationLib
 #include <CommandLineParser.hpp>
-#include <InteractionSubjectLister.hpp>
 #include <ProgramOptions.hpp>
-#include <Simulation.hpp>
+#include <Simulator.hpp>
 
 // Standard
 #include <type_traits>
@@ -92,20 +91,20 @@ int main(int argc, char* argv[])
 
 	using SeekerList = psin::SeekerList<BlindSeeker>;
 	
-	Simulation<
+	Simulator<
 		ParticleList,
 		BoundaryList,
 		InteractionList,
 		LooperList,
 		SeekerList
-	> simulation;
+	> simulator;
 
 	std::cout << "\nmainInputFilePath: " << mainInputFilePath.string() << std::endl; // DEBUG
 
-	simulation.setup( mainInputFilePath );
-	simulation.outputMainData();
-	simulation.backupInteractions();
-	simulation.backupParticles();
-	simulation.backupBoundaries();
-	simulation.simulate();
+	simulator.setup( mainInputFilePath );
+	simulator.outputMainData();
+	simulator.backupInteractions();
+	simulator.backupParticles();
+	simulator.backupBoundaries();
+	simulator.simulate();
 }

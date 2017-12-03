@@ -1,11 +1,8 @@
-#ifndef SIMULATION_HPP
-#define SIMULATION_HPP
+#ifndef SIMULATOR_HPP
+#define SIMULATOR_HPP
 
 // InteractionLib
 #include <Interaction.hpp>
-
-// IOLib
-#include <SphericalParticlePtrArrayKit.hpp>
 
 // SimulationLib
 #include <InteractionSubjectLister.hpp>
@@ -38,14 +35,14 @@ template<
 	typename Loopers,
 	typename Seekers
 > 
-class Simulation;
+class Simulator;
 
 template<
 	typename ... ParticleTypes,
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-class Simulation<
+class Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
@@ -114,6 +111,6 @@ private:
 
 } // psin
 
-#include <Simulation.tpp>
+#include <Simulator.tpp>
 
 #endif
