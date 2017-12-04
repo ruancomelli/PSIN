@@ -74,9 +74,9 @@ public:
 	void backupParticles() const;
 	void backupBoundaries() const;
 
-	template<typename Time> void exportTime(const Time & time);
-	template<typename Time> void exportParticles(const Time & time);
-	template<typename Time> void exportBoundaries(const Time & time);
+	void exportTime();
+	void exportParticles();
+	void exportBoundaries();
 
 	void printSuccessMessage() const;
 
@@ -91,6 +91,7 @@ private:
 	std::map<string, unique_ptr<std::fstream>> particleFileMap;
 	std::map<string, unique_ptr<std::fstream>> boundaryFileMap;
 
+	vector<json> timeJsonVector;
 	std::map<string, vector<json>> particleJsonMap;
 	std::map<string, vector<json>> boundaryJsonMap;
 

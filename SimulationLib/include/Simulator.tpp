@@ -381,7 +381,7 @@ void Simulator<
 
 	path mainOutputFilePath = fileTree["output"]["main"] / path("main.json");
 	mainFileMap["main"] = make_unique<std::fstream>(mainOutputFilePath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-	*mainFileMap["main"] << mainOutput.dump(4);
+	*mainFileMap["main"] << mainOutput.dump(4) << std::flush;
 }
 
 template<
@@ -767,19 +767,15 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-template<typename Time>
 void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportTime(const Time & time)
+>::exportTime()
 {
 	json fileContent;
-	json informationToExport{
-		time.as_json()
-	};
 
 	path filepath = fileTree["output"]["main"] / path("timeVector.json");
 	mainFileMap["timeVector"]->seekg(0); // rewinds the file
@@ -787,7 +783,9 @@ void Simulator<
 	mainFileMap["timeVector"]->close();
 
 	mainFileMap["timeVector"]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-	*mainFileMap["timeVector"] << merge(std::move(fileContent), informationToExport).dump(4);
+	*mainFileMap["timeVector"] << merge(std::move(fileContent), timeJsonVector).dump(4) << std::flush;
+
+	timeJsonVector.clear();
 }
 
 template<
@@ -795,19 +793,17 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-template<typename Time>
 void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportParticles(const Time & time)
+>::exportParticles()
 {
 	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
 	{
 		json fileContent;
-		json informationToExport = it->second;
 
 		path filepath = fileTree["output"]["particle"][it->first].get<path>();
 		particleFileMap[it->first]->seekg(0); // rewinds the file
@@ -815,7 +811,7 @@ void Simulator<
 		particleFileMap[it->first]->close();
 
 		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*particleFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+		*particleFileMap[it->first] << merge(std::move(fileContent), it->second).dump(4) << std::flush;
 
 		it->second.clear();
 	}
@@ -826,19 +822,17 @@ template<
 	typename ... BoundaryTypes,
 	typename ... InteractionTypes
 >
-template<typename Time>
 void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportBoundaries(const Time & time)
+>::exportBoundaries()
 {
 	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
 	{
 		json fileContent;
-		json informationToExport = it->second;
 
 		path filepath = fileTree["output"]["boundary"][it->first].get<path>();
 		boundaryFileMap[it->first]->seekg(0); // rewinds the file
@@ -846,7 +840,7 @@ void Simulator<
 		boundaryFileMap[it->first]->close();
 
 		boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*boundaryFileMap[it->first] << merge(std::move(fileContent), informationToExport).dump(4);
+		*boundaryFileMap[it->first] << merge(std::move(fileContent), it->second).dump(4) << std::flush;
 
 		it->second.clear();
 	}
@@ -942,15 +936,15 @@ void Simulator<
 		// Output
 		if(stepsForStoringCounter == 0)
 		{
+			timeJsonVector.push_back(time.as_json());
 			mp::visit<ParticleList, detail::write_particles_to_json>::call_same(particles, particleJsonMap, time);
 			mp::visit<BoundaryList, detail::write_boundaries_to_json>::call_same(boundaries, boundaryJsonMap, time);
-			
-			exportTime(time);
 
 			if(storagesForWritingCounter == 0)
 			{
-				exportParticles(time);
-				exportBoundaries(time);
+				exportTime();
+				exportParticles();
+				exportBoundaries();
 			}
 			storagesForWritingCounter = (storagesForWritingCounter + 1) % storagesForWriting;
 		}
@@ -1006,9 +1000,9 @@ void Simulator<
 	SeekerList<BlindSeeker>
 >::endSimulation(const Time & time)
 {
-	exportTime(time);
-	exportParticles(time);
-	exportBoundaries(time);
+	exportTime();
+	exportParticles();
+	exportBoundaries();
 
 	mp::for_each< mp::provide_indices<InteractionList> >(
 	[&, this](auto Index)
