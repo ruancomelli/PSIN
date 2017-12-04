@@ -116,7 +116,7 @@ void Simulator<
 	}
 	else if(interactionsJSON.is_string())
 	{
-		interactionName = interactionsJSON.get<string>();
+		string interactionName = interactionsJSON.get<string>();
 		interactionsToUse.insert( interactionName );		
 		fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
 	}
@@ -126,7 +126,7 @@ void Simulator<
 		{
 			if(interactionJSON.is_string())
 			{
-				interactionName = interactionJSON.get<string>();
+				string interactionName = interactionJSON.get<string>();
 				interactionsToUse.insert( interactionName );		
 				fileTree["input"]["interaction"][interactionName] = fileTree["input"]["main"];
 			}
@@ -1006,6 +1006,10 @@ void Simulator<
 	SeekerList<BlindSeeker>
 >::endSimulation(const Time & time)
 {
+	exportTime(time);
+	exportParticles(time);
+	exportBoundaries(time);
+
 	mp::for_each< mp::provide_indices<InteractionList> >(
 	[&, this](auto Index)
 	{
