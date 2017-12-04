@@ -7,21 +7,22 @@
 	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",
 	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/particles",
 	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/boundaries",
-	"Looper": "GearLooper",
+	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 
-	"Interactions":
-	[
-		"GravityForce",
-		"DragForce"
-	],
+	"interactions":
+	{
+		"GravityForce": null,
+		"NormalForceLinearDashpotForce": null,
+		"TangentialForceHaffWerner": null
+	},
 
 	"Particles":
 	{
 		"SphericalParticle": 
 		[
-			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/input/Blue.json",
-			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/input/Red.json"
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Blue.json",
+			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Red.json"
 		]
 	}
 }

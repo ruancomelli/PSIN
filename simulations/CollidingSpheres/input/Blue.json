@@ -12,4 +12,8 @@
 	"Velocity": [0.0, 0.0, 0.0],
 	"Acceleration": [0.0, 0.0, 0.0],
 	"AngularVelocity": [0.0, 0.0, 10.0]
+	"ElasticModulus": 1e6,
+	"NormalDissipativeConstant": 400,
+	"TangentialDamping": 1e6,
+	"FrictionParameter": 1.0
 }

@@ -2,13 +2,12 @@
 	"InitialInstant": 0.0,
 	"TimeStep": 1e-3,
 	"FinalInstant": 3,
-	"StepsForStoring": 10,
+	"StepsForStoring": 50,
 	"StoragesForWriting": 1,
 	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
 	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
 	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
-	"Looper": "GearLooper",
-	"Seeker": "BlindSeeker",
+	"IntegrationAlgorithm": "Gear",
 
 	"Interactions": "GravityForce",
 
@@ -19,7 +18,7 @@
 			"Name": "Particle",
 			"Color": "Red",
 			
-			"TaylorOrder": 3,
+			"TaylorOrder": 7,
 
 			"Mass": 1,
 			"Radius": 0.03,
@@ -27,7 +26,7 @@
 
 			"Position": [0.0, 0.0, 0.0],
 			"Velocity": [20.0, 10.0, 0.0],
-			"Acceleration": [0.0, 0.0, 0.0]
+			"Acceleration": [0.0, -9.81, 0.0]
 		}
 	},
 

@@ -106,7 +106,7 @@ private:
 	std::tuple< std::vector<BoundaryTypes>... > boundaries;
 
 	std::set< std::string > interactionsToUse;
-	string looperToUse;
+	string integrationAlgorithmToUse;
 	string seekerToUse;
 };
 

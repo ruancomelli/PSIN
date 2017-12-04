@@ -42,8 +42,8 @@ void Simulator<
 	this->finalInstant = j.at("FinalInstant");
 	this->stepsForStoring = j.at("StepsForStoring");
 	this->storagesForWriting = j.at("StoragesForWriting");
-	this->looperToUse = j.at("Looper");
-	this->seekerToUse = j.at("Seeker");
+	this->integrationAlgorithmToUse = j.at("IntegrationAlgorithm");
+	if(j.count("Seeker") > 0) this->seekerToUse = j.at("Seeker");
 	if(j.count("PrintTime") > 0) this->printTime = j.at("PrintTime");
 
 	fileTree["output"]["main"] = j.at("MainOutputFolder").get<path>();
@@ -367,7 +367,7 @@ void Simulator<
 		{"FinalInstant", this->finalInstant},
 		{"StepsForStoring", this->stepsForStoring},
 		{"StoragesForWriting", this->storagesForWriting},
-		{"Looper", this->looperToUse},
+		{"IntegrationAlgorithm", this->integrationAlgorithmToUse},
 		{"Seeker", this->seekerToUse},
 		{"PrintTime", this->printTime},
 		{"MainOutputFolder", fileTree["output"]["main"]},

@@ -7,7 +7,7 @@
 	"mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles",
 	"particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Particles",
 	"boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/SimulationLibTest/SimulationOutputFiles/Boundaries",
-	"looper": "GearLooper",
+	"integrationAlgorithm": "Gear",
 	"seeker": "BlindSeeker",
 
 	"interactions":

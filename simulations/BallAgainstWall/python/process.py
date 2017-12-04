@@ -119,7 +119,7 @@ mainData = {
 	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output",
 	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/particles",
 	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BallAgainstWall/output/boundaries",
-	"Looper": "GearLooper",
+	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 
 	"Interactions":

@@ -123,7 +123,7 @@ mainData = {
 	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
 	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
 	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
-	"Looper": "GearLooper",
+	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 
 	"Interactions":

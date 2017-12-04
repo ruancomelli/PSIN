@@ -7,7 +7,7 @@
 	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",
 	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/particles",
 	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/boundaries",
-	"Looper": "GearLooper",
+	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 
 	"Interactions":

@@ -3,7 +3,7 @@
 
 	"Color": "Black",
 	"ElasticModulus": 1e+6,
-	"NormalDissipativeConstant": 100,
+	"NormalDissipativeConstant": 0,
 
 	"origin": [0, 0, 0],
 	"normalVector": [0, 1, 0]
