@@ -4,10 +4,16 @@
 // boost
 #include <boost/math/constants/constants.hpp>
 
+// Standard
+#include <cmath>
+
+#include <iostream> // DEBUG
+
 namespace psin {
 
 using boost::math::constants::e;
 using boost::math::constants::pi;
+using std::abs;
 
 // factorial:
 //	Calculates n!, where n is a nonnegative integer
@@ -26,6 +32,23 @@ int signum(T x, std::true_type is_signed) {
 template <typename T> inline constexpr
 int signum(T x) {
     return signum(x, std::is_signed<T>());
+}
+
+inline
+double reciprocalOfSumOfReciprocals(double t, double u)
+{
+	if(t == 0)
+	{
+		return u;
+	}
+	else if(u == 0)
+	{
+		return t;
+	}
+	else
+	{
+		return (t*u)/(t+u);
+	}
 }
 
 } // psin

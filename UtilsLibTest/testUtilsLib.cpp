@@ -268,6 +268,17 @@ TestCase( NullVectorTest ){
 	}
 }
 
+// ----- vector -----
+
+TestCase(vector_erase_Test)
+{
+	vector<double> v{3.14, 15.9, 2.65};
+	checkEqual(v.size(), 3);
+
+	v.erase(v.begin(), v.end());
+	checkEqual(v.size(), 3);
+}
+
 // ----- Vector3D -----
 
 TestCase(AssigningValueToVector3D) {
@@ -1759,4 +1770,12 @@ TestCase(Quaternion_Test)
 
 	Eigen::Quaternion<double> q(q0, q1, q2, q3);
 	Eigen::Quaternion<double> p(p0, p1, p2, p3);
+}
+
+TestCase(reciprocalOfSumOfReciprocals_Test)
+{
+	checkEqual(reciprocalOfSumOfReciprocals(0, 0), 0);
+	checkEqual(reciprocalOfSumOfReciprocals(10, 0), 10);
+	checkEqual(reciprocalOfSumOfReciprocals(0, 10), 10);
+	checkEqual(reciprocalOfSumOfReciprocals(4, 6), 2.4);
 }

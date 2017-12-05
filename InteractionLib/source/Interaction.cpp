@@ -257,7 +257,7 @@ std::vector<Vector3D> Interaction<>::gearCorrector(const std::vector<Vector3D> &
 			return predictedVector;
 	}
 
-	for(int i = 0 ; i <= predictionOrder ; ++i){
+	for(auto i = 0 ; i <= predictionOrder ; ++i){
 		correctedVector[i] += (correctorConstants[i] * ( factorial(i) / pow(dt, i) ) * (pow(dt, equationOrder) / factorial(equationOrder)) ) * (derivative - predictedVector[equationOrder]);
 	}
 

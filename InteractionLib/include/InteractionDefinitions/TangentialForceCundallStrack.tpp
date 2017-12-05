@@ -7,6 +7,9 @@
 // PropertyLib
 #include <PropertyDefinitions.hpp>
 
+// UtilsLib
+#include <Mathematics.hpp>
+
 // Standard
 #include <algorithm>
 #include <map>
@@ -41,7 +44,7 @@ void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle
 		const double tangentialKappa2 = neighbor.template get<TangentialKappa>();
 		const double effectiveTangentialKappa = 
 			tangentialKappa1 + tangentialKappa2 > 0
-			? tangentialKappa1*tangentialKappa2/(tangentialKappa1+tangentialKappa2)
+			? reciprocalOfSumOfReciprocals(tangentialKappa1, tangentialKappa2)
 			: 0;
 			
 		const double frictionParameter1 = particle.template get<FrictionParameter>();
