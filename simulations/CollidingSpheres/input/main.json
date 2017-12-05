@@ -1,20 +1,23 @@
 {
 	"InitialInstant": 0.0,
-	"TimeStep": 1e-4,
-	"FinalInstant": 1e-1,
+	"TimeStep": 1e-5,
+	"FinalInstant": 0.025,
 	"StepsForStoring": 10,
-	"StoragesForWriting": 1,
-	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",
-	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/particles",
-	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/boundaries",
+	"StoragesForWriting": 1000,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output/boundaries",
 	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 
-	"interactions":
+	"Interactions":
 	{
-		"GravityForce": null,
 		"NormalForceLinearDashpotForce": null,
-		"TangentialForceHaffWerner": null
+		"TangentialForceHaffWerner": null,
+		"CoefficientOfRestitutionCalculator":
+		{
+			"path": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output/coefficient_of_restitution.txt"
+		}
 	},
 
 	"Particles":

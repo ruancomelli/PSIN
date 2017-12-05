@@ -22,8 +22,8 @@ _premake_files/premake4
 
 # Used
 build_sublime/
-**.mp4
-*.mp4
+.mp4
+.mp4
 **.png
 *.png
 **.pyc

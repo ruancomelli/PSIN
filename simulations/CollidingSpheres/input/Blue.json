@@ -1,5 +1,5 @@
 {
-	"Name": "Blue",
+	"Name": "Partícula Azul",
 	"Color": "Blue",
 	
 	"TaylorOrder": 7,
@@ -11,9 +11,9 @@
 	"Position": [0.1, 0.0, 0.0],
 	"Velocity": [0.0, 0.0, 0.0],
 	"Acceleration": [0.0, 0.0, 0.0],
-	"AngularVelocity": [0.0, 0.0, 10.0]
+	"AngularVelocity": [0.0, 0.0, 0.0],
 	"ElasticModulus": 1e6,
-	"NormalDissipativeConstant": 400,
+	"NormalDissipativeConstant": 0,
 	"TangentialDamping": 1e6,
 	"FrictionParameter": 1.0
 }

@@ -1,0 +1,902 @@
+[
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 0
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 10
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 20
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 30
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 40
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 50
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 60
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 70
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 80
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 90
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 100
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 110
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 120
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 130
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 140
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 150
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 160
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 170
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 180
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 190
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 200
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 210
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 220
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 230
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 240
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 250
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 260
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 270
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 280
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 290
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 300
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 310
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 320
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 330
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 340
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 350
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 360
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 370
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 380
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 390
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 400
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 410
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 420
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 430
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 440
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 450
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 460
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 470
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 480
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 490
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 500
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 510
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 520
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 530
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 540
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 550
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 560
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 570
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 580
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 590
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 600
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 610
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 620
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 630
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 640
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 650
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 660
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 670
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 680
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 690
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 700
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 710
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 720
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 730
+    },
+    {
+        "boundary": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        },
+        "boundaryType": "GravityField",
+        "timeIndex": 740
+    }
+]

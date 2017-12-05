@@ -1,0 +1,15 @@
+{
+    "Color": "Red",
+    "ElasticModulus": 1000000.0,
+    "Mass": 1,
+    "MomentOfInertia": 0.00036,
+    "Name": "Particle",
+    "NormalDissipativeConstant": 0,
+    "Position": [
+        0.0,
+        1.0,
+        0.0
+    ],
+    "Radius": 0.03,
+    "TaylorOrder": 7
+}

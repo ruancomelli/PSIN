@@ -1,6 +1,6 @@
 [
 {
-    "coefficientOfRestitution": 0.896666594961188,
+    "coefficientOfRestitution": 0.896666594961197,
     "pair": [
         "Particle",
         "Wall"
@@ -11,11 +11,11 @@
     ],
     "velocities": [
         -4.36255605000327,
-        3.91175827868376
+        3.9117582786838
     ]
 },
 {
-    "coefficientOfRestitution": 0.896568252298335,
+    "coefficientOfRestitution": 0.896568252298053,
     "pair": [
         "Particle",
         "Wall"
@@ -25,12 +25,12 @@
         125110
     ],
     "velocities": [
-        -3.91171672132411,
-        3.50712102432373
+        -3.91171672132407,
+        3.50712102432259
     ]
 },
 {
-    "coefficientOfRestitution": 0.896388921722795,
+    "coefficientOfRestitution": 0.896388921732003,
     "pair": [
         "Particle",
         "Wall"
@@ -40,12 +40,12 @@
         197056
     ],
     "velocities": [
-        -3.5071270756824,
-        3.14374985771576
+        -3.50712707568353,
+        3.14374985774908
     ]
 },
 {
-    "coefficientOfRestitution": 0.896576004452089,
+    "coefficientOfRestitution": 0.896576004182214,
     "pair": [
         "Particle",
         "Wall"
@@ -55,12 +55,12 @@
         261594
     ],
     "velocities": [
-        -3.14377344228879,
-        2.81863183178988
+        -3.14377344225548,
+        2.81863183091158
     ]
 },
 {
-    "coefficientOfRestitution": 0.896435423147831,
+    "coefficientOfRestitution": 0.896435430290993,
     "pair": [
         "Particle",
         "Wall"
@@ -70,12 +70,12 @@
         319504
     ],
     "velocities": [
-        -2.81868466821328,
-        2.52676878327007
+        -2.81868466909157,
+        2.52676880419172
     ]
 },
 {
-    "coefficientOfRestitution": 0.896238101537888,
+    "coefficientOfRestitution": 0.896237930662159,
     "pair": [
         "Particle",
         "Wall"
@@ -85,12 +85,12 @@
         371463
     ],
     "velocities": [
-        -2.52675461673182,
-        2.26457376075182
+        -2.52675459581017,
+        2.26457331024001
     ]
 },
 {
-    "coefficientOfRestitution": 0.896108491390526,
+    "coefficientOfRestitution": 0.8961117561724,
     "pair": [
         "Particle",
         "Wall"
@@ -100,12 +100,12 @@
         418077
     ],
     "velocities": [
-        -2.26450703924894,
-        2.02924398668459
+        -2.26450748976075,
+        2.02925178351506
     ]
 },
 {
-    "coefficientOfRestitution": 0.896017351691241,
+    "coefficientOfRestitution": 0.895960195826134,
     "pair": [
         "Particle",
         "Wall"
@@ -115,522 +115,522 @@
         459894
     ],
     "velocities": [
-        -2.02925111331515,
-        1.81824420846914
+        -2.02924331648468,
+        1.81812123921649
     ]
 },
 {
-    "coefficientOfRestitution": 0.89591072776944,
+    "coefficientOfRestitution": 0.896194623390988,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        496962,
-        497409
+        496960,
+        497406
     ],
     "velocities": [
-        -1.81822469153051,
-        1.62896700663747
+        -1.81815146078317,
+        1.62941756366434
     ]
 },
 {
-    "coefficientOfRestitution": 0.895852636003645,
+    "coefficientOfRestitution": 0.895899681473862,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        530618,
-        531065
+        530624,
+        531071
     ],
     "velocities": [
-        -1.62893399336223,
-        1.4592848118295
+        -1.62936633633535,
+        1.45974878172707
     ]
 },
 {
-    "coefficientOfRestitution": 0.895904895929746,
+    "coefficientOfRestitution": 0.895643283983,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        560815,
-        561262
+        560830,
+        561278
     ],
     "velocities": [
-        -1.45928828817023,
-        1.30738352194465
+        -1.45970721827265,
+        1.30737696662741
     ]
 },
 {
-    "coefficientOfRestitution": 0.895596044080512,
+    "coefficientOfRestitution": 0.895517087957282,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        587915,
-        588363
+        587931,
+        588379
     ],
     "velocities": [
-        -1.30737387805511,
-        1.17087887332035
+        -1.30738043337235,
+        1.17078151854594
     ]
 },
 {
-    "coefficientOfRestitution": 0.89535113206645,
+    "coefficientOfRestitution": 0.895425614999872,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        612233,
-        612681
+        612247,
+        612695
     ],
     "velocities": [
-        -1.17086622667943,
-        1.0483364015558
+        -1.17076738145385,
+        1.0483351025601
     ]
 },
 {
-    "coefficientOfRestitution": 0.89513286406075,
+    "coefficientOfRestitution": 0.89543840781064,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        634052,
-        634501
+        634067,
+        634515
     ],
     "velocities": [
-        -1.04825679844401,
-        0.938329110262338
+        -1.04835619743971,
+        0.938738404253829
     ]
 },
 {
-    "coefficientOfRestitution": 0.894999778447995,
+    "coefficientOfRestitution": 0.894970788606404,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        653630,
-        654079
+        653652,
+        654101
     ],
     "velocities": [
-        -0.938323889737496,
-        0.83979967342752
+        -0.938699395746005,
+        0.840108538475158
     ]
 },
 {
-    "coefficientOfRestitution": 0.894728872780442,
+    "coefficientOfRestitution": 0.894692672397534,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        671199,
-        671649
+        671227,
+        671677
     ],
     "velocities": [
-        -0.839770426572335,
-        0.751366847161416
+        -0.840050161524697,
+        0.751586723962512
     ]
 },
 {
-    "coefficientOfRestitution": 0.894604636618906,
+    "coefficientOfRestitution": 0.894542828038909,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        686967,
-        687417
+        686999,
+        687449
     ],
     "velocities": [
-        -0.751427052838457,
-        0.672230125550164
+        -0.751599576037361,
+        0.672338010301306
     ]
 },
 {
-    "coefficientOfRestitution": 0.894185038315462,
+    "coefficientOfRestitution": 0.894201926947478,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        701121,
-        701572
+        701155,
+        701606
     ],
     "velocities": [
-        -0.672230374449726,
-        0.601098343134146
+        -0.672318689698584,
+        0.601188667851277
     ]
 },
 {
-    "coefficientOfRestitution": 0.893991252633866,
+    "coefficientOfRestitution": 0.89400013848643,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        713826,
-        714277
+        713862,
+        714313
     ],
     "velocities": [
-        -0.601117156865759,
-        0.537393480046128
+        -0.601223032148628,
+        0.537493474002104
     ]
 },
 {
-    "coefficientOfRestitution": 0.893620931538626,
+    "coefficientOfRestitution": 0.893610619978052,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        725232,
-        725684
+        725270,
+        725722
     ],
     "velocities": [
-        -0.53739011995379,
-        0.480223059592759
+        -0.537486325997813,
+        0.480303489004631
     ]
 },
 {
-    "coefficientOfRestitution": 0.893171348339248,
+    "coefficientOfRestitution": 0.893133049214198,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        735474,
-        735927
+        735513,
+        735966
     ],
     "velocities": [
-        -0.48027404040717,
-        0.428967012242811
+        -0.480291710995298,
+        0.428964400353535
     ]
 },
 {
-    "coefficientOfRestitution": 0.892674611496746,
+    "coefficientOfRestitution": 0.892663996914723,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        744672,
-        745126
+        744710,
+        745164
     ],
     "velocities": [
-        -0.42901558775713,
-        0.382971323127144
+        -0.428920099646405,
+        0.382881530507421
     ]
 },
 {
-    "coefficientOfRestitution": 0.892161076572448,
+    "coefficientOfRestitution": 0.892155896777111,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        752933,
-        753388
+        752969,
+        753424
     ],
     "velocities": [
-        -0.382993476872806,
-        0.341691872647067
+        -0.382887069492528,
+        0.341594956847467
     ]
 },
 {
-    "coefficientOfRestitution": 0.891358357374507,
+    "coefficientOfRestitution": 0.891385306173856,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        760353,
-        760810
+        760387,
+        760844
     ],
     "velocities": [
-        -0.341672727352891,
-        0.304552841012941
+        -0.341573443152491,
+        0.304473548205342
     ]
 },
 {
-    "coefficientOfRestitution": 0.890522837551171,
+    "coefficientOfRestitution": 0.890546981041834,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        767018,
-        767477
+        767050,
+        767509
     ],
     "velocities": [
-        -0.304550058987025,
-        0.271208782705502
+        -0.304433151794624,
+        0.271112024259753
     ]
 },
 {
-    "coefficientOfRestitution": 0.889809475835204,
+    "coefficientOfRestitution": 0.889783804521753,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        773006,
-        773466
+        773036,
+        773496
     ],
     "velocities": [
-        -0.27128421729447,
-        0.241391267193156
+        -0.27118477574022,
+        0.241295821486511
     ]
 },
 {
-    "coefficientOfRestitution": 0.888821004770163,
+    "coefficientOfRestitution": 0.8888710216761,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        778387,
-        778849
+        778415,
+        778877
     ],
     "velocities": [
-        -0.241456932806822,
-        0.214611993626082
+        -0.241356178513468,
+        0.214534512983105
     ]
 },
 {
-    "coefficientOfRestitution": 0.88784786249776,
+    "coefficientOfRestitution": 0.887957039585992,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        783224,
-        783688
+        783250,
+        783714
     ],
     "velocities": [
-        -0.214673606373903,
-        0.190597502553755
+        -0.214554887016879,
+        0.190515522304215
     ]
 },
 {
-    "coefficientOfRestitution": 0.886908209199395,
+    "coefficientOfRestitution": 0.886937422906911,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        787573,
-        788039
+        787597,
+        788063
     ],
     "velocities": [
-        -0.190619097446234,
-        0.169061642355245
+        -0.190504877695774,
+        0.168965905274686
     ]
 },
 {
-    "coefficientOfRestitution": 0.885052360405212,
+    "coefficientOfRestitution": 0.885038447440816,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        791484,
-        791954
+        791506,
+        791976
     ],
     "velocities": [
-        -0.168990957644749,
-        0.149565845950622
+        -0.168890494725307,
+        0.149474581239197
     ]
 },
 {
-    "coefficientOfRestitution": 0.883693947983275,
+    "coefficientOfRestitution": 0.883810133375209,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        795003,
-        795475
+        795023,
+        795495
     ],
     "velocities": [
-        -0.149639154049375,
-        0.13223521481477
+        -0.149534218760801,
+        0.132159857827141
     ]
 },
 {
-    "coefficientOfRestitution": 0.881611390495491,
+    "coefficientOfRestitution": 0.881900475985762,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        798170,
-        798646
+        798188,
+        798664
     ],
     "velocities": [
-        -0.132242385185231,
-        0.116586393085592
+        -0.132121542172861,
+        0.116518050930219
     ]
 },
 {
-    "coefficientOfRestitution": 0.879731350819637,
+    "coefficientOfRestitution": 0.879222817945487,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        801022,
-        801502
+        801038,
+        801519
     ],
     "velocities": [
-        -0.11659730691441,
-        0.102574306313746
+        -0.116469449069783,
+        0.102402597215693
     ]
 },
 {
-    "coefficientOfRestitution": 0.876856539313255,
+    "coefficientOfRestitution": 0.877118887530648,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        803592,
-        804077
+        803606,
+        804091
     ],
     "velocities": [
-        -0.102552793686255,
-        0.0899240877686362
+        -0.102430202784308,
+        0.0898434655157107
     ]
 },
 {
-    "coefficientOfRestitution": 0.873780451322847,
+    "coefficientOfRestitution": 0.874018439691158,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        805909,
-        806400
+        805921,
+        806412
     ],
     "velocities": [
-        -0.089893212231364,
-        0.0785469315543817
+        -0.0897776344842895,
+        0.0784673080111218
     ]
 },
 {
-    "coefficientOfRestitution": 0.869608905710697,
+    "coefficientOfRestitution": 0.870022158261282,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        808000,
-        808498
+        808010,
+        808508
     ],
     "velocities": [
-        -0.0785111684456176,
-        0.0682740112780617
+        -0.0783945919888775,
+        0.0682050321181758
     ]
 },
 {
-    "coefficientOfRestitution": 0.864224588540878,
+    "coefficientOfRestitution": 0.8650541901428,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        809889,
-        810395
+        809897,
+        810403
     ],
     "velocities": [
-        -0.0682811887219368,
-        0.0590102822282979
+        -0.0681539678818227,
+        0.0589568754910286
     ]
 },
 {
-    "coefficientOfRestitution": 0.859879268661035,
+    "coefficientOfRestitution": 0.858603704991195,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        811597,
-        812112
+        811604,
+        812119
     ],
     "velocities": [
-        -0.0590040177717004,
-        0.0507363316495924
+        -0.0589593245089698,
+        0.0506226944671796
     ]
 },
 {
-    "coefficientOfRestitution": 0.851265264821956,
+    "coefficientOfRestitution": 0.849795912359552,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        813145,
-        813671
+        813150,
+        813677
     ],
     "velocities": [
-        -0.0506990683504064,
-        0.0431583558455352
+        -0.0506165055328193,
+        0.0430136994997145
     ]
 },
 {
-    "coefficientOfRestitution": 0.83946180100951,
+    "coefficientOfRestitution": 0.840584441789114,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        814550,
-        815090
+        814553,
+        815094
     ],
     "velocities": [
-        -0.0431696441544642,
-        0.0362392672308462
+        -0.0430200005002849,
+        0.0361619431062994
     ]
 },
 {
-    "coefficientOfRestitution": 0.824653627980516,
+    "coefficientOfRestitution": 0.82698204173935,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        815828,
-        816386
+        815830,
+        816388
     ],
     "velocities": [
-        -0.0362566327691536,
-        0.0298991637514398
+        -0.0361377568937005,
+        0.0298852759798327
     ]
 },
 {
-    "coefficientOfRestitution": 0.803767294636341,
+    "coefficientOfRestitution": 0.80480377461943,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        816995,
-        817575
+        816996,
+        817576
     ],
     "velocities": [
-        -0.0299418362485603,
-        0.0240662687179496
+        -0.0298576240201675,
+        0.0240295285125985
     ]
 },
 {
-    "coefficientOfRestitution": 0.769643031814742,
+    "coefficientOfRestitution": 0.769936359562018,
     "pair": [
         "Particle",
         "Wall"
@@ -640,38 +640,38 @@
         818674
     ],
     "velocities": [
-        -0.0241008312820505,
-        0.0185490368571729
+        -0.0240394714874016,
+        0.0185088631628049
     ]
 },
 {
-    "coefficientOfRestitution": 0.702192783096967,
+    "coefficientOfRestitution": 0.703252278497439,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        819051,
-        819702
+        819050,
+        819701
     ],
     "velocities": [
-        -0.0185327631428272,
-        0.0130135725297387
+        -0.0184748368371952,
+        0.0129924711006259
     ]
 },
 {
-    "coefficientOfRestitution": 0.513886087348705,
+    "coefficientOfRestitution": 0.507280523273443,
     "pair": [
         "Particle",
         "Wall"
     ],
     "timeIndices": [
-        819966,
-        820685
+        819965,
+        820684
     ],
     "velocities": [
-        -0.0129829274702613,
-        0.00667174580002462
+        -0.0130040288993741,
+        0.00659669058473747
     ]
 }
 ]

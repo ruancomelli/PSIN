@@ -1,0 +1,32 @@
+{
+    "Acceleration": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "AngularVelocity": [
+        0.0,
+        0.0,
+        10.0
+    ],
+    "Color": "Red",
+    "ElasticModulus": 1000000.0,
+    "FrictionParameter": 1.0,
+    "Mass": 1,
+    "MomentOfInertia": 0.00036,
+    "Name": "Partícula vermelha",
+    "NormalDissipativeConstant": 400,
+    "Position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "Radius": 0.03,
+    "TangentialDamping": 1000000.0,
+    "TaylorOrder": 7,
+    "Velocity": [
+        1.0,
+        0.0,
+        0.0
+    ]
+}

@@ -2,12 +2,12 @@
 	"Name": "Particle",
 	"Color": "Red",
 	
-	"TaylorOrder": 6,
+	"TaylorOrder": 7,
 	
 	"Mass": 1,
 	"Radius": 0.03,
 	"MomentOfInertia": 3.6e-4,
 	"ElasticModulus": 1e+6,
-	"NormalDissipativeConstant": 0,
+	"NormalDissipativeConstant": 100,
 	"Position": [0.0, 1.0, 0.0]
 }

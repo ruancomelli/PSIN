@@ -1,0 +1,19 @@
+{
+    "Boundaries": null,
+    "BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/boundaries",
+    "FinalInstant": 1.0,
+    "InitialInstant": 0.0,
+    "IntegrationAlgorithm": "Gear",
+    "Interactions": null,
+    "MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",
+    "ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output/particles",
+    "Particles": {
+        "Partícula azul": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Blue.json",
+        "Partícula vermelha": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Red.json"
+    },
+    "PrintTime": true,
+    "Seeker": "BlindSeeker",
+    "StepsForStoring": 10,
+    "StoragesForWriting": 100,
+    "TimeStep": 0.0001
+}

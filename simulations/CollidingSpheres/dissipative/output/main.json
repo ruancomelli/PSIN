@@ -1,0 +1,21 @@
+{
+    "Boundaries": null,
+    "BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative/output/boundaries",
+    "FinalInstant": 0.025,
+    "InitialInstant": 0.0,
+    "IntegrationAlgorithm": "Gear",
+    "Interactions": {
+        "CoefficientOfRestitutionCalculator": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/main.json"
+    },
+    "MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative/output",
+    "ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative/output/particles",
+    "Particles": {
+        "Partícula Azul": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Blue.json",
+        "Partícula Vermelha": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Red.json"
+    },
+    "PrintTime": true,
+    "Seeker": "BlindSeeker",
+    "StepsForStoring": 10,
+    "StoragesForWriting": 100,
+    "TimeStep": 1e-05
+}

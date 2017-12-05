@@ -1,0 +1,46 @@
+{
+    "Acceleration": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "Color": "Red",
+    "Dimension": 3,
+    "Mass": 1,
+    "MomentOfInertia": 1,
+    "Name": "Particle",
+    "OrientationMatrix": [
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0,
+            0.0,
+            0.0
+        ]
+    ],
+    "Position": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "Radius": 0.03,
+    "TaylorOrder": 7,
+    "Velocity": [
+        10.0,
+        5.0,
+        0.0
+    ]
+}

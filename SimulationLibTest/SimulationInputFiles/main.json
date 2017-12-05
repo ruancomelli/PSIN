@@ -10,7 +10,7 @@
 	"integrationAlgorithm": "Gear",
 	"seeker": "BlindSeeker",
 
-	"interactions":
+	"Interactions":
 	{
 		"NormalForceLinearDashpotForce": null,
 		"NormalForceViscoelasticSpheres": null,

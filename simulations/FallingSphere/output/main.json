@@ -1,22 +1,22 @@
 {
-    "boundaries": {
-        "Gravity": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/main.json"
+    "Boundaries": {
+        "Gravity": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
     },
-    "boundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
-    "dimension": 3,
-    "finalTime": 3.0,
-    "initialTime": 0.0,
-    "interactions": null,
-    "looper": "GearLooper",
-    "mainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
-    "outputsForExporting": 1,
-    "particleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
-    "particles": {
-        "Particle": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/main.json"
+    "BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
+    "FinalInstant": 3.0,
+    "InitialInstant": 0.0,
+    "IntegrationAlgorithm": "Gear",
+    "Interactions": {
+        "GravityForce": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
     },
-    "printTime": true,
-    "seeker": "BlindSeeker",
-    "taylorOrder": 3,
-    "timeStep": 0.001,
-    "timeStepsForOutput": 10
+    "MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
+    "ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
+    "Particles": {
+        "Particle": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
+    },
+    "PrintTime": true,
+    "Seeker": "",
+    "StepsForStoring": 42,
+    "StoragesForWriting": 1,
+    "TimeStep": 0.00724077343935025
 }

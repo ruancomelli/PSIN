@@ -1,8 +1,47 @@
 {
-    "Gravity": [
-        0.0,
-        -9.81,
-        0.0
-    ],
-    "Name": "Gravity"
+    "Boundaries": {
+        "GravityField": {
+            "Gravity": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Name": "Gravity"
+        }
+    },
+    "BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
+    "FinalInstant": 3,
+    "InitialInstant": 0.0,
+    "IntegrationAlgorithm": "Gear",
+    "Interactions": "GravityForce",
+    "MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
+    "ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
+    "Particles": {
+        "SphericalParticle": {
+            "Acceleration": [
+                0.0,
+                -9.81,
+                0.0
+            ],
+            "Color": "Red",
+            "Mass": 1,
+            "MomentOfInertia": 0.00036,
+            "Name": "Particle",
+            "Position": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "Radius": 0.03,
+            "TaylorOrder": 7,
+            "Velocity": [
+                20.0,
+                10.0,
+                0.0
+            ]
+        }
+    },
+    "StepsForStoring": 42,
+    "StoragesForWriting": 1,
+    "TimeStep": 0.00724077343935025
 }

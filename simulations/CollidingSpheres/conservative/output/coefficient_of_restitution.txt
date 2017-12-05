@@ -1,0 +1,17 @@
+[
+{
+    "coefficientOfRestitution": 1.00000349751676,
+    "pair": [
+        "Partícula Azul",
+        "Partícula Vermelha"
+    ],
+    "timeIndices": [
+        7999,
+        11141
+    ],
+    "velocities": [
+        -5.0,
+        5.00001748758378
+    ]
+}
+]

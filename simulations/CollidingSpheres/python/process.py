@@ -7,13 +7,27 @@ from PseudoInterface import *
 import operator
 import numpy as np
 from numpy import array
+from numpy import dot
 from numpy.linalg import norm
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 from math import ceil
+from math import sqrt, log, exp, atan2, pi
+
+def consecute_diff(x):
+	return [j-i for i, j in zip(x[:-1], x[1:])]
+
+def resistanceRule(a, b):
+	if b==0:
+		return a
+	elif a==0:
+		return b
+	else:
+		return a*b/(a+b)
 
 programPath = "/home/ruancomelli/GitProjects/ParticleSimulator/build_sublime/bin/Release/psinApp"
-mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/main.json"
+mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/main.json"
 
 userInput = PseudoUserInput(programPath, mainInputFilePath)
 paths = PseudoPaths(userInput)
@@ -23,75 +37,469 @@ simulate = PseudoSimulate(userInput, paths)
 simulate.execute()
 
 particleData = simulationOutputData.get()[1]
-particle = particleData["SphericalParticle"]["Particle"]
+redParticle = particleData["SphericalParticle"]["Partícula Vermelha"]
+blueParticle = particleData["SphericalParticle"]["Partícula Azul"]
 
-propertyValue = {}
-for propertyName, propertyHistory in particle.items():
-	propertyValue[propertyName] = list(propertyHistory.values())
+redProperty = {}
+for propertyName, propertyHistory in redParticle.items():
+	redProperty[propertyName] = list(propertyHistory.values())
+
+blueProperty = {}
+for propertyName, propertyHistory in blueParticle.items():
+	blueProperty[propertyName] = list(propertyHistory.values())
 
 time = simulationOutputData.get()[3]
 timeIndex = list(time.keys())
 timeInstant = list(time.values())
+timestep = (timeInstant[1] - timeInstant[0]) / (timeIndex[1] - timeIndex[0])
 
-initialPosition = array(propertyValue["Position"][0])
-initialVelocity = array(propertyValue["Velocity"][0])
-gravity = array([0.0, -9.81, 0.0])
+outputPath = paths.getSimulationMainOutputFolder()
 
-instantaneousSolution = lambda t: initialPosition + initialVelocity * t + gravity * t**2 / 2
-solution = array([instantaneousSolution(t) for t in timeInstant])
+with open(os.path.join(outputPath, "coefficient_of_restitution.txt")) as coefficientOfRestitutionFile:
+	coefficientOfRestitutionHistory = json.load(coefficientOfRestitutionFile)
 
-listDifference = lambda a, b: list(map(operator.sub, a, b))
-error = array( list(map(listDifference, propertyValue["Position"], solution)) )
-maxError = max([norm(x) for x in error])
-print("Maximum error: ", maxError)
+coeffOfRestitutionTimeForPlot = []
+coeffOfRestitutionHistoryForPlot = []
+for j in coefficientOfRestitutionHistory:
+	initialVelocity = j["velocities"][0]
+	finalVelocity = j["velocities"][1]
+	timeIndicesVector = list(range(j["timeIndices"][0], j["timeIndices"][1] + 1))
+	coeffOfRestitutionTimeForPlot.append([1000 * x*timestep for x in timeIndicesVector])
+	coeffOfRestitutionHistoryForPlot.append([- finalVelocity / initialVelocity] * len(timeIndicesVector))
 
-solution_x = list(map(list, zip(*solution)))[0]
-solution_y = list(map(list, zip(*solution)))[1]
-solution_z = list(map(list, zip(*solution)))[2]
+effectiveMass = resistanceRule(redProperty["Mass"][0], blueProperty["Mass"][0])
+effectiveElasticModulus = resistanceRule(redProperty["ElasticModulus"][0], blueProperty["ElasticModulus"][0])
+effectiveNormalDissipativeConstant = resistanceRule(redProperty["NormalDissipativeConstant"][0], blueProperty["NormalDissipativeConstant"][0])
+omegaStar = sqrt(effectiveElasticModulus / effectiveMass)
 
-normalsize = 1
-smallsize = 4/9 * normalsize
+beta = 0.5 * effectiveNormalDissipativeConstant / effectiveMass
+if beta < omegaStar / sqrt(2):
+	omega = sqrt(omegaStar**2 - beta**2)
+	analyticalCoefficientOfRestitution = exp(-beta/omega * (pi - atan2(2*beta*omega, omega**2 - beta**2)))
+elif omegaStar / sqrt(2) <= beta and beta <= omegaStar:
+	omega = sqrt(omegaStar**2 - beta**2)
+	analyticalCoefficientOfRestitution = exp(-beta/omega * atan2(2*beta*omega, omega**2 - beta**2))
+else:
+	Omega = sqrt(beta**2 - omegaStar**2)
+	analyticalCoefficientOfRestitution = exp(-beta/Omega * log((beta+Omega)/(beta-Omega)))
+
+analyticalCoefficientOfRestitutionVector = [analyticalCoefficientOfRestitution] * len(timeIndex)
+
+normalwidth = 6
+normalheight = 4
+smallwidth = 7 * 4/10
+smallheight = 5 * 4/10
+# smallsize = 4/9 * normalsize
+normalfontsize = 11
+smallfontsize = 9
+majorTickLabelSize = 10
+minorTickLabelSize = 10
+normalmarkersize = 3
+normallinewidth = 1
 family = 'serif'
 weight = 'light'
+dgray = [0.4, 0.4, 0.4]
+lgray = [0.8, 0.8, 0.8]
+llgray = [0.9, 0.9, 0.9]
 
+propName = {}
+propName["Acceleration - X"] = "Aceleração Horizontal [m/s²]"
+propName["Acceleration - Y"] = "Aceleração Vertical [m/s²]"
+propName["AngularAcceleration - Z"] = "Aceleração Angular [rad/s²]"
+propName["AngularVelocity - Z"] = "Velocidade Angular [rad/s]"
+propName["Velocity - X"] = "Velocidade Horizontal [m/s]"
+propName["Velocity - Y"] = "Velocidade Vertical [m/s]"
+propName["angularMomentum - Z"] = "Quantidade de Movimento\nAngular [kg m²/s]"
+propName["contactForce - X"] = "Força de Contato Horizontal [N]"
+propName["contactForce - Y"] = "Força de Contato Vertical [N]"
+propName["kineticEnergy"] = "Enegia Cinética [J]"
+propName["linearMomentum - X"] = "Quantidade de Movimento\nLinear Horizontal [kg m²/s]"
+propName["linearMomentum - Y"] = "Quantidade de Movimento\nLinear Vertical [kg m²/s]"
+propName["resultingForce - X"] = "Força Resultante Horizontal [N]"
+propName["resultingForce - Y"] = "Força Resultante Vertical [N]"
+propName["resultingTorque - Z"] = "Torque Resultante [N m]"
+propName["rotationalEnergy"] = "Enegia Rotacional [J]"
+propName["translationalEnergy"] = "Enegia Translacional [J]"
+
+redParticleNormalLabel = "Partícula Vermelha"
+blueParticleNormalLabel = "Partícula Azul"
+redParticleSmallLabel = "Partícula\nVermelha"
+blueParticleSmallLabel = "Partícula\nAzul"
+timeInstantForPlot = [1000*t for t in timeInstant]
+xLabel = "Tempo [ms]"
+
+# ########################### ALMOST EVERYTHING
+for prop in propName:
+	print(prop)
+	print("\t\t Normal size without total")
+	# Normal size
+	fig = plt.figure(
+		figsize=(normalwidth, normalheight),
+		facecolor='w',
+		edgecolor='k')
+
+	ax = fig.add_subplot(111)
+
+	if(len(timeInstant) > 100):
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleNormalLabel,
+			linewidth = normallinewidth
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleNormalLabel,
+			linewidth = normallinewidth
+			)
+	else:
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleNormalLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleNormalLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+
+	ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+	outputFolder = paths.getSimulationPlotsOutputFolder()
+	filename = prop + "_normal"
+	extension = ".pdf"
+	ax.set_xscale('linear')
+	ax.set_yscale('linear')
+
+	plt.xlim( min(timeInstantForPlot), max(timeInstantForPlot) )
+
+	ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+	ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+	ax.ticklabel_format(useOffset=False)
+
+	handles, labels = ax.get_legend_handles_labels()
+	handle_list, label_list = [], []
+	for handle, label in zip(handles, labels):
+	    if label not in label_list:
+	        handle_list.append(handle)
+	        label_list.append(label)
+	lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+	lgd.get_frame().set_facecolor(llgray)
+	lgd.get_frame().set_edgecolor(dgray)
+	ax.set_xlabel(xLabel, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	ax.set_ylabel(propName[prop], fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+	plt.close(fig)
+
+	# Small size
+	print("\t\t Small size without total")
+	fig = plt.figure(
+		figsize=(smallwidth, smallheight),
+		facecolor='w',
+		edgecolor='k')
+
+	ax = fig.add_subplot(111)
+
+	if(len(timeInstantForPlot) > 100):
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleSmallLabel,
+			linewidth = normallinewidth
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleSmallLabel,
+			linewidth = normallinewidth
+			)
+	else:
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleSmallLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleSmallLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+
+	ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+	outputFolder = paths.getSimulationPlotsOutputFolder()
+	filename = prop + "_small"
+	extension = ".pdf"
+	ax.set_xscale('linear')
+	ax.set_yscale('linear')
+
+	plt.xlim( min(timeInstantForPlot), max(timeInstantForPlot) )
+
+	ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+	ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+	ax.ticklabel_format(useOffset=False)
+
+	handles, labels = ax.get_legend_handles_labels()
+	handle_list, label_list = [], []
+	for handle, label in zip(handles, labels):
+	    if label not in label_list:
+	        handle_list.append(handle)
+	        label_list.append(label)
+	lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+	lgd.get_frame().set_facecolor(llgray)
+	lgd.get_frame().set_edgecolor(dgray)
+	ax.set_xlabel(xLabel, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	ax.set_ylabel(propName[prop], fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+	plt.close(fig)
+
+	##################### With total
+	print("\t\t Normal size with total")
+	total = [x+y for x,y in zip(redProperty[prop], blueProperty[prop])]
+
+	# Normal size
+	fig = plt.figure(
+		figsize=(normalwidth, normalheight),
+		facecolor='w',
+		edgecolor='k')
+
+	ax = fig.add_subplot(111)
+
+	if(len(timeInstantForPlot) > 100):
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleNormalLabel,
+			linewidth = normallinewidth
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleNormalLabel,
+			linewidth = normallinewidth
+			)
+		ax.plot(
+			timeInstantForPlot,
+			total,
+			color = 'black',
+			label = 'Total',
+			linewidth = normallinewidth
+			)
+	else:
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleNormalLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleNormalLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+		ax.plot(
+			timeInstantForPlot,
+			total,
+			color = 'black',
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+
+	ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+	outputFolder = paths.getSimulationPlotsOutputFolder()
+	filename = prop + "_normal_total"
+	extension = ".pdf"
+	ax.set_xscale('linear')
+	ax.set_yscale('linear')
+
+	plt.xlim( min(timeInstantForPlot), max(timeInstantForPlot) )
+
+	ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+	ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+	ax.ticklabel_format(useOffset=False)
+
+	handles, labels = ax.get_legend_handles_labels()
+	handle_list, label_list = [], []
+	for handle, label in zip(handles, labels):
+	    if label not in label_list:
+	        handle_list.append(handle)
+	        label_list.append(label)
+	lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+	lgd.get_frame().set_facecolor(llgray)
+	lgd.get_frame().set_edgecolor(dgray)
+	ax.set_xlabel(xLabel, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	ax.set_ylabel(propName[prop], fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+	plt.close(fig)
+
+	# Small size
+	print("\t\t Small size with total")
+	fig = plt.figure(
+		figsize=(smallwidth, smallheight),
+		facecolor='w',
+		edgecolor='k')
+
+	ax = fig.add_subplot(111)
+
+	if(len(timeInstantForPlot) > 100):
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleSmallLabel,
+			linewidth = normallinewidth
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleSmallLabel,
+			linewidth = normallinewidth
+			)
+		ax.plot(
+			timeInstantForPlot,
+			total,
+			color = 'black',
+			label = 'Total',
+			linewidth = normallinewidth
+			)
+	else:
+		ax.plot(
+			timeInstantForPlot,
+			redProperty[prop],
+			color = 'red',
+			label = redParticleSmallLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+		ax.plot(
+			timeInstantForPlot,
+			blueProperty[prop],
+			color = 'blue',
+			label = blueParticleSmallLabel,
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+		ax.plot(
+			timeInstantForPlot,
+			total,
+			color = 'black',
+			marker = '.',
+			linestyle="None",
+			markersize = normalmarkersize
+			)
+
+	ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+	outputFolder = paths.getSimulationPlotsOutputFolder()
+	filename = prop + "_small_total"
+	extension = ".pdf"
+	ax.set_xscale('linear')
+	ax.set_yscale('linear')
+
+	plt.xlim( min(timeInstantForPlot), max(timeInstantForPlot) )
+
+	ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+	ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+	ax.ticklabel_format(useOffset=False)
+
+	handles, labels = ax.get_legend_handles_labels()
+	handle_list, label_list = [], []
+	for handle, label in zip(handles, labels):
+	    if label not in label_list:
+	        handle_list.append(handle)
+	        label_list.append(label)
+	lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+	lgd.get_frame().set_facecolor(llgray)
+	lgd.get_frame().set_edgecolor(dgray)
+	ax.set_xlabel(xLabel, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	ax.set_ylabel(propName[prop], fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+	plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+	plt.close(fig)
+
+# ########################### COEFFICIENT OF RESTITUTION
+# Normal size
 fig = plt.figure(
-	figsize=(10*normalsize, 8*normalsize),
+	figsize=(normalwidth, normalheight),
 	facecolor='w',
 	edgecolor='k')
 
 ax = fig.add_subplot(111)
 
 ax.plot(
-	timeInstant,
-	solution_y,
+	timeInstantForPlot,
+	analyticalCoefficientOfRestitutionVector,
 	color = 'black',
 	label = 'Solução Analítica',
 	# marker = '.',
-	linewidth = 1*normalsize
+	linewidth = normallinewidth
 	)
 
-ax.plot(
-	timeInstant,
-	propertyValue["Position - Y"],
-	color = 'red',
-	label = 'Simulação',
-	marker = '.',
-	linestyle="None",
-	markersize = 3*normalsize
-	)
+for i in range(len(coeffOfRestitutionTimeForPlot)):
+	ax.plot(
+		coeffOfRestitutionTimeForPlot[i],
+		coeffOfRestitutionHistoryForPlot[i],
+		color = 'red',
+		label = 'Simulação',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
 
 ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
 
 outputFolder = paths.getSimulationPlotsOutputFolder()
-filename = "y_position"
+filename = "coefficient_of_restitution"
 extension = ".pdf"
 ax.set_xscale('linear')
 ax.set_yscale('linear')
 
-plt.xlim( min(timeInstant), max(timeInstant) )
+plt.xlim( min(timeInstantForPlot), max(timeInstantForPlot) )
+plt.ylim( ymin=0, ymax=1.2 )
 
-ax.tick_params(axis='both', which='major', labelsize=12*normalsize)
-ax.tick_params(axis='both', which='minor', labelsize=10*normalsize)
+ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+ax.ticklabel_format(useOffset=False)
 
 handles, labels = ax.get_legend_handles_labels()
 handle_list, label_list = [], []
@@ -99,160 +507,70 @@ for handle, label in zip(handles, labels):
     if label not in label_list:
         handle_list.append(handle)
         label_list.append(label)
-lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': 14*normalsize, 'family': family, 'weight': weight})
-ax.set_xlabel('Tempo [s]', fontdict={'size': 16*normalsize, 'family': family, 'weight': weight})
-ax.set_ylabel('Altura [m]', fontdict={'size': 16*normalsize, 'family': family, 'weight': weight})
-# lgd.set_title("Legenda", prop={'size': 16*normalsize, 'family': family, 'weight': weight})
-lgd.set_title("Legenda", prop={'size': 16*normalsize, 'family': family, 'weight': weight})
+lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+lgd.get_frame().set_facecolor(llgray)
+lgd.get_frame().set_edgecolor(dgray)
+ax.set_xlabel(xLabel, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Coeficiente de Restituição', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
 plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
 plt.close(fig)
 
+# Small size
+fig = plt.figure(
+	figsize=(smallwidth, smallheight),
+	facecolor='w',
+	edgecolor='k')
 
+ax = fig.add_subplot(111)
 
-mainInputFilePath = "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/python/main.json"
+ax.plot(
+	timeInstantForPlot,
+	analyticalCoefficientOfRestitutionVector,
+	color = 'black',
+	label = 'Solução Analítica',
+	# marker = '.',
+	linewidth = normallinewidth
+	)
 
-null = None
+for i in range(len(coeffOfRestitutionTimeForPlot)):
+	ax.plot(
+		coeffOfRestitutionTimeForPlot[i],
+		coeffOfRestitutionHistoryForPlot[i],
+		color = 'red',
+		label = 'Simulação',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
 
-mainData = {
-	"InitialInstant": 0.0,
-	"TimeStep": 1e-3,
-	"FinalInstant": 1,
-	"StepsForStoring": 100,
-	"StoragesForWriting": 1,
-	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output",
-	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/particles",
-	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/output/boundaries",
-	"IntegrationAlgorithm": "Gear",
-	"Seeker": "BlindSeeker",
+ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
 
-	"Interactions":
-	{
-		"GravityForce": null
-	},
+outputFolder = paths.getSimulationPlotsOutputFolder()
+filename = "small_coefficient_of_restitution"
+extension = ".pdf"
+ax.set_xscale('linear')
+ax.set_yscale('linear')
 
-	"Particles":
-	{
-		"SphericalParticle": 
-		[
-			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/particle.json"
-		]
-	},
+plt.xlim( min(timeInstantForPlot), max(timeInstantForPlot) )
+plt.ylim( ymin=0, ymax=1.2 )
 
-	"Boundaries":
-	{
-		"GravityField": 
-		[
-			"/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingSphere/input/gravity.json"
-		]
-	}
-}
+ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+ax.ticklabel_format(useOffset=False)
 
-# for Dt in [1e-3, 2e-3, 4e-3, 8e-3, 16e-3, 32e-3, 64e-3, 128e-3, 256e-3, 512e-3]:
-# maxError = []
-# Dt_vec = [2**(i/2)*1e-5 for i in range(20)]
-# outputs = 1000
-# for i in range(len(Dt_vec)):
-# 	Dt = Dt_vec[i]
-# 	mainData["TimeStep"] = Dt
-# 	mainData["StepsForStoring"] = ceil((mainData["FinalInstant"] - mainData["InitialInstant"]) / (mainData["TimeStep"] * outputs))
-# 	with open(mainInputFilePath, 'w') as mainFile:
-# 		json.dump(mainData, mainFile)
-# 	userInput = PseudoUserInput(programPath, mainInputFilePath)
-# 	paths = PseudoPaths(userInput)
-# 	simulate = PseudoSimulate(userInput, paths)
-# 	simulate.execute()
-# 	simulationOutputData = PseudoSimulationOutputData(paths)
-# 	particleData = simulationOutputData.get()[1]
-# 	particle = particleData["SphericalParticle"]["Particle"]
+handles, labels = ax.get_legend_handles_labels()
+handle_list, label_list = [], []
+for handle, label in zip(handles, labels):
+    if label not in label_list:
+        handle_list.append(handle)
+        label_list.append(label)
+lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': weight})
+lgd.get_frame().set_facecolor(llgray)
+lgd.get_frame().set_edgecolor(dgray)
+ax.set_xlabel(xLabel, fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Coeficiente de Restituição', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
-# 	propertyValue = {}
-# 	for propertyName, propertyHistory in particle.items():
-# 		propertyValue[propertyName] = list(propertyHistory.values())
-
-# 	time = simulationOutputData.get()[3]
-# 	timeIndex = list(time.keys())
-# 	timeInstant = list(time.values())
-
-# 	initialPosition = array(propertyValue["Position"][0])
-# 	initialVelocity = array(propertyValue["Velocity"][0])
-# 	gravity = array([0.0, -9.81, 0.0])
-
-# 	instantaneousSolution = lambda t: initialPosition + initialVelocity * t + gravity * t**2 / 2
-# 	solution = array([instantaneousSolution(t) for t in timeInstant])
-
-# 	listDifference = lambda a, b: list(map(operator.sub, a, b))
-# 	error = array( list(map(listDifference, propertyValue["Position"], solution)) )
-# 	maxError.append(max([norm(x) for x in error]))
-
-
-# fig = plt.figure(
-# 	figsize=(10*normalsize, 8*normalsize),
-# 	facecolor='w',
-# 	edgecolor='k')
-
-# ax = fig.add_subplot(111)
-
-# ax.plot(
-# 	Dt_vec,
-# 	maxError,
-# 	color = 'red',
-# 	label = 'Erro Máximo',
-# 	marker = '.'
-# 	)
-	
-# outputFolder = paths.getSimulationPlotsOutputFolder()
-# filename = "maximum_error"
-# extension = ".pdf"
-# ax.set_xscale('linear')
-# ax.set_yscale('linear')
-
-# ax.tick_params(axis='both', which='major', labelsize=12*normalsize)
-# ax.tick_params(axis='both', which='minor', labelsize=10*normalsize)
-
-# handles, labels = ax.get_legend_handles_labels()
-# handle_list, label_list = [], []
-# for handle, label in zip(handles, labels):
-#     if label not in label_list:
-#         handle_list.append(handle)
-#         label_list.append(label)
-# lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': 14*normalsize, 'family': family, 'weight': 'normal'})
-# ax.set_xlabel('Tempo [s]', fontdict={'size': 16*normalsize, 'family': family})
-# ax.set_ylabel('Altura [m]', fontdict={'size': 16*normalsize, 'family': family})
-# lgd.set_title("Legenda", prop={'size': 16*normalsize, 'family': family, 'weight': 'normal'})
-
-# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
-
-# ax.set_xscale('log')
-# ax.set_yscale('linear')
-# filename = "maximum_error_logx"
-# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
-
-# ax.set_xscale('linear')
-# ax.set_yscale('log')
-# filename = "maximum_error_logy"
-# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
-
-# ax.set_xscale('log')
-# ax.set_yscale('log')
-# filename = "maximum_error_logx_logy"
-# plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
-
-# plt.close(fig)
-
-# fig = plt.figure(
-# 	figsize=(18, 14),
-# 	facecolor='w',
-# 	edgecolor='k')
-
-# ax = fig.add_subplot(111)
-
-# ax.plot(
-# 	[time[t] for t in time.keys()],
-# 	[particle[propertyName][t] for t in time.keys()],
-# 	color = getColor(particle["Color"][next(iter(particle["Color"]))]),
-# 	label = particleName,
-# 	marker = '.'
-# 	)
-
-# plt.close(fig)
+plt.close(fig)
