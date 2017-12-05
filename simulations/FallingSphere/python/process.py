@@ -90,6 +90,10 @@ dgray = [0.4, 0.4, 0.4]
 lgray = [0.8, 0.8, 0.8]
 llgray = [0.9, 0.9, 0.9]
 
+potentialEnergy = [propertyValue["Mass"][0] * norm(gravity) * h for h in propertyValue["Position - Y"]]
+kineticEnergy = propertyValue["kineticEnergy"]
+mechanicalEnergy = [p + k for p, k in zip(potentialEnergy, kineticEnergy)]
+
 ########################### Y POSITION
 
 fig = plt.figure(
@@ -657,7 +661,57 @@ plt.close(fig)
 ########################### LINEAR REGRESSION
 print('Coefficients: ', np.polyfit(np.log(Dt_vec), np.log(maxError), 1))
 
-########################### INITIAL ERROR
+# ########################### KINETIC ENERGY
+# normal size
+fig = plt.figure(
+	figsize=(normalwidth, normalheight),
+	facecolor='w',
+	edgecolor='k')
+
+ax = fig.add_subplot(111)
+
+if len(timeInstant) > 100:
+	ax.plot(
+		timeInstant,
+		kineticEnergy,
+		color = 'red',
+		label = 'Energia cinética da partícula',
+		# marker = '.',
+		linewidth = normallinewidth
+		)
+else:
+	ax.plot(
+		timeInstant,
+		kineticEnergy,
+		color = 'red',
+		label = 'Energia cinética da partícula',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
+
+ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+outputFolder = paths.getSimulationPlotsOutputFolder()
+filename = "kinetic_energy_normal"
+extension = ".pdf"
+ax.set_xscale('linear')
+ax.set_yscale('linear')
+
+plt.xlim( min(timeInstant), max(timeInstant) )
+
+ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+lgd.get_frame().set_facecolor(llgray)
+lgd.get_frame().set_edgecolor(dgray)
+ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Energia cinética da partícula [J]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+plt.close(fig)
+
+# small size
 fig = plt.figure(
 	figsize=(smallwidth, smallheight),
 	facecolor='w',
@@ -665,90 +719,142 @@ fig = plt.figure(
 
 ax = fig.add_subplot(111)
 
-ax.plot(
-	Dt_vec,
-	maxError,
-	color = 'red',
-	label = 'Erro Inicial',
-	marker = '.',
-	linestyle="None",
-	markersize = normalmarkersize
-	)
-	
+if len(timeInstant) > 100:
+	ax.plot(
+		timeInstant,
+		kineticEnergy,
+		color = 'red',
+		label = 'Energia cinética da partícula',
+		# marker = '.',
+		linewidth = normallinewidth
+		)
+else:
+	ax.plot(
+		timeInstant,
+		kineticEnergy,
+		color = 'red',
+		label = 'Energia cinética da partícula',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
+
+ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
 outputFolder = paths.getSimulationPlotsOutputFolder()
-filename = "initial_error"
+filename = "kinetic_energy_small"
 extension = ".pdf"
-
-ax.grid(visible=True , which='major' , color=lgray)
-
 ax.set_xscale('linear')
 ax.set_yscale('linear')
 
+plt.xlim( min(timeInstant), max(timeInstant) )
+
 ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
 ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
-
-handles, labels = ax.get_legend_handles_labels()
-handle_list, label_list = [], []
-for handle, label in zip(handles, labels):
-    if label not in label_list:
-        handle_list.append(handle)
-        label_list.append(label)
-# lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': 'normal'})
-ax.set_xlabel('Passo de Tempo [s]', fontdict={'size': normalfontsize, 'family': family})
-ax.set_ylabel('Erro Inicial da Altura [m]', fontdict={'size': normalfontsize, 'family': family})
-# lgd.set_title("Legenda", prop={'size': normalfontsize, 'family': family, 'weight': 'normal'})
-
+lgd.get_frame().set_facecolor(llgray)
+lgd.get_frame().set_edgecolor(dgray)
+ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Energia cinética da partícula [J]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
 plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
 plt.close(fig)
 
-########################### MARGINAL ERROR
-# for i in range(len(Dt_vec)):
-# 	Dt = Dt_vec[i]
-# 	timeInstant = timeVector[i]
-# 	marginalError = marginalErrorVec[i]
-# 	print(timeInstant)
-# 	print(marginalError)
+# ########################### MECHANICAL ENERGY
+# normal size 
+fig = plt.figure(
+	figsize=(normalwidth, normalheight),
+	facecolor='w',
+	edgecolor='k')
 
-# 	fig = plt.figure(
-# 		figsize=(smallwidth, smallheight),
-# 		facecolor='w',
-# 		edgecolor='k')
+ax = fig.add_subplot(111)
 
-# 	ax = fig.add_subplot(111)
+if len(timeInstant) > 100:
+	ax.plot(
+		timeInstant,
+		mechanicalEnergy,
+		color = 'red',
+		label = 'Energia mecânica da partícula',
+		# marker = '.',
+		linewidth = normallinewidth
+		)
+else:
+	ax.plot(
+		timeInstant,
+		mechanicalEnergy,
+		color = 'red',
+		label = 'Energia mecânica da partícula',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
 
-# 	ax.plot(
-# 		timeInstant[1:],
-# 		marginalError,
-# 		color = 'red',
-# 		label = 'Erro Marginal',
-# 		marker = '.',
-# 		linestyle="None",
-# 		markersize = normalmarkersize
-# 		)
-		
-# 	outputFolder = paths.getSimulationPlotsOutputFolder()
-# 	filename = "marginal_error_" + str(Dt)
-# 	extension = ".pdf"
+ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
 
-# 	ax.grid(visible=True , which='major' , color=lgray)
+outputFolder = paths.getSimulationPlotsOutputFolder()
+filename = "mechanical_energy_normal"
+extension = ".pdf"
+ax.set_xscale('linear')
+ax.set_yscale('linear')
 
-# 	ax.set_xscale('linear')
-# 	ax.set_yscale('linear')
+plt.xlim( min(timeInstant), max(timeInstant) )
 
-# 	ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
-# 	ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+lgd.get_frame().set_facecolor(llgray)
+lgd.get_frame().set_edgecolor(dgray)
+ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Energia mecânica da partícula [J]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
-# 	handles, labels = ax.get_legend_handles_labels()
-# 	handle_list, label_list = [], []
-# 	for handle, label in zip(handles, labels):
-# 	    if label not in label_list:
-# 	        handle_list.append(handle)
-# 	        label_list.append(label)
-# 	# lgd = ax.legend(handle_list, label_list, loc='best', prop={'size': smallfontsize, 'family': family, 'weight': 'normal'})
-# 	ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family})
-# 	ax.set_ylabel('Erro Marginal da Altura [m]', fontdict={'size': normalfontsize, 'family': family})
-# 	# lgd.set_title("Legenda", prop={'size': normalfontsize, 'family': family, 'weight': 'normal'})
+plt.close(fig)
 
-# 	plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
-# 	plt.close(fig)
+# small size 
+fig = plt.figure(
+	figsize=(smallwidth, smallheight),
+	facecolor='w',
+	edgecolor='k')
+
+ax = fig.add_subplot(111)
+
+if len(timeInstant) > 100:
+	ax.plot(
+		timeInstant,
+		mechanicalEnergy,
+		color = 'red',
+		label = 'Energia mecânica da partícula',
+		# marker = '.',
+		linewidth = normallinewidth
+		)
+else:
+	ax.plot(
+		timeInstant,
+		mechanicalEnergy,
+		color = 'red',
+		label = 'Energia mecânica da partícula',
+		marker = '.',
+		linestyle="None",
+		# linewidth = normallinewidth,
+		markersize = normalmarkersize
+		)
+
+ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
+
+outputFolder = paths.getSimulationPlotsOutputFolder()
+filename = "mechanical_energy_small"
+extension = ".pdf"
+ax.set_xscale('linear')
+ax.set_yscale('linear')
+
+plt.xlim( min(timeInstant), max(timeInstant) )
+
+ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
+ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
+lgd.get_frame().set_facecolor(llgray)
+lgd.get_frame().set_edgecolor(dgray)
+ax.set_xlabel('Tempo [s]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+ax.set_ylabel('Energia mecânica da partícula [J]', fontdict={'size': normalfontsize, 'family': family, 'weight': weight})
+plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
+
+plt.close(fig)

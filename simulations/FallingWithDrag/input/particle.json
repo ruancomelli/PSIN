@@ -8,15 +8,7 @@
 	"Radius": 0.03,
 	"MomentOfInertia": 3.6e-4,
 
-	"Position": [0.0, 0.0, 0.0],
-	"Velocity": [10.0, 5.0, 0.0],
-	"Acceleration": [0.0, 0.0, 0.0],
-
-	"OrientationMatrix":
-	[
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0],
-		[0.0, 0.0, 0.0]
-	]
+	"Position": [0.0, 8000.0, 0.0],
+	"Velocity": [0.0, 0.0, 0.0],
+	"Acceleration": [0.0, 0.0, 0.0]
 }
