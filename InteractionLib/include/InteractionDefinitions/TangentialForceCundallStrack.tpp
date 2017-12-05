@@ -26,6 +26,7 @@ namespace psin {
 template<typename...Ts, typename...Us, typename Time>
 void TangentialForceCundallStrack::calculate(SphericalParticle<Ts...> & particle, SphericalParticle<Us...> & neighbor, Time&& time)
 {
+	// std::cout << "Calculating TangentialForceCundallStrack" << std::endl; // DEBUG
 
 	if( touch(particle, neighbor) )
 	{

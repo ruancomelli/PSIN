@@ -53,7 +53,6 @@ public:
 	static void setFile(const path & filepath);
 
 	static void finish();
-
 private:
 	template<typename Particle, typename Neighbor, typename Time>
 	static void startCollision(const Particle & particle, const Neighbor & neighbor, const Time & t);
@@ -74,6 +73,7 @@ private:
 	static std::pair<string, string> makeNamePair(const Particle & particle, const Neighbor & neighbor);
 
 	static bool firstPrint;
+	static bool initialized;
 };
 
 template<typename I>

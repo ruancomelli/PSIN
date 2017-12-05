@@ -13,13 +13,17 @@ std::map<CoefficientOfRestitutionCalculator::name_pair, double> CoefficientOfRes
 std::map<CoefficientOfRestitutionCalculator::name_pair, CoefficientOfRestitutionCalculator::velocities_t> CoefficientOfRestitutionCalculator::velocities;
 unique_ptr<std::fstream> CoefficientOfRestitutionCalculator::file;
 bool CoefficientOfRestitutionCalculator::firstPrint = true;
+bool CoefficientOfRestitutionCalculator::initialized = false;
 
 template<> const std::string NamedType<CoefficientOfRestitutionCalculator>::name = "CoefficientOfRestitutionCalculator";
 
 template<>
 void initializeInteraction<CoefficientOfRestitutionCalculator>(const json & j)
 {
-	if(j.count("path") > 0) CoefficientOfRestitutionCalculator::setFile(j.at("path").get<path>());
+	if(j.count("path") > 0)
+	{
+		CoefficientOfRestitutionCalculator::setFile(j.at("path").get<path>());
+	}
 }
 
 template<>
@@ -32,11 +36,12 @@ void CoefficientOfRestitutionCalculator::setFile(const path & filepath)
 {
 	file = make_unique<std::fstream>(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
 	*file << "[\n";
+	initialized = true;
 }
 
 void CoefficientOfRestitutionCalculator::finish()
 {
-	*file << "\n]";
+	if(initialized) *file << "\n]";
 }
 
 } // psin
