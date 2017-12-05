@@ -483,7 +483,8 @@ struct open_particle_file
 
 			fileTree["output"]["particle"][particle.getName()] = particleOutputPath;
 			particleFileMap[particle.getName()] = make_unique<std::fstream>(particleOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-			*particleFileMap[particle.getName()] << json().dump();
+			// *particleFileMap[particle.getName()] << json().dump();
+			*particleFileMap[particle.getName()] << "[" << std::flush;			
 		}
 	}
 };
@@ -501,7 +502,8 @@ struct open_boundary_file
 
 			fileTree["output"]["boundary"][boundary.getName()] = boundaryOutputPath;
 			boundaryFileMap[boundary.getName()] = make_unique<std::fstream>(boundaryOutputPath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-			*boundaryFileMap[boundary.getName()] << json().dump();
+			// *boundaryFileMap[boundary.getName()] << json().dump();
+			*boundaryFileMap[boundary.getName()] << "[" << std::flush;
 		}
 	}
 };
@@ -523,7 +525,9 @@ void Simulator<
 {
 	path timeVectorOutputFilePath = fileTree["output"]["main"] / path("timeVector.json");
 	mainFileMap["timeVector"] = make_unique<std::fstream>(timeVectorOutputFilePath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-	*mainFileMap["timeVector"] << json().dump();
+	// *mainFileMap["timeVector"] << json().dump();
+	*mainFileMap["timeVector"] << "[" << std::flush;
+
 
 	mp::visit<ParticleList, detail::open_particle_file>::call_same(particles, fileTree, particleFileMap);
 	mp::visit<BoundaryList, detail::open_boundary_file>::call_same(boundaries, fileTree, boundaryFileMap);
@@ -773,17 +777,28 @@ void Simulator<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportTime()
+>::exportTime(const bool first)
 {
-	json fileContent;
+	// json fileContent;
 
-	path filepath = fileTree["output"]["main"] / path("timeVector.json");
-	mainFileMap["timeVector"]->seekg(0); // rewinds the file
-	*mainFileMap["timeVector"] >> fileContent;
-	mainFileMap["timeVector"]->close();
+	// path filepath = fileTree["output"]["main"] / path("timeVector.json");
+	// mainFileMap["timeVector"]->seekg(0); // rewinds the file
+	// *mainFileMap["timeVector"] >> fileContent;
+	// mainFileMap["timeVector"]->close();
 
-	mainFileMap["timeVector"]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-	*mainFileMap["timeVector"] << merge(std::move(fileContent), timeJsonVector).dump(4) << std::flush;
+	// mainFileMap["timeVector"]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+	// *mainFileMap["timeVector"] << merge(std::move(fileContent), timeJsonVector).dump(4) << std::flush;
+
+	if(first) *mainFileMap["timeVector"] << '\n' << std::flush;
+	else if(not timeJsonVector.empty()) *mainFileMap["timeVector"] << ",\n" << std::flush;
+
+	bool firstVectorElement = true;
+	for(auto&& j : timeJsonVector)
+	{
+		if(firstVectorElement) *mainFileMap["timeVector"] << j.dump(4) << std::flush;
+		else *mainFileMap["timeVector"] << ",\n" << j.dump(4) << std::flush;
+		firstVectorElement = false;
+	}
 
 	timeJsonVector.clear();
 }
@@ -799,19 +814,30 @@ void Simulator<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportParticles()
+>::exportParticles(const bool first)
 {
 	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
 	{
-		json fileContent;
+		// json fileContent;
 
-		path filepath = fileTree["output"]["particle"][it->first].get<path>();
-		particleFileMap[it->first]->seekg(0); // rewinds the file
-		*particleFileMap[it->first] >> fileContent;
-		particleFileMap[it->first]->close();
+		// path filepath = fileTree["output"]["particle"][it->first].get<path>();
+		// particleFileMap[it->first]->seekg(0); // rewinds the file
+		// *particleFileMap[it->first] >> fileContent;
+		// particleFileMap[it->first]->close();
 
-		particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*particleFileMap[it->first] << merge(std::move(fileContent), it->second).dump(4) << std::flush;
+		// particleFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		// *particleFileMap[it->first] << merge(std::move(fileContent), it->second).dump(4) << std::flush;
+
+		if(first) *particleFileMap[it->first] << '\n' << std::flush;
+		else if(not it->second.empty())	*particleFileMap[it->first] << ",\n" << std::flush;
+
+		bool firstVectorElement = true;
+		for(auto&& j : it->second)
+		{
+			if(firstVectorElement) *particleFileMap[it->first] << j.dump(4) << std::flush;
+			else *particleFileMap[it->first] << ",\n" << j.dump(4) << std::flush;
+			firstVectorElement = false;
+		}
 
 		it->second.clear();
 	}
@@ -828,19 +854,30 @@ void Simulator<
 	InteractionList<InteractionTypes...>,
 	LooperList<GearLooper>,
 	SeekerList<BlindSeeker>
->::exportBoundaries()
+>::exportBoundaries(const bool first)
 {
 	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
 	{
-		json fileContent;
+		// json fileContent;
 
-		path filepath = fileTree["output"]["boundary"][it->first].get<path>();
-		boundaryFileMap[it->first]->seekg(0); // rewinds the file
-		*boundaryFileMap[it->first] >> fileContent;
-		boundaryFileMap[it->first]->close();
+		// path filepath = fileTree["output"]["boundary"][it->first].get<path>();
+		// boundaryFileMap[it->first]->seekg(0); // rewinds the file
+		// *boundaryFileMap[it->first] >> fileContent;
+		// boundaryFileMap[it->first]->close();
 
-		boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
-		*boundaryFileMap[it->first] << merge(std::move(fileContent), it->second).dump(4) << std::flush;
+		// boundaryFileMap[it->first]->open(filepath.string(), std::ios::in | std::ios::out | std::ios::trunc);
+		// *boundaryFileMap[it->first] << merge(std::move(fileContent), it->second).dump(4) << std::flush;
+
+		if(first) *boundaryFileMap[it->first] << '\n' << std::flush;
+		else if(not it->second.empty()) *boundaryFileMap[it->first] << ",\n" << std::flush;
+			
+		bool firstVectorElement = true;
+		for(auto&& j : it->second)
+		{
+			if(firstVectorElement) *boundaryFileMap[it->first] << j.dump(4) << std::flush;
+			else *boundaryFileMap[it->first] << ",\n" << j.dump(4) << std::flush;
+			firstVectorElement = false;
+		}
 
 		it->second.clear();
 	}
@@ -929,6 +966,8 @@ void Simulator<
 		<< boost::typeindex::type_id_with_cvr<InteractionParticleBoundaryTriplets>().pretty_name() 
 		<< std::endl; // DEBUG
 
+	bool first = true;
+
 	for(time.start(); !time.end(); time.update())
 	{
 		if(this->printTime) std::cout << time.as_json() << std::endl;
@@ -942,9 +981,10 @@ void Simulator<
 
 			if(storagesForWritingCounter == 0)
 			{
-				exportTime();
-				exportParticles();
-				exportBoundaries();
+				exportTime(first);
+				exportParticles(first);
+				exportBoundaries(first);
+				first = false;
 			}
 			storagesForWritingCounter = (storagesForWritingCounter + 1) % storagesForWriting;
 		}
@@ -1000,9 +1040,19 @@ void Simulator<
 	SeekerList<BlindSeeker>
 >::endSimulation(const Time & time)
 {
-	exportTime();
-	exportParticles();
-	exportBoundaries();
+	exportTime(false);
+	exportParticles(false);
+	exportBoundaries(false);
+
+	*mainFileMap["timeVector"] << "]" << std::endl;
+	for(auto&& it = particleJsonMap.begin(); it != particleJsonMap.end(); ++it)
+	{
+		*particleFileMap[it->first] << "]" << std::endl;
+	}
+	for(auto&& it = boundaryJsonMap.begin(); it != boundaryJsonMap.end(); ++it)
+	{
+		*boundaryFileMap[it->first] << "]" << std::endl;
+	}
 
 	mp::for_each< mp::provide_indices<InteractionList> >(
 	[&, this](auto Index)

@@ -74,9 +74,9 @@ public:
 	void backupParticles() const;
 	void backupBoundaries() const;
 
-	void exportTime();
-	void exportParticles();
-	void exportBoundaries();
+	void exportTime(const bool first);
+	void exportParticles(const bool first);
+	void exportBoundaries(const bool first);
 
 	void printSuccessMessage() const;
 
