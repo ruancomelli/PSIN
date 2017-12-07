@@ -31,29 +31,29 @@ void to_json(json& j, const Particle<Prs...> & p)
 	j = merge(merge(jn, jph), js);
 
 	j["contactForce"] = p.getContactForce();
-	j["contactForce - X"] = p.getContactForce().x();
-	j["contactForce - Y"] = p.getContactForce().y();
-	j["contactForce - Z"] = p.getContactForce().z();
+	j["contactForce-X"] = p.getContactForce().x();
+	j["contactForce-Y"] = p.getContactForce().y();
+	j["contactForce-Z"] = p.getContactForce().z();
 	
 	j["resultingForce"] = p.getResultingForce();
-	j["resultingForce - X"] = p.getResultingForce().x();
-	j["resultingForce - Y"] = p.getResultingForce().y();
-	j["resultingForce - Z"] = p.getResultingForce().z();
+	j["resultingForce-X"] = p.getResultingForce().x();
+	j["resultingForce-Y"] = p.getResultingForce().y();
+	j["resultingForce-Z"] = p.getResultingForce().z();
 	
 	j["resultingTorque"] = p.getResultingTorque();
-	j["resultingTorque - X"] = p.getResultingTorque().x();
-	j["resultingTorque - Y"] = p.getResultingTorque().y();
-	j["resultingTorque - Z"] = p.getResultingTorque().z();
+	j["resultingTorque-X"] = p.getResultingTorque().x();
+	j["resultingTorque-Y"] = p.getResultingTorque().y();
+	j["resultingTorque-Z"] = p.getResultingTorque().z();
 	
 	j["linearMomentum"] = p.getLinearMomentum();
-	j["linearMomentum - X"] = p.getLinearMomentum().x();
-	j["linearMomentum - Y"] = p.getLinearMomentum().y();
-	j["linearMomentum - Z"] = p.getLinearMomentum().z();
+	j["linearMomentum-X"] = p.getLinearMomentum().x();
+	j["linearMomentum-Y"] = p.getLinearMomentum().y();
+	j["linearMomentum-Z"] = p.getLinearMomentum().z();
 	
 	j["angularMomentum"] = p.getAngularMomentum();
-	j["angularMomentum - X"] = p.getAngularMomentum().x();
-	j["angularMomentum - Y"] = p.getAngularMomentum().y();
-	j["angularMomentum - Z"] = p.getAngularMomentum().z();
+	j["angularMomentum-X"] = p.getAngularMomentum().x();
+	j["angularMomentum-Y"] = p.getAngularMomentum().y();
+	j["angularMomentum-Z"] = p.getAngularMomentum().z();
 	
 	j["kineticEnergy"] = p.getKineticEnergy();
 	j["translationalEnergy"] = p.getTranslationalEnergy();
