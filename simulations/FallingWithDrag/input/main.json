@@ -1,7 +1,7 @@
 {
 	"InitialInstant": 0.0,
 	"TimeStep": 1e-1,
-	"FinalInstant": 75,
+	"FinalInstant": 40.05,
 	"StepsForStoring": 10,
 	"StoragesForWriting": 1,
 	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/FallingWithDrag/output",

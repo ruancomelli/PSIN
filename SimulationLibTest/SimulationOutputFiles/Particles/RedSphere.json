@@ -108,7 +108,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.1,
             "linearMomentum": [
@@ -250,7 +250,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.100270711255494,
             "linearMomentum": [
@@ -392,7 +392,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.100633430944631,
             "linearMomentum": [
@@ -534,7 +534,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.100998206440984,
             "linearMomentum": [
@@ -676,7 +676,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.101365060183165,
             "linearMomentum": [
@@ -818,7 +818,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.101734014877443,
             "linearMomentum": [
@@ -960,7 +960,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.102105093576803,
             "linearMomentum": [
@@ -1102,7 +1102,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.102478319687753,
             "linearMomentum": [
@@ -1244,7 +1244,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.102853716977288,
             "linearMomentum": [
@@ -1386,7 +1386,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.103231309580021,
             "linearMomentum": [
@@ -1528,7 +1528,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.103611122005487,
             "linearMomentum": [
@@ -1670,7 +1670,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.103993179145632,
             "linearMomentum": [
@@ -1812,7 +1812,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.104377506282467,
             "linearMomentum": [
@@ -1954,7 +1954,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.104764129095931,
             "linearMomentum": [
@@ -2096,7 +2096,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.105153073671928,
             "linearMomentum": [
@@ -2238,7 +2238,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.105544366510576,
             "linearMomentum": [
@@ -2380,7 +2380,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.105938034534653,
             "linearMomentum": [
@@ -2522,7 +2522,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.106334105098256,
             "linearMomentum": [
@@ -2664,7 +2664,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.106732605995677,
             "linearMomentum": [
@@ -2806,7 +2806,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.107133565470498,
             "linearMomentum": [
@@ -2948,7 +2948,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.107537012224924,
             "linearMomentum": [
@@ -3090,7 +3090,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.107942975429339,
             "linearMomentum": [
@@ -3232,7 +3232,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.108351484732122,
             "linearMomentum": [
@@ -3374,7 +3374,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.108762570269697,
             "linearMomentum": [
@@ -3516,7 +3516,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.109176262676853,
             "linearMomentum": [
@@ -3658,7 +3658,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.109592593097327,
             "linearMomentum": [
@@ -3800,7 +3800,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.110011593194655,
             "linearMomentum": [
@@ -3942,7 +3942,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.110433295163316,
             "linearMomentum": [
@@ -4084,7 +4084,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.110857731740157,
             "linearMomentum": [
@@ -4226,7 +4226,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.111284936216126,
             "linearMomentum": [
@@ -4368,7 +4368,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.111714942448309,
             "linearMomentum": [
@@ -4510,7 +4510,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.112147784872287,
             "linearMomentum": [
@@ -4652,7 +4652,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.112583498514826,
             "linearMomentum": [
@@ -4794,7 +4794,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.113022119006897,
             "linearMomentum": [
@@ -4936,7 +4936,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.113463682597057,
             "linearMomentum": [
@@ -5078,7 +5078,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.113908226165183,
             "linearMomentum": [
@@ -5220,7 +5220,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.114355787236579,
             "linearMomentum": [
@@ -5362,7 +5362,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.114806403996473,
             "linearMomentum": [
@@ -5504,7 +5504,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.115260115304903,
             "linearMomentum": [
@@ -5646,7 +5646,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.115716960712016,
             "linearMomentum": [
@@ -5788,7 +5788,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.116176980473793,
             "linearMomentum": [
@@ -5930,7 +5930,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.1166402155682,
             "linearMomentum": [
@@ -6072,7 +6072,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.117106707711801,
             "linearMomentum": [
@@ -6214,7 +6214,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.117576499376829,
             "linearMomentum": [
@@ -6356,7 +6356,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.11804963380874,
             "linearMomentum": [
@@ -6498,7 +6498,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.118526155044263,
             "linearMomentum": [
@@ -6640,7 +6640,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.119006107929965,
             "linearMomentum": [
@@ -6782,7 +6782,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.119489538141342,
             "linearMomentum": [
@@ -6924,7 +6924,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.119976492202459,
             "linearMomentum": [
@@ -7066,7 +7066,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.120467017506162,
             "linearMomentum": [
@@ -7208,7 +7208,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.120961162334868,
             "linearMomentum": [
@@ -7350,7 +7350,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.121458975881963,
             "linearMomentum": [
@@ -7492,7 +7492,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.121960508273831,
             "linearMomentum": [
@@ -7634,7 +7634,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.122465810592523,
             "linearMomentum": [
@@ -7776,7 +7776,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.1229749348991,
             "linearMomentum": [
@@ -7918,7 +7918,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.123487934257673,
             "linearMomentum": [
@@ -8060,7 +8060,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.124004862760153,
             "linearMomentum": [
@@ -8202,7 +8202,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.124525775551752,
             "linearMomentum": [
@@ -8344,7 +8344,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.125050728857245,
             "linearMomentum": [
@@ -8486,7 +8486,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.125579780008034,
             "linearMomentum": [
@@ -8628,7 +8628,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.126112987470035,
             "linearMomentum": [
@@ -8770,7 +8770,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.126650410872418,
             "linearMomentum": [
@@ -8912,7 +8912,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.127192111037235,
             "linearMomentum": [
@@ -9054,7 +9054,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.127738150009956,
             "linearMomentum": [
@@ -9196,7 +9196,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.12828859109097,
             "linearMomentum": [
@@ -9338,7 +9338,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.128843498868054,
             "linearMomentum": [
@@ -9480,7 +9480,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.129402939249875,
             "linearMomentum": [
@@ -9622,7 +9622,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.129966979500546,
             "linearMomentum": [
@@ -9764,7 +9764,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.130535688275277,
             "linearMomentum": [
@@ -9906,7 +9906,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.131109135657171,
             "linearMomentum": [
@@ -10048,7 +10048,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.131687393195192,
             "linearMomentum": [
@@ -10190,7 +10190,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.13227053394337,
             "linearMomentum": [
@@ -10332,7 +10332,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.132858632501267,
             "linearMomentum": [
@@ -10474,7 +10474,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.133451765055771,
             "linearMomentum": [
@@ -10616,7 +10616,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.134050009424255,
             "linearMomentum": [
@@ -10758,7 +10758,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.134653445099165,
             "linearMomentum": [
@@ -10900,7 +10900,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.135262153294079,
             "linearMomentum": [
@@ -11042,7 +11042,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.13587621699131,
             "linearMomentum": [
@@ -11184,7 +11184,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.136495720991101,
             "linearMomentum": [
@@ -11326,7 +11326,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.137120751962473,
             "linearMomentum": [
@@ -11468,7 +11468,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.137751398495806,
             "linearMomentum": [
@@ -11610,7 +11610,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.138387751157205,
             "linearMomentum": [
@@ -11752,7 +11752,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.139029902544732,
             "linearMomentum": [
@@ -11894,7 +11894,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.139677947346578,
             "linearMomentum": [
@@ -12036,7 +12036,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.140331982401244,
             "linearMomentum": [
@@ -12178,7 +12178,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.140992106759828,
             "linearMomentum": [
@@ -12320,7 +12320,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.141658421750491,
             "linearMomentum": [
@@ -12462,7 +12462,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.142331031045196,
             "linearMomentum": [
@@ -12604,7 +12604,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.14301004072881,
             "linearMomentum": [
@@ -12746,7 +12746,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.143695559370679,
             "linearMomentum": [
@@ -12888,7 +12888,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.144387698098756,
             "linearMomentum": [
@@ -13030,7 +13030,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.145086570676416,
             "linearMomentum": [
@@ -13172,7 +13172,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.14579229358205,
             "linearMomentum": [
@@ -13314,7 +13314,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.14650498609156,
             "linearMomentum": [
@@ -13456,7 +13456,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.147224770363893,
             "linearMomentum": [
@@ -13598,7 +13598,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.147951771529718,
             "linearMomentum": [
@@ -13740,7 +13740,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.148686117783406,
             "linearMomentum": [
@@ -13882,7 +13882,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.14942794047844,
             "linearMomentum": [
@@ -14024,7 +14024,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.15017737422641,
             "linearMomentum": [
@@ -14166,7 +14166,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.150934556999751,
             "linearMomentum": [
@@ -14308,7 +14308,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.151699630238381,
             "linearMomentum": [
@@ -14450,7 +14450,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.152472738960419,
             "linearMomentum": [
@@ -14592,7 +14592,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.153254031877168,
             "linearMomentum": [
@@ -14734,7 +14734,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.154043661512532,
             "linearMomentum": [
@@ -14876,7 +14876,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.154841784327098,
             "linearMomentum": [
@@ -15018,7 +15018,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.155648560847063,
             "linearMomentum": [
@@ -15160,7 +15160,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.156464155798251,
             "linearMomentum": [
@@ -15302,7 +15302,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.157288738245426,
             "linearMomentum": [
@@ -15444,7 +15444,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.158122481737179,
             "linearMomentum": [
@@ -15586,7 +15586,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.158965564456605,
             "linearMomentum": [
@@ -15728,7 +15728,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.159818169378075,
             "linearMomentum": [
@@ -15870,7 +15870,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.160680484430363,
             "linearMomentum": [
@@ -16012,7 +16012,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.161552702666436,
             "linearMomentum": [
@@ -16154,7 +16154,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.162435022440225,
             "linearMomentum": [
@@ -16296,7 +16296,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.163327647590691,
             "linearMomentum": [
@@ -16438,7 +16438,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.164230787633555,
             "linearMomentum": [
@@ -16580,7 +16580,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.165144657961044,
             "linearMomentum": [
@@ -16722,7 +16722,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.166069480050041,
             "linearMomentum": [
@@ -16864,7 +16864,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.167005481679049,
             "linearMomentum": [
@@ -17006,7 +17006,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.167952897154397,
             "linearMomentum": [
@@ -17148,7 +17148,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.168911967546136,
             "linearMomentum": [
@@ -17290,7 +17290,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.169882940934103,
             "linearMomentum": [
@@ -17432,7 +17432,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.170866072664653,
             "linearMomentum": [
@@ -17574,7 +17574,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.171861625618593,
             "linearMomentum": [
@@ -17716,7 +17716,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.172869870490863,
             "linearMomentum": [
@@ -17858,7 +17858,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.17389108608257,
             "linearMomentum": [
@@ -18000,7 +18000,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.174925559605979,
             "linearMomentum": [
@@ -18142,7 +18142,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.175973587003122,
             "linearMomentum": [
@@ -18284,7 +18284,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.177035473278713,
             "linearMomentum": [
@@ -18426,7 +18426,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.178111532848109,
             "linearMomentum": [
@@ -18568,7 +18568,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.179202089901053,
             "linearMomentum": [
@@ -18710,7 +18710,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.180307478782057,
             "linearMomentum": [
@@ -18852,7 +18852,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.181428044388229,
             "linearMomentum": [
@@ -18994,7 +18994,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.182564142585488,
             "linearMomentum": [
@@ -19136,7 +19136,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.183716140644095,
             "linearMomentum": [
@@ -19278,7 +19278,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.184884417694503,
             "linearMomentum": [
@@ -19420,7 +19420,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.186069365204607,
             "linearMomentum": [
@@ -19562,7 +19562,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.18727138747948,
             "linearMomentum": [
@@ -19704,7 +19704,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.188490902184795,
             "linearMomentum": [
@@ -19846,7 +19846,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.189728340895166,
             "linearMomentum": [
@@ -19988,7 +19988,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.190984149668713,
             "linearMomentum": [
@@ -20130,7 +20130,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.192258789649236,
             "linearMomentum": [
@@ -20272,7 +20272,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.193552737697436,
             "linearMomentum": [
@@ -20414,7 +20414,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.19486648705273,
             "linearMomentum": [
@@ -20556,7 +20556,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.196200548027234,
             "linearMomentum": [
@@ -20698,7 +20698,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.197555448733641,
             "linearMomentum": [
@@ -20840,7 +20840,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.198931735848724,
             "linearMomentum": [
@@ -20982,7 +20982,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.200329975414357,
             "linearMomentum": [
@@ -21124,7 +21124,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.201750753677981,
             "linearMomentum": [
@@ -21266,7 +21266,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.20319467797456,
             "linearMomentum": [
@@ -21408,7 +21408,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.204662377652162,
             "linearMomentum": [
@@ -21550,7 +21550,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.206154505043373,
             "linearMomentum": [
@@ -21692,7 +21692,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.20767173648488,
             "linearMomentum": [
@@ -21834,7 +21834,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.209214773387597,
             "linearMomentum": [
@@ -21976,7 +21976,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.210784343359856,
             "linearMomentum": [
@@ -22118,7 +22118,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.212381201386202,
             "linearMomentum": [
@@ -22260,7 +22260,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.21400613106446,
             "linearMomentum": [
@@ -22402,7 +22402,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.215659945903762,
             "linearMomentum": [
@@ -22544,7 +22544,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.217343490686298,
             "linearMomentum": [
@@ -22686,7 +22686,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.219057642895589,
             "linearMomentum": [
@@ -22828,7 +22828,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.220803314214048,
             "linearMomentum": [
@@ -22970,7 +22970,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.222581452092644,
             "linearMomentum": [
@@ -23112,7 +23112,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.224393041395362,
             "linearMomentum": [
@@ -23254,7 +23254,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.226239106121092,
             "linearMomentum": [
@@ -23396,7 +23396,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.228120711205415,
             "linearMomentum": [
@@ -23538,7 +23538,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.230038964404523,
             "linearMomentum": [
@@ -23680,7 +23680,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.231995018263221,
             "linearMomentum": [
@@ -23822,7 +23822,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.233990072168537,
             "linearMomentum": [
@@ -23964,7 +23964,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.236025374489945,
             "linearMomentum": [
@@ -24106,7 +24106,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.238102224806531,
             "linearMomentum": [
@@ -24248,7 +24248,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.240221976220573,
             "linearMomentum": [
@@ -24390,7 +24390,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.242386037755913,
             "linearMomentum": [
@@ -24532,7 +24532,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.244595876838204,
             "linearMomentum": [
@@ -24674,7 +24674,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.246853021852399,
             "linearMomentum": [
@@ -24816,7 +24816,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.249159064770866,
             "linearMomentum": [
@@ -24958,7 +24958,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.251515663842975,
             "linearMomentum": [
@@ -25100,7 +25100,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.253924546333965,
             "linearMomentum": [
@@ -25242,7 +25242,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.256387511297171,
             "linearMomentum": [
@@ -25384,7 +25384,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.258906432359163,
             "linearMomentum": [
@@ -25526,7 +25526,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.261483260491855,
             "linearMomentum": [
@@ -25668,7 +25668,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.264120026738971,
             "linearMomentum": [
@@ -25810,7 +25810,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.266818844856214,
             "linearMomentum": [
@@ -25952,7 +25952,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.269581913814709,
             "linearMomentum": [
@@ -26094,7 +26094,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.27241152010554,
             "linearMomentum": [
@@ -26236,7 +26236,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.275310039768948,
             "linearMomentum": [
@@ -26378,7 +26378,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.278279940054637,
             "linearMomentum": [
@@ -26520,7 +26520,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.281323780598899,
             "linearMomentum": [
@@ -26662,7 +26662,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.28444421397934,
             "linearMomentum": [
@@ -26804,7 +26804,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.287643985477889,
             "linearMomentum": [
@@ -26946,7 +26946,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.290925931846548,
             "linearMomentum": [
@@ -27088,7 +27088,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.294292978826645,
             "linearMomentum": [
@@ -27230,7 +27230,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.297748137119821,
             "linearMomentum": [
@@ -27372,7 +27372,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.30129449644566,
             "linearMomentum": [
@@ -27514,7 +27514,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.304935217244763,
             "linearMomentum": [
@@ -27656,7 +27656,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.308673519494548,
             "linearMomentum": [
@@ -27798,7 +27798,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.312512667995128,
             "linearMomentum": [
@@ -27940,7 +27940,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.316455953350745,
             "linearMomentum": [
@@ -28082,7 +28082,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.320506667714255,
             "linearMomentum": [
@@ -28224,7 +28224,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.324668074173249,
             "linearMomentum": [
@@ -28366,7 +28366,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.328943368431078,
             "linearMomentum": [
@@ -28508,7 +28508,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.333335631168107,
             "linearMomentum": [
@@ -28650,7 +28650,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.337847769151108,
             "linearMomentum": [
@@ -28792,7 +28792,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.342482442784663,
             "linearMomentum": [
@@ -28934,7 +28934,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.347241977360314,
             "linearMomentum": [
@@ -29076,7 +29076,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.352128254750364,
             "linearMomentum": [
@@ -29218,7 +29218,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.357142581708456,
             "linearMomentum": [
@@ -29360,7 +29360,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.362285530276543,
             "linearMomentum": [
@@ -29502,7 +29502,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.367556745061516,
             "linearMomentum": [
@@ -29644,7 +29644,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.372954711348086,
             "linearMomentum": [
@@ -29786,7 +29786,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.378476477186007,
             "linearMomentum": [
@@ -29928,7 +29928,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.38411732178064,
             "linearMomentum": [
@@ -30070,7 +30070,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.389870361810959,
             "linearMomentum": [
@@ -30212,7 +30212,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.395726086831072,
             "linearMomentum": [
@@ -30354,7 +30354,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.4016718148798,
             "linearMomentum": [
@@ -30496,7 +30496,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.407691060117486,
             "linearMomentum": [
@@ -30638,7 +30638,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.413762806137395,
             "linearMomentum": [
@@ -30780,7 +30780,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.419860682113479,
             "linearMomentum": [
@@ -30922,7 +30922,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.425952044868168,
             "linearMomentum": [
@@ -31064,7 +31064,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.43199697916774,
             "linearMomentum": [
@@ -31206,7 +31206,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.437947242113312,
             "linearMomentum": [
@@ -31348,7 +31348,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.443745196462597,
             "linearMomentum": [
@@ -31490,7 +31490,7 @@
                 0.0
             ],
             "contactForce - X": 0.680593078750829,
-            "contactForce - Y": 3.26894385314047,
+            "contactForce-Y": 3.26894385314047,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.449173798926771,
             "linearMomentum": [
@@ -31632,7 +31632,7 @@
                 0.0
             ],
             "contactForce - X": 2.57960418529807,
-            "contactForce - Y": 9.7483692176191,
+            "contactForce-Y": 9.7483692176191,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.453678396957984,
             "linearMomentum": [
@@ -31774,7 +31774,7 @@
                 0.0
             ],
             "contactForce - X": 5.68601236067605,
-            "contactForce - Y": 17.4702849401488,
+            "contactForce-Y": 17.4702849401488,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.456999098839462,
             "linearMomentum": [
@@ -31916,7 +31916,7 @@
                 0.0
             ],
             "contactForce - X": 9.96244078463988,
-            "contactForce - Y": 25.4469644625376,
+            "contactForce-Y": 25.4469644625376,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.459109852394858,
             "linearMomentum": [
@@ -32058,7 +32058,7 @@
                 0.0
             ],
             "contactForce - X": 15.2350135484504,
-            "contactForce - Y": 32.8626981473019,
+            "contactForce-Y": 32.8626981473019,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.460159457041148,
             "linearMomentum": [
@@ -32200,7 +32200,7 @@
                 0.0
             ],
             "contactForce - X": 21.1794827483065,
-            "contactForce - Y": 39.0185020198028,
+            "contactForce-Y": 39.0185020198028,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.460425332791717,
             "linearMomentum": [
@@ -32342,7 +32342,7 @@
                 0.0
             ],
             "contactForce - X": 27.333437102826,
-            "contactForce - Y": 43.3607564093986,
+            "contactForce-Y": 43.3607564093986,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.460243551193538,
             "linearMomentum": [
@@ -32484,7 +32484,7 @@
                 0.0
             ],
             "contactForce - X": 33.1346542730053,
-            "contactForce - Y": 45.5276068243413,
+            "contactForce-Y": 45.5276068243413,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.459921068396308,
             "linearMomentum": [
@@ -32626,7 +32626,7 @@
                 0.0
             ],
             "contactForce - X": 37.9837498349177,
-            "contactForce - Y": 45.386570699378,
+            "contactForce-Y": 45.386570699378,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.459646745277994,
             "linearMomentum": [
@@ -32768,7 +32768,7 @@
                 0.0
             ],
             "contactForce - X": 41.3230776351213,
-            "contactForce - Y": 43.0470995932608,
+            "contactForce-Y": 43.0470995932608,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.459421778880943,
             "linearMomentum": [
@@ -32910,7 +32910,7 @@
                 0.0
             ],
             "contactForce - X": 42.7180512003753,
-            "contactForce - Y": 38.8399759164918,
+            "contactForce-Y": 38.8399759164918,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.459027901868647,
             "linearMomentum": [
@@ -33052,7 +33052,7 @@
                 0.0
             ],
             "contactForce - X": 41.9246890948652,
-            "contactForce - Y": 33.2647137050333,
+            "contactForce-Y": 33.2647137050333,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.458043824662531,
             "linearMomentum": [
@@ -33194,7 +33194,7 @@
                 0.0
             ],
             "contactForce - X": 38.9299228101657,
-            "contactForce - Y": 26.914879268054,
+            "contactForce-Y": 26.914879268054,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.455909135882559,
             "linearMomentum": [
@@ -33336,7 +33336,7 @@
                 0.0
             ],
             "contactForce - X": 33.9585027065029,
-            "contactForce - Y": 20.3966184667849,
+            "contactForce-Y": 20.3966184667849,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.452023598549813,
             "linearMomentum": [
@@ -33478,7 +33478,7 @@
                 0.0
             ],
             "contactForce - X": 27.4497422942731,
-            "contactForce - Y": 14.2560313392498,
+            "contactForce-Y": 14.2560313392498,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.445861927531423,
             "linearMomentum": [
@@ -33620,7 +33620,7 @@
                 0.0
             ],
             "contactForce - X": 20.0163014651743,
-            "contactForce - Y": 8.92702297539757,
+            "contactForce-Y": 8.92702297539757,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.437082203523359,
             "linearMomentum": [
@@ -33762,7 +33762,7 @@
                 0.0
             ],
             "contactForce - X": 12.4060939796971,
-            "contactForce - Y": 4.7055263399966,
+            "contactForce-Y": 4.7055263399966,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.425611233859101,
             "linearMomentum": [
@@ -33904,7 +33904,7 @@
                 0.0
             ],
             "contactForce - X": 5.50904673657764,
-            "contactForce - Y": 1.75311615262457,
+            "contactForce-Y": 1.75311615262457,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.411703873249476,
             "linearMomentum": [
@@ -34046,7 +34046,7 @@
                 0.0
             ],
             "contactForce - X": 0.596125537632989,
-            "contactForce - Y": 0.156140963008077,
+            "contactForce-Y": 0.156140963008077,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.39601189819942,
             "linearMomentum": [
@@ -34188,7 +34188,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.379893593279327,
             "linearMomentum": [
@@ -34330,7 +34330,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.364400096897503,
             "linearMomentum": [
@@ -34472,7 +34472,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.349567093440844,
             "linearMomentum": [
@@ -34614,7 +34614,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.335395087630034,
             "linearMomentum": [
@@ -34756,7 +34756,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.321876013974101,
             "linearMomentum": [
@@ -34898,7 +34898,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.308995359380646,
             "linearMomentum": [
@@ -35040,7 +35040,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.296733922427947,
             "linearMomentum": [
@@ -35182,7 +35182,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.285069242414779,
             "linearMomentum": [
@@ -35324,7 +35324,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.273976740530576,
             "linearMomentum": [
@@ -35466,7 +35466,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.263430616345246,
             "linearMomentum": [
@@ -35608,7 +35608,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.253404540469988,
             "linearMomentum": [
@@ -35750,7 +35750,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.243872180196563,
             "linearMomentum": [
@@ -35892,7 +35892,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.23480759018364,
             "linearMomentum": [
@@ -36034,7 +36034,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.226185495448385,
             "linearMomentum": [
@@ -36176,7 +36176,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.217981489398065,
             "linearMomentum": [
@@ -36318,7 +36318,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.21017216558092,
             "linearMomentum": [
@@ -36460,7 +36460,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.202735198315989,
             "linearMomentum": [
@@ -36602,7 +36602,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.195649384378009,
             "linearMomentum": [
@@ -36744,7 +36744,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.188894655428832,
             "linearMomentum": [
@@ -36886,7 +36886,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.182452068845771,
             "linearMomentum": [
@@ -37028,7 +37028,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.176303782939111,
             "linearMomentum": [
@@ -37170,7 +37170,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.170433021215989,
             "linearMomentum": [
@@ -37312,7 +37312,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.164824029281061,
             "linearMomentum": [
@@ -37454,7 +37454,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.159462027117687,
             "linearMomentum": [
@@ -37596,7 +37596,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.154333158825231,
             "linearMomentum": [
@@ -37738,7 +37738,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.149424441363822,
             "linearMomentum": [
@@ -37880,7 +37880,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.144723713448795,
             "linearMomentum": [
@@ -38022,7 +38022,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.140219585419502,
             "linearMomentum": [
@@ -38164,7 +38164,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.135901390662162,
             "linearMomentum": [
@@ -38306,7 +38306,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.131759138978623,
             "linearMomentum": [
@@ -38448,7 +38448,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.127783472150024,
             "linearMomentum": [
@@ -38590,7 +38590,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.1239656218366,
             "linearMomentum": [
@@ -38732,7 +38732,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.120297369874526,
             "linearMomentum": [
@@ -38874,7 +38874,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.116771010971589,
             "linearMomentum": [
@@ -39016,7 +39016,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.113379317760853,
             "linearMomentum": [
@@ -39158,7 +39158,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.110115508141416,
             "linearMomentum": [
@@ -39300,7 +39300,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.106973214815025,
             "linearMomentum": [
@@ -39442,7 +39442,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.103946456914276,
             "linearMomentum": [
@@ -39584,7 +39584,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.101029613610642,
             "linearMomentum": [
@@ -39726,7 +39726,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.098217399587146,
             "linearMomentum": [
@@ -39868,7 +39868,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0955048422601913,
             "linearMomentum": [
@@ -40010,7 +40010,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0928872606368481,
             "linearMomentum": [
@@ -40152,7 +40152,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0903602456972753,
             "linearMomentum": [
@@ -40294,7 +40294,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0879196421963695,
             "linearMomentum": [
@@ -40436,7 +40436,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0855615317838106,
             "linearMomentum": [
@@ -40578,7 +40578,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0832822173471484,
             "linearMomentum": [
@@ -40720,7 +40720,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0810782084882237,
             "linearMomentum": [
@@ -40862,7 +40862,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0789462080488949,
             "linearMomentum": [
@@ -41004,7 +41004,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0768830996076269,
             "linearMomentum": [
@@ -41146,7 +41146,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0748859358739276,
             "linearMomentum": [
@@ -41288,7 +41288,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0729519279128181,
             "linearMomentum": [
@@ -41430,7 +41430,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0710784351364779,
             "linearMomentum": [
@@ -41572,7 +41572,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0692629560048843,
             "linearMomentum": [
@@ -41714,7 +41714,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0675031193816635,
             "linearMomentum": [
@@ -41856,7 +41856,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0657966764954845,
             "linearMomentum": [
@@ -41998,7 +41998,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0641414934611612,
             "linearMomentum": [
@@ -42140,7 +42140,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0625355443181932,
             "linearMomentum": [
@@ -42282,7 +42282,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0609769045477792,
             "linearMomentum": [
@@ -42424,7 +42424,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0594637450323951,
             "linearMomentum": [
@@ -42566,7 +42566,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0579943264248521,
             "linearMomentum": [
@@ -42708,7 +42708,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0565669938963573,
             "linearMomentum": [
@@ -42850,7 +42850,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0551801722354977,
             "linearMomentum": [
@@ -42992,7 +42992,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0538323612722827,
             "linearMomentum": [
@@ -43134,7 +43134,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0525221316034098,
             "linearMomentum": [
@@ -43276,7 +43276,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0512481205967929,
             "linearMomentum": [
@@ -43418,7 +43418,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0500090286551081,
             "linearMomentum": [
@@ -43560,7 +43560,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0488036157196951,
             "linearMomentum": [
@@ -43702,7 +43702,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.047630697997601,
             "linearMomentum": [
@@ -43844,7 +43844,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0464891448958896,
             "linearMomentum": [
@@ -43986,7 +43986,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0453778761485621,
             "linearMomentum": [
@@ -44128,7 +44128,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0442958591225628,
             "linearMomentum": [
@@ -44270,7 +44270,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0432421062903751,
             "linearMomentum": [
@@ -44412,7 +44412,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0422156728576672,
             "linearMomentum": [
@@ -44554,7 +44554,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0412156545353157,
             "linearMomentum": [
@@ -44696,7 +44696,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0402411854459429,
             "linearMomentum": [
@@ -44838,7 +44838,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0392914361558391,
             "linearMomentum": [
@@ -44980,7 +44980,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0383656118238214,
             "linearMomentum": [
@@ -45122,7 +45122,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0374629504592072,
             "linearMomentum": [
@@ -45264,7 +45264,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0365827212816527,
             "linearMomentum": [
@@ -45406,7 +45406,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0357242231761407,
             "linearMomentum": [
@@ -45548,7 +45548,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0348867832368856,
             "linearMomentum": [
@@ -45690,7 +45690,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0340697553943784,
             "linearMomentum": [
@@ -45832,7 +45832,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0332725191202042,
             "linearMomentum": [
@@ -45974,7 +45974,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0324944782046508,
             "linearMomentum": [
@@ -46116,7 +46116,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0317350596024793,
             "linearMomentum": [
@@ -46258,7 +46258,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0309937123425513,
             "linearMomentum": [
@@ -46400,7 +46400,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0302699064973118,
             "linearMomentum": [
@@ -46542,7 +46542,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0295631322084012,
             "linearMomentum": [
@@ -46684,7 +46684,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0288728987649308,
             "linearMomentum": [
@@ -46826,7 +46826,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0281987337311897,
             "linearMomentum": [
@@ -46968,7 +46968,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0275401821207752,
             "linearMomentum": [
@@ -47110,7 +47110,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0268968056143387,
             "linearMomentum": [
@@ -47252,7 +47252,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0262681818183304,
             "linearMomentum": [
@@ -47394,7 +47394,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0256539035622998,
             "linearMomentum": [
@@ -47536,7 +47536,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0250535782324706,
             "linearMomentum": [
@@ -47678,7 +47678,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0244668271394596,
             "linearMomentum": [
@@ -47820,7 +47820,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0238932849181483,
             "linearMomentum": [
@@ -47962,7 +47962,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0233325989578452,
             "linearMomentum": [
@@ -48104,7 +48104,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.022784428860998,
             "linearMomentum": [
@@ -48246,7 +48246,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0222484459288238,
             "linearMomentum": [
@@ -48388,7 +48388,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0217243326723339,
             "linearMomentum": [
@@ -48530,7 +48530,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0212117823473216,
             "linearMomentum": [
@@ -48672,7 +48672,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.020710498511974,
             "linearMomentum": [
@@ -48814,7 +48814,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0202201946058522,
             "linearMomentum": [
@@ -48956,7 +48956,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.019740593549062,
             "linearMomentum": [
@@ -49098,7 +49098,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0192714273605087,
             "linearMomentum": [
@@ -49240,7 +49240,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0188124367941988,
             "linearMomentum": [
@@ -49382,7 +49382,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0183633709926151,
             "linearMomentum": [
@@ -49524,7 +49524,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0179239871562474,
             "linearMomentum": [
@@ -49666,7 +49666,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0174940502284194,
             "linearMomentum": [
@@ -49808,7 +49808,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0170733325946028,
             "linearMomentum": [
@@ -49950,7 +49950,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0166616137954561,
             "linearMomentum": [
@@ -50092,7 +50092,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0162586802528719,
             "linearMomentum": [
@@ -50234,7 +50234,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0158643250083583,
             "linearMomentum": [
@@ -50376,7 +50376,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0154783474731197,
             "linearMomentum": [
@@ -50518,7 +50518,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0151005531892357,
             "linearMomentum": [
@@ -50660,7 +50660,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0147307536013774,
             "linearMomentum": [
@@ -50802,7 +50802,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0143687658385259,
             "linearMomentum": [
@@ -50944,7 +50944,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0140144125051923,
             "linearMomentum": [
@@ -51086,7 +51086,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0136675214816657,
             "linearMomentum": [
@@ -51228,7 +51228,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0133279257328414,
             "linearMomentum": [
@@ -51370,7 +51370,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0129954631252072,
             "linearMomentum": [
@@ -51512,7 +51512,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0126699762515887,
             "linearMomentum": [
@@ -51654,7 +51654,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0123513122632769,
             "linearMomentum": [
@@ -51796,7 +51796,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0120393227091808,
             "linearMomentum": [
@@ -51938,7 +51938,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0117338633816695,
             "linearMomentum": [
@@ -52080,7 +52080,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0114347941687822,
             "linearMomentum": [
@@ -52222,7 +52222,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0111419789125069,
             "linearMomentum": [
@@ -52364,7 +52364,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0108552852728411,
             "linearMomentum": [
@@ -52506,7 +52506,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0105745845973623,
             "linearMomentum": [
@@ -52648,7 +52648,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.010299751796055,
             "linearMomentum": [
@@ -52790,7 +52790,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0100306652211483,
             "linearMomentum": [
@@ -52932,7 +52932,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00976720655173542,
             "linearMomentum": [
@@ -53074,7 +53074,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00950926068295643,
             "linearMomentum": [
@@ -53216,7 +53216,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00925671561953644,
             "linearMomentum": [
@@ -53358,7 +53358,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00900946237348344,
             "linearMomentum": [
@@ -53500,7 +53500,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00876739486575859,
             "linearMomentum": [
@@ -53642,7 +53642,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.008530409831742,
             "linearMomentum": [
@@ -53784,7 +53784,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00829840673032578,
             "linearMomentum": [
@@ -53926,7 +53926,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00807128765647428,
             "linearMomentum": [
@@ -54068,7 +54068,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0078489572570997,
             "linearMomentum": [
@@ -54210,7 +54210,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00763132265010869,
             "linearMomentum": [
@@ -54352,7 +54352,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0074182933464824,
             "linearMomentum": [
@@ -54494,7 +54494,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00720978117525947,
             "linearMomentum": [
@@ -54636,7 +54636,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00700570021129766,
             "linearMomentum": [
@@ -54778,7 +54778,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00680596670569569,
             "linearMomentum": [
@@ -54920,7 +54920,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00661049901876279,
             "linearMomentum": [
@@ -55062,7 +55062,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00641921755542863,
             "linearMomentum": [
@@ -55204,7 +55204,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00623204470299154,
             "linearMomentum": [
@@ -55346,7 +55346,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00604890477110751,
             "linearMomentum": [
@@ -55488,7 +55488,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00586972393392744,
             "linearMomentum": [
@@ -55630,7 +55630,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00569443017429401,
             "linearMomentum": [
@@ -55772,7 +55772,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00552295322991397,
             "linearMomentum": [
@@ -55914,7 +55914,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00535522454142522,
             "linearMomentum": [
@@ -56056,7 +56056,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00519117720228225,
             "linearMomentum": [
@@ -56198,7 +56198,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00503074591038635,
             "linearMomentum": [
@@ -56340,7 +56340,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00487386692139099,
             "linearMomentum": [
@@ -56482,7 +56482,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00472047800361537,
             "linearMomentum": [
@@ -56624,7 +56624,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00457051839450266,
             "linearMomentum": [
@@ -56766,7 +56766,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00442392875856177,
             "linearMomentum": [
@@ -56908,7 +56908,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00428065114673464,
             "linearMomentum": [
@@ -57050,7 +57050,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00414062895713342,
             "linearMomentum": [
@@ -57192,7 +57192,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00400380689709436,
             "linearMomentum": [
@@ -57334,7 +57334,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0038701309464975,
             "linearMomentum": [
@@ -57476,7 +57476,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00373954832230376,
             "linearMomentum": [
@@ -57618,7 +57618,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00361200744426271,
             "linearMomentum": [
@@ -57760,7 +57760,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00348745790174662,
             "linearMomentum": [
@@ -57902,7 +57902,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00336585042166821,
             "linearMomentum": [
@@ -58044,7 +58044,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00324713683744132,
             "linearMomentum": [
@@ -58186,7 +58186,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00313127005894544,
             "linearMomentum": [
@@ -58328,7 +58328,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00301820404345674,
             "linearMomentum": [
@@ -58470,7 +58470,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00290789376750976,
             "linearMomentum": [
@@ -58612,7 +58612,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00280029519965556,
             "linearMomentum": [
@@ -58754,7 +58754,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00269536527408323,
             "linearMomentum": [
@@ -58896,7 +58896,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00259306186507347,
             "linearMomentum": [
@@ -59038,7 +59038,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00249334376225387,
             "linearMomentum": [
@@ -59180,7 +59180,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00239617064662697,
             "linearMomentum": [
@@ -59322,7 +59322,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00230150306734332,
             "linearMomentum": [
@@ -59464,7 +59464,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00220930241919282,
             "linearMomentum": [
@@ -59606,7 +59606,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0021195309207888,
             "linearMomentum": [
@@ -59748,7 +59748,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00203215159342029,
             "linearMomentum": [
@@ -59890,7 +59890,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00194712824054889,
             "linearMomentum": [
@@ -60032,7 +60032,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00186442542792757,
             "linearMomentum": [
@@ -60174,7 +60174,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00178400846431976,
             "linearMomentum": [
@@ -60316,7 +60316,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00170584338279779,
             "linearMomentum": [
@@ -60458,7 +60458,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00162989692260065,
             "linearMomentum": [
@@ -60600,7 +60600,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00155613651153177,
             "linearMomentum": [
@@ -60742,7 +60742,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00148453024887838,
             "linearMomentum": [
@@ -60884,7 +60884,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00141504688883456,
             "linearMomentum": [
@@ -61026,7 +61026,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00134765582441092,
             "linearMomentum": [
@@ -61168,7 +61168,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00128232707181446,
             "linearMomentum": [
@@ -61310,7 +61310,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00121903125528282,
             "linearMomentum": [
@@ -61452,7 +61452,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0011577395923575,
             "linearMomentum": [
@@ -61594,7 +61594,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00109842387958178,
             "linearMomentum": [
@@ -61736,7 +61736,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00104105647860882,
             "linearMomentum": [
@@ -61878,7 +61878,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000985610302706721,
             "linearMomentum": [
@@ -62020,7 +62020,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000932058803647311,
             "linearMomentum": [
@@ -62162,7 +62162,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000880375958966112,
             "linearMomentum": [
@@ -62304,7 +62304,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000830536259581439,
             "linearMomentum": [
@@ -62446,7 +62446,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000782514697760931,
             "linearMomentum": [
@@ -62588,7 +62588,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000736286755424291,
             "linearMomentum": [
@@ -62730,7 +62730,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000691828392771434,
             "linearMomentum": [
@@ -62872,7 +62872,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.0006491160372256,
             "linearMomentum": [
@@ -63014,7 +63014,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000608126572681408,
             "linearMomentum": [
@@ -63156,7 +63156,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000568837329048152,
             "linearMomentum": [
@@ -63298,7 +63298,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000531226072079013,
             "linearMomentum": [
@@ -63440,7 +63440,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000495270993477187,
             "linearMomentum": [
@@ -63582,7 +63582,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00046095070127025,
             "linearMomentum": [
@@ -63724,7 +63724,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000428244210444386,
             "linearMomentum": [
@@ -63866,7 +63866,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000397130933830406,
             "linearMomentum": [
@@ -64008,7 +64008,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000367590673233772,
             "linearMomentum": [
@@ -64150,7 +64150,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000339603610801095,
             "linearMomentum": [
@@ -64292,7 +64292,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000313150300615868,
             "linearMomentum": [
@@ -64434,7 +64434,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000288211660516423,
             "linearMomentum": [
@@ -64576,7 +64576,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000264768964129347,
             "linearMomentum": [
@@ -64718,7 +64718,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000242803833111842,
             "linearMomentum": [
@@ -64860,7 +64860,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000222298229596715,
             "linearMomentum": [
@@ -65002,7 +65002,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000203234448833916,
             "linearMomentum": [
@@ -65144,7 +65144,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000185595112022738,
             "linearMomentum": [
@@ -65286,7 +65286,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000169363159329012,
             "linearMomentum": [
@@ -65428,7 +65428,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000154521843081784,
             "linearMomentum": [
@@ -65570,7 +65570,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000141054721144198,
             "linearMomentum": [
@@ -65712,7 +65712,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00012894565045343,
             "linearMomentum": [
@@ -65854,7 +65854,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000118178780724746,
             "linearMomentum": [
@@ -65996,7 +65996,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000108738548314869,
             "linearMomentum": [
@@ -66138,7 +66138,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000100609670240033,
             "linearMomentum": [
@@ -66280,7 +66280,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 9.37771383442523e-05,
             "linearMomentum": [
@@ -66422,7 +66422,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 8.82262136134569e-05,
             "linearMomentum": [
@@ -66564,7 +66564,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 8.39424206313178e-05,
             "linearMomentum": [
@@ -66706,7 +66706,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 8.09115421727017e-05,
             "linearMomentum": [
@@ -66848,7 +66848,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 7.91196139308343e-05,
             "linearMomentum": [
@@ -66990,7 +66990,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 7.85529193743767e-05,
             "linearMomentum": [
@@ -67132,7 +67132,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 7.91979847307422e-05,
             "linearMomentum": [
@@ -67274,7 +67274,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 8.10415740920975e-05,
             "linearMomentum": [
@@ -67416,7 +67416,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 8.40706846406069e-05,
             "linearMomentum": [
@@ -67558,7 +67558,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 8.82725419895887e-05,
             "linearMomentum": [
@@ -67700,7 +67700,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 9.36345956373549e-05,
             "linearMomentum": [
@@ -67842,7 +67842,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000100144514530613,
             "linearMomentum": [
@@ -67984,7 +67984,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000107790182734402,
             "linearMomentum": [
@@ -68126,7 +68126,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000116559695205633,
             "linearMomentum": [
@@ -68268,7 +68268,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000126441353667391,
             "linearMomentum": [
@@ -68410,7 +68410,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000137423662581254,
             "linearMomentum": [
@@ -68552,7 +68552,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000149495325214961,
             "linearMomentum": [
@@ -68694,7 +68694,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000162645239802837,
             "linearMomentum": [
@@ -68836,7 +68836,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000176862495796486,
             "linearMomentum": [
@@ -68978,7 +68978,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000192136370203319,
             "linearMomentum": [
@@ -69120,7 +69120,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000208456324010555,
             "linearMomentum": [
@@ -69262,7 +69262,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000225811998692431,
             "linearMomentum": [
@@ -69404,7 +69404,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000244193212798397,
             "linearMomentum": [
@@ -69546,7 +69546,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000263589958620152,
             "linearMomentum": [
@@ -69688,7 +69688,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000283992398935452,
             "linearMomentum": [
@@ -69830,7 +69830,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00030539086382665,
             "linearMomentum": [
@@ -69972,7 +69972,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000327775847572038,
             "linearMomentum": [
@@ -70114,7 +70114,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00035113800560807,
             "linearMomentum": [
@@ -70256,7 +70256,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.00037546815156063,
             "linearMomentum": [
@@ -70398,7 +70398,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000400757254343567,
             "linearMomentum": [
@@ -70540,7 +70540,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000426996435322741,
             "linearMomentum": [
@@ -70682,7 +70682,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000454176965543918,
             "linearMomentum": [
@@ -70824,7 +70824,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000482290263022861,
             "linearMomentum": [
@@ -70966,7 +70966,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000511327890096041,
             "linearMomentum": [
@@ -71108,7 +71108,7 @@
                 0.0
             ],
             "contactForce - X": 0.0,
-            "contactForce - Y": 0.0,
+            "contactForce-Y": 0.0,
             "contactForce - Z": 0.0,
             "kineticEnergy": 0.000541281550830422,
             "linearMomentum": [

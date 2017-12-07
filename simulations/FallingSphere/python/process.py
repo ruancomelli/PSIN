@@ -90,7 +90,7 @@ dgray = [0.4, 0.4, 0.4]
 lgray = [0.8, 0.8, 0.8]
 llgray = [0.9, 0.9, 0.9]
 
-potentialEnergy = [propertyValue["Mass"][0] * norm(gravity) * h for h in propertyValue["Position - Y"]]
+potentialEnergy = [propertyValue["Mass"][0] * norm(gravity) * h for h in propertyValue["Position-Y"]]
 kineticEnergy = propertyValue["kineticEnergy"]
 mechanicalEnergy = [p + k for p, k in zip(potentialEnergy, kineticEnergy)]
 
@@ -114,7 +114,7 @@ ax.plot(
 
 ax.plot(
 	timeInstant,
-	propertyValue["Position - Y"],
+	propertyValue["Position-Y"],
 	color = 'red',
 	label = 'Simulação',
 	marker = '.',
@@ -288,7 +288,7 @@ ax.plot(
 
 ax.plot(
 	timeInstant,
-	propertyValue["Velocity - Y"],
+	propertyValue["Velocity-Y"],
 	color = 'red',
 	label = 'Simulação',
 	marker = '.',

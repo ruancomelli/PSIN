@@ -76,7 +76,7 @@ for propertyName, propertyHistory in particle.items():
 particlePosition = [array(x) for x in particlePropertyValue["Position"]]
 particleMass = particlePropertyValue["Mass"][0]
 particleHeight = [position[1] for position in particlePropertyValue["Position"]]
-particleContactForceY = particlePropertyValue["contactForce - Y"]
+particleContactForceY = particlePropertyValue["contactForce-Y"]
 
 effectiveMass = particleMass
 effectiveElasticModulus = resistanceRule(particlePropertyValue["ElasticModulus"][0], wallPropertyValue["ElasticModulus"][0])
@@ -479,6 +479,7 @@ ax.set_xscale('linear')
 ax.set_yscale('linear')
 
 plt.xlim( min(timeInstant), max(timeInstant) )
+plt.ylim( 0, 1.1*max(mechanicalEnergy) )
 
 ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
 ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)

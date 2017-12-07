@@ -9,11 +9,11 @@
 	"MomentOfInertia": 3.6e-4,
 
 	"Position": [0.0, 0.0, 0.0],
-	"Velocity": [5.0, 0.0, 0.0],
+	"Velocity": [10.0, 0.0, 0.0],
 	"Acceleration": [0.0, 0.0, 0.0],
-	"AngularVelocity": [0.0, 0.0, 10.0],
-	"ElasticModulus": 1e6,
-	"NormalDissipativeConstant": 0,
-	"TangentialDamping": 1e6,
-	"FrictionParameter": 1.0
+	"AngularVelocity": [0.0, 0.0, 100.0],
+	"ElasticModulus": 1e9,
+	"NormalDissipativeConstant": 10000,
+	"TangentialDamping": 10000,
+	"FrictionParameter": 0.95
 }

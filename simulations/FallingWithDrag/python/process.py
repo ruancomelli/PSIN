@@ -67,8 +67,8 @@ airSpecificMass = 1
 analyticalTerminalVelocity = - sqrt(2*mass*g/(airSpecificMass*area*dragCoefficient))
 analyticalTerminalVelocityVector = [analyticalTerminalVelocity] * len(timeInstant)
 
-particleHeight = propertyValue["Position - Y"]
-particleHeightForPlot = [x/1000 for x in propertyValue["Position - Y"]]
+particleHeight = propertyValue["Position-Y"]
+particleHeightForPlot = [x/1000 for x in propertyValue["Position-Y"]]
 heightLabel = "Altura [km]"
 
 potentialEnergy = [mass * norm(gravity) * h for h in particleHeight]
@@ -171,7 +171,7 @@ ax.plot(
 
 ax.plot(
 	timeInstant,
-	propertyValue["Velocity - Y"],
+	propertyValue["Velocity-Y"],
 	color = 'red',
 	label = 'Simulação',
 	marker = '.',
@@ -226,7 +226,7 @@ ax.plot(
 
 ax.plot(
 	timeInstant,
-	propertyValue["Velocity - Y"],
+	propertyValue["Velocity-Y"],
 	color = 'red',
 	label = 'Simulação',
 	marker = '.',
@@ -400,6 +400,7 @@ ax.set_xscale('linear')
 ax.set_yscale('linear')
 
 plt.xlim( min(timeInstant), max(timeInstant) )
+plt.ylim( 0, 8000 )
 
 ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
 ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
@@ -449,6 +450,7 @@ ax.set_xscale('linear')
 ax.set_yscale('linear')
 
 plt.xlim( min(timeInstant), max(timeInstant) )
+plt.ylim( 0, 8000 )
 
 ax.tick_params(axis='both', which='major', labelsize=majorTickLabelSize)
 ax.tick_params(axis='both', which='minor', labelsize=minorTickLabelSize)
@@ -459,3 +461,17 @@ ax.set_ylabel('Energia mecânica da partícula [J]', fontdict={'size': normalfon
 plt.savefig(os.path.join(outputFolder, filename + extension), bbox_inches = "tight")
 
 plt.close(fig)
+
+airKinematicViscosity = 1.5e-5
+Rmin = 1000
+Rmax = 300000
+vmin = Rmin * airKinematicViscosity / (2 * radius)
+vmax = Rmax * airKinematicViscosity / (2 * radius)
+
+print("Velocity limits: (", vmin, ",", vmax, ") m/s")
+print("Terminal velocity: ", analyticalTerminalVelocity, "m/s")
+particleDensity = 7639
+particleTheoreticalMass = particleDensity * 4/3 * pi * radius**3
+terminalVelocity = sqrt(2 * particleTheoreticalMass * g / (dragCoefficient * area * airSpecificMass))
+print("Theoretical terminal velocity: ", terminalVelocity, "m/s")
+print("Final velocity: ", propertyValue["Velocity-Y"][1], "m/s")

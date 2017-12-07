@@ -1,12 +1,12 @@
 {
 	"InitialInstant": 0.0,
-	"TimeStep": 1e-5,
-	"FinalInstant": 0.025,
-	"StepsForStoring": 10,
-	"StoragesForWriting": 1000,
-	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output",
-	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output/particles",
-	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output/boundaries",
+	"TimeStep": 1e-8,
+	"FinalInstant": 0.0010000000001,
+	"StepsForStoring": 1,
+	"StoragesForWriting": 100000,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative_rotation/output",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative_rotation/output/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative_rotation/output/boundaries",
 	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 
@@ -16,7 +16,7 @@
 		"TangentialForceHaffWerner": null,
 		"CoefficientOfRestitutionCalculator":
 		{
-			"path": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/conservative/output/coefficient_of_restitution.txt"
+			"path": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative_rotation/output/coefficient_of_restitution.txt"
 		}
 	},
 

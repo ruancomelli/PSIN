@@ -1,12 +1,12 @@
 {
 	"InitialInstant": 0.0,
-	"TimeStep": 1e-5,
-	"FinalInstant": 10,
-	"StepsForStoring": 1000,
-	"StoragesForWriting": 10000,
-	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/dissipative",
-	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/dissipative/particles",
-	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/dissipative/boundaries",
+	"TimeStep": 1e-6,
+	"FinalInstant": 6.00000001,
+	"StepsForStoring": 10000,
+	"StoragesForWriting": 100000,
+	"MainOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/conservative",
+	"ParticleOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/conservative/particles",
+	"BoundaryOutputFolder": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/conservative/boundaries",
 	"IntegrationAlgorithm": "Gear",
 	"Seeker": "BlindSeeker",
 	"PrintTime": true,
@@ -17,7 +17,7 @@
 		"GravityForce": null,
 		"CoefficientOfRestitutionCalculator":
 		{
-			"path": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/dissipative/coefficient_of_restitution.txt"
+			"path": "/home/ruancomelli/GitProjects/ParticleSimulator/simulations/BouncingSphere/output/conservative/coefficient_of_restitution.txt"
 		}
 	},
 

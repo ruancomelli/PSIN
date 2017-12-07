@@ -4,11 +4,11 @@
 	
 	"TaylorOrder": 7,
 
-	"Mass": 1,
-	"Radius": 0.03,
-	"MomentOfInertia": 3.6e-4,
+	"Mass": 0.256,
+	"Radius": 0.02,
+	"MomentOfInertia": 4.096e-5,
 
-	"Position": [0.0, 8000.0, 0.0],
+	"Position": [0.0, 3000.0, 0.0],
 	"Velocity": [0.0, 0.0, 0.0],
 	"Acceleration": [0.0, 0.0, 0.0]
 }

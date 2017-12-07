@@ -69,7 +69,7 @@ ax.plot(
 
 ax.plot(
 	timeInstant,
-	propertyValue["Position - Y"],
+	propertyValue["Position-Y"],
 	color = 'red',
 	label = 'Simulação',
 	marker = '.',
