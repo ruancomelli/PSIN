@@ -103,21 +103,23 @@ lgray = [0.8, 0.8, 0.8]
 llgray = [0.9, 0.9, 0.9]
 
 propName = {}
-propName["Acceleration - X"] = "Aceleração Horizontal [m/s²]"
-propName["Acceleration - Y"] = "Aceleração Vertical [m/s²]"
-propName["AngularAcceleration - Z"] = "Aceleração Angular [rad/s²]"
-propName["AngularVelocity - Z"] = "Velocidade Angular [rad/s]"
-propName["Velocity - X"] = "Velocidade Horizontal [m/s]"
-propName["Velocity - Y"] = "Velocidade Vertical [m/s]"
-propName["angularMomentum - Z"] = "Quantidade de Movimento\nAngular [kg m²/s]"
-propName["contactForce - X"] = "Força de Contato Horizontal [N]"
-propName["contactForce - Y"] = "Força de Contato Vertical [N]"
+propName["Position-X"] = "Posição Horizontal [m]"
+propName["Position-Y"] = "Posição Vertical [m]"
+propName["Acceleration-X"] = "Aceleração Horizontal [m/s²]"
+propName["Acceleration-Y"] = "Aceleração Vertical [m/s²]"
+propName["AngularAcceleration-Z"] = "Aceleração Angular [rad/s²]"
+propName["AngularVelocity-Z"] = "Velocidade Angular [rad/s]"
+propName["Velocity-X"] = "Velocidade Horizontal [m/s]"
+propName["Velocity-Y"] = "Velocidade Vertical [m/s]"
+propName["angularMomentum-Z"] = "Quantidade de Movimento\nAngular [kg m²/s]"
+propName["contactForce-X"] = "Força de Contato Horizontal [N]"
+propName["contactForce-Y"] = "Força de Contato Vertical [N]"
 propName["kineticEnergy"] = "Enegia Cinética [J]"
-propName["linearMomentum - X"] = "Quantidade de Movimento\nLinear Horizontal [kg m²/s]"
-propName["linearMomentum - Y"] = "Quantidade de Movimento\nLinear Vertical [kg m²/s]"
-propName["resultingForce - X"] = "Força Resultante Horizontal [N]"
-propName["resultingForce - Y"] = "Força Resultante Vertical [N]"
-propName["resultingTorque - Z"] = "Torque Resultante [N m]"
+propName["linearMomentum-X"] = "Quantidade de Movimento\nLinear Horizontal [kg m/s]"
+propName["linearMomentum-Y"] = "Quantidade de Movimento\nLinear Vertical [kg m/s]"
+propName["resultingForce-X"] = "Força Resultante Horizontal [N]"
+propName["resultingForce-Y"] = "Força Resultante Vertical [N]"
+propName["resultingTorque-Z"] = "Torque Resultante [N m]"
 propName["rotationalEnergy"] = "Enegia Rotacional [J]"
 propName["translationalEnergy"] = "Enegia Translacional [J]"
 
@@ -489,7 +491,7 @@ for i in range(len(coeffOfRestitutionTimeForPlot)):
 ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
 
 outputFolder = paths.getSimulationPlotsOutputFolder()
-filename = "coefficient_of_restitution"
+filename = "coefficient_of_restitution_normal"
 extension = ".pdf"
 ax.set_xscale('linear')
 ax.set_yscale('linear')
@@ -548,7 +550,7 @@ for i in range(len(coeffOfRestitutionTimeForPlot)):
 ax.grid(visible=True , which='major' , color=[0.8 , 0.8 , 0.8])
 
 outputFolder = paths.getSimulationPlotsOutputFolder()
-filename = "small_coefficient_of_restitution"
+filename = "coefficient_of_restitution_small"
 extension = ".pdf"
 ax.set_xscale('linear')
 ax.set_yscale('linear')
