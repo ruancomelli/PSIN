@@ -1,5 +1,5 @@
-#ifndef GEAR_LOOPER_HPP
-#define GEAR_LOOPER_HPP
+#ifndef GEAR_INTEGRATOR_HPP
+#define GEAR_INTEGRATOR_HPP
 
 // JSONLib
 #include <json.hpp>
@@ -12,7 +12,7 @@
 
 namespace psin {
 	
-struct GearLooper
+struct GearIntegrator
 {
 	template<typename Index, typename Value>
 	class Time
@@ -49,6 +49,6 @@ struct GearLooper
 
 } // psin
 
-#include <LooperDefinitions/GearLooper.tpp>
+#include <IntegratorDefinitions/GearIntegrator.tpp>
 
-#endif // GEAR_LOOPER_HPP
+#endif // GEAR_INTEGRATOR_HPP

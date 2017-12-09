@@ -6,7 +6,7 @@
 
 // SimulationLib
 #include <InteractionSubjectLister.hpp>
-#include <LooperDefinitions.hpp>
+#include <IntegratorDefinitions.hpp>
 #include <SeekerDefinitions.hpp>
 #include <SimulationFileTree.hpp>
 
@@ -25,14 +25,14 @@ namespace psin
 template<typename ... ParticleTypes> using ParticleList = mp::type_list<ParticleTypes...>;
 template<typename ... BoundaryTypes> using BoundaryList = mp::type_list<BoundaryTypes...>;
 template<typename ... InteractionTypes> using InteractionList = mp::type_list<InteractionTypes...>;
-template<typename ... LooperTypes> using LooperList = mp::type_list<LooperTypes...>;
+template<typename ... IntegratorTypes> using IntegratorList = mp::type_list<IntegratorTypes...>;
 template<typename ... SeekerTypes> using SeekerList = mp::type_list<SeekerTypes...>;
 
 template<
 	typename Particles,
 	typename Boundaries,
 	typename Interactions,
-	typename Loopers,
+	typename Integrators,
 	typename Seekers
 > 
 class Simulator;
@@ -46,7 +46,7 @@ class Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 > : public Named
 {
@@ -54,7 +54,7 @@ public:
 	using ParticleList = psin::ParticleList<ParticleTypes...>;
 	using BoundaryList = psin::BoundaryList<BoundaryTypes...>;
 	using InteractionList = psin::InteractionList<InteractionTypes...>;
-	using LooperList = psin::LooperList<GearLooper>;
+	using IntegratorList = psin::IntegratorList<GearIntegrator>;
 	using SeekerList = psin::SeekerList<BlindSeeker>;
 	using InteractionParticleParticleTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, ParticleList, ParticleList>::type;
 	using InteractionParticleBoundaryTriplets = typename InteractionSubjectLister::generate_combinations<InteractionList, ParticleList, BoundaryList>::type;

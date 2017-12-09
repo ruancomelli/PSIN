@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 		CoefficientOfRestitutionCalculator
 		>;
 		
-	using LooperList = psin::LooperList<GearLooper>;
+	using IntegratorList = psin::IntegratorList<GearIntegrator>;
 
 	using SeekerList = psin::SeekerList<BlindSeeker>;
 	
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
 		ParticleList,
 		BoundaryList,
 		InteractionList,
-		LooperList,
+		IntegratorList,
 		SeekerList
 	> simulator;
 

@@ -29,7 +29,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::setup(const path & mainInputFilePath)
 {
@@ -67,7 +67,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::setupInteractions(const json & interactionsJSON)
 {
@@ -146,7 +146,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::buildParticles(const json & particlesJSON)
 {
@@ -240,7 +240,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::buildBoundaries(const json & boundariesJSON)
 {
@@ -334,7 +334,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::createDirectories() const
 {
@@ -355,7 +355,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::outputMainData()
 {
@@ -393,7 +393,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::backupInteractions() const
 {
@@ -421,7 +421,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::backupParticles() const
 {
@@ -449,7 +449,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::backupBoundaries() const
 {
@@ -519,7 +519,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::openFiles()
 {
@@ -775,7 +775,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::exportTime(const bool first)
 {
@@ -812,7 +812,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::exportParticles(const bool first)
 {
@@ -852,7 +852,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::exportBoundaries(const bool first)
 {
@@ -922,13 +922,13 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::simulate()
 {
 	openFiles();
 
-	GearLooper::Time<std::size_t, double> time{initialInstant, timeStep, finalInstant};
+	GearIntegrator::Time<std::size_t, double> time{initialInstant, timeStep, finalInstant};
 
 	unsigned long stepsForStoringCounter = 0;
 	unsigned long storagesForWritingCounter = 0;
@@ -1016,7 +1016,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::printSuccessMessage() const
 {
@@ -1036,7 +1036,7 @@ void Simulator<
 	ParticleList<ParticleTypes...>,
 	BoundaryList<BoundaryTypes...>,
 	InteractionList<InteractionTypes...>,
-	LooperList<GearLooper>,
+	IntegratorList<GearIntegrator>,
 	SeekerList<BlindSeeker>
 >::endSimulation(const Time & time)
 {
