@@ -396,38 +396,19 @@
 	"buffers":
 	[
 		{
-			"file": "simulations/CollidingSpheres/dissipative/output/particles/Partícula Azul.json",
+			"file": "/E/Corel Designer Technical Suite X5/readme.txt",
 			"settings":
 			{
-				"buffer_size": 1189114,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
+				"buffer_size": 383,
+				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "simulations/CollidingSpheres/input/Red.json",
+			"file": "/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/tcc/tikzpictures/mathematical_model/bidimensional_rotation.tex",
 			"settings":
 			{
-				"buffer_size": 373,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "simulations/CollidingSpheres/input/Blue.json",
-			"settings":
-			{
-				"buffer_size": 369,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "simulations/CollidingSpheres/input/main.json",
-			"settings":
-			{
-				"buffer_size": 1115,
-				"line_ending": "Unix"
+				"buffer_size": 2158,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -495,22 +476,18 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative/output",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative/output/particles"
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator"
 	],
 	"file_history":
 	[
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/main.json",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Blue.json",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Red.json",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/dissipative/output/particles/Partícula Azul.json",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/python/process.py",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/FallingWithDrag/python/process.py",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/FallingSphere/python/process.py",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/BouncingSphere/python/process.py",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Blue.json",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Red.json",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/main.json",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/include/Particle.tpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/source/SpatialEntity.cpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/include/PhysicalEntity.tpp",
@@ -630,8 +607,7 @@
 		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/include/PhysicalEntity.hpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/PropertyLib/include/PropertyDefinitions/Gravity.hpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/include/SphericalParticle.tpp",
-		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/source/SpatialEntity.cpp",
-		"/home/ruancomelli/GitProjects/ParticleSimulator/PropertyLib/source/PropertyDefinitions.cpp"
+		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/source/SpatialEntity.cpp"
 	],
 	"find":
 	{
@@ -840,84 +816,24 @@
 			[
 				{
 					"buffer": 0,
-					"file": "simulations/CollidingSpheres/dissipative/output/particles/Partícula Azul.json",
+					"file": "/E/Corel Designer Technical Suite X5/readme.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1189114,
+						"buffer_size": 383,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								383,
+								383
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "simulations/CollidingSpheres/input/Red.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 373,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "simulations/CollidingSpheres/input/Blue.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 369,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -927,32 +843,33 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "simulations/CollidingSpheres/input/main.json",
+					"buffer": 1,
+					"file": "/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/tcc/tikzpictures/mathematical_model/bidimensional_rotation.tex",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1115,
+						"buffer_size": 2158,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								2141,
+								2141
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
