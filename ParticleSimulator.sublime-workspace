@@ -521,10 +521,14 @@
 	[
 		{
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			"file": "/E/Corel Designer Technical Suite X5/readme.txt",
+=======
+			"file": "SimulationLib/include/Simulator.hpp",
+>>>>>>> Stashed changes
 			"settings":
 			{
-				"buffer_size": 383,
+				"buffer_size": 3320,
 				"line_ending": "Windows"
 =======
 			"file": "simulations/CollidingSpheres/input/main.json",
@@ -536,11 +540,15 @@
 			}
 		},
 		{
-			"file": "/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/tcc/tikzpictures/mathematical_model/bidimensional_rotation.tex",
+			"file": "PropertyLib/include/PropertyDefinitions.hpp",
 			"settings":
 			{
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 				"buffer_size": 2158,
+=======
+				"buffer_size": 2976,
+>>>>>>> Stashed changes
 				"line_ending": "Windows"
 =======
 				"buffer_size": 382,
@@ -565,6 +573,15 @@
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 >>>>>>> Stashed changes
+			}
+		},
+		{
+			"file": "SimulationLib/include/Simulator.tpp",
+			"settings":
+			{
+				"buffer_size": 32233,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -633,10 +650,24 @@
 	"expanded_folders":
 	[
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator"
+=======
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/include"
+>>>>>>> Stashed changes
 	],
 	"file_history":
 	[
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/IntegratorDefinitions/GearIntegrator.hpp",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/IntegratorDefinitions/GearIntegrator.tpp",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/LooperDefinitions/GearLooper.hpp",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/LooperDefinitions/GearLooper.tpp",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/psinApp/source/main.cpp",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/IntegratorDefinitions.hpp",
+		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/tcc/tikzpictures/mathematical_model/bidimensional_rotation.tex",
+		"/E/Corel Designer Technical Suite X5/readme.txt",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/main.json",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Blue.json",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/CollidingSpheres/input/Red.json",
@@ -649,7 +680,6 @@
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/source/SpatialEntity.cpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/include/PhysicalEntity.tpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/EntityLib/include/SphericalParticle.tpp",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/psinApp/source/main.cpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/Simulator.hpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/Simulator.tpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/main.json",
@@ -673,8 +703,6 @@
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/IOLib/MATLAB/simulate.m",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/IOLib/MATLAB/processData.m",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/source/Simulation.cpp",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/LooperDefinitions/GearLooper.hpp",
-		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/SimulationLib/include/LooperDefinitions/GearLooper.tpp",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/FallingSphere/input/particle.json",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/wall.json",
 		"/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/ParticleSimulator/simulations/BouncingSphere/input/particle.json",
@@ -837,6 +865,7 @@
 		"/home/ruancomelli/GitProjects/ParticleSimulator/UtilsLib/include/FileSystem.hpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/include/FixedInfinitePlane.hpp",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		"/home/ruancomelli/GitProjects/ParticleSimulator/PropertyLib/source/PropertyDefinitions/Gravity.cpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/PropertyLib/include/PropertyDefinitions.hpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/include/PhysicalEntity.hpp",
@@ -856,6 +885,9 @@
 		"/home/ruancomelli/GitProjects/ParticleSimulator/JSONLib/include/json.hpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/JSONLib/include/json.tpp",
 		"/home/ruancomelli/GitProjects/ParticleSimulator/EntityLib/include/Particle.hpp"
+>>>>>>> Stashed changes
+=======
+		"/home/ruancomelli/GitProjects/ParticleSimulator/PropertyLib/source/PropertyDefinitions/Gravity.cpp"
 >>>>>>> Stashed changes
 	],
 	"find":
@@ -877,6 +909,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+<<<<<<< Updated upstream
 			"prop",
 			"dissipative",
 			"CollidingSpheres",
@@ -922,6 +955,67 @@
 			"limitedAnalyticalCoefficientOfRestitution",
 			"coeffOfRestitutionTimeForPlot",
 			"timeInstant",
+=======
+			"Looper",
+			"LOOPER",
+			"Looper",
+			" - Z",
+			" - Y",
+			" - X",
+			" - Y",
+			" - X",
+			"coefficient_of",
+			"getRota",
+			"getTrans",
+			"getKinet",
+			"InteractionSubjectLister",
+			"simulation",
+			"Simulation",
+			"simulation",
+			"Simulation",
+			"SIMULATION",
+			"Simulation",
+			"\\\"printTime\\\"",
+			"\\\"seeker\\\"",
+			"\\\"looper\\\"",
+			"\\\"boundaryOutputFolder\\\"",
+			"\\\"particleOutputFolder\\\"",
+			"\\\"mainOutputFolder\\\"",
+			"\\\"interactions\\\"",
+			"\\\"boundaries\\\"",
+			"\\\"particles\\\"",
+			"\\'stepsForStoring\\'",
+			"\\\"stepsForStoring\\\"",
+			"\\\"storagesForWriting\\\"",
+			"outputsForExporting",
+			"timeStepsForOutput",
+			"\\\"timeStep\\\"",
+			"\\\"finalInstant\\\"",
+			"\\\"initialInstant\\\"",
+			"finalTime",
+			"initialTime",
+			"setupIntera",
+			"Dimension",
+			"dimension",
+			"\\\"MomentOfInertia\\\":",
+			"\\\"MomentOfInertia\\\"",
+			"\"MomentOfInertia\"",
+			"dimension",
+			"taylorO",
+			"q",
+			"Quaterni",
+			"SimulationLibTest",
+			"psin",
+			"simulationLibTestPath",
+			"Ooops",
+			"fileName",
+			"j\\[\"(.*)\"\\] = p\\.get(.*)Momentum\\(\\);",
+			"j\\[\"(.*)\"\\] = p\\.get(.*)Torque\\(\\);",
+			"j\\[\"(.*)\"\\]",
+			"j\\[\"(.*)\"\\] = p\\.get(.*)Torque\\(\\);",
+			"j[\"resultingTorque\"] = p.getResultingTorque();",
+			"j\\[\"(.*)\"\\] = p\\.get(.*)Force\\(\\);",
+>>>>>>> Stashed changes
 			"time",
 			"timestep",
 			"normal",
@@ -962,6 +1056,7 @@
 			"x",
 			"position",
 			"t",
+<<<<<<< Updated upstream
 			"marginalError",
 			"\\\"GearLooper\\\"",
 			"\\\"Looper\\\"",
@@ -1005,6 +1100,57 @@
 			"propertyValue",
 			"},\\n{",
 			"export"
+=======
+			"Color",
+			"color = particle\\[\"Color\"\\]\\[t\\]",
+			"# DE",
+			"print",
+			"t = timeIndices\\[i\\]\\n\\t\\t\\t\\t",
+			"t = timeIndices\\[i\\]\\n",
+			"\\(i\\)",
+			"Gravity",
+			"default;",
+			"default",
+			"Property",
+			"Color",
+			"input\\(",
+			"Color",
+			"Position",
+			"propertyName",
+			"Position",
+			"fileName = fileName",
+			"Color",
+			"key",
+			"get",
+			"items",
+			"particle",
+			"particleTypeKey",
+			"std::cout",
+			"Git-Projects",
+			"particle",
+			"particleHistory",
+			"read",
+			"paths",
+			"Grav",
+			"Spherical",
+			"true_type",
+			"boundary",
+			"physical",
+			"BasePhysicalEntity",
+			"PhysicalEntity",
+			"p",
+			"SphericalParticle<Prs...>",
+			"double",
+			"PositiveProperty",
+			"Mass",
+			"double",
+			"ElectricCharge",
+			"Gravity",
+			"GRAVITY_CPP",
+			"GRAVITY_TPP",
+			"Gravity",
+			"GRAVITY_HPP"
+>>>>>>> Stashed changes
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1012,11 +1158,23 @@
 		"regex": true,
 		"replace_history":
 		[
+<<<<<<< Updated upstream
 			"\\\"contactForce-Y\\\"",
 			"\\\"Velocity-Y\\\"",
 			"\\\"Position-Y\\\"",
 			"propName\\[\\\"$1\\\"\\] = ",
 			"\\\"$1\\\"",
+=======
+			"Integrator",
+			"INTEGRATOR",
+			"Integrator",
+			"\\\"PrintTime\\\"",
+			"\\\"Seeker\\\"",
+			"\\\"Looper\\\"",
+			"\\\"BoundaryOutputFolder\\\"",
+			"\\\"ParticleOutputFolder\\\"",
+			"\\\"MainOutputFolder\\\"",
+>>>>>>> Stashed changes
 			"\\\"Interactions\\\"",
 			"\\\"Gear\\\"",
 			"\\\"IntegrationAlgorithm\\\"",
@@ -1065,6 +1223,7 @@
 				{
 					"buffer": 0,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 					"file": "/E/Corel Designer Technical Suite X5/readme.txt",
 					"semi_transient": false,
 					"settings":
@@ -1077,6 +1236,13 @@
 					{
 						"buffer_size": 1158,
 >>>>>>> Stashed changes
+=======
+					"file": "SimulationLib/include/Simulator.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3320,
+>>>>>>> Stashed changes
 						"regions":
 						{
 						},
@@ -1084,16 +1250,22 @@
 						[
 							[
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 								383,
 								383
 =======
 								925,
 								925
 >>>>>>> Stashed changes
+=======
+								1010,
+								1010
+>>>>>>> Stashed changes
 							]
 						],
 						"settings":
 						{
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 =======
@@ -1127,10 +1299,13 @@
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+=======
+							"syntax": "Packages/C++/C++.sublime-syntax",
+>>>>>>> Stashed changes
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 495.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1169,10 +1344,11 @@
 				{
 <<<<<<< Updated upstream
 					"buffer": 1,
-					"file": "/C/Users/ruanc.LAPTOP-8F2K1OUJ/GitProjects/tcc/tikzpictures/mathematical_model/bidimensional_rotation.tex",
+					"file": "PropertyLib/include/PropertyDefinitions.hpp",
 					"semi_transient": false,
 					"settings":
 					{
+<<<<<<< Updated upstream
 						"buffer_size": 2158,
 =======
 					"buffer": 3,
@@ -1182,6 +1358,9 @@
 					{
 						"buffer_size": 32611,
 >>>>>>> Stashed changes
+=======
+						"buffer_size": 2976,
+>>>>>>> Stashed changes
 						"regions":
 						{
 						},
@@ -1189,16 +1368,22 @@
 						[
 							[
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 								2141,
 								2141
 =======
 								18535,
 								18535
 >>>>>>> Stashed changes
+=======
+								0,
+								0
+>>>>>>> Stashed changes
 							]
 						],
 						"settings":
 						{
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax",
 							"tab_size": 4,
@@ -1210,9 +1395,45 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 8474.0,
+=======
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 990.0,
+>>>>>>> Stashed changes
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "SimulationLib/include/Simulator.tpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 32233,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								32233,
+								32233
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 14492.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
