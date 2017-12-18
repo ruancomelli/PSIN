@@ -37,7 +37,7 @@ class BuildAnimation ( AnimationLimits ):
 		fig = plt.figure()
 		fig.set_size_inches(fig_x_size, fig_y_size)
 		ax = fig.add_subplot(111)
-		ax.grid(visible=True)
+		ax.grid(visible=False)
 
 		# Set axes limits
 		ax.autoscale(enable=True , axis='both')
@@ -64,7 +64,7 @@ class BuildAnimation ( AnimationLimits ):
 				yCenter = float(particle["Position"][t][Y])
 				radius = float(particle["Radius"][t])
 				color = getColor(particle["Color"][t])
-				circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, fc=color )
+				circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, facecolor='white', edgecolor=color, linewidth=3 )
 
 		limits = AnimationLimits.getLimits_global( particleData )
 		lines = {}
@@ -98,7 +98,7 @@ class BuildAnimation ( AnimationLimits ):
 					radius = float(particle["Radius"][t])
 					color = getColor(particle["Color"][t])
 
-					circles[name] = plt.Circle( (xCenter, yCenter), radius, fill=True, fc=color )
+					circles[particleName] = plt.Circle( (xCenter , yCenter), radius , fill=True, facecolor='white', edgecolor=color, linewidth=3 )
 					ax.add_patch(circles[name])
 
 			lines = {}
